@@ -13,6 +13,8 @@ The San Juan Digital Payment System is recovering, but Hackana’s minions tampe
 Create a function to approve and transfer tokens securely.
 Prevent overspending by validating allowances.
 
+## Code activity:
+
 ```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
