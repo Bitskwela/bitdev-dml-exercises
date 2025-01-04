@@ -21,11 +21,6 @@ The goal is to:
 - Require Statement – To validate the newState.
 - Constructor – To initialize default values.
 
-## Checklist:
-
-- Design a traffic system with a mapping to track signal states.
-- Update the signal state based on a timer function.
-
 ## TODO:
 
 - Implement a function to switch traffic light states dynamically.
@@ -57,7 +52,16 @@ contract TrafficLightManager {
 }
 ```
 
-**Hints:**
+## Checklist for Learners:
+
+To verify your implementation, ensure the following:
+
+- The require statement correctly validates the newState.
+- The changeLight function updates the state only when valid.
+- Transactions with invalid newState are reverted with an error message: "Invalid state! State must be 'red', 'green', or 'yellow'."
+- You can dynamically update any intersection state by calling changeLight.
+
+## Hints
 
 - Use keccak256(abi.encodePacked()) to compare strings in Solidity, as direct string comparisons are not allowed.
 - The constructor initializes the default traffic light states, so only update the changeLight function.
