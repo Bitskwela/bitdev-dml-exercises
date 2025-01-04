@@ -15,7 +15,7 @@ Prevent overspending by validating allowances.
 
 ## Code activity:
 
-```
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -58,7 +58,7 @@ contract PaymentFixer {
 
 ## Expected answers (flagged)
 
-```
+```solidity
 // 🚩 ANSWER: Deduct from allowances
 allowances[sender][msg.sender] -= amount;
 

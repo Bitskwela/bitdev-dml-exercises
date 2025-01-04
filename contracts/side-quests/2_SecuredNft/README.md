@@ -15,7 +15,7 @@ Restrict minting to the contract owner.
 
 ## Code Activity:
 
-```
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -43,7 +43,7 @@ contract SecureNFT {
 
 ## Expected answer (flagged)
 
-```
+```solidity
 // 🚩 ANSWER: Ensure caller is the owner
 require(msg.sender == owner, "Not the owner");
 

@@ -15,7 +15,7 @@ One of Hackana’s minions left behind a reentrancy vulnerability in the Palengk
 
 ## Code Activity:
 
-```
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -31,4 +31,21 @@ contract PalengkeWallet {
         balances[msg.sender] -= amount; // Update balance after
     }
 }
+```
+
+**Hints:**
+
+- Deduct balances before making the external call.
+- Consider using a ReentrancyGuard for extra security.
+
+## Expected answer (flagged)
+
+```solidity
+// 🚩 ANSWER: Deduct balances before external call
+balances[msg.sender] -= amount;
+
+// 🚩 ANSWER: Use Checks-Effects-Interactions pattern
+(bool success, ) = msg.sender.call{value: amount}("");
+require(success, "Transfer failed");
+
 ```
