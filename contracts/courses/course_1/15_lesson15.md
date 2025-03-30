@@ -22,96 +22,73 @@ permaname: "eth-and-wei"
 slug: "eth-and-wei"
 ---
 
-# Pure and View Functions – Read and Transform Data
+# Ether and Wei – Preparing for the Financial Counterstrike
 
 ## Scene
 
-Neri is working with the Barangay San Juan officials to digitize their public records. One concern brought up was how residents could check barangay service fees (like IDs, permits, or certifications) without making changes to the records.
+The day has finally arrived. Neri is at the forefront of the battle against Hackana, whose malware continues to exploit weak financial infrastructures and siphon off funds. Hackana’s latest scheme? Overcharging and draining wallets by manipulating small transaction units, making it hard for people to notice.
 
-While brainstorming, Neri shares how blockchain can provide solutions using Pure and View functions. These functions are perfect for fetching data or performing calculations without altering the state of the contract.
+As Neri strategizes, her blockchain mentor sends her an urgent message:
+_"**Neri, remember Ether and Wei. Those small units Hackana manipulates? They’re the building blocks of Ethereum transactions. Understand them, and you’ll gain the upper hand!**"_
 
-## Solidity Topics: Pure and View Functions
+Neri starts reviewing her notes. She recalls that Ether (ETH) is the main cryptocurrency of Ethereum, while Wei is its smallest denomination (like centavos to pesos). Understanding these units will be crucial for her to counter Hackana’s financial tricks.
 
-### How to use
+## Solidity Topics: Ether and Wei
 
-**View Functions:**
+### More Info about Ether and Wei
 
-- Use when you need to fetch or display a state variable.
-- Example: Checking service fees.
+In Ethereum, Ether (ETH) is the main currency used for transactions. Since dealing with large decimals can be tricky, Ethereum breaks Ether into smaller units called Wei for precise calculations.
 
-**Pure Functions:**
+Here’s the conversion:
 
-- Use for calculations or transformations based on provided input.
-- Example: Multiplying a fee by a number of requests.
+_1 Ether = 10¹⁸ Wei (1 ETH = 1,000,000,000,000,000,000 Wei)._
 
-**Combine Both:**
+### Why use Wei?
 
-- Use view functions for reading data and pure functions for computations without state dependencies.
+- It ensures accuracy in microtransactions.
+- Prevents rounding errors during computations.
 
-### More Info about View and Pure Functions
+Solidity provides helper functions for conversions:
 
-**View Functions:**
+- `1 ether` equals `10**18 wei`.
+- `1 gwei` equals `10**9 wei` (used for gas fees).
 
-- Allow contracts to read state variables without modifying them.
-- Declared using the view keyword.
-- Example: Retrieving barangay service fees or account balances.
-
-**Pure Functions:**
-
-- Perform computations without interacting with state variables.
-- Declared using the pure keyword.
-- Example: Calculating fees or total costs based on given inputs.
-
-### Key Differences: View vs. Pure functions
-
-| Feature             | View Functions                                                                     | Pure Functions                                                                              |
-| ------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| **Purpose**         | Read state variables without modifying them.                                       | Perform computations _without_ interacting with state variables.                            |
-| **Access to State** | Can read state variables (like the price of a Barangay ID).                        | Cannot read _or_ modify state variables.                                                    |
-| **Data Source**     | Reads data from the blockchain's state.                                            | Operates solely on input parameters.                                                        |
-| **Gas Usage**       | No gas cost when called externally (since it's read-only).                         | No gas cost when called externally (computation only).                                      |
-| **Keyword**         | `view`                                                                             | `pure`                                                                                      |
-| **Example**         | Getting the current Barangay ID fee.                                               | Calculating the total cost of multiple Barangay IDs based on a given quantity.              |
-| **Sample Analogy**  | Checking the price of a _fish_ at the _palengke_. You're just looking, not buying. | Calculating how much change you'll get after paying for the _fish_. You're just doing math. |
-
-### Sample contract
+### Example usage in Solidity
 
 ```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract BarangayServiceFees {
-
-    uint256 public barangayIdFee = 50;
-
-    uint256 public barangayClearanceFee = 100;
-
-    // View function: Returns the Barangay ID fee.
-    // Like checking the "listahan" for the ID price.
-    // "view" keyword means this function only reads data, doesn't change it.
-    function getBarangayIdFee() public view returns (uint256) {
-        return barangayIdFee;
-    }
-
-    // View function: Returns the Barangay Clearance fee.
-    function getBarangayClearanceFee() public view returns (uint256) {
-        return barangayClearanceFee;
-    }
-
-    // Pure function: Calculates the total cost for multiple Barangay IDs.
-    // Like using a calculator to find the total.
-    // "pure" keyword means this function doesn't read or change any data in the contract.
-    function calculateTotalIdCost(uint256 _quantity) public pure returns (uint256) {
-        uint256 totalCost = _quantity * barangayIdFee;
-        return totalCost;
-    }
-}
+uint256 public oneEther = 1 ether; // 1 ETH in Wei
+uint256 public gasFee = 1 gwei;   // Gas fee in Wei
+uint256 public smallTransaction = 500 wei; // Microtransaction
 ```
 
-### Task for Learners
+### How to use Ether and Wei on real smart contract
 
-- Implement a view function to fetch the barangay certification fee.
-- Implement a pure function to calculate the total cost for multiple certifications.
+**Basic conversion**
+
+- Solidity uses the keywords ether, gwei, and wei for easier calculations.
+
+  Example:
+
+  ```solidty
+  uint256 oneEtherInWei = 1 ether; // 1 ETH = 10^18 Wei
+  uint256 gasPriceInGwei = 1 gwei; // 1 Gwei = 10^9 Wei
+  ```
+
+- Microtransaction
+  Small amounts like 500 wei are often used for precise payments.
+
+  Example:
+
+  ```solidity
+  uint256 payment = 500 wei;
+  ```
+
+### Tasks for learners
+
+Hackana is stealing small fractions of Ether by manipulating conversion errors. Neri needs a function to calculate precise Ether and Wei values to block Hackana’s tricks.
+
+- Write a function to convert Ether to Wei.
+- Write a function to convert Wei to Ether for validation.
 
 ### Smart contract activity
 
@@ -119,55 +96,50 @@ contract BarangayServiceFees {
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract BarangayServiceFees {
-    // 🚩 Task 1: State variable for service fee
-    uint256 public certificationFee = 100; // Fee for one certification
-
-    // 🚩 Task 2: View function to get the fee
-    function getCertificationFee() public view returns (uint256) {
-        return certificationFee;
+contract EtherConverter {
+    // 🚩 Task 1: Function to convert Ether to Wei
+    function etherToWei(uint256 etherAmount) public pure returns (uint256) {
+        return etherAmount * 1 ether;
     }
 
-    // 🚩 Task 3: Pure function to calculate total fees for multiple requests
-    function calculateTotalCost(
-        uint256 numberOfCertifications
-    ) public pure returns (uint256) {
-        return numberOfCertifications * 100; // Assuming fixed fee of 100
+    // 🚩 Task 2: Function to convert Wei to Ether
+    function weiToEther(uint256 weiAmount) public pure returns (uint256) {
+        return weiAmount / 1 ether;
     }
 }
 ```
 
 ### Breakdown of Activity
 
-**State variable defined:**
+**Functions: **
 
-- `certificationFee`: Holds the fee for a single barangay certification.
+- `etherToWei`:
+  - Converts an Ether amount into Wei.
+  - Multiplies the input by `1 ether` to get the Wei equivalent.
+- `weiToEther`:
+  - Converts a Wei amount into Ether.
+  - Divides the input by `1 ether` to return the Ether value.
 
-**View Function:**
+**Sample usage:**
 
-- Purpose: Retrieve the fee for a barangay certification without modifying the state.
-- Syntax: Declared using `view`
-- Function: `getCertificationFee()`
-
-**Pure Function:**
-
-- Purpose: Perform a calculation (e.g., total fees for multiple certifications) without interacting with the state.
-- Syntax: Declared using pure.
-- Function: `calculateTotalCost()`
+- Converting 2 Ether to Wei: `etherToWei(2)` returns `2,000,000,000,000,000,000 Wei`.
+  Converting 1,000 Wei to Ether: `weiToEther(1000)` returns `0.000000000000001 Ether`.
 
 ### Closing Story
 
-Neri demonstrates how Pure and View functions work:
+As Neri deploys the EtherConverter contract, the barangay treasurer approaches her with a report:
 
-- Barangay residents can view the certification fee anytime using the getCertificationFee function.
+_"Neri, we’ve found suspicious transactions where only small amounts of Ether are being siphoned. Can we track this?"_
 
-- For those needing multiple certifications, the calculateTotalCost function allows them to compute their total fee instantly.
+Neri demonstrates the EtherConverter:
 
-A vendor smiles and says: "**Neri, parang ganito rin ‘yung ginagawa ng tindahan ko kapag nagkukwenta ng presyo!**”
-(_Neri, this feels just like how my store calculates prices!_)
+**"Ganito ‘yun. Kapag kaya nating gawing wei ang Ether, maayos natin itong mababantayan."**
 
-Neri adds:
-**"Tama ka! Kaya ang smart contracts ay kayang mag-digitize ng proseso kahit simple lang ang kailangan."**
-(_Exactly! Smart contracts can digitize even simple processes._)
+_(Here’s how it works. If we convert Ether into Wei, we can monitor it accurately.)_
 
-The barangay captain nods approvingly, excited to see blockchain help empower the community further.
+The treasurer nods, impressed: _"Hackana won’t see this coming."_
+
+Meanwhile, Hackana, noticing the increased vigilance, laughs:
+_"You’re learning quickly, Neri. But can you keep up with my next move?"_
+
+The battle heats up, and Neri prepares to tackle Hackana’s next attack with her newfound expertise.
