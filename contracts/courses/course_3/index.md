@@ -1,3 +1,23 @@
+---
+title: "Course 3: Intro to dApps"
+description: "Decentralized Applications (dApps)"
+
+# This is the date the document was last updated.  Format: YYYY-MM-DD.
+date: "2025-03-30"
+
+# For SEO purposes
+tags: ["markdown", "metadata", "bitskwela", "solidity"]
+
+# Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
+permaname: "course-1-basic-solidity"
+
+# Can be the same as permaname but can be changed if needed.
+slug: "course-3-dapps"
+
+# Should be in order
+modules: ["01_lesson1", "02_lesson2"]
+---
+
 # Chapter 3 - Mastering DApp Development
 
 ## Welcome to the Next Level!
