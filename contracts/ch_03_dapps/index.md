@@ -9,7 +9,7 @@ date: "2025-03-30"
 tags: ["markdown", "metadata", "bitskwela", "solidity"]
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "course-1-basic-solidity"
+permaname: "course-3-dapps"
 
 # Can be the same as permaname but can be changed if needed.
 slug: "course-3-dapps"
