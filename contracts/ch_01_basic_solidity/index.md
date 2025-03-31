@@ -14,16 +14,4 @@ permaname: "course-1-basic-solidity"
 # Can be the same as permaname but can be changed if needed.
 slug: "course-1-basic-solidity"
 
-# Should be in order
-lessons:
-  [
-    "le_01_waking_up_to_chaos",
-    "le_02_palengke_troubles",
-    "le_03_jeepney_fare_disputes",
-    "le_04_palengke_calculator",
-    "le_05_battle_against_hackana",
-    
-    # Add more modules here as needed
-    # "le_06_another_module",
-  ]
 ---

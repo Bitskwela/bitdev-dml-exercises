@@ -14,13 +14,5 @@ permaname: "contracts-course"
 # Can be the same as permaname but can be changed if needed.
 slug: "contracts-course"
 
-# Should be in order
-chapters:
-  [
-    "ch_01_basic_solidity",
-    "ch_02_solidity_side_quests",
-    "ch_03_dapps",
- 
-  ]
 ---
 Insert the 'prologue' of the course here.  You may remove this if you want.

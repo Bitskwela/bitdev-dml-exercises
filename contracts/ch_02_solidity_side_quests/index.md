@@ -13,13 +13,4 @@ permaname: "course-2-solidity-side-quests"
 
 # Can be the same as permaname but can be changed if needed.
 slug: "course-2-solidity-side-quests"
-
-# Should be in order
-lessons:
-  [
-    "le_01_token_transfer_and_approval",
-    "le_02_nft_minting_logic",
-    "le_03_reentrancy_fix",
- 
-  ]
 ---

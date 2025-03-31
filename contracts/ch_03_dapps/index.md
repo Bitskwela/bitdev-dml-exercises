@@ -14,11 +14,6 @@ permaname: "course-1-basic-solidity"
 # Can be the same as permaname but can be changed if needed.
 slug: "course-3-dapps"
 
-# Should be in order
-lessons: [
-    "le_01_ethersjs_metamask", 
-    # "02_lesson2"
-    ]
 ---
 
 # Chapter 3 - Mastering DApp Development
