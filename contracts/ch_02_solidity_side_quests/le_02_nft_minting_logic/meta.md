@@ -16,7 +16,7 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "sq-1-token-transfer-and-approval"
+permaname: "sq-2-nft-minting-logic"
 
 # Can be the same as permaname but can be changed if needed.
 slug: "sq-2-nft-minting-logic"
