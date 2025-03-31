@@ -15,11 +15,11 @@ permaname: "contracts-course"
 slug: "contracts-course"
 
 # Should be in order
-modules:
+chapters:
   [
-    "le_01_token_transfer_and_approval",
-    "le_02_nft_minting_logic",
-    "le_03_reentrancy_fix",
+    "ch_01_basic_solidity",
+    "ch_02_solidity_side_quests",
+    "ch_03_dapps",
  
   ]
 ---

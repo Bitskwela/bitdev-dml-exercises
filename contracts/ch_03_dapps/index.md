@@ -15,7 +15,7 @@ permaname: "course-1-basic-solidity"
 slug: "course-3-dapps"
 
 # Should be in order
-modules: [
+lessons: [
     "le_01_ethersjs_metamask", 
     # "02_lesson2"
     ]

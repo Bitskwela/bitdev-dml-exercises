@@ -15,7 +15,7 @@ permaname: "course-2-solidity-side-quests"
 slug: "course-2-solidity-side-quests"
 
 # Should be in order
-modules:
+lessons:
   [
     "le_01_token_transfer_and_approval",
     "le_02_nft_minting_logic",

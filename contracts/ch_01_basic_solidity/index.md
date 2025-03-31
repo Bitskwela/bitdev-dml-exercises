@@ -15,7 +15,7 @@ permaname: "course-1-basic-solidity"
 slug: "course-1-basic-solidity"
 
 # Should be in order
-modules:
+lessons:
   [
     "le_01_waking_up_to_chaos",
     "le_02_palengke_troubles",
