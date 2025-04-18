@@ -1,7 +1,10 @@
 ### Task for Learners
 
-- Implement a view function to fetch the barangay certification fee.
-- Implement a pure function to calculate the total cost for multiple certifications.
+Hackana’s latest malware has been exploiting contracts that inefficiently store temporary data in storage instead of memory. Neri needs your help to:
+
+- Create a smart contract that differentiates between storage and memory.
+
+- Show how a storage variable can be updated, and a memory variable can be used for temporary processing.
 
 ### Smart contract activity
 
@@ -9,55 +12,57 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract BarangayServiceFees {
-    // 🚩 Task 1: State variable for service fee
-    uint256 public certificationFee = 100; // Fee for one certification
+contract DataOptimization {
+    // 🚩 Task 1: Define a storage variable
+    string public storedMessage = "Stored permanently";
 
-    // 🚩 Task 2: View function to get the fee
-    function getCertificationFee() public view returns (uint256) {
-        return certificationFee;
+    // 🚩 Task 2: Use a memory variable for temporary updates
+    function updateMessage(string memory tempMessage) public {
+        // Memory variable used only during this function call
+        storedMessage = tempMessage;
     }
 
-    // 🚩 Task 3: Pure function to calculate total fees for multiple requests
-    function calculateTotalCost(
-        uint256 numberOfCertifications
-    ) public pure returns (uint256) {
-        return numberOfCertifications * 100; // Assuming fixed fee of 100
+    // 🚩 Task 3: Compare storage and memory
+    function compareStorageAndMemory() public view returns (string memory) {
+        string memory tempMessage = storedMessage; // Copy storedMessage into memory
+        return tempMessage; // Returns the temporary memory variable
     }
 }
 ```
 
 ### Breakdown of Activity
 
-**State variable defined:**
+**Storage Variable**:
 
-- `certificationFee`: Holds the fee for a single barangay certification.
+- `storedMessage`: A state variable stored on the blockchain.
+- Changes to this variable cost gas since it writes to Ethereum’s storage.
 
-**View Function:**
+**Memory Variable**:
 
-- Purpose: Retrieve the fee for a barangay certification without modifying the state.
-- Syntax: Declared using `view`
-- Function: `getCertificationFee()`
+- `tempMessage`: Declared within the `updateMessage` function, exists only during the function execution.
+- Does not consume gas for storage, making it ideal for temporary operations.
 
-**Pure Function:**
+**Functions**:
 
-- Purpose: Perform a calculation (e.g., total fees for multiple certifications) without interacting with the state.
-- Syntax: Declared using pure.
-- Function: `calculateTotalCost()`
+- `updateMessage`:
+
+  - Takes a `memory` variable as input.
+  - Updates the `storedMessage` (storage variable) with the new value.
+
+- `compareStorageAndMemory`:
+  - Demonstrates the difference by copying the storage variable into memory and returning it.
 
 ### Closing Story
 
-Neri demonstrates how Pure and View functions work:
+As Neri deploys the _DataOptimization_ contract, she explains the difference to her barangay officials:
 
-- Barangay residents can view the certification fee anytime using the getCertificationFee function.
+"**Kapag gumagamit tayo ng storage, parang nilalagay natin sa national archives—matagal pero pangmatagalan. Ang memory naman, parang post-it note—mabilis, pero panandalian lang.**"
 
-- For those needing multiple certifications, the calculateTotalCost function allows them to compute their total fee instantly.
+(_When we use storage, it’s like filing it in the national archives—slow but long-term. Memory, on the other hand, is like a post-it note—quick but temporary._)
 
-A vendor smiles and says: "**Neri, parang ganito rin ‘yung ginagawa ng tindahan ko kapag nagkukwenta ng presyo!**”
-(_Neri, this feels just like how my store calculates prices!_)
+This analogy helps everyone understand why Hackana’s attacks are effective: inefficient contracts create bloated systems.
 
-Neri adds:
-**"Tama ka! Kaya ang smart contracts ay kayang mag-digitize ng proseso kahit simple lang ang kailangan."**
-(_Exactly! Smart contracts can digitize even simple processes._)
+Hackana, watching from a remote location, chuckles:
+_"Impressive, Neri. But can you optimize faster than I can corrupt?"_
 
-The barangay captain nods approvingly, excited to see blockchain help empower the community further.
+Neri grins as she prepares to write even more efficient contracts for the impending battle.
