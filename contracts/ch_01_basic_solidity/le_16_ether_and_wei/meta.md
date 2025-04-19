@@ -1,5 +1,5 @@
 ---
-title: "Libraries of Hope"
+title: "Ether and Wei"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -16,8 +16,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "libraries-of-hope"
+permaname: "ether-and-wei"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "libraries-of-hope"
+slug: "ether-and-wei"
 ---
