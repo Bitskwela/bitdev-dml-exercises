@@ -13,5 +13,4 @@ permaname: "course-1-basic-solidity"
 
 # Can be the same as permaname but can be changed if needed.
 slug: "course-1-basic-solidity"
-
 ---
