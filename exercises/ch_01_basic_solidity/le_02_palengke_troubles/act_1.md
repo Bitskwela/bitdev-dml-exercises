@@ -38,9 +38,9 @@ contract PalengkeLedger {
   - Total sales (`uint`).
   - Transaction status (`bool`).
 
-- Create a mapping variable to store vendor sales by their wallet address.
 - Observe the function to update the total sales after a purchase.
 - Inspect the function to check if a transaction was successful or not (bool).
+- Create a mapping variable to store vendor sales by their wallet address.
 
 ### Breakdown for learners
 
