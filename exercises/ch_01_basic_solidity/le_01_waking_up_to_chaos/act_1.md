@@ -7,22 +7,18 @@ Let’s build a contract for Neri's imaginary "**PalengkePay**" system to keep t
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// Define a contract named PalengkePay
 contract PalengkePay {
-    // State variable to store vendor name
     string public vendorName;
 
-    // State variable to store the total payment amount
     uint256 public totalPayments;
 
-    1. Create a public string variable here named "payerName"
+    // 1. Create a public string variable here named "payerName"
 
-    // Function to set vendor details and payment
-    function recordPayment(string memory _vendorName, uint256 _amount) public {
-        vendorName =e _vendorName; // Set the vendor's name
-        totalPayments = _amount; // Update the total payments
+    function recordPayment(string memory _vendorName, uint256 _amount, string memory _payee) public {
+        vendorName = _vendorName;
+        totalPayments = _amount;
 
-    2. Assign _vendorName to payerName variable
+    // 2. Update the payerName variable here with the value of _payee
 
     }
 }
@@ -36,21 +32,12 @@ contract PalengkePay {
   string public payerName;
   ```
 
-- Update the `recordPayment` function to assign `_vendorName` as new value of `payerName` public variable.
+- Update the `recordPayment` function to assign `_payee` as a new value of `payerName` public variable.
 
   ```solidity
-  function recordPayment(
-        string memory _vendorName,
-        uint256 _amount,
-        string memory _payee
-    ) public {
-        vendorName = _vendorName;
-        totalPayments = _amount;
-        payerName = _payee;
-    }
+    payerName = _payee;
   ```
 
-- Compile and Deploy: Test the updated contract in IDE.
 - Interact with the Contract: Use the `recordPayment` function to enter a vendor name, amount, and payer name (e.g., `"Mang Pedro"`, `500`, `"Juan Dela Cruz"`).
 
 ### What the Code Does

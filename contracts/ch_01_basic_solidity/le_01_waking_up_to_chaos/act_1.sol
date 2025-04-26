@@ -5,8 +5,6 @@ contract PalengkePay {
 
     uint256 public totalPayments;
 
-    string public payerName;
-
     function recordPayment(
         string memory _vendorName,
         uint256 _amount,
@@ -14,6 +12,5 @@ contract PalengkePay {
     ) public {
         vendorName = _vendorName;
         totalPayments = _amount;
-        payerName = _payee;
     }
 }
