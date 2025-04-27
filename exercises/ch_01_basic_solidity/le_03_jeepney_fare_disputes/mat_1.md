@@ -18,7 +18,7 @@ In Solidity, functions are reusable pieces of code that perform specific tasks. 
 ### Example of a function
 
 ```solidity
-// Example function to donate funds
+// Example of a paybale function to donate funds
     function donate() public payable {
         totalDonations += msg.value;
     }

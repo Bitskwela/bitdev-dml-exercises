@@ -9,24 +9,23 @@ contract JeepneyFareSystem {
 
     uint256 public baseFare = 13;
 
-    function calculateFare(uint256 distance) public view returns (uint256) {
-        return baseFare + (distance * 2);
-    }
+    // 🚩 TODO: Task 1 - Define calculateFare function
 
-    function payFare(uint256 distance) public payable {
+    // 🚩 TODO: Task 2 - Define payFare function as payable
+
+    function payFare(uint256 distance) public  {
         uint256 requiredFare = calculateFare(distance);
         require(msg.value == requiredFare, "Incorrect fare amount.");
         hasPaid[msg.sender] = true;
     }
 
-    function checkPaymentStatus(address passenger) public view returns (bool) {
-        return hasPaid[passenger];
-    }
+  // 🚩 TODO: Task 3 - Define checkPaymentStatus function
 
+  // 🚩 TODO: Task 4 - Make verifyFare function as private
     function verifyFare(
         uint256 distance,
         uint256 paidAmount
-    ) private view returns (bool) {
+    ) view returns (bool) {
         return paidAmount == calculateFare(distance);
     }
 }
@@ -34,13 +33,13 @@ contract JeepneyFareSystem {
 
 ## Tasks for Learners
 
-- Define a public function to calculate jeepney fares based on the distance traveled.
+- Define a public function named `calculateFare` to calculate jeepney fares based on the distance traveled.
   ```solidity
      function calculateFare(uint256 distance) public view returns (uint256) {
         return baseFare + (distance * 2);
     }
   ```
-- Create a payable function to accept passenger payments.
+- Make `payFare` function a payable in order to accept passenger payments.
   ```solidity
     function payFare(uint256 distance) public payable {
         uint256 requiredFare = calculateFare(distance);
@@ -48,13 +47,13 @@ contract JeepneyFareSystem {
         hasPaid[msg.sender] = true;
     }
   ```
-- Add a view function to check if a passenger has already paid.
+- Add a `checkPaymentStatus` as a view function to check if a passenger has already paid.
   ```solidity
     function checkPaymentStatus(address passenger) public view returns (bool) {
         return hasPaid[passenger];
     }
   ```
-- Use a private function to verify the correctness of a fare calculation.
+- Make `verifyFare` function as `private` function in order to verify the correctness of a fare calculation.
   ```solidity
     function verifyFare(
         uint256 distance,

@@ -5,28 +5,22 @@
 pragma solidity ^0.8.0;
 
 contract PalengkeLedger {
+
     // 🚩 TODO: Task 1 - Declare variables for vendor name, total sales, and transaction status
-    string public vendorName; // Vendor's name
-    uint256 public totalSales; // Total sales made
-    bool public transactionStatus; // Whether the last transaction succeeded or not
 
     // 🚩 TODO: Task 2 - Mapping to store vendor sales by address
-    mapping(address => uint256) public vendorSales;
 
+    // 🚩 TODO: Task 3 - Update the recordSale function
+    // to include vendor's wallet address and update the mapping
+    // and total sales
     function recordSale(
         address _vendor,
         string memory _vendorName,
         uint256 _saleAmount
     ) public {
-        vendorName = _vendorName; // Update the vendor's name
-        totalSales += _saleAmount; // Increment the total sales
-        vendorSales[_vendor] += _saleAmount; // Update the mapping for vendor's sales
-        transactionStatus = true; // Mark the transaction as successful
+
     }
 
-    function isTransactionSuccessful() public view returns (bool) {
-        return transactionStatus; // Return the status of the last transaction
-    }
 }
 ```
 
@@ -38,9 +32,37 @@ contract PalengkeLedger {
   - Total sales (`uint`).
   - Transaction status (`bool`).
 
-- Observe the function to update the total sales after a purchase.
-- Inspect the function to check if a transaction was successful or not (bool).
+  ```solidity
+    string public vendorName;
+    uint256 public totalSales;
+    bool public transactionStatus;
+  ```
+
 - Create a mapping variable to store vendor sales by their wallet address.
+
+  ```solidity
+    mapping(address => uint256) public vendorSales;
+  ```
+
+- Update the `recordSale` function to include the following:
+
+  - Accept a vendor's wallet address as an argument.
+  - Update the vendor's name in the contract.
+  - Increment the total sales by the sale amount.
+  - Update the mapping for the vendor's sales using their wallet address.
+
+  ```solidity
+      function recordSale(
+          address _vendor,
+          string memory _vendorName,
+          uint256 _saleAmount
+      ) public {
+          vendorName = _vendorName;
+          totalSales += _saleAmount;
+          vendorSales[_vendor] += _saleAmount;
+          transactionStatus = true;
+      }
+  ```
 
 ### Breakdown for learners
 
