@@ -1,8 +1,3 @@
-# Task for Learners
-
-- Use a `constructor` to initialize a community program's name and the starting balance for its funds.
-- Add a function to retrieve these details.
-
 ## Smart contract activity
 
 ```solidity
@@ -26,6 +21,11 @@ contract BarangayProgram {
     }
 }
 ```
+
+## Task for Learners
+
+- Use a `constructor` to initialize a community program's name and the starting balance for its funds.
+- Add a function to retrieve these details.
 
 ### Breakdown of Activity
 

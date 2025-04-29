@@ -1,7 +1,3 @@
-# Task for Learners
-
-Secure a function to ensure **only the contract owner** can execute it using a modifier. This task helps learners understand how to centralize access control in their contracts.
-
 ## Smart Contract Activity
 
 Here’s a simple donation contract where only the owner can withdraw funds using a function modifier.
@@ -36,6 +32,27 @@ contract SecureFund {
     }
 }
 ```
+
+# Task for Learners
+
+Secure a function to ensure **only the contract owner** can execute it using a modifier. This task helps learners understand how to centralize access control in their contracts. The goal is to prevent unauthorized users from calling the `withdraw` function, which transfers funds from the contract to the owner's address.
+
+- **Task 1**: Add a modifier named `onlyOwner` to restrict access to the `withdraw` function, ensuring only the contract owner can call it.
+
+  ```solidity
+  modifier onlyOwner() {
+      require(msg.sender == owner, "Not the owner");
+      _;
+  }
+  ```
+
+- **Task 2**: Use the `onlyOwner` modifier in the `withdraw` function to enforce this restriction. This ensures that only the owner can withdraw funds from the contract.
+
+  ```solidity
+  function withdraw() public onlyOwner {
+      payable(owner).transfer(address(this).balance);
+  }
+  ```
 
 ### Expected Results:
 

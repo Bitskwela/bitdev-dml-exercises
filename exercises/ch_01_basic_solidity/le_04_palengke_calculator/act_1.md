@@ -1,10 +1,3 @@
-# Tasks for Learners
-
-- Use math operations to calculate the total cost of goods based on quantity and price.
-- Apply subtraction to compute the change owed to the customer after payment.
-- Create a multiplication function for discounts or bulk purchases.
-- Use division to fairly split group payments.
-
 ### Smart Contract Activity: Palengke Calculator
 
 ```solidity
@@ -55,6 +48,54 @@ contract PalengkeCalculator {
     }
 }
 ```
+
+# Tasks for Learners
+
+- Use math operations to calculate the total cost of goods based on quantity and price.
+
+  ```solidity
+  function calculateTotal(
+      uint256 pricePerUnit,
+      uint256 quantity
+  ) public pure returns (uint256) {
+      return pricePerUnit * quantity;
+  }
+  ```
+
+- Apply subtraction to compute the change owed to the customer after payment.
+
+  ```solidity
+  function calculateChange(
+          uint256 totalCost,
+          uint256 payment
+      ) public pure returns (uint256) {
+          require(payment >= totalCost, "Insufficient payment.");
+          return payment - totalCost;
+      }
+  ```
+
+- Create a multiplication function for discounts or bulk purchases.
+
+  ```solidity
+  function applyDiscount(
+          uint256 totalCost,
+          uint256 discountPercent
+      ) public pure returns (uint256) {
+          require(discountPercent <= 100, "Invalid discount percentage.");
+          return totalCost - ((totalCost * discountPercent) / 100);
+      }
+  ```
+
+- Use division to fairly split group payments.
+  ```solidity
+    function splitBill(
+           uint256 totalCost,
+           uint256 groupSize
+      ) public pure returns (uint256) {
+           require(groupSize > 0, "Group size must be greater than zero.");
+           return totalCost / groupSize;
+      }
+  ```
 
 ### Breakdown for Learners
 

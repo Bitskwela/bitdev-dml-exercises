@@ -14,7 +14,28 @@ Neri thinks for a moment and remembers something from her Solidity training: arr
 
 ## Solidity Topics: Arrays
 
-An array in Solidity is a data structure that allows you to store multiple values of the same type. Arrays are useful for keeping track of sequential data like transactions, IDs, or even names.
+An **array** is like a list or a row of boxes where you can store many values of the same type.  
+For example, you can use an array to keep track of all payments made in the palengke.
+
+- Arrays are useful for storing things like:
+  - All payments made in a day
+  - List of customer names
+  - List of product prices
+
+Arrays can be:
+
+- **Fixed-size** (the number of boxes is set)
+- **Dynamic** (the number of boxes can grow or shrink)
+
+---
+
+## How Arrays Work
+
+- Each item in an array has a position called an **index**.
+- The first item is at index `0`, the second at `1`, and so on.
+- You can easily get, change, or remove items using their index.
+
+---
 
 ### Types of Arrays:
 
