@@ -11,3 +11,8 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
+
+
+## Content
+
+Content changes are located on this branch `structured-courses`: https://github.com/Bitskwela/bitdev-dml-exercises/tree/structured-courses
