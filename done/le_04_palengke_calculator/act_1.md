@@ -51,7 +51,7 @@ contract PalengkeCalculator {
 
 # Tasks for Learners
 
-- Use math operations to calculate the total cost of goods based on quantity and price.
+- `calculateTotal` function: Use math operations to calculate the total cost of goods based on quantity and price.
 
   ```solidity
   function calculateTotal(
@@ -62,7 +62,7 @@ contract PalengkeCalculator {
   }
   ```
 
-- Apply subtraction to compute the change owed to the customer after payment.
+- `calculateChange` function: Apply subtraction to compute the change owed to the customer after payment.
 
   ```solidity
   function calculateChange(
@@ -74,7 +74,7 @@ contract PalengkeCalculator {
       }
   ```
 
-- Create a multiplication function for discounts or bulk purchases.
+- `applyDiscount` function: Create a multiplication function for discounts or bulk purchases.
 
   ```solidity
   function applyDiscount(
@@ -86,7 +86,7 @@ contract PalengkeCalculator {
       }
   ```
 
-- Use division to fairly split group payments.
+- `splitBill` function: Use division to fairly split group payments.
   ```solidity
     function splitBill(
            uint256 totalCost,

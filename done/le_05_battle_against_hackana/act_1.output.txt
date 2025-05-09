@@ -1,0 +1,15 @@
+
+
+  CommunityFund
+    donate function
+      ✔ should set the fund owner as contract deployer
+      ✔ should allow valid donations and update totalDonations
+      ✔ should reject donation of 0
+      ✔ should reject mismatched Ether value and donation amount
+    withdraw function
+      ✔ should allow the owner to withdraw funds
+      ✔ should reject withdrawals from non-owners
+
+
+  6 passing (475ms)
+

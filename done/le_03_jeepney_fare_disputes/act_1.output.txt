@@ -1,0 +1,12 @@
+Compiled 1 Solidity file successfully (evm target: paris).
+
+
+  JeepneyFareSysten
+    ✔ Should define a public function named calculateFare
+    ✔ Should have a payable function payFare
+    ✔ Should have a view function checkPaymentStatus
+    ✔ Should contain a private function verifyFare
+
+
+  4 passing (442ms)
+

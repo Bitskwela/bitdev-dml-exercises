@@ -50,6 +50,7 @@ contract PalengkeLedger {
   - Update the vendor's name in the contract.
   - Increment the total sales by the sale amount.
   - Update the mapping for the vendor's sales using their wallet address.
+  - Update the transaction status to `true` after a successful sale.
 
   ```solidity
       function recordSale(

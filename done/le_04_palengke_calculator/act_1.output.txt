@@ -1,0 +1,15 @@
+Compiled 2 Solidity files successfully (evm target: paris).
+
+
+  PalengkeCalculator
+    ✔ Should calculate total cost using multiplication
+    ✔ Should calculate change using subtraction
+    ✔ Should revert if payment is less than total cost
+    ✔ Should calculate discount using multiplication
+    ✔ Should revert if discount percentage is more than 100
+    ✔ Should split bill using division
+    ✔ Should revert if group size is zero
+
+
+  7 passing (464ms)
+
