@@ -1,0 +1,9 @@
+
+
+  HackanaDefense with MathLibrary
+    ✔ should return the correct fee using calculateFee
+    ✔ should have the correct city set
+
+
+  2 passing (415ms)
+

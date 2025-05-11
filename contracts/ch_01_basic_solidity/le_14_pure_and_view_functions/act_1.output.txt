@@ -1,0 +1,9 @@
+
+
+  BarangayServiceFees
+    ✔ should return the certification fee
+    ✔ should correctly calculate the total cost for multiple certifications
+
+
+  2 passing (357ms)
+

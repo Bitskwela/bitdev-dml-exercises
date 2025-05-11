@@ -1,0 +1,9 @@
+
+
+  EtherConverter
+    ✔ should convert Ether to Wei correctly
+    ✔ should convert Wei to Ether correctly
+
+
+  2 passing (370ms)
+

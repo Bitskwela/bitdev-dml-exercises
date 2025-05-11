@@ -1,0 +1,10 @@
+
+
+  SecureFund
+    ✔ should accept donations and update totalDonations
+    ✔ should allow only owner to withdraw
+    ✔ should reject withdrawals from non-owners
+
+
+  3 passing (432ms)
+

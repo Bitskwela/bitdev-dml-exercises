@@ -1,0 +1,9 @@
+
+
+  Calculator with MathLibrary
+    ✔ should correctly calculate the sum using MathLibrary
+    ✔ should correctly calculate the product using MathLibrary
+
+
+  2 passing (357ms)
+

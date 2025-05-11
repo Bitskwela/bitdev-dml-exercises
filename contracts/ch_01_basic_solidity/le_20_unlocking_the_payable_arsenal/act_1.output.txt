@@ -1,0 +1,9 @@
+
+
+  EtherReceiver
+    ✔ should receive Ether and emit PaymentReceived event
+    ✔ should return 0 balance initially
+
+
+  2 passing (357ms)
+

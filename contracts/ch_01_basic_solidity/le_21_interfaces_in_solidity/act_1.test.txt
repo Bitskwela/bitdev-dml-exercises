@@ -1,0 +1,12 @@
+
+
+  Marketplace
+    ✔ should allow deposit with correct Ether amount
+    ✔ should revert if deposit amount does not match msg.value
+    ✔ should allow withdrawal up to balance
+    ✔ should revert withdrawal if balance is insufficient
+    ✔ should return correct balance using checkBalance
+
+
+  5 passing (437ms)
+

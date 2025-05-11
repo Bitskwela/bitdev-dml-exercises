@@ -1,0 +1,9 @@
+
+
+  BarangayProgram
+    ✔ should set program name and starting balance via constructor
+    ✔ should return program details correctly
+
+
+  2 passing (373ms)
+

@@ -1,0 +1,10 @@
+
+
+  BarangayWallet
+    ✔ should accept Ether via receive and update totalReceived
+    ✔ should correctly track totalReceived after multiple deposits
+    ✔ should emit InvalidCall event on fallback
+
+
+  3 passing (380ms)
+

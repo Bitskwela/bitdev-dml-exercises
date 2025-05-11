@@ -1,0 +1,10 @@
+
+
+  BarangayServiceFees
+    ✔ should return the correct certification fee
+    ✔ should calculate the correct total cost for multiple certifications
+    ✔ should return 0 for zero certifications
+
+
+  3 passing (348ms)
+

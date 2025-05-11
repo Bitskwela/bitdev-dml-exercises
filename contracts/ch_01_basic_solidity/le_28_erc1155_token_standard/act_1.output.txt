@@ -1,0 +1,12 @@
+
+
+  MultiAsset
+    ✔ should have correct initial metadata URI
+    ✔ should mint initial Gold and Artifact to owner
+    ✔ should allow the owner to mint more tokens
+    ✔ should allow token transfers (GOLD)
+    ✔ should allow token transfers (ARTIFACT)
+
+
+  5 passing (455ms)
+

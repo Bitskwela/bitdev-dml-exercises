@@ -1,0 +1,9 @@
+
+
+  CustomerRegistry
+    ✔ should add a new customer with correct details
+    ✔ should return correct customer details from getCustomer
+
+
+  2 passing (371ms)
+
