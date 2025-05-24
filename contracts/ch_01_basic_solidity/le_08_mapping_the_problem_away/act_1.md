@@ -1,26 +1,17 @@
-## Smart Contract Activity
+# Smart Contract Activity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract AntiHackanaLedger {
-    // 🚩 Task 1: Declare a mapping to track user balances
-    mapping(address => uint256) public userBalances;
+    function updateBalance(address _user, uint256 _newBalance) public {}
 
-    // 🚩 Task 2: Function to update user balance
-    function updateBalance(address _user, uint256 _newBalance) public {
-        userBalances[_user] = _newBalance; // Update the user's balance
-    }
-
-    // 🚩 Task 3: Function to retrieve user balance
-    function getBalance(address _user) public view returns (uint256) {
-        return userBalances[_user]; // Return the user's balance
-    }
+    function getBalance(address _user) public view returns (uint256) {}
 }
 ```
 
-# Task for Learners
+## Task for Learners
 
 - Declare a `mapping` to create a simple ledger that stores user balances. This mapping should associate a user's wallet address (`address`) with their balance (`uint256`).
 

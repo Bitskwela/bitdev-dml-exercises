@@ -4,37 +4,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-// 🚩 TODO: Declare a custom error for unauthorized access
-error UnauthorizedAccess(address caller);
-
-// 🚩 TODO: Declare a custom error for insufficient funds
-error InsufficientFunds(uint256 requested, uint256 available);
-
 contract CustomErrorExample {
     address public owner;
     uint256 public totalBalance;
 
     constructor() {
         owner = msg.sender;
-        totalBalance = 1000; // Initial balance for testing
+        totalBalance = 1000;
     }
 
-    // Function to withdraw funds
     function withdraw(uint256 amount) public {
-        // 🚩 TODO: Use the UnauthorizedAccess custom error for non-owners
-        if (msg.sender != owner) {
-            revert UnauthorizedAccess(msg.sender);
-        }
+        if (msg.sender != owner) {}
 
-        // 🚩 TODO: Use the InsufficientFunds custom error for insufficient balance
-        if (amount > totalBalance) {
-            revert InsufficientFunds(amount, totalBalance);
-        }
+        if (amount > totalBalance) {}
 
         totalBalance -= amount;
     }
 
-    // Function to check balance
     function checkBalance() public view returns (uint256) {
         return totalBalance;
     }
@@ -43,9 +29,31 @@ contract CustomErrorExample {
 
 # Task for Learners
 
-- Define a custom error related to insufficient funds.
-- Implement a function that uses this custom error to revert on failure.
-- Optimize error handling by replacing require or revert strings with custom errors.
+- Define a custom error related to insufficient funds. (Should be defined at the top of the contract)
+  ```solidity
+  error InsufficientFunds(uint256 requested, uint256 available);
+  ```
+- Define a custom error for unauthorized access. (Should be defined at the top of the contract)
+
+  ```solidity
+  error UnauthorizedAccess(address caller);
+  ```
+
+- Inside the `withdraw` function, implement the custom errors for better error handling.
+
+  ```solidity
+  function withdraw(uint256 amount) public {
+      if (msg.sender != owner) {
+          revert UnauthorizedAccess(msg.sender);
+      }
+
+      if (amount > totalBalance) {
+          revert InsufficientFunds(amount, totalBalance);
+      }
+
+      totalBalance -= amount;
+  }
+  ```
 
 ### Breakdown of the Activity
 

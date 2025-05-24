@@ -4,59 +4,34 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// 1. Define the Transaction interface
-interface ITransaction {
-    // 🚩 TODO: Implement deposit function
-    function deposit(uint256 amount) external payable;
+interface ITransaction {}
 
-    // 🚩 TODO: Implement withdraw function
-    function withdraw(uint256 amount) external;
-
-    // 🚩 TODO: Implement checkBalance function
-    function checkBalance() external view returns (uint256);
-}
-
-// 2. Implement the interface in the Marketplace contract
 contract Marketplace is ITransaction {
     mapping(address => uint256) private balances;
 
-    // 🚩 TODO: Implement the deposit function
-    function deposit(uint256 amount) external payable override {
-        require(msg.value == amount, "Amount does not match sent Ether");
+    function deposit(uint256 amount) external {}
 
-        balances[msg.sender] += amount;
-    }
+    function withdraw(uint256 amount) external {}
 
-    // 🚩 TODO: Implement the withdraw function
-    function withdraw(uint256 amount) external override {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
-
-        balances[msg.sender] -= amount;
-        payable(msg.sender).transfer(amount);
-    }
-
-    // 🚩 TODO: Implement the checkBalance function
-    function checkBalance() external view override returns (uint256) {
-        return balances[msg.sender];
-    }
+    function checkBalance() external view returns (uint256) {}
 }
 ```
 
 ### Task for Learners
 
-- Creare an interface named `ITransaction` that defines the following functions:
+- Create an interface named `ITransaction` that defines the following functions:
 
   - `deposit(uint256 amount)`: Allows users to deposit Ether into the contract.
   - `withdraw(uint256 amount)`: Allows users to withdraw their Ether from the contract.
   - `checkBalance()`: Allows users to check their current balance within the contract.
 
-```solidity
-interface ITransaction {
-    function deposit(uint256 amount) external payable;
-    function withdraw(uint256 amount) external;
-    function checkBalance() external view returns (uint256);
-}
-```
+    ```solidity
+    interface ITransaction {
+        function deposit(uint256 amount) external payable;
+        function withdraw(uint256 amount) external;
+        function checkBalance() external view returns (uint256);
+    }
+    ```
 
 - Implement the `ITransaction` interface in a contract named `Marketplace`. This contract should:
 
@@ -120,7 +95,3 @@ With the newly built Marketplace contract, Neri ensured that the users' transact
 As Neri watched the balance updates in real-time, she realized that Hackana was now cornered. The malware had been relying on exploiting loopholes in transaction systems across various platforms.
 
 But with her secure and transparent contract, Hackana’s attacks were rendered useless. Neri had not only protected the people but also restored their confidence in digital finance systems.
-
-```
-
-```

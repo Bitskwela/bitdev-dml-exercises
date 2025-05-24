@@ -18,12 +18,10 @@ contract SecureDonation is Ownable, ReentrancyGuard {
     function donate() external payable nonReentrant {
         require(msg.value > 0, "Donation must be greater than zero.");
 
-        // 🚩 TODO: Update the state variable (donations mapping) first before updating totalDonations
         donations[msg.sender] += msg.value;
         totalDonations += msg.value;
     }
 
-    // 🚩 TODO: Add a function for the owner to withdraw funds. Add reentrancy guard
     function withdraw() external onlyOwner nonReentrant {
         require(totalDonations > 0, "No funds to withdraw.");
 

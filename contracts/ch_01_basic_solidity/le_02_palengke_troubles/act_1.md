@@ -5,22 +5,13 @@
 pragma solidity ^0.8.0;
 
 contract PalengkeLedger {
-
-    // 🚩 TODO: Task 1 - Declare variables for vendor name, total sales, and transaction status
-
-    // 🚩 TODO: Task 2 - Mapping to store vendor sales by address
-
-    // 🚩 TODO: Task 3 - Update the recordSale function
-    // to include vendor's wallet address and update the mapping
-    // and total sales
     function recordSale(
         address _vendor,
         string memory _vendorName,
         uint256 _saleAmount
-    ) public {
+    ) public {}
 
-    }
-
+    function isTransactionSuccessful() public view returns (bool) {}
 }
 ```
 

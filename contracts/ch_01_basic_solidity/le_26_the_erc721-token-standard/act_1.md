@@ -1,46 +1,50 @@
-## Smart Contract Activity
+# Smart Contract Activity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// Import ERC721 from OpenZeppelin
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-// 🚩 TODO: Define the ERC721 contract
-contract DigitalArtToken is ERC721URIStorage, Ownable {
+contract DigitalArtToken {
     uint256 private _tokenIds;
-
-    // 🚩 TODO: Initialize the contract with a name and symbol
-    constructor()
-        ERC721("DigitalArtToken", "DAT")
-        Ownable(msg.sender)
-        ERC721URIStorage()
-    {}
-
-    // 🚩 TODO: Function to mint a new token
-    function mintArt(
-        address recipient,
-        string memory tokenURI
-    ) public onlyOwner returns (uint256) {
-        _tokenIds++;
-        uint256 newItemId = _tokenIds;
-
-        _mint(recipient, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-
-        return newItemId;
-    }
 }
 ```
 
-# Task for Learners
+## Task for Learners
 
-- Create a simple _ERC721_ contract for representing digital art.
-- **Add functions to mint** a new token and transfer ownership.
-- **Use OpenZeppelin's library** for implementation to ensure security.
+- Import the necessary OpenZeppelin libraries for ERC721, ERC721URIStorage and Ownable.
+  ```solidity
+  import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+  import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+  import "@openzeppelin/contracts/access/Ownable.sol";
+  ```
+- Create a contract named `DigitalArtToken` that inherits from `ERC721URIStorage` and `Ownable`. And initialize the contract with a name (_DigitalArtToken_) and symbol (_DAT_).
+
+  ```solidity
+   contract DigitalArtToken is ERC721URIStorage, Ownable {
+    constructor() ERC721("DigitalArtToken", "DAT") Ownable(msg.sender) {}
+   }
+  ```
+
+- Implement a function `mintArt` that allows the owner to mint a new token. This function should:
+
+  - Accept the recipient's address and a metadata URI.
+  - Generate a unique token ID.
+  - Mint the token and link it to the provided metadata URI.
+
+  ```solidity
+  function mintArt(
+      address recipient,
+      string memory tokenURI
+  ) public onlyOwner returns (uint256) {
+      _tokenIds++;
+      uint256 newItemId = _tokenIds;
+
+      _mint(recipient, newItemId);
+      _setTokenURI(newItemId, tokenURI);
+
+      return newItemId;
+  }
+  ```
 
 ### Breakdown of Activity
 

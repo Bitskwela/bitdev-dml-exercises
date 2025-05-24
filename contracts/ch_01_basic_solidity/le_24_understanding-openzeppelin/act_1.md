@@ -1,8 +1,4 @@
-# Task for Learners
-
-Neri needs your help to create a new ERC20 token using OpenZeppelin. This will be the currency used for rebuilding systems destroyed by Hackana.
-
-## Smart Contract Activity
+# Smart Contract Activity
 
 Using OpenZeppelin, let’s create an ERC20 token
 
@@ -10,17 +6,30 @@ Using OpenZeppelin, let’s create an ERC20 token
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// 🚩 TODO: Import the ERC20 contract from OpenZeppelin
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-// 🚩 TODO: Create a custom token contract
-contract HackanaDefenseToken is ERC20 {
-    // 🚩 TODO: Add a constructor to initialize the token
-    constructor() ERC20("DefenseToken", "DEF") {
-        _mint(msg.sender, 1000 * 10 ** decimals()); // 🚩 Initial supply
-    }
+contract HackanaDefenseToken {
+    constructor() {}
 }
 ```
+
+## Task for Learners
+
+Neri needs your help to create a new ERC20 token using OpenZeppelin. This will be the currency used for rebuilding systems destroyed by Hackana.
+
+- Import the ERC20 contract from OpenZeppelin.
+
+  ```solidity
+  import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  ```
+
+- Create a custom token contract named `HackanaDefenseToken` that inherits from OpenZeppelin’s ERC20. In the constructor, initialize the token with a name (_DefenseToken_) and symbol (_DEF_). Lastly, mint an initial supply of 1000 tokens to the deployer’s address.
+
+  ```solidity
+  contract HackanaDefenseToken is ERC20 {
+      constructor() ERC20("DefenseToken", "DEF") {
+          _mint(msg.sender, 1000 * 10 ** decimals());
+      }
+  }
+  ```
 
 ### Breakdown of Activity
 

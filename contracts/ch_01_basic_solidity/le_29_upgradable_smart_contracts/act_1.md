@@ -1,44 +1,47 @@
-# Task for Learners
-
-Create an upgradable contract that stores a list of registered users. In the first version, users can only register. In the second version, add functionality to update user details.
-
-## Smart Contract Activity
+# Smart Contract Activity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// 🚩 TODO: Import the OpenZeppelin Contracts for upgrades
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-contract UserRegistryV1 is Initializable {
-    // State variable to store registered users
-    mapping(address => string) private userNames;
+contract UserRegistryV1 {
+    // Mapping to store user addresses and their names
+    mapping(address => string) public userNames;
 
-    // 🚩 TODO: Initialize the contract
-    function initialize() public initializer {
-        // Initialization logic
+    function initialize() public /*initializer*/ {
+
     }
 
-    // Function to register a user
     function registerUser(string memory name) public {
         userNames[msg.sender] = name;
     }
 
-    // Function to get the name of a registered user
     function getUser(address user) public view returns (string memory) {
         return userNames[user];
     }
 }
 
-// Version 2 - Upgrade to allow updating user names
-contract UserRegistryV2 is UserRegistryV1 {
-    // Function to update user name
-    function updateUser(string memory newName) public {
-        userNames[msg.sender] = newName;
-    }
-}
+contract UserRegistryV2 {}
+
 ```
+
+## Task for Learners
+
+- Import the `Initializable` contract from OpenZeppelin.
+  ```solidity
+  import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+  ```
+- Complete the `UserRegistryV2` contract by extending `UserRegistryV1`. Add a function `updateUser` that allows users to update their names.
+  Create an upgradable contract that stores a list of registered users. In the first version, users can only register. In the second version, add functionality to update user details.
+  ```solidity
+  contract UserRegistryV2 is UserRegistryV1 {
+      function updateUser(string memory newName) public {
+          userNames[msg.sender] = newName;
+      }
+  }
+  ```
 
 ### Breakdown of the Activity
 

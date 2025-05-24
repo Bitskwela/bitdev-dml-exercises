@@ -1,9 +1,30 @@
-# Activity
+# Smart Contract Activity
 
 Build your first Solidity Smart Contract
 Let’s build a contract for Neri's imaginary "**PalengkePay**" system to keep track of vendors’ names and payment amounts.
 
-### Task for Students
+```solidity
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+contract PalengkePay {
+    string public vendorName;
+
+    uint256 public totalPayments;
+
+    function recordPayment(
+        string memory _vendorName,
+        uint256 _amount,
+        string memory _payee
+    ) public {
+        vendorName = _vendorName;
+        totalPayments = _amount;
+    }
+}
+```
+
+## Task for Students
 
 - Add a new state variable (`payerName`) to store the payer's name.
 

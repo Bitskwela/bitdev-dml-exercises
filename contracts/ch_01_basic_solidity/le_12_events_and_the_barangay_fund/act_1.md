@@ -5,17 +5,7 @@ pragma solidity ^0.8.0;
 contract BarangayFund {
     uint256 public totalFunds;
 
-    // 🚩 Task 1: Define an event for fund updates
-    event FundUpdated(uint256 newAmount, address updatedBy);
-
-    // 🚩 Task 2: Function to update the fund
-    function depositFunds(uint256 amount) public {
-        require(amount > 0, "Deposit amount must be greater than zero.");
-        totalFunds += amount;
-
-        // 🚩 Emit the event
-        emit FundUpdated(totalFunds, msg.sender);
-    }
+    function depositFunds(uint256 amount) public {}
 }
 ```
 
@@ -23,21 +13,20 @@ contract BarangayFund {
 
 - Create an event that logs whenever the barangay fund is updated.
 
-```solidity
-    event FundUpdated(uint256 newAmount, address updatedBy);
-```
+  ```solidity
+      event FundUpdated(uint256 newAmount, address updatedBy);
+  ```
 
 - Update the `depositFunds` function to emit the event whenever a new deposit is made.
 
-````solidity
-    function depositFunds(uint256 amount) public {
-        require(amount > 0, "Deposit amount must be greater than zero.");
-        totalFunds += amount;
+  ```solidity
+      function depositFunds(uint256 amount) public {
+          require(amount > 0, "Deposit amount must be greater than zero.");
+          totalFunds += amount;
 
-        emit FundUpdated(totalFunds, msg.sender);
-    }
-```
-
+          emit FundUpdated(totalFunds, msg.sender);
+      }
+  ```
 
 ### Breakdown of Activity
 
@@ -49,7 +38,7 @@ contract BarangayFund {
 
 ```solidity
 FundUpdated(uint256 newAmount, address updatedBy)
-````
+```
 
 The code above performs the following:
 

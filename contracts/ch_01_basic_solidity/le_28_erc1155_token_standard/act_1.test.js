@@ -16,7 +16,7 @@ describe("MultiAsset", function () {
 
   it("should have correct initial metadata URI", async function () {
     expect(await contract.uri(GOLD)).to.equal(
-      "https://api.example.com/metadata/{id}.json"
+      "https://api.bitskwela.com/metadata/{id}.json"
     );
   });
 

@@ -5,16 +5,10 @@
 pragma solidity ^0.8.0;
 
 contract EtherReceiver {
-    // Event to log Ether receipt
     event PaymentReceived(address indexed from, uint256 amount);
 
-    // 🚩 TODO: Task 1 - Create a payable function to accept Ether
-    function receivePayment() public payable {
-        // 🚩 ✅ Answer: Emit the PaymentReceived event
-        emit PaymentReceived(msg.sender, msg.value);
-    }
+    function receivePayment() public {}
 
-    // Function to check contract balance
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
@@ -25,11 +19,11 @@ contract EtherReceiver {
 
 - Create a function named `receivePayment` that allows vendors to receive Ether through a `payable` function. Emit a `PaymentReceived` event when Ether is received.
 
-```solidity
-    function receivePayment() public payable {
-        emit PaymentReceived(msg.sender, msg.value);
-    }
-```
+  ```solidity
+      function receivePayment() public payable {
+          emit PaymentReceived(msg.sender, msg.value);
+      }
+  ```
 
 ### Breakdown of Activity
 

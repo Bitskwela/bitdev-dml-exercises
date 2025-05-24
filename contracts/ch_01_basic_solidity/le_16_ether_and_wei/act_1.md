@@ -1,23 +1,13 @@
-## Smart Contract Activity
+# Smart Contract Activity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract EtherConverter {
-    // 🚩 Task 1: Function to convert Ether to Wei
-    function etherToWei(uint256 etherAmount) public pure returns (uint256) {
-        return etherAmount * 1 ether;
-    }
-
-    // 🚩 Task 2: Function to convert Wei to Ether
-    function weiToEther(uint256 weiAmount) public pure returns (uint256) {
-        return weiAmount / 1 ether;
-    }
-}
+contract EtherConverter {}
 ```
 
-# Task for Learners
+## Task for Learners
 
 Hackana is stealing small fractions of Ether by manipulating conversion errors. Neri needs a function to calculate precise Ether and Wei values to block Hackana’s tricks.
 

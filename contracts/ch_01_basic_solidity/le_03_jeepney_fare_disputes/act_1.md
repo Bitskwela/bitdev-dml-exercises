@@ -9,25 +9,16 @@ contract JeepneyFareSystem {
 
     uint256 public baseFare = 13;
 
-    // 🚩 TODO: Task 1 - Define calculateFare function
+    function calculateFare(uint256 distance) public view returns (uint256) {}
 
-    // 🚩 TODO: Task 2 - Define payFare function as payable
+    function payFare(uint256 distance) public payable {}
 
-    function payFare(uint256 distance) public  {
-        uint256 requiredFare = calculateFare(distance);
-        require(msg.value == requiredFare, "Incorrect fare amount.");
-        hasPaid[msg.sender] = true;
-    }
+    function checkPaymentStatus(address passenger) public view returns (bool) {}
 
-  // 🚩 TODO: Task 3 - Define checkPaymentStatus function
-
-  // 🚩 TODO: Task 4 - Make verifyFare function as private
     function verifyFare(
         uint256 distance,
         uint256 paidAmount
-    ) view returns (bool) {
-        return paidAmount == calculateFare(distance);
-    }
+    ) private view returns (bool) {}
 }
 ```
 

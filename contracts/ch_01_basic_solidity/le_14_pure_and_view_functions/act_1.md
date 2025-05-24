@@ -1,46 +1,33 @@
-### Smart contract activity
+# Smart contract activity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract BarangayServiceFees {
-    // 🚩 Task 1: State variable for service fee
-    uint256 public certificationFee = 100; // Fee for one certification
-
-    // 🚩 Task 2: View function to get the fee
-    function getCertificationFee() public view returns (uint256) {
-        return certificationFee;
-    }
-
-    // 🚩 Task 3: Pure function to calculate total fees for multiple requests
-    function calculateTotalCost(
-        uint256 numberOfCertifications
-    ) public pure returns (uint256) {
-        return numberOfCertifications * 100; // Assuming fixed fee of 100
-    }
+    uint256 public certificationFee = 100;
 }
 ```
 
-### Task for Learners
+## Task for Learners
 
 - Implement a view function named `getCertificationFee` to fetch the barangay certification fee.
 
-```solidity
-    function getCertificationFee() public view returns (uint256) {
-        return certificationFee;
-    }
-```
+  ```solidity
+      function getCertificationFee() public view returns (uint256) {
+          return certificationFee;
+      }
+  ```
 
 - Implement a pure function named `calculateTotalCost` to calculate the total cost for multiple certifications.
 
-```solidity
-    function calculateTotalCost(
-        uint256 numberOfCertifications
-    ) public pure returns (uint256) {
-        return numberOfCertifications * 100;
-    }
-```
+  ```solidity
+      function calculateTotalCost(
+          uint256 numberOfCertifications
+      ) public pure returns (uint256) {
+          return numberOfCertifications * 100;
+      }
+  ```
 
 ### Breakdown of Activity
 

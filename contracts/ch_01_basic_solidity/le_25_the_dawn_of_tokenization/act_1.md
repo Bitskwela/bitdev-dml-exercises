@@ -1,22 +1,11 @@
-## Smart Contract Activity
+# Smart Contract Activity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-// 🚩 TODO: Import OpenZeppelin's ERC20 implementation
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-// 🚩 ANSWER: Define the contract and inherit from ERC20
-contract SanJuanToken is ERC20 {
-    // 🚩 ANSWER: Constructor to initialize the token
-    constructor(uint256 initialSupply) ERC20("SanJuanToken", "SJT") {
-        _mint(msg.sender, initialSupply);
-    }
-}
 ```
 
-# Task for Learners
+#@ Task for Learners
 
 Create an ERC20 token called `SanJuanToken` to be used by the local community for seamless transactions. Ensure that the token complies with the ERC20 standard and has basic functionality.
 

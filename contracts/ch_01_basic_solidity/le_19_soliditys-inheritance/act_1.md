@@ -8,24 +8,17 @@ pragma solidity ^0.8.0;
 contract BaseContract {
     string public organizationName;
 
-    // 🚩 TODO: Task 1 - Modify this function to validate that the name is not empty
+    // TODO: Task 1 - Complete this function to validate that the name is not empty
     function setOrganizationName(string memory name) public {
-        // 🚩 ✅ Answer: Add a require statement to check that name is not empty
-        require(bytes(name).length > 0, "Name cannot be empty");
         organizationName = name;
     }
 }
 
-// Child contract inheriting from BaseContract
+// TODO: Task 2 - Create a derived contract that extends BaseContract. Add a function to deposit funds.
 contract DerivedContract is BaseContract {
     uint256 public fundBalance;
 
-    // 🚩 TODO: Task 2 - Add a condition to ensure only positive deposit amounts are allowed
-    function depositFunds(uint256 amount) public {
-        // 🚩 ✅ Answer: Add a require statement to check that amount > 0
-        require(amount > 0, "Amount must be greater than zero");
-        fundBalance += amount;
-    }
+    function depositFunds(uint256 amount) public {}
 }
 ```
 
@@ -33,8 +26,32 @@ contract DerivedContract is BaseContract {
 
 Hackana’s new malware exploits contracts with redundant code. Your task is to:
 
-- Create a base contract with shared functionality.
-- Build a child contract that inherits from the base contract and extends its logic.
+- Create a base contract named `BaseContract` with shared functionality.
+
+```solidity
+contract BaseContract {
+
+    string public organizationName;
+
+    function setOrganizationName(string memory name) public {
+        require(bytes(name).length > 0, "Name cannot be empty");
+        organizationName = name;
+    }
+}
+```
+
+- Build a child contract that inherits from the base contract and extends its logic. Add a function to deposit funds, ensuring the amount is greater than zero.
+
+```solidity
+contract DerivedContract is BaseContract {
+    uint256 public fundBalance;
+
+    function depositFunds(uint256 amount) public {
+        require(amount > 0, "Amount must be greater than zero");
+        fundBalance += amount;
+    }
+}
+```
 
 ### Breakdown of Activity
 
