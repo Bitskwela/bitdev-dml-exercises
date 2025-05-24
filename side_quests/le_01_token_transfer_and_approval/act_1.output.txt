@@ -1,0 +1,8 @@
+
+
+  SanJuanToken
+    ✔ should approve and transferFrom correctly
+
+
+  1 passing (434ms)
+
