@@ -1,0 +1,11 @@
+
+
+  SariSariToken
+    ✔ Should set the owner and mint 10,000 SST on deployment
+    ✔ Should allow only owner to mint within max supply
+    ✔ Should not allow non-owner to mint
+    ✔ Should not mint if it exceeds MAX_SUPPLY
+
+
+  4 passing (543ms)
+
