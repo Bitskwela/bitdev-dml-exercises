@@ -1,0 +1,12 @@
+
+
+  MultiSigWallet
+    ✔ Should allow signers to propose a transaction
+    ✔ Should allow signers to approve and execute a transaction
+    ✔ Should not allow duplicate approvals
+    ✔ Should not allow execution without enough approvals
+    ✔ Should not allow non-signers to propose or approve
+
+
+  5 passing (514ms)
+
