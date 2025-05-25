@@ -1,0 +1,11 @@
+
+
+  DynamicPricing
+    ✔ Should calculate price with demand and time factors
+    ✔ Should return base price when factors are 0
+    ✔ Should handle large percentages correctly
+    ✔ Should return 0 if basePrice is 0
+
+
+  4 passing (473ms)
+

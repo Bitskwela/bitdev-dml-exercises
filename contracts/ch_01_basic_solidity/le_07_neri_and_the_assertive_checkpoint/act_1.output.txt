@@ -1,0 +1,10 @@
+
+
+  HackanaDefense
+    ✔ should update criticalData and assert it is non-negative
+    ✔ should allow the owner to call restrictedUpdate
+    ✔ should revert if non-owner calls restrictedUpdate
+
+
+  3 passing (387ms)
+

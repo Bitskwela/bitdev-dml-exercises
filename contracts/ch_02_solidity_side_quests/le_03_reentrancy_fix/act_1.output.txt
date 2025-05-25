@@ -1,0 +1,10 @@
+
+
+  PalengkeWallet
+    ✔ Should accept deposits
+    ✔ Should allow withdrawal after deposit
+    ✔ Should not allow withdrawal if balance is too low
+
+
+  3 passing (466ms)
+

@@ -1,0 +1,9 @@
+
+
+  AntiHackanaLedger
+    ✔ should update user balance using updateBalance
+    ✔ should return correct balance using getBalance
+
+
+  2 passing (396ms)
+

@@ -1,0 +1,64 @@
+# Smart Contract Activity
+
+Here’s a simple donation contract where only the owner can withdraw funds using a function modifier.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SecureFund {
+    address public owner;
+    uint256 public totalDonations;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function donate() public payable {
+        require(msg.value > 0, "Donation must be greater than zero");
+        totalDonations += msg.value;
+    }
+
+    function withdraw() public {}
+}
+```
+
+## Task for Learners
+
+Secure a function to ensure **only the contract owner** can execute it using a modifier. This task helps learners understand how to centralize access control in their contracts. The goal is to prevent unauthorized users from calling the `withdraw` function, which transfers funds from the contract to the owner's address.
+
+- **Task 1**: Add a modifier named `onlyOwner` to restrict access to the `withdraw` function, ensuring only the contract owner can call it.
+
+  ```solidity
+  modifier onlyOwner() {
+      require(msg.sender == owner, "Not the owner");
+      _;
+  }
+  ```
+
+- **Task 2**: Use the `onlyOwner` modifier in the `withdraw` function to enforce this restriction. This ensures that only the owner can withdraw funds from the contract.
+
+  ```solidity
+  function withdraw() public onlyOwner {
+      payable(owner).transfer(address(this).balance);
+  }
+  ```
+
+### Expected Results:
+
+- Non-owners attempting to call withdraw will see the error: **"Not the owner."**
+- Owners can withdraw funds seamlessly, transferring the balance to their address.
+
+### Breakdown of the Activity:
+
+- Variables Defined:
+  - `owner`: Stores the address of the contract deployer.
+  - `totalDonations`: Tracks the total donations received.
+- Modifier Defined:
+  - `onlyOwner`: Ensures only the owner can call specific functions, protecting the withdrawal process from unauthorized access.
+- Functions:
+  - `donate`: Accepts Ether donations and updates the total donations.
+  - `withdraw`: Allows the owner to withdraw all funds, but only after passing the onlyOwner modifier check.
+- Key Concepts Introduced:
+  - Access Control: Demonstrates how to use modifiers to limit who can call specific functions.
+  - Dynamic Ownership: The owner is set dynamically during contract deployment.

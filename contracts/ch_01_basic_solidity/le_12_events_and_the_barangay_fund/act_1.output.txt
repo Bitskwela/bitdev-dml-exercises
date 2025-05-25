@@ -1,0 +1,9 @@
+
+
+  BarangayFund
+    ✔ should deposit funds and emit FundUpdated event
+    ✔ should revert when deposit amount is zero
+
+
+  2 passing (394ms)
+

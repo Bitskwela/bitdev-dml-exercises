@@ -1,0 +1,10 @@
+
+
+  SanJuanCityToken
+    ✔ should deploy with the correct name and symbol
+    ✔ should mint 1000 tokens to the owner on deployment
+    ✔ should allow the owner to transfer tokens
+
+
+  3 passing (391ms)
+

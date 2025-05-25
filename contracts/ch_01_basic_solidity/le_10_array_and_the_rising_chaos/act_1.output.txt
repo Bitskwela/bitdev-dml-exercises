@@ -1,0 +1,11 @@
+
+
+  PalengkeTransactions
+    ✔ should record a payment and store it in the array
+    ✔ should return the total number of payments
+    ✔ should return the correct payment by index
+    ✔ should revert if index is out of bounds
+
+
+  4 passing (383ms)
+

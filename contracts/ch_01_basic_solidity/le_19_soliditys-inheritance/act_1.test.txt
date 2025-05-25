@@ -1,0 +1,11 @@
+
+
+  DerivedContract
+    ✔ should set the organization name
+    ✔ should revert if organization name is empty
+    ✔ should deposit funds correctly
+    ✔ should revert if deposit amount is zero
+
+
+  4 passing (438ms)
+

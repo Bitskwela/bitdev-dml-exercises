@@ -1,0 +1,11 @@
+
+
+  BarangayLending
+    ✔ Should allow a user to request a loan
+    ✔ Should fund the loan and transfer funds to borrower
+    ✔ Should revert if loan is already funded
+    ✔ Should revert if incorrect amount is sent
+
+
+  4 passing (551ms)
+

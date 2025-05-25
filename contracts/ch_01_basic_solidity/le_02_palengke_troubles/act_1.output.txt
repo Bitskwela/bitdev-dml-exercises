@@ -1,0 +1,13 @@
+
+
+  PalengkeLedger
+    ✔ Should validate the creation of the following variables:
+        1. vendorName,
+        2. totalSales,
+        3. transactionStatus,
+    
+    ✔ Task #2: Should have a mapping for vendorSales
+
+
+  2 passing (407ms)
+

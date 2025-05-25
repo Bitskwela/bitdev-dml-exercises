@@ -1,0 +1,10 @@
+
+
+  SecureDonation
+    ✔ should accept donations and track them correctly
+    ✔ should reject zero donations
+    ✔ should fail to withdraw if no funds are available
+
+
+  3 passing (427ms)
+

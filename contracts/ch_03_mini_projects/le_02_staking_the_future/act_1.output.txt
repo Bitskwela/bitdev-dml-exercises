@@ -1,0 +1,11 @@
+
+
+  SimpleStaker
+    ✔ Should allow user to stake tokens
+    ✔ Should not allow unstaking before lock ends
+    ✔ Should allow unstake after lock time
+    ✔ Should not unstake if nothing was staked
+
+
+  4 passing (566ms)
+

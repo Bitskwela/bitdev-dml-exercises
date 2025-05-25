@@ -1,0 +1,10 @@
+
+
+  DigitalArtToken
+    ✔ should have the correct name and symbol
+    ✔ should allow the owner to mint an NFT
+    ✔ should increment token IDs correctly
+
+
+  3 passing (406ms)
+

@@ -1,0 +1,11 @@
+
+
+  CustomErrorExample
+    ✔ should initialize with correct owner and balance
+    ✔ should allow the owner to withdraw within balance
+    ✔ should revert with UnauthorizedAccess if non-owner tries to withdraw
+    ✔ should revert with InsufficientFunds if amount exceeds balance
+
+
+  4 passing (413ms)
+

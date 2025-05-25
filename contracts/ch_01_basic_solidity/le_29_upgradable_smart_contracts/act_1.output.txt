@@ -1,0 +1,8 @@
+
+
+  UserRegistry (Upgradeable)
+    ✔ should register a user with V1
+
+
+  1 passing (532ms)
+

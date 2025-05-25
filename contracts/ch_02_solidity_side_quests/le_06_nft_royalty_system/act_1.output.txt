@@ -1,0 +1,8 @@
+
+
+  NFTWithRoyalties
+    ✔ Should transfer ownership after payment
+
+
+  1 passing (453ms)
+

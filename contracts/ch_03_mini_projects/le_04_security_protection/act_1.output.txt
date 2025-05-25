@@ -1,0 +1,15 @@
+
+
+  BarangayAidVault
+    ✔ Should set the owner on deployment
+    ✔ Should allow a donor to deposit aid
+    ✔ Should revert if deposit is zero
+    ✔ Should allow recipient to claim aid
+    ✔ Should revert if no aid to claim
+    ✔ Should allow owner to emergency withdraw
+    ✔ Should revert emergency withdraw if not owner
+    ✔ Should revert emergency withdraw if balance is 0
+
+
+  8 passing (641ms)
+

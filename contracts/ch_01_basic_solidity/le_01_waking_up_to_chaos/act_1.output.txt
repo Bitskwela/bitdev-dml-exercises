@@ -1,0 +1,9 @@
+
+
+  PalengkePay
+    ✔ Should update validate the payerName string variable (346ms)
+    ✔ Should validate the recordPayment function
+
+
+  2 passing (363ms)
+
