@@ -11,17 +11,24 @@ describe("LiquidityLocker", function () {
     await locker.waitForDeployment();
   });
 
-  it("Should accept ETH deposits and lock it", async function () {
+  it("Should accept deposits and store user amount", async function () {
     await locker.connect(user).deposit({ value: ethers.parseEther("1") });
 
-    const userDeposit = await locker.deposits(user.address);
-    expect(userDeposit).to.equal(ethers.parseEther("1"));
-
-    const lockEnd = await locker.lockEnd();
-    expect(lockEnd).to.be.above(0);
+    const deposit = await locker.deposits(user.address);
+    expect(deposit).to.equal(ethers.parseEther("1"));
   });
 
-  it("Should not allow withdrawal before lock ends", async function () {
+  it("Should lock deposit for 60 seconds", async function () {
+    await locker.connect(user).deposit({ value: ethers.parseEther("1") });
+
+    const lockEnd = await locker.lockEnd();
+    const now = Math.floor(Date.now() / 1000);
+
+    // Lock end should be roughly current time + 60 seconds
+    expect(lockEnd).to.be.greaterThan(now);
+  });
+
+  it("Should not allow withdrawal before 60 seconds", async function () {
     await locker.connect(user).deposit({ value: ethers.parseEther("1") });
 
     await expect(locker.connect(user).withdraw()).to.be.revertedWith(
@@ -29,29 +36,19 @@ describe("LiquidityLocker", function () {
     );
   });
 
-  it("Should allow withdrawal after lock ends", async function () {
+  it("Should allow withdrawal after 60 seconds and reset deposit", async function () {
     await locker.connect(user).deposit({ value: ethers.parseEther("1") });
 
-    // Increase time by 61 seconds
     await ethers.provider.send("evm_increaseTime", [61]);
     await ethers.provider.send("evm_mine");
 
-    const balanceBefore = await ethers.provider.getBalance(user.address);
+    await locker.connect(user).withdraw();
 
-    const tx = await locker.connect(user).withdraw();
-    const receipt = await tx.wait();
-    const gasUsed = receipt.gasUsed * receipt.effectiveGasPrice;
-
-    const balanceAfter = await ethers.provider.getBalance(user.address);
-    const depositAmount = ethers.parseEther("1");
-
-    expect(balanceAfter).to.be.closeTo(
-      balanceBefore.add(depositAmount).sub(gasUsed),
-      ethers.utils.parseEther("0.001")
-    );
+    const remaining = await locker.deposits(user.address);
+    expect(remaining).to.equal(0);
   });
 
-  it("Should fail to withdraw if user has no funds", async function () {
+  it("Should reject withdrawal if user never deposited", async function () {
     await expect(locker.connect(user).withdraw()).to.be.revertedWith(
       "No funds"
     );

@@ -1,6 +1,7 @@
 ---
-title: "Token Transfer with Approval System"
-description: "A short description of this document."
+title: "Side Quest 7: Decentralized Traffic Management"
+
+description: "Side Quest 7: Decentralized Traffic Management"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-03-30"
@@ -16,8 +17,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "sq-1-token-transfer-and-approval"
+permaname: "sq-7-decentralize-traffic-mgmt"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "sq-1-token-transfer-and-approval"
+slug: "sq-7-decentralize-traffic-mgmt"
 ---

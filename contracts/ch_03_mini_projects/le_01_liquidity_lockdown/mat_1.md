@@ -9,3 +9,5 @@ Neri, the digital guardian of Pinaglabanan, must deploy a new contract that prop
 The fate of the retail investors in Barangay Blockchain hangs in the balance.
 
 **Time Allotment**: 20 minutes
+
+**Topics covered**: Time-locking, mappings, Ether transfers, security checks

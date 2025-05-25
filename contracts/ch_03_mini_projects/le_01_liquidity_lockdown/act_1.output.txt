@@ -1,0 +1,12 @@
+
+
+  LiquidityLocker
+    ✔ Should accept deposits and store user amount
+    ✔ Should lock deposit for 60 seconds
+    ✔ Should not allow withdrawal before 60 seconds
+    ✔ Should allow withdrawal after 60 seconds and reset deposit
+    ✔ Should reject withdrawal if user never deposited
+
+
+  5 passing (507ms)
+

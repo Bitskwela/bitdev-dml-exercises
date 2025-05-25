@@ -1,0 +1,10 @@
+
+
+  TrafficLightManager
+    ✔ Should set default lights to red
+    ✔ Should change light to green
+    ✔ Should revert on invalid light state
+
+
+  3 passing (486ms)
+

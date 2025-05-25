@@ -1,50 +1,17 @@
----
-title: "Side Quest 7: Decentralized Traffic Management"
-
-description: "A short description of this document."
-
-# This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-03-30"
-
-# For SEO purposes
-tags: ["markdown", "metadata", "bitskwela", "solidity"]
-
-# Currently supported types:
-# NormalExercise - Just a simple module.  Does not require user input.
-# ActivityExercise - Where the user needs to submit a code and verify.  As of now, no backend verification.
-# May be supported in the future:
-# VideoExercise - For exercises that are just videos.
-type: "ActivityExercise"
-
-# Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "sq-7-decentralize-traffic-mgmt"
-
-# Can be the same as permaname but can be changed if needed.
-slug: "sq-7-decentralize-traffic-mgmt"
----
-
 # Side Quest 7: Decentralized Traffic Management
 
 ## Scenario:
 
-While most of Hackana’s chaos has been contained, a new issue arises: traffic mismanagement in Metro Manila. Hackana minions tampered with the traffic management system, leaving intersections unable to coordinate properly. Traffic lights remain stuck on red, causing massive gridlocks. Neri receives an urgent message from MMDA (Metro Manila Development Authority), requesting her expertise to fix the traffic light logic.
+Hackana’s digital warfare has spilled into the streets. The Metro Manila traffic system is in shambles. Traffic lights across the city are stuck on red, turning intersections into warzones of honking cars and gridlock madness.
 
-## Time Allotment: 20 minutes
+The MMDA has no idea how to fix this. They turn to Neri — the only person in the Philippines with enough technical mastery to reprogram the entire decentralized traffic system.
 
-## Problem Overview:
+Her mission: deploy smart contract logic that manages traffic lights per intersection, but only allows valid states to prevent chaos. Time is critical.
 
-The MMDA traffic light system must allow dynamic updates to traffic light states for each intersection (red, yellow, green). However, the system must ensure only valid states can be set to avoid further chaos.
+## Mission Brief
 
-The goal is to:
-
-- Use mappings to store the state of each traffic light.
-- Ensure that only valid states ("red," "yellow," or "green") can be set.
-
-## Solidity Topics Covered
-
-- Mappings – To store the state of traffic lights by intersection.
-- Require Statement – To validate the newState.
-- Constructor – To initialize default values.
+- **Time Allotment**: 20 minutes
+- **Solidity Topics Covered**: Mappings, Require Statement, Constructor.
 
 ## TODO:
 

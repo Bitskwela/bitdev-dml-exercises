@@ -1,9 +1,9 @@
 ---
-title: "Side Quest 3: Reentrancy Fix"
-description: "Side Quest 3: Reentrancy Fix"
+title: "Staking the Future – Neri and the Farmers of Yield"
+description: "Staking the Future – Neri and the Farmers of Yield"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-03-30"
+date: "2025-05-25"
 
 # For SEO purposes
 tags: ["markdown", "metadata", "bitskwela", "solidity"]
@@ -16,8 +16,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "sq-3-reentrancy-fix"
+permaname: "proj-2-staking-the-future"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "sq-3-reentrancy-fix"
+slug: "proj-2-staking-the-future"
 ---

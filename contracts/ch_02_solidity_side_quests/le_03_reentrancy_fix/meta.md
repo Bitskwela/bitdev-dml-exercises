@@ -1,6 +1,6 @@
 ---
 title: "Side Quest 3: Reentrancy Fix"
-description: "A short description of this document."
+description: "Side Quest 3: Reentrancy Fix"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-03-30"

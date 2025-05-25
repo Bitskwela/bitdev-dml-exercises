@@ -1,6 +1,7 @@
 ---
-title: "NFT Minting Logic"
-description: "A short description of this document."
+title: "Side Quest 6: NFT Royalty System"
+
+description: "Side Quest 6: NFT Royalty System"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-03-30"
@@ -16,8 +17,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "sq-2-nft-minting-logic"
+permaname: "sq-6-nft-royalty-system"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "sq-2-nft-minting-logic"
+slug: "sq-6-nft-royalty-system"
 ---
