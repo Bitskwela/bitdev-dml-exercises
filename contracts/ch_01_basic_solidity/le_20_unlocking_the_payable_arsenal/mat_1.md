@@ -1,5 +1,7 @@
 # Unlocking the Payable Arsenal
 
+![20.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_20_unlocking_the_payable_arsenal/20.0%20-%20COVER.png)
+
 ## Scene
 
 The moment had arrived. Neri stood at the edge of a digital battlefield—Hackana’s malicious malware was wreaking havoc in the financial ecosystem.
@@ -11,6 +13,8 @@ She realized that to truly enable the masses, her system needed to accept Ether 
 As Neri enabled this powerful mechanism, the battle with Hackana began to shift. Vendors could now accept payments safely through smart contracts, unshaken by Hackana’s malware tricks.
 
 ### Solidity Topics: Payable functions
+
+![20.1 - Payable Functions](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_20_unlocking_the_payable_arsenal/20.1.png)
 
 Payable functions in Solidity allow smart contracts to receive Ether directly.
 

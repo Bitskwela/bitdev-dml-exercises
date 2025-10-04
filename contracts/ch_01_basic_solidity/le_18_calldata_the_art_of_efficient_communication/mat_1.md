@@ -1,5 +1,7 @@
 # Calldata – The Art of Efficient Communication
 
+![18.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_18_calldata_the_art_of_efficient_communication/18.0%20-%20COVER.png)
+
 ## Scene
 
 Neri and her team receive an urgent report: Hackana has infiltrated a major government project, exploiting inefficient smart contracts to intercept sensitive data during transactions. The attacks slow down operations and drain excessive gas from victims.
@@ -7,6 +9,8 @@ Neri and her team receive an urgent report: Hackana has infiltrated a major gove
 As the battle intensifies, Neri discovers that calldata, a lesser-known data location, holds the key to secure and efficient data transfer in Solidity. It’s time to dive deep into this concept and prepare her team for the ultimate showdown.
 
 ## Solidity Topics: Calldata
+
+![18.1 - Calldata](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_18_calldata_the_art_of_efficient_communication/18.1.png)
 
 ## More Info about Calldata
 

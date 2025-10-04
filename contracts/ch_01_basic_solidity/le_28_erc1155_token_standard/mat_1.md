@@ -1,5 +1,7 @@
 # ERC1155 Token Standard
 
+![28.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_28_erc1155_token_standard/28.0%20-%20COVER.png)
+
 ## Scene
 
 The final stage of Neri's quest against Hackana has begun. Hackana deploys its most sophisticated malware, targeting multi-purpose digital assets like gaming collectibles and resource tokens.
@@ -9,6 +11,8 @@ To counter this, Neri introduces her team to the ERC1155 token standard, known f
 This innovation empowers Neri's team to build highly efficient contracts that defend against Hackana while enabling seamless operations for digital assets in various applications.
 
 ## Solidity Topic: ERC1155 Token Standard
+
+![28.1 - ERC1155 Token Standard](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_28_erc1155_token_standard/28.1.png)
 
 ERC1155 is a multi-token standard that allows a single contract to manage multiple types of fungible, non-fungible, or semi-fungible tokens. Unlike ERC20 and ERC721, ERC1155 is more gas-efficient when managing bulk token transfers.
 

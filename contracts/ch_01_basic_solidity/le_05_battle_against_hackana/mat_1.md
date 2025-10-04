@@ -1,5 +1,7 @@
 # Neri’s Battle Against Hackana and understanding Solidity’s `require`
 
+![5.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_05_battle_against_hackana/5.0%20-%20COVER.png)
+
 ## Scene:
 
 As Hackana’s malware spreads throughout the country, Neri watches in horror as it steals from bank accounts, disables critical government websites, and causes widespread financial chaos. She learns that the rogue malware Hackana and it’s creators has been exploiting vulnerabilities in various financial systems, allowing unauthorized transactions to pass through unchecked.
@@ -9,6 +11,8 @@ Determined to fight back, Neri realizes that in order to protect the public’s 
 As Neri works on her blockchain-based solution, she builds a new smart contract for a Community Fund. This fund will allow people to donate securely, but only if certain conditions are met—such as verifying that the donation amount is correct and that the sender has sufficient funds. If any condition fails, the contract will reject the transaction and revert the state, preventing malicious actions like those of Hackana.
 
 ## Solidity Topics: `require`
+
+![5.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_05_battle_against_hackana/5.1.png)
 
 `require`, is an essential Solidity function for error handling and validation. It is used to ensure that certain conditions are true before allowing a transaction to proceed.
 

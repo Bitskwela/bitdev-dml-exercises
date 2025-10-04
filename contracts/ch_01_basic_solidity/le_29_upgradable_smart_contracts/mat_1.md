@@ -1,5 +1,7 @@
 # Upgradable Smart Contracts
 
+![29.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_29_upgradable_smart_contracts/29.0%20-%20COVER.png)
+
 ## Scene: The Adaptive Shield
 
 As Neri and her team near the climax of their battle against Hackana, they realize one critical flaw: static systems can't counter evolving threats. Hackana's malware adapts rapidly, learning to bypass traditional defenses.
@@ -7,6 +9,8 @@ As Neri and her team near the climax of their battle against Hackana, they reali
 To outsmart it, Neri's team devises a strategy—deploying upgradable contracts that can evolve without losing existing data. This marks a revolutionary step in their quest, creating a system that can be updated in real time to counter any challenge.
 
 ### Solidity Topic: Upgradable Smart Contracts
+
+![29.1 - Upgradable Smart Contracts](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_29_upgradable_smart_contracts/29.1.png)
 
 **What are they?**
 

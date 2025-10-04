@@ -1,5 +1,7 @@
 # Mapping the problem away
 
+![8.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_08_mapping_the_problem_away/8.0%20-%20COVER.png)
+
 ## Scene
 
 Neri tracks Hackana’s digital trail and discovers it’s siphoning funds and data by exploiting poorly managed user records in centralized systems. To counteract, she decides to build a decentralized data registry using Solidity’s mapping, which efficiently organizes and retrieves data.
@@ -7,6 +9,8 @@ Neri tracks Hackana’s digital trail and discovers it’s siphoning funds and d
 Neri realizes that by designing a robust mapping-based solution, she can secure sensitive data like user balances, records, or permissions against tampering.
 
 ## Solidity Topics: `mapping`
+
+![8.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_08_mapping_the_problem_away/8.1.png)
 
 A `mapping` is a reference type in Solidity that associates keys to values. It functions like a dictionary or hash table and is highly efficient for lookups.
 

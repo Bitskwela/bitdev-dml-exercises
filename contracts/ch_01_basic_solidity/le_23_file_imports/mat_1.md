@@ -1,5 +1,7 @@
 # File Imports
 
+![23.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_23_file_imports/23.0%20-%20COVER.png)
+
 ## Scene
 
 Neri’s team has created multiple reusable code snippets, such as libraries and interfaces, to speed up development during their battle against Hackana. As she organizes her files, she realizes that importing these files will simplify her main contract.
@@ -7,6 +9,8 @@ Neri’s team has created multiple reusable code snippets, such as libraries and
 With Hackana’s next attack targeting cryptographic vulnerabilities, Neri must quickly utilize her imported tools.
 
 ## Solidity Topics: File Imports
+
+![23.1 - File Imports](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_23_file_imports/23.1.png)
 
 ### How to use
 

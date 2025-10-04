@@ -1,5 +1,7 @@
 # Custom Errors and Error Handling
 
+![27.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_27_custom_error_and_error_handling/27.0%20-%20COVER.png)
+
 ## Scene
 
 Neri is now leading a team of blockchain developers in the final battle against Hackana. To counter Hackana’s ever-evolving malware, Neri realizes her team’s contracts need to be highly optimized and efficient.
@@ -10,6 +12,8 @@ As they deploy defensive smart contracts, Neri introduces her team to Custom Err
 This will help them handle failures systematically while minimizing gas costs.
 
 ## Solidity Topic: Custom Errors and Error Handling
+
+![27.1 - Custom Errors](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_27_custom_error_and_error_handling/27.1.png)
 
 Custom Errors were introduced in Solidity version **0.8.4** to improve gas efficiency and provide a structured way of error handling. Instead of passing long revert strings, custom errors encode error data compactly.
 

@@ -1,5 +1,7 @@
 # Understanding OpenZeppelin
 
+![24.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_24_understanding-openzeppelin/24.0%20-%20COVER.png)
+
 ## Scene
 
 After tirelessly building strategies against Hackana, Neri stumbles upon a repository of tools shared by blockchain protectors worldwide—the _OpenZeppelin_ library.
@@ -9,6 +11,8 @@ It’s a treasure trove of reusable, battle-tested contracts that can help her i
 Eager to level up her defenses, Neri realizes that OpenZeppelin might hold the secret to countering Hackana's next big attack.
 
 ### Solidity Topics: What is OpenZeppelin
+
+![24.1 - OpenZeppelin](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_24_understanding-openzeppelin/24.1.png)
 
 **OpenZeppelin** is a widely-used framework for secure smart contract development. It offers:
 

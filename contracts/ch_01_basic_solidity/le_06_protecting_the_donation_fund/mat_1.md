@@ -1,5 +1,7 @@
 # Protecting the donation fund
 
+![6.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_06_protecting_the_donation_fund/6.0%20-%20COVER.png)
+
 ## Scene
 
 Neri’s fight against Hackana intensifies as she encounters a new challenge: unauthorized access attempts to her blockchain-based systems. Hackana’s bots are trying to exploit her donation contracts by calling restricted functions. Neri needs to ensure that only authorized users can access certain functions in her smart contracts.
@@ -7,6 +9,8 @@ Neri’s fight against Hackana intensifies as she encounters a new challenge: un
 Determined to secure her system, Neri learns about function _modifiers_ — a Solidity feature that adds an extra layer of control and protection to her smart contracts. She realizes that by using modifiers, she can enforce specific rules and conditions before executing functions, ensuring that only the right people can access sensitive operations.
 
 ## Solidity Topics: Function modifiers
+
+![6.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_06_protecting_the_donation_fund/6.1.png)
 
 What are Function Modifiers?
 

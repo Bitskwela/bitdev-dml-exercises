@@ -1,5 +1,7 @@
 # Grocery Price Miscalculations at the Palengke
 
+![4.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_04_palengke_calculator/4.0%20-%20COVER.png)
+
 ## Scene: Market Math Mishaps
 
 One weekend, Neri heads to the local palengke (wet market) to buy groceries. She notices an issue at a stall where a vendor struggles to calculate the total bill for a customer buying a mix of vegetables, rice, and fish.
@@ -13,6 +15,8 @@ The vendor's old calculator and mental math led to errors in the total. Observin
 This problem gives her the perfect opportunity to dive into math operations in Solidity, which are critical for any contract dealing with payments, balances, or numerical data.
 
 ## Solidity Topics: Math Operations
+
+![4.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_04_palengke_calculator/4.1.png)
 
 Solidity supports a variety of arithmetic operations, which are essential for managing financial transactions and other computations.
 

@@ -1,5 +1,7 @@
 # Events – Broadcasting Neri’s progress
 
+![12.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_12_events_and_the_barangay_fund/12.0%20-%20COVER.png)
+
 ## Scene
 
 Neri’s blockchain solutions are now empowering more communities. While attending a barangay meeting, Neri overhears residents discussing a transparency issue.
@@ -13,6 +15,8 @@ within the Ethereum network, allowing external applications (like barangay dashb
 The next step in her journey is clear: build a system that emits events every time a critical update happens in the contract.
 
 ## Solidity Topics: Events
+
+![12.1 - Events](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_12_events_and_the_barangay_fund/12.1.png)
 
 ### How to use Events
 

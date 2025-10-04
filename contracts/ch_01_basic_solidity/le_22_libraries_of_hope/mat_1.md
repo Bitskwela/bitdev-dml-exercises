@@ -1,5 +1,7 @@
 # Libraries of Hope
 
+![22.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_22_libraries_of_hope/22.0%20-%20COVER.png)
+
 ## Scene
 
 A New Ally in the Fight Against Hackana
@@ -11,6 +13,8 @@ As she consults her blockchain tools, she remembers a powerful concept she once 
 Libraries act as powerful utilities, reusable modules that can simplify complex logic and enable secure, reliable functions. With this new realization, Neri crafts a library she can deploy quickly to bolster San Juan City's defenses against Hackana's malware, focusing on wallet encryption and transaction validation.
 
 ## Solidity Topics: Libraries
+
+![22.1 - Libraries](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_22_libraries_of_hope/22.1.png)
 
 **What are Libraries in Solidity?**
 

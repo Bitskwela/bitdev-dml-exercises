@@ -1,5 +1,7 @@
 # Palengke troubles and immutable data
 
+![2.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_02_palengke_troubles/2.0%20-%20COVER.png)
+
 ## Scene:
 
 After work, Neri heads to the palengke (wet market) to buy her groceries. Chaos reigns as vendors deal with failed QR transactions and confusion over cash payments. One vendor, Ate Linda, gets shortchanged because she couldn’t calculate exact change properly. Another vendor complains about inconsistent records, leading to mistrust among customers.
@@ -7,6 +9,8 @@ After work, Neri heads to the palengke (wet market) to buy her groceries. Chaos 
 Neri reflects on how blockchain’s immutability can solve this. If payment records were on-chain and all parties agreed on a shared, transparent ledger, these disputes could vanish. She remembers how data types in Solidity define and structure information, ensuring it’s accurate, consistent, and secure.
 
 ### Solidity Topic: Data types
+
+![2.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_02_palengke_troubles/2.1.png)
 
 #### Explanation for Learners:
 

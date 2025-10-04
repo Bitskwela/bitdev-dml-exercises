@@ -1,5 +1,7 @@
 # Pure and View Functions – Read and Transform Data
 
+![14.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_14_pure_and_view_functions/14.0%20-%20COVER.png)
+
 ## Scene
 
 Neri is working with the Barangay San Juan officials to digitize their public records. One concern brought up was how residents could check barangay service fees (like IDs, permits, or certifications) without making changes to the records.
@@ -7,6 +9,8 @@ Neri is working with the Barangay San Juan officials to digitize their public re
 While brainstorming, Neri shares how blockchain can provide solutions using Pure and View functions. These functions are perfect for fetching data or performing calculations without altering the state of the contract.
 
 ## Solidity Topics: Pure and View Functions
+
+![14.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_14_pure_and_view_functions/14.1.png)
 
 ### How to use
 

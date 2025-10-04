@@ -1,5 +1,7 @@
 # _Struct_-ing the Defense
 
+![9.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_09_structing_the_defense/9.0%20-%20COVER.png)
+
 ## Scene
 
 After securing a way to map data effectively, Neri realizes she needs to store more complex information. Hackana's malware has been manipulating multiple fields, like customer IDs, purchase histories, and timestamps, all tied to one record. To combat this, Neri needs a way to group related data together securely. She remembers her training on using `structs` in Solidity to create custom data types that can hold multiple fields. This will help her organize and manage the data more effectively.
@@ -7,6 +9,8 @@ After securing a way to map data effectively, Neri realizes she needs to store m
 Neri decides to use Solidity’s struct to create a robust, flexible data model to store multi-field data securely in her decentralized solution. She knows that by using `structs`, she can create a custom data type that can hold multiple fields, making it easier to manage complex data structures. This will help her combat Hackana's malware and ensure the integrity of her smart contracts.
 
 ## Solidity Topics: Struct
+
+![9.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_09_structing_the_defense/9.1.png)
 
 A `struct` is a custom data type in Solidity that allows developers to group multiple variables under one structure. It’s ideal for organizing complex data. Structs can contain different data types, including other structs, and are useful for creating complex data models. They help in organizing related data together, making it easier to manage and understand the structure of the data being handled.
 

@@ -1,5 +1,7 @@
 # Storage vs. Memory – Unmasking Hackana’s Data Trap
 
+![17.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_17_storage_vs_memory/17.0%20-%20COVER.png)
+
 ## Scene
 
 Hackana’s attacks are becoming more complex, targeting the efficiency of the blockchain itself. Neri learns from her team that Hackana is exploiting poorly optimized smart contracts by filling them with redundant data operations. This slows down transaction speeds and increases gas costs for everyone using the blockchain.
@@ -9,6 +11,8 @@ While reviewing the latest Ethereum logs, Neri realizes that most of these issue
 It’s time for Neri to optimize her smart contract to counter Hackana’s data trap.
 
 ## Solidity Topics: Storage and Memory
+
+![17.1 - Storage vs Memory](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_17_storage_vs_memory/17.1.png)
 
 In Solidity, the two main data locations for storing variables are:
 

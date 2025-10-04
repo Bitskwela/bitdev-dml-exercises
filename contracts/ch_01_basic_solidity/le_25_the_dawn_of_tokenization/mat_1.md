@@ -1,5 +1,7 @@
 # The Dawn of Tokenization
 
+![25.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_25_the_dawn_of_tokenization/25.0%20-%20COVER.png)
+
 ## Scene
 
 Neri, now hailed as San Juan City's blockchain hero, sits in her newly established command center—a modest coworking space above the Museo ng Katipunan. With Hackana's influence waning, the city is rebuilding its trust in digital systems.
@@ -9,6 +11,8 @@ But Neri knows this is just the beginning. To empower the community even further
 She recalls her learnings about ERC20 tokens, the standard for fungible tokens, and realizes its potential to transform the city’s economy.
 
 ### Solidity Topic: ERC20 Standard
+
+![25.1 - ERC20 Standard](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_25_the_dawn_of_tokenization/25.1.png)
 
 The ERC20 standard is a blueprint for creating fungible tokens on the Ethereum blockchain. Tokens created using this standard are interchangeable, like traditional currency, ensuring compatibility across platforms and wallets.
 

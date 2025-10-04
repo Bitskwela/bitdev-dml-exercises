@@ -1,5 +1,7 @@
 # Interfaces in Solidity
 
+![21.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_21_interfaces_in_solidity/21.0%20-%20COVER.png)
+
 ## Scene
 
 Neri is getting closer to tracking down Hackana, but Hackana is using advanced techniques to mask transactions across multiple decentralized platforms. Neri realizes that she needs to create a decentralized payment gateway that allows multiple systems to interact seamlessly.
@@ -7,6 +9,8 @@ Neri is getting closer to tracking down Hackana, but Hackana is using advanced t
 To do so, she decides to implement an interface to enable her payment platform to communicate with other external contracts and systems, ensuring that transactions are efficient, secure, and able to scale.
 
 ### Solidity Topics: Interfaces
+
+![21.1 - Interfaces](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_21_interfaces_in_solidity/21.1.png)
 
 As Neri continues to build a secure environment to fight against Hackana, she realizes that communication between different contracts is essential. Interfaces in Solidity help make different contracts interoperable by providing a standard that other contracts can implement.
 

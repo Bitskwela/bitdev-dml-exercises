@@ -1,5 +1,7 @@
 # Writing Secured Smart Contracts
 
+![30.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_30_writing_secured_smart_contracts/30.0%20-%20COVER.png)
+
 ## Scene: The Final Showdown
 
 The battle reaches its peak. Hackana, furious over its inability to breach Neri's defenses, unleashes a catastrophic attack aimed at destabilizing the entire blockchain infrastructure.
@@ -9,6 +11,8 @@ As chaos looms, Neri rallies her team one last time. They realize that ultimate 
 Together, they craft an unbreachable fortress: a secure smart contract that withstands even Hackana's most devious exploits.
 
 ### Solidity Topic: Writing Secured Smart Contracts
+
+![30.1 - Writing Secured Smart Contracts](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_30_writing_secured_smart_contracts/30.1.png)
 
 **What is a Secure Smart Contract?**
 
