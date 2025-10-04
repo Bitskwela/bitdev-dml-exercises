@@ -1,5 +1,7 @@
 # Waking Up to Chaos
 
+![1.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_01_waking_up_to_chaos/1.0%20-%20COVER.png)
+
 ## Scene
 
 Neri starts her day in San Juan City. Her news feed is filled with reports of system glitches: double charges on transport, failed payments at palengkes (wet markets), and delays in online banking.
@@ -13,6 +15,8 @@ To help her start, let's dive into the fundamentals of Solidity: Contracts, Stat
 Neri realizes that just like her morning starts with a solid plan (coffee, commute, and news), any blockchain application starts with a contract — a blueprint for defining what the system should do. She decides to create her first blockchain contract to simulate a simple, immutable record-keeping system for payments.
 
 ## Solidity topics
+
+![1.2](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_01_waking_up_to_chaos/1.1.png)
 
 ### Contracts
 

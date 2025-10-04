@@ -1,5 +1,7 @@
 # Ether and Wei – Preparing for the Financial Counterstrike
 
+![16.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_16_ether_and_wei/16.0%20-%20COVER.png)
+
 ## Scene
 
 The day has finally arrived. Neri is at the forefront of the battle against Hackana, whose malware continues to exploit weak financial infrastructures and siphon off funds. Hackana’s latest scheme? Overcharging and draining wallets by manipulating small transaction units, making it hard for people to notice.
@@ -10,6 +12,8 @@ As Neri strategizes, her blockchain mentor sends her an urgent message:
 Neri starts reviewing her notes. She recalls that Ether (ETH) is the main cryptocurrency of Ethereum, while Wei is its smallest denomination (like centavos to pesos). Understanding these units will be crucial for her to counter Hackana’s financial tricks.
 
 ## Solidity Topics: Ether and Wei
+
+![16.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_16_ether_and_wei/16.1.png)
 
 ### More Info about Ether and Wei
 

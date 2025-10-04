@@ -1,5 +1,7 @@
 # Arrays and the Rising Chaos Continues
 
+![10.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_10_array_and_the_rising_chaos/10.0%20-%20COVER.png)
+
 ## Scene
 
 Neri’s day begins in the lively streets of San Juan. It’s the weekend, and she heads to the palengke (_wet market_) to buy groceries. The vendors are bustling, calling out prices for freshly caught fish, ripe mangoes, and crunchy vegetables. However, something is off.
@@ -13,6 +15,8 @@ One vendor, Mang Ramon, sighs, “**Kung meron lang tayong paraan para ma-track 
 Neri thinks for a moment and remembers something from her Solidity training: arrays. Arrays could simplify this chaos by organizing data, like keeping a running list of all transactions or payments.
 
 ## Solidity Topics: Arrays
+
+![10.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_10_array_and_the_rising_chaos/10.1.png)
 
 An **array** is like a list or a row of boxes where you can store many values of the same type.  
 For example, you can use an array to keep track of all payments made in the palengke.

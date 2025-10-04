@@ -1,5 +1,7 @@
 # Jeepney Fare Disputes and Automated Solutions
 
+![3.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_03_jeepney_fare_disputes/3.0%20-%20COVER.png)
+
 ## Scene:
 
 Jeepney Frustrations and Functionality
@@ -12,6 +14,8 @@ The lack of an automated system leaves room for human error and inefficiency. Ne
 Functions, she recalls from her studies, are the backbone of any Solidity program—they allow developers to define specific behaviors like calculating fares, verifying payments, and updating records.
 
 ## Solidity Topics: Functions
+
+![3.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_03_jeepney_fare_disputes/3.1.png)
 
 In Solidity, functions are reusable pieces of code that perform specific tasks. They are fundamental to making a contract dynamic and interactive.
 

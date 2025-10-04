@@ -1,5 +1,7 @@
 # Global Variables
 
+![15.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_15_global_variables/15.0%20-%20COVER.png)
+
 ## Scene
 
 With Hackana’s malicious attacks escalating, Neri feels the weight of the responsibility ahead. She's set to face Hackana in a digital battleground where every second counts, and every transaction's detail matters.
@@ -12,6 +14,8 @@ On her laptop, Neri develops a strategy:
 (_If we can track every transaction’s details, we can identify and block them faster._)
 
 ## Solidity Topics: Global Variables
+
+![15.1 - Global Variables](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_15_global_variables/15.1.png)
 
 ## More Info about Global Variables
 

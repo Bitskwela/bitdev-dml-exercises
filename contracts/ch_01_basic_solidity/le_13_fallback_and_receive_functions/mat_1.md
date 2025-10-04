@@ -1,5 +1,7 @@
 # Fallback and Receive Functions – Handling Unexpected Situations
 
+![13.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_13_fallback_and_receive_functions/13.0%20-%20COVER.png)
+
 ## Scene
 
 Neri is making great strides in implementing blockchain for public projects. One day, while visiting the Barangay Tech Fair, she encounters an unusual situation. A local programmer approaches her and says:
@@ -9,6 +11,8 @@ Neri is making great strides in implementing blockchain for public projects. One
 Neri realizes this is a perfect opportunity to explain the fallback and receive functions in Solidity. These functions act as a safety net, ensuring contracts can handle unexpected transactions or interactions.
 
 ## Solidity Topics: Fallback and Receive functions
+
+![13.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_13_fallback_and_receive_functions/13.1.png)
 
 ### Overview
 

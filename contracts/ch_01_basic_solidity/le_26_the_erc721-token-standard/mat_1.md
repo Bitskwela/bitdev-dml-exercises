@@ -1,5 +1,7 @@
 # The ERC-721 Token Standard
 
+![26.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_26_the_erc721-token-standard/26.0%20-%20COVER.png)
+
 ## Scene
 
 Neri's mission against Hackana leads her to an art fair in Metro Manila showcasing digital artworks. Many artists are distraught because their creations have been stolen or duplicated without consent.
@@ -9,6 +11,8 @@ Neri realizes the importance of protecting digital assets. Inspired by her previ
 She recalls that NFTs are unique tokens representing distinct items like art, music, collectibles, and real estate. Neri believes ERC721 can empower artists by providing immutable proof of ownership and enabling secure transactions.
 
 ### Solidity Topic: ERC-721 Standard
+
+![26.1 - ERC721](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_26_the_erc721-token-standard/26.1.png)
 
 **ERC721** is a standard for creating non-fungible tokens (NFTs) on the Ethereum blockchain. Unlike ERC20 tokens, which are fungible and identical, ERC721 tokens are unique, with each having a specific tokenId. It is perfect for applications requiring distinct ownership, such as digital art, real estate, or identity.
 

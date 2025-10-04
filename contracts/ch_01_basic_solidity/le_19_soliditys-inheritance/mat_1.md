@@ -1,5 +1,7 @@
 # Inheritance – Building on Solidity’s Foundations
 
+![19.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_19_soliditys-inheritance/19.0%20-%20COVER.png)
+
 ## Scene
 
 Neri and her team have successfully thwarted Hackana’s recent attack, but they realize the malware is evolving faster than anticipated. To counter its adaptability, Neri decides to upgrade their contracts by building reusable, modular components.
@@ -7,6 +9,8 @@ Neri and her team have successfully thwarted Hackana’s recent attack, but they
 Inspired by her old notes on inheritance, she devises a plan to simplify their codebase and allow rapid upgrades. "_With inheritance, we can stack the power of multiple contracts and focus on the battle ahead,_" she explains to her team.
 
 ## Solidity Topics: Inheritance
+
+![19.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_19_soliditys-inheritance/19.1.png)
 
 ## More Info about Inheritance
 

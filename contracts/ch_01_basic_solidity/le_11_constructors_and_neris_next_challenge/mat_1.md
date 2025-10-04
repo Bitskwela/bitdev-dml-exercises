@@ -1,5 +1,7 @@
 # Constructors – Neri’s Next Challenge
 
+![11.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_11_constructors_and_neris_next_challenge/11.0%20-%20COVER.png)
+
 ## Scene
 
 As Neri continues to refine her blockchain solutions, she is approached by a local barangay official. The barangay has been struggling to implement an efficient registration system for residents availing of community programs like ayuda distribution and disaster relief.
@@ -11,6 +13,8 @@ The official asks, **“Puwede mo bang gawing automated ito, at ready agad kapag
 Neri smiles and thinks about constructors in Solidity. She realizes she can create a smart contract that initializes important information (like program details) right when the contract is deployed, saving time and effort.
 
 ## Solidity Topics: Constructor
+
+![11.1](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_01_basic_solidity/le_11_constructors_and_neris_next_challenge/11.1.png)
 
 ### How to use Constructor
 
