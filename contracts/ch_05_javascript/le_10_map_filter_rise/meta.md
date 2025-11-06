@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "Map, Filter, Rise"
+description: "Explore advanced JavaScript array methods including map, filter, and reduce to transform and manipulate data efficiently with functional programming."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -10,13 +10,13 @@ tags:
   [
     "bitskwela",
     "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
-    "web-development",
+    "map",
+    "filter",
+    "reduce",
+    "functional-programming",
+    "arrays",
+    "data-transformation",
+    "advanced",
   ]
 
 # Currently supported types:
@@ -27,8 +27,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-10-map-filter-rise"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-10-map-filter-rise"
 ---

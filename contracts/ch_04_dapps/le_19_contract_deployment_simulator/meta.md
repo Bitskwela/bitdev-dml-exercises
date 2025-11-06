@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "Contract Deployment Simulator"
+description: "Create a contract deployment simulator that allows users to deploy smart contracts directly from the browser using Ethers.js and MetaMask."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -9,14 +9,15 @@ date: "2025-11-06"
 tags:
   [
     "bitskwela",
-    "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
-    "web-development",
+    "web3",
+    "deployment",
+    "smart-contracts",
+    "ethers.js",
+    "contractfactory",
+    "bytecode",
+    "abi",
+    "devops",
+    "simulator",
   ]
 
 # Currently supported types:
@@ -27,8 +28,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-19-contract-deployment-simulator"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-19-contract-deployment-simulator"
 ---

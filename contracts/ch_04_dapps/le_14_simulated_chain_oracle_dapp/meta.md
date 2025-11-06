@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "Simulated Chain Oracle DApp"
+description: "Create an oracle-powered DApp that simulates off-chain data feeds triggering automated on-chain actions based on external conditions."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -9,14 +9,15 @@ date: "2025-11-06"
 tags:
   [
     "bitskwela",
-    "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
-    "web-development",
+    "web3",
+    "oracle",
+    "chainlink",
+    "automation",
+    "data-feeds",
+    "smart-contracts",
+    "ethers.js",
+    "simulation",
+    "conditions",
   ]
 
 # Currently supported types:
@@ -27,8 +28,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-14-simulated-chain-oracle-dapp"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-14-simulated-chain-oracle-dapp"
 ---
