@@ -1,12 +1,23 @@
 ---
-title: "Liquidity Lockdown: Neri vs. the Phantom Pool"
-description: "A short description of this document."
+title: "Smart Decisions, Smarter Code"
+description: "Learn JavaScript conditional statements, comparison operators, and logical operators to make intelligent decisions in your code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-05-25"
+date: "2025-11-06"
 
 # For SEO purposes
-tags: ["markdown", "metadata", "bitskwela", "solidity"]
+tags:
+  [
+    "bitskwela",
+    "javascript",
+    "conditionals",
+    "if-else",
+    "operators",
+    "logic",
+    "programming",
+    "decision-making",
+    "control-flow",
+  ]
 
 # Currently supported types:
 # NormalExercise - Just a simple module.  Does not require user input.
@@ -16,8 +27,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "proj-1-liquidity-lockdown"
+permaname: "le-02-smart-decisions-smarter-code"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "proj-1-liquidity-lockdown"
+slug: "le-02-smart-decisions-smarter-code"
 ---

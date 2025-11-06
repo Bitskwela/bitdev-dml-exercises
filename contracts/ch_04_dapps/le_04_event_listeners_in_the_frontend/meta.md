@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "Event Listeners in the Frontend"
+description: "Learn how to listen to smart contract events in real-time using Ethers.js for dynamic frontend updates."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -8,15 +8,15 @@ date: "2025-11-06"
 # For SEO purposes
 tags:
   [
-    "bitskwela",
-    "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
-    "web-development",
+    "web3",
+    "ethers.js",
+    "events",
+    "listeners",
+    "smart contracts",
+    "solidity",
+    "dapps",
+    "real-time",
+    "frontend",
   ]
 
 # Currently supported types:
@@ -27,8 +27,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-04-event-listeners-in-the-frontend"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-04-event-listeners-in-the-frontend"
 ---

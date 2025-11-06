@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "Sign-In with Wallet Experience"
+description: "Learn how to implement Sign-In with Ethereum (SIWE) for passwordless authentication using wallet signatures and smart contract verification."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -9,14 +9,15 @@ date: "2025-11-06"
 tags:
   [
     "bitskwela",
-    "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
-    "web-development",
+    "web3",
+    "siwe",
+    "authentication",
+    "ethers.js",
+    "metamask",
+    "wallet",
+    "smart contracts",
+    "dapps",
+    "security",
   ]
 
 # Currently supported types:
@@ -27,8 +28,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-05-sign-in-with-wallet-experience"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-05-sign-in-with-wallet-experience"
 ---

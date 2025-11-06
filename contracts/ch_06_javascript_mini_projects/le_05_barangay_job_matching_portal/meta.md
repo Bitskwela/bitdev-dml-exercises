@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "Barangay Job Matching Portal"
+description: "Create a job matching platform with filtering, search functionality, and dynamic rendering to connect local residents with employment opportunities."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -10,13 +10,14 @@ tags:
   [
     "bitskwela",
     "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
-    "web-development",
+    "job-portal",
+    "filtering",
+    "search",
+    "employment",
+    "barangay",
+    "community",
+    "array-methods",
+    "mini-project",
   ]
 
 # Currently supported types:
@@ -27,8 +28,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-05-barangay-job-matching-portal"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-05-barangay-job-matching-portal"
 ---

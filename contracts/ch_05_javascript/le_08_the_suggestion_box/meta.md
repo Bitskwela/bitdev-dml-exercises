@@ -1,6 +1,6 @@
 ---
-title: "The Code Awakening"
-description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
+title: "The Suggestion Box"
+description: "Build interactive web forms with JavaScript, learn form validation, event handling, and user input processing for better user experiences."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
@@ -10,13 +10,13 @@ tags:
   [
     "bitskwela",
     "javascript",
-    "variables",
-    "console.log",
-    "programming",
-    "beginners",
-    "coding",
-    "fundamentals",
+    "forms",
+    "validation",
+    "events",
+    "user-input",
+    "interactive",
     "web-development",
+    "ux",
   ]
 
 # Currently supported types:
@@ -27,8 +27,8 @@ tags:
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "le-01-the-code-awakening"
+permaname: "le-08-the-suggestion-box"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le-01-the-code-awakening"
+slug: "le-08-the-suggestion-box"
 ---
