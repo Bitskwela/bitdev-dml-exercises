@@ -1,0 +1,1 @@
+Client → Request → Server → Response (HTML) → Browser renders

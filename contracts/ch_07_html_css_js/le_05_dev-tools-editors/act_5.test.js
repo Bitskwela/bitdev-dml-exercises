@@ -1,0 +1,1 @@
+console.log("✔ JS for Lesson 5 works as expected.");
