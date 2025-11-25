@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![Contract Deployment Simulator](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+19.0+-+COVER.png)
+
 At a Barangay Tech Hub in Quezon City, Neri had prepared a live-coding workshop: "Today, you'll deploy your first smart contract—from the browser!" Odessa ("Det") set up a local Hardhat node and invited learners to connect MetaMask to `http://127.0.0.1:8545`. She clicked "Deploy Simulator," pasted a simple ABI/Bytecode artifact, hit **Deploy**, and in seconds a new contract address flashed on screen.
+
+![MetaMask Confirm Deployment](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+19.1.png)
 
 The room buzzed. "Ang dali pala!" said Carlo, a senior high coding club member from Pasig. Odessa smiled: "No backend, no Truffle CLI—just your React app and Ethers.js." Next, she opened **Deploy History**, a panel that logged each address and timestamp. Learners saw their contracts accumulate like trophies.
 
@@ -79,21 +83,21 @@ In this lesson, you'll build a **contract deployment simulator** that allows use
 
 #### 1. What is ContractFactory?
 
-| Component | Purpose |
-|-----------|---------|
-| **ABI** | Interface definition (function signatures) |
-| **Bytecode** | Compiled contract code to deploy |
-| **Signer** | Account that pays gas and becomes deployer |
-| **deploy()** | Creates transaction to deploy contract |
+| Component    | Purpose                                    |
+| ------------ | ------------------------------------------ |
+| **ABI**      | Interface definition (function signatures) |
+| **Bytecode** | Compiled contract code to deploy           |
+| **Signer**   | Account that pays gas and becomes deployer |
+| **deploy()** | Creates transaction to deploy contract     |
 
 ```javascript
 import { ethers } from "ethers";
 
 // Create factory from ABI and bytecode
 const factory = new ethers.ContractFactory(
-    contractABI,    // Array of function/event definitions
-    contractBytecode, // "0x608060..." compiled code
-    signer          // Connected wallet
+  contractABI, // Array of function/event definitions
+  contractBytecode, // "0x608060..." compiled code
+  signer // Connected wallet
 );
 
 // Deploy with constructor arguments
@@ -152,13 +156,13 @@ pragma solidity ^0.8.0;
 
 contract HelloWorld {
     string public greeting;
-    
+
     event GreetingUpdated(string oldGreeting, string newGreeting);
-    
+
     constructor(string memory _greeting) {
         greeting = _greeting;
     }
-    
+
     function setGreeting(string memory _greeting) external {
         string memory old = greeting;
         greeting = _greeting;
@@ -168,6 +172,7 @@ contract HelloWorld {
 ```
 
 Compile with Hardhat to get ABI + Bytecode:
+
 ```bash
 npx hardhat compile
 # Artifacts in artifacts/contracts/HelloWorld.sol/HelloWorld.json
@@ -215,130 +220,126 @@ import { ethers } from "ethers";
 import HelloWorldArtifact from "./artifacts/HelloWorld.json";
 
 function DeploySimulator() {
-    const [greeting, setGreeting] = useState("");
-    const [deploying, setDeploying] = useState(false);
-    const [deployedAddress, setDeployedAddress] = useState(null);
-    const [history, setHistory] = useState([]);
-    const [error, setError] = useState(null);
+  const [greeting, setGreeting] = useState("");
+  const [deploying, setDeploying] = useState(false);
+  const [deployedAddress, setDeployedAddress] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [error, setError] = useState(null);
 
-    const deployContract = async () => {
-        if (!greeting.trim()) {
-            setError("Please enter a greeting message");
-            return;
-        }
+  const deployContract = async () => {
+    if (!greeting.trim()) {
+      setError("Please enter a greeting message");
+      return;
+    }
 
-        setDeploying(true);
-        setError(null);
-        setDeployedAddress(null);
+    setDeploying(true);
+    setError(null);
+    setDeployedAddress(null);
 
-        try {
-            // Check for MetaMask
-            if (!window.ethereum) {
-                throw new Error("MetaMask not detected");
-            }
+    try {
+      // Check for MetaMask
+      if (!window.ethereum) {
+        throw new Error("MetaMask not detected");
+      }
 
-            // Request account access
-            await window.ethereum.request({ 
-                method: "eth_requestAccounts" 
-            });
+      // Request account access
+      await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
 
-            // Setup provider and signer
-            const provider = new ethers.providers.Web3Provider(
-                window.ethereum
-            );
-            const signer = provider.getSigner();
+      // Setup provider and signer
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
 
-            // Create factory
-            const factory = new ethers.ContractFactory(
-                HelloWorldArtifact.abi,
-                HelloWorldArtifact.bytecode,
-                signer
-            );
+      // Create factory
+      const factory = new ethers.ContractFactory(
+        HelloWorldArtifact.abi,
+        HelloWorldArtifact.bytecode,
+        signer
+      );
 
-            // Deploy with constructor argument
-            console.log("Deploying with greeting:", greeting);
-            const contract = await factory.deploy(greeting);
+      // Deploy with constructor argument
+      console.log("Deploying with greeting:", greeting);
+      const contract = await factory.deploy(greeting);
 
-            console.log("Waiting for confirmation...");
-            console.log("Tx hash:", contract.deployTransaction.hash);
+      console.log("Waiting for confirmation...");
+      console.log("Tx hash:", contract.deployTransaction.hash);
 
-            // Wait for deployment
-            await contract.deployed();
+      // Wait for deployment
+      await contract.deployed();
 
-            console.log("Deployed to:", contract.address);
-            setDeployedAddress(contract.address);
+      console.log("Deployed to:", contract.address);
+      setDeployedAddress(contract.address);
 
-            // Add to history
-            setHistory(prev => [
-                ...prev,
-                {
-                    address: contract.address,
-                    greeting: greeting,
-                    timestamp: new Date().toISOString()
-                }
-            ]);
+      // Add to history
+      setHistory((prev) => [
+        ...prev,
+        {
+          address: contract.address,
+          greeting: greeting,
+          timestamp: new Date().toISOString(),
+        },
+      ]);
+    } catch (err) {
+      console.error("Deployment error:", err);
+      if (err.code === 4001) {
+        setError("Transaction rejected by user");
+      } else {
+        setError(err.message);
+      }
+    } finally {
+      setDeploying(false);
+    }
+  };
 
-        } catch (err) {
-            console.error("Deployment error:", err);
-            if (err.code === 4001) {
-                setError("Transaction rejected by user");
-            } else {
-                setError(err.message);
-            }
-        } finally {
-            setDeploying(false);
-        }
-    };
+  return (
+    <div>
+      <h2>Deploy HelloWorld Contract</h2>
 
-    return (
+      <div>
+        <input
+          type="text"
+          placeholder="Greeting message"
+          value={greeting}
+          onChange={(e) => setGreeting(e.target.value)}
+          disabled={deploying}
+        />
+        <button
+          onClick={deployContract}
+          disabled={deploying || !greeting.trim()}
+        >
+          {deploying ? "Deploying..." : "Deploy"}
+        </button>
+      </div>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {deployedAddress && (
         <div>
-            <h2>Deploy HelloWorld Contract</h2>
-            
-            <div>
-                <input
-                    type="text"
-                    placeholder="Greeting message"
-                    value={greeting}
-                    onChange={(e) => setGreeting(e.target.value)}
-                    disabled={deploying}
-                />
-                <button 
-                    onClick={deployContract}
-                    disabled={deploying || !greeting.trim()}
-                >
-                    {deploying ? "Deploying..." : "Deploy"}
-                </button>
-            </div>
-
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
-            {deployedAddress && (
-                <div>
-                    <h3>✅ Deployed Successfully!</h3>
-                    <p>Address: {deployedAddress}</p>
-                    <button onClick={() => 
-                        navigator.clipboard.writeText(deployedAddress)
-                    }>
-                        Copy Address
-                    </button>
-                </div>
-            )}
-
-            {history.length > 0 && (
-                <div>
-                    <h3>Deployment History</h3>
-                    <ul>
-                        {history.map((item, i) => (
-                            <li key={i}>
-                                #{i + 1}: {item.address.slice(0, 10)}...
-                                ({item.greeting})
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+          <h3>✅ Deployed Successfully!</h3>
+          <p>Address: {deployedAddress}</p>
+          <button
+            onClick={() => navigator.clipboard.writeText(deployedAddress)}
+          >
+            Copy Address
+          </button>
         </div>
-    );
+      )}
+
+      {history.length > 0 && (
+        <div>
+          <h3>Deployment History</h3>
+          <ul>
+            {history.map((item, i) => (
+              <li key={i}>
+                #{i + 1}: {item.address.slice(0, 10)}... ({item.greeting})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 }
 ```
 
@@ -346,25 +347,25 @@ function DeploySimulator() {
 
 ### 📊 Deployment vs Contract Call Comparison
 
-| Aspect | Deployment | Contract Call |
-|--------|------------|---------------|
-| **to** field | `null` | Contract address |
-| **data** field | Bytecode + args | Encoded function call |
-| **Creates** | New contract | State change or read |
-| **Gas** | Higher (code storage) | Lower (execution only) |
-| **Result** | New address | Return value or tx |
+| Aspect         | Deployment            | Contract Call          |
+| -------------- | --------------------- | ---------------------- |
+| **to** field   | `null`                | Contract address       |
+| **data** field | Bytecode + args       | Encoded function call  |
+| **Creates**    | New contract          | State change or read   |
+| **Gas**        | Higher (code storage) | Lower (execution only) |
+| **Result**     | New address           | Return value or tx     |
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake | Problem | Solution |
-|---------|---------|----------|
-| Missing bytecode | Factory fails | Check artifact file |
-| Wrong constructor args | Deployment reverts | Match Solidity constructor |
-| Not awaiting `deployed()` | Address undefined | Always `await contract.deployed()` |
-| Insufficient gas | Transaction fails | Use gas estimation |
-| Wrong network | Contract on wrong chain | Verify chain ID first |
+| Mistake                   | Problem                 | Solution                           |
+| ------------------------- | ----------------------- | ---------------------------------- |
+| Missing bytecode          | Factory fails           | Check artifact file                |
+| Wrong constructor args    | Deployment reverts      | Match Solidity constructor         |
+| Not awaiting `deployed()` | Address undefined       | Always `await contract.deployed()` |
+| Insufficient gas          | Transaction fails       | Use gas estimation                 |
+| Wrong network             | Contract on wrong chain | Verify chain ID first              |
 
 ---
 
@@ -386,14 +387,12 @@ Before considering this lesson complete, verify:
 
 ### 🔗 External Resources
 
-| Resource | Link |
-|----------|------|
-| Ethers ContractFactory | https://docs.ethers.org/v5/api/contract/contract-factory/ |
-| Hardhat Compilation | https://hardhat.org/hardhat-runner/docs/guides/compile-contracts |
-| Gas Estimation | https://docs.ethers.org/v5/api/providers/provider/#Provider-estimateGas |
-| Contract Creation | https://ethereum.org/en/developers/docs/smart-contracts/deploying/ |
-
-
+| Resource               | Link                                                                    |
+| ---------------------- | ----------------------------------------------------------------------- |
+| Ethers ContractFactory | https://docs.ethers.org/v5/api/contract/contract-factory/               |
+| Hardhat Compilation    | https://hardhat.org/hardhat-runner/docs/guides/compile-contracts        |
+| Gas Estimation         | https://docs.ethers.org/v5/api/providers/provider/#Provider-estimateGas |
+| Contract Creation      | https://ethereum.org/en/developers/docs/smart-contracts/deploying/      |
 
 ---
 

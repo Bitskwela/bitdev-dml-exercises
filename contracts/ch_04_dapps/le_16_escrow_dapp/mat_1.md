@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![Escrow DApp Banner](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+16.0+-+COVER.png)
+
 Odessa ("Det") was on a late-night Zoom with a New York freelance client. "Send escrow first," the client insisted before the PHP dev could start. In typical PH–NY trust issues, money either sits in a bank or gets tangled in fees. She thought, "What if we build a pure-frontend escrow DApp to simulate P2P service?"
+
+![Freelance Escrow Concept](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+16.1.png)
 
 By sunrise, Det had sketched an **Escrow** Solidity contract on her local Hardhat node. The DApp flow was simple:
 
@@ -71,13 +75,13 @@ In this lesson, you'll build an **Escrow DApp** that enables trustless P2P trans
 
 #### 1. Escrow Pattern Benefits
 
-| Traditional (Bank/PayPal) | Blockchain Escrow |
-|--------------------------|-------------------|
-| Middleman fees (2-5%) | Only gas costs |
-| 3-5 day settlement | Instant on-chain |
-| Requires trust in platform | Trustless code |
-| Limited to certain regions | Global access |
-| Reversible (chargebacks) | Irreversible (final) |
+| Traditional (Bank/PayPal)  | Blockchain Escrow    |
+| -------------------------- | -------------------- |
+| Middleman fees (2-5%)      | Only gas costs       |
+| 3-5 day settlement         | Instant on-chain     |
+| Requires trust in platform | Trustless code       |
+| Limited to certain regions | Global access        |
+| Reversible (chargebacks)   | Irreversible (final) |
 
 ```
 Trust Flow Comparison:
@@ -97,36 +101,36 @@ contract Escrow {
     uint256 public amount;
     bool public deposited;
     bool public released;
-    
+
     event Deposited(uint256 amount);
     event Released(address indexed to, uint256 amount);
     event Refunded(address indexed to, uint256 amount);
-    
+
     modifier onlyBuyer() {
         require(msg.sender == buyer, "Only buyer");
         _;
     }
-    
+
     modifier onlySeller() {
         require(msg.sender == seller, "Only seller");
         _;
     }
-    
+
     modifier onlyDeposited() {
         require(deposited, "No funds deposited");
         _;
     }
-    
+
     modifier notReleased() {
         require(!released, "Already released");
         _;
     }
-    
+
     constructor(address _buyer, address _seller) {
         buyer = _buyer;
         seller = _seller;
     }
-    
+
     // Buyer deposits funds into escrow
     function deposit() external payable onlyBuyer {
         require(!deposited, "Already deposited");
@@ -135,14 +139,14 @@ contract Escrow {
         deposited = true;
         emit Deposited(msg.value);
     }
-    
+
     // Buyer releases funds to seller (work completed)
     function release() external onlyBuyer onlyDeposited notReleased {
         released = true;
         payable(seller).transfer(amount);
         emit Released(seller, amount);
     }
-    
+
     // Seller refunds buyer (work not delivered)
     function refund() external onlySeller onlyDeposited notReleased {
         released = true;
@@ -210,32 +214,30 @@ contract Escrow {
 #### Role-Based Button Visibility
 
 ```javascript
-function ReleaseControls({ currentAccount, buyer, seller, deposited, released }) {
-    const isBuyer = currentAccount?.toLowerCase() === buyer?.toLowerCase();
-    const isSeller = currentAccount?.toLowerCase() === seller?.toLowerCase();
-    const canRelease = isBuyer && deposited && !released;
-    const canRefund = isSeller && deposited && !released;
+function ReleaseControls({
+  currentAccount,
+  buyer,
+  seller,
+  deposited,
+  released,
+}) {
+  const isBuyer = currentAccount?.toLowerCase() === buyer?.toLowerCase();
+  const isSeller = currentAccount?.toLowerCase() === seller?.toLowerCase();
+  const canRelease = isBuyer && deposited && !released;
+  const canRefund = isSeller && deposited && !released;
 
-    return (
-        <div>
-            {canRelease && (
-                <button onClick={handleRelease}>
-                    Release Funds to Seller
-                </button>
-            )}
-            {canRefund && (
-                <button onClick={handleRefund}>
-                    Refund to Buyer
-                </button>
-            )}
-            {!canRelease && !canRefund && deposited && !released && (
-                <p>Waiting for action...</p>
-            )}
-            {released && (
-                <p>✅ Transaction completed</p>
-            )}
-        </div>
-    );
+  return (
+    <div>
+      {canRelease && (
+        <button onClick={handleRelease}>Release Funds to Seller</button>
+      )}
+      {canRefund && <button onClick={handleRefund}>Refund to Buyer</button>}
+      {!canRelease && !canRefund && deposited && !released && (
+        <p>Waiting for action...</p>
+      )}
+      {released && <p>✅ Transaction completed</p>}
+    </div>
+  );
 }
 ```
 
@@ -243,37 +245,32 @@ function ReleaseControls({ currentAccount, buyer, seller, deposited, released })
 
 ```javascript
 const handleDeposit = async (ethAmount) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(
-            ESCROW_ADDRESS,
-            ESCROW_ABI,
-            signer
-        );
-        
-        const tx = await contract.deposit({
-            value: ethers.utils.parseEther(ethAmount)
-        });
-        
-        // Wait for confirmation
-        await tx.wait();
-        
-        // Refresh stats
-        await refreshStats();
-        
-    } catch (err) {
-        if (err.code === 4001) {
-            setError("Transaction rejected by user");
-        } else {
-            setError("Transaction failed: " + err.message);
-        }
-    } finally {
-        setLoading(false);
+  setLoading(true);
+  setError(null);
+
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(ESCROW_ADDRESS, ESCROW_ABI, signer);
+
+    const tx = await contract.deposit({
+      value: ethers.utils.parseEther(ethAmount),
+    });
+
+    // Wait for confirmation
+    await tx.wait();
+
+    // Refresh stats
+    await refreshStats();
+  } catch (err) {
+    if (err.code === 4001) {
+      setError("Transaction rejected by user");
+    } else {
+      setError("Transaction failed: " + err.message);
     }
+  } finally {
+    setLoading(false);
+  }
 };
 ```
 
@@ -281,25 +278,25 @@ const handleDeposit = async (ethAmount) => {
 
 ### 📊 Comparison: Escrow Variations
 
-| Feature | Basic Escrow | Timed Escrow | Arbitrated Escrow |
-|---------|--------------|--------------|-------------------|
-| Parties | Buyer, Seller | Buyer, Seller | Buyer, Seller, Arbiter |
-| Release | Buyer only | Auto after deadline | Majority vote |
-| Refund | Seller only | Auto if not released | Arbiter decides |
-| Disputes | None | Time-based | Arbiter resolution |
-| Complexity | Low | Medium | High |
+| Feature    | Basic Escrow  | Timed Escrow         | Arbitrated Escrow      |
+| ---------- | ------------- | -------------------- | ---------------------- |
+| Parties    | Buyer, Seller | Buyer, Seller        | Buyer, Seller, Arbiter |
+| Release    | Buyer only    | Auto after deadline  | Majority vote          |
+| Refund     | Seller only   | Auto if not released | Arbiter decides        |
+| Disputes   | None          | Time-based           | Arbiter resolution     |
+| Complexity | Low           | Medium               | High                   |
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake | Problem | Solution |
-|---------|---------|----------|
-| Missing role checks | Anyone can release | Use `onlyBuyer`/`onlySeller` modifiers |
-| Double release | Funds sent twice | Check `!released` before transfer |
-| No deposit check | Release on empty contract | Require `deposited == true` |
-| Using `send()` instead of `transfer()` | Silent failure | Use `transfer()` or check return value |
-| Forgetting `tx.wait()` | UI updates prematurely | Always await transaction receipt |
+| Mistake                                | Problem                   | Solution                               |
+| -------------------------------------- | ------------------------- | -------------------------------------- |
+| Missing role checks                    | Anyone can release        | Use `onlyBuyer`/`onlySeller` modifiers |
+| Double release                         | Funds sent twice          | Check `!released` before transfer      |
+| No deposit check                       | Release on empty contract | Require `deposited == true`            |
+| Using `send()` instead of `transfer()` | Silent failure            | Use `transfer()` or check return value |
+| Forgetting `tx.wait()`                 | UI updates prematurely    | Always await transaction receipt       |
 
 ---
 
@@ -322,14 +319,12 @@ Before considering this lesson complete, verify:
 
 ### 🔗 External Resources
 
-| Resource | Link |
-|----------|------|
-| OpenZeppelin Escrow | https://docs.openzeppelin.com/contracts/4.x/api/utils#Escrow |
-| Solidity Security | https://docs.soliditylang.org/en/latest/security-considerations.html |
-| Ethers Transactions | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
-| Pull vs Push Payments | https://fravoll.github.io/solidity-patterns/pull_over_push.html |
-
-
+| Resource              | Link                                                                     |
+| --------------------- | ------------------------------------------------------------------------ |
+| OpenZeppelin Escrow   | https://docs.openzeppelin.com/contracts/4.x/api/utils#Escrow             |
+| Solidity Security     | https://docs.soliditylang.org/en/latest/security-considerations.html     |
+| Ethers Transactions   | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
+| Pull vs Push Payments | https://fravoll.github.io/solidity-patterns/pull_over_push.html          |
 
 ---
 

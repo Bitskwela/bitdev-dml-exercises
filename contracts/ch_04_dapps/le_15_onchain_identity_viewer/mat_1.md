@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![ChainKilala Banner](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+15.0+-+COVER.png)
+
 In a sunlit hall at the Filipino Consulate in San Francisco, Odessa ("Det") plugged her laptop into the projector. The banner read: **ChainKilala – Your On-Chain Identity, Dito Ka Kilala**. Filipino community leaders, students, and OFWs leaned forward. "Dito, ikaw ang profile mo," Odessa smiled, unveiling a sleek UI that read on-chain profiles: name, status, and credentials—no centralized database needed.
+
+![ChainKilala Demo](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+15.1.png)
 
 Behind the scenes, Neri had deployed `ChainKilala.sol` on a Sepolia testnet and pre-registered profiles for several attendees. As each visitor connected MetaMask, the UI fetched their DID-style data: "Elias", "Student", credentials like "NBI Clear" or "OFW ID". When profiles updated on-chain, a `ProfileUpdated` event fired and the browser refreshed automatically.
 
@@ -68,13 +72,13 @@ In this lesson, you'll build an **on-chain identity viewer** that reads DID-styl
 
 #### 1. Decentralized Identity (DID) Basics
 
-| Concept | Traditional ID | Decentralized ID |
-|---------|---------------|------------------|
-| **Storage** | Government database | Blockchain |
-| **Control** | Issuing authority | User wallet |
-| **Portability** | Limited by borders | Global |
-| **Privacy** | Full data exposure | Selective disclosure |
-| **Verification** | Manual lookup | Cryptographic proof |
+| Concept          | Traditional ID      | Decentralized ID     |
+| ---------------- | ------------------- | -------------------- |
+| **Storage**      | Government database | Blockchain           |
+| **Control**      | Issuing authority   | User wallet          |
+| **Portability**  | Limited by borders  | Global               |
+| **Privacy**      | Full data exposure  | Selective disclosure |
+| **Verification** | Manual lookup       | Cryptographic proof  |
 
 ```
 Self-Sovereign Identity Principles:
@@ -99,15 +103,15 @@ contract ChainKilala {
         string status;         // Role or status (Student, OFW, etc.)
         string[] credentials;  // List of verified credentials
     }
-    
+
     // Each address maps to a profile
     mapping(address => Profile) private profiles;
-    
+
     // Track if profile exists
     mapping(address => bool) public hasProfile;
-    
+
     event ProfileUpdated(address indexed user);
-    
+
     function setProfile(
         string calldata _name,
         string calldata _status,
@@ -117,7 +121,7 @@ contract ChainKilala {
         hasProfile[msg.sender] = true;
         emit ProfileUpdated(msg.sender);
     }
-    
+
     function getProfile(address _user) external view returns (
         string memory name,
         string memory status,
@@ -126,9 +130,9 @@ contract ChainKilala {
         Profile storage p = profiles[_user];
         return (p.name, p.status, p.credentials.length);
     }
-    
-    function getCredential(address _user, uint256 _index) 
-        external view returns (string memory) 
+
+    function getCredential(address _user, uint256 _index)
+        external view returns (string memory)
     {
         return profiles[_user].credentials[_index];
     }
@@ -146,14 +150,14 @@ const [name, status, credCount] = await contract.getProfile(userAddress);
 // Step 2: Fetch each credential by index
 const credentials = [];
 for (let i = 0; i < credCount.toNumber(); i++) {
-    const cred = await contract.getCredential(userAddress, i);
-    credentials.push(cred);
+  const cred = await contract.getCredential(userAddress, i);
+  credentials.push(cred);
 }
 
 // Or use Promise.all for parallel fetching
 const credPromises = [];
 for (let i = 0; i < credCount.toNumber(); i++) {
-    credPromises.push(contract.getCredential(userAddress, i));
+  credPromises.push(contract.getCredential(userAddress, i));
 }
 const credentials = await Promise.all(credPromises);
 ```
@@ -196,82 +200,81 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
 function IdentityViewer() {
-    const [searchAddress, setSearchAddress] = useState("");
-    const [profile, setProfile] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const [searchAddress, setSearchAddress] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const fetchProfile = async (address) => {
-        // Validate address format
-        if (!ethers.utils.isAddress(address)) {
-            setError("Invalid Ethereum address");
-            return;
-        }
+  const fetchProfile = async (address) => {
+    // Validate address format
+    if (!ethers.utils.isAddress(address)) {
+      setError("Invalid Ethereum address");
+      return;
+    }
 
-        setLoading(true);
-        setError(null);
+    setLoading(true);
+    setError(null);
 
-        try {
-            const provider = new ethers.providers.JsonRpcProvider(
-                process.env.REACT_APP_RPC_URL
-            );
-            const contract = new ethers.Contract(
-                process.env.REACT_APP_IDENTITY_ADDRESS,
-                IDENTITY_ABI,
-                provider
-            );
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_RPC_URL
+      );
+      const contract = new ethers.Contract(
+        process.env.REACT_APP_IDENTITY_ADDRESS,
+        IDENTITY_ABI,
+        provider
+      );
 
-            // Check if profile exists
-            const exists = await contract.hasProfile(address);
-            if (!exists) {
-                setError("No profile found for this address");
-                setProfile(null);
-                return;
-            }
+      // Check if profile exists
+      const exists = await contract.hasProfile(address);
+      if (!exists) {
+        setError("No profile found for this address");
+        setProfile(null);
+        return;
+      }
 
-            // Fetch profile data
-            const [name, status, credCount] = await contract.getProfile(address);
+      // Fetch profile data
+      const [name, status, credCount] = await contract.getProfile(address);
 
-            // Fetch all credentials in parallel
-            const credPromises = [];
-            for (let i = 0; i < credCount.toNumber(); i++) {
-                credPromises.push(contract.getCredential(address, i));
-            }
-            const credentials = await Promise.all(credPromises);
+      // Fetch all credentials in parallel
+      const credPromises = [];
+      for (let i = 0; i < credCount.toNumber(); i++) {
+        credPromises.push(contract.getCredential(address, i));
+      }
+      const credentials = await Promise.all(credPromises);
 
-            setProfile({ name, status, credentials });
+      setProfile({ name, status, credentials });
+    } catch (err) {
+      setError("Failed to fetch profile: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        } catch (err) {
-            setError("Failed to fetch profile: " + err.message);
-        } finally {
-            setLoading(false);
-        }
+  // Listen for profile updates
+  useEffect(() => {
+    if (!searchAddress || !ethers.utils.isAddress(searchAddress)) return;
+
+    const provider = new ethers.providers.JsonRpcProvider(
+      process.env.REACT_APP_RPC_URL
+    );
+    const contract = new ethers.Contract(
+      process.env.REACT_APP_IDENTITY_ADDRESS,
+      IDENTITY_ABI,
+      provider
+    );
+
+    const handleUpdate = (user) => {
+      if (user.toLowerCase() === searchAddress.toLowerCase()) {
+        fetchProfile(searchAddress);
+      }
     };
 
-    // Listen for profile updates
-    useEffect(() => {
-        if (!searchAddress || !ethers.utils.isAddress(searchAddress)) return;
+    contract.on("ProfileUpdated", handleUpdate);
+    return () => contract.off("ProfileUpdated", handleUpdate);
+  }, [searchAddress]);
 
-        const provider = new ethers.providers.JsonRpcProvider(
-            process.env.REACT_APP_RPC_URL
-        );
-        const contract = new ethers.Contract(
-            process.env.REACT_APP_IDENTITY_ADDRESS,
-            IDENTITY_ABI,
-            provider
-        );
-
-        const handleUpdate = (user) => {
-            if (user.toLowerCase() === searchAddress.toLowerCase()) {
-                fetchProfile(searchAddress);
-            }
-        };
-
-        contract.on("ProfileUpdated", handleUpdate);
-        return () => contract.off("ProfileUpdated", handleUpdate);
-    }, [searchAddress]);
-
-    // ... render UI
+  // ... render UI
 }
 ```
 
@@ -285,8 +288,8 @@ Always validate Ethereum addresses before using them:
 import { ethers } from "ethers";
 
 // Check if valid address format
-ethers.utils.isAddress("0x1234...ABCD")  // true
-ethers.utils.isAddress("invalid")         // false
+ethers.utils.isAddress("0x1234...ABCD"); // true
+ethers.utils.isAddress("invalid"); // false
 
 // Normalize to checksum format
 const checksummed = ethers.utils.getAddress("0xabcd...");
@@ -294,7 +297,7 @@ const checksummed = ethers.utils.getAddress("0xabcd...");
 
 // Compare addresses (case-insensitive)
 function addressesMatch(a, b) {
-    return a.toLowerCase() === b.toLowerCase();
+  return a.toLowerCase() === b.toLowerCase();
 }
 ```
 
@@ -302,13 +305,13 @@ function addressesMatch(a, b) {
 
 ### ⚠️ Common Mistakes
 
-| Mistake | Problem | Solution |
-|---------|---------|----------|
-| Not validating address | Crashes on bad input | Use `ethers.utils.isAddress()` |
-| Sequential credential fetches | Slow with many credentials | Use `Promise.all()` |
-| Case-sensitive comparison | Misses matching addresses | Use `.toLowerCase()` |
-| No "not found" handling | Confusing empty state | Check `hasProfile` first |
-| Forgetting event cleanup | Memory leaks | Return cleanup in useEffect |
+| Mistake                       | Problem                    | Solution                       |
+| ----------------------------- | -------------------------- | ------------------------------ |
+| Not validating address        | Crashes on bad input       | Use `ethers.utils.isAddress()` |
+| Sequential credential fetches | Slow with many credentials | Use `Promise.all()`            |
+| Case-sensitive comparison     | Misses matching addresses  | Use `.toLowerCase()`           |
+| No "not found" handling       | Confusing empty state      | Check `hasProfile` first       |
+| Forgetting event cleanup      | Memory leaks               | Return cleanup in useEffect    |
 
 ---
 
@@ -330,14 +333,12 @@ Before considering this lesson complete, verify:
 
 ### 🔗 External Resources
 
-| Resource | Link |
-|----------|------|
-| W3C DID Core | https://www.w3.org/TR/did-core/ |
-| Ethereum Name Service (ENS) | https://docs.ens.domains/ |
-| Ethers Address Utilities | https://docs.ethers.org/v5/api/utils/address/ |
-| Self-Sovereign Identity | https://www.lifewithalacrity.com/2016/04/the-path-to-self-soverereign-identity.html |
-
-
+| Resource                    | Link                                                                                |
+| --------------------------- | ----------------------------------------------------------------------------------- |
+| W3C DID Core                | https://www.w3.org/TR/did-core/                                                     |
+| Ethereum Name Service (ENS) | https://docs.ens.domains/                                                           |
+| Ethers Address Utilities    | https://docs.ethers.org/v5/api/utils/address/                                       |
+| Self-Sovereign Identity     | https://www.lifewithalacrity.com/2016/04/the-path-to-self-soverereign-identity.html |
 
 ---
 

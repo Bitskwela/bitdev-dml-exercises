@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![Gas Tracker](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+11.0+-+COVER.png)
+
 In a sleek Silicon Valley pitch room, Odessa (“Det”) stood before investors with her laptop open on a slide: “GaslessPH: Philippine-style gas fee insights.” The room was quiet—until she clicked “Live Demo.” A clean dashboard appeared showing Low, Medium, and High gas estimates in gwei and peso equivalents. The investors leaned in.
+
+![Gas Dashboard](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+11.1.png)
 
 Back in her SoMa apartment, Det had mocked data for speed—but the UI/UX felt real. Now they wanted the on-chain twist. She wrote a tiny Solidity helper that returns `block.basefee`, deployed it on Sepolia, and wired Ethers.js to fetch it. In minutes, the dashboard pulled live base fees, calculated premium tiers (low=base×0.9, med=base, high=base×1.1), and converted to PHP using a “mock” oracle rate.
 
@@ -52,11 +56,11 @@ In this lesson, you'll build a **real-time gas fee tracker** that fetches live `
 
 Since the **London Hard Fork** (August 2021), Ethereum uses EIP-1559 for gas pricing:
 
-| Component | Description |
-|-----------|-------------|
-| **Base Fee** | Minimum gwei required for block inclusion (burned) |
-| **Priority Fee** | Tip to validators for faster inclusion |
-| **Max Fee** | Maximum total fee user is willing to pay |
+| Component        | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| **Base Fee**     | Minimum gwei required for block inclusion (burned) |
+| **Priority Fee** | Tip to validators for faster inclusion             |
+| **Max Fee**      | Maximum total fee user is willing to pay           |
 
 ```
 Total Gas Cost = (Base Fee + Priority Fee) × Gas Used
@@ -80,11 +84,11 @@ contract GasTracker {
 
 Different urgency levels require different fee multipliers:
 
-| Tier | Multiplier | Use Case |
-|------|------------|----------|
-| 🐢 **Low** | basefee × 0.9 | Not urgent, can wait 5-10 blocks |
-| 🚗 **Medium** | basefee × 1.0 | Standard, next 1-3 blocks |
-| 🚀 **High** | basefee × 1.1 | Urgent, next block priority |
+| Tier          | Multiplier    | Use Case                         |
+| ------------- | ------------- | -------------------------------- |
+| 🐢 **Low**    | basefee × 0.9 | Not urgent, can wait 5-10 blocks |
+| 🚗 **Medium** | basefee × 1.0 | Standard, next 1-3 blocks        |
+| 🚀 **High**   | basefee × 1.1 | Urgent, next block priority      |
 
 ```javascript
 // Calculate tier prices from base fee
@@ -98,17 +102,17 @@ const high = parseFloat(baseFeeGwei) * 1.1;
 
 Ethereum uses multiple denomination scales:
 
-| Unit | Wei Value | Common Use |
-|------|-----------|------------|
-| **Wei** | 1 | Smallest unit, internal math |
-| **Gwei** | 10⁹ wei | Gas prices |
-| **Ether** | 10¹⁸ wei | Token amounts |
+| Unit      | Wei Value | Common Use                   |
+| --------- | --------- | ---------------------------- |
+| **Wei**   | 1         | Smallest unit, internal math |
+| **Gwei**  | 10⁹ wei   | Gas prices                   |
+| **Ether** | 10¹⁸ wei  | Token amounts                |
 
 ```javascript
 // Converting between units with ethers.js
-const gweiValue = ethers.utils.formatUnits(weiValue, "gwei");     // wei → gwei
-const etherValue = ethers.utils.formatUnits(weiValue, "ether");   // wei → ether
-const weiFromGwei = ethers.utils.parseUnits("50", "gwei");        // gwei → wei
+const gweiValue = ethers.utils.formatUnits(weiValue, "gwei"); // wei → gwei
+const etherValue = ethers.utils.formatUnits(weiValue, "ether"); // wei → ether
+const weiFromGwei = ethers.utils.parseUnits("50", "gwei"); // gwei → wei
 ```
 
 #### 4. Price Conversion to PHP
@@ -121,8 +125,8 @@ const PHP_PER_ETH = 180000; // ₱180,000 per ETH
 
 // Convert gwei to PHP
 function gweiToPhp(gwei, gasLimit = 21000) {
-    const ethCost = (gwei * gasLimit) / 1e9;  // gwei to ETH
-    return ethCost * PHP_PER_ETH;
+  const ethCost = (gwei * gasLimit) / 1e9; // gwei to ETH
+  return ethCost * PHP_PER_ETH;
 }
 
 // Example: 50 gwei × 21000 gas = 0.00105 ETH ≈ ₱189
@@ -170,13 +174,13 @@ import { ethers } from "ethers";
 
 // No wallet needed - just reading data
 const provider = new ethers.providers.JsonRpcProvider(
-    process.env.REACT_APP_RPC_URL
+  process.env.REACT_APP_RPC_URL
 );
 
 const contract = new ethers.Contract(
-    process.env.REACT_APP_GAS_TRACKER_ADDRESS,
-    GAS_TRACKER_ABI,
-    provider  // Read-only, no signer
+  process.env.REACT_APP_GAS_TRACKER_ADDRESS,
+  GAS_TRACKER_ABI,
+  provider // Read-only, no signer
 );
 ```
 
@@ -184,24 +188,24 @@ const contract = new ethers.Contract(
 
 ```javascript
 useEffect(() => {
-    const fetchGasData = async () => {
-        try {
-            const baseFee = await contract.getBaseFee();
-            setBaseFee(baseFee);
-            calculateTiers(baseFee);
-        } catch (err) {
-            setError("Failed to fetch gas data");
-        }
-    };
+  const fetchGasData = async () => {
+    try {
+      const baseFee = await contract.getBaseFee();
+      setBaseFee(baseFee);
+      calculateTiers(baseFee);
+    } catch (err) {
+      setError("Failed to fetch gas data");
+    }
+  };
 
-    // Initial fetch
-    fetchGasData();
+  // Initial fetch
+  fetchGasData();
 
-    // Poll every 15 seconds
-    const interval = setInterval(fetchGasData, 15000);
+  // Poll every 15 seconds
+  const interval = setInterval(fetchGasData, 15000);
 
-    // Cleanup on unmount
-    return () => clearInterval(interval);
+  // Cleanup on unmount
+  return () => clearInterval(interval);
 }, []);
 ```
 
@@ -209,11 +213,11 @@ useEffect(() => {
 
 ### 📊 Comparison: Polling vs Event-Driven
 
-| Approach | Pros | Cons | Best For |
-|----------|------|------|----------|
-| **Polling** | Simple, predictable | Wastes calls if no change | Gas prices, balances |
-| **Events** | Real-time, efficient | More complex setup | User transactions |
-| **Hybrid** | Best of both | More code | Production DApps |
+| Approach    | Pros                 | Cons                      | Best For             |
+| ----------- | -------------------- | ------------------------- | -------------------- |
+| **Polling** | Simple, predictable  | Wastes calls if no change | Gas prices, balances |
+| **Events**  | Real-time, efficient | More complex setup        | User transactions    |
+| **Hybrid**  | Best of both         | More code                 | Production DApps     |
 
 For gas tracking, **polling every 10-15 seconds** is ideal since base fee changes every block (~12s).
 
@@ -221,13 +225,13 @@ For gas tracking, **polling every 10-15 seconds** is ideal since base fee change
 
 ### ⚠️ Common Mistakes
 
-| Mistake | Problem | Solution |
-|---------|---------|----------|
-| Polling too fast | Rate limiting, wasted calls | Use 10-15s intervals |
-| Not cleaning up intervals | Memory leaks | Return cleanup fn in useEffect |
-| Hardcoding RPC URL | Security risk | Use `.env` file |
-| Ignoring errors | Silent failures | Show fallback UI ("—") |
-| Wrong unit conversion | Incorrect prices | Always use `formatUnits` |
+| Mistake                   | Problem                     | Solution                       |
+| ------------------------- | --------------------------- | ------------------------------ |
+| Polling too fast          | Rate limiting, wasted calls | Use 10-15s intervals           |
+| Not cleaning up intervals | Memory leaks                | Return cleanup fn in useEffect |
+| Hardcoding RPC URL        | Security risk               | Use `.env` file                |
+| Ignoring errors           | Silent failures             | Show fallback UI ("—")         |
+| Wrong unit conversion     | Incorrect prices            | Always use `formatUnits`       |
 
 ---
 
@@ -247,14 +251,12 @@ Before considering this lesson complete, verify:
 
 ### 🔗 External Resources
 
-| Resource | Link |
-|----------|------|
-| EIP-1559 Specification | https://eips.ethereum.org/EIPS/eip-1559 |
-| Ethers.js Providers | https://docs.ethers.org/v5/api/providers/ |
-| Solidity Global Variables | https://docs.soliditylang.org/en/latest/units-and-global-variables.html |
-| React useEffect Cleanup | https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development |
-
-
+| Resource                  | Link                                                                                                    |
+| ------------------------- | ------------------------------------------------------------------------------------------------------- |
+| EIP-1559 Specification    | https://eips.ethereum.org/EIPS/eip-1559                                                                 |
+| Ethers.js Providers       | https://docs.ethers.org/v5/api/providers/                                                               |
+| Solidity Global Variables | https://docs.soliditylang.org/en/latest/units-and-global-variables.html                                 |
+| React useEffect Cleanup   | https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development |
 
 ---
 

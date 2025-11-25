@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![LayerZero Bridge Simulator UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+20.0+-+COVER.png)
+
 At a bustling LayerZero hackathon in New York City, Odessa ("Det") teamed up with Neri to demo a **cross-chain bridge**—but they only had one local Hardhat node. No problem. Over coffee, they spun up a **BridgeSimulator** contract and built a React UI that **felt** like real cross-chain magic.
+
+![LayerZero Bridge Simulator UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+20.1.png)
 
 Front and center: a **Network** dropdown ("PHChain" ↔ "NYChain"), an **Amount** input, and a big **Bridge Tokens** button. Click. A confirmation modal pops: "Lock 0.05 ETH on PHChain?" Confirm → MetaMask pops → tx is sent → a loading spinner → "Locked! Lock ID #3." Then the UI flips to **NYChain**, asks "Release 0.05 ETH on NYChain?" Confirm → MetaMask → spinner → "Success! Tokens bridged."
 
@@ -63,13 +67,13 @@ In this lesson, you'll build a **cross-chain bridge simulator UI** inspired by L
 
 #### 1. How Real Bridges Work
 
-| Component | Role | This Lesson |
-|-----------|------|-------------|
-| **Source Chain** | Lock original tokens | Simulated in UI |
-| **Destination Chain** | Mint/release wrapped tokens | Same contract |
-| **Relayer** | Observes locks, triggers releases | Manual trigger |
-| **Validators** | Verify cross-chain messages | Skipped (trusted) |
-| **Oracle** | Provide proof of lock | Simulated |
+| Component             | Role                              | This Lesson       |
+| --------------------- | --------------------------------- | ----------------- |
+| **Source Chain**      | Lock original tokens              | Simulated in UI   |
+| **Destination Chain** | Mint/release wrapped tokens       | Same contract     |
+| **Relayer**           | Observes locks, triggers releases | Manual trigger    |
+| **Validators**        | Verify cross-chain messages       | Skipped (trusted) |
+| **Oracle**            | Provide proof of lock             | Simulated         |
 
 ```
 Real Bridge Flow:
@@ -97,54 +101,54 @@ contract BridgeSimulator {
         uint256 amount;    // How much was locked
         bool released;     // Has it been released?
     }
-    
+
     // Auto-incrementing lock ID
     uint256 public nextId;
-    
+
     // All locks by ID
     mapping(uint256 => Lock) public locks;
-    
+
     event Locked(
-        address indexed user, 
-        uint256 amount, 
+        address indexed user,
+        uint256 amount,
         uint256 indexed id
     );
-    
+
     event Released(
-        address indexed user, 
-        uint256 amount, 
+        address indexed user,
+        uint256 amount,
         uint256 indexed id
     );
-    
+
     // Lock ETH and get a lock ID
     function lockTokens() external payable returns (uint256 id) {
         require(msg.value > 0, "Must send ETH");
-        
+
         id = nextId++;
         locks[id] = Lock({
             user: msg.sender,
             amount: msg.value,
             released: false
         });
-        
+
         emit Locked(msg.sender, msg.value, id);
     }
-    
+
     // Release locked ETH back to user
     function releaseTokens(uint256 id) external {
         Lock storage lock = locks[id];
-        
+
         require(lock.user == msg.sender, "Not your lock");
         require(!lock.released, "Already released");
         require(lock.amount > 0, "Invalid lock");
-        
+
         lock.released = true;
-        
+
         payable(msg.sender).transfer(lock.amount);
-        
+
         emit Released(msg.sender, lock.amount, id);
     }
-    
+
     // View lock details
     function getLock(uint256 id) external view returns (
         address user,
@@ -228,96 +232,94 @@ import { useState } from "react";
 import { ethers } from "ethers";
 
 const CHAINS = {
-    PH: { name: "PHChain", color: "#0066CC" },
-    NY: { name: "NYChain", color: "#FF6600" }
+  PH: { name: "PHChain", color: "#0066CC" },
+  NY: { name: "NYChain", color: "#FF6600" },
 };
 
 function BridgeApp() {
-    const [step, setStep] = useState("IDLE");
-    const [amount, setAmount] = useState("");
-    const [lockId, setLockId] = useState(null);
-    const [sourceChain, setSourceChain] = useState("PH");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const [step, setStep] = useState("IDLE");
+  const [amount, setAmount] = useState("");
+  const [lockId, setLockId] = useState(null);
+  const [sourceChain, setSourceChain] = useState("PH");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const handleLock = async () => {
-        if (!amount || parseFloat(amount) <= 0) {
-            setError("Enter a valid amount");
-            return;
-        }
+  const handleLock = async () => {
+    if (!amount || parseFloat(amount) <= 0) {
+      setError("Enter a valid amount");
+      return;
+    }
 
-        setStep("CONFIRM_LOCK");
-    };
+    setStep("CONFIRM_LOCK");
+  };
 
-    const confirmLock = async () => {
-        setLoading(true);
-        setError(null);
-        setStep("LOCKING");
+  const confirmLock = async () => {
+    setLoading(true);
+    setError(null);
+    setStep("LOCKING");
 
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(
-                process.env.REACT_APP_BRIDGE_ADDRESS,
-                BRIDGE_ABI,
-                signer
-            );
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        process.env.REACT_APP_BRIDGE_ADDRESS,
+        BRIDGE_ABI,
+        signer
+      );
 
-            const tx = await contract.lockTokens({
-                value: ethers.utils.parseEther(amount)
-            });
-            
-            const receipt = await tx.wait();
-            
-            // Extract lock ID from event
-            const lockEvent = receipt.events.find(e => e.event === "Locked");
-            const id = lockEvent.args.id.toNumber();
-            
-            setLockId(id);
-            setStep("LOCKED");
+      const tx = await contract.lockTokens({
+        value: ethers.utils.parseEther(amount),
+      });
 
-        } catch (err) {
-            setError(err.message);
-            setStep("IDLE");
-        } finally {
-            setLoading(false);
-        }
-    };
+      const receipt = await tx.wait();
 
-    const handleSwitchChain = () => {
-        // Simulated chain switch (just UI state)
-        setSourceChain(sourceChain === "PH" ? "NY" : "PH");
-        setStep("CONFIRM_RELEASE");
-    };
+      // Extract lock ID from event
+      const lockEvent = receipt.events.find((e) => e.event === "Locked");
+      const id = lockEvent.args.id.toNumber();
 
-    const confirmRelease = async () => {
-        setLoading(true);
-        setError(null);
-        setStep("RELEASING");
+      setLockId(id);
+      setStep("LOCKED");
+    } catch (err) {
+      setError(err.message);
+      setStep("IDLE");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(
-                process.env.REACT_APP_BRIDGE_ADDRESS,
-                BRIDGE_ABI,
-                signer
-            );
+  const handleSwitchChain = () => {
+    // Simulated chain switch (just UI state)
+    setSourceChain(sourceChain === "PH" ? "NY" : "PH");
+    setStep("CONFIRM_RELEASE");
+  };
 
-            const tx = await contract.releaseTokens(lockId);
-            await tx.wait();
-            
-            setStep("DONE");
+  const confirmRelease = async () => {
+    setLoading(true);
+    setError(null);
+    setStep("RELEASING");
 
-        } catch (err) {
-            setError(err.message);
-            setStep("LOCKED");
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        process.env.REACT_APP_BRIDGE_ADDRESS,
+        BRIDGE_ABI,
+        signer
+      );
 
-    // Render based on current step...
+      const tx = await contract.releaseTokens(lockId);
+      await tx.wait();
+
+      setStep("DONE");
+    } catch (err) {
+      setError(err.message);
+      setStep("LOCKED");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Render based on current step...
 }
 ```
 
@@ -325,27 +327,27 @@ function BridgeApp() {
 
 ### 📊 Real Bridge vs Simulator Comparison
 
-| Aspect | Real Bridge (LayerZero) | This Simulator |
-|--------|------------------------|----------------|
-| **Networks** | 2+ real chains | 1 network, UI simulates 2 |
-| **Relayers** | Decentralized nodes | Manual button click |
-| **Validation** | Oracle consensus | None (trusted) |
-| **Token Wrap** | wETH, wBTC, etc. | Native ETH only |
-| **Fees** | Protocol + gas | Gas only |
-| **Finality** | Minutes to hours | Instant |
-| **Complexity** | High | Low (learning-focused) |
+| Aspect         | Real Bridge (LayerZero) | This Simulator            |
+| -------------- | ----------------------- | ------------------------- |
+| **Networks**   | 2+ real chains          | 1 network, UI simulates 2 |
+| **Relayers**   | Decentralized nodes     | Manual button click       |
+| **Validation** | Oracle consensus        | None (trusted)            |
+| **Token Wrap** | wETH, wBTC, etc.        | Native ETH only           |
+| **Fees**       | Protocol + gas          | Gas only                  |
+| **Finality**   | Minutes to hours        | Instant                   |
+| **Complexity** | High                    | Low (learning-focused)    |
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake | Problem | Solution |
-|---------|---------|----------|
-| Double release | Funds sent twice | Check `released` flag |
-| Wrong lock owner | Unauthorized release | Verify `msg.sender == user` |
-| Missing loading states | Double-clicks | Disable buttons while pending |
-| Not saving lock ID | Can't release | Store in state after lock |
-| Forgetting confirmation modals | Accidental transactions | Always confirm with user |
+| Mistake                        | Problem                 | Solution                      |
+| ------------------------------ | ----------------------- | ----------------------------- |
+| Double release                 | Funds sent twice        | Check `released` flag         |
+| Wrong lock owner               | Unauthorized release    | Verify `msg.sender == user`   |
+| Missing loading states         | Double-clicks           | Disable buttons while pending |
+| Not saving lock ID             | Can't release           | Store in state after lock     |
+| Forgetting confirmation modals | Accidental transactions | Always confirm with user      |
 
 ---
 
@@ -368,14 +370,12 @@ Before considering this lesson complete, verify:
 
 ### 🔗 External Resources
 
-| Resource | Link |
-|----------|------|
-| LayerZero Docs | https://layerzero.gitbook.io/ |
-| Cross-Chain Messaging | https://ethereum.org/en/developers/docs/bridges/ |
-| Ethers Transactions | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
-| Bridge Security | https://blog.chain.link/cross-chain-security/ |
-
-
+| Resource              | Link                                                                     |
+| --------------------- | ------------------------------------------------------------------------ |
+| LayerZero Docs        | https://layerzero.gitbook.io/                                            |
+| Cross-Chain Messaging | https://ethereum.org/en/developers/docs/bridges/                         |
+| Ethers Transactions   | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
+| Bridge Security       | https://blog.chain.link/cross-chain-security/                            |
 
 ---
 

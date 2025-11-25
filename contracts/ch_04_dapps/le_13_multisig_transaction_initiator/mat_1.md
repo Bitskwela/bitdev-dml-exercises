@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![Multisig DApp Concept](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+13.0+-+COVER.png)
+
 Odessa sat in a chic SoHo café, sipping kapeng barako over Zoom with her New York mentor. "In the Philippines, corporate boards need at least three of five signatures to greenlight a decision," she explained. "Kung wala kang quorum, wala kang chain move." Inspired by this real-world governance rule, she sketched a UI for a Multisig DApp: a proposal form, a live list of pending transactions, and signer buttons that flip green when each of the five owners signs off.
+
+![Odessa](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+13.1.png)
 
 Back in her Makati apartment, Det spun up Hardhat and coded a `MultisigWallet.sol` with five owners and a threshold of three. She deployed it on Sepolia; next, she scaffolded a React app with Create React App. In under 30 minutes, she had:
 
@@ -68,13 +72,13 @@ In this lesson, you'll build a **Multisig Wallet UI** that allows multiple owner
 
 #### 1. Multisig Security Model
 
-| Term | Definition | Example |
-|------|------------|---------|
-| **Owners** | Addresses authorized to sign | 5 board members |
-| **Threshold** | Minimum confirmations needed | 3 of 5 (60%) |
-| **Proposal** | Pending transaction awaiting signatures | Send 1 ETH to vendor |
-| **Confirmation** | Owner's signature on a proposal | "I approve" |
-| **Execution** | Final action after quorum is met | Transaction sent |
+| Term             | Definition                              | Example              |
+| ---------------- | --------------------------------------- | -------------------- |
+| **Owners**       | Addresses authorized to sign            | 5 board members      |
+| **Threshold**    | Minimum confirmations needed            | 3 of 5 (60%)         |
+| **Proposal**     | Pending transaction awaiting signatures | Send 1 ETH to vendor |
+| **Confirmation** | Owner's signature on a proposal         | "I approve"          |
+| **Execution**    | Final action after quorum is met        | Transaction sent     |
 
 ```
 Security Trade-offs:
@@ -94,10 +98,10 @@ pragma solidity ^0.8.0;
 contract MultisigWallet {
     // List of owner addresses
     address[] public owners;
-    
+
     // Number of confirmations required
     uint256 public threshold;
-    
+
     // Transaction structure
     struct Transaction {
         address to;           // Destination address
@@ -106,14 +110,14 @@ contract MultisigWallet {
         bool executed;        // Has it been executed?
         uint256 confirmations;// Current confirmation count
     }
-    
+
     // All submitted transactions
     Transaction[] public transactions;
-    
+
     // Tracks who confirmed which transaction
     // mapping(txId => mapping(owner => hasConfirmed))
     mapping(uint256 => mapping(address => bool)) public isConfirmed;
-    
+
     // Check if address is an owner
     mapping(address => bool) public isOwner;
 }
@@ -140,12 +144,12 @@ function submitTransaction(
 }
 
 // Confirm a pending transaction
-function confirmTransaction(uint256 _txId) 
-    external 
-    onlyOwner 
-    txExists(_txId) 
+function confirmTransaction(uint256 _txId)
+    external
+    onlyOwner
+    txExists(_txId)
     notConfirmed(_txId)
-    notExecuted(_txId) 
+    notExecuted(_txId)
 {
     Transaction storage txn = transactions[_txId];
     txn.confirmations += 1;
@@ -162,11 +166,11 @@ function executeTransaction(uint256 _txId)
 {
     Transaction storage txn = transactions[_txId];
     require(txn.confirmations >= threshold, "Not enough confirmations");
-    
+
     txn.executed = true;
     (bool success, ) = txn.to.call{value: txn.value}(txn.data);
     require(success, "Execution failed");
-    
+
     emit Executed(msg.sender, _txId);
 }
 ```
@@ -233,26 +237,26 @@ import { ethers } from "ethers";
 
 // Connect to MetaMask for write operations
 async function setupContract() {
-    // Check if MetaMask is installed
-    if (!window.ethereum) {
-        throw new Error("MetaMask not detected");
-    }
+  // Check if MetaMask is installed
+  if (!window.ethereum) {
+    throw new Error("MetaMask not detected");
+  }
 
-    // Request account access
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+  // Request account access
+  await window.ethereum.request({ method: "eth_requestAccounts" });
 
-    // Create provider and signer
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+  // Create provider and signer
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
 
-    // Create contract with signer (for write operations)
-    const contract = new ethers.Contract(
-        process.env.REACT_APP_MULTISIG_ADDRESS,
-        MULTISIG_ABI,
-        signer
-    );
+  // Create contract with signer (for write operations)
+  const contract = new ethers.Contract(
+    process.env.REACT_APP_MULTISIG_ADDRESS,
+    MULTISIG_ABI,
+    signer
+  );
 
-    return { provider, signer, contract };
+  return { provider, signer, contract };
 }
 ```
 
@@ -260,34 +264,34 @@ async function setupContract() {
 
 ```javascript
 useEffect(() => {
-    const setupListeners = async () => {
-        const { contract } = await setupContract();
+  const setupListeners = async () => {
+    const { contract } = await setupContract();
 
-        // Listen for new submissions
-        contract.on("Submitted", (owner, txId, to, value, data) => {
-            console.log(`New proposal #${txId} by ${owner}`);
-            refreshProposals();
-        });
+    // Listen for new submissions
+    contract.on("Submitted", (owner, txId, to, value, data) => {
+      console.log(`New proposal #${txId} by ${owner}`);
+      refreshProposals();
+    });
 
-        // Listen for confirmations
-        contract.on("Confirmed", (owner, txId) => {
-            console.log(`Owner ${owner} confirmed #${txId}`);
-            refreshProposals();
-        });
+    // Listen for confirmations
+    contract.on("Confirmed", (owner, txId) => {
+      console.log(`Owner ${owner} confirmed #${txId}`);
+      refreshProposals();
+    });
 
-        // Listen for executions
-        contract.on("Executed", (owner, txId) => {
-            console.log(`Proposal #${txId} executed!`);
-            refreshProposals();
-        });
+    // Listen for executions
+    contract.on("Executed", (owner, txId) => {
+      console.log(`Proposal #${txId} executed!`);
+      refreshProposals();
+    });
 
-        // Cleanup on unmount
-        return () => {
-            contract.removeAllListeners();
-        };
+    // Cleanup on unmount
+    return () => {
+      contract.removeAllListeners();
     };
+  };
 
-    setupListeners();
+  setupListeners();
 }, []);
 ```
 
@@ -311,13 +315,13 @@ useEffect(() => {
 
 ### ⚠️ Common Mistakes
 
-| Mistake | Problem | Solution |
-|---------|---------|----------|
-| Not validating addresses | Invalid `to` address | Use `ethers.utils.isAddress()` |
-| Allowing re-confirmation | Owner confirms twice | Check `isConfirmed` mapping |
-| Forgetting `tx.wait()` | UI updates before confirmation | Always await receipt |
-| No loading states | User clicks multiple times | Disable buttons while pending |
-| Hardcoding threshold | Inflexible governance | Make it constructor parameter |
+| Mistake                  | Problem                        | Solution                       |
+| ------------------------ | ------------------------------ | ------------------------------ |
+| Not validating addresses | Invalid `to` address           | Use `ethers.utils.isAddress()` |
+| Allowing re-confirmation | Owner confirms twice           | Check `isConfirmed` mapping    |
+| Forgetting `tx.wait()`   | UI updates before confirmation | Always await receipt           |
+| No loading states        | User clicks multiple times     | Disable buttons while pending  |
+| Hardcoding threshold     | Inflexible governance          | Make it constructor parameter  |
 
 ---
 
@@ -339,14 +343,12 @@ Before considering this lesson complete, verify:
 
 ### 🔗 External Resources
 
-| Resource | Link |
-|----------|------|
-| Gnosis Safe (Production Multisig) | https://safe.global/ |
-| OpenZeppelin Governor | https://docs.openzeppelin.com/contracts/4.x/governance |
-| Ethers.js Events | https://docs.ethers.org/v5/api/contract/contract/#Contract--events |
-| Solidity Modifiers | https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers |
-
-
+| Resource                          | Link                                                                      |
+| --------------------------------- | ------------------------------------------------------------------------- |
+| Gnosis Safe (Production Multisig) | https://safe.global/                                                      |
+| OpenZeppelin Governor             | https://docs.openzeppelin.com/contracts/4.x/governance                    |
+| Ethers.js Events                  | https://docs.ethers.org/v5/api/contract/contract/#Contract--events        |
+| Solidity Modifiers                | https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers |
 
 ---
 
