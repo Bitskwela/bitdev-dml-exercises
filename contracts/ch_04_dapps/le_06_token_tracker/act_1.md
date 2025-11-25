@@ -2,21 +2,10 @@
 
 ## Initial Code
 
-```solidity
-// BaryoToken.sol - Contract Baseline
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-contract BaryoToken is ERC20 {
-    constructor(uint256 initialSupply) ERC20("BaryoToken", "BARYO") {
-        _mint(msg.sender, initialSupply);
-    }
-}
-```
-
 ```js
+// .env Configuration
+// REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+
 // TokenTracker.js - Starter Code
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
@@ -34,11 +23,13 @@ export default function TokenTracker({ tokenAddress }) {
   const [account, setAccount] = useState("");
 
   useEffect(() => {
-    // TODO: Fetch token info
+    // TODO: Task 1 & 2 - Fetch token info
+    // @note Validate address, create provider/contract, and fetch metadata using Promise.all
   }, [tokenAddress]);
 
   const fetchBalance = async () => {
-    // TODO: Fetch user's token balance
+    // TODO: Task 3 - Fetch user's token balance
+    // @note Connect to MetaMask, get user address, fetch balance, and format with decimals
   };
 
   return (
@@ -53,11 +44,6 @@ export default function TokenTracker({ tokenAddress }) {
     </div>
   );
 }
-```
-
-```bash
-# .env Configuration
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
 ```
 
 **Time Allotment: 15 minutes**
@@ -92,28 +78,13 @@ const contract = new ethers.Contract(tokenAddress, ABI, provider);
 Call `name()`, `symbol()`, and `decimals()` in parallel using `Promise.all` for efficient data fetching. Update the `info` state with the fetched values.
 
 ```js
-useEffect(() => {
-  const fetchTokenInfo = async () => {
-    if (!ethers.utils.isAddress(tokenAddress)) return;
+const [name, symbol, decimals] = await Promise.all([
+  contract.name(),
+  contract.symbol(),
+  contract.decimals(),
+]);
 
-    const provider = new ethers.providers.JsonRpcProvider(
-      process.env.REACT_APP_RPC_URL
-    );
-    const contract = new ethers.Contract(tokenAddress, ABI, provider);
-
-    const [name, symbol, decimals] = await Promise.all([
-      contract.name(),
-      contract.symbol(),
-      contract.decimals(),
-    ]);
-
-    setInfo({ name, symbol, decimals });
-  };
-
-  if (tokenAddress) {
-    fetchTokenInfo();
-  }
-}, [tokenAddress]);
+setInfo({ name, symbol, decimals });
 ```
 
 ---
@@ -140,81 +111,6 @@ const fetchBalance = async () => {
     console.error("Error fetching balance:", err);
   }
 };
-```
-
----
-
-## Complete Solution
-
-```js
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
-
-const ABI = [
-  "function name() view returns (string)",
-  "function symbol() view returns (string)",
-  "function decimals() view returns (uint8)",
-  "function balanceOf(address) view returns (uint256)",
-];
-
-export default function TokenTracker({ tokenAddress }) {
-  const [info, setInfo] = useState({ name: "", symbol: "", decimals: 0 });
-  const [balance, setBalance] = useState("");
-  const [account, setAccount] = useState("");
-
-  useEffect(() => {
-    const fetchTokenInfo = async () => {
-      if (!ethers.utils.isAddress(tokenAddress)) return;
-
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
-      const contract = new ethers.Contract(tokenAddress, ABI, provider);
-
-      const [name, symbol, decimals] = await Promise.all([
-        contract.name(),
-        contract.symbol(),
-        contract.decimals(),
-      ]);
-
-      setInfo({ name, symbol, decimals });
-    };
-
-    if (tokenAddress) {
-      fetchTokenInfo();
-    }
-  }, [tokenAddress]);
-
-  const fetchBalance = async () => {
-    try {
-      const [user] = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      setAccount(user);
-
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const contract = new ethers.Contract(tokenAddress, ABI, provider);
-
-      const rawBalance = await contract.balanceOf(user);
-      const formatted = ethers.utils.formatUnits(rawBalance, info.decimals);
-      setBalance(`${formatted} ${info.symbol}`);
-    } catch (err) {
-      console.error("Error fetching balance:", err);
-    }
-  };
-
-  return (
-    <div>
-      <h2>Token Information</h2>
-      <p>Name: {info.name || "Loading..."}</p>
-      <p>Symbol: {info.symbol || "Loading..."}</p>
-      <p>Decimals: {info.decimals}</p>
-      <hr />
-      <button onClick={fetchBalance}>Fetch My Balance</button>
-      {balance && <p>Your Balance: {balance}</p>}
-    </div>
-  );
-}
 ```
 
 ---

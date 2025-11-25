@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![DAO Voting UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+10.0+-+COVER.png)
+
 It was a humid afternoon in Barangay San Perfecto when Det stepped into the barangay hall-turned-coworking-space. The Barangay Council was debating whether to fund new basketball courts—a dream for every hoops-mad teenager in San Perfecto. Neri had already deployed the on-chain “BarangayDAO” smart contract on a Sepolia testnet, complete with proposals and token-weighted voting. Now, Det’s mission was to build the frontend.
+
+![DAO Voting UI Sketch](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+10.1.png)
 
 With teammates sipping sikwate, she sketched a three-panel UI:
 
@@ -52,13 +56,13 @@ DAO (Decentralized Autonomous Organization):
 
 #### **Real-World DAO Examples**
 
-| DAO | Purpose | Treasury |
-|-----|---------|----------|
-| **MakerDAO** | Manages DAI stablecoin | $7B+ |
-| **Uniswap** | Governs DEX protocol | $2B+ |
-| **Aave** | Lending protocol governance | $500M+ |
-| **ENS DAO** | Ethereum Name Service | $1B+ |
-| **Gitcoin** | Public goods funding | $500M+ |
+| DAO          | Purpose                     | Treasury |
+| ------------ | --------------------------- | -------- |
+| **MakerDAO** | Manages DAI stablecoin      | $7B+     |
+| **Uniswap**  | Governs DEX protocol        | $2B+     |
+| **Aave**     | Lending protocol governance | $500M+   |
+| **ENS DAO**  | Ethereum Name Service       | $1B+     |
+| **Gitcoin**  | Public goods funding        | $500M+   |
 
 ---
 
@@ -96,12 +100,12 @@ Proposal Lifecycle:
 
 Different DAOs use different voting systems:
 
-| System | How It Works | Pros | Cons |
-|--------|--------------|------|------|
-| **1 Wallet = 1 Vote** | Each address gets 1 vote | Simple, democratic | Sybil attacks (fake accounts) |
-| **Token-Weighted** | More tokens = more votes | Stakeholders matter | Whales dominate |
-| **Quadratic** | Vote power = √(tokens) | Balances wealth | Complex |
-| **Conviction** | Votes strengthen over time | Reduces snap decisions | Slow |
+| System                | How It Works               | Pros                   | Cons                          |
+| --------------------- | -------------------------- | ---------------------- | ----------------------------- |
+| **1 Wallet = 1 Vote** | Each address gets 1 vote   | Simple, democratic     | Sybil attacks (fake accounts) |
+| **Token-Weighted**    | More tokens = more votes   | Stakeholders matter    | Whales dominate               |
+| **Quadratic**         | Vote power = √(tokens)     | Balances wealth        | Complex                       |
+| **Conviction**        | Votes strengthen over time | Reduces snap decisions | Slow                          |
 
 ---
 
@@ -136,42 +140,42 @@ contract BarangayDAO {
         uint256 yes;
         uint256 no;
     }
-    
+
     // Storage
     Proposal[] public proposals;
-    
+
     // Track who voted on what (prevent double voting)
     mapping(uint256 => mapping(address => bool)) public hasVoted;
-    
+
     // Events for frontend reactivity
     event ProposalCreated(uint256 indexed id, string description);
     event Voted(address indexed voter, uint256 indexed proposalId, bool support);
-    
+
     // Create a new proposal
     function createProposal(string calldata description) external {
         uint256 id = proposals.length;
         proposals.push(Proposal(id, description, 0, 0));
         emit ProposalCreated(id, description);
     }
-    
+
     // Cast a vote
     function vote(uint256 proposalId, bool support) external {
         require(proposalId < proposals.length, "Proposal doesn't exist");
         require(!hasVoted[proposalId][msg.sender], "Already voted");
-        
+
         // Record the vote
         hasVoted[proposalId][msg.sender] = true;
-        
+
         // Update tally
         if (support) {
             proposals[proposalId].yes += 1;
         } else {
             proposals[proposalId].no += 1;
         }
-        
+
         emit Voted(msg.sender, proposalId, support);
     }
-    
+
     // Get total number of proposals
     function getProposalCount() external view returns (uint256) {
         return proposals.length;
@@ -195,11 +199,11 @@ const DAO_ABI = [
   "function getProposalCount() view returns (uint256)",
   "function proposals(uint256) view returns (uint256 id, string description, uint256 yes, uint256 no)",
   "function hasVoted(uint256 proposalId, address voter) view returns (bool)",
-  
+
   // Write functions
   "function createProposal(string calldata description)",
   "function vote(uint256 proposalId, bool support)",
-  
+
   // Events
   "event ProposalCreated(uint256 indexed id, string description)",
   "event Voted(address indexed voter, uint256 indexed proposalId, bool support)",
@@ -243,22 +247,23 @@ async function loadProposals() {
 function ProposalCard({ proposal }) {
   const total = proposal.yes + proposal.no;
   const yesPercent = total > 0 ? Math.round((proposal.yes / total) * 100) : 0;
-  
+
   return (
     <div className="proposal-card">
       <h3>Proposal #{proposal.id}</h3>
       <p>{proposal.description}</p>
-      
+
       <div className="vote-bar">
-        <div 
-          className="yes-bar" 
-          style={{ width: `${yesPercent}%` }}
-        />
+        <div className="yes-bar" style={{ width: `${yesPercent}%` }} />
       </div>
-      
+
       <div className="vote-stats">
-        <span>👍 {proposal.yes} ({yesPercent}%)</span>
-        <span>👎 {proposal.no} ({100 - yesPercent}%)</span>
+        <span>
+          👍 {proposal.yes} ({yesPercent}%)
+        </span>
+        <span>
+          👎 {proposal.no} ({100 - yesPercent}%)
+        </span>
       </div>
     </div>
   );
@@ -282,7 +287,7 @@ async function castVote(proposalId, support) {
   // Check if already voted
   const userAddress = await signer.getAddress();
   const alreadyVoted = await dao.hasVoted(proposalId, userAddress);
-  
+
   if (alreadyVoted) {
     throw new Error("You have already voted on this proposal");
   }
@@ -290,11 +295,11 @@ async function castVote(proposalId, support) {
   // Cast the vote
   console.log(`Voting ${support ? "Yes" : "No"} on proposal #${proposalId}`);
   const tx = await dao.vote(proposalId, support);
-  
+
   // Wait for confirmation
   const receipt = await tx.wait();
   console.log("Vote confirmed in block:", receipt.blockNumber);
-  
+
   return receipt;
 }
 ```
@@ -310,7 +315,7 @@ function VoteForm({ proposalId, onVoted }) {
   async function handleVote() {
     setStatus("pending");
     setError("");
-    
+
     try {
       await castVote(proposalId, support);
       setStatus("success");
@@ -349,14 +354,11 @@ function VoteForm({ proposalId, onVoted }) {
           👎 No
         </label>
       </div>
-      
-      <button 
-        onClick={handleVote}
-        disabled={status === "pending"}
-      >
+
+      <button onClick={handleVote} disabled={status === "pending"}>
         {status === "pending" ? "Submitting..." : "Cast Vote"}
       </button>
-      
+
       {status === "success" && <p className="success">✅ Vote recorded!</p>}
       {error && <p className="error">❌ {error}</p>}
     </div>
@@ -400,8 +402,12 @@ function useVoteEvents(daoAddress, onVoteReceived) {
 
     // Handler for vote events
     function handleVote(voter, proposalId, support, event) {
-      console.log(`Vote received: ${voter} voted ${support ? "Yes" : "No"} on #${proposalId}`);
-      
+      console.log(
+        `Vote received: ${voter} voted ${
+          support ? "Yes" : "No"
+        } on #${proposalId}`
+      );
+
       // Update the specific proposal
       onVoteReceived(proposalId.toNumber(), support);
     }
@@ -421,16 +427,18 @@ function ResultsPanel() {
   const [proposals, setProposals] = useState([]);
 
   const handleVoteReceived = useCallback((proposalId, support) => {
-    setProposals(prev => prev.map(p => {
-      if (p.id === proposalId) {
-        return {
-          ...p,
-          yes: support ? p.yes + 1 : p.yes,
-          no: support ? p.no : p.no + 1,
-        };
-      }
-      return p;
-    }));
+    setProposals((prev) =>
+      prev.map((p) => {
+        if (p.id === proposalId) {
+          return {
+            ...p,
+            yes: support ? p.yes + 1 : p.yes,
+            no: support ? p.no : p.no + 1,
+          };
+        }
+        return p;
+      })
+    );
   }, []);
 
   useVoteEvents(DAO_ADDRESS, handleVoteReceived);
@@ -461,14 +469,14 @@ async function createProposal(description) {
   // Create proposal
   console.log("Creating proposal...");
   const tx = await dao.createProposal(description);
-  
+
   // Wait for confirmation
   const receipt = await tx.wait();
-  
+
   // Get the new proposal ID from event
-  const event = receipt.events.find(e => e.event === "ProposalCreated");
+  const event = receipt.events.find((e) => e.event === "ProposalCreated");
   const newId = event.args.id.toNumber();
-  
+
   console.log(`Proposal #${newId} created!`);
   return newId;
 }
@@ -507,7 +515,7 @@ function ProposalActions({ proposalId }) {
   }, [proposalId]);
 
   if (loading) return <p>Loading...</p>;
-  
+
   if (hasVoted) {
     return <p className="voted-badge">✅ You've voted</p>;
   }
@@ -581,7 +589,7 @@ function DAOVotingApp() {
       for (let i = 0; i < count; i++) {
         const [id, description, yes, no] = await dao.proposals(i);
         const hasVoted = await dao.hasVoted(i, account);
-        
+
         items.push({
           id: id.toNumber(),
           description,
@@ -604,16 +612,22 @@ function DAOVotingApp() {
   return (
     <div className="dao-app">
       <h1>🏛️ BarangayDAO</h1>
-      <p>Connected: {userAddress.slice(0, 6)}...{userAddress.slice(-4)}</p>
+      <p>
+        Connected: {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+      </p>
 
       <CreateProposal onCreated={loadData} />
 
       <h2>Active Proposals</h2>
       {proposals.map((p) => (
         <div key={p.id} className="proposal">
-          <h3>#{p.id}: {p.description}</h3>
-          <p>👍 {p.yes} | 👎 {p.no}</p>
-          
+          <h3>
+            #{p.id}: {p.description}
+          </h3>
+          <p>
+            👍 {p.yes} | 👎 {p.no}
+          </p>
+
           {p.hasVoted ? (
             <span className="voted">✅ Voted</span>
           ) : (

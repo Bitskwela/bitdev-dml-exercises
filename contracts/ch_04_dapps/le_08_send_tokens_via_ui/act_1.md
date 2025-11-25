@@ -2,21 +2,11 @@
 
 ## Initial Code
 
-```solidity
-// BaryoToken.sol - Contract Baseline
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-contract BaryoToken is ERC20 {
-    constructor(uint256 initialSupply) ERC20("BaryoToken", "BARYO") {
-        _mint(msg.sender, initialSupply);
-    }
-}
-```
-
 ```js
+// .env Configuration
+// REACT_APP_RPC_URL=http://127.0.0.1:8545
+// REACT_APP_CONTRACT_ADDRESS=0xYourBaryoTokenAddress
+
 // TokenTransfer.js - Starter Code
 import { useState } from "react";
 import { ethers } from "ethers";
@@ -35,7 +25,15 @@ export default function TokenTransfer({ contractAddress }) {
 
   const handleTransfer = async (e) => {
     e.preventDefault();
-    // TODO: Implement token transfer
+
+    // TODO: Task 1 - Validate inputs before sending
+    // @note Check if recipient is valid address and amount is positive number
+
+    // TODO: Task 2 - Connect wallet and create contract with signer
+    // @note Request MetaMask access, create Web3Provider, get signer, instantiate contract
+
+    // TODO: Task 3 - Execute transfer and handle confirmation
+    // @note Get decimals, parse amount, call transfer(), wait for confirmation
   };
 
   return (
@@ -56,17 +54,13 @@ export default function TokenTransfer({ contractAddress }) {
         {status === "pending" ? "Sending..." : "Send"}
       </button>
       {txHash && <p>Tx Hash: {txHash}</p>}
-      {status === "success" && <p style={{ color: "green" }}>✅ Transfer successful!</p>}
+      {status === "success" && (
+        <p style={{ color: "green" }}>✅ Transfer successful!</p>
+      )}
       {status === "error" && <p style={{ color: "red" }}>❌ Transfer failed</p>}
     </form>
   );
 }
-```
-
-```bash
-# .env Configuration
-REACT_APP_RPC_URL=http://127.0.0.1:8545
-REACT_APP_CONTRACT_ADDRESS=0xYourBaryoTokenAddress
 ```
 
 **Time Allotment: 15 minutes**
@@ -140,96 +134,6 @@ try {
 
 ---
 
-## Complete Solution
-
-```js
-import { useState } from "react";
-import { ethers } from "ethers";
-
-const ABI = [
-  "function transfer(address, uint256) returns (bool)",
-  "function decimals() view returns (uint8)",
-  "function balanceOf(address) view returns (uint256)",
-];
-
-export default function TokenTransfer({ contractAddress }) {
-  const [recipient, setRecipient] = useState("");
-  const [amount, setAmount] = useState("");
-  const [status, setStatus] = useState("");
-  const [txHash, setTxHash] = useState("");
-
-  const handleTransfer = async (e) => {
-    e.preventDefault();
-
-    // Validate inputs
-    if (!ethers.utils.isAddress(recipient)) {
-      setStatus("error");
-      alert("Invalid recipient address");
-      return;
-    }
-
-    if (!amount || isNaN(amount) || Number(amount) <= 0) {
-      setStatus("error");
-      alert("Enter a valid positive amount");
-      return;
-    }
-
-    try {
-      setStatus("pending");
-      setTxHash("");
-
-      // Connect wallet and get signer
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(contractAddress, ABI, signer);
-
-      // Parse amount with decimals and transfer
-      const decimals = await contract.decimals();
-      const parsedAmount = ethers.utils.parseUnits(amount, decimals);
-
-      const tx = await contract.transfer(recipient, parsedAmount);
-      setTxHash(tx.hash);
-
-      await tx.wait();
-      setStatus("success");
-
-      // Clear form
-      setRecipient("");
-      setAmount("");
-    } catch (err) {
-      console.error("Transfer failed:", err);
-      setStatus("error");
-    }
-  };
-
-  return (
-    <form onSubmit={handleTransfer}>
-      <h3>Send Tokens</h3>
-      <input
-        placeholder="Recipient Address (0x...)"
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-      />
-      <input
-        placeholder="Amount"
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-      />
-      <button type="submit" disabled={status === "pending"}>
-        {status === "pending" ? "Sending..." : "Send"}
-      </button>
-      {txHash && <p>Tx Hash: {txHash}</p>}
-      {status === "success" && <p style={{ color: "green" }}>✅ Transfer successful!</p>}
-      {status === "error" && <p style={{ color: "red" }}>❌ Transfer failed</p>}
-    </form>
-  );
-}
-```
-
----
-
 ## Breakdown of the Activity
 
 **Variables Defined:**
@@ -250,7 +154,7 @@ export default function TokenTransfer({ contractAddress }) {
   The main form submission handler. First validates inputs to prevent common errors (invalid address, zero/negative amount). Then connects to MetaMask, gets a signer for transaction signing, and creates a contract instance with write capability. Fetches the token's decimals to properly convert the amount, then calls `transfer(recipient, parsedAmount)`. The function updates status throughout to provide user feedback, and waits for blockchain confirmation using `tx.wait()` before marking success.
 
 - `parseUnits(amount, decimals)`:
-  Converts a human-readable token amount to the blockchain's internal representation. Essential because tokens store amounts as integers, not decimals. For example, `parseUnits("25.5", 18)` returns a BigNumber representing 25.5 * 10^18.
+  Converts a human-readable token amount to the blockchain's internal representation. Essential because tokens store amounts as integers, not decimals. For example, `parseUnits("25.5", 18)` returns a BigNumber representing 25.5 \* 10^18.
 
 - `tx.wait()`:
   Pauses execution until the transaction is included in a block. This ensures the transfer has actually completed before updating the UI to show success.

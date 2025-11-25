@@ -1,8 +1,12 @@
 ## 🧑‍💻 Background Story
 
+![SiningChain](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+7.0+-+COVER.png)
+
 The old warehouse in San Francisco’s Mission District buzzed with anticipation. Bright murals of jeepneys and tinikling dancers covered the brick walls. This was Neri’s moment: her carefully curated “SiningChain” exhibit was opening. Filipino street artists from Manila to Davao finally had an international stage. But she needed a seamless, dynamic gallery—one that fetched on‐chain art in real time.
 
-Enter Odessa (“Det”), Neri’s go‐getter friend. Fresh from her night classes at Pamantasan ng Lungsod ng Maynila, Det arrived with her laptop, eyes gleaming. “Tatay ko will flip when he sees Pinoy NFTs on display in SF,” she laughed. The only catch? Neri’s Solidity ERC-721 contract was already deployed on Sepolia. Det had 48 hours to spin up a React + Ethers.js frontend that would:
+![Neri and Det](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+7.1.png)
+
+Enter Det, Neri’s go‐getter friend. Fresh from her night classes at Pamantasan ng Lungsod ng Maynila, Det arrived with her laptop, eyes gleaming. “Tatay ko will flip when he sees Pinoy NFTs on display in SF,” she laughed. The only catch? Neri’s Solidity ERC-721 contract was already deployed on Sepolia. Det had 48 hours to spin up a React + Ethers.js frontend that would:
 
 1. Connect to MetaMask
 2. Query token metadata (name, image URL)
@@ -128,12 +132,12 @@ On-Chain vs Off-Chain:
 
 #### **Where is Metadata Stored?**
 
-| Storage | Pros | Cons |
-|---------|------|------|
-| **IPFS** | Decentralized, permanent | Needs pinning service |
-| **Arweave** | Permanent, pay once | More expensive |
-| **HTTPS** | Easy to set up | Centralized, can go offline |
-| **On-chain** | Fully decentralized | Very expensive |
+| Storage      | Pros                     | Cons                        |
+| ------------ | ------------------------ | --------------------------- |
+| **IPFS**     | Decentralized, permanent | Needs pinning service       |
+| **Arweave**  | Permanent, pay once      | More expensive              |
+| **HTTPS**    | Easy to set up           | Centralized, can go offline |
+| **On-chain** | Fully decentralized      | Very expensive              |
 
 ---
 
@@ -202,12 +206,12 @@ const NFT_ABI = [
   // Ownership
   "function ownerOf(uint256 tokenId) view returns (address)",
   "function balanceOf(address owner) view returns (uint256)",
-  
+
   // Enumeration
   "function totalSupply() view returns (uint256)",
   "function tokenByIndex(uint256 index) view returns (uint256)",
   "function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)",
-  
+
   // Metadata
   "function name() view returns (string)",
   "function symbol() view returns (string)",
@@ -224,7 +228,7 @@ async function fetchNFT(contractAddress, tokenId) {
 
   // Step 1: Get the token URI from the contract
   const tokenURI = await contract.tokenURI(tokenId);
-  console.log("Token URI:", tokenURI); 
+  console.log("Token URI:", tokenURI);
   // "ipfs://QmXYZ.../42.json" or "https://api.example.com/42"
 
   // Step 2: Convert IPFS to HTTP gateway if needed
@@ -264,7 +268,7 @@ async function fetchOwnedNFTs(contractAddress, userAddress) {
   for (let i = 0; i < balance.toNumber(); i++) {
     // Get the token ID at this index
     const tokenId = await contract.tokenOfOwnerByIndex(userAddress, i);
-    
+
     // Fetch the metadata
     const nft = await fetchNFT(contractAddress, tokenId);
     nfts.push(nft);
@@ -283,9 +287,9 @@ async function fetchOwnedNFTs(contractAddress, userAddress) {
 ```js
 // ❌ SLOW: Sequential requests (one at a time)
 for (let i = 0; i < 10; i++) {
-  const tokenId = await contract.tokenOfOwnerByIndex(user, i);  // Wait...
-  const uri = await contract.tokenURI(tokenId);                  // Wait...
-  const metadata = await fetch(uri);                              // Wait...
+  const tokenId = await contract.tokenOfOwnerByIndex(user, i); // Wait...
+  const uri = await contract.tokenURI(tokenId); // Wait...
+  const metadata = await fetch(uri); // Wait...
 }
 // Total time: 30 requests × 200ms = 6 seconds! 😴
 ```
@@ -305,13 +309,14 @@ async function fetchOwnedNFTsFast(contract, userAddress) {
   const tokenIds = await Promise.all(tokenIdPromises);
 
   // Fetch all URIs in parallel
-  const uriPromises = tokenIds.map(id => contract.tokenURI(id));
+  const uriPromises = tokenIds.map((id) => contract.tokenURI(id));
   const uris = await Promise.all(uriPromises);
 
   // Fetch all metadata in parallel
-  const metadataPromises = uris.map(uri => 
-    fetch(uri.replace("ipfs://", "https://ipfs.io/ipfs/"))
-      .then(res => res.json())
+  const metadataPromises = uris.map((uri) =>
+    fetch(uri.replace("ipfs://", "https://ipfs.io/ipfs/")).then((res) =>
+      res.json()
+    )
   );
   const metadatas = await Promise.all(metadataPromises);
 
@@ -326,18 +331,18 @@ async function fetchOwnedNFTsFast(contract, userAddress) {
 // Process in batches to avoid overwhelming the RPC
 async function fetchInBatches(items, fetchFn, batchSize = 5) {
   const results = [];
-  
+
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize);
     const batchResults = await Promise.all(batch.map(fetchFn));
     results.push(...batchResults);
-    
+
     // Small delay between batches
     if (i + batchSize < items.length) {
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
   }
-  
+
   return results;
 }
 ```
@@ -351,22 +356,22 @@ async function fetchInBatches(items, fetchFn, batchSize = 5) {
 ```js
 function convertToHttpUrl(uri) {
   if (!uri) return null;
-  
+
   // IPFS protocol
   if (uri.startsWith("ipfs://")) {
     return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
   }
-  
+
   // Already HTTP
   if (uri.startsWith("http")) {
     return uri;
   }
-  
+
   // Just a CID
   if (uri.startsWith("Qm") || uri.startsWith("bafy")) {
     return `https://ipfs.io/ipfs/${uri}`;
   }
-  
+
   return uri;
 }
 
@@ -395,7 +400,7 @@ function NFTGallery({ contractAddress }) {
     async function loadNFTs() {
       try {
         setLoading(true);
-        
+
         // Connect wallet
         const [account] = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -404,23 +409,23 @@ function NFTGallery({ contractAddress }) {
         // Fetch owned NFTs
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const contract = new ethers.Contract(contractAddress, ABI, provider);
-        
+
         const balance = await contract.balanceOf(account);
         const items = [];
-        
+
         for (let i = 0; i < balance; i++) {
           const tokenId = await contract.tokenOfOwnerByIndex(account, i);
           const uri = await contract.tokenURI(tokenId);
           const res = await fetch(convertToHttpUrl(uri));
           const metadata = await res.json();
-          
+
           items.push({
             tokenId: tokenId.toString(),
             ...metadata,
             image: convertToHttpUrl(metadata.image),
           });
         }
-        
+
         setNfts(items);
       } catch (err) {
         setError(err.message);

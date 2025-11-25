@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![BaryoToken Transfer UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+8.0+-+COVER.png)
+
 The old bodega in Queens had seen everything: balikbayan boxes, night-shift coders, and now a cozy coworking nook. Odessa (“Det”) hauled in her laptop, ready to prove that GCash fees were a thing of the past. Neri’s BaryoToken—once built for Marikina sari-sari stores—needed an intuitive “send” UI.
+
+![Token Transfer UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+8.1.png)
 
 With Ganache running locally, Det sketched a minimal form: recipient address, amount input, and a “Send BaryoToken” button. She wired Ethers.js to a local Hardhat‐deployed BaryoToken contract. Her mantra? “Make it so simple that Mang Jun’s nanay can use it.”
 
@@ -48,25 +52,25 @@ Before Transfer:
 function transfer(address to, uint256 amount) external returns (bool) {
     // 1. Check sender has enough balance
     require(balanceOf[msg.sender] >= amount, "Insufficient balance");
-    
+
     // 2. Subtract from sender
     balanceOf[msg.sender] -= amount;
-    
+
     // 3. Add to recipient
     balanceOf[to] += amount;
-    
+
     // 4. Emit event for tracking
     emit Transfer(msg.sender, to, amount);
-    
+
     return true;
 }
 ```
 
 #### **Key Differences: Transfer vs transferFrom**
 
-| Function | Use Case | Who Pays Gas |
-|----------|----------|--------------|
-| `transfer(to, amount)` | Send YOUR tokens | You (sender) |
+| Function                         | Use Case             | Who Pays Gas          |
+| -------------------------------- | -------------------- | --------------------- |
+| `transfer(to, amount)`           | Send YOUR tokens     | You (sender)          |
 | `transferFrom(from, to, amount)` | Send APPROVED tokens | Transaction initiator |
 
 ```js
@@ -74,8 +78,8 @@ function transfer(address to, uint256 amount) external returns (bool) {
 await token.transfer(recipientAddress, amount);
 
 // transferFrom: Send tokens you're approved to spend
-await token.approve(spenderAddress, amount);  // First, approve
-await token.transferFrom(ownerAddress, recipientAddress, amount);  // Then transfer
+await token.approve(spenderAddress, amount); // First, approve
+await token.transferFrom(ownerAddress, recipientAddress, amount); // Then transfer
 ```
 
 ---
@@ -208,7 +212,7 @@ async function sendTokens(to, amount) {
     console.log("Waiting for user confirmation...");
     const tx = await token.transfer(to, parsedAmount);
     console.log("Transaction submitted:", tx.hash);
-    
+
     // tx object contains:
     // - hash: "0x123..."
     // - from: sender address
@@ -218,16 +222,15 @@ async function sendTokens(to, amount) {
     // Step 3: Wait for confirmation
     console.log("Waiting for confirmation...");
     const receipt = await tx.wait();
-    
+
     // receipt contains:
     // - status: 1 (success) or 0 (failed)
     // - blockNumber: which block included this tx
     // - transactionHash: same as tx.hash
     // - events: emitted events (Transfer)
-    
+
     console.log("Transaction confirmed in block:", receipt.blockNumber);
     return receipt;
-    
   } catch (error) {
     console.error("Transaction failed:", error);
     throw error;
@@ -278,12 +281,12 @@ function validateTransfer(to, amount, balance) {
 
 #### **Common Transfer Errors**
 
-| Error Code | Meaning | User Message |
-|------------|---------|--------------|
-| `4001` | User rejected | "Transaction cancelled" |
-| `INSUFFICIENT_FUNDS` | Not enough ETH for gas | "Not enough ETH for gas" |
-| `UNPREDICTABLE_GAS_LIMIT` | Transaction would fail | "Transfer would fail - check balance" |
-| `CALL_EXCEPTION` | Contract reverted | "Transfer failed - insufficient balance" |
+| Error Code                | Meaning                | User Message                             |
+| ------------------------- | ---------------------- | ---------------------------------------- |
+| `4001`                    | User rejected          | "Transaction cancelled"                  |
+| `INSUFFICIENT_FUNDS`      | Not enough ETH for gas | "Not enough ETH for gas"                 |
+| `UNPREDICTABLE_GAS_LIMIT` | Transaction would fail | "Transfer would fail - check balance"    |
+| `CALL_EXCEPTION`          | Contract reverted      | "Transfer failed - insufficient balance" |
 
 #### **Comprehensive Error Handler**
 
@@ -338,6 +341,7 @@ function handleTransferError(error) {
 #### **Why Refresh Balances?**
 
 After a successful transfer:
+
 - Sender's balance decreased
 - Recipient's balance increased
 - UI should reflect this immediately!
@@ -382,7 +386,7 @@ useEffect(() => {
     console.log("From:", from);
     console.log("To:", to);
     console.log("Amount:", ethers.utils.formatUnits(value, decimals));
-    
+
     // Refresh balances if this affects the current user
     if (from === userAddress || to === userAddress) {
       refreshBalance();
@@ -453,7 +457,6 @@ function TokenTransfer({ contractAddress }) {
       // Clear form
       setTo("");
       setAmount("");
-
     } catch (err) {
       const { message } = handleTransferError(err);
       setError(message);
@@ -464,7 +467,7 @@ function TokenTransfer({ contractAddress }) {
   return (
     <form onSubmit={handleTransfer}>
       <h2>Send Tokens</h2>
-      
+
       <input
         type="text"
         placeholder="Recipient Address (0x...)"
@@ -472,7 +475,7 @@ function TokenTransfer({ contractAddress }) {
         onChange={(e) => setTo(e.target.value)}
         disabled={status === "pending"}
       />
-      
+
       <input
         type="number"
         placeholder="Amount"
@@ -482,15 +485,15 @@ function TokenTransfer({ contractAddress }) {
         step="any"
         min="0"
       />
-      
+
       <button type="submit" disabled={status === "pending"}>
         {status === "pending" ? "Sending..." : "Send"}
       </button>
 
       {txHash && (
         <p>
-          Transaction: {" "}
-          <a 
+          Transaction:{" "}
+          <a
             href={`https://etherscan.io/tx/${txHash}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -499,8 +502,10 @@ function TokenTransfer({ contractAddress }) {
           </a>
         </p>
       )}
-      
-      {status === "success" && <p style={{ color: "green" }}>✅ Transfer successful!</p>}
+
+      {status === "success" && (
+        <p style={{ color: "green" }}>✅ Transfer successful!</p>
+      )}
       {error && <p style={{ color: "red" }}>❌ {error}</p>}
     </form>
   );

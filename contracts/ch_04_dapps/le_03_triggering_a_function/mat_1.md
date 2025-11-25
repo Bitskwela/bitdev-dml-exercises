@@ -1,8 +1,14 @@
 ## 🧑‍💻 Background Story
 
+![Write to the Blockchain](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+3.0+-+COVER.png)
+
 Sunlight danced off Laguna’s rolling rice fields as Neri stepped into the barangay hall, laptop in hand. The cooperative needed a transparent way to decide budget allocations—no more paper ballots lost under stacks of receipts. She’d just deployed `CooperativeVote` on a local Hardhat node.
 
+![Laguna Cooperative Meeting](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+3.1.png)
+
 Half a world away in Brooklyn, Odessa sipped her iced coffee at a buzzing co-working space. On Zoom, she watched Neri share her terminal: three proposals—“Infrastructure,” “Education,” “Health.” “Build the frontend,” Neri challenged. Odessa cracked her knuckles, booted up her IDE, and scaffolded a React app.
+
+![Odessa Coding the Frontend](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+3.2.png)
 
 Moments later, her screen showed a dropdown menu, a “Vote” button, and live vote tallies. She connected MetaMask to Hardhat’s RPC, clicked “Vote,” and got the MetaMask gas-fee simulation popup. “Confirm,” she clicked—₿🌱 simulated gas burned—and the spinner spun. In seconds, the Hardhat console logged the transaction hash, the vote count updated, and Odessa pumped her fist.
 
@@ -20,17 +26,18 @@ This is one of the most important concepts in blockchain development. Let's brea
 
 #### **The Fundamental Difference**
 
-| Aspect | Read Operations | Write Operations |
-|--------|-----------------|------------------|
-| **What it does** | Fetches data from blockchain | Changes data on blockchain |
-| **Gas cost** | Free (no cost) | Costs ETH (gas fees) |
-| **Speed** | Instant | Takes 12-15 seconds (block time) |
-| **User approval** | Not needed | MetaMask popup required |
-| **Example** | `contract.name()` | `contract.vote("Health")` |
+| Aspect            | Read Operations              | Write Operations                 |
+| ----------------- | ---------------------------- | -------------------------------- |
+| **What it does**  | Fetches data from blockchain | Changes data on blockchain       |
+| **Gas cost**      | Free (no cost)               | Costs ETH (gas fees)             |
+| **Speed**         | Instant                      | Takes 12-15 seconds (block time) |
+| **User approval** | Not needed                   | MetaMask popup required          |
+| **Example**       | `contract.name()`            | `contract.vote("Health")`        |
 
 #### **Why Write Operations Cost Money**
 
 When you write to the blockchain, thousands of computers (nodes) around the world must:
+
 1. Validate your transaction
 2. Execute the smart contract code
 3. Store the new state permanently
@@ -41,6 +48,7 @@ Gas fees compensate these nodes for their computational work and storage.
 #### **Provider vs. Signer: The Key Distinction**
 
 **Provider** = Read-only connection (like a newspaper—you can read it but can't edit it)
+
 ```js
 // Anyone can create a provider—no wallet needed
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
@@ -50,6 +58,7 @@ const name = await contract.name(); // Free, instant
 ```
 
 **Signer** = Write-capable connection (like having editing rights—you can make changes)
+
 ```js
 // Requires MetaMask or another wallet
 const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -95,9 +104,9 @@ const provider = new ethers.providers.JsonRpcProvider(
 
 // Step 2: Create read-only contract instance
 const readContract = new ethers.Contract(
-  process.env.REACT_APP_CONTRACT_ADDRESS,  // Where the contract lives
-  abi,                                      // What functions exist
-  provider                                  // Read-only connection
+  process.env.REACT_APP_CONTRACT_ADDRESS, // Where the contract lives
+  abi, // What functions exist
+  provider // Read-only connection
 );
 
 // Now you can call view functions
@@ -120,7 +129,7 @@ const signer = web3Provider.getSigner();
 const writeContract = new ethers.Contract(
   process.env.REACT_APP_CONTRACT_ADDRESS,
   abi,
-  signer  // Note: signer instead of provider!
+  signer // Note: signer instead of provider!
 );
 
 // Option B: Convert existing read contract to write contract
@@ -133,6 +142,7 @@ const tx = await writeContract.vote("Health"); // Costs gas!
 #### **Why Two Different Instances?**
 
 Think of it like a bank:
+
 - **Read instance** = Looking at your balance on a screen (anyone can look)
 - **Write instance** = Making a withdrawal (needs your signature/PIN)
 
@@ -166,6 +176,7 @@ await window.ethereum.request({ method: "eth_requestAccounts" });
 ```
 
 **What happens:**
+
 - First time: MetaMask shows account selection popup
 - Already connected: Returns immediately with the connected account
 - User rejects: Throws an error (handle with try/catch)
@@ -174,7 +185,7 @@ await window.ethereum.request({ method: "eth_requestAccounts" });
 
 ```js
 const tx = await writeContract.vote(selectedProposal, {
-  gasLimit: 100_000,  // Maximum gas willing to spend
+  gasLimit: 100_000, // Maximum gas willing to spend
 });
 
 console.log("Transaction hash:", tx.hash);
@@ -182,6 +193,7 @@ console.log("Transaction hash:", tx.hash);
 ```
 
 **What happens at this moment:**
+
 1. MetaMask popup shows gas estimate and asks for confirmation
 2. User clicks "Confirm" (or "Reject")
 3. Transaction is signed with user's private key
@@ -189,6 +201,7 @@ console.log("Transaction hash:", tx.hash);
 5. Function returns a "pending" transaction object
 
 **The transaction object contains:**
+
 ```js
 {
   hash: "0x1234...",      // Unique transaction ID
@@ -207,13 +220,14 @@ The transaction is now "pending"—it's been broadcast but not yet included in a
 
 ```js
 // Wait for the transaction to be mined (included in a block)
-const receipt = await tx.wait();  // Waits ~12-15 seconds on mainnet
+const receipt = await tx.wait(); // Waits ~12-15 seconds on mainnet
 
 // Or wait for multiple confirmations (more secure)
 const receipt = await tx.wait(3); // Wait for 3 block confirmations
 ```
 
 **The receipt object contains:**
+
 ```js
 {
   status: 1,              // 1 = success, 0 = failed
@@ -230,9 +244,9 @@ const receipt = await tx.wait(3); // Wait for 3 block confirmations
 try {
   const tx = await contract.vote(proposal);
   console.log("Pending:", tx.hash);
-  
+
   const receipt = await tx.wait();
-  
+
   if (receipt.status === 1) {
     console.log("Success! Gas used:", receipt.gasUsed.toString());
   } else {
@@ -302,7 +316,7 @@ function vote(string calldata proposal) external {
 // Subscribe to the "Voted" event
 contract.on("Voted", (voter, proposal) => {
   console.log(`${voter} voted for ${proposal}`);
-  
+
   // Update your React state to refresh the UI
   refreshVoteCounts();
 });
@@ -317,14 +331,14 @@ contract.off("Voted", handler);
 useEffect(() => {
   const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
   const contract = new ethers.Contract(ADDRESS, abi, provider);
-  
+
   const handleVote = (voter, proposal) => {
     console.log(`New vote: ${voter} → ${proposal}`);
-    setRefreshTrigger(prev => prev + 1); // Trigger re-render
+    setRefreshTrigger((prev) => prev + 1); // Trigger re-render
   };
-  
+
   contract.on("Voted", handleVote);
-  
+
   // Cleanup: remove listener when component unmounts
   return () => {
     contract.off("Voted", handleVote);
@@ -376,20 +390,17 @@ try {
 Users should always know what's happening:
 
 ```js
-const [status, setStatus] = useState('idle');
+const [status, setStatus] = useState("idle");
 // States: 'idle' | 'pending' | 'confirmed' | 'error'
 
 return (
   <div>
-    <button 
-      onClick={castVote}
-      disabled={status === 'pending'}
-    >
-      {status === 'pending' ? 'Voting... ⏳' : 'Vote 🗳️'}
+    <button onClick={castVote} disabled={status === "pending"}>
+      {status === "pending" ? "Voting... ⏳" : "Vote 🗳️"}
     </button>
-    
-    {status === 'confirmed' && <p>✅ Vote recorded!</p>}
-    {status === 'error' && <p>❌ Something went wrong</p>}
+
+    {status === "confirmed" && <p>✅ Vote recorded!</p>}
+    {status === "error" && <p>❌ Something went wrong</p>}
   </div>
 );
 ```
@@ -399,11 +410,8 @@ return (
 Prevent double-clicks and confusion:
 
 ```js
-<button 
-  onClick={castVote}
-  disabled={status === 'pending' || hasVoted}
->
-  {hasVoted ? 'Already Voted' : 'Vote'}
+<button onClick={castVote} disabled={status === "pending" || hasVoted}>
+  {hasVoted ? "Already Voted" : "Vote"}
 </button>
 ```
 
@@ -412,18 +420,20 @@ Prevent double-clicks and confusion:
 Let users verify their transaction on Etherscan:
 
 ```js
-{txHash && (
-  <p>
-    View on Etherscan: 
-    <a 
-      href={`https://goerli.etherscan.io/tx/${txHash}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {txHash.slice(0, 10)}...
-    </a>
-  </p>
-)}
+{
+  txHash && (
+    <p>
+      View on Etherscan:
+      <a
+        href={`https://goerli.etherscan.io/tx/${txHash}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {txHash.slice(0, 10)}...
+      </a>
+    </p>
+  );
+}
 ```
 
 #### **4. Handle All Error Cases**
@@ -448,21 +458,23 @@ catch (error) {
 ### 7. Common Mistakes to Avoid
 
 1. **Forgetting to request accounts first**
+
    ```js
    // ❌ This will fail - no account connected
    const signer = provider.getSigner();
-   
+
    // ✅ Always request accounts first
    await window.ethereum.request({ method: "eth_requestAccounts" });
    const signer = provider.getSigner();
    ```
 
 2. **Not waiting for confirmation**
+
    ```js
    // ❌ Returns immediately while tx is still pending
    const tx = await contract.vote("Health");
    updateUI(); // Too early! Vote not confirmed yet
-   
+
    // ✅ Wait for the transaction to be mined
    const tx = await contract.vote("Health");
    await tx.wait();
@@ -470,10 +482,11 @@ catch (error) {
    ```
 
 3. **Not handling user rejection**
+
    ```js
    // ❌ Crashes if user clicks "Reject"
    const tx = await contract.vote("Health");
-   
+
    // ✅ Always wrap in try/catch
    try {
      const tx = await contract.vote("Health");

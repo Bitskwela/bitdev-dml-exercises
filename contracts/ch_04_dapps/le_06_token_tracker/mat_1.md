@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![BaryoToken Launch](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+6.0+-+COVER.png)
+
 It was a humid afternoon in Marikina—rain clouds gathering over the riverbanks. Inside a humble sari-sari store turned DAO-hub, barangay residents gathered around a laptop. Neri’s latest innovation, BaryoToken, had just launched. Each token represented a voucher for rice, canned goods, even sari-sari store credit.
+
+![Det Building Token Tracker](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+6.1.png)
 
 Odessa (“Det”) was on the case. Fresh from her stint building an NFT gallery in SF, she now needed to craft a remittance-ready wallet UI for OFWs sending BaryoToken back home. Her mission: a “Balancer” page that:
 
@@ -114,10 +118,10 @@ Token Tracker App Structure:
 
 #### **Provider vs Signer Recap**
 
-| Component | Type | Purpose | Gas Cost |
-|-----------|------|---------|----------|
-| **Provider** | Read-only | Call `view` functions | FREE |
-| **Signer** | Read + Write | Send transactions | Costs ETH |
+| Component    | Type         | Purpose               | Gas Cost  |
+| ------------ | ------------ | --------------------- | --------- |
+| **Provider** | Read-only    | Call `view` functions | FREE      |
+| **Signer**   | Read + Write | Send transactions     | Costs ETH |
 
 ```js
 // Provider: For reading data (name, symbol, balance)
@@ -148,7 +152,7 @@ const ERC20_ABI = [
   "function decimals() view returns (uint8)",
   "function totalSupply() view returns (uint256)",
   "function balanceOf(address) view returns (uint256)",
-  
+
   // Write functions (state-changing)
   "function transfer(address to, uint256 amount) returns (bool)",
 ];
@@ -182,10 +186,10 @@ async function fetchTokenInfo(contractAddress) {
   const formattedSupply = ethers.utils.formatUnits(totalSupply, decimals);
 
   return {
-    name,                  // "BaryoToken"
-    symbol,                // "BARYO"
-    decimals,              // 18
-    totalSupply: formattedSupply,  // "1000000.0"
+    name, // "BaryoToken"
+    symbol, // "BARYO"
+    decimals, // 18
+    totalSupply: formattedSupply, // "1000000.0"
   };
 }
 ```
@@ -244,7 +248,7 @@ async function fetchBalance(contractAddress, userAddress) {
 ethers.utils.formatUnits("25500000000000000000", 18); // "25.5"
 
 // parseUnits: String → BigNumber (for transactions)
-ethers.utils.parseUnits("25.5", 18); 
+ethers.utils.parseUnits("25.5", 18);
 // BigNumber: 25500000000000000000
 
 // Common patterns:
@@ -267,10 +271,10 @@ function useTokenInfo(contractAddress) {
   useEffect(() => {
     async function load() {
       if (!contractAddress) return;
-      
+
       setLoading(true);
       setError(null);
-      
+
       try {
         // Validate address first
         if (!ethers.utils.isAddress(contractAddress)) {
@@ -356,12 +360,12 @@ function validateAddress(address) {
   if (!ethers.utils.isAddress(address)) {
     return { valid: false, error: "Invalid address format" };
   }
-  
+
   // Check if it's the zero address
   if (address === ethers.constants.AddressZero) {
     return { valid: false, error: "Cannot use zero address" };
   }
-  
+
   return { valid: true, error: null };
 }
 
@@ -378,12 +382,12 @@ const handleSubmit = async () => {
 
 #### **Common Error Scenarios**
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| "Invalid address" | Wrong format | Validate with `isAddress()` |
-| "call revert exception" | Not an ERC-20 contract | Verify contract address |
-| "network changed" | User switched networks | Re-connect and re-fetch |
-| "user rejected" | User denied MetaMask | Show friendly message |
+| Error                   | Cause                  | Solution                    |
+| ----------------------- | ---------------------- | --------------------------- |
+| "Invalid address"       | Wrong format           | Validate with `isAddress()` |
+| "call revert exception" | Not an ERC-20 contract | Verify contract address     |
+| "network changed"       | User switched networks | Re-connect and re-fetch     |
+| "user rejected"         | User denied MetaMask   | Show friendly message       |
 
 ```js
 async function safeContractCall(contractFn) {
@@ -421,6 +425,7 @@ const RPC_URL = process.env.REACT_APP_RPC_URL;
 ```
 
 **.env file:**
+
 ```
 REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
 REACT_APP_CONTRACT_ADDRESS=0x...

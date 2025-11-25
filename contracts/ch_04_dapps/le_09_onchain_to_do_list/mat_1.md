@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![On-Chain To-Do List](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+9.0+-+COVER.png)
+
 Late nights at the University of Santo Tomas library were Neri’s ritual. As pages of blockchain whitepapers glowed on her laptop, she scribbled ideas in her notebook: “A to-do list… on the chain?” Fast forward—Odessa (“Det”) dragged her out of bed at 2 AM. “Let’s build it!” Neri exclaimed, eyes still heavy but mind racing.
+
+![Neri and Det brainstorming](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+9.1.png)
 
 Their vision was simple but daring: a decentralized to-do list where every task lives on Ethereum—no backend, no server—just pure on-chain state. In a cramped UST dorm room, they fired up Hardhat, wrote a Solidity contract for CRUD operations, and deployed to a local network. Odessa scaffolded a React app with Create React App, wired up Ethers.js, and sketched a UI inspired by their campus planner.
 
@@ -56,13 +60,13 @@ On-Chain To-Do App:
 
 #### **When to Use On-Chain Storage**
 
-| Use Case | On-Chain? | Why |
-|----------|-----------|-----|
-| Public records | ✅ Yes | Transparency, immutability |
-| Personal notes | ⚠️ Maybe | Consider privacy |
-| High-frequency updates | ❌ No | Gas costs too high |
-| Financial transactions | ✅ Yes | Trust, auditability |
-| Large files | ❌ No | Use IPFS instead |
+| Use Case               | On-Chain? | Why                        |
+| ---------------------- | --------- | -------------------------- |
+| Public records         | ✅ Yes    | Transparency, immutability |
+| Personal notes         | ⚠️ Maybe  | Consider privacy           |
+| High-frequency updates | ❌ No     | Gas costs too high         |
+| Financial transactions | ✅ Yes    | Trust, auditability        |
+| Large files            | ❌ No     | Use IPFS instead           |
 
 ---
 
@@ -117,36 +121,36 @@ contract TodoList {
         string content;
         bool done;
     }
-    
+
     // Storage: array of all tasks
     Task[] public tasks;
-    
+
     // Events for frontend reactivity
     event TaskCreated(uint256 indexed id, string content, bool done);
     event TaskToggled(uint256 indexed id, bool done);
     event TaskDeleted(uint256 indexed id);
-    
+
     // Create a new task
     function createTask(string memory content) public {
         uint256 id = tasks.length;
         tasks.push(Task(id, content, false));
         emit TaskCreated(id, content, false);
     }
-    
+
     // Toggle task completion
     function toggleDone(uint256 id) public {
         require(id < tasks.length, "Task doesn't exist");
         tasks[id].done = !tasks[id].done;
         emit TaskToggled(id, tasks[id].done);
     }
-    
+
     // Delete a task (sets to empty)
     function deleteTask(uint256 id) public {
         require(id < tasks.length, "Task doesn't exist");
         delete tasks[id];
         emit TaskDeleted(id);
     }
-    
+
     // Get total number of tasks
     function getTasksCount() public view returns (uint256) {
         return tasks.length;
@@ -204,12 +208,12 @@ emit TaskCreated(newId, content, false);
 // Subscribe to new events
 contract.on("TaskCreated", (id, content, done, event) => {
   console.log(`New task #${id}: ${content}`);
-  
+
   // event object contains:
   // - blockNumber
   // - transactionHash
   // - args (same as parameters)
-  
+
   refreshTasks();
 });
 
@@ -261,12 +265,12 @@ const TODO_ABI = [
   // Read functions (view)
   "function getTasksCount() view returns (uint256)",
   "function tasks(uint256) view returns (uint256 id, string content, bool done)",
-  
+
   // Write functions
   "function createTask(string memory content)",
   "function toggleDone(uint256 id)",
   "function deleteTask(uint256 id)",
-  
+
   // Events
   "event TaskCreated(uint256 indexed id, string content, bool done)",
   "event TaskToggled(uint256 indexed id, bool done)",
@@ -294,7 +298,7 @@ async function loadTasks() {
   const tasks = [];
   for (let i = 0; i < count; i++) {
     const [id, content, done] = await contract.tasks(i);
-    
+
     // Skip deleted tasks (content is empty)
     if (content !== "") {
       tasks.push({
@@ -318,7 +322,7 @@ When you `delete` in Solidity, the slot becomes zero-values:
 // tasks[2] = { id: 0, content: "", done: false }
 
 // Filter out deleted tasks:
-const activeTasks = tasks.filter(t => t.content !== "");
+const activeTasks = tasks.filter((t) => t.content !== "");
 ```
 
 ---
@@ -343,15 +347,15 @@ async function createTask(content) {
   // Send transaction
   console.log("Creating task...");
   const tx = await contract.createTask(content);
-  
+
   // Wait for confirmation
   console.log("Waiting for confirmation...");
   const receipt = await tx.wait();
-  
+
   // Get the new task ID from the event
-  const event = receipt.events.find(e => e.event === "TaskCreated");
+  const event = receipt.events.find((e) => e.event === "TaskCreated");
   const newId = event.args.id.toNumber();
-  
+
   console.log(`Task #${newId} created!`);
   return newId;
 }
@@ -376,7 +380,7 @@ async function toggleTask(taskId) {
   // Read the new status
   const [, , done] = await contract.tasks(taskId);
   console.log(`Task #${taskId} is now ${done ? "complete" : "incomplete"}`);
-  
+
   return done;
 }
 ```
@@ -527,20 +531,20 @@ function TodoApp() {
     try {
       setLoading(true);
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      
+
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
-      
+
       const count = await contract.getTasksCount();
       const items = [];
-      
+
       for (let i = 0; i < count; i++) {
         const [id, content, done] = await contract.tasks(i);
         if (content !== "") {
           items.push({ id: id.toNumber(), content, done });
         }
       }
-      
+
       setTasks(items);
     } catch (err) {
       setError(err.message);
@@ -557,10 +561,10 @@ function TodoApp() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-      
+
       const tx = await contract.createTask(newTask);
       await tx.wait();
-      
+
       setNewTask("");
       loadTasks(); // Refresh list
     } catch (err) {
@@ -573,10 +577,10 @@ function TodoApp() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-      
+
       const tx = await contract.toggleDone(taskId);
       await tx.wait();
-      
+
       loadTasks();
     } catch (err) {
       setError(err.message);
@@ -588,10 +592,10 @@ function TodoApp() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-      
+
       const tx = await contract.deleteTask(taskId);
       await tx.wait();
-      
+
       loadTasks();
     } catch (err) {
       setError(err.message);
@@ -603,7 +607,7 @@ function TodoApp() {
   return (
     <div>
       <h1>On-Chain To-Do List</h1>
-      
+
       <form onSubmit={handleCreate}>
         <input
           value={newTask}
@@ -623,7 +627,9 @@ function TodoApp() {
               checked={task.done}
               onChange={() => handleToggle(task.id)}
             />
-            <span style={{ textDecoration: task.done ? "line-through" : "none" }}>
+            <span
+              style={{ textDecoration: task.done ? "line-through" : "none" }}
+            >
               {task.content}
             </span>
             <button onClick={() => handleDelete(task.id)}>Delete</button>

@@ -1,5 +1,7 @@
 ## 🧑‍💻 Background Story
 
+![Raffle DApp](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+4.0+-+COVER.png)
+
 Cobwebs of trivia and laughter fill Cubao’s famous “perya” games every weekend—kids shouting “Panalo!”, families crowding around booths, coins clinking in sari-sari stores down the street. Inspired by this Pinoy spirit, Odessa decided to build a decentralized raffle DApp that captures the same excitement on-chain.
 
 She and Neri deployed a simple `Raffle` smart contract on Goerli testnet. Whenever someone calls `enterRaffle()`, their address goes into the pot, and at intervals a “WinnerPicked(address)” event fires with the lucky winner’s address. No page refresh needed—Odessa wanted the UI to light up the moment the smart contract emits the event.
@@ -14,7 +16,11 @@ contract.on("WinnerPicked", (winner) => {
 
 She styled a big confetti animation the moment `latestWinner` updates. Her co-workers cheered as she simulated a transaction, watched the event bubble up in seconds, and saw the screen pop with the winner’s address—all without clicking refresh.
 
-From Cubao perya vibes to Brooklyn co-working buzz, Odessa’s live raffle DApp became a bridge between communities, demonstrating how smart contract events can power real-time web experiences. Next up: filtering events, historical logs, and multi-chain listeners. Pero for now, let’s focus on **Event Listeners in the Frontend**! 🇵🇭✨
+From Cubao perya vibes to Brooklyn co-working buzz, Odessa’s live raffle DApp became a bridge between communities, demonstrating how smart contract events can power real-time web experiences.
+
+![RaffleListener Component](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+4.1.png)
+
+Next up: filtering events, historical logs, and multi-chain listeners. Pero for now, let’s focus on **Event Listeners in the Frontend**! 🇵🇭✨
 
 ---
 
@@ -27,6 +33,7 @@ Events are one of the most powerful features for building responsive DApps. Let'
 #### **The Problem Events Solve**
 
 Imagine a raffle DApp where multiple users are watching the same screen. When someone wins:
+
 - **Without events**: Each user must manually refresh to see the winner
 - **With events**: All users see the winner instantly, automatically!
 
@@ -45,6 +52,7 @@ function pickWinner() external {
 ```
 
 **Key points:**
+
 - Events are **cheap** (much cheaper than storing data in contract storage)
 - Events are **permanent** (stored in transaction logs forever)
 - Events are **not accessible** by smart contracts (only by external apps)
@@ -76,6 +84,7 @@ event WinnerPicked(address winner);
 ```
 
 **Indexed parameters** create "topics" that blockchain nodes can search quickly:
+
 ```js
 // Find only events where YOU won
 const myWins = await contract.queryFilter(
@@ -106,7 +115,7 @@ contract.on("WinnerPicked", (winner, event) => {
   console.log("🎉 Winner:", winner);
   console.log("Block number:", event.blockNumber);
   console.log("Transaction:", event.transactionHash);
-  
+
   // Update your React state here!
 });
 ```
@@ -125,7 +134,7 @@ event Transfer(address indexed from, address indexed to, uint256 amount);
 contract.on("Transfer", (from, to, amount, event) => {
   // from, to, amount = event parameters in order
   // event = extra metadata about the event
-  
+
   console.log(`${from} sent ${amount} to ${to}`);
   console.log("Block:", event.blockNumber);
   console.log("Tx Hash:", event.transactionHash);
@@ -134,12 +143,12 @@ contract.on("Transfer", (from, to, amount, event) => {
 
 #### **Event Listener Methods**
 
-| Method | Description |
-|--------|-------------|
-| `contract.on(event, listener)` | Subscribe to future events |
-| `contract.once(event, listener)` | Listen for only the next occurrence |
-| `contract.off(event, listener)` | Unsubscribe a specific listener |
-| `contract.removeAllListeners(event)` | Remove all listeners for an event |
+| Method                               | Description                         |
+| ------------------------------------ | ----------------------------------- |
+| `contract.on(event, listener)`       | Subscribe to future events          |
+| `contract.once(event, listener)`     | Listen for only the next occurrence |
+| `contract.off(event, listener)`      | Unsubscribe a specific listener     |
+| `contract.removeAllListeners(event)` | Remove all listeners for an event   |
 
 ```js
 // Listen to all future WinnerPicked events
@@ -175,6 +184,7 @@ contract.on(filter, (winner, event) => {
 #### **⚠️ Critical: Always Clean Up Listeners**
 
 Forgetting to remove listeners causes:
+
 - Memory leaks (listeners pile up)
 - Duplicate event handling (same event processed multiple times)
 - State update errors (updates to unmounted components)
@@ -217,49 +227,48 @@ export default function RaffleListener() {
   // EVENT LISTENER SETUP
   // ============================================
   useEffect(() => {
-    let contract;  // Store reference for cleanup
-    let handler;   // Store handler reference for cleanup
-    
+    let contract; // Store reference for cleanup
+    let handler; // Store handler reference for cleanup
+
     async function setupListener() {
       try {
         // Create provider
         const provider = new ethers.providers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
-        
+
         // Verify connection
         await provider.getNetwork();
         setIsConnected(true);
-        
+
         // Create contract instance
         contract = new ethers.Contract(
           process.env.REACT_APP_CONTRACT_ADDRESS,
           abi,
           provider
         );
-        
+
         // Define the event handler
         handler = (winner, event) => {
           console.log("🎉 New winner:", winner);
           console.log("Block:", event.blockNumber);
-          
+
           // Update state with new winner
           setLatestWinner(winner);
         };
-        
+
         // Subscribe to the event
         contract.on("WinnerPicked", handler);
         console.log("✅ Listening for WinnerPicked events...");
-        
       } catch (err) {
         console.error("Failed to setup listener:", err);
         setError("Failed to connect to blockchain");
         setIsConnected(false);
       }
     }
-    
+
     setupListener();
-    
+
     // ============================================
     // CLEANUP FUNCTION (runs on unmount)
     // ============================================
@@ -269,7 +278,7 @@ export default function RaffleListener() {
         console.log("🧹 Cleaned up event listener");
       }
     };
-  }, []);  // Empty array = run once on mount
+  }, []); // Empty array = run once on mount
 
   // ============================================
   // RENDER
@@ -277,7 +286,7 @@ export default function RaffleListener() {
   if (error) {
     return <div className="error">❌ {error}</div>;
   }
-  
+
   if (!isConnected) {
     return <div className="loading">Connecting to blockchain...</div>;
   }
@@ -285,12 +294,12 @@ export default function RaffleListener() {
   return (
     <div className="raffle-listener">
       <h2>🎰 Raffle Listener</h2>
-      
+
       <div className="status">
         <span className="dot connected"></span>
         Live - Listening for winners
       </div>
-      
+
       <div className="winner-display">
         <h3>🎉 Latest Winner</h3>
         {latestWinner ? (
@@ -332,7 +341,7 @@ Component Mounts
     Component re-renders               │
            │                           │
            └───────────────────────────┘
-           
+
 Component Unmounts
        │
        ▼
@@ -359,7 +368,7 @@ useEffect(() => {
   const contract = new ethers.Contract(...);
   const handler = (winner) => setLatestWinner(winner);
   contract.on("WinnerPicked", handler);
-  
+
   return () => {
     contract.off("WinnerPicked", handler);  // Clean up!
   };
@@ -377,9 +386,9 @@ Sometimes you need to fetch past events—like showing a history of all winners.
 ```js
 // Fetch all WinnerPicked events from block 0 to latest
 const events = await contract.queryFilter(
-  "WinnerPicked",  // Event name
-  0,               // From block (0 = genesis)
-  "latest"         // To block ("latest" = most recent)
+  "WinnerPicked", // Event name
+  0, // From block (0 = genesis)
+  "latest" // To block ("latest" = most recent)
 );
 
 console.log(`Found ${events.length} past winners`);
@@ -395,14 +404,14 @@ Each event in the array contains:
   args: {
     winner: "0x1234..."
   },
-  
+
   // Metadata
   blockNumber: 12345678,
   blockHash: "0xabcd...",
   transactionHash: "0xefgh...",
   transactionIndex: 5,
   logIndex: 2,
-  
+
   // Methods
   getBlock: async function() { ... },
   getTransaction: async function() { ... },
@@ -417,27 +426,27 @@ useEffect(() => {
   async function loadPastWinners() {
     const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
     const contract = new ethers.Contract(ADDRESS, abi, provider);
-    
+
     // Fetch last 1000 blocks of events
     const currentBlock = await provider.getBlockNumber();
     const fromBlock = Math.max(0, currentBlock - 1000);
-    
+
     const events = await contract.queryFilter(
       "WinnerPicked",
       fromBlock,
       "latest"
     );
-    
+
     // Extract winner addresses from events
-    const winners = events.map(event => ({
+    const winners = events.map((event) => ({
       address: event.args.winner,
       block: event.blockNumber,
-      txHash: event.transactionHash
+      txHash: event.transactionHash,
     }));
-    
+
     setPastWinners(winners);
   }
-  
+
   loadPastWinners();
 }, []);
 ```
@@ -459,21 +468,21 @@ console.log(`You won ${myWins.length} times!`);
 useEffect(() => {
   async function setup() {
     const contract = new ethers.Contract(ADDRESS, abi, provider);
-    
+
     // 1. Load historical events first
     const pastEvents = await contract.queryFilter("WinnerPicked", 0, "latest");
-    const pastWinners = pastEvents.map(e => e.args.winner);
+    const pastWinners = pastEvents.map((e) => e.args.winner);
     setWinners(pastWinners);
-    
+
     // 2. Then listen for new events
     const handler = (winner) => {
-      setWinners(prev => [...prev, winner]);
+      setWinners((prev) => [...prev, winner]);
     };
     contract.on("WinnerPicked", handler);
-    
+
     return () => contract.off("WinnerPicked", handler);
   }
-  
+
   setup();
 }, []);
 ```
@@ -513,17 +522,16 @@ contract.on("WinnerPicked", debouncedUpdate);
 ```js
 useEffect(() => {
   let contract;
-  
+
   async function setup() {
     try {
       const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-      
+
       // Test connection
       await provider.getNetwork();
-      
+
       contract = new ethers.Contract(ADDRESS, abi, provider);
       // ... setup listeners
-      
     } catch (error) {
       if (error.code === "NETWORK_ERROR") {
         setError("Cannot connect to blockchain. Check RPC URL.");
@@ -532,7 +540,7 @@ useEffect(() => {
       }
     }
   }
-  
+
   setup();
 }, []);
 ```
@@ -540,20 +548,20 @@ useEffect(() => {
 #### **4. Show Connection Status**
 
 ```js
-const [connectionStatus, setConnectionStatus] = useState('connecting');
+const [connectionStatus, setConnectionStatus] = useState("connecting");
 
 // In your UI
 <div className="status-indicator">
-  {connectionStatus === 'connected' && (
+  {connectionStatus === "connected" && (
     <span className="dot green">● Live</span>
   )}
-  {connectionStatus === 'connecting' && (
+  {connectionStatus === "connecting" && (
     <span className="dot yellow">● Connecting...</span>
   )}
-  {connectionStatus === 'error' && (
+  {connectionStatus === "error" && (
     <span className="dot red">● Disconnected</span>
   )}
-</div>
+</div>;
 ```
 
 #### **5. Limit Historical Query Range**
@@ -573,10 +581,11 @@ const events = await contract.queryFilter("WinnerPicked", fromBlock, "latest");
 ### 6. Common Mistakes to Avoid
 
 1. **Using anonymous functions (can't clean up)**
+
    ```js
    // ❌ Can't remove this listener
    contract.on("Event", (data) => setState(data));
-   
+
    // ✅ Can be removed
    const handler = (data) => setState(data);
    contract.on("Event", handler);
@@ -584,18 +593,20 @@ const events = await contract.queryFilter("WinnerPicked", fromBlock, "latest");
    ```
 
 2. **Not checking if component is still mounted**
+
    ```js
    useEffect(() => {
      let isMounted = true;
-     
+
      const handler = (winner) => {
-       if (isMounted) {  // Only update if still mounted
+       if (isMounted) {
+         // Only update if still mounted
          setWinner(winner);
        }
      };
-     
+
      contract.on("WinnerPicked", handler);
-     
+
      return () => {
        isMounted = false;
        contract.off("WinnerPicked", handler);
@@ -604,13 +615,14 @@ const events = await contract.queryFilter("WinnerPicked", fromBlock, "latest");
    ```
 
 3. **Creating new contract instance on every render**
+
    ```js
    // ❌ New contract (and new listeners) every render!
    function Component() {
      const contract = new ethers.Contract(...);
      contract.on("Event", handler);
    }
-   
+
    // ✅ Create once in useEffect
    function Component() {
      useEffect(() => {

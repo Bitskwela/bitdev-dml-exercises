@@ -1,5 +1,7 @@
 ## 🧑‍💻 Background Story
 
+![Sign-In with Ethereum](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+5.0+-+COVER.png)
+
 In the heart of a Manila-based Web3 startup, the HR team struggled to secure their internal “Hire Filipino Talent” dashboard. Paper resumes and password resets? Nakakabored! Neri stepped in with an idea: “Let’s do Sign-In with Ethereum (SIWE).”
 
 That evening in Brooklyn, Odessa joined via Zoom from her co-working nook, eyes gleaming. “No backend? No problem,” Neri said. She deployed a tiny `Authenticator` contract on Hardhat: it simply recovers your signed message on-chain. Odessa’s mission was to build the React interface:
@@ -11,6 +13,8 @@ That evening in Brooklyn, Odessa joined via Zoom from her co-working nook, eyes 
 5. **Unlock** the “Hire Filipino Talent” dashboard on success
 
 As the local Hardhat node hummed, Odessa wired up Ethers.js to MetaMask, signed a nonce, called `verify()`, and watched the dashboard appear—no refresh, no passwords, pure crypto. The HR team gasped: “Ayos ‘to!”
+
+![SIWE Dashboard](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+5.1.png)
 
 From Manila’s startup hustle to Brooklyn’s café vibe, Odessa had just mastered SIWE without a real server. Next stop: securing APIs, role-based access, and cross-chain identity. But tonight, she celebrates that “Welcome, 0x…!” screen on her “Hire Filipino Talent” dashboard. 🇵🇭🔐✨
 
@@ -80,14 +84,14 @@ Verification:                                           ▼
 
 EIP-4361 standardizes the message format for Sign-In with Ethereum. The message includes:
 
-| Field | Purpose | Example |
-|-------|---------|---------|
-| **Domain** | Which app is requesting | `app.example.com` |
-| **Address** | User's wallet address | `0xABC...123` |
-| **Statement** | Human-readable purpose | "Sign in to access dashboard" |
-| **URI** | Full URL of the app | `https://app.example.com` |
-| **Nonce** | Unique random value | `abc123xyz` |
-| **Issued At** | Timestamp | `2024-01-15T10:30:00Z` |
+| Field         | Purpose                 | Example                       |
+| ------------- | ----------------------- | ----------------------------- |
+| **Domain**    | Which app is requesting | `app.example.com`             |
+| **Address**   | User's wallet address   | `0xABC...123`                 |
+| **Statement** | Human-readable purpose  | "Sign in to access dashboard" |
+| **URI**       | Full URL of the app     | `https://app.example.com`     |
+| **Nonce**     | Unique random value     | `abc123xyz`                   |
+| **Issued At** | Timestamp               | `2024-01-15T10:30:00Z`        |
 
 ---
 
@@ -97,14 +101,14 @@ EIP-4361 standardizes the message format for Sign-In with Ethereum. The message 
 
 Ethereum uses **Elliptic Curve Digital Signature Algorithm (ECDSA)**. Here's what you need to know:
 
-| Component | What It Is | Purpose |
-|-----------|------------|---------|
-| **Message** | The text being signed | What you're agreeing to |
-| **Message Hash** | keccak256 of the message | Fixed-size fingerprint |
-| **Signature (v, r, s)** | The actual signature | Proves ownership |
-| **v** | Recovery ID (27 or 28) | Helps recover public key |
-| **r** | First half of signature | Part of the proof |
-| **s** | Second half of signature | Part of the proof |
+| Component               | What It Is               | Purpose                  |
+| ----------------------- | ------------------------ | ------------------------ |
+| **Message**             | The text being signed    | What you're agreeing to  |
+| **Message Hash**        | keccak256 of the message | Fixed-size fingerprint   |
+| **Signature (v, r, s)** | The actual signature     | Proves ownership         |
+| **v**                   | Recovery ID (27 or 28)   | Helps recover public key |
+| **r**                   | First half of signature  | Part of the proof        |
+| **s**                   | Second half of signature | Part of the proof        |
 
 #### **The Ethereum Signed Message Prefix**
 
@@ -112,10 +116,10 @@ When signing with MetaMask, a prefix is added to prevent signing malicious trans
 
 ```js
 // What you sign:
-"Hello, World!"
+"Hello, World!";
 
 // What's actually hashed:
-"\x19Ethereum Signed Message:\n13Hello, World!"
+"\x19Ethereum Signed Message:\n13Hello, World!";
 //  ↑ Prefix                  ↑ Length of message
 
 // This prefix protects you from signing actual transactions!
@@ -128,6 +132,7 @@ When signing with MetaMask, a prefix is added to prevent signing malicious trans
 #### **Why Verify On-Chain?**
 
 You can verify signatures off-chain (in JavaScript), but on-chain verification:
+
 - Creates an auditable, trustless proof
 - Can be combined with other contract logic
 - Proves verification happened at a specific block
@@ -157,13 +162,13 @@ contract Authenticator {
     ) external pure returns (bool) {
         // Ethereum adds this prefix when signing messages
         bytes memory prefix = "\x19Ethereum Signed Message:\n32";
-        
+
         // Hash the prefixed message
         bytes32 prefixedHash = keccak256(abi.encodePacked(prefix, msgHash));
-        
+
         // Recover the signer's address from the signature
         address recovered = ecrecover(prefixedHash, v, r, s);
-        
+
         // Check if recovered address matches expected user
         return recovered == user;
     }
@@ -216,6 +221,7 @@ contract Authenticator {
 #### **Step-by-Step Code Implementation**
 
 **Step 1: Connect Wallet**
+
 ```js
 // Request permission to access wallet
 await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -230,6 +236,7 @@ console.log("Connected:", userAddress); // "0xABC...123"
 ```
 
 **Step 2: Generate Nonce & Create Message**
+
 ```js
 // Generate a unique nonce (prevents replay attacks)
 const nonce = Date.now().toString(); // or use UUID, random bytes
@@ -244,14 +251,16 @@ Issued At: ${new Date().toISOString()}`;
 ```
 
 **Step 3: Request Signature**
+
 ```js
 // MetaMask will show a popup asking user to sign
 const signature = await signer.signMessage(message);
-console.log("Signature:", signature); 
+console.log("Signature:", signature);
 // "0x7f8a2b4c5d6e7f8a2b4c5d6e7f8a2b4c5d6e7f8a2b4c5d6e..."
 ```
 
 **Step 4: Prepare for Verification**
+
 ```js
 // Hash the message (same way Solidity will)
 const messageHash = ethers.utils.id(message); // keccak256
@@ -259,12 +268,13 @@ const messageHash = ethers.utils.id(message); // keccak256
 // Split signature into v, r, s components
 const { v, r, s } = ethers.utils.splitSignature(signature);
 
-console.log("v:", v);  // 27 or 28
-console.log("r:", r);  // "0x..." (32 bytes)
-console.log("s:", s);  // "0x..." (32 bytes)
+console.log("v:", v); // 27 or 28
+console.log("r:", r); // "0x..." (32 bytes)
+console.log("s:", s); // "0x..." (32 bytes)
 ```
 
 **Step 5: Verify On-Chain**
+
 ```js
 // Create contract instance (read-only, so provider is enough)
 const contract = new ethers.Contract(
@@ -323,13 +333,13 @@ Expiration: ${expirationTime.toISOString()}
 
 #### **Common Security Mistakes**
 
-| Mistake | Risk | Solution |
-|---------|------|----------|
-| No nonce | Replay attacks | Generate unique nonce per session |
-| Static message | Signature reuse | Include timestamp/nonce |
-| No expiration | Old signatures valid forever | Add expiration time |
-| Wrong prefix | Signature won't verify | Use Ethers.js `signMessage` |
-| Storing private keys | Keys can be stolen | Never store private keys |
+| Mistake              | Risk                         | Solution                          |
+| -------------------- | ---------------------------- | --------------------------------- |
+| No nonce             | Replay attacks               | Generate unique nonce per session |
+| Static message       | Signature reuse              | Include timestamp/nonce           |
+| No expiration        | Old signatures valid forever | Add expiration time               |
+| Wrong prefix         | Signature won't verify       | Use Ethers.js `signMessage`       |
+| Storing private keys | Keys can be stolen           | Never store private keys          |
 
 ---
 

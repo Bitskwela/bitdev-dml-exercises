@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![Connect My MetaMask](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+1.0+-+COVER.png)
+
 In a cozy café in BGC, Neri leaned forward, latte foam dusting her laptop keyboard. Across from her, Odessa’s eyes sparkled with excitement—and jitters. “Next week, you pitch our decentralized street-food market app in NYC,” Neri reminded her. “But kung walang **Connect** button, it ain’t a DApp!”
+
+![Odessa coding](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+1.1.png)
 
 Odessa took a deep breath. She imagined balikbayans craving sisig tacos, taho vendors tokenizing orders, and OFWs trading food vouchers—all powered by Ethereum. First step: MetaMask. With a sly grin, Neri typed `npx create-react-app dapp-foundation`. “We’ll inject Ethers.js, detect MetaMask, and call `eth_requestAccounts`.”
 
@@ -19,10 +23,13 @@ Welcome to DApp Integration Foundations. Let’s elevate Filipino flavors to the
 Think of a DApp (Decentralized Application) as a bridge between the regular web you know and the blockchain. Let's break down the three main components:
 
 #### **React Frontend** (The User Interface)
+
 This is what users see and interact with—buttons, forms, and pages. React is a popular JavaScript library that makes building interactive websites easier. If you've used Facebook, Instagram, or Netflix, you've used React! In our case, React will display wallet connection buttons and show blockchain data in a user-friendly way.
 
 #### **Ethers.js** (The Translator)
+
 Ethers.js is a JavaScript library that acts as a translator between your website and the blockchain. Think of it like a waiter in a restaurant:
+
 - You (the frontend) tell the waiter what you want
 - The waiter (Ethers.js) communicates with the kitchen (blockchain)
 - The waiter brings back your order (blockchain data)
@@ -30,7 +37,9 @@ Ethers.js is a JavaScript library that acts as a translator between your website
 It converts your simple JavaScript commands into blockchain-compatible requests and vice versa.
 
 #### **MetaMask** (The Digital Wallet & Guardian)
+
 MetaMask is a browser extension that serves three critical roles:
+
 1. **Wallet**: Stores your cryptocurrency and digital assets securely
 2. **Key Manager**: Keeps your private keys safe (think of these as super-secret passwords)
 3. **Transaction Signer**: Approves and signs blockchain transactions on your behalf
@@ -55,17 +64,18 @@ if (window.ethereum) {
 
 #### **Concept 2: Requesting Account Access**
 
-Just because MetaMask is installed doesn't mean your app automatically has access to the user's wallet. That would be a security nightmare! 
+Just because MetaMask is installed doesn't mean your app automatically has access to the user's wallet. That would be a security nightmare!
 
 You must request permission using the `eth_requestAccounts` method. This triggers a MetaMask popup asking the user: "Do you want to connect your wallet to this website?"
 
 ```js
-await window.ethereum.request({ method: "eth_requestAccounts" })
+await window.ethereum.request({ method: "eth_requestAccounts" });
 ```
 
 **Real-world analogy**: This is like asking someone for their phone number—they can say yes or no. Respect their choice!
 
 **What happens when the user approves?**
+
 - MetaMask returns an array of wallet addresses (usually just one)
 - The first address `accounts[0]` is the currently selected account
 - Your app can now see this address (but NOT the private keys—those stay in MetaMask)
@@ -73,6 +83,7 @@ await window.ethereum.request({ method: "eth_requestAccounts" })
 #### **Concept 3: Listening to Events**
 
 Blockchain wallets are dynamic. Users can:
+
 - Switch between different wallet accounts
 - Change networks (from Ethereum mainnet to a test network)
 - Lock/disconnect their wallet
@@ -115,6 +126,7 @@ await window.ethereum.request({
 ```
 
 **Chain IDs you should know:**
+
 - `0x1` = Ethereum Mainnet
 - `0x5` = Goerli Testnet (being deprecated)
 - `0xaa36a7` = Sepolia Testnet (recommended for testing)
@@ -143,27 +155,27 @@ import { ethers } from "ethers";
 
 export default function WalletConnector() {
   // State variables to store wallet information
-  const [account, setAccount] = useState(null);  // Connected wallet address
-  const [chainId, setChainId] = useState(null);  // Current blockchain network
+  const [account, setAccount] = useState(null); // Connected wallet address
+  const [chainId, setChainId] = useState(null); // Current blockchain network
 
   // useEffect runs when component loads
   useEffect(() => {
     // Exit early if MetaMask not installed
     if (!window.ethereum) return;
-    
+
     // Function: Update account when user switches wallets
     const onAccountsChanged = (accounts) => {
       // If accounts array is empty, user disconnected
       setAccount(accounts[0] || null);
     };
-    
+
     // Function: Update network when user switches chains
     const onChainChanged = (chainHex) => {
       setChainId(chainHex);
       // Best practice: reload page to clear stale state
       // window.location.reload();
     };
-    
+
     // Register event listeners
     window.ethereum.on("accountsChanged", onAccountsChanged);
     window.ethereum.on("chainChanged", onChainChanged);
@@ -180,20 +192,19 @@ export default function WalletConnector() {
   const connectWallet = async () => {
     // Safety check
     if (!window.ethereum) return alert("Please install MetaMask!");
-    
+
     try {
       // Request account access (triggers MetaMask popup)
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      
+
       // Store the first account (user's primary address)
       setAccount(accounts[0]);
-      
+
       // Get current network ID
       const hex = await window.ethereum.request({ method: "eth_chainId" });
       setChainId(hex);
-      
     } catch (error) {
       // User clicked "Reject" or another error occurred
       console.error("User rejected wallet connection", error);
@@ -229,6 +240,7 @@ export default function WalletConnector() {
 If you're new to React, here's what these hooks do:
 
 - **`useState`**: Creates a variable that React watches. When it changes, React updates the UI automatically
+
   - `const [account, setAccount] = useState(null)` creates:
     - `account`: the current value
     - `setAccount`: a function to update the value
@@ -241,6 +253,7 @@ If you're new to React, here's what these hooks do:
 ### 4. Security Best Practices Explained
 
 #### **Always Verify `window.ethereum` Existence**
+
 Never assume MetaMask is installed. Always check before making calls, or your app will crash with errors.
 
 ```js
@@ -250,6 +263,7 @@ if (!window.ethereum) {
 ```
 
 #### **Handle User Rejections Gracefully**
+
 Users have the right to say no. Don't let your app break when they reject the connection request.
 
 ```js
@@ -262,9 +276,11 @@ try {
 ```
 
 #### **NEVER Expose Private Keys or Seed Phrases**
+
 Private keys should NEVER appear in your frontend code. They stay securely in MetaMask. Your app only sees public addresses.
 
 #### **Never Hardcode RPC URLs with API Keys**
+
 If you use services like Infura or Alchemy, keep API keys in environment variables (`.env` files), not in your code.
 
 ```js
@@ -280,6 +296,7 @@ const provider = new ethers.providers.JsonRpcProvider(
 ```
 
 #### **Listen to Chain Changes**
+
 If your smart contract is on Ethereum mainnet but the user switches to a testnet, transactions will fail. Always monitor the network and warn users if they're on the wrong chain.
 
 ```js
@@ -291,6 +308,7 @@ if (chainId !== EXPECTED_CHAIN_ID) {
 ```
 
 #### **Validate User Input**
+
 If users enter addresses or amounts, validate them before sending transactions:
 
 ```js
@@ -310,12 +328,15 @@ if (isNaN(amount) || amount <= 0) {
 ### 5. Common Beginner Mistakes to Avoid
 
 1. **Forgetting `await` with async functions**
+
    ```js
    // ❌ This won't work - missing await
    const accounts = window.ethereum.request({ method: "eth_requestAccounts" });
-   
+
    // ✅ Correct
-   const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+   const accounts = await window.ethereum.request({
+     method: "eth_requestAccounts",
+   });
    ```
 
 2. **Not handling MetaMask locked state**
@@ -345,6 +366,7 @@ After implementing the component, test these scenarios:
 ### 7. What's Next?
 
 Now that you can connect to MetaMask, you're ready for:
+
 - **Reading data from smart contracts** (checking token balances, NFT ownership)
 - **Writing to smart contracts** (sending transactions, minting NFTs)
 - **Listening to contract events** (real-time updates when things happen on-chain)
@@ -360,7 +382,6 @@ This wallet connection is the foundation for everything else in Web3 development
 - **React Hooks Guide**: https://reactjs.org/docs/hooks-intro.html - Learn React fundamentals
 - **Ethereum JSON-RPC API**: https://ethereum.org/en/developers/docs/apis/json-rpc/ - Understanding the underlying API calls
 - **Web3 Modal**: https://web3modal.com/ - Library that supports multiple wallets (MetaMask, WalletConnect, etc.)
-
 
 ## 🌟 Closing Story
 
