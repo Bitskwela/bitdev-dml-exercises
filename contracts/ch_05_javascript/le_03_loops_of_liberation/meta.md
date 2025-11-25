@@ -1,12 +1,12 @@
 ---
-title: "Liquidity Lockdown: Neri vs. the Phantom Pool"
-description: "A short description of this document."
+title: "Loops of Liberation"
+description: "Learn how to harness the power of loops in JavaScript to automate repetitive tasks and enhance your coding efficiency."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-05-25"
+date: "2025-08-28"
 
 # For SEO purposes
-tags: ["markdown", "metadata", "bitskwela", "solidity"]
+tags: ["markdown", "metadata", "bitskwela", "javascript", "loops"]
 
 # Currently supported types:
 # NormalExercise - Just a simple module.  Does not require user input.
@@ -16,8 +16,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "proj-1-liquidity-lockdown"
+permaname: "le-03-loops-of-liberation"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "proj-1-liquidity-lockdown"
+slug: "le-03-loops-of-liberation"
 ---
