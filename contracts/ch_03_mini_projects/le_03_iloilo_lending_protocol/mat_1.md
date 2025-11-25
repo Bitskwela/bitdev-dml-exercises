@@ -1,10 +1,14 @@
 # Mini Project #3: Iloilo's Barangay Lending Protocol
 
+![Iloilo Lending Protocol](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_3/C3+3.0+-+COVER.png)
+
 ## Background story:
 
 In a small barangay in Iloilo, farmers are often trapped in 5-6 lending schemes (loan sharks), borrowing PHP 5,000 but paying back PHP 7,500 or more. They can’t access formal banks. They have no credit score, no collateral, and no protection.
 
 Hackana’s old botnet disrupted rural banking systems, and now the community can’t rely on traditional finance. LGU is helpless. Bangko Sentral ng Pilipinas is too slow. The people need a decentralized solution.
+
+![Neri the Blockchain Defender](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_3/C3+3.1+-+COVER.png)
 
 Neri designs a **Barangay Lending Protocol** — a smart contract that allows farmers to request small loans and lenders to offer funds directly, transparently. All activity is recorded on-chain.
 

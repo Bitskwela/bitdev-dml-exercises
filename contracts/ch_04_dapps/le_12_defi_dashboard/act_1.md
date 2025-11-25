@@ -1,53 +1,14 @@
-# Activity 1: Fetch LP Reserves & Total Supply
+# Fetch LP Reserves & Total Supply Activity
 
-**Time**: 10 minutes  
-**Goal**: Build a React component that connects to your local Hardhat network, reads `reserve0`, `reserve1`, and `totalSupply` from `MockLP`, and displays them.
+## Initial Code
 
-## Solidity Contract Baseline
+```js
+// LPStats.js - Starter Code
 
-Deploy this `MockLP.sol` contract first:
+// .env Configurations
+// REACT_APP_RPC_URL=http://127.0.0.1:8545
+// REACT_APP_LP_ADDRESS=0xYourMockLPAddress
 
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract MockLP {
-    uint112 private reserve0;
-    uint112 private reserve1;
-    uint256 public totalSupply;
-    uint256 public mockAPR; // in basis points
-
-    constructor(
-        uint112 _r0,
-        uint112 _r1,
-        uint256 _aprBps,
-        uint256 _totalSupply
-    ) {
-        reserve0 = _r0;
-        reserve1 = _r1;
-        mockAPR = _aprBps;
-        totalSupply = _totalSupply;
-    }
-
-    function getReserves() external view returns (uint112, uint112) {
-        return (reserve0, reserve1);
-    }
-
-    function getTotalSupply() external view returns (uint256) {
-        return totalSupply;
-    }
-
-    function getMockAPR() external view returns (uint256) {
-        return mockAPR;
-    }
-}
-```
-
-## Starter Code
-
-Create `LPStats.js`:
-
-```javascript
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
@@ -64,11 +25,7 @@ export default function LPStats() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        // TODO: provider = new ethers.providers.JsonRpcProvider(RPC_URL)
-        // TODO: contract = new ethers.Contract(LP_ADDRESS, ABI, provider)
-        // TODO: [r0, r1] = await contract.getReserves()
-        // TODO: ts = await contract.getTotalSupply()
-        // TODO: setReserves({ r0, r1 }); setSupply(ts)
+        // TODO: Implement fetching LP stats
       } catch (err) {
         setError(err.message);
       }
@@ -89,69 +46,71 @@ export default function LPStats() {
 }
 ```
 
-## To Do List
+**Time Allotment: 10 minutes**
 
-- [ ] Initialize provider with `process.env.REACT_APP_RPC_URL`
-- [ ] Validate `LP_ADDRESS`
-- [ ] Instantiate contract and call `getReserves()` and `getTotalSupply()`
-- [ ] Update state with fetched values
+## Tasks for Learners
 
-## Environment Setup
+Topics Covered: Address validation, `JsonRpcProvider`, tuple destructuring, multiple contract calls
 
-`.env` file:
+---
 
-```
-REACT_APP_RPC_URL=http://127.0.0.1:8545
-REACT_APP_LP_ADDRESS=0xYourMockLPAddress
-```
+### Task 1: Validate the Contract Address
 
-## Full Solution
+Before interacting with the contract, validate that the LP address from environment variables is a valid Ethereum address using `ethers.utils.isAddress()`.
 
-```javascript
-// LPStats.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-
-const ABI = [
-  "function getReserves() view returns (uint112, uint112)",
-  "function getTotalSupply() view returns (uint256)",
-];
-const RPC = process.env.REACT_APP_RPC_URL;
+```js
 const LP_ADDRESS = process.env.REACT_APP_LP_ADDRESS;
 
-export default function LPStats() {
-  const [reserves, setReserves] = useState({ r0: null, r1: null });
-  const [supply, setSupply] = useState(null);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function fetchStats() {
-      try {
-        if (!ethers.utils.isAddress(LP_ADDRESS)) {
-          throw new Error("Invalid LP contract address");
-        }
-        const provider = new ethers.providers.JsonRpcProvider(RPC);
-        const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);
-        const [r0, r1] = await lp.getReserves();
-        const ts = await lp.getTotalSupply();
-        setReserves({ r0, r1 });
-        setSupply(ts);
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-    fetchStats();
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (reserves.r0 === null) return <p>Loading LP data…</p>;
-  return (
-    <div>
-      <h3>LP Reserves & Supply</h3>
-      <p>Reserve0: {reserves.r0.toString()}</p>
-      <p>Reserve1: {reserves.r1.toString()}</p>
-      <p>Total Supply: {supply.toString()}</p>
-    </div>
-  );
+if (!ethers.utils.isAddress(LP_ADDRESS)) {
+  throw new Error("Invalid LP contract address");
 }
 ```
+
+---
+
+### Task 2: Create Provider and Contract Instance
+
+Instantiate a `JsonRpcProvider` with the RPC URL and create a contract instance for read-only calls to the MockLP contract.
+
+```js
+const provider = new ethers.providers.JsonRpcProvider(
+  process.env.REACT_APP_RPC_URL
+);
+const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);
+```
+
+---
+
+### Task 3: Fetch Reserves and Total Supply
+
+Call `getReserves()` and `getTotalSupply()` from the contract. Destructure the tuple returned by `getReserves()` and update component state with the fetched values.
+
+```js
+const [r0, r1] = await lp.getReserves();
+const ts = await lp.getTotalSupply();
+setReserves({ r0, r1 });
+setSupply(ts);
+```
+
+---
+
+## Breakdown of the Activity
+
+**Variables Defined:**
+
+- `reserves`: State object containing `r0` and `r1` representing the token balances in the liquidity pool. Initially both are `null` to indicate loading.
+
+- `supply`: The total number of LP tokens minted, representing total liquidity provided to the pool.
+
+- `LP_ADDRESS`: The deployed contract address read from environment variables. Must be validated before use.
+
+**Key Functions:**
+
+- `ethers.utils.isAddress()`:
+  A utility function that validates whether a string is a valid Ethereum address (40 hex characters with 0x prefix). Returns `true` or `false`. Essential for preventing errors when interacting with invalid addresses.
+
+- `getReserves()`:
+  Returns a tuple of two `uint112` values. In JavaScript, we destructure this as `const [r0, r1] = await lp.getReserves()`. Each value is a `BigNumber` representing the token balance.
+
+- `fetchStats`:
+  The main async function that validates the address, creates the provider and contract, fetches both reserves and total supply, and updates state. Errors are caught and displayed to the user.

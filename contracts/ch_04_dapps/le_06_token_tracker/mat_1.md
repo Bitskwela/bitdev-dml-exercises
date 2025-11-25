@@ -1,6 +1,10 @@
 ## 🧑‍💻 Background Story
 
+![BaryoToken Launch](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+6.0+-+COVER.png)
+
 It was a humid afternoon in Marikina—rain clouds gathering over the riverbanks. Inside a humble sari-sari store turned DAO-hub, barangay residents gathered around a laptop. Neri’s latest innovation, BaryoToken, had just launched. Each token represented a voucher for rice, canned goods, even sari-sari store credit.
+
+![Det Building Token Tracker](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+6.1.png)
 
 Odessa (“Det”) was on the case. Fresh from her stint building an NFT gallery in SF, she now needed to craft a remittance-ready wallet UI for OFWs sending BaryoToken back home. Her mission: a “Balancer” page that:
 
@@ -14,47 +18,496 @@ In just 30 minutes, Det sketched a React page: an input to switch BaryoToken con
 
 ## 📚 Theory & Web3 Lecture
 
-1. ERC-20 Standard Basics  
-   • `name()`, `symbol()`, `decimals()`, `totalSupply()`, `balanceOf(address)`, `transfer(to,amount)`  
-   • `decimals()` defines how many decimal places a token has (e.g., 18). Use it to humanize `balanceOf`.
+Welcome to the world of **ERC-20 tokens**! In this lesson, you'll learn how to build a Token Tracker—a UI that displays token information and balances. Think of it like a digital wallet display for crypto tokens!
 
-2. React + Ethers.js Architecture  
-   • React Functional Components + Hooks (`useState`, `useEffect`)  
-   • `ethers.providers.Web3Provider` for wallet injection  
-   • `ethers.Contract` to call on-chain read methods
+---
 
-3. Provider vs Signer  
-   • Provider: read-only calls (`balanceOf`, `name`, etc.)  
-   • Signer: for sending transactions (`transfer`)
+### 1. Understanding ERC-20 Tokens
 
-4. Fetching & Formatting Balance
+#### **What is ERC-20?**
 
-   ```js
-   const raw = await contract.balanceOf(userAddress); // BigNumber
-   const decimals = await contract.decimals(); // e.g. 18
-   const formatted = ethers.utils.formatUnits(raw, decimals); // string “25.5”
-   ```
+ERC-20 is a **standard interface** for fungible tokens on Ethereum. "Fungible" means each token is identical and interchangeable—like how one peso coin equals any other peso coin.
 
-5. React Hook Flow
+```
+ERC-20 Token vs Traditional Currency:
+┌─────────────────────────────────────────────────────────────┐
+│  Philippine Peso (₱)          │  BaryoToken (BARYO)         │
+├─────────────────────────────────────────────────────────────┤
+│  Physical coins/bills         │  Digital on blockchain      │
+│  Managed by BSP               │  Managed by smart contract  │
+│  Bank tracks your balance     │  Contract tracks balances   │
+│  Transfer via bank/GCash      │  Transfer via blockchain    │
+└─────────────────────────────────────────────────────────────┘
+```
 
-   ```js
-   useEffect(() => {
-     if (walletConnected) {
-       fetchTokenData();
-     }
-   }, [walletConnected]);
-   ```
+#### **The ERC-20 Interface**
 
-6. Best Practices & Security  
-   – Always `await window.ethereum.request({ method: "eth_requestAccounts" })`  
-   – Validate user input for contract address (use regex or Ethers’ `isAddress()`)  
-   – Catch errors (network issues, user rejection) with `try/catch`  
-   – Store RPC URLs & addresses in `.env` (never commit keys)
+Every ERC-20 token must implement these functions:
 
-🔗 Further Reading  
-– Ethers.js: https://docs.ethers.org/v5  
-– OpenZeppelin ERC-20: https://docs.openzeppelin.com/contracts/4.x/erc20  
-– React Hooks: https://reactjs.org/docs/hooks-overview.html
+```solidity
+// Metadata functions (read-only)
+function name() external view returns (string);      // "BaryoToken"
+function symbol() external view returns (string);    // "BARYO"
+function decimals() external view returns (uint8);   // 18
+
+// Supply functions
+function totalSupply() external view returns (uint256);
+
+// Balance functions
+function balanceOf(address account) external view returns (uint256);
+
+// Transfer functions
+function transfer(address to, uint256 amount) external returns (bool);
+function approve(address spender, uint256 amount) external returns (bool);
+function transferFrom(address from, address to, uint256 amount) external returns (bool);
+function allowance(address owner, address spender) external view returns (uint256);
+```
+
+#### **Understanding Decimals**
+
+This is crucial! Token amounts are stored as **integers**, not decimals:
+
+```
+Real-World Example:
+┌─────────────────────────────────────────────────────────────┐
+│  Human sees:     25.50 BARYO                                │
+│  Blockchain stores: 25500000000000000000 (with 18 decimals) │
+│                                                             │
+│  Think of it like:                                          │
+│  ₱25.50 = 2550 centavos                                     │
+│  But with 18 decimal places instead of 2!                   │
+└─────────────────────────────────────────────────────────────┘
+
+Common decimal values:
+┌──────────────┬──────────┬────────────────────────────────────┐
+│ Token        │ Decimals │ 1 token = raw value                │
+├──────────────┼──────────┼────────────────────────────────────┤
+│ Most tokens  │ 18       │ 1000000000000000000                │
+│ USDC, USDT   │ 6        │ 1000000                            │
+│ WBTC         │ 8        │ 100000000                          │
+└──────────────┴──────────┴────────────────────────────────────┘
+```
+
+---
+
+### 2. React + Ethers.js Architecture
+
+#### **Component Architecture**
+
+```
+Token Tracker App Structure:
+┌─────────────────────────────────────────────────────────────┐
+│                       App.js                                 │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │                  TokenInfo.js                           ││
+│  │  • Displays name, symbol, decimals                      ││
+│  │  • Uses Provider (read-only)                            ││
+│  └─────────────────────────────────────────────────────────┘│
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │                TokenBalance.js                          ││
+│  │  • Shows user's token balance                           ││
+│  │  • Formats raw BigNumber to human-readable              ││
+│  └─────────────────────────────────────────────────────────┘│
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │                TokenTransfer.js (Bonus)                 ││
+│  │  • Send tokens to another address                       ││
+│  │  • Uses Signer (write operations)                       ││
+│  └─────────────────────────────────────────────────────────┘│
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### **Provider vs Signer Recap**
+
+| Component    | Type         | Purpose               | Gas Cost  |
+| ------------ | ------------ | --------------------- | --------- |
+| **Provider** | Read-only    | Call `view` functions | FREE      |
+| **Signer**   | Read + Write | Send transactions     | Costs ETH |
+
+```js
+// Provider: For reading data (name, symbol, balance)
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const contract = new ethers.Contract(address, ABI, provider);
+const name = await contract.name(); // Free!
+
+// Signer: For writing data (transfer tokens)
+const signer = provider.getSigner();
+const contractWithSigner = new ethers.Contract(address, ABI, signer);
+const tx = await contractWithSigner.transfer(to, amount); // Costs gas!
+```
+
+---
+
+### 3. Fetching Token Information
+
+#### **The ABI (Application Binary Interface)**
+
+To talk to a smart contract, you need its ABI—a JSON description of its functions:
+
+```js
+// Minimal ABI for reading token info
+const ERC20_ABI = [
+  // Read functions (view)
+  "function name() view returns (string)",
+  "function symbol() view returns (string)",
+  "function decimals() view returns (uint8)",
+  "function totalSupply() view returns (uint256)",
+  "function balanceOf(address) view returns (uint256)",
+
+  // Write functions (state-changing)
+  "function transfer(address to, uint256 amount) returns (bool)",
+];
+
+// Human-readable ABI format (Ethers.js feature!)
+// Much easier than full JSON ABI
+```
+
+#### **Complete Token Info Fetching**
+
+```js
+async function fetchTokenInfo(contractAddress) {
+  // Step 1: Validate the address
+  if (!ethers.utils.isAddress(contractAddress)) {
+    throw new Error("Invalid contract address");
+  }
+
+  // Step 2: Connect to the contract
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
+
+  // Step 3: Fetch all info in parallel (faster!)
+  const [name, symbol, decimals, totalSupply] = await Promise.all([
+    contract.name(),
+    contract.symbol(),
+    contract.decimals(),
+    contract.totalSupply(),
+  ]);
+
+  // Step 4: Format the total supply
+  const formattedSupply = ethers.utils.formatUnits(totalSupply, decimals);
+
+  return {
+    name, // "BaryoToken"
+    symbol, // "BARYO"
+    decimals, // 18
+    totalSupply: formattedSupply, // "1000000.0"
+  };
+}
+```
+
+---
+
+### 4. Fetching & Formatting Balances
+
+#### **The BigNumber Challenge**
+
+JavaScript can't handle numbers larger than `Number.MAX_SAFE_INTEGER` (about 9 quadrillion). Token balances easily exceed this!
+
+```js
+// ❌ Problem: JavaScript loses precision
+const bigNumber = 123456789012345678901234n;
+Number(bigNumber); // 1.2345678901234568e+23 (lost precision!)
+
+// ✅ Solution: Use Ethers.js BigNumber
+const balance = await contract.balanceOf(userAddress);
+console.log(balance.toString()); // "123456789012345678901234"
+
+// Format for display
+const formatted = ethers.utils.formatUnits(balance, 18);
+console.log(formatted); // "123456.789012345678901234"
+```
+
+#### **Complete Balance Fetching Flow**
+
+```js
+async function fetchBalance(contractAddress, userAddress) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
+
+  // Fetch balance and decimals
+  const [rawBalance, decimals, symbol] = await Promise.all([
+    contract.balanceOf(userAddress),
+    contract.decimals(),
+    contract.symbol(),
+  ]);
+
+  // rawBalance is a BigNumber like: 25500000000000000000
+  console.log("Raw balance:", rawBalance.toString());
+
+  // Format to human-readable
+  const formatted = ethers.utils.formatUnits(rawBalance, decimals);
+  console.log("Formatted:", formatted); // "25.5"
+
+  return `${formatted} ${symbol}`; // "25.5 BARYO"
+}
+```
+
+#### **Formatting Utilities**
+
+```js
+// formatUnits: BigNumber → String (for display)
+ethers.utils.formatUnits("25500000000000000000", 18); // "25.5"
+
+// parseUnits: String → BigNumber (for transactions)
+ethers.utils.parseUnits("25.5", 18);
+// BigNumber: 25500000000000000000
+
+// Common patterns:
+const displayBalance = ethers.utils.formatUnits(raw, decimals);
+const sendAmount = ethers.utils.parseUnits(userInput, decimals);
+```
+
+---
+
+### 5. React Hook Patterns
+
+#### **Token Info Hook**
+
+```jsx
+function useTokenInfo(contractAddress) {
+  const [info, setInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      if (!contractAddress) return;
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Validate address first
+        if (!ethers.utils.isAddress(contractAddress)) {
+          throw new Error("Invalid address");
+        }
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const contract = new ethers.Contract(contractAddress, ABI, provider);
+
+        const [name, symbol, decimals] = await Promise.all([
+          contract.name(),
+          contract.symbol(),
+          contract.decimals(),
+        ]);
+
+        setInfo({ name, symbol, decimals: decimals.toString() });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    load();
+  }, [contractAddress]); // Re-run when address changes
+
+  return { info, loading, error };
+}
+```
+
+#### **Token Balance Hook**
+
+```jsx
+function useTokenBalance(contractAddress) {
+  const [account, setAccount] = useState("");
+  const [balance, setBalance] = useState("");
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function loadBalance() {
+      if (!contractAddress) return;
+
+      try {
+        // Request account access
+        const [user] = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setAccount(user);
+
+        // Fetch balance
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const contract = new ethers.Contract(contractAddress, ABI, provider);
+
+        const [rawBalance, decimals, symbol] = await Promise.all([
+          contract.balanceOf(user),
+          contract.decimals(),
+          contract.symbol(),
+        ]);
+
+        const formatted = ethers.utils.formatUnits(rawBalance, decimals);
+        setBalance(`${formatted} ${symbol}`);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+
+    loadBalance();
+  }, [contractAddress]);
+
+  return { account, balance, error };
+}
+```
+
+---
+
+### 6. Input Validation & Error Handling
+
+#### **Validating Contract Addresses**
+
+```js
+function validateAddress(address) {
+  // Check if it's a valid Ethereum address format
+  if (!ethers.utils.isAddress(address)) {
+    return { valid: false, error: "Invalid address format" };
+  }
+
+  // Check if it's the zero address
+  if (address === ethers.constants.AddressZero) {
+    return { valid: false, error: "Cannot use zero address" };
+  }
+
+  return { valid: true, error: null };
+}
+
+// Usage in component
+const handleSubmit = async () => {
+  const { valid, error } = validateAddress(inputAddress);
+  if (!valid) {
+    setError(error);
+    return;
+  }
+  // Proceed with fetching...
+};
+```
+
+#### **Common Error Scenarios**
+
+| Error                   | Cause                  | Solution                    |
+| ----------------------- | ---------------------- | --------------------------- |
+| "Invalid address"       | Wrong format           | Validate with `isAddress()` |
+| "call revert exception" | Not an ERC-20 contract | Verify contract address     |
+| "network changed"       | User switched networks | Re-connect and re-fetch     |
+| "user rejected"         | User denied MetaMask   | Show friendly message       |
+
+```js
+async function safeContractCall(contractFn) {
+  try {
+    return await contractFn();
+  } catch (err) {
+    if (err.code === "CALL_EXCEPTION") {
+      throw new Error("This doesn't appear to be a valid ERC-20 token");
+    }
+    if (err.code === 4001) {
+      throw new Error("Request cancelled by user");
+    }
+    if (err.code === "NETWORK_ERROR") {
+      throw new Error("Network error - check your connection");
+    }
+    throw err;
+  }
+}
+```
+
+---
+
+### 7. Best Practices & Security
+
+#### **Environment Variables**
+
+Never hardcode sensitive values:
+
+```js
+// ❌ BAD: Hardcoded
+const RPC_URL = "https://mainnet.infura.io/v3/abc123secret";
+
+// ✅ GOOD: Environment variable
+const RPC_URL = process.env.REACT_APP_RPC_URL;
+```
+
+**.env file:**
+
+```
+REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+REACT_APP_CONTRACT_ADDRESS=0x...
+```
+
+#### **Security Checklist**
+
+1. ✅ Validate all user inputs
+2. ✅ Never store private keys
+3. ✅ Use HTTPS for RPC endpoints
+4. ✅ Handle all error cases
+5. ✅ Don't trust user-provided ABIs
+6. ✅ Verify contract addresses on Etherscan
+
+---
+
+### 8. Common Mistakes to Avoid
+
+#### **1. Not Handling Decimals**
+
+```js
+// ❌ BAD: Displaying raw value
+const balance = await contract.balanceOf(user);
+display(balance.toString()); // "25500000000000000000" 😱
+
+// ✅ GOOD: Format with decimals
+const decimals = await contract.decimals();
+const formatted = ethers.utils.formatUnits(balance, decimals);
+display(formatted); // "25.5" 👍
+```
+
+#### **2. Forgetting to Request Accounts**
+
+```js
+// ❌ BAD: Will fail - no account connected
+const signer = provider.getSigner();
+const address = await signer.getAddress(); // Error!
+
+// ✅ GOOD: Request first
+await window.ethereum.request({ method: "eth_requestAccounts" });
+const signer = provider.getSigner();
+const address = await signer.getAddress(); // Works!
+```
+
+#### **3. Not Using Promise.all**
+
+```js
+// ❌ SLOW: Sequential calls (3 round trips)
+const name = await contract.name();
+const symbol = await contract.symbol();
+const decimals = await contract.decimals();
+
+// ✅ FAST: Parallel calls (1 round trip)
+const [name, symbol, decimals] = await Promise.all([
+  contract.name(),
+  contract.symbol(),
+  contract.decimals(),
+]);
+```
+
+---
+
+### 9. Testing Your Token Tracker
+
+Before deploying, verify:
+
+1. ✅ **Valid addresses work** - Token info displays correctly
+2. ✅ **Invalid addresses show error** - Clear error message
+3. ✅ **Balance formats correctly** - Uses proper decimals
+4. ✅ **Loading states shown** - User knows something is happening
+5. ✅ **Network switching handled** - Refreshes on chain change
+6. ✅ **Zero balance displays** - Shows "0" not error
+
+---
+
+### External References & Further Learning
+
+- **Ethers.js Documentation**: https://docs.ethers.org/v5 - Complete Ethers.js guide
+- **OpenZeppelin ERC-20**: https://docs.openzeppelin.com/contracts/4.x/erc20 - Standard implementation
+- **EIP-20 Specification**: https://eips.ethereum.org/EIPS/eip-20 - The official ERC-20 standard
+- **React Hooks**: https://reactjs.org/docs/hooks-overview.html - React state management
+- **Etherscan Token Tracker**: https://etherscan.io/tokens - See real token examples
 
 ---
 
