@@ -3,21 +3,10 @@ title: "Function Overload"
 description: "Master JavaScript functions including declarations, parameters, return values, and function overloading concepts to write reusable and efficient code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-11-06"
+date: "2025-08-28"
 
 # For SEO purposes
-tags:
-  [
-    "bitskwela",
-    "javascript",
-    "functions",
-    "parameters",
-    "return-values",
-    "reusability",
-    "programming",
-    "code-organization",
-    "logic",
-  ]
+tags: ["markdown", "metadata", "bitskwela", "javascript", "functions"]
 
 # Currently supported types:
 # NormalExercise - Just a simple module.  Does not require user input.
