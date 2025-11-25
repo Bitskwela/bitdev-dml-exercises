@@ -1,87 +1,13 @@
-# Activity 1: Detect & Display Current Network ⏱️ 10 mins
+# Detect & Display Current Network Activity
 
-Build `NetworkStats` that connects to MetaMask (or JSON-RPC), calls a small on-chain contract to read `block.chainid`, and displays both the raw ID and a friendly name (e.g., "Sepolia", "Polygon"). Subscribe to `chainChanged` so it updates live.
-
-## 📋 Contract Baseline
-
-**Solidity Contract (`NetworkDetector.sol`)**
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract NetworkDetector {
-    function getChainId() external view returns (uint256) {
-        return block.chainid;
-    }
-}
-```
-
-## 🚀 Starter Code
-
-**`NetworkStats.js`**
+## Initial Code
 
 ```js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = ["function getChainId() view returns (uint256)"];
+// .env Configuration
+// REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+// REACT_APP_NETWORK_DETECTOR=0xYourNetworkDetectorAddress
 
-export default function NetworkStats() {
-  const [chainId, setChainId] = useState(null);
-  const [chainName, setChainName] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    let provider, contract;
-
-    async function loadChain() {
-      try {
-        // TODO: detect if window.ethereum exists
-        // TODO: init provider = new ethers.providers.Web3Provider(window.ethereum) or JsonRpcProvider
-        // TODO: contract = new ethers.Contract(address, ABI, provider)
-        // TODO: idBN = await contract.getChainId()
-        // TODO: id = idBN.toNumber(); setChainId(id)
-        // TODO: map id to chainName (e.g., 11155111 → "Sepolia")
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-
-    loadChain();
-
-    // TODO: subscribe to window.ethereum.on("chainChanged", ...) to reload
-
-    return () => {
-      // TODO: remove listener
-    };
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (chainId === null) return <p>Detecting network…</p>;
-
-  return (
-    <div>
-      <h3>Current Network</h3>
-      <p>Chain ID: {chainId}</p>
-      <p>Chain Name: {chainName}</p>
-    </div>
-  );
-}
-```
-
-## ✅ To Do List
-
-- [ ] Request accounts or fallback to JSON-RPC.
-- [ ] Instantiate provider & `NetworkDetector` contract (address in `.env`).
-- [ ] Call `getChainId()`, parse number.
-- [ ] Map common IDs to names (`{1: "Mainnet", 5:"Goerli", 11155111:"Sepolia", 137:"Polygon"}`).
-- [ ] Subscribe to `chainChanged` and re-run logic.
-- [ ] Clean up listener on unmount.
-
-## 🎯 Full Solution
-
-```js
-// NetworkStats.js
+// NetworkStats.js - Starter Code
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
@@ -107,39 +33,22 @@ export default function NetworkStats() {
 
     async function loadChain() {
       try {
-        if (window.ethereum) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          await window.ethereum.request({ method: "eth_requestAccounts" });
-        } else {
-          provider = new ethers.providers.JsonRpcProvider(RPC);
-        }
-        contract = new ethers.Contract(CONTRACT, ABI, provider);
-        const idBN = await contract.getChainId();
-        const id = idBN.toNumber();
-        setChainId(id);
-        setChainName(NAMES[id] || "Unknown");
+        // TODO: Detect MetaMask and create appropriate provider
+        // TODO: Create contract instance and fetch chain ID
+        // TODO: Map chain ID to friendly name and update state
       } catch (err) {
         setError(err.message);
       }
     }
 
+    // TODO: Define handleChange function for chainChanged event
+
     loadChain();
 
-    function handleChange(chainHex) {
-      // chainHex e.g. "0xaa36a7"
-      const id = parseInt(chainHex, 16);
-      setChainId(id);
-      setChainName(NAMES[id] || "Unknown");
-    }
-
-    if (window.ethereum) {
-      window.ethereum.on("chainChanged", handleChange);
-    }
+    // TODO: Subscribe to chainChanged event if MetaMask is available
 
     return () => {
-      if (window.ethereum) {
-        window.ethereum.removeListener("chainChanged", handleChange);
-      }
+      // TODO: Cleanup listener on unmount
     };
   }, []);
 
@@ -149,20 +58,100 @@ export default function NetworkStats() {
   return (
     <div>
       <h3>Current Network</h3>
-      <p>
-        Chain ID: <strong>{chainId}</strong>
-      </p>
-      <p>
-        Chain Name: <strong>{chainName}</strong>
-      </p>
+      <p>Chain ID: {chainId}</p>
+      <p>Chain Name: {chainName}</p>
     </div>
   );
 }
 ```
 
-## 📄 .env Sample
+**Time Allotment: 10 minutes**
 
+## Tasks for Learners
+
+Topics Covered: `Web3Provider`, `JsonRpcProvider`, `window.ethereum`, `chainChanged` event, Chain ID mapping, Event cleanup
+
+---
+
+### Task 1: Create Provider Based on Wallet Availability
+
+Detect if `window.ethereum` exists (MetaMask installed). If yes, create a `Web3Provider` and request account access. Otherwise, fall back to `JsonRpcProvider` using the RPC URL from environment variables for read-only access.
+
+```js
+if (window.ethereum) {
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+  await window.ethereum.request({ method: "eth_requestAccounts" });
+} else {
+  provider = new ethers.providers.JsonRpcProvider(RPC);
+}
 ```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-REACT_APP_NETWORK_DETECTOR=0xYourNetworkDetectorAddress
+
+---
+
+### Task 2: Fetch Chain ID and Map to Friendly Name
+
+Create a contract instance using the ABI, contract address, and provider. Call `getChainId()` to get the current chain ID as a BigNumber, convert it to a regular number, and map it to a human-readable name using the `NAMES` lookup object.
+
+```js
+contract = new ethers.Contract(CONTRACT, ABI, provider);
+const idBN = await contract.getChainId();
+const id = idBN.toNumber();
+setChainId(id);
+setChainName(NAMES[id] || "Unknown");
 ```
+
+---
+
+### Task 3: Subscribe to Chain Changed Event and Cleanup
+
+Define a handler function that parses the hex chain ID from MetaMask's `chainChanged` event. Subscribe to this event when MetaMask is available, and clean up the listener when the component unmounts to prevent memory leaks.
+
+```js
+function handleChange(chainHex) {
+  const id = parseInt(chainHex, 16);
+  setChainId(id);
+  setChainName(NAMES[id] || "Unknown");
+}
+
+if (window.ethereum) {
+  window.ethereum.on("chainChanged", handleChange);
+}
+
+return () => {
+  if (window.ethereum) {
+    window.ethereum.removeListener("chainChanged", handleChange);
+  }
+};
+```
+
+---
+
+## Breakdown of the Activity
+
+**Variables Defined:**
+
+- `RPC`: The RPC URL from environment variables (`process.env.REACT_APP_RPC_URL`). Used as fallback when MetaMask is not installed.
+
+- `CONTRACT`: The deployed NetworkDetector contract address from environment variables. Used to instantiate the contract object.
+
+- `NAMES`: An object mapping numeric chain IDs to human-readable network names. Allows displaying "Sepolia" instead of "11155111".
+
+- `chainId`: State variable storing the current network's chain ID as a number. Updated both on initial load and when the user switches networks.
+
+- `chainName`: State variable storing the friendly network name. Falls back to "Unknown" for unrecognized chain IDs.
+
+- `provider`: Either a `Web3Provider` (MetaMask) or `JsonRpcProvider` (direct RPC) depending on wallet availability.
+
+**Key Functions:**
+
+- `loadChain()`:
+  The async initialization function that runs on component mount. First detects MetaMask availability to create the appropriate provider. Then creates a contract instance and calls `getChainId()` to fetch the current network. Converts the BigNumber result to a number and maps it to a friendly name.
+
+- `handleChange(chainHex)`:
+  Event handler for MetaMask's `chainChanged` event. Receives the new chain ID as a hex string (e.g., "0x1" for Ethereum Mainnet). Parses it to a decimal number using `parseInt(chainHex, 16)` and updates both state variables.
+
+- `window.ethereum.on("chainChanged", handler)`:
+  Subscribes to network change events from MetaMask. Essential for live updates when users switch networks in their wallet without refreshing the page.
+
+- `window.ethereum.removeListener("chainChanged", handler)`:
+  Cleanup function called on component unmount. Prevents memory leaks and ensures the handler doesn't run after the component is destroyed.

@@ -1,52 +1,13 @@
-# Activity 1: Build ReliefStats Component
+# Build ReliefStats Component Activity
 
-**Time**: 10 minutes  
-**Goal**: Create `ReliefStats.js` that reads and displays on-chain wind speed, contract ETH balance, and release status from a typhoon relief smart contract.
+## Initial Code
 
-## Solidity Contract Baseline
+```js
+// .env Configuration
+// REACT_APP_RPC_URL=http://127.0.0.1:8545
+// REACT_APP_RELIEF_ADDRESS=0xYourTyphoonReliefAddress
 
-Deploy this `TyphoonReliefChain.sol` contract first:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract TyphoonReliefChain {
-    uint256 public threshold;      // km/h
-    uint256 public windSpeed;      // latest reading
-    address payable public beneficiary;
-    bool public released;
-
-    event DataUpdated(uint256 windSpeed);
-    event Released(address beneficiary, uint256 amount);
-
-    constructor(uint256 _threshold, address payable _beneficiary) {
-        threshold = _threshold;
-        beneficiary = _beneficiary;
-    }
-
-    // Donate ETH to pool
-    function donate() external payable {}
-
-    // Update weather reading (simulated oracle)
-    function updateWeather(uint256 _speed) external {
-        windSpeed = _speed;
-        emit DataUpdated(_speed);
-        if (!released && windSpeed >= threshold) {
-            released = true;
-            uint256 bal = address(this).balance;
-            beneficiary.transfer(bal);
-            emit Released(beneficiary, bal);
-        }
-    }
-}
-```
-
-## Starter Code
-
-Create `ReliefStats.js`:
-
-```javascript
+// ReliefStats.js - Starter Code
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
@@ -64,12 +25,7 @@ export default function ReliefStats() {
   useEffect(() => {
     async function loadStats() {
       try {
-        // TODO: provider = new ethers.providers.Web3Provider(window.ethereum)
-        // TODO: relief = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider)
-        // TODO: ws = await relief.windSpeed()
-        // TODO: rel = await relief.released()
-        // TODO: bal = await provider.getBalance(CONTRACT_ADDRESS)
-        // TODO: setWind(ws.toNumber()), setReleased(rel), setBalance(ethers.utils.formatEther(bal))
+        // TODO: Implement loading relief stats
       } catch (err) {
         setError(err.message);
       }
@@ -90,77 +46,74 @@ export default function ReliefStats() {
 }
 ```
 
-## To Do List
+**Time Allotment: 10 minutes**
 
-- [ ] Instantiate `provider = new ethers.providers.Web3Provider(window.ethereum)`
-- [ ] Relief contract: `new ethers.Contract(address, ABI, provider)`
-- [ ] Call `windSpeed()` & `released()`
-- [ ] `provider.getBalance(address)` for ETH balance
-- [ ] Update state with parsed values
+## Tasks for Learners
 
-## Key Concepts
+Topics Covered: `Web3Provider`, contract reads, `provider.getBalance()`, `Promise.all`, `formatEther`
 
-- **Oracle Pattern**: Smart contract receives external data (weather readings)
-- **Conditional Logic**: Automatic fund release based on threshold conditions
-- **Balance Queries**: Reading contract ETH balance vs. token balances
-- **Emergency Relief**: Blockchain-based disaster response systems
+---
 
-## Full Solution
+### Task 1: Connect to MetaMask and Create Provider
 
-```javascript
-// ReliefStats.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
+Request MetaMask account access and create a `Web3Provider` instance to connect to the user's wallet.
 
-const ABI = [
-  "function windSpeed() view returns (uint256)",
-  "function released() view returns (bool)",
-];
-const RPC = process.env.REACT_APP_RPC_URL;
-const CONTRACT = process.env.REACT_APP_RELIEF_ADDRESS;
-
-export default function ReliefStats() {
-  const [wind, setWind] = useState(null);
-  const [balance, setBalance] = useState(null);
-  const [released, setReleased] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function loadStats() {
-      try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const relief = new ethers.Contract(CONTRACT, ABI, provider);
-        const [ws, rel] = await Promise.all([
-          relief.windSpeed(),
-          relief.released(),
-        ]);
-        const bal = await provider.getBalance(CONTRACT);
-        setWind(ws.toNumber());
-        setReleased(rel);
-        setBalance(ethers.utils.formatEther(bal));
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-    loadStats();
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (wind === null) return <p>Loading relief stats…</p>;
-  return (
-    <div>
-      <h3>Typhoon Relief Chain Stats</h3>
-      <p>
-        Wind Speed: <strong>{wind}</strong> km/h
-      </p>
-      <p>
-        Pool Balance: <strong>{balance}</strong> ETH
-      </p>
-      <p>
-        Released: <strong>{released ? "✅" : "❌"}</strong>
-      </p>
-    </div>
-  );
-}
+```js
+await window.ethereum.request({ method: "eth_requestAccounts" });
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 ```
+
+---
+
+### Task 2: Create Contract and Fetch Wind Speed & Release Status
+
+Instantiate the relief contract and use `Promise.all` to fetch both `windSpeed()` and `released()` in parallel for better performance.
+
+```js
+const CONTRACT = process.env.REACT_APP_RELIEF_ADDRESS;
+const relief = new ethers.Contract(CONTRACT, ABI, provider);
+
+const [ws, rel] = await Promise.all([relief.windSpeed(), relief.released()]);
+```
+
+---
+
+### Task 3: Fetch Contract Balance and Update State
+
+Use `provider.getBalance()` to query the contract's ETH balance, then update all state variables with properly formatted values.
+
+```js
+const bal = await provider.getBalance(CONTRACT);
+
+setWind(ws.toNumber());
+setReleased(rel);
+setBalance(ethers.utils.formatEther(bal));
+```
+
+---
+
+## Breakdown of the Activity
+
+**Variables Defined:**
+
+- `wind`: The current wind speed reading from the oracle, stored as a number (km/h). Converted from `BigNumber` using `.toNumber()`.
+
+- `balance`: The contract's ETH pool balance as a string. Converted from wei using `formatEther()` for human-readable display.
+
+- `released`: Boolean indicating whether funds have been dispatched to the beneficiary when wind speed exceeded the threshold.
+
+- `CONTRACT`: The deployed contract address from environment variables. Used for both contract instantiation and balance queries.
+
+**Key Functions:**
+
+- `provider.getBalance(address)`:
+  Queries the ETH balance of any address (wallet or contract). Returns a `BigNumber` in wei. Unlike token balances which require contract calls, ETH balance is queried directly from the provider.
+
+- `Promise.all([...])`:
+  Executes multiple async calls in parallel and waits for all to complete. More efficient than sequential `await` calls. Returns an array of results in the same order as the input promises.
+
+- `ws.toNumber()`:
+  Converts a `BigNumber` to a JavaScript number. Safe for values that fit within JavaScript's safe integer range (wind speed values). For large values like token amounts, use `.toString()` instead.
+
+- `ethers.utils.formatEther(bal)`:
+  Converts wei (10^18) to ETH as a string. Essential for displaying ETH amounts in a human-readable format.

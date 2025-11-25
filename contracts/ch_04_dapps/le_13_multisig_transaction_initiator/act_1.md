@@ -1,94 +1,15 @@
-# Activity 1: List All Proposals
+# List All Multisig Proposals Activity
 
-**Time**: 10 minutes  
-**Goal**: Build a `ProposalList` component that connects to MetaMask, fetches `getTransactionCount()`, loops through `transactions(i)`, and renders each proposal's ID, to-address, ETH value, data (hex snippet), executed flag, and current confirmation count.
+## Initial Code
 
-## Solidity Contract Baseline
-
-Deploy this `MultisigWallet.sol` contract first:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract MultisigWallet {
-    event Submit(uint indexed txId, address indexed proposer);
-    event Confirmation(address indexed owner, uint indexed txId);
-    event Execution(uint indexed txId, bool success);
-
-    address[] public owners;
-    mapping(address => bool) public isOwner;
-    uint public threshold;
-
-    struct Transaction {
-        address to;
-        uint value;
-        bytes data;
-        bool executed;
-        uint numConfirmations;
-    }
-
-    Transaction[] public transactions;
-    mapping(uint => mapping(address => bool)) public confirmations;
-
-    constructor(address[] memory _owners, uint _threshold) {
-        require(_owners.length >= _threshold, "owners < threshold");
-        threshold = _threshold;
-        for (uint i; i < _owners.length; i++) {
-            address owner = _owners[i];
-            require(owner != address(0), "zero owner");
-            require(!isOwner[owner], "duplicate owner");
-            isOwner[owner] = true;
-            owners.push(owner);
-        }
-    }
-
-    function submitTransaction(address _to, uint _value, bytes calldata _data)
-        external onlyOwner returns (uint txId)
-    {
-        txId = transactions.length;
-        transactions.push(
-            Transaction({ to: _to, value: _value, data: _data, executed: false, numConfirmations: 0 })
-        );
-        emit Submit(txId, msg.sender);
-    }
-
-    function confirmTransaction(uint _txId) external onlyOwner txExists(_txId) notExecuted(_txId) notConfirmed(_txId, msg.sender) {
-        confirmations[_txId][msg.sender] = true;
-        transactions[_txId].numConfirmations += 1;
-        emit Confirmation(msg.sender, _txId);
-    }
-
-    function executeTransaction(uint _txId)
-        external onlyOwner txExists(_txId) notExecuted(_txId)
-    {
-        Transaction storage txn = transactions[_txId];
-        require(txn.numConfirmations >= threshold, "not enough confirmations");
-        txn.executed = true;
-        (bool success, ) = txn.to.call{ value: txn.value }(txn.data);
-        emit Execution(_txId, success);
-    }
-
-    modifier onlyOwner() { require(isOwner[msg.sender], "not owner"); _; }
-    modifier txExists(uint _txId) { require(_txId < transactions.length, "tx !exists"); _; }
-    modifier notExecuted(uint _txId) { require(!transactions[_txId].executed, "tx executed"); _; }
-    modifier notConfirmed(uint _txId, address _owner) { require(!confirmations[_txId][_owner], "already confirmed"); _; }
-
-    receive() external payable {}
-}
-```
-
-## Starter Code
-
-Create `ProposalList.js`:
-
-```javascript
+```js
+// ProposalList.js - Starter Code
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+
 const ABI = [
   "function getTransactionCount() view returns (uint256)",
   "function transactions(uint256) view returns (address to, uint256 value, bytes data, bool executed, uint256 numConfirmations)",
-  "function confirmations(uint256, address) view returns (bool)",
 ];
 
 export default function ProposalList({ contractAddress }) {
@@ -98,25 +19,7 @@ export default function ProposalList({ contractAddress }) {
   useEffect(() => {
     async function loadProposals() {
       try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const wallet = new ethers.Contract(contractAddress, ABI, provider);
-
-        const count = (await wallet.getTransactionCount()).toNumber();
-        const items = [];
-        for (let i = 0; i < count; i++) {
-          const [to, value, data, executed, numConfirmations] =
-            await wallet.transactions(i);
-          items.push({
-            id: i,
-            to,
-            value: ethers.utils.formatEther(value),
-            data: data.slice(0, 10) + "…",
-            executed,
-            numConfirmations: numConfirmations.toNumber(),
-          });
-        }
-        setProposals(items);
+        // TODO: Implement fetching proposals
       } catch (err) {
         setError(err.message);
       }
@@ -148,18 +51,82 @@ export default function ProposalList({ contractAddress }) {
 }
 ```
 
-## To Do List
+**Time Allotment: 15 minutes**
 
-- [ ] Request accounts via `eth_requestAccounts`
-- [ ] Instantiate `provider` & `wallet` contract
-- [ ] Call `getTransactionCount()`
-- [ ] Loop `i < count`, `wallet.transactions(i)`
-- [ ] Format `value` with `ethers.utils.formatEther`
-- [ ] `setProposals(items)`
+## Tasks for Learners
 
-## Key Concepts
+Topics Covered: MetaMask integration, `Web3Provider`, contract loops, `formatEther`, data formatting
 
-- **MetaMask Integration**: Connect to user's wallet for contract reads
-- **Contract Loops**: Iterate through on-chain transaction proposals
-- **Data Formatting**: Display hex data snippets and ETH amounts
-- **Multisig Pattern**: Multiple owners must approve before execution
+---
+
+### Task 1: Connect to MetaMask
+
+Request account access from MetaMask and create a `Web3Provider` instance. Unlike `JsonRpcProvider`, this wraps the browser's injected wallet.
+
+```js
+await window.ethereum.request({ method: "eth_requestAccounts" });
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+```
+
+---
+
+### Task 2: Create Contract Instance and Get Transaction Count
+
+Instantiate the contract with the provider and call `getTransactionCount()` to know how many proposals exist. Convert the `BigNumber` to a regular number for looping.
+
+```js
+const wallet = new ethers.Contract(contractAddress, ABI, provider);
+const count = (await wallet.getTransactionCount()).toNumber();
+```
+
+---
+
+### Task 3: Loop Through and Format Proposals
+
+Iterate through each transaction index, fetch the proposal data, format the ETH value using `formatEther`, truncate the hex data for display, and store in state.
+
+```js
+const items = [];
+for (let i = 0; i < count; i++) {
+  const [to, value, data, executed, numConfirmations] =
+    await wallet.transactions(i);
+  items.push({
+    id: i,
+    to,
+    value: ethers.utils.formatEther(value),
+    data: data.slice(0, 10) + "…",
+    executed,
+    numConfirmations: numConfirmations.toNumber(),
+  });
+}
+setProposals(items);
+```
+
+---
+
+## Breakdown of the Activity
+
+**Variables Defined:**
+
+- `proposals`: Array state holding all fetched transaction proposals. Each proposal contains `id`, `to`, `value`, `data`, `executed`, and `numConfirmations`.
+
+- `provider`: A `Web3Provider` instance that wraps MetaMask. Required for dApps that need wallet context for transactions.
+
+- `wallet`: The contract instance connected to the multisig wallet. Named `wallet` to reflect it represents the multisig wallet contract.
+
+**Key Functions:**
+
+- `eth_requestAccounts`:
+  A JSON-RPC method that prompts MetaMask to show the connection popup. Returns an array of connected account addresses. Must be called before interacting with contracts through MetaMask.
+
+- `getTransactionCount()`:
+  Returns the total number of proposals in the multisig. We convert to a regular number using `.toNumber()` for use in the loop condition.
+
+- `wallet.transactions(i)`:
+  The public `transactions` array auto-generates a getter function. Calling it with an index returns all fields of the `Transaction` struct as a tuple.
+
+- `ethers.utils.formatEther(value)`:
+  Converts wei (smallest ETH unit, 10^18) to a human-readable ETH string. Essential for displaying transaction values.
+
+- `data.slice(0, 10)`:
+  Extracts the first 10 characters of the hex data (function selector). The full calldata can be very long, so we truncate for display.

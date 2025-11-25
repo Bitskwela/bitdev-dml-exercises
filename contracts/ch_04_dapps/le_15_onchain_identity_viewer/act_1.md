@@ -1,57 +1,16 @@
-# Activity 1: ProfileViewer — Show Your On-Chain Profile
+# ProfileViewer — Show Your On-Chain Profile Activity
 
-**Time**: 10 minutes  
-**Goal**: Build `ProfileViewer` that connects to MetaMask, fetches the current account's on-chain profile, and displays name, status, and all credentials in a list.
+## Initial Code
 
-## Solidity Contract Baseline
+```js
+// .env Configuration
+// REACT_APP_RPC_URL=http://127.0.0.1:8545
+// REACT_APP_IDENTITY_ADDRESS=0xYourChainKilalaAddress
 
-Deploy this `ChainKilala.sol` contract first:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
-
-contract ChainKilala {
-    struct Profile { string name; string status; uint256 credCount; }
-    mapping(address => Profile) private profiles;
-    mapping(address => mapping(uint256 => string)) private credentials;
-    event ProfileUpdated(address indexed user);
-
-    function setProfile(
-        string calldata name,
-        string calldata status,
-        string[] calldata creds
-    ) external {
-        profiles[msg.sender] = Profile(name, status, creds.length);
-        for (uint i = 0; i < creds.length; i++) {
-            credentials[msg.sender][i] = creds[i];
-        }
-        emit ProfileUpdated(msg.sender);
-    }
-
-    function getProfile(address user)
-        external view returns (string memory, string memory, uint256)
-    {
-        Profile memory p = profiles[user];
-        return (p.name, p.status, p.credCount);
-    }
-
-    function getCredential(address user, uint256 idx)
-        external view returns (string memory)
-    {
-        require(idx < profiles[user].credCount, "idx OOB");
-        return credentials[user][idx];
-    }
-}
-```
-
-## Starter Code
-
-Create `ProfileViewer.js`:
-
-```javascript
+// ProfileViewer.js - Starter Code
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+
 const ABI = [
   "function getProfile(address) view returns (string,string,uint256)",
   "function getCredential(address,uint256) view returns (string)",
@@ -69,13 +28,7 @@ export default function ProfileViewer() {
   useEffect(() => {
     async function load() {
       try {
-        // 1. await window.ethereum.request(...)
-        // 2. const provider = new ethers.providers.JsonRpcProvider(...)
-        // 3. const identity = new ethers.Contract(address, ABI, provider)
-        // 4. const [n, s, c] = await identity.getProfile(addr)
-        // 5. loop i<c.toNumber(): await identity.getCredential(addr,i)
-        // 6. setName, setStatus, setCreds
-        // 7. identity.on("ProfileUpdated", ...) to re-call load()
+        // TODO: Implement profile loading
       } catch (err) {
         setError(err.message);
       } finally {
@@ -83,7 +36,6 @@ export default function ProfileViewer() {
       }
     }
     load();
-    // cleanup on unmount
     return () => {};
   }, [addr]);
 
@@ -112,17 +64,105 @@ export default function ProfileViewer() {
 }
 ```
 
-## To Do List
+**Time Allotment: 15 minutes**
 
-- [ ] Request accounts via `eth_requestAccounts`, set `addr`
-- [ ] Instantiate `provider` & contract (`IDENTITY_ABI`, `IDENTITY_ADDRESS`)
-- [ ] Call `getProfile(addr)` and parse results
-- [ ] Loop to fetch each credential with `getCredential`
-- [ ] Subscribe to `ProfileUpdated` events and reload on change
+## Tasks for Learners
 
-## Key Concepts
+Topics Covered: MetaMask accounts, struct return values, loop fetching, event listeners, cleanup
 
-- **On-Chain Identity**: Storing user profiles and credentials on blockchain
-- **Struct Handling**: Reading complex data structures from Solidity
-- **Event Listening**: Real-time updates when profiles change
-- **Loop Fetching**: Retrieving array-like data through indexed calls
+---
+
+### Task 1: Connect MetaMask and Get User Address
+
+Request account access from MetaMask and store the connected wallet address. Create a provider and contract instance for reading profile data.
+
+```js
+const accounts = await window.ethereum.request({
+  method: "eth_requestAccounts",
+});
+const userAddress = accounts[0];
+setAddr(userAddress);
+
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const identity = new ethers.Contract(
+  process.env.REACT_APP_IDENTITY_ADDRESS,
+  ABI,
+  provider
+);
+```
+
+---
+
+### Task 2: Fetch Profile Data and Parse Struct Return
+
+Call `getProfile()` which returns a tuple (name, status, credCount). Destructure the return values and convert the credential count from `BigNumber` to a number.
+
+```js
+const [n, s, c] = await identity.getProfile(userAddress);
+setName(n);
+setStatus(s);
+const credCount = c.toNumber();
+```
+
+---
+
+### Task 3: Loop to Fetch All Credentials
+
+Iterate through the credential count and fetch each credential by index. Build an array of credentials and update state.
+
+```js
+const credList = [];
+for (let i = 0; i < credCount; i++) {
+  const cred = await identity.getCredential(userAddress, i);
+  credList.push(cred);
+}
+setCreds(credList);
+```
+
+---
+
+### Task 4: Subscribe to ProfileUpdated Events (Bonus)
+
+Listen for `ProfileUpdated` events to automatically reload the profile when changes occur. Remember to remove the listener on component unmount.
+
+```js
+const handleUpdate = (user) => {
+  if (user.toLowerCase() === userAddress.toLowerCase()) {
+    load(); // Re-fetch profile
+  }
+};
+identity.on("ProfileUpdated", handleUpdate);
+
+// Cleanup in useEffect return
+return () => {
+  identity.off("ProfileUpdated", handleUpdate);
+};
+```
+
+---
+
+## Breakdown of the Activity
+
+**Variables Defined:**
+
+- `addr`: The connected wallet address from MetaMask. Used as the key to fetch the user's profile from the contract.
+
+- `name` / `status`: Profile fields returned from `getProfile()`. Stored as strings directly from the contract.
+
+- `creds`: Array of credential strings fetched through indexed calls to `getCredential()`. Each credential is fetched individually.
+
+- `credCount`: The number of credentials stored for this user. Returned as a `BigNumber` from the contract, converted with `.toNumber()`.
+
+**Key Functions:**
+
+- `getProfile(address)`:
+  Returns a Solidity struct as a tuple. In ethers.js, struct returns are destructured as arrays: `const [name, status, count] = await contract.getProfile(addr)`.
+
+- `getCredential(address, index)`:
+  Fetches a single credential by index. Since Solidity doesn't support returning dynamic arrays of strings, we fetch each credential individually in a loop.
+
+- `identity.on("EventName", callback)`:
+  Subscribes to contract events. The callback receives event parameters. Use `identity.off()` to unsubscribe and prevent memory leaks.
+
+- `accounts[0]`:
+  The `eth_requestAccounts` method returns an array of connected addresses. The first element is typically the active/selected account in MetaMask.

@@ -2,8 +2,11 @@ import { useState } from "react";
 
 export default function WalletConnector() {
   const [account, setAccount] = useState(null);
+
+  // Task 1: Detect MetaMask installation
   const hasWallet = Boolean(window.ethereum);
 
+  // Task 2: Implement wallet connection logic
   const connectWallet = async () => {
     if (!window.ethereum) return alert("Please install MetaMask!");
 
@@ -17,9 +20,10 @@ export default function WalletConnector() {
     }
   };
 
+  // Task 3: Implement conditional rendering
   return (
     <div>
-      {hasWallet ? (
+      {window.ethereum ? (
         account ? (
           <p>Connected: {account}</p>
         ) : (

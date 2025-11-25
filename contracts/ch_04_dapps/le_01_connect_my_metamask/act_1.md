@@ -1,5 +1,7 @@
 # MetaMask Wallet Connection Activity
 
+## Initial Code
+
 ```js
 // WalletConnector.js - Starter Code
 import { useState } from "react";
@@ -7,13 +9,18 @@ import { useState } from "react";
 export default function WalletConnector() {
   const [account, setAccount] = useState(null);
 
+  // TODO: Task 1 - Detect MetaMask installation
+  // @note Create a boolean variable that checks if window.ethereum exists
+
   const connectWallet = async () => {
-    // TODO: Implement wallet connection logic
+    // TODO: Task 2 - Implement wallet connection logic
+    // @note Check for MetaMask, request accounts, and store the connected address
   };
 
   return (
     <div>
-      {/* TODO: Implement conditional rendering */}
+      {/* TODO: Task 3 - Implement conditional rendering */}
+      {/* @note Handle three states: no MetaMask, not connected, and connected */}
       <p>Placeholder</p>
     </div>
   );
@@ -62,6 +69,7 @@ const connectWallet = async () => {
 ### Task 3: Implement Conditional Rendering
 
 Update the component's return statement to handle three states:
+
 - If MetaMask is **not installed**: Show "Please install MetaMask to continue."
 - If MetaMask is installed but **not connected**: Show a "Connect MetaMask 🦊" button.
 - If wallet is **connected**: Display the connected account address.
