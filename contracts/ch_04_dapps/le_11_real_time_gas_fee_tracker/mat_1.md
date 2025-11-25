@@ -10,39 +10,251 @@ By the end of the day, “GaslessPH” was more than a slide deck—it was a wor
 
 ## 📚 Theory & Web3 Lecture
 
-1. EIP-1559 & block.basefee  
-   • Since London hard fork, blocks include `basefee` (minimum gwei) for inclusion.  
-   • In Solidity (`^0.8.7+`), you can read `block.basefee` in a view function.
+### 🎯 What You'll Learn
 
-2. Gas Price Tiers  
-   • Low: basefee × 0.9 (cheapest fast inclusion)  
-   • Medium: basefee (standard)  
-   • High: basefee × 1.1 (priority)  
-   • Use `ethers.BigNumber` math and `ethers.utils.formatUnits`.
+In this lesson, you'll build a **real-time gas fee tracker** that fetches live `block.basefee` from the blockchain and displays tiered gas estimates with Philippine Peso conversions. This teaches you essential concepts for building responsive, data-driven DApps.
 
-3. Price Conversion  
-   • Convert gwei to ETH: `formatUnits(gwei, "gwei")`  
-   • Multiply by mock PHP/ETH rate (e.g., 80₱/ETH).  
-   • Show real-time estimates in two columns.
+---
 
-4. React + Ethers Architecture  
-   • Provider: `new ethers.providers.JsonRpcProvider(RPC_URL)`—read-only  
-   • Contract: helper to fetch `basefee` on-chain  
-   • Hooks:  
-    – `useState` for `baseFee`, `tiers`, `error`  
-    – `useEffect` for initial fetch and polling every _n_ seconds  
-   • No Signer needed (read-only calls).
+### 📐 Gas Fee Architecture
 
-5. Best Practices & UX  
-   • Polling interval: 10–15s to avoid rate limits  
-   • Error handling: show fallback “—” on failure  
-   • `.env` for RPC and contract address  
-   • Clean up interval on unmount
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    GAS FEE TRACKER FLOW                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐   │
+│   │   Ethereum   │────▶│  GasTracker  │────▶│    React     │   │
+│   │   Network    │     │   Contract   │     │      UI      │   │
+│   └──────────────┘     └──────────────┘     └──────────────┘   │
+│          │                    │                    │            │
+│          ▼                    ▼                    ▼            │
+│   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐   │
+│   │ block.basefee│     │ getBaseFee() │     │  Tier Cards  │   │
+│   │  (in gwei)   │     │    view fn   │     │ Low/Med/High │   │
+│   └──────────────┘     └──────────────┘     └──────────────┘   │
+│                                                     │           │
+│                              ┌──────────────────────┘           │
+│                              ▼                                  │
+│                       ┌──────────────┐                          │
+│                       │ PHP Estimate │                          │
+│                       │  (mock rate) │                          │
+│                       └──────────────┘                          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-🔗 Docs  
-– Ethers.js: https://docs.ethers.org/v5/api/providers/  
-– Solidity `block.basefee`: https://docs.soliditylang.org/en/latest/units-and-global-variables.html#block-and-transaction-properties  
-– React Hooks: https://reactjs.org/docs/hooks-overview.html
+---
+
+### 🔑 Key Concepts
+
+#### 1. EIP-1559 & `block.basefee`
+
+Since the **London Hard Fork** (August 2021), Ethereum uses EIP-1559 for gas pricing:
+
+| Component | Description |
+|-----------|-------------|
+| **Base Fee** | Minimum gwei required for block inclusion (burned) |
+| **Priority Fee** | Tip to validators for faster inclusion |
+| **Max Fee** | Maximum total fee user is willing to pay |
+
+```
+Total Gas Cost = (Base Fee + Priority Fee) × Gas Used
+```
+
+In Solidity (`^0.8.7+`), you can access the base fee directly:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+
+contract GasTracker {
+    // Returns the current block's base fee in wei
+    function getBaseFee() external view returns (uint256) {
+        return block.basefee;
+    }
+}
+```
+
+#### 2. Gas Price Tiers
+
+Different urgency levels require different fee multipliers:
+
+| Tier | Multiplier | Use Case |
+|------|------------|----------|
+| 🐢 **Low** | basefee × 0.9 | Not urgent, can wait 5-10 blocks |
+| 🚗 **Medium** | basefee × 1.0 | Standard, next 1-3 blocks |
+| 🚀 **High** | basefee × 1.1 | Urgent, next block priority |
+
+```javascript
+// Calculate tier prices from base fee
+const baseFeeGwei = ethers.utils.formatUnits(baseFee, "gwei");
+const low = parseFloat(baseFeeGwei) * 0.9;
+const medium = parseFloat(baseFeeGwei);
+const high = parseFloat(baseFeeGwei) * 1.1;
+```
+
+#### 3. Unit Conversions
+
+Ethereum uses multiple denomination scales:
+
+| Unit | Wei Value | Common Use |
+|------|-----------|------------|
+| **Wei** | 1 | Smallest unit, internal math |
+| **Gwei** | 10⁹ wei | Gas prices |
+| **Ether** | 10¹⁸ wei | Token amounts |
+
+```javascript
+// Converting between units with ethers.js
+const gweiValue = ethers.utils.formatUnits(weiValue, "gwei");     // wei → gwei
+const etherValue = ethers.utils.formatUnits(weiValue, "ether");   // wei → ether
+const weiFromGwei = ethers.utils.parseUnits("50", "gwei");        // gwei → wei
+```
+
+#### 4. Price Conversion to PHP
+
+To show costs in Philippine Peso:
+
+```javascript
+// Mock exchange rate (in production, use Chainlink or CoinGecko API)
+const PHP_PER_ETH = 180000; // ₱180,000 per ETH
+
+// Convert gwei to PHP
+function gweiToPhp(gwei, gasLimit = 21000) {
+    const ethCost = (gwei * gasLimit) / 1e9;  // gwei to ETH
+    return ethCost * PHP_PER_ETH;
+}
+
+// Example: 50 gwei × 21000 gas = 0.00105 ETH ≈ ₱189
+```
+
+---
+
+### 🏗️ React + Ethers.js Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    COMPONENT STRUCTURE                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    GasDashboard                         │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ useState: baseFee, tiers, phpRate, error        │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   │                         │                               │   │
+│   │  ┌──────────────────────┼──────────────────────────┐    │   │
+│   │  │                      ▼                          │    │   │
+│   │  │  useEffect (mount + interval)                   │    │   │
+│   │  │  ├── Create Provider (JsonRpcProvider)          │    │   │
+│   │  │  ├── Create Contract instance                   │    │   │
+│   │  │  ├── Fetch baseFee every 15s                    │    │   │
+│   │  │  └── Calculate tiers                            │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   │                                                         │   │
+│   │  ┌───────────┐  ┌───────────┐  ┌───────────┐           │   │
+│   │  │ TierCard  │  │ TierCard  │  │ TierCard  │           │   │
+│   │  │   Low 🐢  │  │  Med 🚗   │  │  High 🚀  │           │   │
+│   │  │  90 gwei  │  │ 100 gwei  │  │ 110 gwei  │           │   │
+│   │  │  ₱171.00  │  │  ₱190.00  │  │  ₱209.00  │           │   │
+│   │  └───────────┘  └───────────┘  └───────────┘           │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Provider Setup (Read-Only)
+
+```javascript
+import { ethers } from "ethers";
+
+// No wallet needed - just reading data
+const provider = new ethers.providers.JsonRpcProvider(
+    process.env.REACT_APP_RPC_URL
+);
+
+const contract = new ethers.Contract(
+    process.env.REACT_APP_GAS_TRACKER_ADDRESS,
+    GAS_TRACKER_ABI,
+    provider  // Read-only, no signer
+);
+```
+
+#### Polling Pattern with useEffect
+
+```javascript
+useEffect(() => {
+    const fetchGasData = async () => {
+        try {
+            const baseFee = await contract.getBaseFee();
+            setBaseFee(baseFee);
+            calculateTiers(baseFee);
+        } catch (err) {
+            setError("Failed to fetch gas data");
+        }
+    };
+
+    // Initial fetch
+    fetchGasData();
+
+    // Poll every 15 seconds
+    const interval = setInterval(fetchGasData, 15000);
+
+    // Cleanup on unmount
+    return () => clearInterval(interval);
+}, []);
+```
+
+---
+
+### 📊 Comparison: Polling vs Event-Driven
+
+| Approach | Pros | Cons | Best For |
+|----------|------|------|----------|
+| **Polling** | Simple, predictable | Wastes calls if no change | Gas prices, balances |
+| **Events** | Real-time, efficient | More complex setup | User transactions |
+| **Hybrid** | Best of both | More code | Production DApps |
+
+For gas tracking, **polling every 10-15 seconds** is ideal since base fee changes every block (~12s).
+
+---
+
+### ⚠️ Common Mistakes
+
+| Mistake | Problem | Solution |
+|---------|---------|----------|
+| Polling too fast | Rate limiting, wasted calls | Use 10-15s intervals |
+| Not cleaning up intervals | Memory leaks | Return cleanup fn in useEffect |
+| Hardcoding RPC URL | Security risk | Use `.env` file |
+| Ignoring errors | Silent failures | Show fallback UI ("—") |
+| Wrong unit conversion | Incorrect prices | Always use `formatUnits` |
+
+---
+
+### ✅ Testing Checklist
+
+Before considering this lesson complete, verify:
+
+- [ ] Base fee displays in gwei format
+- [ ] All three tiers calculate correctly (×0.9, ×1.0, ×1.1)
+- [ ] PHP estimates update when base fee changes
+- [ ] Polling updates every 15 seconds
+- [ ] Error state shows "—" or fallback message
+- [ ] Interval cleans up on component unmount
+- [ ] RPC URL is in `.env`, not hardcoded
+
+---
+
+### 🔗 External Resources
+
+| Resource | Link |
+|----------|------|
+| EIP-1559 Specification | https://eips.ethereum.org/EIPS/eip-1559 |
+| Ethers.js Providers | https://docs.ethers.org/v5/api/providers/ |
+| Solidity Global Variables | https://docs.soliditylang.org/en/latest/units-and-global-variables.html |
+| React useEffect Cleanup | https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development |
+
+
 
 ---
 

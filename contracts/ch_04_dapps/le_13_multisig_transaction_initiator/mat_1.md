@@ -16,54 +16,337 @@ By midnight, Odessa demoed to her mentor: "See? Three signatures, transaction ex
 
 ## 📚 Theory & Web3 Lecture
 
-1. Multisig Wallet Pattern  
-   • Owners & threshold: security by committee.  
-   • Proposals stored on-chain: struct with `to`, `value`, `data`, `executed`, confirmation count.  
-   • Confirmation mapping: each owner can sign once per tx.  
-   • Events: `Submit`, `Confirmation`, `Execution` for frontend reactivity.
+### 🎯 What You'll Learn
 
-2. Contract Functions & ABI  
-   • `submitTransaction(address to, uint256 value, bytes data) returns (uint256 txId)`  
-   • `confirmTransaction(uint256 txId)`  
-   • `executeTransaction(uint256 txId)`  
-   • Views: `getTransactionCount()`, `transactions(uint256)`, `isConfirmed(uint256, address)`, `getConfirmations(uint256)`.
+In this lesson, you'll build a **Multisig Wallet UI** that allows multiple owners to propose, confirm, and execute transactions. This pattern mirrors real-world corporate governance where multiple signatures are required for important decisions.
 
-3. Ethers.js & React Integration  
-   • Provider: `new ethers.providers.Web3Provider(window.ethereum)`  
-   • Signer: `provider.getSigner()` for state-changing calls  
-   • Contract:
+---
 
-   ```js
-   const wallet = new ethers.Contract(
-     process.env.REACT_APP_MULTISIG_ADDRESS,
-     MULTISIG_ABI,
-     signerOrProvider
-   );
-   ```
+### 📐 Multisig Wallet Architecture
 
-   • Listening to events:
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   MULTISIG GOVERNANCE FLOW                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    5 OWNERS                              │   │
+│   │   👤 Owner1  👤 Owner2  👤 Owner3  👤 Owner4  👤 Owner5  │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│                              │                                  │
+│                    THRESHOLD: 3 of 5                            │
+│                              │                                  │
+│   ┌──────────────────────────▼──────────────────────────────┐   │
+│   │                                                          │   │
+│   │  STEP 1: SUBMIT PROPOSAL                                 │   │
+│   │  ┌────────────────────────────────────────────────────┐  │   │
+│   │  │ submitTransaction(to, value, data) → txId: 0       │  │   │
+│   │  └────────────────────────────────────────────────────┘  │   │
+│   │                         │                                │   │
+│   │                         ▼                                │   │
+│   │  STEP 2: COLLECT CONFIRMATIONS                           │   │
+│   │  ┌────────────────────────────────────────────────────┐  │   │
+│   │  │ Owner1: confirmTransaction(0) ✅                   │  │   │
+│   │  │ Owner2: confirmTransaction(0) ✅                   │  │   │
+│   │  │ Owner3: confirmTransaction(0) ✅  ← QUORUM!        │  │   │
+│   │  └────────────────────────────────────────────────────┘  │   │
+│   │                         │                                │   │
+│   │                         ▼                                │   │
+│   │  STEP 3: EXECUTE                                         │   │
+│   │  ┌────────────────────────────────────────────────────┐  │   │
+│   │  │ executeTransaction(0) → Funds transferred! 💰       │  │   │
+│   │  └────────────────────────────────────────────────────┘  │   │
+│   │                                                          │   │
+│   └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-   ```js
-   wallet.on("Confirmation", (owner, txId) => {
-     // update UI state
-   });
-   ```
+---
 
-4. React Hooks & State  
-   • useState: `proposals`, `loading`, `error`  
-   • useEffect: on-mount load proposals & subscribe to events  
-   • Async handlers: `try/catch`, `await tx.wait()`  
-   • Quorum logic: disable "Execute" until confirmations ≥ threshold
+### 🔑 Key Concepts
 
-5. UX & Security  
-   • Validate input address with `ethers.utils.isAddress()`  
-   • Ensure only owners see confirm buttons  
-   • Clean up event listeners in `useEffect` cleanup  
-   • Use `.env` for RPC URL & contract address
+#### 1. Multisig Security Model
 
-🔗 Links  
-– Ethers.js: https://docs.ethers.org/v5  
-– Solidity Multisig example: https://docs.openzeppelin.com/contracts/4.x/api/governance
+| Term | Definition | Example |
+|------|------------|---------|
+| **Owners** | Addresses authorized to sign | 5 board members |
+| **Threshold** | Minimum confirmations needed | 3 of 5 (60%) |
+| **Proposal** | Pending transaction awaiting signatures | Send 1 ETH to vendor |
+| **Confirmation** | Owner's signature on a proposal | "I approve" |
+| **Execution** | Final action after quorum is met | Transaction sent |
+
+```
+Security Trade-offs:
+├── 1-of-1: No security (single point of failure)
+├── 2-of-3: Light security (small teams)
+├── 3-of-5: Balanced (corporate standard)
+├── 4-of-7: High security (DAOs, treasuries)
+└── 5-of-9: Maximum security (protocol governance)
+```
+
+#### 2. Smart Contract Data Structures
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MultisigWallet {
+    // List of owner addresses
+    address[] public owners;
+    
+    // Number of confirmations required
+    uint256 public threshold;
+    
+    // Transaction structure
+    struct Transaction {
+        address to;           // Destination address
+        uint256 value;        // ETH amount in wei
+        bytes data;           // Encoded function call (optional)
+        bool executed;        // Has it been executed?
+        uint256 confirmations;// Current confirmation count
+    }
+    
+    // All submitted transactions
+    Transaction[] public transactions;
+    
+    // Tracks who confirmed which transaction
+    // mapping(txId => mapping(owner => hasConfirmed))
+    mapping(uint256 => mapping(address => bool)) public isConfirmed;
+    
+    // Check if address is an owner
+    mapping(address => bool) public isOwner;
+}
+```
+
+#### 3. Core Contract Functions
+
+```solidity
+// Submit a new transaction proposal
+function submitTransaction(
+    address _to,
+    uint256 _value,
+    bytes calldata _data
+) external onlyOwner returns (uint256 txId) {
+    txId = transactions.length;
+    transactions.push(Transaction({
+        to: _to,
+        value: _value,
+        data: _data,
+        executed: false,
+        confirmations: 0
+    }));
+    emit Submitted(msg.sender, txId, _to, _value, _data);
+}
+
+// Confirm a pending transaction
+function confirmTransaction(uint256 _txId) 
+    external 
+    onlyOwner 
+    txExists(_txId) 
+    notConfirmed(_txId)
+    notExecuted(_txId) 
+{
+    Transaction storage txn = transactions[_txId];
+    txn.confirmations += 1;
+    isConfirmed[_txId][msg.sender] = true;
+    emit Confirmed(msg.sender, _txId);
+}
+
+// Execute after reaching threshold
+function executeTransaction(uint256 _txId)
+    external
+    onlyOwner
+    txExists(_txId)
+    notExecuted(_txId)
+{
+    Transaction storage txn = transactions[_txId];
+    require(txn.confirmations >= threshold, "Not enough confirmations");
+    
+    txn.executed = true;
+    (bool success, ) = txn.to.call{value: txn.value}(txn.data);
+    require(success, "Execution failed");
+    
+    emit Executed(msg.sender, _txId);
+}
+```
+
+#### 4. Events for Frontend Reactivity
+
+```solidity
+// Emitted when a new transaction is proposed
+event Submitted(
+    address indexed owner,
+    uint256 indexed txId,
+    address indexed to,
+    uint256 value,
+    bytes data
+);
+
+// Emitted when an owner confirms
+event Confirmed(address indexed owner, uint256 indexed txId);
+
+// Emitted when transaction is revoked
+event Revoked(address indexed owner, uint256 indexed txId);
+
+// Emitted when transaction is executed
+event Executed(address indexed owner, uint256 indexed txId);
+```
+
+---
+
+### 🏗️ React Integration Pattern
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    REACT COMPONENTS                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                   MultisigApp                            │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ Provider + Signer + Contract setup              │    │   │
+│   │  │ Event subscriptions (Submitted, Confirmed, etc) │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └───────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│       ┌───────────────────┼───────────────────┐                 │
+│       ▼                   ▼                   ▼                 │
+│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
+│   │ Submit  │      │  Proposal   │     │  Confirm    │         │
+│   │ Form    │      │    List     │     │   Button    │         │
+│   │         │      │             │     │             │         │
+│   │ • to    │      │ ID #0       │     │ [Confirm]   │         │
+│   │ • value │      │ to: 0xABC   │     │ ✅ 2/3      │         │
+│   │ • data  │      │ val: 1 ETH  │     │             │         │
+│   │         │      │ conf: 2/3   │     │ [Execute]   │         │
+│   │[Submit] │      │ [Execute] 🔓│     │ (disabled)  │         │
+│   └─────────┘      └─────────────┘     └─────────────┘         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Setting Up Signer for Write Operations
+
+```javascript
+import { ethers } from "ethers";
+
+// Connect to MetaMask for write operations
+async function setupContract() {
+    // Check if MetaMask is installed
+    if (!window.ethereum) {
+        throw new Error("MetaMask not detected");
+    }
+
+    // Request account access
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+
+    // Create provider and signer
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    // Create contract with signer (for write operations)
+    const contract = new ethers.Contract(
+        process.env.REACT_APP_MULTISIG_ADDRESS,
+        MULTISIG_ABI,
+        signer
+    );
+
+    return { provider, signer, contract };
+}
+```
+
+#### Event Listening for Real-Time Updates
+
+```javascript
+useEffect(() => {
+    const setupListeners = async () => {
+        const { contract } = await setupContract();
+
+        // Listen for new submissions
+        contract.on("Submitted", (owner, txId, to, value, data) => {
+            console.log(`New proposal #${txId} by ${owner}`);
+            refreshProposals();
+        });
+
+        // Listen for confirmations
+        contract.on("Confirmed", (owner, txId) => {
+            console.log(`Owner ${owner} confirmed #${txId}`);
+            refreshProposals();
+        });
+
+        // Listen for executions
+        contract.on("Executed", (owner, txId) => {
+            console.log(`Proposal #${txId} executed!`);
+            refreshProposals();
+        });
+
+        // Cleanup on unmount
+        return () => {
+            contract.removeAllListeners();
+        };
+    };
+
+    setupListeners();
+}, []);
+```
+
+---
+
+### 📊 Transaction Lifecycle
+
+```
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│ PENDING  │───▶│ PARTIAL  │───▶│  READY   │───▶│ EXECUTED │
+│          │    │ CONFIRM  │    │          │    │          │
+│ 0/3 ⬜⬜⬜│    │ 2/3 ✅✅⬜│    │ 3/3 ✅✅✅│    │ ✔ Done   │
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+     │               │               │               │
+     └───────────────┴───────────────┴───────────────┘
+              Can still add confirmations
+              until threshold is met
+```
+
+---
+
+### ⚠️ Common Mistakes
+
+| Mistake | Problem | Solution |
+|---------|---------|----------|
+| Not validating addresses | Invalid `to` address | Use `ethers.utils.isAddress()` |
+| Allowing re-confirmation | Owner confirms twice | Check `isConfirmed` mapping |
+| Forgetting `tx.wait()` | UI updates before confirmation | Always await receipt |
+| No loading states | User clicks multiple times | Disable buttons while pending |
+| Hardcoding threshold | Inflexible governance | Make it constructor parameter |
+
+---
+
+### ✅ Testing Checklist
+
+Before considering this lesson complete, verify:
+
+- [ ] Only owners can submit proposals
+- [ ] Owners can confirm proposals exactly once
+- [ ] Confirmation count updates in real-time
+- [ ] Execute button disabled until threshold met
+- [ ] Execute button enabled at threshold
+- [ ] Executed proposals marked as complete
+- [ ] Events trigger UI refresh
+- [ ] Error handling for rejected transactions
+- [ ] Input validation for addresses and values
+
+---
+
+### 🔗 External Resources
+
+| Resource | Link |
+|----------|------|
+| Gnosis Safe (Production Multisig) | https://safe.global/ |
+| OpenZeppelin Governor | https://docs.openzeppelin.com/contracts/4.x/governance |
+| Ethers.js Events | https://docs.ethers.org/v5/api/contract/contract/#Contract--events |
+| Solidity Modifiers | https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers |
+
+
 
 ---
 

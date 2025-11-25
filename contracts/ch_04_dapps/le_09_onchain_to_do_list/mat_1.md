@@ -17,54 +17,685 @@ They tested it with instant block confirmations. Every click emitted events, upd
 
 ## 📚 Theory & Web3 Lecture
 
-1. Smart Contract Design (Solidity)  
-   • Structs & Arrays: store each task’s `id`, `content`, and `done` flag.  
-   • Events: emit `TaskCreated`, `TaskToggled`, `TaskDeleted` for UI reactivity.  
-   • Public getters: `tasks(uint)` and `getTasksCount()` to retrieve tasks.
+Welcome to building an **On-Chain To-Do List**! This lesson teaches you how to build a full CRUD (Create, Read, Update, Delete) application that stores all data on the blockchain. No database servers, no backend—just pure decentralized storage!
 
-2. dApp Architecture  
-   • React Frontend (CRA or Vite)  
-   • Ethers.js for blockchain calls and event listeners  
-   • MetaMask (or injected provider) for account management
+---
 
-3. Ethers.js Essentials  
-   • Provider vs. Signer  
-    – `provider = new ethers.providers.Web3Provider(window.ethereum)` (read)  
-    – `signer = provider.getSigner()` (write)  
-   • Contract Instance
+### 1. Why Store Data On-Chain?
 
-   ```js
-   const todoContract = new ethers.Contract(
-     process.env.REACT_APP_CONTRACT_ADDRESS,
-     TODO_ABI,
-     signerOrProvider
-   );
-   ```
+#### **Traditional vs Blockchain Storage**
 
-   • BigNumber & Iteration  
-    – Use `await contract.getTasksCount()` to get `uint count`  
-    – Loop from `0` to `count - 1`, call `await contract.tasks(i)`
+```
+Traditional To-Do App:
+┌─────────────────────────────────────────────────────────────┐
+│  User → Frontend → Backend API → Database (MongoDB/SQL)    │
+│                                                             │
+│  Problems:                                                  │
+│  • Server can go down                                       │
+│  • Database can be hacked                                   │
+│  • Company can delete your data                             │
+│  • You don't own your data                                  │
+└─────────────────────────────────────────────────────────────┘
 
-4. React Hooks Pattern  
-   • useState: store `tasks`, `loading`, `error`  
-   • useEffect: on-mount connect wallet & fetch tasks  
-   • Event Handling: `contract.on("TaskCreated", handler)` to auto-refresh
+On-Chain To-Do App:
+┌─────────────────────────────────────────────────────────────┐
+│  User → Frontend → Smart Contract (Ethereum)               │
+│                                                             │
+│  Benefits:                                                  │
+│  • Always available (blockchain never sleeps)               │
+│  • Immutable (can't be secretly modified)                   │
+│  • You own your data (tied to your wallet)                  │
+│  • Transparent (anyone can verify)                          │
+│                                                             │
+│  Trade-offs:                                                │
+│  • Costs gas for write operations                           │
+│  • Slower than traditional databases                        │
+│  • Data is public (unless encrypted)                        │
+└─────────────────────────────────────────────────────────────┘
+```
 
-5. Gas & UX  
-   • Read calls (view) cost no gas  
-   • Write calls (create, toggle, delete) incur gas; use `await tx.wait()`  
-   • Provide user feedback: disable buttons during tx, show spinners
+#### **When to Use On-Chain Storage**
 
-6. Security & Best Practices  
-   • Validate input lengths (e.g., non-empty task content)  
-   • Clean up event listeners in `useEffect` cleanup  
-   • Store RPC URL & contract address in `.env` (never commit secrets)  
-   • Catch errors (`try/catch`) and display user-friendly messages
+| Use Case | On-Chain? | Why |
+|----------|-----------|-----|
+| Public records | ✅ Yes | Transparency, immutability |
+| Personal notes | ⚠️ Maybe | Consider privacy |
+| High-frequency updates | ❌ No | Gas costs too high |
+| Financial transactions | ✅ Yes | Trust, auditability |
+| Large files | ❌ No | Use IPFS instead |
 
-🔗 Further Reading  
-– Ethers.js: https://docs.ethers.org  
-– Solidity Structs & Arrays: https://docs.soliditylang.org  
-– React Hooks: https://reactjs.org/docs/hooks-overview.html
+---
+
+### 2. Smart Contract Design Patterns
+
+#### **The Task Struct**
+
+In Solidity, we use **structs** to group related data:
+
+```solidity
+struct Task {
+    uint256 id;       // Unique identifier
+    string content;   // Task description
+    bool done;        // Completion status
+}
+
+// This is like a class or interface in JavaScript:
+// { id: 1, content: "Buy groceries", done: false }
+```
+
+#### **Storage Patterns for Lists**
+
+```solidity
+// Pattern 1: Simple Array
+Task[] public tasks;
+// Pros: Simple, iterable
+// Cons: Can't delete items cleanly
+
+// Pattern 2: Mapping with Counter
+mapping(uint256 => Task) public tasks;
+uint256 public taskCount;
+// Pros: Constant-time lookup
+// Cons: Need separate counter, gaps on delete
+
+// Pattern 3: Mapping + Array (Best of both)
+mapping(uint256 => Task) public taskById;
+uint256[] public taskIds;
+// Pros: Fast lookup AND iteration
+// Cons: More complex, more gas
+```
+
+#### **Our Contract Structure**
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract TodoList {
+    // Data structure for a task
+    struct Task {
+        uint256 id;
+        string content;
+        bool done;
+    }
+    
+    // Storage: array of all tasks
+    Task[] public tasks;
+    
+    // Events for frontend reactivity
+    event TaskCreated(uint256 indexed id, string content, bool done);
+    event TaskToggled(uint256 indexed id, bool done);
+    event TaskDeleted(uint256 indexed id);
+    
+    // Create a new task
+    function createTask(string memory content) public {
+        uint256 id = tasks.length;
+        tasks.push(Task(id, content, false));
+        emit TaskCreated(id, content, false);
+    }
+    
+    // Toggle task completion
+    function toggleDone(uint256 id) public {
+        require(id < tasks.length, "Task doesn't exist");
+        tasks[id].done = !tasks[id].done;
+        emit TaskToggled(id, tasks[id].done);
+    }
+    
+    // Delete a task (sets to empty)
+    function deleteTask(uint256 id) public {
+        require(id < tasks.length, "Task doesn't exist");
+        delete tasks[id];
+        emit TaskDeleted(id);
+    }
+    
+    // Get total number of tasks
+    function getTasksCount() public view returns (uint256) {
+        return tasks.length;
+    }
+}
+```
+
+---
+
+### 3. Understanding Solidity Events
+
+#### **Why Events Matter**
+
+Events are the bridge between smart contracts and your frontend:
+
+```
+Without Events:
+┌─────────────────────────────────────────────────────────────┐
+│  1. User creates task                                        │
+│  2. Transaction confirmed                                    │
+│  3. ??? How does UI know to update?                          │
+│  4. Must manually refresh or poll                            │
+└─────────────────────────────────────────────────────────────┘
+
+With Events:
+┌─────────────────────────────────────────────────────────────┐
+│  1. User creates task                                        │
+│  2. Contract emits TaskCreated event                         │
+│  3. Frontend listener catches event                          │
+│  4. UI updates automatically! ✨                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### **Event Structure**
+
+```solidity
+// Declaring an event
+event TaskCreated(
+    uint256 indexed id,    // 'indexed' = searchable/filterable
+    string content,        // Task content
+    bool done              // Completion status
+);
+
+// Emitting an event
+emit TaskCreated(newId, content, false);
+
+// 'indexed' parameters (max 3) can be filtered:
+// - Find all events where id = 5
+// - Find all events from a specific address
+```
+
+#### **Listening to Events in JavaScript**
+
+```js
+// Subscribe to new events
+contract.on("TaskCreated", (id, content, done, event) => {
+  console.log(`New task #${id}: ${content}`);
+  
+  // event object contains:
+  // - blockNumber
+  // - transactionHash
+  // - args (same as parameters)
+  
+  refreshTasks();
+});
+
+// Query past events
+const filter = contract.filters.TaskCreated();
+const events = await contract.queryFilter(filter, fromBlock, toBlock);
+```
+
+---
+
+### 4. CRUD Operations with Ethers.js
+
+#### **Architecture Overview**
+
+```
+Frontend CRUD Flow:
+┌─────────────────────────────────────────────────────────────┐
+│                                                              │
+│  CREATE (Write - requires Signer)                            │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │  User types task → calls createTask() → tx confirmed    ││
+│  │  → TaskCreated event → UI adds task                      ││
+│  └─────────────────────────────────────────────────────────┘│
+│                                                              │
+│  READ (Read-only - Provider is enough)                       │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │  getTasksCount() → loop tasks(i) → display list         ││
+│  └─────────────────────────────────────────────────────────┘│
+│                                                              │
+│  UPDATE (Write - requires Signer)                            │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │  User clicks toggle → toggleDone(id) → tx confirmed     ││
+│  │  → TaskToggled event → UI updates checkbox              ││
+│  └─────────────────────────────────────────────────────────┘│
+│                                                              │
+│  DELETE (Write - requires Signer)                            │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │  User clicks delete → deleteTask(id) → tx confirmed     ││
+│  │  → TaskDeleted event → UI removes task                  ││
+│  └─────────────────────────────────────────────────────────┘│
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### **The ABI**
+
+```js
+const TODO_ABI = [
+  // Read functions (view)
+  "function getTasksCount() view returns (uint256)",
+  "function tasks(uint256) view returns (uint256 id, string content, bool done)",
+  
+  // Write functions
+  "function createTask(string memory content)",
+  "function toggleDone(uint256 id)",
+  "function deleteTask(uint256 id)",
+  
+  // Events
+  "event TaskCreated(uint256 indexed id, string content, bool done)",
+  "event TaskToggled(uint256 indexed id, bool done)",
+  "event TaskDeleted(uint256 indexed id)",
+];
+```
+
+---
+
+### 5. Reading Tasks (R in CRUD)
+
+#### **Fetching All Tasks**
+
+```js
+async function loadTasks() {
+  // Provider is enough for reading
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, provider);
+
+  // Get total count
+  const count = await contract.getTasksCount();
+  console.log(`Total tasks: ${count}`);
+
+  // Fetch each task
+  const tasks = [];
+  for (let i = 0; i < count; i++) {
+    const [id, content, done] = await contract.tasks(i);
+    
+    // Skip deleted tasks (content is empty)
+    if (content !== "") {
+      tasks.push({
+        id: id.toNumber(),
+        content,
+        done,
+      });
+    }
+  }
+
+  return tasks;
+}
+```
+
+#### **Handling Deleted Tasks**
+
+When you `delete` in Solidity, the slot becomes zero-values:
+
+```js
+// After delete tasks[2]:
+// tasks[2] = { id: 0, content: "", done: false }
+
+// Filter out deleted tasks:
+const activeTasks = tasks.filter(t => t.content !== "");
+```
+
+---
+
+### 6. Creating Tasks (C in CRUD)
+
+#### **Complete Create Flow**
+
+```js
+async function createTask(content) {
+  // Validate input
+  if (!content || !content.trim()) {
+    throw new Error("Task content cannot be empty");
+  }
+
+  // Get signer for write operation
+  await window.ethereum.request({ method: "eth_requestAccounts" });
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, signer);
+
+  // Send transaction
+  console.log("Creating task...");
+  const tx = await contract.createTask(content);
+  
+  // Wait for confirmation
+  console.log("Waiting for confirmation...");
+  const receipt = await tx.wait();
+  
+  // Get the new task ID from the event
+  const event = receipt.events.find(e => e.event === "TaskCreated");
+  const newId = event.args.id.toNumber();
+  
+  console.log(`Task #${newId} created!`);
+  return newId;
+}
+```
+
+---
+
+### 7. Updating Tasks (U in CRUD)
+
+#### **Toggle Completion**
+
+```js
+async function toggleTask(taskId) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, signer);
+
+  // Send toggle transaction
+  const tx = await contract.toggleDone(taskId);
+  await tx.wait();
+
+  // Read the new status
+  const [, , done] = await contract.tasks(taskId);
+  console.log(`Task #${taskId} is now ${done ? "complete" : "incomplete"}`);
+  
+  return done;
+}
+```
+
+---
+
+### 8. Deleting Tasks (D in CRUD)
+
+#### **Delete Operation**
+
+```js
+async function deleteTask(taskId) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, signer);
+
+  // Confirm with user (optional but recommended)
+  if (!confirm(`Delete task #${taskId}?`)) {
+    return false;
+  }
+
+  // Send delete transaction
+  const tx = await contract.deleteTask(taskId);
+  await tx.wait();
+
+  console.log(`Task #${taskId} deleted`);
+  return true;
+}
+```
+
+#### **Understanding Delete in Solidity**
+
+```solidity
+// delete doesn't remove from array, it zeros the slot
+delete tasks[2];
+
+// tasks[2] becomes: { id: 0, content: "", done: false }
+// Array length stays the same!
+
+// To truly remove, you'd need to:
+// 1. Swap with last element
+// 2. Pop the array
+// But this changes IDs, which can be confusing
+```
+
+---
+
+### 9. Real-Time Updates with Events
+
+#### **Setting Up Event Listeners**
+
+```jsx
+function useTodoEvents(contractAddress, onUpdate) {
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(contractAddress, TODO_ABI, provider);
+
+    // Listen for new tasks
+    function onTaskCreated(id, content, done) {
+      console.log(`Event: Task #${id} created`);
+      onUpdate();
+    }
+
+    // Listen for toggles
+    function onTaskToggled(id, done) {
+      console.log(`Event: Task #${id} toggled to ${done}`);
+      onUpdate();
+    }
+
+    // Listen for deletes
+    function onTaskDeleted(id) {
+      console.log(`Event: Task #${id} deleted`);
+      onUpdate();
+    }
+
+    // Subscribe to all events
+    contract.on("TaskCreated", onTaskCreated);
+    contract.on("TaskToggled", onTaskToggled);
+    contract.on("TaskDeleted", onTaskDeleted);
+
+    // Cleanup on unmount
+    return () => {
+      contract.off("TaskCreated", onTaskCreated);
+      contract.off("TaskToggled", onTaskToggled);
+      contract.off("TaskDeleted", onTaskDeleted);
+    };
+  }, [contractAddress, onUpdate]);
+}
+```
+
+---
+
+### 10. Gas Considerations
+
+#### **Understanding Gas Costs**
+
+```
+Gas Cost by Operation:
+┌─────────────────────────────────────────────────────────────┐
+│  Operation        │  Gas (approx)  │  Cost at 30 gwei       │
+├───────────────────┼────────────────┼────────────────────────┤
+│  Read tasks       │  0 (free!)     │  $0.00                 │
+│  Create task      │  ~50,000       │  ~$2-5                 │
+│  Toggle done      │  ~30,000       │  ~$1-3                 │
+│  Delete task      │  ~20,000       │  ~$0.50-2              │
+└───────────────────┴────────────────┴────────────────────────┘
+
+Note: Actual costs vary with:
+- Network congestion
+- String length (longer = more gas)
+- Gas price at the time
+```
+
+#### **Optimizing Gas**
+
+```js
+// ❌ Creating many tasks one by one (expensive!)
+for (const content of contents) {
+  await contract.createTask(content);
+}
+
+// ✅ Consider a batch function in your contract
+function createTasks(string[] memory contents) public {
+  for (uint i = 0; i < contents.length; i++) {
+    // ... create each task
+  }
+}
+// One transaction, lower total gas!
+```
+
+---
+
+### 11. Complete React Component
+
+```jsx
+function TodoApp() {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Load tasks on mount
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  async function loadTasks() {
+    try {
+      setLoading(true);
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
+      
+      const count = await contract.getTasksCount();
+      const items = [];
+      
+      for (let i = 0; i < count; i++) {
+        const [id, content, done] = await contract.tasks(i);
+        if (content !== "") {
+          items.push({ id: id.toNumber(), content, done });
+        }
+      }
+      
+      setTasks(items);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCreate(e) {
+    e.preventDefault();
+    if (!newTask.trim()) return;
+
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+      
+      const tx = await contract.createTask(newTask);
+      await tx.wait();
+      
+      setNewTask("");
+      loadTasks(); // Refresh list
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleToggle(taskId) {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+      
+      const tx = await contract.toggleDone(taskId);
+      await tx.wait();
+      
+      loadTasks();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleDelete(taskId) {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+      
+      const tx = await contract.deleteTask(taskId);
+      await tx.wait();
+      
+      loadTasks();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  if (loading) return <p>Loading tasks...</p>;
+
+  return (
+    <div>
+      <h1>On-Chain To-Do List</h1>
+      
+      <form onSubmit={handleCreate}>
+        <input
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="New task..."
+        />
+        <button type="submit">Add</button>
+      </form>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>
+            <input
+              type="checkbox"
+              checked={task.done}
+              onChange={() => handleToggle(task.id)}
+            />
+            <span style={{ textDecoration: task.done ? "line-through" : "none" }}>
+              {task.content}
+            </span>
+            <button onClick={() => handleDelete(task.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+---
+
+### 12. Common Mistakes to Avoid
+
+#### **1. Forgetting to Handle Deleted Tasks**
+
+```js
+// ❌ Shows empty tasks
+for (let i = 0; i < count; i++) {
+  const task = await contract.tasks(i);
+  tasks.push(task);
+}
+
+// ✅ Filter deleted tasks
+for (let i = 0; i < count; i++) {
+  const [id, content, done] = await contract.tasks(i);
+  if (content !== "") {
+    tasks.push({ id, content, done });
+  }
+}
+```
+
+#### **2. Not Cleaning Up Event Listeners**
+
+```js
+// ❌ Memory leak!
+useEffect(() => {
+  contract.on("TaskCreated", handleCreate);
+}, []);
+
+// ✅ Clean up on unmount
+useEffect(() => {
+  contract.on("TaskCreated", handleCreate);
+  return () => contract.off("TaskCreated", handleCreate);
+}, []);
+```
+
+---
+
+### 13. Testing Your To-Do App
+
+Before deploying, verify:
+
+1. ✅ **Tasks load on page** - List displays correctly
+2. ✅ **Create works** - New task appears after confirmation
+3. ✅ **Toggle works** - Checkbox updates after confirmation
+4. ✅ **Delete works** - Task disappears after confirmation
+5. ✅ **Empty input rejected** - Validation works
+6. ✅ **User rejection handled** - Doesn't crash on cancel
+7. ✅ **Loading states shown** - User knows what's happening
+8. ✅ **Events trigger updates** - Real-time sync works
+
+---
+
+### External References & Further Learning
+
+- **Ethers.js Contract Events**: https://docs.ethers.org/v5/api/contract/contract/#Contract--events - Event handling
+- **Solidity Data Structures**: https://docs.soliditylang.org/en/latest/types.html - Structs and arrays
+- **Gas Optimization**: https://docs.soliditylang.org/en/latest/internals/optimizer.html - Reduce gas costs
+- **React Hooks**: https://reactjs.org/docs/hooks-effect.html - useEffect for events
+- **OpenZeppelin**: https://docs.openzeppelin.com - Secure contract patterns
 
 ---
 
