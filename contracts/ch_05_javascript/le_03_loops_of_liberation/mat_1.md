@@ -58,43 +58,6 @@ do {
 
 For additional details, please check the [Mozilla Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration).
 
-## Exercises
-
-**Exercise 1:** 
-- Create a function that prints even numbers from 0 to 10 using a for loop.
-
-**Starter Code:**
-```js
-function printEvenNumbers() {
-    //Your code here
-}
-```
-
-**Solution Code:**
-```js
-function printEvenNumbers() {
-    for (let i = 0; i <= 10; i++) {
-        if(i % 2 === 0) {
-            console.log(i);
-        }
-    }
-}
-printEvenNumbers();
-```
-
-## Test Cases
-We can write a jest test to validate the correct implementation of the function.
-
-```js
-test('print even numbers from 0 to 10', () => {
-    console.log = jest.fn();
-    printEvenNumbers();
-    expect(console.log.mock.calls[0][0]).toBe(0);
-    expect(console.log.mock.calls[1][0]).toBe(2);
-    expect(console.log.mock.calls[2][0]).toBe(4);
-    //... complete it till 10
-});
-```
 
 ## Closing Story
 After using loops to automate her work, Odessa was recognized for her efficiency, which boosted her confidence and motivated her to dive deeper into programming. She realized that coding wasn't just about working on abstract stuff, but also about solving real-world problems effectively, which made it exciting. 🎉🚀 What's more, she discovered a new purpose – to help her classmates with their tasks using her newfound knowledge.
