@@ -1,6 +1,8 @@
 ## 🧑‍💻 Background Story
 
-A week after Typhoon Ulysses swept through Cagayan Valley, Odessa (“Det”) sat in her BGC co-working nook, watching relief convoys slow to a crawl. “What if donations automatically release when a storm hits threshold?” she mused. Neri grinned: “Let’s simulate an oracle feeding wind-speed data on-chain.”
+![Typhoon Relief](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+14.0+-+COVER.png)
+
+A week after Typhoon Ulysses swept through Cagayan Valley, Odessa ("Det") sat in her BGC co-working nook, watching relief convoys slow to a crawl. "What if donations automatically release when a storm hits threshold?" she mused. Neri grinned: "Let's simulate an oracle feeding wind-speed data on-chain."
 
 By midnight, they had `TyphoonReliefChain.sol` deployed on a local Hardhat network. It held a donation pool and a threshold wind speed. When the mocked oracle pushed a reading above that threshold, the contract would auto-release funds to the barangay relief fund. No messy back-ends—just a simulated oracle call via `updateWeather`.
 
@@ -10,442 +12,279 @@ Odessa scaffolded a React app with three widgets:
 2. **Donate**: lets supporters send ETH to the relief pool.
 3. **OracleFeed**: simulates an off-chain weather provider by sending a new wind speed on-chain.
 
-As they clicked “Feed 120 km/h,” an `Released` event fired and the UI lit up: donations dispatched! Over cups of taho, Odessa and Neri toasted to the future: real Chainlink integration next—but tonight, TyphoonReliefChain was alive. 🇵🇭🌪️🚀
+As they clicked "Feed 120 km/h," an `Released` event fired and the UI lit up: donations dispatched! Over cups of taho, Odessa and Neri toasted to the future: real Chainlink integration next—but tonight, TyphoonReliefChain was alive.
+
+![Typhoon Relief DApp](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+14.1.png)
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-1. Off-Chain Data & Oracles  
-   • On-chain contracts can’t fetch HTTP. They rely on external “oracle” calls.  
-   • Here we simulate by calling `updateWeather(uint256 speed)` from frontend.  
-   • Events (`DataUpdated`, `Released`) let UI react to data pushes and fund releases.
+### 🎯 What You'll Learn
 
-2. Smart Contract Breakdown  
-   • donate(): payable, adds ETH to pool.  
-   • updateWeather(uint256): stores `windSpeed` and emits `DataUpdated`.  
-   • If `windSpeed ≥ threshold` and not yet released, sends entire balance to `beneficiary` and emits `Released`.  
-   • Public getters: `windSpeed()`, `released()`, contract `balance`, and `threshold`.
-
-3. Ethers.js & React Integration  
-   • Provider (read): `new ethers.providers.Web3Provider(window.ethereum)`  
-   • Signer (write): `provider.getSigner()`  
-   • Contract instance:
-
-   ```js
-   const relief = new ethers.Contract(
-     CONTRACT_ADDRESS,
-     RELIEF_ABI,
-     signerOrProvider
-   );
-   ```
-
-   • Read calls: view windSpeed and release status—no gas.  
-   • Transactions: donate & updateWeather—gas required, use `await tx.wait()`.  
-   • Listen to events:
-
-   ```js
-   relief.on("DataUpdated", (speed) => {
-     /* refresh UI */
-   });
-   relief.on("Released", (to, amt) => {
-     /* show success */
-   });
-   ```
-
-4. React Hooks Pattern  
-   • `useState` for `windSpeed`, `balance`, `released`, `error`.  
-   • `useEffect` on mount to fetch initial data and subscribe to events.  
-   • Cleanup listeners on unmount.  
-   • Loading & error handling for tx calls.
-
-5. Best Practices  
-   • Store RPC & contract address in `.env` (never commit secrets).  
-   • Validate inputs (e.g., positive wind speed).  
-   • Show user feedback: disable buttons during tx, show spinners.  
-   • Use `ethers.utils.formatEther`/`parseEther` for ETH conversions.
-
-🔗 Further Reading  
-– Ethers.js: https://docs.ethers.org/v5  
-– Solidity Global Variables & Events: https://docs.soliditylang.org  
-– React Hooks: https://reactjs.org/docs/hooks-intro.html
+In this lesson, you'll build a **simulated oracle DApp** that demonstrates how off-chain data (weather conditions) can trigger on-chain actions (releasing typhoon relief funds). This pattern is fundamental to understanding real-world Chainlink integrations.
 
 ---
 
-## 🧪 Exercises
+### 📐 Oracle-Triggered Relief Flow
 
-### Exercise 1: Build ReliefStats Component
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  TYPHOON RELIEF CHAIN FLOW                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                 OFF-CHAIN WORLD                          │   │
+│   │  ┌─────────────┐        ┌─────────────┐                 │   │
+│   │  │   Weather   │───────▶│   Oracle    │                 │   │
+│   │  │   Station   │        │  (Simulated)│                 │   │
+│   │  │  🌪️ 120km/h │        │  Frontend   │                 │   │
+│   │  └─────────────┘        └──────┬──────┘                 │   │
+│   └────────────────────────────────┼────────────────────────┘   │
+│                                    │                            │
+│                          updateWeather(120)                     │
+│                                    │                            │
+│   ┌────────────────────────────────▼────────────────────────┐   │
+│   │                 ON-CHAIN CONTRACT                        │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │  TyphoonReliefChain.sol                          │    │   │
+│   │  │  ├── windSpeed: 120 km/h                         │    │   │
+│   │  │  ├── threshold: 100 km/h                         │    │   │
+│   │  │  ├── pool: 5 ETH                                 │    │   │
+│   │  │  └── beneficiary: 0xBarangay                     │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   │                         │                                │   │
+│   │         if (windSpeed >= threshold)                     │   │
+│   │                         │                                │   │
+│   │                         ▼                                │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │  AUTO-RELEASE TO BARANGAY FUND 💰               │    │   │
+│   │  │  emit Released(beneficiary, 5 ETH)               │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-Problem Statement  
-Create `ReliefStats.js` that reads and displays on-chain:
+---
 
-- Current wind speed (`windSpeed`)
-- Contract ETH balance
-- Release status (`released`)
+### 🔑 Key Concepts
 
-**Solidity Contract (`TyphoonReliefChain.sol`)**
+#### 1. The Oracle Problem
 
-```sol
+Smart contracts **cannot** fetch external data on their own:
+
+| Capability       | Smart Contract | Oracle |
+| ---------------- | -------------- | ------ |
+| Read blockchain  | ✅ Yes         | ✅ Yes |
+| Write blockchain | ✅ Yes         | ✅ Yes |
+| HTTP requests    | ❌ No          | ✅ Yes |
+| Access APIs      | ❌ No          | ✅ Yes |
+| Read sensors     | ❌ No          | ✅ Yes |
+
+```
+Solution: Oracle Pattern
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│ Real World  │────▶│   Oracle    │────▶│  Contract   │
+│   Data      │     │  (Bridge)   │     │  (On-chain) │
+└─────────────┘     └─────────────┘     └─────────────┘
+```
+
+In production, you'd use **Chainlink** oracles. Here, we **simulate** the oracle by calling `updateWeather()` from the frontend.
+
+#### 2. Threshold-Based Auto-Release
+
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract TyphoonReliefChain {
-    uint256 public threshold;      // km/h
-    uint256 public windSpeed;      // latest reading
-    address payable public beneficiary;
-    bool public released;
+    address public beneficiary;      // Barangay relief fund
+    uint256 public windSpeed;        // Current reading (km/h)
+    uint256 public threshold;        // Trigger point (e.g., 100 km/h)
+    bool public released;            // Has fund been released?
 
-    event DataUpdated(uint256 windSpeed);
-    event Released(address beneficiary, uint256 amount);
+    event Donated(address indexed donor, uint256 amount);
+    event DataUpdated(uint256 speed);
+    event Released(address indexed to, uint256 amount);
 
-    constructor(uint256 _threshold, address payable _beneficiary) {
-        threshold = _threshold;
+    constructor(address _beneficiary, uint256 _threshold) {
         beneficiary = _beneficiary;
+        threshold = _threshold;
     }
 
-    // Donate ETH to pool
-    function donate() external payable {}
+    // Anyone can donate to the relief pool
+    function donate() external payable {
+        require(msg.value > 0, "Must send ETH");
+        emit Donated(msg.sender, msg.value);
+    }
 
-    // Update weather reading (simulated oracle)
+    // Oracle calls this with weather data
     function updateWeather(uint256 _speed) external {
         windSpeed = _speed;
         emit DataUpdated(_speed);
-        if (!released && windSpeed >= threshold) {
+
+        // Auto-release if threshold exceeded and not yet released
+        if (_speed >= threshold && !released && address(this).balance > 0) {
             released = true;
-            uint256 bal = address(this).balance;
-            beneficiary.transfer(bal);
-            emit Released(beneficiary, bal);
+            uint256 amount = address(this).balance;
+            payable(beneficiary).transfer(amount);
+            emit Released(beneficiary, amount);
         }
     }
 }
 ```
 
-**Starter Code (`ReliefStats.js`)**
+#### 3. Read vs Write Operations
 
-```js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
+| Operation | Gas Cost | Signer Needed | Example                       |
+| --------- | -------- | ------------- | ----------------------------- |
+| **Read**  | Free     | No            | `windSpeed()`, `released()`   |
+| **Write** | Paid     | Yes           | `donate()`, `updateWeather()` |
 
-const ABI = [
-  "function windSpeed() view returns (uint256)",
-  "function released() view returns (bool)",
-];
+```javascript
+// Reading (no gas, no signer)
+const speed = await contract.windSpeed();
+const isReleased = await contract.released();
+const balance = await provider.getBalance(contractAddress);
 
-export default function ReliefStats() {
-  const [wind, setWind] = useState(null);
-  const [balance, setBalance] = useState(null);
-  const [released, setReleased] = useState(false);
-  const [error, setError] = useState("");
+// Writing (gas required, needs signer)
+const tx = await contract.donate({ value: ethers.utils.parseEther("0.1") });
+await tx.wait();
 
-  useEffect(() => {
-    async function loadStats() {
-      try {
-        // TODO: provider = new ethers.providers.Web3Provider(window.ethereum)
-        // TODO: relief = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider)
-        // TODO: ws = await relief.windSpeed()
-        // TODO: rel = await relief.released()
-        // TODO: bal = await provider.getBalance(CONTRACT_ADDRESS)
-        // TODO: setWind(ws.toNumber()), setReleased(rel), setBalance(ethers.utils.formatEther(bal))
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-    loadStats();
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (wind === null) return <p>Loading relief stats…</p>;
-  return (
-    <div>
-      <h3>Typhoon Relief Chain Stats</h3>
-      <p>Wind Speed: {wind} km/h</p>
-      <p>Pool Balance: {balance} ETH</p>
-      <p>Released: {released ? "✅ Funds Dispatched" : "❌ Pending"}</p>
-    </div>
-  );
-}
-```
-
-To Do List
-
-- [ ] Instantiate `provider = new ethers.providers.Web3Provider(window.ethereum)`.
-- [ ] Relief contract: `new ethers.Contract(address, ABI, provider)`.
-- [ ] Call `windSpeed()` & `released()`.
-- [ ] `provider.getBalance(address)` for ETH balance.
-- [ ] Update state with parsed values.
-
-**Full Solution**
-
-```js
-// ReliefStats.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-
-const ABI = [
-  "function windSpeed() view returns (uint256)",
-  "function released() view returns (bool)",
-];
-const RPC = process.env.REACT_APP_RPC_URL;
-const CONTRACT = process.env.REACT_APP_RELIEF_ADDRESS;
-
-export default function ReliefStats() {
-  const [wind, setWind] = useState(null);
-  const [balance, setBalance] = useState(null);
-  const [released, setReleased] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function loadStats() {
-      try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const relief = new ethers.Contract(CONTRACT, ABI, provider);
-        const [ws, rel] = await Promise.all([
-          relief.windSpeed(),
-          relief.released(),
-        ]);
-        const bal = await provider.getBalance(CONTRACT);
-        setWind(ws.toNumber());
-        setReleased(rel);
-        setBalance(ethers.utils.formatEther(bal));
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-    loadStats();
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (wind === null) return <p>Loading relief stats…</p>;
-  return (
-    <div>
-      <h3>Typhoon Relief Chain Stats</h3>
-      <p>
-        Wind Speed: <strong>{wind}</strong> km/h
-      </p>
-      <p>
-        Pool Balance: <strong>{balance}</strong> ETH
-      </p>
-      <p>
-        Released: <strong>{released ? "✅" : "❌"}</strong>
-      </p>
-    </div>
-  );
-}
-```
-
-.env Sample
-
-```
-REACT_APP_RPC_URL=http://127.0.0.1:8545
-REACT_APP_RELIEF_ADDRESS=0xYourDeployedAddress
+const tx2 = await contract.updateWeather(120);
+await tx2.wait();
 ```
 
 ---
 
-### Exercise 2: Build Donate Component
+### 🏗️ React Component Architecture
 
-Problem Statement  
-Create `Donate.js` allowing users to send ETH to the relief pool. After donation, refresh `ReliefStats`.
-
-**Starter Code (`Donate.js`)**
-
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-
-const ABI = ["function donate() payable"];
-
-export default function Donate({ onDonated }) {
-  const [amount, setAmount] = useState("");
-  const [error, setError] = useState("");
-
-  async function donate() {
-    try {
-      // TODO: validate amount > 0
-      // TODO: request accounts, get signer
-      // TODO: relief = new Contract(CONTRACT, ABI, signer)
-      // TODO: tx = await relief.donate({ value: parseEther(amount) })
-      // TODO: await tx.wait(), onDonated(), clear amount
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h4>Donate to Relief Pool</h4>
-      <input
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="ETH amount"
-      />
-      <button onClick={donate}>Donate</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    RELIEF APP COMPONENTS                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                      ReliefApp                           │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ State: windSpeed, balance, released, error      │    │   │
+│   │  │ Effects: Fetch data, subscribe to events        │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └───────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│       ┌───────────────────┼───────────────────┐                 │
+│       ▼                   ▼                   ▼                 │
+│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
+│   │ Relief  │      │   Donate    │     │  Oracle     │         │
+│   │ Stats   │      │    Form     │     │   Feed      │         │
+│   │         │      │             │     │             │         │
+│   │ 🌪️ 50   │      │ Amount: ___ │     │ Speed: ___  │         │
+│   │ 💰 1.5  │      │ [Donate]    │     │ [Feed Data] │         │
+│   │ ❌ No   │      │             │     │             │         │
+│   └─────────┘      └─────────────┘     └─────────────┘         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-To Do List
+#### Event-Driven UI Updates
 
-- [ ] Ensure `amount` is positive and numeric.
-- [ ] `window.ethereum.request({ method: "eth_requestAccounts" })`.
-- [ ] Signer & contract: `new ethers.Contract(...)`.
-- [ ] `parseEther(amount)` & `donate({ value })`.
-- [ ] `await tx.wait()`, call `onDonated()` to reload stats.
+```javascript
+useEffect(() => {
+  const setupContract = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, RELIEF_ABI, signer);
 
-**Full Solution**
+    // Initial data fetch
+    await refreshStats();
 
-```js
-// Donate.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
+    // Subscribe to events for real-time updates
+    contract.on("Donated", (donor, amount) => {
+      console.log(`Donation: ${ethers.utils.formatEther(amount)} ETH`);
+      refreshStats();
+    });
 
-const ABI = ["function donate() payable"];
-const CONTRACT = process.env.REACT_APP_RELIEF_ADDRESS;
+    contract.on("DataUpdated", (speed) => {
+      console.log(`Wind speed updated: ${speed} km/h`);
+      setWindSpeed(speed.toNumber());
+    });
 
-export default function Donate({ onDonated }) {
-  const [amount, setAmount] = useState("");
-  const [error, setError] = useState("");
+    contract.on("Released", (to, amount) => {
+      console.log(`Funds released to ${to}!`);
+      setReleased(true);
+      refreshStats();
+      // Show success notification
+    });
 
-  async function donate() {
-    setError("");
-    if (!amount || isNaN(amount) || Number(amount) <= 0) {
-      setError("Enter a valid amount");
-      return;
-    }
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const relief = new ethers.Contract(CONTRACT, ABI, signer);
-      const value = ethers.utils.parseEther(amount);
-      const tx = await relief.donate({ value });
-      await tx.wait();
-      setAmount("");
-      onDonated();
-    } catch (err) {
-      setError(err.message);
-    }
-  }
+    // Cleanup
+    return () => contract.removeAllListeners();
+  };
 
-  return (
-    <div>
-      <h4>Donate to Relief Pool</h4>
-      <input
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="ETH amount"
-      />
-      <button onClick={donate}>Donate</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
+  setupContract();
+}, []);
 ```
 
 ---
 
-### Exercise 3: Simulate Oracle Feed
+### 📊 Simulated vs Production Oracle
 
-Problem Statement  
-Create `OracleFeed.js` to push a new wind speed reading via `updateWeather(speed)`. On `DataUpdated` or `Released` events, refresh `ReliefStats`.
+| Aspect      | Simulated (This Lesson) | Production (Chainlink) |
+| ----------- | ----------------------- | ---------------------- |
+| Data Source | Frontend button click   | Real weather APIs      |
+| Trust Model | Centralized (you)       | Decentralized nodes    |
+| Cost        | Just gas                | LINK tokens + gas      |
+| Reliability | Manual                  | Automated & redundant  |
+| Use Case    | Learning, prototyping   | Live production apps   |
 
-**Starter Code (`OracleFeed.js`)**
-
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-
-const ABI = ["function updateWeather(uint256)"];
-
-export default function OracleFeed({ onFeed }) {
-  const [speed, setSpeed] = useState("");
-  const [error, setError] = useState("");
-
-  async function feed() {
-    try {
-      // TODO: validate speed > 0
-      // TODO: request accounts, get signer
-      // TODO: relief = new Contract(CONTRACT, ABI, signer)
-      // TODO: tx = await relief.updateWeather(speed)
-      // TODO: await tx.wait(), onFeed(), clear speed
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h4>Simulate Weather Oracle</h4>
-      <input
-        value={speed}
-        placeholder="Wind km/h"
-        onChange={(e) => setSpeed(e.target.value)}
-      />
-      <button onClick={feed}>Feed Data</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
+```
+Production Chainlink Flow:
+┌────────────┐   ┌────────────┐   ┌────────────┐   ┌────────────┐
+│ Weather    │──▶│ Chainlink  │──▶│ Aggregator │──▶│   Your     │
+│ APIs       │   │   Nodes    │   │  Contract  │   │  Contract  │
+└────────────┘   └────────────┘   └────────────┘   └────────────┘
+     Real           Multiple          Median           Triggered
+     Data           Sources           Value            Action
 ```
 
-To Do List
+---
 
-- [ ] Validate `speed` is numeric & > 0.
-- [ ] `eth_requestAccounts`, get signer & contract.
-- [ ] Call `updateWeather(speed)`, `await tx.wait()`.
-- [ ] `onFeed()` to reload stats, handle clear.
+### ⚠️ Common Mistakes
 
-**Full Solution**
+| Mistake                  | Problem                        | Solution                          |
+| ------------------------ | ------------------------------ | --------------------------------- |
+| Not checking `released`  | Double release                 | Add `!released` guard             |
+| Forgetting `tx.wait()`   | UI updates before confirmation | Always await receipt              |
+| No balance check         | Transfer fails on empty pool   | Check `address(this).balance > 0` |
+| Hardcoding threshold     | Inflexible                     | Make it constructor parameter     |
+| Missing reentrancy guard | Security vulnerability         | Use OpenZeppelin ReentrancyGuard  |
 
-```js
-// OracleFeed.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
+---
 
-const ABI = ["function updateWeather(uint256)"];
-const CONTRACT = process.env.REACT_APP_RELIEF_ADDRESS;
+### ✅ Testing Checklist
 
-export default function OracleFeed({ onFeed }) {
-  const [speed, setSpeed] = useState("");
-  const [error, setError] = useState("");
+Before considering this lesson complete, verify:
 
-  async function feed() {
-    setError("");
-    if (!speed || isNaN(speed) || Number(speed) <= 0) {
-      setError("Enter a valid wind speed");
-      return;
-    }
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const relief = new ethers.Contract(CONTRACT, ABI, signer);
-      const tx = await relief.updateWeather(Number(speed));
-      await tx.wait();
-      setSpeed("");
-      onFeed();
-    } catch (err) {
-      setError(err.message);
-    }
-  }
+- [ ] Stats panel shows current wind speed
+- [ ] Pool balance updates after donations
+- [ ] Release status shows ❌ before threshold
+- [ ] Oracle feed updates wind speed on-chain
+- [ ] Auto-release triggers at threshold
+- [ ] Released event fires and UI updates
+- [ ] Cannot release twice (guard works)
+- [ ] Error handling for failed transactions
+- [ ] Events refresh UI in real-time
 
-  return (
-    <div>
-      <h4>Simulate Weather Oracle</h4>
-      <input
-        value={speed}
-        placeholder="Wind km/h"
-        onChange={(e) => setSpeed(e.target.value)}
-      />
-      <button onClick={feed}>Feed Data</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
+---
+
+### 🔗 External Resources
+
+| Resource             | Link                                                                 |
+| -------------------- | -------------------------------------------------------------------- |
+| Chainlink Data Feeds | https://docs.chain.link/data-feeds                                   |
+| The Oracle Problem   | https://blog.chain.link/what-is-the-blockchain-oracle-problem/       |
+| Ethers.js Events     | https://docs.ethers.org/v5/api/contract/contract/#Contract--events   |
+| Solidity Security    | https://docs.soliditylang.org/en/latest/security-considerations.html |
 
 ---
 
@@ -540,4 +379,4 @@ module.exports = {
 
 ## 🌟 Closing Story
 
-With “TyphoonReliefChain” live locally, Odessa clicked “Feed Data → 130 km/h” and watched donations auto-dispatch in real time. Neri cheered: “Next stop, Chainlink integration and multi-region triggers!” From mock oracle to production-grade pipeline, Odessa’s civic-tech DApp was storm-ready. Mabuhay Filipino Web3 innovation! 🇵🇭🌪️🚀
+With "TyphoonReliefChain" live locally, Odessa clicked "Feed Data → 130 km/h" and watched donations auto-dispatch in real time. Neri cheered: "Next stop, Chainlink integration and multi-region triggers!" From mock oracle to production-grade pipeline, Odessa's civic-tech DApp was storm-ready. Mabuhay Filipino Web3 innovation! 🇵🇭🌪️🚀
