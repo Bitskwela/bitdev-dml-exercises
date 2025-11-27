@@ -1,314 +1,352 @@
 ## 🧑‍💻 Background Story
 
-Under the neon glow of Tondo’s mural walls, Odessa (“Det”) met a spoken‐word poet named Lakan. He had powerful lines about hope and Manila’s heartbeat—but no way to “own” them. Odessa grinned: “Kahit spoken word, pwedeng i-mint.” Within an hour, she deployed a minimal `PoetNFT.sol` on her local Hardhat node. Then she scaffolded a React app with three widgets:
+![Filipino spoken-word poet minting NFT](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+18.0+-+COVER.png)
 
-1. **Input Form** – Title, Description, and Image Upload (a snapshot of the poet’s expression)
+Under the neon glow of Tondo's mural walls, Odessa ("Det") met a spoken‐word poet named Lakan. He had powerful lines about hope and Manila's heartbeat—but no way to "own" them. Odessa grinned: "Kahit spoken word, pwedeng i-mint." Within an hour, she deployed a minimal `PoetNFT.sol` on her local Hardhat node. Then she scaffolded a React app with three widgets:
+
+![NFT Minting UI with Image Preview](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+18.1.png)
+
+1. **Input Form** – Title, Description, and Image Upload (a snapshot of the poet's expression)
 2. **NFT Preview** – Live preview of the metadata JSON and image
 3. **Mint Button** – Calls `mintNFT(tokenURI)` on the contract and shows the minted Token ID
 
-When Lakan uploaded his poem’s cover art, typed “Tondo Sunrise” and “Lines of resilience…,” the preview popped up like magic. A click on **Mint** simulated a real on-chain call. Ten seconds later, Token ID #1 appeared, with metadata viewable on the UI. Over gulaman at taho, Lakan raised his phone: “My poem as NFT—para sa future collectors!” Filipino creativity + Web3, one spoken line at a time. 🇵🇭🎤🪙
+When Lakan uploaded his poem's cover art, typed "Tondo Sunrise" and "Lines of resilience…," the preview popped up like magic. A click on **Mint** simulated a real on-chain call. Ten seconds later, Token ID #1 appeared, with metadata viewable on the UI. Over gulaman at taho, Lakan raised his phone: "My poem as NFT—para sa future collectors!" Filipino creativity + Web3, one spoken line at a time. 🇵🇭🎤🪙
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-1. ERC-721 Basics  
-   • Each NFT has a unique `tokenId` and `tokenURI`.  
-   • `tokenURI` returns a JSON metadata link (IPFS or Data URI).  
-   • We override `tokenURI()` in Solidity to serve on-chain metadata
+### 🎯 What You'll Learn
 
-2. Smart Contract (`PoetNFT.sol`)  
-   • Uses OpenZeppelin’s ERC721  
-   • `_tokenIds` counter for unique IDs  
-   • `mintNFT(string calldata tokenURI)` mints to `msg.sender`  
-   • `event Minted(address indexed, uint256 indexed, string)` fires on mint
-
-3. Frontend Architecture  
-   • **Form State**: React useState for `title`, `desc`, `file`  
-   • **Preview**: URL.createObjectURL(file) + JSON preview  
-   • **Metadata**: Construct a JS object `{ name, description, image }`, Base64-encode to Data URI  
-   • **Ethers.js**:
-
-   ```js
-   const provider = new ethers.providers.Web3Provider(window.ethereum);
-   const signer = provider.getSigner();
-   const contract = new ethers.Contract(
-     process.env.REACT_APP_POETNFT_ADDRESS,
-     ABI,
-     signer
-   );
-   const tx = await contract.mintNFT(tokenURI);
-   await tx.wait();
-   ```
-
-   • **Event Handling**: listen to `Minted` event to update UI
-
-4. React Hooks & UX  
-   • `useEffect` to request accounts on-mount  
-   • Disable **Mint** until preview is valid  
-   • Show loading spinner during `await tx.wait()`  
-   • Catch errors (e.g. user rejects, insufficient gas) and display
-
-5. Security & Best Practices  
-   • Validate image file type (`image/*`) and size (< 5 MB)  
-   • Never commit private keys—use `.env` for `RPC_URL` and contract address  
-   • Clean up event listeners on unmount
-
-🔗 Links  
-– Ethers.js: https://docs.ethers.org/v5  
-– OpenZeppelin ERC721: https://docs.openzeppelin.com/contracts/4.x/api/token/erc721
+In this lesson, you'll build an **NFT minting UI** with live image preview and metadata generation. Users input title, description, and upload an image—then mint their creation as an ERC-721 token directly from the browser.
 
 ---
 
-## 🧪 Exercises
+### 📐 NFT Minting Architecture
 
-### Exercise 1: NFTPreview Component
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    NFT MINTING FLOW                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    USER INPUT                            │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ Title: "Tondo Sunrise"                           │    │   │
+│   │  │ Description: "Lines of resilience..."            │    │   │
+│   │  │ Image: [sunrise.png] 📷                          │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│                                ▼                                │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                  PREVIEW PANEL                           │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ ┌───────────────┐  {                            │    │   │
+│   │  │ │               │    "name": "Tondo Sunrise",   │    │   │
+│   │  │ │   🌅 Image    │    "description": "Lines...", │    │   │
+│   │  │ │   Preview     │    "image": "data:image/..."  │    │   │
+│   │  │ │               │  }                            │    │   │
+│   │  │ └───────────────┘                               │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│                         [Mint NFT]                              │
+│                                │                                │
+│   ┌────────────────────────────▼────────────────────────────┐   │
+│   │                  BLOCKCHAIN                              │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ PoetNFT.mintNFT(tokenURI)                        │    │   │
+│   │  │ ├── _tokenIds.increment()                        │    │   │
+│   │  │ ├── _safeMint(msg.sender, tokenId)               │    │   │
+│   │  │ ├── _setTokenURI(tokenId, tokenURI)              │    │   │
+│   │  │ └── emit Minted(owner, tokenId, tokenURI)        │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   │                         │                                │   │
+│   │                         ▼                                │   │
+│   │            🎉 Token ID #42 Minted!                       │   │
+│   └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-Problem Statement  
-Build a `NFTPreview` component that takes `title`, `description`, and an image `File` and renders a live preview: display the uploaded image, the title, description, and a JSON metadata snippet.
+---
 
-**Starter Code (`NFTPreview.js`)**
+### 🔑 Key Concepts
 
-```js
-import React from "react";
+#### 1. ERC-721 Token Standard
 
-export default function NFTPreview({ title, description, file }) {
-  // TODO: if no file, return "Upload an image"
-  // TODO: create image URL with URL.createObjectURL(file)
-  // TODO: show <img> preview, <h4>{title}</h4>, <p>{description}</p>
-  // TODO: build metadata object and render JSON.stringify(metadata, null, 2)
-  return <div>{/* Your preview UI here */}</div>;
+| Component          | Description                                 |
+| ------------------ | ------------------------------------------- |
+| `tokenId`          | Unique identifier for each NFT (1, 2, 3...) |
+| `tokenURI`         | URL/URI pointing to metadata JSON           |
+| `ownerOf(tokenId)` | Returns address that owns the token         |
+| `balanceOf(owner)` | Returns count of NFTs owned                 |
+| `transferFrom()`   | Moves NFT between addresses                 |
+
+#### 2. NFT Metadata Standard
+
+The `tokenURI` should return JSON following this schema:
+
+```json
+{
+  "name": "Tondo Sunrise",
+  "description": "Lines of resilience from Manila's heartbeat",
+  "image": "ipfs://QmXxx.../image.png",
+  "attributes": [
+    { "trait_type": "Artist", "value": "Lakan" },
+    { "trait_type": "Year", "value": "2024" },
+    { "trait_type": "Medium", "value": "Digital" }
+  ]
 }
 ```
 
-To Do List
+#### 3. Token URI Options
 
-- [ ] If `!file`, render “Please upload an image.”
-- [ ] Use `URL.createObjectURL(file)` for `<img src=...>`
-- [ ] Show `title` and `description` below the image
-- [ ] Construct `const metadata = { name: title, description, image: imageUrl }`
-- [ ] Render `<pre>{JSON.stringify(metadata, null, 2)}</pre>`
+| Method       | Pros                     | Cons                     |
+| ------------ | ------------------------ | ------------------------ |
+| **IPFS**     | Decentralized, permanent | Requires pinning service |
+| **Data URI** | Fully on-chain           | Size limits, gas costs   |
+| **HTTP URL** | Easy setup               | Centralized, can break   |
+| **Arweave**  | Permanent storage        | Requires AR tokens       |
 
-**Full Solution**
+```javascript
+// Data URI approach (for small metadata)
+const metadata = {
+  name: title,
+  description: description,
+  image: `data:${file.type};base64,${imageBase64}`,
+};
 
-```js
-// NFTPreview.js
-import React from "react";
+// Encode metadata as data URI
+const metadataString = JSON.stringify(metadata);
+const metadataBase64 = Buffer.from(metadataString).toString("base64");
+const tokenURI = `data:application/json;base64,${metadataBase64}`;
+```
 
-export default function NFTPreview({ title, description, file }) {
-  if (!file) {
-    return <p>Please upload an image to preview your NFT.</p>;
-  }
+#### 4. Smart Contract Implementation
 
-  const imageUrl = URL.createObjectURL(file);
-  const metadata = {
-    name: title || "Untitled",
-    description: description || "",
-    image: imageUrl,
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+contract PoetNFT is ERC721URIStorage {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+    event Minted(
+        address indexed owner,
+        uint256 indexed tokenId,
+        string tokenURI
+    );
+
+    constructor() ERC721("PoetNFT", "POET") {}
+
+    function mintNFT(string calldata _tokenURI)
+        external
+        returns (uint256)
+    {
+        _tokenIds.increment();
+        uint256 newTokenId = _tokenIds.current();
+
+        _safeMint(msg.sender, newTokenId);
+        _setTokenURI(newTokenId, _tokenURI);
+
+        emit Minted(msg.sender, newTokenId, _tokenURI);
+        return newTokenId;
+    }
+
+    function totalSupply() external view returns (uint256) {
+        return _tokenIds.current();
+    }
+}
+```
+
+---
+
+### 🏗️ React Component Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MINT NFT COMPONENTS                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                      MintApp                             │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ State: title, description, file, preview,       │    │   │
+│   │  │        tokenId, loading, error                  │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └───────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│       ┌───────────────────┼───────────────────┐                 │
+│       ▼                   ▼                   ▼                 │
+│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
+│   │  Input  │      │   Preview   │     │   Mint      │         │
+│   │  Form   │      │   Panel     │     │   Result    │         │
+│   │         │      │             │     │             │         │
+│   │ Title:  │      │  🖼️ Image   │     │ Token ID:   │         │
+│   │ [_____] │      │  { JSON }   │     │   #42 ✅    │         │
+│   │ Desc:   │      │             │     │             │         │
+│   │ [_____] │      │             │     │ [View on    │         │
+│   │ 📷 File │      │             │     │  OpenSea]   │         │
+│   └─────────┘      └─────────────┘     └─────────────┘         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Image Preview with FileReader
+
+```javascript
+import { useState } from "react";
+
+function ImageUpload({ onFileChange }) {
+  const [preview, setPreview] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert("File size must be less than 5MB");
+      return;
+    }
+
+    // Create preview URL
+    const previewUrl = URL.createObjectURL(file);
+    setPreview(previewUrl);
+
+    // Pass file to parent
+    onFileChange(file);
   };
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: 16 }}>
-      <h4>🖼️ Image Preview</h4>
-      <img
-        src={imageUrl}
-        alt="NFT preview"
-        style={{ maxWidth: "100%", maxHeight: 200 }}
-      />
-      <h4>{metadata.name}</h4>
-      <p>{metadata.description}</p>
-      <h5>Metadata JSON:</h5>
-      <pre style={{ background: "#f9f9f9", padding: 8 }}>
-        {JSON.stringify(metadata, null, 2)}
-      </pre>
+    <div>
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      {preview && (
+        <img src={preview} alt="Preview" style={{ maxWidth: "300px" }} />
+      )}
     </div>
   );
+}
+```
+
+#### Complete Minting Flow
+
+```javascript
+import { ethers } from "ethers";
+
+async function mintNFT(title, description, file) {
+  // Step 1: Convert image to base64
+  const imageBase64 = await fileToBase64(file);
+
+  // Step 2: Create metadata object
+  const metadata = {
+    name: title,
+    description: description,
+    image: `data:${file.type};base64,${imageBase64}`,
+  };
+
+  // Step 3: Encode metadata as data URI
+  const metadataString = JSON.stringify(metadata);
+  const metadataBase64 = btoa(unescape(encodeURIComponent(metadataString)));
+  const tokenURI = `data:application/json;base64,${metadataBase64}`;
+
+  // Step 4: Connect to contract
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(
+    process.env.REACT_APP_POETNFT_ADDRESS,
+    POETNFT_ABI,
+    signer
+  );
+
+  // Step 5: Mint the NFT
+  const tx = await contract.mintNFT(tokenURI);
+  const receipt = await tx.wait();
+
+  // Step 6: Extract token ID from event
+  const mintEvent = receipt.events.find((e) => e.event === "Minted");
+  const tokenId = mintEvent.args.tokenId.toNumber();
+
+  return tokenId;
+}
+
+// Helper: Convert file to base64
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result.split(",")[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 ```
 
 ---
 
-### Exercise 2: MintNFT Component
+### 📊 Data URI vs IPFS Comparison
 
-Problem Statement  
-Implement `MintNFT` that:
+| Aspect               | Data URI               | IPFS                |
+| -------------------- | ---------------------- | ------------------- |
+| **Storage**          | On-chain (in tokenURI) | Off-chain (pinned)  |
+| **Gas Cost**         | Higher (longer string) | Lower (just CID)    |
+| **Size Limit**       | ~24KB practical        | Unlimited           |
+| **Permanence**       | Forever on-chain       | Requires pinning    |
+| **Decentralization** | Fully on-chain         | Distributed network |
+| **Best For**         | Small images, SVGs     | Photos, videos      |
 
-1. Takes `title`, `description`, and `file` props.
-2. Builds a Base64 Data URI of the metadata JSON
-3. Calls `contract.mintNFT(tokenURI)` via Ethers.js
-4. Shows the minted `tokenId` and links to view metadata
+---
 
-**Solidity Contract (`PoetNFT.sol`)**
+### ⚠️ Common Mistakes
 
-```sol
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+| Mistake                        | Problem                    | Solution                               |
+| ------------------------------ | -------------------------- | -------------------------------------- |
+| Large images as data URI       | Transaction fails          | Use IPFS for >50KB                     |
+| Missing file validation        | Wrong file types           | Check `file.type.startsWith("image/")` |
+| Not awaiting `tx.wait()`       | Token ID unavailable       | Always await receipt                   |
+| No loading state               | User clicks multiple times | Disable button while minting           |
+| Forgetting URL.revokeObjectURL | Memory leaks               | Clean up preview URLs                  |
 
-contract PoetNFT is ERC721 {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-    mapping(uint256 => string) private _tokenURIs;
+---
 
-    event Minted(address indexed minter, uint256 indexed tokenId, string tokenURI);
+### ✅ Testing Checklist
 
-    constructor() ERC721("PoetNFT","PNT") {}
+Before considering this lesson complete, verify:
 
-    function mintNFT(string calldata tokenURI) external returns (uint256) {
-        _tokenIds.increment();
-        uint256 id = _tokenIds.current();
-        _safeMint(msg.sender, id);
-        _tokenURIs[id] = tokenURI;
-        emit Minted(msg.sender, id, tokenURI);
-        return id;
-    }
+- [ ] File input accepts only images
+- [ ] File size validation works (< 5MB)
+- [ ] Image preview displays correctly
+- [ ] Metadata JSON preview updates in real-time
+- [ ] Mint button disabled without complete form
+- [ ] Loading spinner during transaction
+- [ ] Token ID displays after successful mint
+- [ ] Error handling for rejected transaction
+- [ ] Minted event captured correctly
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        require(_exists(tokenId), "Nonexistent token");
-        return _tokenURIs[tokenId];
-    }
-}
-```
+---
 
-**Starter Code (`MintNFT.js`)**
+### 🔗 External Resources
 
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-import { Buffer } from "buffer";
-const ABI = [
-  "function mintNFT(string) returns (uint256)",
-  "event Minted(address indexed minter, uint256 indexed tokenId, string tokenURI)",
-];
-
-export default function MintNFT({ title, description, file }) {
-  const [tokenId, setTokenId] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function mint() {
-    try {
-      setError("");
-      setLoading(true);
-      // TODO: await window.ethereum.request({ method: "eth_requestAccounts" })
-      // TODO: provider = new ethers.providers.Web3Provider(window.ethereum)
-      // TODO: signer = provider.getSigner()
-      // TODO: contract = new ethers.Contract(..., ABI, signer)
-      // TODO: build metadata = { name, description, image: data:image/...;base64,... }
-      // TODO: const json = JSON.stringify(metadata)
-      // TODO: const dataUri = "data:application/json;base64," + Buffer.from(json).toString("base64")
-      // TODO: const tx = await contract.mintNFT(dataUri)
-      // TODO: const receipt = await tx.wait()
-      // TODO: find Minted event and setTokenId(event.args.tokenId.toNumber())
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <div>
-      <button onClick={mint} disabled={loading || !file}>
-        {loading ? "Minting…" : "Mint NFT"}
-      </button>
-      {tokenId !== null && <p>✅ Minted Token ID: {tokenId}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
-
-To Do List
-
-- [ ] Request accounts and get signer
-- [ ] Assemble `metadata` object and stringify
-- [ ] Base64-encode JSON into a Data URI
-- [ ] Call `mintNFT(dataUri)` and wait for `tx.wait()`
-- [ ] Extract `tokenId` from `Minted` event and update state
-
-**Full Solution**
-
-```js
-// MintNFT.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-import { Buffer } from "buffer";
-
-const ABI = [
-  "function mintNFT(string) returns (uint256)",
-  "event Minted(address indexed minter, uint256 indexed tokenId, string tokenURI)",
-];
-const ADDRESS = process.env.REACT_APP_POETNFT_ADDRESS;
-
-export default function MintNFT({ title, description, file }) {
-  const [tokenId, setTokenId] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function mint() {
-    setError("");
-    setLoading(true);
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(ADDRESS, ABI, signer);
-
-      // Build metadata
-      const imageData = await file.arrayBuffer();
-      const base64Img = Buffer.from(imageData).toString("base64");
-      const mimeType = file.type; // e.g., "image/png"
-      const imageUri = `data:${mimeType};base64,${base64Img}`;
-
-      const metadata = {
-        name: title,
-        description,
-        image: imageUri,
-      };
-      const json = JSON.stringify(metadata);
-      const dataUri = `data:application/json;base64,${Buffer.from(
-        json
-      ).toString("base64")}`;
-
-      const tx = await contract.mintNFT(dataUri);
-      const receipt = await tx.wait();
-      const event = receipt.events.find((e) => e.event === "Minted");
-      const newId = event.args.tokenId.toNumber();
-      setTokenId(newId);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <div>
-      <button onClick={mint} disabled={loading || !file}>
-        {loading ? "Minting…" : "Mint NFT"}
-      </button>
-      {tokenId !== null && (
-        <p>
-          ✅ Minted Token ID: {tokenId} &nbsp;
-          <a href={`${dataUri}`} target="_blank" rel="noopener noreferrer">
-            View Metadata
-          </a>
-        </p>
-      )}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
-
-.env Sample
-
-```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-REACT_APP_POETNFT_ADDRESS=0xYourContractAddress
-```
+| Resource              | Link                                                        |
+| --------------------- | ----------------------------------------------------------- |
+| OpenZeppelin ERC721   | https://docs.openzeppelin.com/contracts/4.x/erc721          |
+| NFT Metadata Standard | https://docs.opensea.io/docs/metadata-standards             |
+| IPFS Documentation    | https://docs.ipfs.tech/                                     |
+| FileReader API        | https://developer.mozilla.org/en-US/docs/Web/API/FileReader |
 
 ---
 
@@ -383,7 +421,7 @@ In `jest.config.js`:
 ```js
 module.exports = {
   testEnvironment: "jsdom",
-  moduleNameMapper: { "\\.(css|scss)$": "identity-obj-proxy" },
+  moduleNameMapping: { "\\.(css|scss)$": "identity-obj-proxy" },
 };
 ```
 
@@ -391,4 +429,4 @@ module.exports = {
 
 ## 🌟 Closing Story
 
-Lakan clicked **Mint NFT**, watched Token #1 emerge, and shared it on Twitter: “My spoken‐word, now immortalized on-chain!” Odessa smiled—her Tondo poet had a digital legacy. Next, they’ll add IPFS uploads and on-chain royalties. Filipino creativity meets Web3 magic—one poem at a time. Mabuhay Kabataan! 🇵🇭🎤🚀
+Lakan clicked **Mint NFT**, watched Token #1 emerge, and shared it on Twitter: "My spoken‐word, now immortalized on-chain!" Odessa smiled—her Tondo poet had a digital legacy. Next, they'll add IPFS uploads and on-chain royalties. Filipino creativity meets Web3 magic—one poem at a time. Mabuhay Kabataan! 🇵🇭🎤🚀

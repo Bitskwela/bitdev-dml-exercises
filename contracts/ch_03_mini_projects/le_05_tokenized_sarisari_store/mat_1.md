@@ -1,10 +1,14 @@
 # Mini Project #5: SariSari Token — Tokenizing the Barangay Store Economy
 
+![Sari-sari store](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_3/C3+5.0+-+COVER+.png)
+
 ## Background story:
 
 Sari-sari stores are pillars of Filipino barangay life. Aling Nena runs one in North Cotabato, but she struggles to get fair financing.
 
 Inspired by web3, she asks for help to tokenize her store's goods. Each **SST (SariSariToken)** represents ₱1 worth of inventory.
+
+![Aling Nena's Sari-sari Store](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_3/C3+5.1.png)
 
 Investors can buy _SST_, and she can issue more when she restocks — but supply must stay limited to prevent inflation.
 

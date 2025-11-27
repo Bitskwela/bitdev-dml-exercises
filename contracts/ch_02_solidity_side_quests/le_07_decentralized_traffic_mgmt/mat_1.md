@@ -1,10 +1,14 @@
 # Side Quest 7: Decentralized Traffic Management
 
+![Decentralized Traffic Management](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_2/C2+7.0+-+COVER.png)
+
 ## Scenario:
 
 Hackana’s digital warfare has spilled into the streets. The Metro Manila traffic system is in shambles. Traffic lights across the city are stuck on red, turning intersections into warzones of honking cars and gridlock madness.
 
 The MMDA has no idea how to fix this. They turn to Neri — the only person in the Philippines with enough technical mastery to reprogram the entire decentralized traffic system.
+
+![Neri the Blockchain Defender](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_2/C2+7.1.png)
 
 Her mission: deploy smart contract logic that manages traffic lights per intersection, but only allows valid states to prevent chaos. Time is critical.
 

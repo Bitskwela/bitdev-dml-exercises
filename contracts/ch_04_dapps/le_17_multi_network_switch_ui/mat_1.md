@@ -1,334 +1,302 @@
 ## 🧑‍💻 Background Story
 
-Under the bright lights of DevCon Cebu, Neri and Odessa demoed their multi-network React UI to a packed room. Local devs clapped as the screen showed “Chain: Sepolia” then switched live to “Chain: Polygon” with a single click. A week later—jet-lagged but exhilarated—in Los Angeles’s hackathon they faced judges who flipped their MetaMask to Goerli by mistake and got stuck. Odessa grinned: “No worries, our app will detect your chain and prompt you to switch!”
+![Multi-Network Switch UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+17.0+-+COVER.png)
 
-Back in Cebu, they’d sketched out a tiny contract, `NetworkDetector.sol`, that simply returns `block.chainid`. In React they used Ethers.js and `window.ethereum.request` calls to read the chain ID, map it to human-readable names, and, if it didn’t match the expected network, fire off `wallet_switchEthereumChain` (or `wallet_addEthereumChain` for new testnets).
+Under the bright lights of DevCon Cebu, Neri and Odessa demoed their multi-network React UI to a packed room. Local devs clapped as the screen showed "Chain: Sepolia" then switched live to "Chain: Polygon" with a single click. A week later—jet-lagged but exhilarated—in Los Angeles's hackathon they faced judges who flipped their MetaMask to Goerli by mistake and got stuck. Odessa grinned: "No worries, our app will detect your chain and prompt you to switch!"
 
-Now at LA hackathon, when judges tried to deploy their smart-wallet on a wrong chain, Odessa’s UI popped up a modal: “Please switch to Sepolia (ID 11155111).” In 30 seconds flat, the judges approved the switch in MetaMask—and the build pipeline continued seamlessly. Filipino ingenuity had turned a common UX friction into a feature. By the end of the week, teams were forking their code—and Neri and Odessa were already plotting the next trick: cross-chain network detection with automatic RPC fallback. Mabuhay multi-network UX! 🇵🇭🔄🚀
+Back in Cebu, they'd sketched out a tiny contract, `NetworkDetector.sol`, that simply returns `block.chainid`. In React they used Ethers.js and `window.ethereum.request` calls to read the chain ID, map it to human-readable names, and, if it didn't match the expected network, fire off `wallet_switchEthereumChain` (or `wallet_addEthereumChain` for new testnets).
+
+Now at LA hackathon, when judges tried to deploy their smart-wallet on a wrong chain, Odessa's UI popped up a modal: "Please switch to Sepolia (ID 11155111)." In 30 seconds flat, the judges approved the switch in MetaMask—and the build pipeline continued seamlessly. Filipino ingenuity had turned a common UX friction into a feature. By the end of the week, teams were forking their code—and Neri and Odessa were already plotting the next trick: cross-chain network detection with automatic RPC fallback. Mabuhay multi-network UX! 🇵🇭🔄🚀
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-1. block.chainid in Solidity  
-   • Global variable: `block.chainid` returns the current chain ID.  
-   • Useful for on-chain verification or basic network checks.
+### 🎯 What You'll Learn
 
-2. window.ethereum and EIP-1193  
-   • `window.ethereum.request({ method: "eth_chainId" })` → returns current chain hex ID.  
-   • `provider.send("eth_chainId", [])` via Ethers.js provider.
-
-3. Chain Switching (EIP-3085 & EIP-3326)  
-   • `wallet_switchEthereumChain`: switch MetaMask to an existing chain.
-
-   ```js
-   await provider.send("wallet_switchEthereumChain", [{ chainId: targetHex }]);
-   ```
-
-   • `wallet_addEthereumChain`: propose adding a new chain to MetaMask.
-
-   ```js
-   await provider.send("wallet_addEthereumChain", [chainParams]);
-   ```
-
-4. React + Ethers.js Pattern  
-   • useState for `chainId`, `chainName`, `error`, `loading`.  
-   • useEffect to fetch on-mount and subscribe to `chainChanged`.
-
-   ```js
-   window.ethereum.on("chainChanged", handleChainChanged);
-   ```
-
-   • Cleanup in return of useEffect to remove listener.
-
-5. UX Best Practices  
-   • Map known chain IDs to names & RPC logos.  
-   • Friendly modals when switching: explain why.  
-   • Gracefully handle user rejection (`error.code === 4001`).  
-   • Fallback to JSON-RPC provider read-only if MetaMask unavailable.
-
-🔗 References  
-– Ethers.js: https://docs.ethers.org/v5  
-– EIP-3085: https://eips.ethereum.org/EIPS/eip-3085  
-– EIP-3326: https://eips.ethereum.org/EIPS/eip-3326  
-– React Hooks: https://reactjs.org/docs/hooks-intro.html
+In this lesson, you'll build a **multi-network switch UI** that detects the current chain, displays network information, and allows users to switch between networks seamlessly. This is essential for any production DApp supporting multiple chains.
 
 ---
 
-## 🧪 Exercises
+### 📐 Network Switching Architecture
 
-### Exercise 1: Detect & Display Current Network
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  MULTI-NETWORK FLOW                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                     MetaMask                             │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ Current Network: Ethereum Mainnet (Chain ID: 1)  │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│               eth_chainId → "0x1"                               │
+│                                │                                │
+│   ┌────────────────────────────▼────────────────────────────┐   │
+│   │                    React App                             │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ Detected Chain ID: 1                             │    │   │
+│   │  │ Network Name: Ethereum Mainnet                   │    │   │
+│   │  │                                                  │    │   │
+│   │  │ ⚠️ Expected: Sepolia (11155111)                  │    │   │
+│   │  │ [Switch to Sepolia]                              │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│            wallet_switchEthereumChain                           │
+│                                │                                │
+│   ┌────────────────────────────▼────────────────────────────┐   │
+│   │                     MetaMask                             │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ [Switch Network Request]                         │    │   │
+│   │  │ This site wants you to switch to Sepolia         │    │   │
+│   │  │ [Approve] [Reject]                               │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-Problem Statement  
-Build `NetworkStats` that connects to MetaMask (or JSON-RPC), calls a small on-chain contract to read `block.chainid`, and displays both the raw ID and a friendly name (e.g., “Sepolia”, “Polygon”). Subscribe to `chainChanged` so it updates live.
+---
 
-**Solidity Contract (`NetworkDetector.sol`)**
+### 🔑 Key Concepts
+
+#### 1. Chain IDs Reference
+
+| Network           | Chain ID (Decimal) | Chain ID (Hex) | Type    |
+| ----------------- | ------------------ | -------------- | ------- |
+| Ethereum Mainnet  | 1                  | 0x1            | Mainnet |
+| Sepolia           | 11155111           | 0xaa36a7       | Testnet |
+| Polygon           | 137                | 0x89           | Mainnet |
+| Mumbai            | 80001              | 0x13881        | Testnet |
+| Arbitrum One      | 42161              | 0xa4b1         | L2      |
+| Optimism          | 10                 | 0xa            | L2      |
+| BSC               | 56                 | 0x38           | Mainnet |
+| Avalanche C-Chain | 43114              | 0xa86a         | Mainnet |
+
+#### 2. Reading Chain ID with Solidity
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract NetworkDetector {
+    // Returns current chain ID
     function getChainId() external view returns (uint256) {
         return block.chainid;
     }
 }
 ```
 
-**Starter Code (`NetworkStats.js`)**
+#### 3. Reading Chain ID with Ethers.js
 
-```js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = ["function getChainId() view returns (uint256)"];
+```javascript
+// Method 1: Using provider.send()
+const chainIdHex = await provider.send("eth_chainId", []);
+const chainId = parseInt(chainIdHex, 16);
 
-export default function NetworkStats() {
-  const [chainId, setChainId] = useState(null);
-  const [chainName, setChainName] = useState("");
-  const [error, setError] = useState("");
+// Method 2: Using getNetwork()
+const network = await provider.getNetwork();
+console.log(network.chainId); // 1 for mainnet
 
-  useEffect(() => {
-    let provider, contract;
+// Method 3: Direct window.ethereum request
+const chainIdHex = await window.ethereum.request({
+  method: "eth_chainId",
+});
+```
 
-    async function loadChain() {
-      try {
-        // TODO: detect if window.ethereum exists
-        // TODO: init provider = new ethers.providers.Web3Provider(window.ethereum) or JsonRpcProvider
-        // TODO: contract = new ethers.Contract(address, ABI, provider)
-        // TODO: idBN = await contract.getChainId()
-        // TODO: id = idBN.toNumber(); setChainId(id)
-        // TODO: map id to chainName (e.g., 11155111 → "Sepolia")
-      } catch (err) {
-        setError(err.message);
-      }
+#### 4. Network Switching (EIP-3326)
+
+```javascript
+// Switch to an existing network in MetaMask
+async function switchNetwork(chainId) {
+  const chainIdHex = "0x" + chainId.toString(16);
+
+  try {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: chainIdHex }],
+    });
+    console.log("Switched successfully!");
+  } catch (error) {
+    if (error.code === 4902) {
+      // Network not found - need to add it first
+      console.log("Network not in wallet");
+    } else if (error.code === 4001) {
+      // User rejected the request
+      console.log("User rejected network switch");
+    } else {
+      throw error;
     }
-
-    loadChain();
-
-    // TODO: subscribe to window.ethereum.on("chainChanged", ...) to reload
-
-    return () => {
-      // TODO: remove listener
-    };
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (chainId === null) return <p>Detecting network…</p>;
-
-  return (
-    <div>
-      <h3>Current Network</h3>
-      <p>Chain ID: {chainId}</p>
-      <p>Chain Name: {chainName}</p>
-    </div>
-  );
+  }
 }
 ```
 
-To Do List
+#### 5. Adding a New Network (EIP-3085)
 
-- [ ] Request accounts or fallback to JSON-RPC.
-- [ ] Instantiate provider & `NetworkDetector` contract (address in `.env`).
-- [ ] Call `getChainId()`, parse number.
-- [ ] Map common IDs to names (`{1: "Mainnet", 5:"Goerli", 11155111:"Sepolia", 137:"Polygon"}`).
-- [ ] Subscribe to `chainChanged` and re-run logic.
-- [ ] Clean up listener on unmount.
+```javascript
+// Add a network that doesn't exist in MetaMask
+async function addNetwork(chainParams) {
+  try {
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [chainParams],
+    });
+    console.log("Network added successfully!");
+  } catch (error) {
+    if (error.code === 4001) {
+      console.log("User rejected adding network");
+    }
+  }
+}
 
-**Full Solution**
-
-```js
-// NetworkStats.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-
-const ABI = ["function getChainId() view returns (uint256)"];
-const RPC = process.env.REACT_APP_RPC_URL;
-const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
-
-const NAMES = {
-  1: "Ethereum Mainnet",
-  5: "Goerli",
-  11155111: "Sepolia",
-  137: "Polygon",
-  80001: "Mumbai",
+// Example: Add Polygon network
+const polygonParams = {
+  chainId: "0x89",
+  chainName: "Polygon Mainnet",
+  nativeCurrency: {
+    name: "MATIC",
+    symbol: "MATIC",
+    decimals: 18,
+  },
+  rpcUrls: ["https://polygon-rpc.com"],
+  blockExplorerUrls: ["https://polygonscan.com/"],
 };
 
-export default function NetworkStats() {
-  const [chainId, setChainId] = useState(null);
-  const [chainName, setChainName] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    let provider, contract;
-
-    async function loadChain() {
-      try {
-        if (window.ethereum) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          await window.ethereum.request({ method: "eth_requestAccounts" });
-        } else {
-          provider = new ethers.providers.JsonRpcProvider(RPC);
-        }
-        contract = new ethers.Contract(CONTRACT, ABI, provider);
-        const idBN = await contract.getChainId();
-        const id = idBN.toNumber();
-        setChainId(id);
-        setChainName(NAMES[id] || "Unknown");
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-
-    loadChain();
-
-    function handleChange(chainHex) {
-      // chainHex e.g. "0xaa36a7"
-      const id = parseInt(chainHex, 16);
-      setChainId(id);
-      setChainName(NAMES[id] || "Unknown");
-    }
-
-    if (window.ethereum) {
-      window.ethereum.on("chainChanged", handleChange);
-    }
-
-    return () => {
-      if (window.ethereum) {
-        window.ethereum.removeListener("chainChanged", handleChange);
-      }
-    };
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (chainId === null) return <p>Detecting network…</p>;
-
-  return (
-    <div>
-      <h3>Current Network</h3>
-      <p>
-        Chain ID: <strong>{chainId}</strong>
-      </p>
-      <p>
-        Chain Name: <strong>{chainName}</strong>
-      </p>
-    </div>
-  );
-}
-```
-
-.env Sample
-
-```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-REACT_APP_NETWORK_DETECTOR=0xYourNetworkDetectorAddress
+await addNetwork(polygonParams);
 ```
 
 ---
 
-### Exercise 2: Prompt & Switch Network
+### 🏗️ React Component Pattern
 
-Problem Statement  
-Create `NetworkSwitcher` that, given a `targetChainId` prop, checks the current chain and, if it doesn’t match, prompts MetaMask to switch to it. Handle user rejection gracefully.
-
-**Starter Code (`NetworkSwitcher.js`)**
-
-```js
-import React, { useState, useEffect } from "react";
-
-export default function NetworkSwitcher({ targetChainId }) {
-  const [currentChain, setCurrentChain] = useState(null);
-  const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    // TODO: get current chain via window.ethereum.request or ethers
-    // TODO: setCurrentChain(parsed)
-  }, []);
-
-  async function switchNetwork() {
-    try {
-      // TODO: const hexId = ethers.utils.hexValue(targetChainId)
-      // TODO: await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: hexId }] })
-      // TODO: setStatus("✅ Switched")
-    } catch (err) {
-      // TODO: if error.code === 4902 then show "chain not added"
-      // TODO: else handle user rejection
-      setStatus(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <p>Current Chain: {currentChain}</p>
-      {currentChain !== targetChainId && (
-        <button onClick={switchNetwork}>Switch to {targetChainId}</button>
-      )}
-      {status && <p>{status}</p>}
-    </div>
-  );
-}
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    NETWORK UI COMPONENTS                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    NetworkApp                            │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ State: chainId, chainName, error, loading       │    │   │
+│   │  │ Effect: Listen for chainChanged event           │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └───────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│       ┌───────────────────┼───────────────────┐                 │
+│       ▼                   ▼                   ▼                 │
+│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
+│   │ Network │      │  Network    │     │   Add       │         │
+│   │  Stats  │      │  Switcher   │     │  Network    │         │
+│   │         │      │             │     │             │         │
+│   │ 🔗 ID:1 │      │ [Sepolia]   │     │ [+ Polygon] │         │
+│   │ Mainnet │      │ [Polygon]   │     │ [+ Avax]    │         │
+│   │         │      │ [Mumbai]    │     │             │         │
+│   └─────────┘      └─────────────┘     └─────────────┘         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-To Do List
+#### Complete Implementation
 
-- [ ] Read current chain on mount.
-- [ ] Compare to `targetChainId`.
-- [ ] On click, call `wallet_switchEthereumChain` with hex `chainId`.
-- [ ] Handle error codes:  
-      • `4902` → need to add chain first.  
-      • `4001` → user rejected.
-- [ ] Display status messages.
-
-**Full Solution**
-
-```js
-// NetworkSwitcher.js
-import React, { useState, useEffect } from "react";
+```javascript
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
-export default function NetworkSwitcher({ targetChainId }) {
-  const [currentChain, setCurrentChain] = useState(null);
-  const [status, setStatus] = useState("");
+// Network configuration
+const NETWORKS = {
+  1: { name: "Ethereum Mainnet", symbol: "ETH" },
+  11155111: { name: "Sepolia", symbol: "ETH" },
+  137: { name: "Polygon", symbol: "MATIC" },
+  80001: { name: "Mumbai", symbol: "MATIC" },
+};
 
+function NetworkApp() {
+  const [chainId, setChainId] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // Get current chain on mount
   useEffect(() => {
-    async function fetchChain() {
-      if (window.ethereum) {
-        const hex = await window.ethereum.request({ method: "eth_chainId" });
-        setCurrentChain(parseInt(hex, 16));
+    const detectChain = async () => {
+      if (!window.ethereum) {
+        setError("MetaMask not detected");
+        return;
       }
-    }
-    fetchChain();
+
+      try {
+        const chainIdHex = await window.ethereum.request({
+          method: "eth_chainId",
+        });
+        setChainId(parseInt(chainIdHex, 16));
+      } catch (err) {
+        setError("Failed to detect network");
+      }
+    };
+
+    detectChain();
+
+    // Listen for chain changes
+    const handleChainChanged = (chainIdHex) => {
+      const newChainId = parseInt(chainIdHex, 16);
+      setChainId(newChainId);
+      // Recommended: reload the page on chain change
+      // window.location.reload();
+    };
+
+    window.ethereum?.on("chainChanged", handleChainChanged);
+
+    return () => {
+      window.ethereum?.removeListener("chainChanged", handleChainChanged);
+    };
   }, []);
 
-  async function switchNetwork() {
-    setStatus("");
-    const hexId = ethers.utils.hexValue(targetChainId);
+  const switchToNetwork = async (targetChainId) => {
+    setLoading(true);
+    setError(null);
+
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: hexId }],
+        params: [{ chainId: "0x" + targetChainId.toString(16) }],
       });
-      setStatus("✅ Switched!");
-      setCurrentChain(targetChainId);
     } catch (err) {
       if (err.code === 4902) {
-        setStatus("Network not found in MetaMask – please add it first.");
+        setError("Network not available in wallet");
       } else if (err.code === 4001) {
-        setStatus("User rejected the request.");
+        setError("User rejected the switch request");
       } else {
-        setStatus(err.message);
+        setError("Failed to switch network");
       }
+    } finally {
+      setLoading(false);
     }
-  }
+  };
+
+  const networkInfo = NETWORKS[chainId] || { name: "Unknown", symbol: "?" };
 
   return (
     <div>
-      <p>
-        Current Chain ID: <strong>{currentChain}</strong>
-      </p>
-      {currentChain !== targetChainId && (
-        <button onClick={switchNetwork}>Switch to {targetChainId}</button>
-      )}
-      {status && <p>{status}</p>}
+      <h2>Current Network</h2>
+      <p>Chain ID: {chainId}</p>
+      <p>Name: {networkInfo.name}</p>
+      <p>Currency: {networkInfo.symbol}</p>
+
+      <h3>Switch Network</h3>
+      {Object.entries(NETWORKS).map(([id, info]) => (
+        <button
+          key={id}
+          onClick={() => switchToNetwork(parseInt(id))}
+          disabled={loading || chainId === parseInt(id)}
+        >
+          {chainId === parseInt(id) ? "✓ " : ""}
+          {info.name}
+        </button>
+      ))}
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }
@@ -336,95 +304,53 @@ export default function NetworkSwitcher({ targetChainId }) {
 
 ---
 
-### Exercise 3: Add New Chain to MetaMask
+### 📊 Error Codes Reference
 
-Problem Statement  
-Build `AddChainButton` that proposes adding a new chain (e.g., Avalanche Fuji) when MetaMask doesn’t recognize it. Use `wallet_addEthereumChain` with full parameters.
+| Code   | Meaning                 | User Action                    |
+| ------ | ----------------------- | ------------------------------ |
+| 4001   | User rejected request   | Show "Cancelled" message       |
+| 4902   | Chain not in wallet     | Call `wallet_addEthereumChain` |
+| -32002 | Request already pending | Wait for user to respond       |
+| -32603 | Internal error          | Retry or show error            |
 
-**Starter Code (`AddChainButton.js`)**
+---
 
-```js
-import React, { useState } from "react";
+### ⚠️ Common Mistakes
 
-export default function AddChainButton({ chainParams }) {
-  const [message, setMessage] = useState("");
+| Mistake                   | Problem                    | Solution                           |
+| ------------------------- | -------------------------- | ---------------------------------- |
+| Not handling 4902         | Crash when network missing | Add network then switch            |
+| Forgetting hex conversion | Invalid chain ID format    | Use `"0x" + id.toString(16)`       |
+| No event cleanup          | Memory leaks               | Remove listener on unmount         |
+| Ignoring user rejection   | Silent failure             | Check `error.code === 4001`        |
+| Not checking MetaMask     | Crash without wallet       | Guard with `if (!window.ethereum)` |
 
-  async function addChain() {
-    try {
-      // TODO: await window.ethereum.request({
-      //   method: "wallet_addEthereumChain",
-      //   params: [chainParams]
-      // });
-      // setMessage("✅ Chain added!");
-    } catch (err) {
-      setMessage(err.message);
-    }
-  }
+---
 
-  return (
-    <div>
-      <button onClick={addChain}>Add {chainParams.chainName}</button>
-      {message && <p>{message}</p>}
-    </div>
-  );
-}
-```
+### ✅ Testing Checklist
 
-**Example Chain Params**
+Before considering this lesson complete, verify:
 
-```js
-const avalancheFuji = {
-  chainId: "0xa869", // 43113
-  chainName: "Avalanche Fuji C-Chain",
-  nativeCurrency: { name: "AVAX", symbol: "AVAX", decimals: 18 },
-  rpcUrls: ["https://api.avax-test.network/rpc"],
-  blockExplorerUrls: ["https://testnet.snowtrace.io/"],
-};
-```
+- [ ] Current chain ID displays correctly
+- [ ] Network name maps from chain ID
+- [ ] Switch buttons trigger MetaMask prompt
+- [ ] User rejection shows friendly message
+- [ ] Unknown networks prompt "Add Network"
+- [ ] chainChanged event updates UI
+- [ ] Loading state prevents double-clicks
+- [ ] Works without MetaMask (graceful error)
+- [ ] Event listeners clean up on unmount
 
-To Do List
+---
 
-- [ ] Use `wallet_addEthereumChain` with given `chainParams`.
-- [ ] Handle and display success or error messages.
+### 🔗 External Resources
 
-**Full Solution**
-
-```js
-// AddChainButton.js
-import React, { useState } from "react";
-
-export default function AddChainButton({ chainParams }) {
-  const [message, setMessage] = useState("");
-
-  async function addChain() {
-    setMessage("");
-    if (!window.ethereum) {
-      setMessage("MetaMask not detected");
-      return;
-    }
-    try {
-      await window.ethereum.request({
-        method: "wallet_addEthereumChain",
-        params: [chainParams],
-      });
-      setMessage(`✅ ${chainParams.chainName} added!`);
-    } catch (err) {
-      if (err.code === 4001) {
-        setMessage("User rejected the request.");
-      } else {
-        setMessage(err.message);
-      }
-    }
-  }
-
-  return (
-    <div>
-      <button onClick={addChain}>Add {chainParams.chainName}</button>
-      {message && <p>{message}</p>}
-    </div>
-  );
-}
-```
+| Resource                 | Link                                                        |
+| ------------------------ | ----------------------------------------------------------- |
+| EIP-3085 (Add Chain)     | https://eips.ethereum.org/EIPS/eip-3085                     |
+| EIP-3326 (Switch Chain)  | https://eips.ethereum.org/EIPS/eip-3326                     |
+| Chainlist (All Networks) | https://chainlist.org/                                      |
+| MetaMask RPC Methods     | https://docs.metamask.io/wallet/reference/json-rpc-methods/ |
 
 ---
 
@@ -505,7 +431,7 @@ Add to `jest.config.js`:
 ```js
 module.exports = {
   testEnvironment: "jsdom",
-  moduleNameMapper: { "\\.(css|scss)$": "identity-obj-proxy" },
+  moduleNameMapping: { "\\.(css|scss)$": "identity-obj-proxy" },
 };
 ```
 
@@ -513,4 +439,4 @@ module.exports = {
 
 ## 🌟 Closing Story
 
-At the LA hackathon finals, a judge accidentally switched MetaMask to Fantom; Odessa’s UI caught it, prompted a switch back to Sepolia, and the live demo stayed flawless. Judges congratulated the duo: “This UX is rock solid.” Back in Cebu, over halo-halo, Neri and Odessa plotted automatic RPC fallback and cross-chain asset checks. From Cebu to LA, Filipino Web3 devs just raised the bar for seamless multi-network dApps. Mabuhay network-agnostic builds! 🇵🇭🔄🌐
+At the LA hackathon finals, a judge accidentally switched MetaMask to Fantom; Odessa's UI caught it, prompted a switch back to Sepolia, and the live demo stayed flawless. Judges congratulated the duo: "This UX is rock solid." Back in Cebu, over halo-halo, Neri and Odessa plotted automatic RPC fallback and cross-chain asset checks. From Cebu to LA, Filipino Web3 devs just raised the bar for seamless multi-network dApps. Mabuhay network-agnostic builds! 🇵🇭🔄🌐
