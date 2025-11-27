@@ -1,5 +1,5 @@
 ---
-title: "Course 4.2: dApps mini-projects"
+title: "Course 4: dApps mini-projects"
 description: "dApps mini-projects"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

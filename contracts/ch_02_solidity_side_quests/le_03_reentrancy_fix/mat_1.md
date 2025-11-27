@@ -1,5 +1,7 @@
 # Side Quest 3: Reentrancy Fix
 
+![Reentrancy Fix](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_2/C2+3.0+-+COVER.png)
+
 ## Scenario:
 
 In the heart of the Eastwood-Kalayaan Markets — a bustling digital palengke built on blockchain — vendors proudly accept crypto payments via the “Palengke Wallet,” a decentralized wallet system that revolutionized how suki (loyal customers) pay for bangus, kakanin, and sinangag na sinigang kits. Life was finally simpler. The sari-sari stores were thriving. Micro-entrepreneurs no longer waited in line at remittance centers. Everything flowed smoothly…
@@ -7,6 +9,8 @@ In the heart of the Eastwood-Kalayaan Markets — a bustling digital palengke bu
 Until one day — it didn't.
 
 A strange pattern emerged. Wallets were bleeding funds. Vendors reported missing balances after withdrawals. Stall owners in Quezon City's crypto bazaar began calling it the "Ghost Withdrawals" — money vanishing without warning. Panic ensued. And rumors spread fast in Facebook group chats: “Na-hack tayo!”
+
+![Neri the Blockchain Defender](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_2/C2+3.1.png)
 
 As Neri investigates, she traces the problem back to a forgotten piece of legacy code — left behind by a minion of Hackana during their attempt to sabotage the country's financial systems. The exploit? A reentrancy vulnerability.
 

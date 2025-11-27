@@ -1,183 +1,343 @@
 ## 🧑‍💻 Background Story
 
-At a Barangay Tech Hub in Quezon City, Neri had prepared a live-coding workshop: “Today, you’ll deploy your first smart contract—from the browser!” Odessa (“Det”) set up a local Hardhat node and invited learners to connect MetaMask to `http://127.0.0.1:8545`. She clicked “Deploy Simulator,” pasted a simple ABI/Bytecode artifact, hit **Deploy**, and in seconds a new contract address flashed on screen.
+![Contract Deployment Simulator](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+19.0+-+COVER.png)
 
-The room buzzed. “Ang dali pala!” said Carlo, a senior high coding club member from Pasig. Odessa smiled: “No backend, no Truffle CLI—just your React app and Ethers.js.” Next, she opened **Deploy History**, a panel that logged each address and timestamp. Learners saw their contracts accumulate like trophies.
+At a Barangay Tech Hub in Quezon City, Neri had prepared a live-coding workshop: "Today, you'll deploy your first smart contract—from the browser!" Odessa ("Det") set up a local Hardhat node and invited learners to connect MetaMask to `http://127.0.0.1:8545`. She clicked "Deploy Simulator," pasted a simple ABI/Bytecode artifact, hit **Deploy**, and in seconds a new contract address flashed on screen.
 
-By lunchtime, the class had deployed over 30 instances of `HelloWorld.sol`, each storing a custom greeting. Neri and Odessa high-fived: from pure beginners to “real” blockchain devs in under 30 minutes. “Simulated,” yes—but the thrill was genuine. Filipino ingenuity turned a sandbox into a production-like pipeline, one click at a time. 🚀🇵🇭
+![MetaMask Confirm Deployment](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+19.1.png)
+
+The room buzzed. "Ang dali pala!" said Carlo, a senior high coding club member from Pasig. Odessa smiled: "No backend, no Truffle CLI—just your React app and Ethers.js." Next, she opened **Deploy History**, a panel that logged each address and timestamp. Learners saw their contracts accumulate like trophies.
+
+By lunchtime, the class had deployed over 30 instances of `HelloWorld.sol`, each storing a custom greeting. Neri and Odessa high-fived: from pure beginners to "real" blockchain devs in under 30 minutes. "Simulated," yes—but the thrill was genuine. Filipino ingenuity turned a sandbox into a production-like pipeline, one click at a time. 🚀🇵🇭
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-1. Why Simulate Deployment in Frontend?
+### 🎯 What You'll Learn
 
-   - Gives beginners a DevOps-lite experience without installing CLI tools.
-   - Exposes `ContractFactory`, transaction lifecycle, gas estimation, and receipts.
-
-2. Ethers.js ContractFactory
-
-   - `new ethers.ContractFactory(abi, bytecode, signer)` builds a deployer.
-   - `factory.deploy(...constructorArgs)` → returns a `Contract` instance with a `.deployTransaction`.
-   - `await contract.deployed()` waits for on-chain confirmation.
-
-3. MetaMask as Signer
-
-   - `const provider = new ethers.providers.Web3Provider(window.ethereum)`
-   - `await provider.send("eth_requestAccounts", [])` to connect.
-   - `const signer = provider.getSigner()` signs the deployment tx.
-
-4. Frontend Architecture
-
-   - **Inputs**: ABI JSON, Bytecode string, constructor arguments
-   - **Deploy Button**: triggers `factory.deploy(...)`
-   - **Status Handling**: show spinner, catch errors (user reject, gas issues)
-   - **Deploy History**: maintain an array of `{ address, timestamp }` in React state (or `localStorage`) and render a list.
-
-5. Gas & Best Practices
-   - Estimate gas: `await factory.signer.estimateGas(factory.getDeployTransaction(...))`.
-   - Disable the button while deploying.
-   - Clean up UI on unmount.
-   - Never include private keys in client code—use MetaMask or a secure signer.
-
-🔗 Further Reading
-
-- Ethers.js Deployment: https://docs.ethers.org/v5/api/contract/contract-factory/
-- Ethereum JSON-RPC: https://ethereum.org/en/developers/docs/apis/json-rpc/
+In this lesson, you'll build a **contract deployment simulator** that allows users to deploy smart contracts directly from the browser. This demystifies the deployment process and teaches the fundamentals of `ContractFactory`, gas estimation, and transaction lifecycles.
 
 ---
 
-## 🧪 Exercises
+### 📐 Deployment Simulator Architecture
 
-### Exercise 1: Build DeploySimulator Component
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  DEPLOYMENT SIMULATOR FLOW                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    USER INPUT                            │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ ABI: [{ "inputs": [...], "name": "greet", ... }] │    │   │
+│   │  │ Bytecode: 0x608060405234801561001057600080...    │    │   │
+│   │  │ Constructor Args: ["Hello World!"]               │    │   │
+│   │  │                                                  │    │   │
+│   │  │ [Deploy Contract]                                │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│                                ▼                                │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                 ContractFactory                          │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ const factory = new ContractFactory(             │    │   │
+│   │  │     abi,                                         │    │   │
+│   │  │     bytecode,                                    │    │   │
+│   │  │     signer                                       │    │   │
+│   │  │ );                                               │    │   │
+│   │  │                                                  │    │   │
+│   │  │ const contract = await factory.deploy(...args);  │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│                                ▼                                │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    MetaMask                              │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ [Confirm Transaction]                            │    │   │
+│   │  │ Deploy Contract                                  │    │   │
+│   │  │ Gas: ~150,000                                    │    │   │
+│   │  │ [Confirm] [Reject]                               │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └────────────────────────────┬────────────────────────────┘   │
+│                                │                                │
+│                                ▼                                │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                 BLOCKCHAIN                               │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ ✅ Contract Deployed!                            │    │   │
+│   │  │ Address: 0x1234...ABCD                           │    │   │
+│   │  │ Block: #12345678                                 │    │   │
+│   │  │ Gas Used: 145,230                                │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-Problem Statement  
-Create `DeploySimulator.js` where users input a greeting string, click **Deploy**, and see the new contract address appear. Use a pre-compiled `HelloWorld.json` artifact containing ABI & bytecode.
+---
 
-**Solidity Contract (`HelloWorld.sol`)**
+### 🔑 Key Concepts
+
+#### 1. What is ContractFactory?
+
+| Component    | Purpose                                    |
+| ------------ | ------------------------------------------ |
+| **ABI**      | Interface definition (function signatures) |
+| **Bytecode** | Compiled contract code to deploy           |
+| **Signer**   | Account that pays gas and becomes deployer |
+| **deploy()** | Creates transaction to deploy contract     |
+
+```javascript
+import { ethers } from "ethers";
+
+// Create factory from ABI and bytecode
+const factory = new ethers.ContractFactory(
+  contractABI, // Array of function/event definitions
+  contractBytecode, // "0x608060..." compiled code
+  signer // Connected wallet
+);
+
+// Deploy with constructor arguments
+const contract = await factory.deploy("Hello!", 42);
+
+// Wait for mining
+await contract.deployed();
+
+// Now you have the address
+console.log("Deployed to:", contract.address);
+```
+
+#### 2. Deployment Transaction Anatomy
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  DEPLOYMENT TRANSACTION                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   {                                                             │
+│     from: "0xYourWallet...",     // Deployer address            │
+│     to: null,                     // null = contract creation   │
+│     data: "0x608060...",         // Bytecode + constructor args │
+│     value: "0x0",                // ETH to send (usually 0)     │
+│     gasLimit: 150000,            // Max gas willing to pay      │
+│     gasPrice: "20000000000"      // 20 gwei                     │
+│   }                                                             │
+│                                                                 │
+│   Result:                                                       │
+│   ├── Transaction Hash: 0xabc123...                             │
+│   ├── Contract Address: 0xNewContract...                        │
+│   ├── Block Number: 12345678                                    │
+│   └── Gas Used: 145,230                                         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Gas Estimation
+
+```javascript
+// Estimate gas before deploying
+const deployTx = factory.getDeployTransaction("Hello!", 42);
+const estimatedGas = await signer.estimateGas(deployTx);
+
+console.log("Estimated gas:", estimatedGas.toString());
+
+// Add 20% buffer for safety
+const gasLimit = estimatedGas.mul(120).div(100);
+```
+
+#### 4. Example: HelloWorld Contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.0;
 
 contract HelloWorld {
     string public greeting;
-    event Deployed(address indexed deployer, address indexed addr, string greeting);
+
+    event GreetingUpdated(string oldGreeting, string newGreeting);
 
     constructor(string memory _greeting) {
         greeting = _greeting;
-        emit Deployed(msg.sender, address(this), _greeting);
     }
 
-    function setGreeting(string memory _greet) external {
-        greeting = _greet;
+    function setGreeting(string memory _greeting) external {
+        string memory old = greeting;
+        greeting = _greeting;
+        emit GreetingUpdated(old, _greeting);
     }
 }
 ```
 
-**Starter Code (`DeploySimulator.js`)**
+Compile with Hardhat to get ABI + Bytecode:
 
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-// Precompiled artifact generated by Hardhat or Remix
-import HelloWorldArtifact from "../artifacts/HelloWorld.json";
-
-export default function DeploySimulator({ onDeployed }) {
-  const [greet, setGreet] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  async function deploy() {
-    try {
-      setError("");
-      setLoading(true);
-      // TODO: request accounts
-      // TODO: provider = new ethers.providers.Web3Provider(window.ethereum)
-      // TODO: signer = provider.getSigner()
-      // TODO: factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, signer)
-      // TODO: contract = await factory.deploy(greet)
-      // TODO: await contract.deployed()
-      // TODO: onDeployed(contract.address)
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <div>
-      <h4>Deploy HelloWorld Contract</h4>
-      <input
-        placeholder="Greeting message"
-        value={greet}
-        onChange={(e) => setGreet(e.target.value)}
-      />
-      <button onClick={deploy} disabled={loading || !greet}>
-        {loading ? "Deploying…" : "Deploy"}
-      </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
+```bash
+npx hardhat compile
+# Artifacts in artifacts/contracts/HelloWorld.sol/HelloWorld.json
 ```
 
-To Do List
+---
 
-- [ ] Connect MetaMask via `eth_requestAccounts`.
-- [ ] Instantiate `Web3Provider` and `Signer`.
-- [ ] Build `ContractFactory` with imported ABI & bytecode.
-- [ ] Call `factory.deploy(greet)` and `await contract.deployed()`.
-- [ ] Invoke `onDeployed(address)` callback.
+### 🏗️ React Component Architecture
 
-**Full Solution**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    DEPLOY SIMULATOR COMPONENTS                  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │                    DeployApp                             │   │
+│   │  ┌─────────────────────────────────────────────────┐    │   │
+│   │  │ State: constructorArgs, deploying, deployedAddr, │    │   │
+│   │  │        history, error                            │    │   │
+│   │  └─────────────────────────────────────────────────┘    │   │
+│   └───────────────────────┬─────────────────────────────────┘   │
+│                           │                                     │
+│       ┌───────────────────┼───────────────────┐                 │
+│       ▼                   ▼                   ▼                 │
+│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
+│   │  Deploy │      │  Deployed   │     │   Deploy    │         │
+│   │  Form   │      │   Result    │     │   History   │         │
+│   │         │      │             │     │             │         │
+│   │ Greeting│      │ ✅ Success! │     │ #1: 0xABC  │         │
+│   │ [_____] │      │ 0x1234...   │     │ #2: 0xDEF  │         │
+│   │         │      │             │     │ #3: 0x789  │         │
+│   │[Deploy] │      │[Copy Addr]  │     │             │         │
+│   └─────────┘      └─────────────┘     └─────────────┘         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-```js
-// DeploySimulator.js
-import React, { useState } from "react";
+#### Complete Deployment Implementation
+
+```javascript
+import { useState } from "react";
 import { ethers } from "ethers";
-import HelloWorldArtifact from "../artifacts/HelloWorld.json";
 
-export default function DeploySimulator({ onDeployed }) {
-  const [greet, setGreet] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+// Pre-loaded HelloWorld ABI and bytecode
+import HelloWorldArtifact from "./artifacts/HelloWorld.json";
 
-  async function deploy() {
-    setError("");
-    setLoading(true);
+function DeploySimulator() {
+  const [greeting, setGreeting] = useState("");
+  const [deploying, setDeploying] = useState(false);
+  const [deployedAddress, setDeployedAddress] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [error, setError] = useState(null);
+
+  const deployContract = async () => {
+    if (!greeting.trim()) {
+      setError("Please enter a greeting message");
+      return;
+    }
+
+    setDeploying(true);
+    setError(null);
+    setDeployedAddress(null);
+
     try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
+      // Check for MetaMask
+      if (!window.ethereum) {
+        throw new Error("MetaMask not detected");
+      }
+
+      // Request account access
+      await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      // Setup provider and signer
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
+
+      // Create factory
       const factory = new ethers.ContractFactory(
         HelloWorldArtifact.abi,
         HelloWorldArtifact.bytecode,
         signer
       );
-      const contract = await factory.deploy(greet);
+
+      // Deploy with constructor argument
+      console.log("Deploying with greeting:", greeting);
+      const contract = await factory.deploy(greeting);
+
+      console.log("Waiting for confirmation...");
+      console.log("Tx hash:", contract.deployTransaction.hash);
+
+      // Wait for deployment
       await contract.deployed();
-      onDeployed(contract.address);
+
+      console.log("Deployed to:", contract.address);
+      setDeployedAddress(contract.address);
+
+      // Add to history
+      setHistory((prev) => [
+        ...prev,
+        {
+          address: contract.address,
+          greeting: greeting,
+          timestamp: new Date().toISOString(),
+        },
+      ]);
     } catch (err) {
-      setError(err.message);
+      console.error("Deployment error:", err);
+      if (err.code === 4001) {
+        setError("Transaction rejected by user");
+      } else {
+        setError(err.message);
+      }
     } finally {
-      setLoading(false);
+      setDeploying(false);
     }
-  }
+  };
 
   return (
     <div>
-      <h4>Deploy HelloWorld Contract</h4>
-      <input
-        placeholder="Greeting message"
-        value={greet}
-        onChange={(e) => setGreet(e.target.value)}
-      />
-      <button onClick={deploy} disabled={loading || !greet}>
-        {loading ? "Deploying…" : "Deploy"}
-      </button>
+      <h2>Deploy HelloWorld Contract</h2>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Greeting message"
+          value={greeting}
+          onChange={(e) => setGreeting(e.target.value)}
+          disabled={deploying}
+        />
+        <button
+          onClick={deployContract}
+          disabled={deploying || !greeting.trim()}
+        >
+          {deploying ? "Deploying..." : "Deploy"}
+        </button>
+      </div>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {deployedAddress && (
+        <div>
+          <h3>✅ Deployed Successfully!</h3>
+          <p>Address: {deployedAddress}</p>
+          <button
+            onClick={() => navigator.clipboard.writeText(deployedAddress)}
+          >
+            Copy Address
+          </button>
+        </div>
+      )}
+
+      {history.length > 0 && (
+        <div>
+          <h3>Deployment History</h3>
+          <ul>
+            {history.map((item, i) => (
+              <li key={i}>
+                #{i + 1}: {item.address.slice(0, 10)}... ({item.greeting})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
@@ -185,134 +345,54 @@ export default function DeploySimulator({ onDeployed }) {
 
 ---
 
-### Exercise 2: Build DeployHistory Component
+### 📊 Deployment vs Contract Call Comparison
 
-Problem Statement  
-Implement `DeployHistory.js` that receives an array of deployed addresses and timestamps, and renders them in a list. Persist history in `localStorage` so it survives page reload.
-
-**Starter Code (`DeployHistory.js`)**
-
-```js
-import React from "react";
-
-export default function DeployHistory({ history }) {
-  // TODO: if history is empty, show "No deployments yet."
-  // TODO: map history to <li> items: address and new Date(ts).toLocaleString()
-  return <ul>{/* your list here */}</ul>;
-}
-```
-
-To Do List
-
-- [ ] Handle empty `history` gracefully.
-- [ ] Display each entry with address and readable date/time.
-- [ ] Style entries in a scrollable box.
-
-**Full Solution**
-
-```js
-// DeployHistory.js
-import React from "react";
-
-export default function DeployHistory({ history }) {
-  if (!history.length) {
-    return <p>No deployments yet.</p>;
-  }
-  return (
-    <div style={{ maxHeight: 200, overflowY: "auto" }}>
-      <ul>
-        {history.map((h, i) => (
-          <li key={i} style={{ marginBottom: 8 }}>
-            <code>{h.address}</code>
-            <br />
-            <small>{new Date(h.timestamp).toLocaleString()}</small>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
+| Aspect         | Deployment            | Contract Call          |
+| -------------- | --------------------- | ---------------------- |
+| **to** field   | `null`                | Contract address       |
+| **data** field | Bytecode + args       | Encoded function call  |
+| **Creates**    | New contract          | State change or read   |
+| **Gas**        | Higher (code storage) | Lower (execution only) |
+| **Result**     | New address           | Return value or tx     |
 
 ---
 
-### Exercise 3: Integrate Simulator & History in App
+### ⚠️ Common Mistakes
 
-Problem Statement  
-Create `App.js` that ties `DeploySimulator` and `DeployHistory` together. Store history in React state and `localStorage`.
+| Mistake                   | Problem                 | Solution                           |
+| ------------------------- | ----------------------- | ---------------------------------- |
+| Missing bytecode          | Factory fails           | Check artifact file                |
+| Wrong constructor args    | Deployment reverts      | Match Solidity constructor         |
+| Not awaiting `deployed()` | Address undefined       | Always `await contract.deployed()` |
+| Insufficient gas          | Transaction fails       | Use gas estimation                 |
+| Wrong network             | Contract on wrong chain | Verify chain ID first              |
 
-**Starter Code (`App.js`)**
+---
 
-```js
-import React, { useState, useEffect } from "react";
-import DeploySimulator from "./DeploySimulator";
-import DeployHistory from "./DeployHistory";
+### ✅ Testing Checklist
 
-export default function App() {
-  const [history, setHistory] = useState([]);
+Before considering this lesson complete, verify:
 
-  useEffect(() => {
-    // TODO: load history from localStorage
-  }, []);
+- [ ] Deploy button disabled without input
+- [ ] Loading state shows during deployment
+- [ ] Transaction hash visible while pending
+- [ ] Contract address displays after success
+- [ ] Copy address button works
+- [ ] Deployment history persists in state
+- [ ] Error handling for user rejection
+- [ ] Error handling for insufficient funds
+- [ ] Deployed contract callable
 
-  function handleDeployed(address) {
-    // TODO: append { address, timestamp: Date.now() } to state & localStorage
-  }
+---
 
-  return (
-    <div>
-      <h2>Contract Deployment Simulator</h2>
-      <DeploySimulator onDeployed={handleDeployed} />
-      <h4>Deploy History</h4>
-      <DeployHistory history={history} />
-    </div>
-  );
-}
-```
+### 🔗 External Resources
 
-To Do List
-
-- [ ] On mount, read `localStorage.getItem("deployHistory")` and parse JSON.
-- [ ] In `handleDeployed`, update state and write back to `localStorage`.
-- [ ] Pass history array to `DeployHistory`.
-
-**Full Solution**
-
-```js
-// App.js
-import React, { useState, useEffect } from "react";
-import DeploySimulator from "./DeploySimulator";
-import DeployHistory from "./DeployHistory";
-
-const STORAGE_KEY = "deployHistory";
-
-export default function App() {
-  const [history, setHistory] = useState([]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      setHistory(JSON.parse(saved));
-    }
-  }, []);
-
-  function handleDeployed(address) {
-    const entry = { address, timestamp: Date.now() };
-    const updated = [entry, ...history];
-    setHistory(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  }
-
-  return (
-    <div style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h2>Contract Deployment Simulator</h2>
-      <DeploySimulator onDeployed={handleDeployed} />
-      <h4>Deploy History</h4>
-      <DeployHistory history={history} />
-    </div>
-  );
-}
-```
+| Resource               | Link                                                                    |
+| ---------------------- | ----------------------------------------------------------------------- |
+| Ethers ContractFactory | https://docs.ethers.org/v5/api/contract/contract-factory/               |
+| Hardhat Compilation    | https://hardhat.org/hardhat-runner/docs/guides/compile-contracts        |
+| Gas Estimation         | https://docs.ethers.org/v5/api/providers/provider/#Provider-estimateGas |
+| Contract Creation      | https://ethereum.org/en/developers/docs/smart-contracts/deploying/      |
 
 ---
 
@@ -380,7 +460,7 @@ Add to `jest.config.js`:
 ```js
 module.exports = {
   testEnvironment: "jsdom",
-  moduleNameMapper: {
+  moduleNameMapping: {
     "\\.(css|scss)$": "identity-obj-proxy",
   },
 };
@@ -390,4 +470,4 @@ module.exports = {
 
 ## 🌟 Closing Story
 
-By the end of the workshop, each learner had their own “HelloWorld” contract address listed in **Deploy History**—proof that they’d just deployed code to a blockchain, all from a pure-frontend sandbox. Neri and Odessa handed out stickers: “I Deployed with React.js & Ethers.js.” For many, it was the spark that ignited a Web3 journey. Next up: front-end upgrades to support constructor overloading and live ABI imports. Filipino dev power—deploying the future, one click at a time. 🇵🇭🔥
+By the end of the workshop, each learner had their own "HelloWorld" contract address listed in **Deploy History**—proof that they'd just deployed code to a blockchain, all from a pure-frontend sandbox. Neri and Odessa handed out stickers: "I Deployed with React.js & Ethers.js." For many, it was the spark that ignited a Web3 journey. Next up: front-end upgrades to support constructor overloading and live ABI imports. Filipino dev power—deploying the future, one click at a time. 🇵🇭🔥

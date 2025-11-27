@@ -1,12 +1,23 @@
 ---
-title: "Liquidity Lockdown: Neri vs. the Phantom Pool"
-description: "A short description of this document."
+title: "The Code Awakening"
+description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-05-25"
+date: "2025-11-06"
 
 # For SEO purposes
-tags: ["markdown", "metadata", "bitskwela", "solidity"]
+tags:
+  [
+    "bitskwela",
+    "javascript",
+    "variables",
+    "console.log",
+    "programming",
+    "beginners",
+    "coding",
+    "fundamentals",
+    "web-development",
+  ]
 
 # Currently supported types:
 # NormalExercise - Just a simple module.  Does not require user input.
@@ -16,8 +27,8 @@ tags: ["markdown", "metadata", "bitskwela", "solidity"]
 type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "proj-1-liquidity-lockdown"
+permaname: "le-01-the-code-awakening"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "proj-1-liquidity-lockdown"
+slug: "le-01-the-code-awakening"
 ---
