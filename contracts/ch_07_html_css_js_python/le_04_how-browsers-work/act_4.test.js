@@ -1,1 +1,0 @@
-console.log("✔ JS for Lesson 4 works as expected.");

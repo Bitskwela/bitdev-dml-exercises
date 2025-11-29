@@ -24,7 +24,7 @@ This is more than theory—it's about building real applications using code, und
 
 ---
 
-## Course Structure: 42 Lessons Across 13 Courses
+## Course Structure: 47 Lessons Across 14 Courses
 
 ### **Course 01: Web Fundamentals (Lessons 1-5)**
 *Understanding the Digital World*
@@ -116,11 +116,24 @@ This is more than theory—it's about building real applications using code, und
 - L37: JavaScript Forms + Flask Setup
 - L38: JavaScript Fetch to Flask API
 - L39: DOM Updates from Flask
-- L40: CRUD Operations  Create and Read
-- L41: CRUD Operations  Update and Delete
+- L40: CRUD Operations – Create and Read
+- L41: CRUD Operations – Update and Delete
 - L42: Barangay Complaint System (Final Project)
 
 **Master:** Python Flask framework, REST APIs, full CRUD operations, full-stack integration, deployment-ready applications
+
+---
+
+### **Course 14: Advanced Web App Development (Lessons 43-47)**
+*Production-Ready Applications*
+
+- L43: Authentication with JS + Flask
+- L44: Environment Variables + Deployment Config
+- L45: Local Storage and Sessions
+- L46: Frontend JS + Flask Deployment (Render/Vercel)
+- L47: Online Barangay Service Portal (Final Capstone Project)
+
+**Master:** User authentication, password hashing, session management, environment configuration, client-side storage, production deployment, security best practices, full-featured web applications
 
 ---
 
@@ -131,6 +144,7 @@ Throughout this course, you'll create progressively complex projects:
 1. **Barangay Service Portal** (L29) - Interactive service management with visitor tracking
 2. **Dynamic Info Page** (L36) - API-powered service display with search/filter
 3. **Complaint System** (L42) - Full-stack CRUD application with Flask backend
+4. **Online Barangay Service Portal** (L47) - Complete production app with authentication, multiple modules, and deployment
 
 ---
 
@@ -196,12 +210,13 @@ Each lesson features:
 ## Learning Path
 
 ```
-Lessons 1-5    Understand the web
-Lessons 6-11   Build structure with HTML
-Lessons 12-22  Add styling with CSS
-Lessons 23-29  Add logic with JavaScript
-Lessons 30-36  Create interactive experiences
-Lessons 37-42  Build full-stack applications
+Lessons 1-5    → Understand the web
+Lessons 6-11   → Build structure with HTML
+Lessons 12-22  → Add styling with CSS
+Lessons 23-29  → Add logic with JavaScript
+Lessons 30-36  → Create interactive experiences
+Lessons 37-42  → Build full-stack applications
+Lessons 43-47  → Deploy production-ready systems
 ```
 
 ---
@@ -219,9 +234,9 @@ Lessons 37-42  Build full-stack applications
 
 ## Time Commitment
 
-- **42 lessons**  ~8-10 minutes reading each = 5-7 hours of instruction
-- Practice exercises and projects: 10-15 hours
-- **Total estimated time:** 15-22 hours to complete
+- **47 lessons** → ~8-10 minutes reading each = 6-8 hours of instruction
+- Practice exercises and projects: 12-18 hours
+- **Total estimated time:** 18-26 hours to complete
 - **Recommended pace:** 3-5 lessons per week = 2-3 months
 
 ---
@@ -229,21 +244,27 @@ Lessons 37-42  Build full-stack applications
 ## After This Course
 
 You'll be able to:
--  Build responsive websites from scratch
--  Create interactive web applications with JavaScript
--  Develop REST APIs with Flask
--  Implement full CRUD operations
--  Deploy applications to production
--  Continue learning advanced topics (databases, authentication, cloud deployment)
+- ✅ Build responsive websites from scratch
+- ✅ Create interactive web applications with JavaScript
+- ✅ Develop REST APIs with Flask
+- ✅ Implement full CRUD operations
+- ✅ Add user authentication and security
+- ✅ Manage environment variables and secrets
+- ✅ Use client-side storage (localStorage, sessions)
+- ✅ Deploy applications to production (Render, Vercel)
+- ✅ Build complete full-stack systems ready for real users
+- ✅ Continue learning advanced topics (databases, payment systems, cloud services)
 
 ---
 
 ## Let's Begin Your Journey
 
-From zero to full-stack developer in 42 lessons. Are you ready?
+From zero to full-stack developer in 47 lessons. Are you ready?
 
 It starts with one question: **"What is the internet, really?"**
 
+And it ends with you deploying a **complete production application** that serves your barangay.
+
 Let's dive in and discover together how to build the digital future of your community. 
 
-**Simulan natin!** (Let's start!)
+**Simulan natin!** (Let's start!) 🚀
