@@ -1,6 +1,16 @@
-## Lesson 3: Tables, Rows, Columns, and Keys
+## Background Story
 
-Story: The barangay information system blueprint grows. Tian sketches boxes and lines; Rhea Joy asks, “Why not just one giant sheet?” Today they formalize relational building blocks.
+It was a humid Saturday morning when Tian spread out a large sheet of paper across the barangay hall's meeting table. He'd been sketching the database design for their scholarship system, drawing boxes connected by lines. Rhea Joy arrived with breakfast—pandesal and instant coffee—and immediately questioned his elaborate diagram. "Kuya Tian, bakit ang complicated? Why can't we just put everything in one big Excel sheet like before?"
+
+Tian paused, marker in hand, suddenly unsure. That's when Kuya Miguel walked in, fresh from his morning jog. He glanced at Tian's sketch and grinned. "Good question, Rhea Joy. Look at it this way: if you put all resident info, scholarship details, and barangay data in one massive sheet, you'd be repeating the barangay name hundreds of times. Imagine updating 'Barangay San Roque' if they change the spelling—you'd have to find and replace hundreds of cells!"
+
+Rhea Joy's eyes lit up with understanding. "Ah! So we separate them into different tables?" Miguel nodded enthusiastically. "Exactly! One table for residents, one for barangays, one for scholarship applications. Connect them using keys—like ID numbers. Each row is one person, each column is one piece of information about them."
+
+Tian quickly added labels to his diagram: "Primary Key," "Foreign Key," "Residents Table." As tricycles honked outside and neighbors chatted by the sari-sari store, the three of them refined the blueprint. By noon, they had a solid schema design—tables with clear purposes, rows representing real people, columns capturing specific attributes, and keys linking everything together. The scholarship database was becoming real, one table at a time.
+
+---
+
+## Theory & Lecture Content
 
 ### 1. Core Definitions
 - Table: Structured set of rows (entities of one type).
@@ -94,5 +104,29 @@ Rhea Joy drafts an ER diagram; Tian labels keys with stars. They debate natural 
 
 ### 14. Reflection
 List two integrity protections offered by foreign keys; one trade‑off (write overhead).
+
+---
+
+## Closing Story
+
+Tian and Rhea Joy sat at the barangay hall's long table, surrounded by whiteboards covered in table diagrams. Stars marked primary keys. Arrows showed foreign key relationships. It looked like a treasure map—and in a way, it was.
+
+"So every table needs a primary key," Rhea Joy confirmed, tapping her pen on the `applicants` table diagram. "That's how we uniquely identify each row."
+
+"And foreign keys connect the tables," Tian added, drawing another arrow from `scholarships.applicant_id` to `applicants.id`. "That's how we know which scholarship belongs to which student."
+
+Kuya Miguel leaned over their work, nodding with approval. "You've got it. These relationships—this structure—this is what makes relational databases powerful. Every piece of data has its place, and everything connects logically."
+
+"What about composite keys?" Rhea Joy asked, pointing to their notes.
+
+"Use them when a single column isn't enough to be unique," Kuya Miguel explained. "Like a class schedule—you need both `day` and `time_slot` to uniquely identify a period."
+
+Tian saved their diagram as a photo. Tomorrow, they'd start translating these boxes and arrows into actual SQL CREATE TABLE statements. But tonight, they understood something fundamental: **data isn't just stored—it's organized with purpose, connected with meaning, and protected with keys.**
+
+"Next lesson, we dive into Python data structures," Kuya Miguel said. "Lists, tuples, dictionaries—the building blocks before we connect Python to our database."
+
+Rhea Joy closed her notebook with satisfaction. "From theory to code. Let's do this."
+
+_Next up: Lists, Tuples, and Dictionaries—Python's data structures!_ 🐍
 
 **Next:** Quiz + exercises to reinforce relational fundamentals.

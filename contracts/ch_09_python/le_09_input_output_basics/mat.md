@@ -1,6 +1,16 @@
-## Lesson 9: Input and Output Basics
+## Background Story
 
-Story: A volunteer wants a quick terminal tool: enter resident name, tag stored, summary printed. Tian and Rhea Joy wire simple input/output flows—foundation for scripts.
+Captain Cruz stood in the doorway of the tech room, arms crossed, looking unimpressed. "Tian, your program is great, but how do I actually use it? I'm not going to edit your code files every time I want to check an applicant's status." Tian's face reddened. In his excitement about algorithms and data structures, he'd forgotten the most basic requirement: the program needed to actually communicate with its users.
+
+Rhea Joy was already thinking ahead. "We need input from users—names, IDs, grades—and we need to display results in a way that makes sense. Right now, everything is just printed as raw data dumps. Parang computer lang ang makakaintindi." Tian realized she was right. His beautiful scholarship system was essentially unusable by normal humans.
+
+Kuya Miguel arrived that afternoon with specific advice. "Start simple. Use `input()` to ask questions and capture answers. Use `print()` to show results, but format them nicely. Add prompts so users know what to enter. Show friendly messages, not cryptic error codes." He demonstrated: instead of printing raw dictionaries, they formatted output into readable sentences like "Maria Santos from Barangay San Roque qualifies for 5,000 pesos scholarship."
+
+They rewrote the user interface, adding clear prompts: "Enter applicant ID:", "Enter GPA (0.0-4.0):", displaying results with proper formatting and helpful messages. They even added a simple menu system letting users choose between different operations. By sunset, Captain Cruz could actually navigate the system himself, entering data and viewing reports without touching any code. The scholarship system was becoming accessible, one user-friendly interaction at a time.
+
+---
+
+## Theory & Lecture Content
 
 ### 1. Standard Input with input()
 ```python
@@ -87,5 +97,66 @@ Interactive prompt script deployed: volunteers record attendee names; file persi
 
 ### 14. Reflection
 Two reasons to use with for file operations.
+
+---
+
+## Closing Story
+
+The barangay volunteers needed a simple way to record resident attendance at the health seminar. Tian built a command-line script that morning:
+
+```python
+print("=== Barangay Health Seminar Attendance ===")
+print()
+
+attendees = []
+while True:
+    name = input("Enter resident name (or 'done' to finish): ").strip()
+    if name.lower() == "done":
+        break
+    if name:
+        attendees.append(name)
+        print(f"✓ Added: {name}")
+
+# Save to file
+with open("attendance.txt", "w") as f:
+    for attendee in attendees:
+        f.write(f"{attendee}\n")
+
+print(f"\n✓ Saved {len(attendees)} attendees to attendance.txt")
+```
+
+Rhea Joy tested it at the hall's computer. Type a name, press Enter. Type another. Type 'done' when finished. The file appeared instantly—one name per line, ready to print or email.
+
+"This is so much better than pen and paper," she said, opening the text file. "No more illegible handwriting. No more lost lists."
+
+Kuya Miguel showed them how to read it back:
+
+```python
+with open("attendance.txt", "r") as f:
+    attendees = [line.strip() for line in f.readlines()]
+
+print("=== Attendees ===")
+for i, name in enumerate(attendees, start=1):
+    print(f"{i:2d}. {name}")
+```
+
+"Input from users. Output to console. Read from files. Write to files," Kuya Miguel summarized. "These are the four fundamental I/O operations. Master them, and you can build interactive systems."
+
+Tian added formatting:
+
+```python
+print(f"{'Name':<20} {'Status':<10}")
+print("-" * 30)
+for attendee in attendees:
+    print(f"{attendee:<20} {'Present':<10}")
+```
+
+The output was now tabular, professional. The kind of report the barangay captain could hand to the municipal health officer.
+
+That evening, 47 residents attended the seminar. All 47 names were captured accurately, saved to file, and formatted for the report—all thanks to a 30-line Python script.
+
+"From user interaction to persistent storage," Rhea Joy marveled. "This is how real applications work."
+
+_Next up: Conditionals and Control Flow—making decisions in code!_ 🔀
 
 **Next:** Quiz then exercises.

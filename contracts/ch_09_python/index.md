@@ -1,24 +1,23 @@
-# Python Programming
 # Python Programming - The Complete Journey
 
-Welcome to the complete Python programming journey! Follow Tian and Rhea Joy as they explore databases, Python fundamentals, quantitative methods, web development, and advanced database design.
+Welcome to the complete Python programming journey! Follow **Tian and Rhea Joy** as they build a barangay scholarship management system from scratch, learning databases, Python fundamentals, data analysis, and web development along the way.
 
-## 📚 Course Overview
+## Course Overview
 
-This comprehensive Python course combines **5 major courses** into one unified learning path:
-- **Course 07**: Data Bahandi – Databases
-- **Course 08**: Python sa Isla – Python Basics
-- **Course 09**: Mga Numero at Alon – Quantitative Methods
-- **Course 10**: Python sa Web – Web Development
-- **Course 11**: Data Baybayin – Database Design
+**30 Lessons** organized into 5 thematic sections:
+- **Database Fundamentals** (L1-3) - Understanding data storage
+- **Python Basics** (L4-12) - Core programming concepts  
+- **Data Analysis** (L13-18) - Statistics and modeling
+- **Web Development** (L19-24) - Flask and APIs
+- **Database Design** (L25-30) - Advanced database topics
 
-**Total Duration**: 3-4 hours (30 lessons × 8-10 minutes each)
-**Characters**: Tian & Rhea Joy
-**Language**: English technical terms with Filipino context
+**Total Duration**: 4-5 hours (30 lessons × 8-10 minutes each)  
+**Characters**: Tian (student), Rhea Joy (classmate), Kuya Miguel (mentor)  
+**Project**: Barangay Scholarship Management System
 
 ---
 
-## 📖 Chapters & Lessons
+## Chapters & Lessons
 
 ### Chapter 1: Digital Treasure Maps (Course 07 - Part 1)
 *Learn the foundation of data storage systems and why databases matter*
@@ -92,20 +91,33 @@ This comprehensive Python course combines **5 major courses** into one unified l
 
 ---
 
-## 🎯 Learning Path
+---
+
+## What You'll Build
+
+Throughout this course, you'll build a **complete Barangay Scholarship Management System**:
+- Database schema with normalized tables
+- Python backend with data processing
+- Statistical analysis and forecasting
+- Flask web application with REST API
+- Secure, production-ready deployment
+
+## Lesson Structure
 
 Each lesson includes:
-- **📖 Material (mat.md)** - Comprehensive guide with Tian & Rhea Joy's story (8-10 mins)
-- **📝 Quiz (quiz.md)** - Test your understanding with scenario-based questions
-- **💻 Exercises (meta.md)** - Hands-on practice and challenges
+- **Background Story** - Narrative introduction with Tian, Rhea Joy, and Kuya Miguel
+- **Theory & Lecture Content** - Technical concepts and code examples
+- **Closing Story** - Practical application and next lesson teaser
+- **Quiz** - Test your understanding
+- **Exercises** - Hands-on practice
 
-## 🚀 Getting Started
+## Getting Started
 
-1. Start with **Chapter 1: Digital Treasure Maps** to understand databases
-2. Progress sequentially through all 10 chapters
-3. Complete quizzes and exercises for each lesson
+1. Start with **Lesson 1: What is a Database?**
+2. Progress sequentially through all 30 lessons
+3. Complete quizzes and exercises after each lesson
 4. Build the capstone projects in Lessons 18 and 30
 
-**Estimated completion time**: 3-4 hours of focused learning
+**Time commitment**: 4-5 hours of focused learning
 
 ---

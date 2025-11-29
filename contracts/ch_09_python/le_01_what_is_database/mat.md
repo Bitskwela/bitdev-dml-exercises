@@ -1,14 +1,16 @@
-# Lesson 1: What is a Database?
+## Background Story
 
-## Story: Tian, Rhea Joy, and the Missing Scholarship Records
+Tian woke up to the sound of roosters crowing and tricycles revving their engines outside his window in Barangay San Roque. Today was important—he'd volunteered to help organize the barangay's youth scholarship program, an initiative that could change the lives of dozens of students in their community.
 
-The afternoon sun hit the barangay hall windows. Tian and Rhea Joy were helping organize the youth scholarship applications. Papers were everywhere—folders half‑open, yellowing logbooks, screenshots printed from old emails.
+By mid-morning, Tian arrived at the barangay hall with his classmate Rhea Joy. They expected a neat stack of folders. Instead, they found chaos: papers scattered across three desks, yellowing logbooks with coffee stains, printed email screenshots stuffed into manila envelopes, and handwritten sticky notes covering the walls. Captain Cruz apologized, "We've been doing this manually for fifteen years. It works... sort of."
 
-"Kuya, bakit ganito kalat?" Rhea Joy whispered.
+Rhea Joy picked up a crumpled application form. "Kuya Tian, paano natin ito i-organize? Every time we need to count approved applicants, we have to go through everything again. What if we lose someone's documents?" Tian nodded, feeling overwhelmed. They spent the next hour manually counting forms, only to realize they'd miscounted twice.
 
-Tian sighed: "We keep losing track of who submitted requirements. Every time we need totals, we manually count again. It's slow, error‑prone, and exhausting. There must be a better way."
+Just then, Kuya Miguel—Tian's cousin who works as a developer in Manila—walked in carrying his laptop. He surveyed the paper disaster and smiled knowingly. "You need a database," he said simply. "Think of it as a digital filing cabinet that never loses anything, lets you search instantly, and keeps everything organized automatically." Tian's eyes lit up. This was exactly what they needed. Little did he know, this moment would spark his journey into data management and programming. 🗂️✨
 
-Kuya Miguel entered carrying a laptop. "There is. You need a *database*. Think of it like a secure, organized data treasure chest. Instead of scattered papers, everything becomes structured, searchable, and reliable."
+---
+
+## Theory & Lecture Content
 
 ## 1. Definition
 
@@ -167,6 +169,26 @@ Plain files are acceptable when:
 1. List 3 pain points in your own school / community that a database could solve.
 2. Categorize these needs: relational, document, or key‑value?
 3. Write one SQL query you *think* would answer a real question.
+
+---
+
+## Closing Story
+
+That evening, Tian and Rhea Joy sat under the barangay hall's fluorescent lights, laptops open, notebooks filled with ideas. The scholarship papers that once covered the entire table were now neatly stacked in one corner—soon to be digitized.
+
+"Kuya Miguel was right," Tian said, staring at the screen. "A database isn't just about storing data. It's about making sense of chaos."
+
+Rhea Joy nodded, flipping through her notes. "No more lost applications. No more counting by hand. Everything will be searchable, organized, secure."
+
+Tian opened a blank Python file and typed the first line: `import sqlite3`. It felt like opening a treasure chest—one that would hold not gold, but something more valuable: **organized information that serves the community**.
+
+"Next lesson, we choose the right type of database," Rhea Joy said with determination. "SQL or NoSQL?"
+
+Tian smiled. "Let's find out."
+
+The journey from scattered papers to structured data had begun. And with every line of code, they were building something that mattered—a system that would help real students get the scholarships they deserved.
+
+_Next up: SQL vs NoSQL—choosing the right database for the right job!_
 
 ---
 **Next Lesson:** [SQL vs NoSQL](../le_02_sql_vs_nosql/)

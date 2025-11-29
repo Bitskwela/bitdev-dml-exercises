@@ -1,6 +1,16 @@
-## Lesson 7: Syntax, Indentation, and Comments
+## Background Story
 
-Story: Tian copies code from an online forum—everything crammed into one line. It fails. Rhea Joy smiles: “Python speaks in spaces and new lines.” Today they orient themselves on the island of Python syntax: whitespace as structure, statements, and purposeful commentary.
+Tian had been coding for three weeks straight, and his enthusiasm sometimes outpaced his attention to detail. One morning, he proudly showed Rhea Joy a new feature he'd added overnight—automatic scholarship amount calculation. "Look! It works perfectly!" he declared. Rhea Joy squinted at the screen, trying to decipher the wall of text. "Kuya... I literally can't tell where one function ends and another begins. And what does this part do?"
+
+Tian shrugged. "I know what it does. I wrote it last night." Rhea Joy raised an eyebrow. "But will you remember in three months? Will I understand it when you're busy and I need to fix a bug?" She had a point. The code was a tangled mess—inconsistent spacing, missing comments, random indentation that somehow still ran but looked chaotic.
+
+Kuya Miguel happened to call via video chat that afternoon to check their progress. When Tian screenshared his code, Miguel winced visibly. "Tian, pare, code is written once but read a hundred times. Python isn't just about making it work—it's about making it readable. Indentation isn't optional styling; it defines your code structure. And comments? They're notes to your future self and your teammates."
+
+They spent the evening refactoring: properly indenting code blocks to show hierarchy, adding meaningful comments explaining the 'why' not just the 'what', using consistent spacing around operators. Rhea Joy could suddenly read the code like a well-structured essay. When they later onboarded a volunteer from the neighboring barangay to help with development, he understood the codebase immediately thanks to clear syntax and helpful comments. The scholarship system was becoming maintainable, one properly indented line at a time.
+
+---
+
+## Theory & Lecture Content
 
 ### 1. Python Syntax Philosophy
 - Readability prioritized (PEP 20: Zen of Python).
@@ -100,5 +110,46 @@ Refactoring messy script into neat blocks: indentation clarifies loops vs condit
 
 ### 13. Reflection
 Why does indentation over braces aid quick scanning? Give two reasons.
+
+---
+
+## Closing Story
+
+Rhea Joy opened Tian's code from last week and immediately winced. No blank lines. Comments everywhere explaining obvious things. Inconsistent indentation. It was technically correct Python, but reading it felt like wading through mud.
+
+"Your code works," she said diplomatically, "but... it's hard to follow."
+
+Tian looked at the screen and saw what she meant. The logic was buried under noise.
+
+Kuya Miguel pulled up PEP 8—Python's style guide. "Code is read far more often than it's written. Clean syntax isn't about being fancy. It's about being kind to the next person who reads this. And that next person is usually you, three months later."
+
+They refactored together:
+
+```python
+# Before: Messy, cramped
+def calc(x,y):
+ if x>0:
+  return x+y#add them
+ else:return 0
+
+# After: Clean, readable  
+def calculate_total(amount, bonus):
+    """Calculate total payment including bonus."""
+    if amount > 0:
+        return amount + bonus
+    return 0
+```
+
+"See the difference?" Kuya Miguel pointed. "Proper spacing. Descriptive names. Docstring explains what it does. The code reads like a story."
+
+Tian ran a linter—16 style violations flagged. One by one, they fixed them: trailing whitespace removed, line lengths adjusted, consistent indentation throughout.
+
+"Python's beauty is in its readability," Rhea Joy said, reviewing the cleaned code. "Indentation isn't just syntax—it's visual structure. Your eyes follow the logic naturally."
+
+Tian committed the changes: "Refactor: Apply PEP 8 style guide. Code clarity over brevity."
+
+The scholarship script looked professional now. Clean. Maintainable. Ready for others to read and understand.
+
+_Next up: Variables, Data Types, and Operators—Python fundamentals!_ 
 
 **Next:** Quiz then exercises.

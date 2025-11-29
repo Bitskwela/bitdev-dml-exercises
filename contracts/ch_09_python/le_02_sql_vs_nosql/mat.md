@@ -1,10 +1,16 @@
-# Lesson 2: SQL vs NoSQL
+## Background Story
 
-## Story: Picking the Right Treasure Chest
+The afternoon sun filtered through the dusty windows of the barangay hall as Tian and Rhea Joy sat surrounded by manila folders they'd successfully organized into neat stacks. Kuya Miguel leaned back in his chair, sipping on his third cup of barako coffee. "Now that you understand what a database is," he began, "we need to choose the right kind for your scholarship system."
 
-Tian and Rhea Joy are now encoding the barangay's scholarship applicant data. "Kuya Miguel," Tian asks, "should we just use any database? Ano ba difference ng SQL at NoSQL?"
+Rhea Joy looked up from her notes. "Kuya, aren't all databases the same? They all just store data, right?" Miguel smiled and pulled out two different containers from his bag—a rigid compartmentalized bento box and a flexible ziplock bag. "Think of it this way: SQL databases are like this bento box. Everything has its place, structured and organized. NoSQL is like this bag—flexible, can hold different shapes, adapts to what you put in it."
 
-Kuya Miguel smiles: "Choosing a database is like choosing the right treasure chest. Some are rigid and compartmentalized; others are flexible and let the shape of the treasure vary. Let's compare."
+Tian's eyes widened as he grasped the implication. "So for our scholarship program with fixed fields like name, age, and barangay... we'd want the structured one?" Miguel nodded approvingly. "Exactly! But what if you later wanted to store varied documents—some applications with photos, others with certificates, some with both? That's where flexibility helps."
+
+They spent the next hour discussing trade-offs while the barangay's CCTV monitor flickered in the background. Captain Cruz peeked in, curious about their animated discussion about "ACID properties" and "horizontal scaling." By the time the sun began to set, Tian realized that choosing a database was less about right or wrong and more about matching the tool to the task. The scholarship system was taking shape, one decision at a time.
+
+---
+
+## Theory & Lecture Content
 
 ## 1. Overview
 
@@ -164,6 +170,30 @@ Barangay could use:
 1. Pick one dataset you handle—would you choose SQL or NoSQL? Why?
 2. Identify a place where denormalization could help—what's the trade-off?
 3. Describe one hybrid design for a future barangay portal.
+
+---
+
+## Closing Story
+
+The next morning, Tian and Rhea Joy met at the barangay hall's computer lab. Kuya Miguel had left them homework: design the database architecture for the scholarship system.
+
+"I think we should use SQL," Tian said, drawing boxes on the whiteboard. "The scholarship data has clear relationships—applicants belong to schools, disbursements link to applicants."
+
+Rhea Joy added another box. "But what about the event logs? Every time someone updates an application status, we want to track it flexibly. Maybe MongoDB for that part?"
+
+Kuya Miguel walked in, coffee in hand, and smiled at the whiteboard. "Hybrid approach. Smart. SQL for your core structured data—applicants, schools, payments. NoSQL for flexible, high-volume logs."
+
+"So we're not locked into one choice?" Rhea Joy asked.
+
+"Never," Kuya Miguel replied. "Real systems often mix both. Use the right tool for each job."
+
+Tian stepped back, looking at the design. Tables with foreign keys. JSON documents for logs. Redis for caching counts. It was coming together—a system that balanced structure with flexibility.
+
+"Next, we dive deep into tables, rows, columns, and keys," Kuya Miguel said. "The foundation of relational databases."
+
+Rhea Joy grinned. "Let's build something that actually works."
+
+_Next up: Tables, Rows, Columns, and Keys—the building blocks of SQL!_ 🗂️
 
 ---
 **Next Lesson:** [Tables, Rows, Columns, and Keys](../le_03_tables_rows_columns_keys/)
