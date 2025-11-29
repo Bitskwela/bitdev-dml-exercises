@@ -1,16 +1,22 @@
-# Lesson 24: Constructors and Destructors
+## Background Story
 
-**Estimated Reading Time:** 11 minutes
+Tian's BankAccount class had a critical bug. Sometimes account objects were created without initializing the balance, leading to random values like -2847264 or garbage data. Users started with millions in debt or billions in credit—chaos.
+
+"Why isn't the balance starting at zero?" Tian asked, frustrated after the third bug report.
+
+Kuya Miguel examined the code. "You're creating objects without initialization. In C++, if you don't initialize variables, they contain whatever random data was in that memory location before. It's like moving into an apartment and finding the previous tenant's furniture still there."
+
+"Can't the class initialize itself automatically?" Tian asked.
+
+"Yes! That's what **constructors** do," Kuya Miguel explained. "A constructor is a special function that runs automatically the moment an object is created. You guarantee that every BankAccount starts with a zero balance, every Player starts with full health, every Resident has valid default values. No more forgetting to initialize. No more bugs from uninitialized data."
+
+"And when objects are destroyed?" Tian asked.
+
+"**Destructors** handle cleanup," Kuya Miguel said. "If your object allocated memory, opened files, or created database connections, the destructor ensures everything is properly closed and freed. This is RAII—Resource Acquisition Is Initialization—one of C++'s most powerful patterns!"
 
 ---
 
-## The Story
-
-"Kuya, every time I create an object, I have to call `setData()`. Can't it initialize automatically?"
-
-"Excellent question!" Kuya Miguel grinned. "That's what **constructors** do — automatic initialization when objects are created. And **destructors** clean up when they're destroyed!"
-
----
+## Theory & Lecture Content
 
 ## What is a Constructor?
 
@@ -452,5 +458,21 @@ public:
 3. Use initialization lists for efficiency
 4. Overload constructors for flexibility
 5. Destructors free dynamic memory
+
+---
+
+## Closing Story
+
+"No more manual initialization!" Tian said, refactoring his code to use constructors. Objects now initialized themselves the moment they were created, and destructors cleaned up automatically when they went out of scope.
+
+Kuya Miguel nodded. "That's RAII: Resource Acquisition Is Initialization. The constructor acquires resources, the destructor releases them. No more forgetting to free memory, close files, or release connections. It happens automatically."
+
+Tian practiced constructor overloading: default constructor for empty objects, parameterized constructor for initialized objects, copy constructor for duplicates. "And initialization lists are more efficient than assignment in the constructor body, especially for complex types."
+
+"Exactly! And notice your clearance system with static nextId. Every new clearance gets a unique ID automatically. No manual tracking needed."
+
+Tian watched his destructors fire in reverse order: last created, first destroyed. Perfect cleanup. "This is professional-grade code."
+
+"It is. Now let's talk about encapsulation: hiding implementation details behind a clean public interface."
 
 **Next Lesson:** Encapsulation - Data Hiding Done Right

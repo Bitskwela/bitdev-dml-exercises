@@ -1,18 +1,20 @@
-# Lesson 5: Understanding Control Flow - Conditions and Branching
-
 ## Background Story: The Crossroads
 
-Tian rushed into the computer lab, excited about the programs he had been writing. "Kuya Miguel! I made a calculator that can add, subtract, multiply, and divide. But there's a problem - when I try to divide by zero, the program gives weird results!"
+Tian stared at the screen in disbelief. The calculator displayed: `Result: inf`. The culprit? A user had divided by zero, and the program blindly executed the calculation without checking.
 
-Kuya Miguel smiled. "Ah, you've discovered one of the most important concepts in programming - making decisions. Right now, your program just follows instructions from top to bottom, like a robot that never questions anything. What you need is control flow."
+"Kuya Miguel, my calculator just broke!" Tian exclaimed, frustrated. "I spent hours building this, and one wrong input crashes everything. How do real programs handle this?"
 
-"Control flow?" Tian asked, pulling out his notebook.
+Kuya Miguel walked over calmly. "Right now, your program is like a jeepney driver who never looks at the road—just drives straight no matter what. Pedestrian crossing? Keep going. Red light? Keep going. Flooding ahead? Drive right into it."
 
-"Yes. Think of it like this," Kuya Miguel said, drawing on the whiteboard. "When you walk to school, do you just walk straight ahead no matter what? What if there's a jeepney coming? What if it's raining? What if the street is flooded?"
+Tian laughed nervously. "That would be a disaster!"
 
-"I make decisions!" Tian realized. "If there's a jeepney, I wait. If it's raining, I bring an umbrella. If the street is flooded, I take another route."
+"Exactly," Kuya Miguel said, pulling up a chair. "Programs that can't make decisions are dangerous. Imagine an ATM that gives money without checking the balance. A game character that takes damage even with a shield equipped. A door that opens for anyone without checking authorization. Every robust program needs the ability to evaluate situations and make intelligent choices."
 
-"Exactly! Programs need to make decisions too. Today, we'll learn how to make your programs smart enough to handle different situations - just like you handle different situations on your way to school."
+"You need **control flow**—the ability to look at conditions and decide what to do. Should I execute this code? Should I skip that section? Should I take a different path entirely? Today, we transform your programs from mindless instruction-followers into smart decision-makers!"
+
+---
+
+## Theory & Lecture Content
 
 ## What is Control Flow?
 
@@ -1704,6 +1706,24 @@ The more you practice, the better you'll get at choosing the right control struc
 Tian's eyes widened. "That sounds amazing! I can't wait!"
 
 "For now, practice what you learned. Make sure you understand how conditions work because loops use them too. See you next time!"
+
+---
+
+## Closing Story
+
+Tian spent the next hour building a complete grading system with if-else statements, then created an ATM menu using switch. "Kuya, this is incredible! My programs can finally think!"
+
+Kuya Miguel laughed. "Well, not exactly think - but they can make logical decisions based on conditions. That's the power of control flow."
+
+"I see why you said this is important," Tian said. "Without conditions, my calculator would divide by zero and crash. Without if-else, my grade calculator couldn't tell pass from fail. Without switch, my menu system would be a mess of if-else chains."
+
+"Exactly! You've mastered the art of decision-making in code. But there's one more crucial skill - what if you need to do something repeatedly? Like calculating grades for 50 students, or printing numbers from 1 to 100?"
+
+Tian's eyes widened. "Don't tell me I have to write the same code 50 times?"
+
+"Never! That's what loops are for - and that's our next lesson. Get ready to make your programs repeat actions efficiently!"
+
+Tian saved his work, already imagining the possibilities.
 
 ---
 

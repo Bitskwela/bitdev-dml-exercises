@@ -1,14 +1,18 @@
-# Lesson 10: Functions Defined - Breaking Down Problems
-
 ## Background Story
 
-Tian looked at the ATM code they just built. "Kuya Miguel, the main function is so long! Almost 200 lines. Is there a way to organize this better?"
+Tian opened the ATM project file and scrolled... and scrolled... and scrolled. The `main()` function was 243 lines long. Finding a specific piece of code was like searching for a needle in a haystack.
 
-Kuya Miguel nodded. "Exactly! That's where **functions** come in. Think of functions as breaking down a big task into smaller, manageable pieces. Instead of one giant `main()` function doing everything, we create separate functions for authentication, withdrawal, deposit, etc."
+"Kuya, I need to fix the withdrawal validation logic," Tian said, frustrated. "But I can't even find where it is! And when I finally found it, I realized I'm doing the same balance check in three different places. If I update one, I have to remember to update the others. This is a mess!"
 
-"Like dividing work among barangay officials?" Tian asked.
+Kuya Miguel nodded sympathetically. "You've hit the 'spaghetti code' wall. Your program works, but it's unmaintainable. Imagine if Facebook's entire codebase was one giant file. Imagine if a hospital system's patient management was 10,000 lines in a single function."
 
-"Precisely! The Captain coordinates, but the Treasurer handles money, the Secretary handles documents, and the Tanod handles security. Each has their specific **function**."
+"Professional developers never write code like this," Kuya Miguel explained. "They use **functions**—breaking complex systems into small, reusable, testable pieces. Each function does one job and does it well. Need to validate a withdrawal? There's a function for that. Need to check PIN? There's a function for that. Instead of hunting through 200 lines, you just call the function by name."
+
+"Functions are the foundation of organized, maintainable code. Let's refactor your ATM project and transform it from a mess into clean, professional code!"
+
+---
+
+## Theory & Lecture Content
 
 ## What Are Functions?
 
@@ -544,5 +548,19 @@ int main() {
 You've learned function basics! In **Lesson 11**, you'll dive deeper into **parameters and return values** - learning about pass by value, pass by reference, and how data flows in and out of functions.
 
 **Kuya Miguel:** "Functions are the building blocks of clean code, Tian. Master them, and your programs will be elegant and maintainable!"
+
+---
+
+## Closing Story
+
+Tian refactored the ATM code into clean, organized functions. "Kuya, this is so much better! Each function has one job, and my main function is only 20 lines now instead of 200!"
+
+"That's modular programming," Kuya Miguel said proudly. "Professional developers don't write giant monolithic code. They break problems into small, testable, reusable functions."
+
+"I get it now," Tian said. "Functions are like tools in a toolbox. You don't throw all your tools in one pile - you organize them, label them, and use each one for its specific purpose."
+
+"Perfect analogy! Next lesson, we'll dive deeper into parameters and return values - how data flows into and out of functions. You'll learn about pass-by-value, pass-by-reference, and more."
+
+Tian was ready to become a true function master.
 
 **Reading time:** ~10 minutes

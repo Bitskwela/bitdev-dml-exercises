@@ -1,12 +1,18 @@
-# Lesson 9: Mini Project - ATM Simulator Using Control Structures
-
 ## Background Story
 
-"Tian, you've learned loops, conditions, and logical operators," Kuya Miguel said one afternoon. "Now it's time to combine everything into a real project!"
+Tian had been learning C++ concepts for weeks—variables, operators, conditions, loops, logical operators. Each lesson made sense individually, but Tian felt overwhelmed. "Kuya, I understand each piece, but how do they all fit together in a real program?"
 
-Tian's eyes lit up. "What are we building?"
+Kuya Miguel smiled knowingly. "You're experiencing what every developer faces: tutorial hell. You can follow lessons, but can you build something real? Let's find out. Today, we're building an **ATM Simulator** from scratch—no tutorial, no step-by-step guide. Just you, your knowledge, and a problem to solve."
 
-"An ATM Simulator! It will have account balance, deposits, withdrawals, and security features. You'll use everything you've learned: loops for menus, conditions for validation, and logical operators for security checks."
+Tian's eyes widened with a mix of excitement and nervousness.
+
+"Think about it," Kuya Miguel continued. "An ATM needs secure login with limited attempts—that's loops and conditions. It needs to validate withdrawals against balance—that's logical operators. It needs a menu system that keeps running until the user exits—that's a while loop with nested switch cases. Every concept you've learned will connect here."
+
+"This is your first real test," Kuya Miguel said seriously. "Can you take what you know and build something that works? Welcome to project-based learning. Let's see what you can do!"
+
+---
+
+## Theory & Lecture Content
 
 ## Project Overview
 
@@ -506,5 +512,21 @@ Congratulations on completing **Chapter 2: Logic in Motion**!
 In **Chapter 3: Foundations of Structure**, you'll learn about **functions** - how to break down your code into reusable, modular pieces. Imagine building this ATM system with separate functions for authentication, withdrawal, deposit, etc. Much cleaner!
 
 **Kuya Miguel:** "Outstanding work, Tian! You've built a real system. Next, we'll learn to organize this code better using functions. Ready?"
+
+---
+
+## Closing Story
+
+Tian hit Enter and watched his ATM simulator spring to life. PIN authentication, balance checks, deposits, withdrawals with validation, transaction history. It all worked.
+
+"Kuya, I can't believe I built this," Tian said, eyes wide. "A few weeks ago, I was just learning cout and cin. Now I have a working ATM system!"
+
+Kuya Miguel nodded proudly. "You combined everything: while loops for the menu, if-else chains for validation, logical operators for security, arrays for history. This is what real programming looks like. Taking separate concepts and weaving them together to solve real problems."
+
+Tian tested the withdrawal limit, triggering the secondary PIN check for large amounts. "This actually feels secure. Like something people could use."
+
+"It's a solid foundation. But look at your code. It's getting long, right? Lots of repetition? That's where we're headed next. Functions will let you break this down into clean, reusable pieces. Authentication as a function, withdrawal as a function, deposit as a function. Much more organized."
+
+Tian saved his ATM project with pride. Chapter 2 complete. Time to learn structure.
 
 **Reading time:** ~12 minutes

@@ -1,10 +1,20 @@
-# Lesson 11: Parameters and Return Values
-
 ## Background Story
 
-"Kuya Miguel, I understand functions now," Tian said, "but I'm confused about how data moves in and out. When I pass a variable to a function, what really happens?"
+Tian created a function to update a resident's balance, but when the function finished, the balance hadn't changed. The original variable stayed the same no matter what the function did.
 
-Kuya Miguel pulled out a notebook. "Great question! There are two ways to pass data: **by value** and **by reference**. It's like giving someone a photocopy of a document versus giving them the actual document. Let me show you the difference."
+"Kuya, this is frustrating!" Tian exclaimed. "I passed the balance to my `deductFee()` function, subtracted 500, but when I print the balance in main, it's still the same! The function did nothing!"
+
+Kuya Miguel examined the code. "Ah, you're passing by value. The function got a photocopy of your data, modified the copy, then threw it away. The original stayed untouched."
+
+"That's useless! How do I make the function actually change the real variable?"
+
+"You pass by reference," Kuya Miguel explained. "Think of it this way: passing by value is like giving someone a photo of your house and asking them to paint it. They can draw on the photo all they want, but your actual house doesn't change. Passing by reference is like giving them your house key—now they can modify the real thing."
+
+"This is critical for efficiency too," he continued. "Imagine passing a 10MB image to a function. By value means copying 10MB every time. By reference means passing an address—just 8 bytes. This is why understanding parameters and return values separates beginners from efficient programmers!"
+
+---
+
+## Theory & Lecture Content
 
 ## Pass by Value vs Pass by Reference
 
@@ -507,5 +517,19 @@ int goodFunction() {
 In **Lesson 12**, you'll learn about **scope rules and variable lifetime** - understanding where variables are accessible and when they're created/destroyed.
 
 **Kuya Miguel:** "You now understand how data flows in and out of functions. Next, we'll explore where variables live and how long they exist!"
+
+---
+
+## Closing Story
+
+Tian ran his barangay clearance system, watching as the balance updated correctly when he processed payments. "Kuya, I get it now! Pass by reference when I need to change the original, pass by value when I just need to read."
+
+"Exactly!" Kuya Miguel said. "And const reference is your best friend for large data you only read. No copying, no modifying. Efficient and safe."
+
+Tian looked at his code, seeing how parameters flowed in and return values flowed out. "Functions are like machines with inputs and outputs. I send data in through parameters, and I get results back through return values. And reference parameters let me get multiple results at once."
+
+"Perfect understanding! You're mastering the flow of data. Next, we'll explore scope: where variables live and how long they exist. It's about boundaries and lifetimes."
+
+Tian saved his work, ready to understand the invisible rules governing variables.
 
 **Reading time:** ~10 minutes

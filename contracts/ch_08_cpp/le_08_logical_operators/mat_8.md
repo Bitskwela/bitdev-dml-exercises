@@ -1,10 +1,16 @@
-# Lesson 8: Logical Operators and Compound Conditions
-
 ## Background Story
 
-Tian was working on a barangay clearance system when he got stuck. "Kuya Miguel, I need to check if someone is both a resident AND has paid their dues. How do I check multiple conditions at once?"
+Tian's barangay clearance system had a critical bug. It approved everyone who met ANY requirement, not ALL requirements. A non-resident with unpaid dues? Approved. A resident who never submitted documents? Approved. The barangay captain was furious.
 
-Kuya Miguel nodded. "Great question! That's where **logical operators** come in. In real life, we often need to check multiple things: 'Is the person 18 years old OR older?' 'Does the applicant have ID AND proof of residence?' These are compound conditions."
+"Kuya, I used if statements to check each requirement," Tian explained, panicking. "But the system treats them as separate checks. How do I make sure someone meets ALL conditions before approval?"
+
+Kuya Miguel examined the code. "Right now, your program thinks like this: 'Is the person a resident? Yes, approved!' But real verification needs compound logic: 'Is the person a resident AND has paid dues AND submitted valid ID?' All conditions must be true."
+
+"Think about airport security," Kuya Miguel continued. "They don't just check if you have a ticket OR a passport OR went through screening. You need ALL of them. That's what **logical operators** do—they combine multiple conditions into complex decision-making logic. This is the difference between a broken security system and one that actually works. Let's fix your clearance system properly!"
+
+---
+
+## Theory & Lecture Content
 
 ## What Are Logical Operators?
 
@@ -515,5 +521,19 @@ if (age >= 18) {
 You've mastered combining conditions! Next lesson is a **Mini Project: ATM Simulator** where you'll use loops, conditions, and logical operators to build a complete working system.
 
 **Kuya Miguel:** "You're ready to build something real, Tian! Let's put everything together in a practical project."
+
+---
+
+## Closing Story
+
+"Kuya, this is incredible!" Tian exclaimed, testing his barangay clearance checker. "I just checked if someone has an ID AND paid dues AND has no violations. Three conditions at once!"
+
+Kuya Miguel smiled. "That's the power of logical operators. Real-world decisions are rarely simple. You need to check multiple things: age OR disability status for discounts, income AND collateral for loans. AND, OR, and NOT let you express complex logic clearly."
+
+Tian ran through his loan eligibility program again, watching it handle age ranges and income requirements smoothly. "And short-circuit evaluation means it stops checking once the answer is clear?"
+
+"Exactly. It's efficient and safe. Now you're ready for the big challenge: building a complete ATM system. You'll use loops for the menu, conditions for validation, and logical operators for security. Everything comes together."
+
+Tian's eyes lit up. A real project. Time to put it all together.
 
 **Reading time:** ~10 minutes

@@ -1,16 +1,18 @@
-# Lesson 30: STL Basics - Standard Template Library
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Tian spent two days implementing a dynamic array class—manual memory management, resize logic, bounds checking, copy constructors. It worked, but was full of subtle bugs. Then Tian discovered that C++ already had `vector` that did everything better.
+
+"I wasted two days reinventing the wheel!" Tian exclaimed, frustrated. "Why didn't anyone tell me about the Standard Template Library?"
+
+Kuya Miguel smiled. "Now you appreciate why STL exists. The vector you spent days on? STL's version is optimized, tested by millions of developers, handles edge cases you haven't thought of, and is maintained by language experts."
+
+"The STL is a treasure trove," Kuya Miguel explained. "Need a dynamic array? Use `vector`. Need fast lookup by key? Use `map`. Need a queue? Use `queue`. Need sorted unique values? Use `set`. These data structures have been refined for decades. They're fast, reliable, and used in production systems worldwide."
+
+"Professional developers don't write their own hash tables or sorting algorithms unless they have very specific needs," Kuya Miguel said. "They use STL—battle-tested, optimized implementations. Your job is to solve business problems, not reimplement basic data structures. Master the STL, and you'll be exponentially more productive!"
 
 ---
 
-## The Story
-
-"Kuya, I keep writing custom array and list classes. Isn't there a standard library?"
-
-"Yes! The **STL (Standard Template Library)**!" Kuya Miguel said. "Powerful, tested, and ready to use — vector, string, map, and more!"
-
----
+## Theory & Lecture Content
 
 ## What is STL?
 
@@ -421,5 +423,21 @@ int main() {
 3. map for key-value storage
 4. Algorithms for common operations
 5. Iterators for traversal
+
+---
+
+## Closing Story
+
+"I've been reinventing the wheel!" Tian laughed, replacing his custom array classes with vector, his lookup tables with map, his unique ID storage with set. The STL versions were more powerful, thoroughly tested, and incredibly efficient.
+
+Kuya Miguel grinned. "That's why the STL exists. Decades of expert work, optimized and proven. Vector grows automatically, map provides fast lookups with balanced trees, algorithms like sort and find are highly optimized."
+
+Tian practiced using vector for resident storage, map for quick ID-to-index lookup, set for unique collections, and algorithms for sorting, searching, and filtering. "And iterators let me traverse any container uniformly. Same pattern for vector, map, set, list."
+
+"Exactly! Learn the STL patterns once, use them everywhere. And with C++11 range-based for loops and lambdas, the code becomes even cleaner. You saw how easy sorting by custom criteria became with lambda functions."
+
+Tian's resident management system was now concise, powerful, and professional. Vector for dynamic storage, map for fast lookups, sort and find for queries. "This is production-quality code."
+
+"It is. Now for the final challenge: build a complete CRUD system using everything you've learned."
 
 **Next Lesson:** Final Challenge - Complete CRUD System

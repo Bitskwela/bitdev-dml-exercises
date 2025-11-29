@@ -1,18 +1,16 @@
-# Lesson 12: Scope Rules and the Lifetime of Variables
+## Background Story
 
-**Estimated Reading Time:** 10 minutes
+Tian's refactored ATM code had a mysterious bug. Sometimes the `balance` variable showed the correct amount, sometimes it was zero, and sometimes it caused errors. Tian had declared `balance` in multiple places and lost track of which one was being used.
 
----
+"Kuya, my program is possessed!" Tian joked, but the frustration was real. "Variables appear and disappear randomly. I declare `int counter` in one function, try to use it in another, and get errors. But sometimes variables with the same name don't conflict. I'm completely confused!"
 
-## The Story
+Kuya Miguel sat down seriously. "This is **scope**—one of the most important concepts in programming, and one that causes countless bugs when misunderstood. You're not alone; even experienced developers mess this up."
 
-Tian was organizing papers in Kuya Miguel's office when he noticed something odd.
-
-"Kuya, bakit may dalawang folder na both named 'Reports'? One sa desk, one sa filing cabinet?"
-
-Kuya Miguel smiled. "Good observation! In programming, we call that **scope**. Variables can have the same name but exist in different **places** — just like those folders. Let's talk about where variables can live and how long they exist."
+"Think of scope like privacy zones," Kuya Miguel explained. "What happens in the barangay hall stays in the barangay hall. What happens in your bedroom is private. But some information, like your name, is public everywhere. Variables work the same way—some are local to a function, some are global, some live only inside a loop. If you don't understand scope, you'll waste hours debugging ghost variables and mysterious errors. Let's master this once and for all!"
 
 ---
+
+## Theory & Lecture Content
 
 ## Understanding Scope
 
@@ -565,5 +563,21 @@ Tian stretched. "So scope is like knowing which office a document belongs to!"
 3. Local variables are preferred over global
 4. Static variables retain values between function calls
 5. Avoid shadowing for clearer code
+
+---
+
+## Closing Story
+
+"This is trippy, Kuya," Tian said, staring at his clearance tracker code. "A variable can exist in the program but not be accessible from where I am?"
+
+"That's scope!" Kuya Miguel explained. "Think of it like rooms in a house. Each function is a room. Local variables are furniture in that room. You can't use the chair from the bedroom while you're in the kitchen, even though it exists."
+
+Tian ran his code again, watching the static clearance counter increment while local variables came and went. "And static is like... a counter on the wall that persists even after I leave the room and come back?"
+
+"Perfect analogy! Static variables have function scope but program lifetime. They remember their value between calls. And global variables? Those are like the foundation of the house. Accessible from every room, but risky because anyone can modify them."
+
+Tian nodded. "So: local first, static when I need memory, global sparingly, and const for safe globals."
+
+"You've got it. Now let's apply everything in a practical project!"
 
 **Next Lesson:** Practical Exercise - Modular Grade Calculator

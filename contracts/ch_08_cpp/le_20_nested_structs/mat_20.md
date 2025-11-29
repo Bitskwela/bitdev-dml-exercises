@@ -1,16 +1,16 @@
-# Lesson 20: Nested Structs and Complex Data Structures
+## Background Story
 
-**Estimated Reading Time:** 11 minutes
+Tian's Resident struct worked great for basic info, but now the barangay needed full addresses: street, house number, barangay, city, and postal code. Should each become a separate field in Resident?
 
----
+"That'll make the struct huge," Tian thought aloud. "And what if I need addresses for other things, like businesses? Do I duplicate all those fields?"
 
-## The Story
+Kuya Miguel saw the dilemma. "This is where **nested structs** shine. An address is its own concept, so create an Address struct. Then, a Resident has an Address. A Business has an Address. You're building with modular components."
 
-"Kuya," Tian said, "what if a resident has an address with street, barangay, and city? Do I make separate variables?"
-
-"No! Use **nested structs** — structs inside structs. Build complex data structures from simple building blocks."
+"Real-world data is hierarchical," Kuya Miguel explained. "A university has departments, each department has professors, each professor has students. A car has an engine, the engine has parts, parts have specifications. You model this with nested structs—complex structures built from simple, reusable components."
 
 ---
+
+## Theory & Lecture Content
 
 ## Nested Structs
 
@@ -375,5 +375,21 @@ struct Department {
 3. Keep nesting levels reasonable (2-3 max)
 4. Reuse struct definitions
 5. Use const references for efficiency
+
+---
+
+## Closing Story
+
+"Now I can model complex real-world data!" Tian exclaimed, working with his nested resident structure. Name, age, address with street and barangay, contact info with phone and email: all organized hierarchically.
+
+"That's how professional systems are built," Kuya Miguel explained. "Break complex data into smaller, reusable pieces. Address is its own struct that can be reused for home address, work address, emergency contact address. ContactInfo can be used for residents, employees, vendors."
+
+Tian practiced chaining dot operators: resident.address.city, resident.contact.phone. "And I can nest as deep as needed, but you said keep it reasonable: 2-3 levels max."
+
+"Right! Too deep and code becomes unreadable. If you find yourself typing object.level1.level2.level3.level4, something's wrong. Flatten your structure or rethink your design."
+
+Tian nodded, understanding the balance. "What's next?"
+
+"Enums! Instead of using 1, 2, 3 for clearance types, you'll use RESIDENCE, BUSINESS, TRAVEL. Meaningful names instead of magic numbers."
 
 **Next Lesson:** Enums - Named Constants

@@ -1,16 +1,18 @@
-# Lesson 26: Inheritance - Building Class Hierarchies
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Tian stared at three classes: `Resident`, `BarangayOfficial`, and `BusinessOwner`. Each had `name`, `age`, `address`, and a `display()` method. The code was nearly identical across all three—massive duplication.
+
+"If I need to add phone number to all three, I have to modify three classes," Tian complained. "If I fix a bug in address validation, I have to fix it in three places. This is maintenance hell!"
+
+Kuya Miguel nodded. "You're violating the DRY principle—Don't Repeat Yourself. See the pattern? All three are fundamentally 'people' with shared characteristics. The differences are their roles and role-specific behaviors."
+
+"This is where **inheritance** becomes powerful," Kuya Miguel explained. "Create a base `Person` class with common properties. Then, `Resident extends Person`, `Official extends Person`, `BusinessOwner extends Person`. Shared code lives in one place. Role-specific code stays in specialized classes. Add phone number once to Person, and all derived classes automatically have it."
+
+"Inheritance models real-world relationships," Kuya Miguel continued. "A dog is an animal. A car is a vehicle. A student is a person. This is how large systems stay organized without drowning in duplicate code. Let's refactor your classes properly!"
 
 ---
 
-## The Story
-
-"Kuya, I have `Resident`, `Business`, and `Official` classes with similar code. Can I avoid duplication?"
-
-"Use **inheritance**!" Kuya Miguel exclaimed. "Create a base class with common features, then derive specialized classes from it!"
-
----
+## Theory & Lecture Content
 
 ## What is Inheritance?
 
@@ -443,5 +445,21 @@ class Car : public Vehicle { };
 3. Protected members accessible in derived classes
 4. Override methods for specialization
 5. Use inheritance for "is-a" relationships
+
+---
+
+## Closing Story
+
+"No more code duplication!" Tian exclaimed, looking at his refactored class hierarchy. Person as the base with common attributes like name and age, then Resident, Official, and BusinessOwner as derived classes adding their specific features.
+
+Kuya Miguel nodded. "That's the power of inheritance: write common code once in the base class, then specialize in derived classes. Every Resident IS-A Person, every Official IS-A Person. They inherit the Person features and add their own."
+
+Tian practiced constructor chaining, watching base constructors fire before derived constructors. "And protected members are accessible in derived classes but hidden from outside. Perfect middle ground between private and public."
+
+"Right! And notice how you can override methods for specialized behavior. Person has a generic display(), but Resident overrides it to show barangay and balance, Official overrides to show position and salary. Same interface, different behavior."
+
+Tian reviewed his BusinessOwner class, which inherited from Resident, which inherited from Person. Multilevel inheritance. "So BusinessOwner gets features from both Resident and Person."
+
+"Exactly. But there's more: polymorphism. One pointer type, many object types. That's next."
 
 **Next Lesson:** Polymorphism - The Power of Virtual Functions

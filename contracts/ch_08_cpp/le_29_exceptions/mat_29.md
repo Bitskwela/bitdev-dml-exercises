@@ -1,16 +1,18 @@
-# Lesson 29: Exception Handling - Dealing with Errors Gracefully
+## Background Story
 
-**Estimated Reading Time:** 11 minutes
+Tian's program crashed spectacularly during a demo. A user entered a string where a number was expected, and the program terminated with a cryptic error. No error message, no recovery, just instant crash.
+
+"This is unprofessional!" the barangay captain said. "Real software should handle errors gracefully, not crash."
+
+Tian was embarrassed. "Kuya, I do input validation, but I can't predict every error. Division by zero, file not found, array out of bounds, network timeout—there are so many ways things can go wrong! How do professionals build robust systems?"
+
+"**Exception handling**," Kuya Miguel explained. "Instead of letting errors crash your program, you detect problems, throw exceptions, and handle them gracefully. Invalid input? Catch it, show an error message, let the user try again. File missing? Catch it, create the file or prompt for a new location. Network error? Catch it, retry with exponential backoff."
+
+"Think of exceptions like safety nets," Kuya Miguel continued. "Trapeze artists perform high-risk moves, but nets catch them if they fall. Your code attempts operations that might fail, but exception handlers catch failures and keep the program running. This is the difference between amateur code that crashes and professional software that handles real-world messiness elegantly."
 
 ---
 
-## The Story
-
-"Kuya, my program crashes when users enter invalid data. How do I handle errors gracefully?"
-
-"Use **exception handling**!" Kuya Miguel said. "**try-catch-throw** — detect errors, throw exceptions, catch and handle them!"
-
----
+## Theory & Lecture Content
 
 ## What is Exception Handling?
 
@@ -420,5 +422,21 @@ void processFile() {
 3. Standard exception classes available
 4. Create custom exceptions for specific errors
 5. RAII ensures cleanup even with exceptions
+
+---
+
+## Closing Story
+
+"My program doesn't crash anymore!" Tian said, testing his exception-protected code. Invalid inputs, insufficient balances, missing accounts: all caught and handled gracefully.
+
+Kuya Miguel smiled. "That's professional error handling. Instead of crashing, you throw exceptions. Your calling code catches them, displays meaningful error messages, and the program continues safely."
+
+Tian practiced creating custom exception classes with detailed error messages. "InsufficientBalanceException tells me exactly what went wrong: required amount, available amount. Much better than a generic error or silent failure."
+
+"Right! And notice RAII: Resource Acquisition Is Initialization. Even when exceptions occur, destructors still fire. Files close, memory frees, connections release. Automatic cleanup."
+
+Tian tested throwing exceptions from deep in the call stack, watching them bubble up to the appropriate catch block. "And I can have multiple catch blocks for different exception types, with a catch-all at the end for unexpected errors."
+
+"Perfect understanding. Now: the Standard Template Library. Powerful, tested containers and algorithms ready to use."
 
 **Next Lesson:** STL Basics - Standard Template Library

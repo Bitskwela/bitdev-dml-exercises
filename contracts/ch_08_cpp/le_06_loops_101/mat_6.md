@@ -1,12 +1,23 @@
-# Lesson 6: Loops 101 - Repeating with For, While, and Do-While
-
 ## Background Story
 
-Tian was helping at the barangay hall one afternoon when Kuya Miguel called him over. "Tian, I need to print 100 ID cards for the new residents. Imagine if I had to write the code to print each one individually!"
+Tian stared at the code in horror. The barangay secretary needed a program to send reminder messages to 200 residents about unpaid dues. Tian had started writing:
 
-Tian laughed. "That would take forever! Isn't there a way to repeat the process?"
+```cpp
+cout << "Reminder to Resident 1" << endl;
+cout << "Reminder to Resident 2" << endl;
+cout << "Reminder to Resident 3" << endl;
+// 197 more lines to go...
+```
 
-Kuya Miguel grinned. "Exactly! That's where **loops** come in. Instead of writing the same code 100 times, we write it once and tell the computer to repeat it. Let me show you the three main types of loops in C++."
+After typing 20 lines, Tian's fingers were tired and the pattern was mind-numbing. "There has to be a better way!"
+
+Kuya Miguel looked at the screen and laughed. "You've just discovered why **loops** are one of the most important concepts in programming! Imagine if Facebook engineers had to write separate code for each of their 3 billion users. Or if game developers wrote individual code for each enemy spawn."
+
+"Loops are automation," Kuya Miguel explained. "Write the pattern once, tell the computer how many times to repeat it, and you're done. You're about to learn the programming equivalent of a copy-paste superpower. Let's turn those 200 lines into just 3!"
+
+---
+
+## Theory & Lecture Content
 
 ## What Are Loops?
 
@@ -566,5 +577,19 @@ for (int i = 1; i <= 10; i++) {
 Now that you understand basic loops, in the next lesson you'll learn about **nested control structures** - putting loops inside loops and conditions inside loops. This is where things get really powerful!
 
 **Kuya Miguel:** "Great job, Tian! You can now make your programs repeat actions efficiently. Next, we'll combine loops with if statements to create even more complex logic. Handa ka na ba?"
+
+---
+
+## Closing Story
+
+Tian practiced writing loops for an hour, creating a resident counter, a simple quiz system, and even a password validator. "Kuya, this is amazing! Instead of writing 100 lines, I write 3 lines with a loop!"
+
+Kuya Miguel nodded with pride. "That's the power of loops - efficiency and elegance. You've learned the three types: for loops when you know how many times, while loops when the condition determines it, and do-while for at least one execution."
+
+"I can see so many uses," Tian said excitedly. "Queue systems, attendance trackers, even games where actions repeat until someone wins!"
+
+"Exactly! But you've only scratched the surface. Next, we'll learn about nested control - putting loops inside loops and conditions inside loops. That's when things get really interesting."
+
+Tian saved the files, mind already racing with possibilities.
 
 **Reading time:** ~10 minutes

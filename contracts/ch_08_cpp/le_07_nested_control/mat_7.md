@@ -1,14 +1,16 @@
-# Lesson 7: Nested Control - Ifs Inside Loops and Vice Versa
-
 ## Background Story
 
-One morning at the barangay hall, Tian watched as Kuya Miguel worked on a resident verification system. "Kuya, what are you doing?" Tian asked.
+Tian's resident verification program worked perfectly—for exactly one person. But when the barangay secretary asked to process all 50 residents who applied this week, each with multiple documents to verify, Tian realized the code would become a nightmare.
 
-"I'm checking each resident's documents," Kuya Miguel explained. "For each resident, I need to verify multiple requirements: ID, proof of residency, and age. It's like having checks inside a loop."
+"I need to loop through 50 residents," Tian said, thinking aloud. "But for each resident, I also need to check their ID, proof of address, and barangay clearance. And some checks only apply if they're above 18 years old. How do I handle layers of logic?"
 
-Tian's eyes widened. "So you can put if statements inside loops? And loops inside if statements?"
+Kuya Miguel pulled up a chair. "Welcome to the real world of programming! Most problems aren't simple 'do this 10 times' or 'check if this is true.' They're complex decision trees with repeating patterns at multiple levels. A delivery app checking restaurants in your area, then checking each restaurant's menu, then checking if each dish is available. A game spawning enemies in different zones, with each enemy having different attack patterns based on player level."
 
-Kuya Miguel smiled. "Exactly! That's called **nesting**. It's one of the most powerful techniques in programming. Let me show you."
+"This is called **nesting**—putting control structures inside other control structures. Loops inside loops, conditions inside loops, loops inside conditions. It sounds complicated, but it's how we model real-world complexity. Let's build your multi-layer verification system!"
+
+---
+
+## Theory & Lecture Content
 
 ## What is Nesting?
 
@@ -570,5 +572,19 @@ for (int i = 0; i < 100; i++) {        // 100 iterations
 You've mastered basic nesting! Next lesson covers **logical operators and compound conditions** - combining multiple conditions with AND, OR, and NOT operators to create sophisticated decision logic.
 
 **Kuya Miguel:** "You're getting the hang of complex logic, Tian! Next, we'll make your conditions even more powerful."
+
+---
+
+## Closing Story
+
+Tian leaned back, his mind spinning with nested loops and layered conditions. "Kuya, that felt like solving a puzzle inside another puzzle."
+
+"That's exactly what it is," Kuya Miguel replied. "Nested control structures let you handle complex, multi-dimensional problems. That attendance grid? That's how real systems track data across time and people."
+
+Tian nodded, visualizing the patterns. "So I can nest loops inside loops, conditions inside loops, loops inside conditions... it's all about matching the structure to the problem."
+
+"Right! And remember: indent properly so you can see the layers. Next lesson, we'll combine multiple conditions using logical operators. You'll check if someone is a resident AND has paid dues, or if they're a senior citizen OR a PWD. That's where things get really powerful."
+
+Tian grinned, eager to continue. Nested logic was starting to feel natural.
 
 **Reading time:** ~10 minutes

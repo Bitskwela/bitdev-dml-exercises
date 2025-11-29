@@ -1,10 +1,16 @@
-# Lesson 3: Operators as Tools - Making Expressions Work
-
 ## Background Story
 
-"Kuya, now I know how to store data in variables," said Tian. "But how do I actually DO something with them? Like calculate a grade average or check if someone passed an exam?"
+Tian was building a barangay dues calculator. Residents owed 500 pesos monthly, but some paid partial amounts, others had penalties, and some had discounts.
 
-Kuya Miguel smiled. "Excellent! That's where **operators** come in. Think of operators as the tools in your programming toolbox. Just like a carpenter uses a hammer, saw, and screwdriver, programmers use arithmetic operators, comparison operators, and logical operators to build programs. Let me show you!"
+"I have all these numbers stored in variables," Tian said, staring at the screen, "but they're just sitting there! How do I actually calculate who owes what?"
+
+Kuya Miguel laughed. "You've got the ingredients but no cooking tools! In programming, **operators** are your mathematical and logical tools. Think of them as the jeepney driver's skills—knowing when to add speed, when to subtract by braking, when to multiply distance by time, or when to divide the fare among passengers."
+
+"Every calculation you see in games—damage reduction, score multipliers, health regeneration—uses these operators. Every financial system, every physics engine, every data analysis tool. Master these fundamental operations, and you can build anything that involves computation. Let's turn those static variables into dynamic calculations!"
+
+---
+
+## Theory & Lecture Content
 
 ## What are Operators?
 
@@ -729,6 +735,20 @@ if (age >= 18 && age <= 65) {  // Must specify variable twice
    - Change value by 1
 
 6. **Operator precedence** matters - use parentheses for clarity!
+
+---
+
+## Closing Story
+
+Tian practiced writing expressions for an hour, combining arithmetic, comparison, and logical operators. "Kuya, this is like building with Lego blocks! I can combine operators to create complex logic."
+
+"That's the perfect analogy," Kuya Miguel said. "Simple operators combine to solve complex problems. You can now calculate grades, check eligibility for scholarships, and make smart decisions in your programs."
+
+"But there's one thing missing," Tian frowned. "My programs still use hardcoded values. How do I make them interactive?"
+
+Kuya Miguel smiled. "Perfect timing! Next, we'll learn about cin and cout - how to get input from users and display beautiful output. Your programs will finally be able to talk to people!"
+
+Tian opened a new file, ready to make his programs come alive.
 
 **Next Lesson Preview:**
 In Lesson 4, you'll learn about **input and output** - how to interact with users using `cin` and `cout`, format output beautifully, and handle different types of input!

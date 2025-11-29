@@ -1,16 +1,18 @@
-# Lesson 21: Enums - Giving Names to Numbers
+## Background Story
 
-**Estimated Reading Time:** 10 minutes
+Tian stared at the bug report: "Clearance type 4 crashes the system." Looking at the code, Tian saw clearance types defined as integers: 0 = Residence, 1 = Business, 2 = Travel. Somewhere, someone passed 4, and the program had no idea what to do.
+
+"This is a nightmare to maintain!" Tian complained. "What does `status = 2` mean? Is that Travel or something else? And there's nothing stopping someone from passing invalid numbers like 99 or -5!"
+
+Kuya Miguel nodded. "You're using **magic numbers**—a classic code smell. When you see `if (clearanceType == 1)` six months from now, will you remember what 1 means? What if someone new joins the team?"
+
+"This is where **enums** save the day," Kuya Miguel explained. "Instead of cryptic numbers, you define meaningful names: `RESIDENCE`, `BUSINESS`, `TRAVEL`. The code becomes self-documenting. Instead of `if (clearanceType == 1)`, you write `if (clearanceType == BUSINESS)`. Instantly readable. Plus, the compiler enforces type safety—you can't accidentally pass a random integer."
+
+"Every professional codebase uses enums for states, types, and categories," Kuya Miguel said. "It's the difference between code that requires constant reference to documentation and code that explains itself. Let's fix your clearance system properly!"
 
 ---
 
-## The Story
-
-"Kuya, I have clearance types: 1 for Residence, 2 for Business, 3 for Travel. But the numbers are confusing!"
-
-"Use **enums**!" Kuya Miguel said. "Give meaningful names to numbers. Instead of `1`, say `RESIDENCE`. Much clearer!"
-
----
+## Theory & Lecture Content
 
 ## What Are Enums?
 
@@ -454,5 +456,21 @@ enum class Permission {
 3. Use `enum class` for better type safety
 4. Perfect for categories and states
 5. Great with switch statements
+
+---
+
+## Closing Story
+
+"This is so much clearer!" Tian said, refactoring his code to use ClearanceType::RESIDENCE instead of the number 1. "No more remembering what 1, 2, 3 mean. The code documents itself!"
+
+Kuya Miguel smiled. "That's the point. Six months from now, when you come back to this code, you'll instantly understand ClearanceType::BUSINESS. But what did 2 mean? You'd have to look it up."
+
+Tian practiced using enums with switch statements, converting enums to strings for display, and using enum class for type safety. "And enum class prevents accidental mixing of different enum types. Can't compare a ClearanceType to a PaymentStatus by mistake."
+
+"Exactly! Enums are perfect for categories, states, options, error codes. Anywhere you have a fixed set of related constants. And they pair beautifully with structs: your Clearance struct has a ClearanceType member, your DuesRecord has a PaymentStatus member."
+
+Tian saved his enum-enhanced code, feeling the improvement. "Ready for the next challenge!"
+
+"Time to combine everything: structs, nested structs, enums, arrays, functions. You're building a complete Contact Book System."
 
 **Next Lesson:** Mini Project - Contact Book System

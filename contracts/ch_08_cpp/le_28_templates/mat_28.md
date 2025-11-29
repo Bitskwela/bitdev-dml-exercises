@@ -1,16 +1,18 @@
-# Lesson 28: Templates - Generic Programming
+## Background Story
 
-**Estimated Reading Time:** 11 minutes
+Tian needed a `max()` function to find the maximum of two values. First for integers, then doubles, then strings. Each time, Tian wrote nearly identical code with only the type changed.
+
+"This is ridiculous!" Tian complained, looking at three nearly identical functions. "The logic is identical—compare two values and return the larger one. Why do I need separate functions for each type?"
+
+Kuya Miguel grinned. "Welcome to the problem that **templates** solve. You're writing the same algorithm multiple times just because types differ. Templates let you write generic code—the algorithm once, works for any type."
+
+"This is how STL works," Kuya Miguel explained. "You've used `vector<int>` and `vector<string>`. Think about it—vector needs to store data, resize, access elements, all the same operations regardless of what it stores. The STL developers didn't write separate vector classes for every possible type. They wrote one template that generates the appropriate code for whatever type you specify."
+
+"Templates are metaprogramming," Kuya Miguel continued. "You're writing code that writes code. The compiler generates type-specific versions automatically. This is what makes C++ both powerful and efficient—generic programming without runtime overhead!"
 
 ---
 
-## The Story
-
-"Kuya, I wrote `max()` for integers, then needed it for doubles, then strings... I'm copying code!"
-
-"Use **templates**!" Kuya Miguel said. "Write once, use for any type!"
-
----
+## Theory & Lecture Content
 
 ## What are Templates?
 
@@ -375,5 +377,21 @@ int main() {
 3. Function and class templates
 4. Specialization for custom behavior
 5. Compile-time code generation
+
+---
+
+## Closing Story
+
+"I wrote one max function that works for any type!" Tian exclaimed, testing his template with integers, doubles, strings, even custom structs.
+
+Kuya Miguel nodded. "That's the power of templates: write once, use everywhere. No more copying code for different types. The compiler generates the specific versions you need at compile time."
+
+Tian practiced function templates, class templates, and even template specialization for special cases. "And I can have multiple template parameters, non-type parameters like array sizes, and specialize templates for specific types that need different behavior."
+
+"Exactly! Templates are the foundation of generic programming and the STL. Vector, map, set: all template classes. Sort, find, count: all template functions. You can use any type that meets the requirements."
+
+Tian created his generic Storage class that worked with integers, strings, and custom Resident structs. "This is incredibly powerful. But what happens when things go wrong at runtime?"
+
+"Exception handling. Let's learn to deal with errors gracefully instead of crashing."
 
 **Next Lesson:** Exception Handling - Error Management

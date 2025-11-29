@@ -1,16 +1,16 @@
-# Lesson 18: Dynamic Memory Allocation with `new` and `delete`
+## Background Story
 
-**Estimated Reading Time:** 13 minutes
+Tian's resident tracking system had a fatal flaw. The array was hardcoded for 100 residents. When the barangay grew to 150 residents, the program couldn't handle it. Tian had to recompile with a larger array size, wasting memory if fewer residents were active.
 
----
+"Kuya, this is ridiculous!" Tian complained. "Real apps don't ask users 'please restart after we recompile for more users.' Facebook doesn't crash when user 1,000,001 signs up. How do programs handle unknown amounts of data?"
 
-## The Story
+Kuya Miguel grinned. "Welcome to one of C++'s superpowers: **dynamic memory allocation**. Instead of deciding array sizes at compile time, you allocate memory at runtime based on actual needs. Need space for 10 items? Allocate for 10. Need 10,000? Allocate for 10,000. The program adapts."
 
-"Kuya, what if I don't know how many residents I'll have? Arrays have fixed sizes!"
-
-Kuya Miguel smiled. "That's where **dynamic memory** comes in. Instead of declaring fixed-size arrays at compile time, you can allocate memory **at runtime** — exactly as much as you need."
+"But there's a catch," Kuya Miguel warned. "With great power comes great responsibility. When the computer gives you memory, you must give it back when done—or face memory leaks, where your program slowly consumes all available RAM. This is manual memory management, and it's both powerful and dangerous."
 
 ---
+
+## Theory & Lecture Content
 
 ## Stack vs Heap Memory
 
@@ -515,5 +515,21 @@ Tian practiced with dynamic arrays. "So I can create arrays of any size at runti
 3. Always pair allocation with deallocation
 4. Set pointers to `nullptr` after deleting
 5. Memory leaks = allocated memory never freed
+
+---
+
+## Closing Story
+
+Tian ran his dynamic resident tracker, entering 100 residents. The array grew to exactly the size he needed, determined at runtime. "This is incredible! No more fixed sizes!"
+
+"That's the heap," Kuya Miguel said. "Much larger than the stack, and you control exactly when memory is allocated and freed. But notice what happens if you forget to delete."
+
+Tian commented out the delete statements and ran the program in a loop. Memory usage climbed steadily. "Memory leak! The memory never gets freed, even after the pointers go out of scope."
+
+"Exactly. Stack memory is automatic: created when declared, destroyed when scope ends. Heap memory is manual: you create with new, you destroy with delete. Every new needs a matching delete, or you leak memory. And never delete twice, never delete stack memory, and always use delete[] for arrays."
+
+Tian added the delete statements back and watched memory usage stay stable. "And set to nullptr after deleting to avoid dangling pointers."
+
+"Perfect. Dynamic memory gives you power, but requires discipline. Next, we'll learn structs: how to group related data into meaningful units. Name, age, and balance together as one Resident, not three separate variables."
 
 **Next Lesson:** Structs - Grouping Related Data

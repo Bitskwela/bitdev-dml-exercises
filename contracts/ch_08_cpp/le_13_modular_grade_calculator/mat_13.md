@@ -1,18 +1,18 @@
-# Lesson 13: Practical Exercise - Modular Grade Calculator
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Tian looked at the old grade calculator from lesson 4. It was a 150-line mess—input handling, calculations, validation, and display all tangled together in one giant block.
 
----
+"I need to add a feature to track highest and lowest grades," Tian said, scrolling through the code. "But I'm scared to modify this. Everything is connected. If I change one line, three other things might break. How do professional developers maintain large systems?"
 
-## The Story
+Kuya Miguel pulled up a chair. "They use **modular design**. Look at your phone—the screen, battery, camera, and processor are separate modules. If the screen breaks, you replace just the screen, not the entire phone. Code should work the same way."
 
-Kuya Miguel placed a stack of student records on the desk. "Tian, remember our simple grade calculator from before? Now that you know functions, parameters, and scope, let's rebuild it the **right way** — modular, reusable, and professional."
+"Right now, your calculator is like a jeepney welded together in one piece," Kuya Miguel continued. "Want to upgrade the engine? Good luck, it's fused to the chassis. Professional code is modular—small, independent functions that each do one thing well. Need to change how grades are calculated? Modify just the `calculateAverage()` function. Need better input validation? Update just `getGrades()`. The rest stays untouched."
 
-Tian nodded. "Modular means breaking it into functions, right?"
-
-"Exactly! Each function does **one job** well. That's how real systems are built."
+"Today, we're not learning new syntax," Kuya Miguel said. "We're learning software architecture—how to organize code like a professional. Let's rebuild your calculator the right way!"
 
 ---
+
+## Theory & Lecture Content
 
 ## The Challenge
 
@@ -573,5 +573,21 @@ Kuya Miguel smiled. "That's the power of **modular programming**. Each function 
 3. Use return values for results
 4. Apply static variables for persistent data
 5. Keep functions small and single-purpose
+
+---
+
+## Closing Story
+
+Tian ran his modular grade calculator for the fifth time, processing student after student. The statistics tracked automatically, each function doing its one job perfectly.
+
+"This is so much better than my first version!" Tian said, comparing the old monolithic code to his new modular design. "Each function is small, focused, easy to understand. And if I need to change how I calculate the average, I just update one function!"
+
+Kuya Miguel nodded with pride. "That's modular programming. Your code is now maintainable, testable, and reusable. Each function is a building block you can combine in different ways."
+
+Tian looked at the clean architecture. Input, calculation, decision, output, statistics. Five clear responsibilities. "And the static variables tracking total students worked perfectly. They persisted across all the calls."
+
+"Exactly. You've mastered functions, parameters, scope, and modularity. Now we enter the Warrior's Arsenal. Arrays will let you manage collections of data, strings will handle text efficiently, and pointers... well, pointers will give you true power over memory."
+
+Tian saved his grade calculator with satisfaction. Chapter 3 complete. Time to arm up.
 
 **Next Chapter:** The Warrior's Arsenal — Arrays, Strings, and Pointers!

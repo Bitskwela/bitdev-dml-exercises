@@ -1,16 +1,18 @@
-# Lesson 23: Classes and Objects - The Heart of OOP
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+After finishing the Contact Book project, Tian showed it to Kuya Miguel. "It works! But I'm still just using structs with separate functions. You mentioned **classes** before. What's the difference?"
+
+Kuya Miguel smiled. "Structs group data. Classes group data AND behavior together. Right now, your `displayContact()` function lives separately from your Contact struct. With classes, the data and the functions that operate on that data become one unit."
+
+"Think about a real-world object—a smartphone," Kuya Miguel explained. "It has data: battery level, storage capacity, phone number. It also has behaviors: make calls, send messages, take photos. You don't access the battery directly or manually connect circuits to send a message. The phone exposes buttons and methods while hiding the complex internal workings."
+
+"This is **Object-Oriented Programming**," Kuya Miguel continued. "Instead of thinking in terms of separate data and functions, you think in terms of objects that have both properties and capabilities. A BankAccount object has a balance and can deposit, withdraw, or check balance. A Player object has health and can attack, defend, or heal. This is how modern software is built."
+
+"Welcome to OOP—the programming paradigm that powers most of the software industry!"
 
 ---
 
-## The Story
-
-"Kuya, structs are great, but I heard about **classes**. What's the difference?"
-
-"Ah!" Kuya Miguel smiled. "Classes are like structs, but with **superpowers**. They can have **functions inside them** and control **who can access what**. Welcome to **Object-Oriented Programming (OOP)**!"
-
----
+## Theory & Lecture Content
 
 ## What is a Class?
 
@@ -465,5 +467,21 @@ int main() {
 3. Public provides interface
 4. Methods operate on object data
 5. Use this-> to reference current object
+
+---
+
+## Closing Story
+
+"So a class is like a struct, but with superpowers!" Tian said, refactoring his clearance system. Instead of separate functions operating on Clearance structs, he now had a Clearance class with approve(), reject(), and display() methods built in.
+
+Kuya Miguel smiled. "That's Object-Oriented Programming. Objects know how to operate on themselves. A clearance knows how to approve itself, display itself, reject itself. The data and behavior are bundled together."
+
+Tian practiced using private members for sensitive data like balance, with public getters and setters for controlled access. "So private hides the implementation, and public provides the interface. Users of my class don't need to know how it works internally, just how to use it."
+
+"Exactly! That's encapsulation: hiding complexity behind a simple interface. And notice how your setters can validate input. Someone can't set a negative balance because your setBalance() method checks first."
+
+Tian created arrays of objects, each object managing its own state through methods. "This feels more natural. Objects are like real-world entities with properties and actions."
+
+"Welcome to OOP! But we're just getting started. Next: constructors, so your objects initialize automatically. No more calling initialize() manually."
 
 **Next Lesson:** Constructors and Destructors

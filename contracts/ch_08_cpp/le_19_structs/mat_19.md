@@ -1,18 +1,16 @@
-# Lesson 19: Structs - Grouping Related Data
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Tian's resident management system was a nightmare. Tracking 100 residents required three parallel arrays: `names[100]`, `ages[100]`, and `dues[100]`. Adding a new resident meant updating three arrays. If indices got misaligned, resident data became corrupted.
 
----
+"This is insane!" Tian exclaimed, debugging an error where resident 42's data appeared under resident 41's name. "If I add phone numbers and addresses, I'll need five more arrays! How do real databases manage thousands of fields per record?"
 
-## The Story
+Kuya Miguel laughed. "They don't use parallel arrays. They use **structs**—custom data types that bundle related information into a single package. Instead of three separate arrays, you create one array of Resident objects, where each Resident contains name, age, and dues together. It's impossible for data to get misaligned."
 
-Kuya Miguel handed Tian parallel arrays. "Look at this mess: one array for names, one for ages, one for balances. What if we need 10 pieces of information per resident?"
-
-Tian groaned. "Ten arrays?"
-
-"No! We use **structs** — custom data types that group related information together."
+"Think of it like this," Kuya Miguel explained. "Right now, you're managing resident information like loose papers—name on one sheet, age on another, dues on a third. Lose one paper, and the connection is broken. Structs are like folders that keep all related documents together. It's organized, maintainable, and reflects how we actually think about data."
 
 ---
+
+## Theory & Lecture Content
 
 ## What is a Struct?
 
@@ -494,5 +492,21 @@ Tian organized data into structs. "This is so much cleaner than ten arrays!"
 3. Pass by const reference for efficiency
 4. Use `->` for pointers to structs
 5. Structs make code more organized and maintainable
+
+---
+
+## Closing Story
+
+"This changes everything!" Tian said, looking at his clearance system. Instead of ten separate arrays, he now had one clean Clearance struct array holding all related data together.
+
+Kuya Miguel nodded. "That's the power of grouping. Name, age, purpose, fee, status: all bundled as one logical unit. One clearance object, not five disconnected pieces of data."
+
+Tian practiced passing structs to functions, using const reference for read-only efficiency, regular reference for modifications, and the arrow operator for pointers. "And I can create arrays of structs, return structs from functions, even nest structs inside other structs."
+
+"Exactly! Structs let you model real-world entities. A resident isn't just a name and an age: it's a complete package of information. Now imagine if that resident also has an address with street, barangay, city."
+
+Tian's eyes widened. "Nested structs!"
+
+"That's next. Building complex structures from simple building blocks."
 
 **Next Lesson:** Nested Structs and Complex Data Structures

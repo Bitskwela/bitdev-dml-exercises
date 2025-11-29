@@ -1,16 +1,18 @@
-# Lesson 15: Strings - Arrays of Characters
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Tian tried to store resident names using integer arrays and hit a wall. Numbers couldn't represent text. Storing each character as a separate variable was ridiculous. How could programs handle text data?
+
+"Kuya, I can store ages, balances, and counts easily," Tian said, frustrated, "but the moment I need to store a name, address, or message, I'm stuck. Every real application needs to work with text—usernames, messages, file names, error messages. How do I handle text in C++?"
+
+Kuya Miguel nodded. "You've hit a fundamental question: how does a computer, which only understands numbers, represent text? The answer is **strings**—sequences of characters encoded as numbers, with tools to manipulate them as text."
+
+"C++ gives you two approaches," Kuya Miguel explained. "C-style strings, which are raw character arrays—low-level, fast, but dangerous and tedious. And modern C++ strings, which are high-level objects with built-in methods for manipulation—safer, easier, more powerful. It's like comparing a manual transmission to an automatic. Both get you there, but one is easier for everyday use."
+
+"Every search engine, every chat app, every database system relies on string manipulation. Let's master text handling in C++!"
 
 ---
 
-## The Story
-
-"Kuya," Tian asked, "what if I need to store names, addresses, or messages? Arrays of `int` won't work."
-
-Kuya Miguel smiled. "You need **strings** — arrays of characters, but with superpowers! C++ gives you two ways: old-school C-strings and modern C++ `string` class."
-
----
+## Theory & Lecture Content
 
 ## C-Style Strings (Character Arrays)
 
@@ -603,5 +605,21 @@ Tian typed various string operations. "Strings are just like arrays, but smarter
 3. Remember to `cin.ignore()` to clear buffer
 4. Strings have many built-in functions (.length(), .find(), .substr(), etc.)
 5. String comparison uses `==` (C++) or `strcmp()` (C-style)
+
+---
+
+## Closing Story
+
+Tian's name formatter worked perfectly, converting "jUaN dElA cRuZ" into "Juan Dela Cruz". He experimented with substring extraction, searching, replacing characters. "Strings are amazing, Kuya! So much easier than managing character arrays manually."
+
+"That's why modern C++ developers always use the string class," Kuya Miguel agreed. "C-strings with their null terminators and manual memory management? That's old-school and error-prone. Buffer overflows, forgotten null terminators, comparison nightmares. The string class handles all that for you."
+
+Tian practiced getline for full names with spaces, remembering to cin.ignore to clear the buffer. "And strings grow automatically. No worrying about fixed sizes."
+
+"Exactly! They're dynamic, safe, and packed with useful functions. Find, substr, replace, insert, erase. Everything you need for text processing. But remember: strings are still collections of characters. You can access individual characters just like arrays."
+
+Tian nodded, feeling confident. "Arrays for numbers, strings for text. Two weapons mastered. What's next?"
+
+Kuya Miguel's expression turned serious. "Pointers. The most powerful and dangerous weapon. With great power comes great responsibility."
 
 **Next Lesson:** Pointers - Introduction to Memory Addresses

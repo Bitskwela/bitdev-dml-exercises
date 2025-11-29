@@ -1,21 +1,4 @@
----
-title: "Course 06: Code Warriors of the South - The Art of C++ Mastery"
-description: "Master C++ from fundamentals to advanced topics: control flow, functions, pointers, OOP, templates, and STL. Build real-world applications with modern C++ practices."
-
-# This is the date the document was last updated.  Format: YYYY-MM-DD.
-date: "2025-11-17"
-
-# For SEO purposes
-tags: ["cpp", "programming", "oop", "templates", "stl", "pointers", "data-structures", "bitskwela"]
-
-# Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
-permaname: "course-06-cpp-mastery"
-
-# Can be the same as permaname but can be changed if needed.
-slug: "course-06-cpp-mastery"
----
-
-# Course 06: Code Warriors of the South - The Art of C++ Mastery
+# Chapter 08: C ++ Programming
 
 Master C++ from zero to hero through a complete journey covering fundamentals, object-oriented programming, and advanced topics. Build practical applications with modern C++ practices.
 
@@ -84,7 +67,7 @@ Move into organizing logic. Understand functions and modular code.
 
 ---
 
-## Chapter 1: The Warrior's Arsenal
+## Chapter 4: The Warrior's Arsenal
 
 Master core weapons: arrays, strings, and pointers.
 
@@ -107,7 +90,7 @@ Master core weapons: arrays, strings, and pointers.
 
 ---
 
-## Chapter 2: Structuring the Battlefield
+## Chapter 5: Structuring the Battlefield
 
 Organize complex data through structures and user-defined types.
 
@@ -127,7 +110,7 @@ Organize complex data through structures and user-defined types.
 
 ---
 
-## Chapter 3: Object-Oriented Combat
+## Chapter 6: Object-Oriented Combat
 
 Advance into object-oriented design with class hierarchies and code reuse.
 
@@ -150,7 +133,7 @@ Advance into object-oriented design with class hierarchies and code reuse.
 
 ---
 
-## Chapter 4: Elite Tools of the Trade
+## Chapter 7: Elite Tools of the Trade
 
 Take on C++'s most powerful tools: templates, exceptions, and the STL.
 
@@ -183,4 +166,4 @@ By the end of this course, you will be able to:
 - ✅ Build complete, production-ready applications with CRUD operations
 - ✅ Debug and optimize C++ code for performance
 
-**Mabuhay, Code Warriors!** 🚀 Start your journey to C++ mastery today!
+**Mabuhay, Code Warriors!** Start your journey to C++ mastery today!

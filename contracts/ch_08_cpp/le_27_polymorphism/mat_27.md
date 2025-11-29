@@ -1,16 +1,18 @@
-# Lesson 27: Polymorphism - The Power of Virtual Functions
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Tian's inherited class system had a strange bug. An array of `Person*` pointers stored both Residents and Officials, but calling `display()` always executed the base Person version, never the specialized versions.
+
+"Why isn't it calling the Resident's display method?" Tian asked, confused. "The pointer points to a Resident object, but it behaves like a generic Person!"
+
+Kuya Miguel examined the code. "You're experiencing the problem that **polymorphism** solves. The compiler sees `Person*` and uses Person's method, even though the actual object is a Resident. You need to tell C++ to determine the correct method at runtime, not compile time."
+
+"This is huge for building flexible systems," Kuya Miguel explained. "Imagine a game with an array of Enemy pointers. Some are Zombies, some are Soldiers, some are Bosses. When you call `attack()`, each enemy type should attack differently. With virtual functions and polymorphism, the correct attack method is automatically called based on the actual object type, not the pointer type."
+
+"One interface, many implementations," Kuya Miguel said. "This is the essence of polymorphism and why it's one of OOP's most powerful features!"
 
 ---
 
-## The Story
-
-"Kuya, I have a `Person*` pointer that sometimes points to `Resident`, sometimes to `Official`. How do I call the right `display()` method?"
-
-"Use **polymorphism** with **virtual functions**!" Kuya Miguel said. "One interface, many implementations!"
-
----
+## Theory & Lecture Content
 
 ## What is Polymorphism?
 
@@ -443,5 +445,21 @@ public:
 3. Pure virtual functions create abstract classes
 4. Virtual destructors essential for polymorphism
 5. Use override keyword for safety
+
+---
+
+## Closing Story
+
+"This is magic!" Tian said, watching his array of Clearance pointers call the right calculateFee() and displayDetails() methods automatically. ResidenceClearance, BusinessClearance, TravelClearance: all different implementations, but treated uniformly through the base Clearance pointer.
+
+Kuya Miguel grinned. "That's polymorphism: one interface, many forms. Your code doesn't need to know what type of clearance it is. Just call calculateFee() and the right version executes at runtime. Dynamic binding."
+
+Tian practiced using virtual functions, watching how the virtual keyword enabled runtime type resolution. "And pure virtual functions with = 0 make the base class abstract. Can't instantiate Clearance directly, must use a derived class. Forces implementation of required methods."
+
+"Exactly! And notice the virtual destructor. Essential when using polymorphism with dynamic memory. Without it, only the base destructor fires when you delete through a base pointer. Memory leak. With virtual, the entire destruction chain fires: derived destructor, then base destructor."
+
+Tian added override keywords to catch typos and mistakes. "This is powerful. I can add new clearance types without changing existing code. Just derive from Clearance, implement the pure virtuals, done."
+
+"That's the Open-Closed Principle: open for extension, closed for modification. Next: templates for truly generic code."
 
 **Next Lesson:** Templates - Generic Programming

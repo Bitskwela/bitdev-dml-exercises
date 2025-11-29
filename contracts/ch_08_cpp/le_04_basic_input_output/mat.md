@@ -1,16 +1,18 @@
-# Lesson 4: Basic Input and Output
+## Background Story
 
-## The Communication Problem
+Tian proudly showed Kuya Miguel the barangay dues calculator. It worked perfectly—for exactly one resident named "Juan" who owed exactly 500 pesos.
 
-Tian arrived at Kuya Miguel's apartment with a frustrated look on his face.
+"But we have 200 residents with different names and amounts," Kuya Miguel pointed out. "Are you going to write 200 different programs?"
 
-"Kuya Miguel, I wrote a program that calculates the sum of two numbers," Tian said, showing his laptop screen. "But it always adds 5 and 10. How do I make it work with different numbers each time I run it?"
+Tian's face fell. The calculator was useless if it only worked for hardcoded values.
 
-Kuya Miguel smiled. "Ah, you've hit the limitation of hardcoded values. Your program is like a calculator that can only add 5 and 10 - not very useful, right?"
+"This is the difference between a toy program and a real tool," Kuya Miguel explained. "Real programs need to interact with users—ask questions, receive answers, and display results. Think about every app you use: the game asks for your username, the calculator waits for numbers, the ATM asks for your PIN. They all use **input and output**."
 
-"Exactly! I want users to input their own numbers."
+"Right now, your program is like a vending machine with no buttons and no display," he continued. "You've built the calculation engine, which is great! But now we need to add the interface—the way humans and programs talk to each other. Let's make your calculator actually usable!"
 
-"That's what we'll learn today - how to make your programs interactive. Just like how GCash asks you to enter the amount you want to send, your programs can ask users for input and respond accordingly."
+---
+
+## Theory & Lecture Content
 
 ## Understanding Input and Output
 
@@ -1284,3 +1286,17 @@ In Lesson 5, you'll learn:
 - Real-world examples: ATM logic, grade evaluation, discount systems
 
 Keep practicing input and output - it's the foundation for everything that comes next!
+
+---
+
+## Closing Story
+
+Tian leaned back with a satisfied smile. "Kuya, my programs can finally talk to people! No more hardcoded values - users can input their own data!"
+
+"That's the power of interaction," Kuya Miguel said. "Now your calculator works for any numbers, your grade calculator for any scores, your GCash simulator for any amount. See the difference?"
+
+"Huge difference!" Tian agreed. "But I noticed something - my programs just do their thing and end. What if I want to check if the user entered a valid age? Or what if I want different outputs based on the grade?"
+
+Kuya Miguel grinned. "Perfect observation! That's exactly what we'll tackle next - control flow. You'll learn how to make your programs smart enough to make decisions, just like a traffic light that knows when to turn red or green."
+
+Tian opened a new file, excited to learn how to add intelligence to his programs.

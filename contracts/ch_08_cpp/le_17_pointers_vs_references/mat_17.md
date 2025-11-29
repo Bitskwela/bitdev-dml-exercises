@@ -1,16 +1,16 @@
-# Lesson 17: Pointers vs References - When to Use Each
+## Background Story
 
-**Estimated Reading Time:** 11 minutes
+Tian's function to update resident data used pointers, but the code was messy—asterisks everywhere, null checks scattered around, and constant dereferencing made it hard to read.
 
----
+"Kuya, pointers work, but this code looks complicated," Tian said, showing the screen full of `*ptr`, `&variable`, and null checks. "Is there a cleaner way?"
 
-## The Story
+Kuya Miguel nodded. "When you just need to pass large data efficiently or modify parameters, use **references**. When you need the full flexibility of pointing to different things or handling null cases, use pointers. Let me show you the difference."
 
-"Kuya," Tian asked, "you mentioned references before when we passed parameters. How are they different from pointers?"
-
-Kuya Miguel drew two columns on the whiteboard. "Great question! Pointers and references are similar tools with different strengths. Let me show you when to use each."
+"Think of it like directions," Kuya Miguel explained. "A reference is like saying 'the house'—there's only one house, and you're always talking about that specific house. A pointer is like an address—you can write it down, change it to point to a different house, or leave it blank. References are safer and cleaner when you know exactly what you're referring to. Pointers are more flexible but require more careful handling."
 
 ---
+
+## Theory & Lecture Content
 
 ## What is a Reference?
 
@@ -505,5 +505,21 @@ Tian reviewed the comparison table. "So references are like pointers, but simple
 3. Use references for clean function parameters
 4. Use pointers when null is meaningful or reassignment needed
 5. Both avoid copying large objects
+
+---
+
+## Closing Story
+
+"So references are like pointers, but simpler and safer!" Tian said, comparing the swap functions side by side.
+
+Kuya Miguel nodded. "References are cleaner for most cases: pass by reference for functions, const references for read-only efficiency. No null checks needed, no dereference syntax. Just clean, direct access."
+
+Tian looked at the findResident function that returned a pointer. "But pointers are better when null means something, like 'not found.' And when you need to reassign to different addresses, or do pointer arithmetic."
+
+"Perfect understanding! In modern C++, prefer references by default. Use pointers only when you specifically need their flexibility: nullable return values, dynamic memory, data structures, or reassignment."
+
+Tian reviewed the decision guide. References for parameters and read-only access. Pointers for optional values and dynamic allocation. "Speaking of dynamic allocation..."
+
+Kuya Miguel grinned. "Time to learn the heap! Arrays of any size, created at runtime, living beyond function scope. But with great power comes great responsibility: you must manage memory manually."
 
 **Next Lesson:** Dynamic Memory Allocation with `new` and `delete`

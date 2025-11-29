@@ -1,16 +1,18 @@
-# Lesson 25: Encapsulation - Data Hiding Done Right
+## Background Story
 
-**Estimated Reading Time:** 10 minutes
+Tian proudly showed the new BankAccount class to Kuya Miguel. "Look! Users can directly access the balance: `account.balance = 1000000`. Instant millionaire!"
+
+Kuya Miguel's face went serious. "That's a critical security flaw. You've exposed internal data with no validation. Users can set negative balances, exceed limits, or corrupt data. Real bank software would never allow direct access to account balances."
+
+Tian realized the mistake. "How do I prevent this?"
+
+"**Encapsulation**," Kuya Miguel explained. "Make data private and provide controlled access through public methods. Want to withdraw? Call `withdraw(amount)`, which checks if you have sufficient funds. Want to check balance? Call `getBalance()`, which returns a copy, not direct access. The class becomes a black box—users interact through a safe interface without touching dangerous internals."
+
+"Think of it like an ATM," Kuya Miguel continued. "You don't reach inside and grab cash directly from the vault. You interact through a controlled interface that validates your PIN, checks your balance, records transactions, and only then dispenses money. Encapsulation is the foundation of secure, maintainable software. It's what separates amateur code from professional systems."
 
 ---
 
-## The Story
-
-"Kuya, I made `balance` private with getters/setters. Is that encapsulation?"
-
-"Exactly!" Kuya Miguel nodded. "**Encapsulation** hides internal details and exposes only what's needed. It's the foundation of secure, maintainable code!"
-
----
+## Theory & Lecture Content
 
 ## What is Encapsulation?
 
@@ -404,5 +406,21 @@ void auditAccount(const BankAccount& acc) {
 3. Validate in setters
 4. Const methods for read-only
 5. Information hiding improves maintainability
+
+---
+
+## Closing Story
+
+"Balance is now truly protected!" Tian said, testing his BankAccount class. He couldn't directly set balance to a negative number anymore. The setter validated every change.
+
+Kuya Miguel smiled. "That's encapsulation: hiding implementation details, exposing only what's necessary. Users of your class don't need to know how balance is stored, what validation happens, or what internal state you maintain. They just use deposit(), withdraw(), getBalance(). Clean interface."
+
+Tian practiced using const member functions for getters, promising not to modify the object. "And I can change the internal implementation without breaking anyone's code. Maybe later I store balance in cents instead of pesos: just change the implementation, keep the interface the same."
+
+"Exactly! That's the power of encapsulation: separation of interface from implementation. And notice how your setters validate: name must not be empty, age must be reasonable, amounts must be positive. Data integrity guaranteed."
+
+Tian nodded. "Private by default, public only when necessary. Hide everything except the interface."
+
+"Perfect. Now: inheritance. Building class hierarchies to reuse code."
 
 **Next Lesson:** Inheritance - Building Class Hierarchies

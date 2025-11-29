@@ -1,16 +1,20 @@
-# Lesson 22: Mini Project - Contact Book System
+## Background Story
 
-**Estimated Reading Time:** 12 minutes
+Kuya Miguel closed his laptop and turned to Tian. "You've learned variables, control flow, functions, arrays, pointers, structs, and enums. But can you combine them into a complete, working system?"
+
+Tian felt a mix of confidence and nervousness. "I think so?"
+
+"Let's find out," Kuya Miguel said. "Build a **Contact Book System** for the barangay—add contacts, search by name, update information, delete entries, display all records. No tutorial this time. I'll provide requirements, you architect and implement the solution."
+
+This was different from the ATM project. Back then, Tian was still learning basics. Now, with structs and proper data organization, Tian was expected to build something more sophisticated—something that could scale to hundreds of contacts, with clean code organization and proper data management.
+
+"This is how real development works," Kuya Miguel explained. "A client gives you requirements. You design the data structures, plan the functions, implement features, and deliver a working product. This project will show if you're ready to move from tutorial-following to actual software development."
+
+"One more thing," Kuya Miguel added. "The code quality matters as much as functionality. I'll be looking at how you organize your code, name your variables, structure your functions, and handle edge cases. Ready for the challenge?"
 
 ---
 
-## The Story
-
-"Time for a real project, Tian!" Kuya Miguel announced. "Build a **Contact Book System** for the barangay. Use everything: structs, enums, arrays, functions!"
-
-"I'm ready!" Tian said eagerly.
-
----
+## Theory & Lecture Content
 
 ## Project Requirements
 
@@ -627,5 +631,23 @@ int main() {
 3. Nested structs for complex data
 4. Functions for modularity
 5. Soft delete preserves data
+
+---
+
+## Closing Story
+
+Tian ran his complete Contact Book System, adding contacts, searching, updating, deleting, viewing statistics. Everything worked smoothly, each function handling its responsibility cleanly.
+
+"I can't believe I built this," Tian said, amazed. "A full CRUD system: Create, Read, Update, Delete. With nested structs for address, enums for contact types, soft delete to preserve data, search functionality, statistics tracking."
+
+Kuya Miguel nodded proudly. "This is real software development. Breaking a large problem into manageable pieces: data structures first, then core functions, then the menu system tying it together. Each function does one thing well."
+
+Tian reviewed his code. The Contact struct with nested Address, the ContactType enum, the array of contacts, the helper functions for type conversion, the CRUD operations. "It's all organized and maintainable. If I need to add a new field to Contact, I just update the struct and the relevant functions."
+
+"That's good design. But we can do better. Right now, your data and functions are separate. What if we bundled them together? Contact as a class with methods like display(), update(), delete() built in?"
+
+Tian's eyes lit up. "Object-Oriented Programming!"
+
+"Time to level up. Welcome to OOP."
 
 **Next Lesson:** Classes and Objects - OOP Begins!
