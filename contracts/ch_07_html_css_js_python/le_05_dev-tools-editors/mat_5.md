@@ -1,12 +1,61 @@
-# Lesson 5: Developer Tools and Editors
-
 ## Background Story
 
-In the final session before Tian starts actual coding, he was super excited. "Kuya, I'm ready! How do I start? What tools should I use?"
+Tian sat at their desk, staring at a blank Notepad window. They'd just learned about HTML structure, document anatomy, tags, and elements. The knowledge was there, organized in their notebooks. But now came the moment of truth: actually writing code.
 
-Kuya Miguel laughed. "Perfect timing! Now I'll teach you the tools of professional developers. You don't need expensive software — everything I'll teach you is FREE! Welcome to the world of VS Code and DevTools — the bread and butter of every web developer!"
+They typed the opening tag: `<html>`
 
-Kuya Miguel screen shared again. "First, let's download VS Code. Then I'll teach you how to set it up. Ready?"
+The text appeared in plain black against white. No highlighting. No indication whether it was correct. No hints about what came next. Just... text.
+
+Tian continued typing, carefully referencing their notes:
+
+```
+<html>
+<head>
+<title>My First Webpage</title>
+</head>
+```
+
+Wait. Was it `<title>` or `<Title>`? Was HTML case-sensitive? Tian couldn't remember. They checked their notes. Lowercase. Okay.
+
+They continued, but after ten minutes of typing, Tian had made three typos (forgetting closing tags), wasn't sure if the indentation mattered, and had no idea if the file would even work until they saved it and opened it in a browser.
+
+"This is tedious," Tian thought. "There has to be a better way."
+
+They saved the file as `test.html` and double-clicked it. Chrome opened. The page loaded.
+
+Blank. Completely blank.
+
+Tian went back to Notepad, scanning the code line by line. Where was the error? It looked right. But clearly something was wrong.
+
+After fifteen minutes of frustrated debugging, Tian found it—a missing `>` in one of the tags. One character. One tiny symbol. And it broke everything.
+
+"How do professional developers do this?" Tian wondered. "Do they just... not make typos? Do they have photographic memory?"
+
+That evening, Tian called Kuya Miguel and explained the frustration.
+
+"I spent almost an hour writing twenty lines of HTML in Notepad. I made so many mistakes. Missing brackets, wrong closing tags, typos everywhere. And Notepad doesn't help at all! It just shows black text. How do you write code without going insane?"
+
+Miguel laughed—not mockingly, but with recognition. "Tian, you just discovered why professional developers don't use Notepad. Coding in plain text editors is like trying to build furniture with your bare hands. Technically possible, but unnecessarily painful."
+
+"So what do professionals use?"
+
+"Code editors. Real ones. Tools specifically designed for writing code. They have syntax highlighting so different parts of your code are color-coded. Auto-completion so you don't have to type everything manually. Error detection so typos are caught immediately. Extensions for superpowers. Integrated terminals so you don't have to switch windows. And the best part? Almost all of them are completely free."
+
+"Which one should I use?"
+
+"The industry standard right now is Visual Studio Code—VS Code for short. Microsoft built it, but it's open source and free. It's what I use, what most professional developers use, and what companies expect you to know. And along with VS Code, you need to master Browser DevTools—Chrome's built-in tools for inspecting, debugging, and understanding how websites work."
+
+Miguel continued, "Here's what we're doing today. I'm walking you through the entire setup: downloading and installing VS Code, understanding the interface, installing essential extensions, learning keyboard shortcuts, and mastering DevTools. By the end of today, you'll have the same setup professional developers use. Your workflow will go from painful to efficient."
+
+Tian's eyes lit up. "So I won't have to stare at black text trying to find missing brackets anymore?"
+
+"Never again. VS Code will highlight errors in real-time. Auto-complete tags for you. Even format your code automatically. It's like upgrading from a bicycle to a car. You're still the one driving, but the tool makes everything smoother, faster, and less error-prone."
+
+"Let's do it," Tian said, already opening a browser to download VS Code. "I'm ready to code like a professional."
+
+---
+
+## Theory & Lecture Content
 
 ## Part 1: Text Editors — Where Code is Written
 

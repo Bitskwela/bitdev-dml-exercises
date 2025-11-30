@@ -1,11 +1,44 @@
-````markdown
-# Lesson 2: How Websites Work
-
 ## Background Story
 
-After understanding the Internet, Tian asked Kuya Miguel, "So now that I know how everything is connected, how do websites actually work? Why is it that when I type Facebook.com, the page appears?"
+Three days had passed since Tian's first lesson with Kuya Miguel. The internet no longer seemed like magic—it was infrastructure, protocols, routers, ISPs, and packets of data traveling at the speed of light. Tian had filled seven pages of notes and could now explain to classmates why their Netflix sometimes buffered during peak hours (ISP congestion) and why gaming ping mattered (latency in data roundtrips).
 
-"Great question!" said Kuya Miguel. "Let me show you the **client-server model** and the whole process from typing a URL to seeing the webpage. This is fundamental that you need to understand!"
+But understanding the infrastructure wasn't enough. A new question had taken root in Tian's mind, and it consumed their thoughts during classes, jeepney rides home, and even during dinner.
+
+It was Saturday morning. Tian was sitting at the local internet cafe—"Cyber Zone," a small shop with twelve computers crammed into a room that smelled like instant noodles and energy drinks. The cafe was popular with students and gamers, offering ₱15 per hour of internet access. Tian had saved enough from their weekly allowance for two hours of research time.
+
+Facebook was open on the screen. Tian stared at it, not at the content, but at the *process*. They opened Chrome's DevTools (a trick Kuya Miguel had taught them), clicked the Network tab, and refreshed the page.
+
+A waterfall of activity flooded the screen. Hundreds of requests. HTML files. CSS files. JavaScript. Images. JSON data. Status codes: 200, 304, 101. Timing information: 42ms, 156ms, 12ms. Everything was happening so fast, yet DevTools captured every single transaction.
+
+"How does typing 'facebook.com' trigger all of this?" Tian whispered, mesmerized.
+
+That's when the internet cafe owner, Mang Jose, walked by with a mop. He noticed Tian's screen—not a game, not social media, but developer tools.
+
+"Nag-aaral ka ng programming, hijo?" Mang Jose asked with a knowing smile.
+
+"Opo, Mang Jose. Trying to understand how websites work. My cousin is teaching me."
+
+"Ah, web developer pala ang cousin mo! Mataas ang sweldo niyan." Mang Jose nodded approvingly. "Sige, extend ko ng extra thirty minutes yung time mo. No charge. Para sa future developer ng bayan."
+
+"Salamat po!" Tian's eyes widened with gratitude.
+
+As Mang Jose returned to mopping, Tian quickly pulled out their phone and called Miguel.
+
+"Kuya, I'm at the internet cafe. I opened DevTools like you showed me and refreshed Facebook. There are hundreds of requests happening! HTML, CSS, JS, images, APIs... it's like a whole symphony of communication. But I don't understand the flow. What happens from the moment I type a URL to the moment the page appears? And how does the client-server thing work? You mentioned it last time but we didn't dive deep."
+
+Miguel's voice came through with excitement. "You're at the perfect point in your learning journey! You understand the infrastructure—now you need to understand the **architecture**. The client-server model is the foundation of how the entire web operates. Every website you've ever visited—Facebook, YouTube, Google, even the smallest blog—works on this model."
+
+"Can you explain it now? I have two and a half hours here."
+
+"Perfect. Open your notebook. We're going to walk through every single step: DNS lookup, TCP handshake, HTTP requests and responses, status codes, headers, the whole journey. By the end of this call, you'll be able to explain exactly what happens when someone types a URL. Ready?"
+
+Tian flipped to a fresh page in their notebook, pen poised. On the screen, Facebook sat frozen mid-load, the DevTools Network tab still showing all those requests like a map waiting to be decoded.
+
+"Ready, Kuya. Teach me how websites work."
+
+---
+
+## Theory & Lecture Content
 
 ## The Client-Server Model
 

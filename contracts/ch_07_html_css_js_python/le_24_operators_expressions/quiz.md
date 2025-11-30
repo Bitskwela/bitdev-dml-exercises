@@ -8,11 +8,19 @@
    - C. `4`
    - D. `11`
 
+**Answer: A**
+
+The modulo operator `%` returns the remainder after division. 15 ÷ 4 = 3 remainder 3. (4 × 3 = 12, 15 - 12 = 3)
+
 2. What does `count += 5;` mean?
    - A. `count = 5`
    - B. `count = count + 5`
    - C. `count = count * 5`
    - D. `5 = count + 5`
+
+**Answer: B**
+
+`count += 5` is shorthand for `count = count + 5`. It adds 5 to the current value of count.
 
 3. What is the output of `console.log(10 > 5 && 3 < 2);`?
    - A. `true`
@@ -20,17 +28,29 @@
    - C. `10`
    - D. Error
 
+**Answer: B**
+
+`&&` (AND) requires both conditions to be true. Since `3 < 2` is false, the entire expression is false. (true && false = false)
+
 4. Which operator should Rhea Joy use for strict equality?
    - A. `=`
    - B. `==`
    - C. `===`
    - D. `!=`
 
+**Answer: C**
+
+Use `===` for strict equality (checks value AND type). `5 === 5` is true, but `5 === "5"` is false. Avoid `==` (loose equality).
+
 5. What is the output of `console.log(!true);`?
    - A. `true`
    - B. `false`
    - C. `undefined`
    - D. `1`
+
+**Answer: B**
+
+The `!` operator is NOT—it reverses boolean values. `!true` becomes `false`, and `!false` becomes `true`.
 
 ---
 
@@ -44,11 +64,19 @@
    - C. `"105"`
    - D. Error
 
+**Answer: C**
+
+When you use `+` with a string and number, JavaScript converts the number to a string and concatenates them: `"10" + "5"` = `"105"`.
+
 7. What does `age >= 18 ? "Adult" : "Minor"` return when `age = 17`?
    - A. `"Adult"`
    - B. `"Minor"`
    - C. `true`
    - D. `false`
+
+**Answer: B**
+
+This is a ternary operator. Since `17 >= 18` is false, it returns the value after `:` which is `"Minor"`.
 
 8. What is the output of `console.log(true || false);`?
    - A. `true`
@@ -56,11 +84,19 @@
    - C. `undefined`
    - D. `1`
 
+**Answer: A**
+
+`||` (OR) returns true if at least one condition is true. Since the first value is `true`, the result is `true`.
+
 9. What is `5 === "5"`?
    - A. `true`
    - B. `false`
    - C. `5`
    - D. Error
+
+**Answer: B**
+
+`===` checks both value AND type. `5` (number) and `"5"` (string) have different types, so it returns `false`.
 
 10. What is the output of `console.log(2 ** 3);`?
     - A. `5`
@@ -68,20 +104,9 @@
     - C. `8`
     - D. `9`
 
----
+**Answer: C**
 
-# Answers
-
-1. **A** - `3`
-2. **B** - `count = count + 5`
-3. **B** - `false`
-4. **C** - `===`
-5. **B** - `false`
-6. **C** - `"105"`
-7. **B** - `"Minor"`
-8. **A** - `true`
-9. **B** - `false`
-10. **C** - `8`
+The `**` operator is exponentiation (power). `2 ** 3` means 2³ = 2 × 2 × 2 = 8.
 
 ---
 

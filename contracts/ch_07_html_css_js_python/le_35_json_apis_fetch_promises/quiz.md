@@ -11,6 +11,10 @@ b) JavaScript Object Notation
 c) JavaScript Online Network  
 d) Java Standard Object Names
 
+**Answer: b**
+
+JSON stands for JavaScript Object Notation - a lightweight data format for storing and transmitting structured data.
+
 ---
 
 **2. How do you convert a JavaScript object to JSON string?**
@@ -19,6 +23,10 @@ a) `JSON.parse(object)`
 b) `JSON.stringify(object)`  
 c) `object.toJSON()`  
 d) `String(object)`
+
+**Answer: b**
+
+Use `JSON.stringify(object)` to convert a JavaScript object into a JSON string.
 
 ---
 
@@ -29,6 +37,10 @@ b) A Promise
 c) A callback  
 d) An error
 
+**Answer: b**
+
+`fetch()` returns a Promise that resolves to the Response object. Use `.then()` or `await` to get the data.
+
 ---
 
 **4. How do you send data to a server with fetch?**
@@ -38,6 +50,10 @@ b) Use POST method with body
 c) Use DELETE method  
 d) Fetch can't send data
 
+**Answer: b**
+
+Use POST method with `body` containing JSON data to send data to the server.
+
 ---
 
 **5. What's the difference between `.then()` and `async/await`?**
@@ -46,6 +62,10 @@ a) No difference, just syntax
 b) async/await is faster  
 c) .then() is deprecated  
 d) async/await doesn't work with fetch
+
+**Answer: a**
+
+No functional difference, just syntax preference. `async/await` makes asynchronous code look more synchronous and readable.
 
 ---
 
@@ -58,6 +78,10 @@ b) Parses response body as JSON
 c) Sends JSON to server  
 d) Validates JSON format
 
+**Answer: b**
+
+`response.json()` parses the response body as JSON and returns a Promise that resolves to the parsed data.
+
 ---
 
 **7. How do you handle fetch errors?**
@@ -66,6 +90,10 @@ a) `try/catch` block
 b) `.catch()` method  
 c) Both a and b  
 d) Errors can't be caught
+
+**Answer: c**
+
+Both `try/catch` (with async/await) and `.catch()` method (with .then()) can handle fetch errors.
 
 ---
 
@@ -76,6 +104,10 @@ b) GET
 c) PUT  
 d) DELETE
 
+**Answer: b**
+
+GET is the HTTP method used to retrieve/read data from a server.
+
 ---
 
 **9. What does `response.ok` check?**
@@ -84,6 +116,10 @@ a) If JSON is valid
 b) If HTTP status is 200-299  
 c) If data exists  
 d) If server is online
+
+**Answer: b**
+
+`response.ok` is `true` if the HTTP status code is in the 200-299 range (successful response).
 
 ---
 
@@ -94,20 +130,9 @@ b) A URL where you can request data
 c) A JavaScript function  
 d) A database connection
 
----
+**Answer: b**
 
-## Answers
-
-1. **b** - JavaScript Object Notation  
-2. **b** - `JSON.stringify(object)`  
-3. **b** - A Promise  
-4. **b** - Use POST method with body  
-5. **a** - No difference, just syntax  
-6. **b** - Parses response body as JSON  
-7. **c** - Both a and b  
-8. **b** - GET  
-9. **b** - If HTTP status is 200-299  
-10. **b** - A URL where you can request data
+An API endpoint is a specific URL where you can send requests to access or manipulate data.
 
 ---
 

@@ -8,11 +8,19 @@
    - C. `display: inline-block;`
    - D. `display: none;`
 
+**Answer: B**
+
+Block elements take up the full width available and automatically start on a new line. Each block element stacks vertically.
+
 2. Rhea Joy wants three buttons side by side that accept width and height. Which display should she use?
    - A. `display: block;`
    - B. `display: inline;`
    - C. `display: inline-block;`
    - D. `display: flex;`
+
+**Answer: C**
+
+Inline-block is perfect for buttons or cards that need to be side by side while accepting width and height.
 
 3. What happens when you set `width: 200px;` on an element with `display: inline;`?
    - A. The width is applied normally
@@ -20,17 +28,29 @@
    - C. The element breaks
    - D. The element becomes block-level
 
+**Answer: B**
+
+Inline elements do NOT accept width or height. The browser ignores these properties on inline elements.
+
 4. Which HTML element has `display: inline;` by default?
    - A. `<div>`
    - B. `<p>`
    - C. `<span>`
    - D. `<section>`
 
+**Answer: C**
+
+`<span>` is an inline element by default. `<div>`, `<p>`, and `<section>` are block-level elements.
+
 5. What does `display: none;` do?
    - A. Makes element transparent
    - B. Completely hides element (takes no space)
    - C. Makes element invisible but keeps space
    - D. Disables element interactions
+
+**Answer: B**
+
+`display: none;` completely hides the element and it takes no space in the layout. It's as if the element doesn't exist.
 
 ---
 
@@ -52,11 +72,19 @@
    - C. They need `display: block;`
    - D. They need `text-align: top;`
 
+**Answer: B**
+
+Inline-block elements default to `vertical-align: baseline;`. Use `vertical-align: top;` to align them at the top.
+
 7. Which is TRUE about `display: inline-block;`?
    - A. Elements start on new lines
    - B. Elements flow side by side and accept width/height
    - C. Elements cannot have margins
    - D. Elements must be `<span>` tags
+
+**Answer: B**
+
+Inline-block elements flow side by side like inline elements, but accept width, height, and all margins/padding like block elements.
 
 8. What's the difference between `display: none;` and `visibility: hidden;`?
    - A. They're the same
@@ -64,11 +92,19 @@
    - C. `visibility: hidden` takes no space, `display: none` takes space
    - D. `display: none` is faster
 
+**Answer: B**
+
+`display: none` removes the element from layout (no space). `visibility: hidden` hides the element but keeps its space in the layout.
+
 9. Which display type flows within text and does NOT accept top/bottom margins?
    - A. `block`
    - B. `inline`
    - C. `inline-block`
    - D. `none`
+
+**Answer: B**
+
+Inline elements flow within text and do NOT accept top/bottom margins or width/height. They only accept left/right margins.
 
 10. Tian wants links in a navigation bar to be side by side with padding. Which is best?
     - A. `display: block;`
@@ -76,20 +112,9 @@
     - C. `display: inline-block;`
     - D. Keep default `display: inline;`
 
----
+**Answer: C**
 
-# Answers
-
-1. **B** - `display: block;`
-2. **C** - `display: inline-block;`
-3. **B** - The width is ignored
-4. **C** - `<span>`
-5. **B** - Completely hides element (takes no space)
-6. **B** - They need `vertical-align: top;`
-7. **B** - Elements flow side by side and accept width/height
-8. **B** - `display: none` takes no space, `visibility: hidden` takes space
-9. **B** - `inline`
-10. **C** - `display: inline-block;`
+Use `display: inline-block;` for navigation links that need to be side by side with padding. It allows proper spacing control.
 
 ---
 

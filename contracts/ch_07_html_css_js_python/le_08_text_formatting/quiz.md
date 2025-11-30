@@ -36,6 +36,10 @@ Tian creates a barangay services page:
 - C) At least two
 - D) None
 
+**Answer: B**
+
+A page should have only one `<h1>` tag for the main title. Multiple `<h1>` tags confuse search engines and screen readers. Use `<h2>` for sections, `<h3>` for sub-sections.
+
 **Question 2:** What's wrong with this code?
 ```html
 <h1>Title</h1>
@@ -46,6 +50,10 @@ Tian creates a barangay services page:
 - B) Skipped h2 and h3 (bad hierarchy)
 - C) Should use h6
 - D) Missing closing tags
+
+**Answer: B**
+
+Don't skip heading levels. Proper hierarchy: h1→h2→h3→h4. Skipping levels (h1→h4) breaks semantic structure and accessibility.
 
 ---
 
@@ -58,12 +66,20 @@ Tian creates a barangay services page:
 - C) `<ul>` = numbers, `<ol>` = bullets
 - D) Both create paragraphs
 
+**Answer: B**
+
+`<ul>` creates unordered lists with bullet points, `<ol>` creates ordered lists with numbers. Use `<ul>` for items without specific order, `<ol>` for steps/sequences.
+
 **Question 4:** Which creates a line break **within** the same paragraph?
 
 - A) `<p>`
 - B) `<br>`
 - C) `<hr>`
 - D) `<li>`
+
+**Answer: B**
+
+`<br>` creates a line break within the same paragraph (no extra spacing). `<p>` creates a new paragraph with extra spacing.
 
 **Question 5:** What does `<hr>` do?
 
@@ -72,14 +88,9 @@ Tian creates a barangay services page:
 - C) Highlights text
 - D) Line break
 
----
+**Answer: B**
 
-## Answers
-1: B  
-2: B  
-3: B  
-4: B  
-5: B  
+`<hr>` creates a horizontal line (thematic break) to separate sections. It's a self-closing tag.  
 
 ---
 

@@ -1,12 +1,48 @@
-# Lesson 4: How Browsers Work
-
 ## Background Story
 
-In the fourth session, Tian was amazed. "Kuya, wow! So websites are just HTML, CSS, JS. But how did it become so beautiful in the display? It's like magic that transforms code into an actual webpage!"
+Tian had just finished building their fourth practice HTML page when they noticed something strange. They'd written what looked like perfectly valid HTML—proper structure, semantic tags, no obvious errors in VS Code. But when they opened it in Chrome, the layout was completely broken. Text overlapped. Images appeared in weird positions. Some CSS styles applied, others didn't.
 
-"Hey, that's a great question!" said Kuya Miguel. "That's the secret of browsers. It's like magic, but there's science behind it. Let me show you the **rendering pipeline** — the step-by-step process of how your browser (Chrome, Firefox, etc.) transforms plain text code into the beautiful websites you see."
+"Why is this happening?" Tian muttered, refreshing the page multiple times as if that would magically fix the layout.
 
-Kuya Miguel screen shared and opened DevTools. "Are you ready?"
+The frustration built. They'd followed all the tutorials, replicated the example code character by character. What was different?
+
+Tian opened the same file in Firefox. Interestingly, it looked slightly different—still broken, but broken in a different way. Some things that failed in Chrome worked in Firefox, and vice versa.
+
+"That makes no sense! It's the same HTML file!"
+
+That evening's call with Kuya Miguel started with an exasperated Tian.
+
+"Kuya, I don't understand browsers anymore. I write HTML, sometimes it works perfectly, sometimes it breaks in weird ways. And it looks different in Chrome versus Firefox! Aren't browsers supposed to just... display the code? Why is it so inconsistent?"
+
+Miguel's face appeared on the video call, and he was grinning. "Ah, you've discovered one of the great frustrations and fascinations of web development. You think browsers are simple display tools, but they're actually incredibly complex pieces of software. They're doing a million things behind the scenes that you never see."
+
+"Like what?"
+
+"Let me show you." Miguel shared his screen and opened Chrome DevTools, switching to the Performance tab. He loaded a website and clicked Record. "Watch this."
+
+The screen exploded with activity. Timelines. Flame graphs. Function calls. Parse times. Layout calculations. Paint operations. Composite layers. Hundreds of processes happening in milliseconds.
+
+"This," Miguel said, "is what happens every single time you load a webpage. The browser isn't just 'displaying' your HTML. It's parsing it into a Document Object Model tree, parsing CSS into a style tree, calculating layouts, painting pixels, compositing layers, executing JavaScript, managing memory, handling network requests, enforcing security policies... all of this in the fraction of a second between you hitting Enter and seeing the page."
+
+Tian's jaw dropped. "All of that happens every time?"
+
+"Every single time. And different browsers implement these processes slightly differently, which is why your page looks different in Chrome versus Firefox. They're both following the same web standards, but their rendering engines are different. Chrome uses Blink. Firefox uses Gecko. Safari uses WebKit. Each has its own optimizations and quirks."
+
+"So when my layout breaks, it's not always my fault?"
+
+"Sometimes it's your code. Sometimes it's browser quirks. Sometimes it's the order things load. But here's the thing—understanding *how* browsers work makes you a better developer. You stop guessing and start knowing. You understand why certain CSS properties are slow. Why JavaScript placement matters. How to optimize load times. Why some animations are smooth and others janky."
+
+Miguel pulled up another tab showing the critical rendering path—a flowchart of DOM construction, CSSOM construction, render tree, layout, and paint.
+
+"Today, I'm going to take you through the entire rendering pipeline. You'll learn exactly what happens from the moment the browser receives HTML to the moment pixels appear on screen. The magic becomes science. And once you understand the science, you can write code that works *with* the browser instead of fighting against it."
+
+Tian grabbed their notebook, pen ready. The broken webpage from earlier was still open in another tab—no longer a source of frustration, but a case study waiting to be understood.
+
+"I'm ready, Kuya. Show me how browsers really work."
+
+---
+
+## Theory & Lecture Content
 
 ## What is a Browser?
 

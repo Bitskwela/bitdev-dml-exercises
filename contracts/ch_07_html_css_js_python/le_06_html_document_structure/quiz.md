@@ -33,12 +33,20 @@ Tian creates his first HTML page for a barangay clearance portal. Here's his cod
 - C) Links to CSS file
 - D) Creates a paragraph
 
+**Answer: B**
+
+`<!DOCTYPE html>` tells browsers to use HTML5 standards (modern rendering mode). Without it, browsers enter "quirks mode" (outdated behavior).
+
 **Question 2:** What belongs inside the `<head>` section?
 
 - A) Visible content like headings and paragraphs
 - B) Metadata (title, charset, viewport)
 - C) Only the title tag
 - D) JavaScript code only
+
+**Answer: B**
+
+The `<head>` contains metadata invisible to users—title (tab text), charset (character support), viewport (responsive), description (SEO), CSS/JS links.
 
 ---
 
@@ -51,12 +59,20 @@ Tian creates his first HTML page for a barangay clearance portal. Here's his cod
 - C) Links external files
 - D) Creates responsive design
 
+**Answer: B**
+
+UTF-8 is universal character encoding supporting Filipino (ñ), Spanish (á, é), symbols (€, ™), emojis. Without it, special characters display as �.
+
 **Question 4:** Why is `index.html` a special filename?
 
 - A) Required by law
 - B) Default homepage browsers load automatically
 - C) Only for images
 - D) No special meaning
+
+**Answer: B**
+
+Web servers automatically serve `index.html` when visiting root URL (`www.example.com` loads `index.html`). Other pages need explicit URLs.
 
 **Question 5:** Where should visible content (text, images) be placed?
 
@@ -65,14 +81,9 @@ Tian creates his first HTML page for a barangay clearance portal. Here's his cod
 - C) Before `<!DOCTYPE>`
 - D) Outside `<html>` tags
 
----
+**Answer: B**
 
-## Answers
-1: B  
-2: B  
-3: B  
-4: B  
-5: B  
+All visible content—headings, paragraphs, images, links, videos—goes in `<body>`. The `<head>` is for metadata (invisible), `<body>` is for content (visible).  
 
 ---
 

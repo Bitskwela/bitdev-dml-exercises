@@ -1,16 +1,54 @@
-# Lesson 14: Colors, Backgrounds, and Fonts in CSS
+## Background Story
+
+Tian had mastered CSS selectors. They could target elements by tag, by class, by ID, by relationship, by state. Their CSS file was growing, with rules that adjusted font sizes, margins, padding, borders. The layout was improving.
+
+But the website still looked bland. Sterile. Generic.
+
+Everything was the default browser styling: black text on white backgrounds. The only color came from blue hyperlinks. The font was the browser default—Times New Roman on some systems, Arial on others, inconsistent and uninspiring. There were no background colors, no visual hierarchy through color, no branding or personality.
+
+Rhea Joy pulled up professional websites for comparison. The DLSU website had a distinctive green color scheme that matched their brand. The Batangas City government site used deep blues and oranges. Even small business websites had chosen color palettes that created mood and identity.
+
+"Our website looks like a boring government form from the 1990s," Rhea Joy said bluntly. "We need colors. We need better fonts. We need backgrounds that aren't just plain white. How do professional designers make their websites look so... designed?"
+
+Tian opened the DevTools on a professional website and inspected the CSS. They saw properties like:
+
+```css
+color: #1a73e8;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+font-family: 'Roboto', sans-serif;
+```
+
+"What are these?" Tian wondered. "#1a73e8—that's not a color name I recognize. And what's a linear-gradient? And how do they use custom fonts like 'Roboto' instead of just Arial?"
+
+They tried copying some of the CSS to their own file, but without understanding the syntax, it was just trial and error. They managed to change their heading to a blue color using a hex code, but when they tried to apply a gradient background, it didn't work because they'd copied the syntax incorrectly.
+
+The font issue was even more frustrating. They tried:
+
+```css
+font-family: Roboto;
+```
+
+But the text still appeared in the default font. Apparently you couldn't just name any font—there was something about web fonts, Google Fonts, font loading that they didn't understand.
+
+It was Sunday evening. Tian and Rhea Joy had spent hours trying to improve the visual design but kept hitting walls due to lack of knowledge about color systems, background properties, and font implementation.
+
+They called Kuya Miguel, screens shared, showing their bland website next to professional examples.
+
+"Kuya, we learned selectors, but we don't know how to actually make things look good. How do we use colors properly? We see hex codes like #1a73e8, RGB values, HSL values—what are these and which should we use? How do we create gradient backgrounds? And how do we use modern fonts like Roboto or Montserrat instead of just Arial?"
+
+Miguel pulled up a color picker and font catalog on his screen.
+
+"You've reached the aesthetic phase of CSS—where design meets code. Colors in CSS can be specified in multiple ways: named colors like 'blue', hex codes like #1a73e8, RGB like rgb(26, 115, 232), RGBA for transparency, HSL for hue-saturation-lightness. Each format has its use cases."
+
+He continued, "Backgrounds can be solid colors, gradients (linear or radial), images, or combinations of all three. And fonts—you can use web-safe fonts that are installed on most computers, or you can load custom fonts from services like Google Fonts, Adobe Fonts, or self-hosted font files."
+
+"Can you teach us all of this today?" Rhea Joy asked.
+
+"Absolutely. Today we're covering CSS colors comprehensively, background properties including gradients and images, and font implementation including web-safe fonts, font stacks, and Google Fonts integration. By the end of this lesson, your barangay website won't look like a 1990s government form—it'll have a professional color scheme, attractive backgrounds, and modern typography."
 
 ---
 
-## Making the Barangay Website Beautiful
-
-"Okay, so alam ko na how to select elements," Tian said, looking at their barangay website. "But ang boring pa rin ng colors. Everything is just black text on white background."
-
-Rhea Joy nodded enthusiastically. "Exactly! We need to add colors, nice backgrounds, and better fonts. Parang yung mga professional websites na makikita sa internet."
-
-Kuya Miguel, who was setting up a projector for their presentation, overheard them. "Perfect timing! Today we'll learn about CSS colors, backgrounds, and fonts—the tools that make websites visually appealing."
-
----
+## Theory & Lecture Content
 
 ## CSS Colors
 

@@ -197,43 +197,53 @@ async function processSendMoney(req, res) {
 
 ---
 
-**Tanong 1:** Snippets A at D (HTML forms at CSS styling) ay bahagi ng anong layer?
+**Question 1:** Snippets A and D (HTML forms and CSS styling) are part of which layer?
 
 - A) Backend - server-side processing
-- B) Frontend - user interface at visual design
+- B) Frontend - user interface and visual design
 - C) Database - data storage
 - D) API - data transmission
 
-**Tanong 2:** Snippet C (processSendMoney function) ay tumatakbo saan?
+**Answer: B**
 
-- A) Sa browser ng user (frontend)
-- B) Sa server/backend (Node.js)
-- C) Sa database directly
-- D) Sa user's phone
+HTML forms and CSS styling are part of the Frontend. Frontend is everything the user sees and interacts with in the browser - UI, forms, buttons, colors, layouts.
+
+**Question 2:** Where does Snippet C (processSendMoney function) run?
+
+- A) In the user's browser (frontend)
+- B) On the server/backend (Node.js)
+- C) In the database directly
+- D) On the user's phone
+
+**Answer: B**
+
+The `processSendMoney` function is backend code that runs on the server (Node.js). Users cannot see it and cannot access it directly from the browser.
 
 ---
 
 # Quiz 2
 
-**Tanong 3:** Bakit **kailangan** ng backend validation kahit may frontend validation na?
+**Question 3:** Why is backend validation **necessary** even if there's already frontend validation?
 
-- A) Para mas mabilis ang app
+- A) To make the app faster
 - B) Security - users can bypass frontend, directly call API
-- C) Para maganda lang tingnan
-- D) Hindi naman kailangan, frontend validation lang okay na
+- C) Just to make it look good
+- D) Not necessary, frontend validation is enough
 
-**Tanong 4:** Sa Snippet B, ano ang HTTP method ginagamit at bakit?
+**Answer: B**
 
-- A) GET - kasi kukunin ang data
-- B) POST - kasi magpapadala ng sensitive data (amount, recipient)
-- C) PUT - kasi mag-update ng balance
-- D) DELETE - kasi mababawasan ang balance
+Backend validation is critical for security. Users can bypass frontend validation using browser DevTools or Postman to directly call your API. Always validate on backend.
 
-**Sagot:**
-- **Tanong 1:** B) Frontend - user interface at visual design
-- **Tanong 2:** B) Sa server/backend (Node.js)
-- **Tanong 3:** B) Security - users can bypass frontend, directly call API
-- **Tanong 4:** B) POST - kasi magpapadala ng sensitive data
+**Question 4:** In Snippet B, what HTTP method is used and why?
+
+- A) GET - because it retrieves data
+- B) POST - because it sends sensitive data (amount, recipient)
+- C) PUT - because it updates balance
+- D) DELETE - because balance will be deducted
+
+**Answer: B**
+
+POST method is used because it sends sensitive data (amount, recipient phone). POST is more secure than GET because data doesn't appear in the URL.
 
 ---
 
@@ -241,9 +251,9 @@ async function processSendMoney(req, res) {
 
 ### Frontend Layer (Client-Side)
 
-**Ano ang Frontend?**
+**What is Frontend?**
 
-Ang frontend ay lahat ng nakikita at na-i-interact ng user directly sa browser. Ito ay composed ng tatlong main technologies:
+The frontend is everything the user sees and interacts with directly in the browser. It is composed of three main technologies:
 
 **1. HTML (HyperText Markup Language)** - Structure
 ```html
@@ -323,9 +333,9 @@ function handleSendMoney() {
 
 ### Backend Layer (Server-Side)
 
-**Ano ang Backend?**
+**What is Backend?**
 
-Ang backend ay hidden sa users. Ito ay tumatakbo sa server at responsible for:
+The backend is hidden from users. It runs on the server and is responsible for:
 
 **1. Business Logic**
 ```javascript

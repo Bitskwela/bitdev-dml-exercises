@@ -8,11 +8,19 @@
    - C. `#p { color: blue; }`
    - D. `<p> { color: blue; }`
 
+**Answer: B**
+
+The element selector targets all elements of a specific HTML tag without any prefix. Classes use a dot (`.`), IDs use a hash (`#`), and you never use angle brackets in CSS selectors.
+
 2. Rhea Joy created this HTML: `<div class="announcement">Meeting today</div>`. Which CSS selector targets this element?
    - A. `#announcement { }`
    - B. `announcement { }`
    - C. `.announcement { }`
    - D. `div.announcement { }`
+
+**Answer: C**
+
+Class selectors always start with a dot (`.`). The HTML `class="announcement"` is targeted with `.announcement` in CSS. Option D would also work but is more specific than necessary.
 
 3. Tian has this HTML: `<h1 id="main-title">Barangay San Miguel</h1>`. Which selector is correct?
    - A. `.main-title { }`
@@ -20,17 +28,29 @@
    - C. `main-title { }`
    - D. `id.main-title { }`
 
+**Answer: B**
+
+ID selectors always start with a hash (`#`). The HTML `id="main-title"` is targeted with `#main-title` in CSS. Remember: IDs must be unique on a page.
+
 4. What does this CSS selector do? `div p { color: red; }`
    - A. Selects all `<div>` and all `<p>` elements
    - B. Selects only `<p>` elements that are inside `<div>` elements
    - C. Selects `<div>` elements with class "p"
    - D. This is invalid CSS syntax
 
+**Answer: B**
+
+The space between `div` and `p` creates a descendant selector. It means "select all `<p>` elements that are anywhere inside a `<div>` element (child, grandchild, etc.)."
+
 5. Rhea Joy wants the same font for all headings. Which is most efficient?
    - A. `h1 { font-family: Arial; } h2 { font-family: Arial; } h3 { font-family: Arial; }`
    - B. `h1, h2, h3 { font-family: Arial; }`
    - C. `.h1, .h2, .h3 { font-family: Arial; }`
    - D. `#h1, #h2, #h3 { font-family: Arial; }`
+
+**Answer: B**
+
+Multiple selectors (grouping) let you apply the same styles to different elements by separating them with commas. This is much more efficient than repeating the same style rules.
 
 ---
 
@@ -54,11 +74,19 @@ p { color: black; }
    - C. Blue
    - D. The default browser color
 
+**Answer: C**
+
+The text will be blue because of specificity. When multiple rules target the same element, the priority is: Inline styles > IDs > Classes > Elements. Since `#intro` is an ID selector, it has higher priority than `.highlight` (class) and `p` (element).
+
 7. Which CSS property controls the space between lines of text?
    - A. `letter-spacing`
    - B. `line-height`
    - C. `text-spacing`
    - D. `line-spacing`
+
+**Answer: B**
+
+`line-height` controls the vertical space between lines of text. `letter-spacing` controls horizontal space between individual characters.
 
 8. Tian wrote `color: rgb(255, 0, 0);`. What color is this?
    - A. Blue
@@ -66,11 +94,19 @@ p { color: black; }
    - C. Red
    - D. Yellow
 
+**Answer: C**
+
+RGB stands for Red, Green, Blue. `rgb(255, 0, 0)` means maximum red (255), no green (0), no blue (0) = Red.
+
 9. What does this CSS do? `.announcement.urgent { border: 2px solid red; }`
    - A. Selects `.announcement` OR `.urgent` elements
    - B. Selects `.urgent` elements inside `.announcement` elements
    - C. Selects elements that have BOTH classes `announcement` and `urgent`
    - D. This is invalid CSS
+
+**Answer: C**
+
+When class selectors are written together without a space (`.announcement.urgent`), it selects elements that have BOTH classes. A space would create a descendant selector instead.
 
 10. Which unit is relative to the parent element's font size?
     - A. `px` (pixels)
@@ -78,20 +114,9 @@ p { color: black; }
     - C. `%` (percentage)
     - D. `pt` (points)
 
----
+**Answer: B**
 
-# Answers
-
-1. **B** - `p { color: blue; }`
-2. **C** - `.announcement { }`
-3. **B** - `#main-title { }`
-4. **B** - Selects only `<p>` elements that are inside `<div>` elements
-5. **B** - `h1, h2, h3 { font-family: Arial; }`
-6. **C** - Blue
-7. **B** - `line-height`
-8. **C** - Red
-9. **C** - Selects elements that have BOTH classes `announcement` and `urgent`
-10. **B** - `em`
+`em` is relative to the parent element's font size. `1em` = parent's font size, `2em` = twice the parent's font size. `px` is absolute, not relative.
 
 ---
 

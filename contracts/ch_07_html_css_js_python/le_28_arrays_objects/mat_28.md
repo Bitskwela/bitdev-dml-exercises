@@ -1,16 +1,100 @@
-# Lesson 28: Arrays and Objects
+## Background Story
+
+The barangay office wanted a feature: display a list of all residents who had applied for clearances in the past month. The data set contained 47 residents.
+
+Tian started implementing it the only way they knew:
+
+```javascript
+let resident1 = "Juan Dela Cruz";
+let resident2 = "Maria Santos";
+let resident3 = "Pedro Reyes";
+let resident4 = "Ana Lopez";
+// ...43 more variables
+
+console.log(resident1);
+console.log(resident2);
+console.log(resident3);
+// ...44 more console.logs
+```
+
+After writing out 10 variables and 10 console.log statements, Tian stopped. This approach was absurd. Declaring 47 individual variables? Manually logging each one? What if they needed to search for a specific resident? Loop through them? Sort alphabetically?
+
+The problems were obvious:
+- 47 separate variables cluttering the code
+- No way to loop through all residents
+- No way to add/remove residents dynamically
+- No way to search or sort efficiently
+- No logical grouping or organization
+
+Meanwhile, Rhea Joy faced a different but related problem. She needed to store detailed information about a single resident applying for a barangay clearance:
+
+- Name: "Juan Dela Cruz"
+- Age: 34
+- Address: "123 Main Street, Batangas"
+- Email: "juan@example.com"
+- Phone: "09171234567"
+- Service: "Clearance"
+- Is Senior: false
+- Is PWD: false
+
+She started creating separate variables:
+
+```javascript
+let applicantName = "Juan Dela Cruz";
+let applicantAge = 34;
+let applicantAddress = "123 Main Street, Batangas";
+let applicantEmail = "juan@example.com";
+let applicantPhone = "09171234567";
+let applicantService = "Clearance";
+let applicantIsSenior = false;
+let applicantIsPWD = false;
+```
+
+Eight separate variables for one person's data. Now imagine storing information for 10 applicants—80 variables! And there was no logical connection between these variables. They weren't grouped as belonging to the same person.
+
+Both problems highlighted a fundamental gap in their JavaScript knowledge: they didn't know how to store and organize collections of data.
+
+It was Tuesday evening. They were both frustrated, staring at their messy variable declarations.
+
+"There must be a data structure for storing lists," Tian said. "Something where I can have one variable that contains all 47 resident names."
+
+"And there must be a way to group related data," Rhea Joy added. "So all of Juan's information is stored together as one logical unit, not as eight separate variables."
+
+They searched online and discovered two fundamental JavaScript data structures:
+
+**Arrays**: Ordered lists of values, accessed by index
+```javascript
+let residents = ["Juan", "Maria", "Pedro", "Ana"];
+console.log(residents[0]);  // "Juan"
+```
+
+**Objects**: Collections of key-value pairs, representing structured data
+```javascript
+let applicant = {
+    name: "Juan Dela Cruz",
+    age: 34,
+    email: "juan@example.com"
+};
+console.log(applicant.name);  // "Juan Dela Cruz"
+```
+
+Tian's eyes lit up. "Arrays! That's how I store lists of residents. One variable containing all 47 names."
+
+"And objects!" Rhea Joy exclaimed. "That's how I group all of Juan's information together."
+
+They experimented with basic examples and immediately saw the power. Arrays let them loop through data, search, sort, and manipulate lists. Objects let them represent complex structured data with meaningful property names.
+
+But they'd only scratched the surface. How do you add items to arrays? Remove items? Search arrays? Sort arrays? Access nested data? Combine arrays and objects for complex data structures?
+
+They called Kuya Miguel.
+
+"Kuya, we were using dozens of separate variables when we should have been using arrays and objects. We discovered the basics, but we need to learn them properly—all the array methods, object syntax, how to work with complex nested structures, and how real applications organize data."
+
+Miguel smiled. "Arrays and objects are the fundamental data structures of JavaScript. Almost everything you build will use them. Today we're learning array creation, accessing, modification, array methods (push, pop, shift, unshift, slice, splice, forEach, map, filter), object syntax, property access, nested structures, and JSON. By the end of this lesson, you'll be able to manage complex data elegantly."
 
 ---
 
-## Storing Complex Data
-
-"Kuya Miguel, how do we store information about 100 residents? Do we need 100 variables?" Tian asked.
-
-Rhea Joy added, "And what if each resident has name, age, address, and service type?"
-
-Kuya Miguel smiled. "That's why we use **arrays and objects**—data structures that store multiple values. Arrays for lists, objects for structured data!"
-
----
+## Theory & Lecture Content
 
 ## What are Arrays?
 

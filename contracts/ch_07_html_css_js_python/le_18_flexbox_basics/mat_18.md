@@ -1,16 +1,71 @@
-# Lesson 18: Flexbox Basics
+## Background Story
+
+Tian slammed their fist on the desk, startling Rhea Joy who was sitting next to them in the computer lab.
+
+"What's wrong?" Rhea Joy asked.
+
+"This!" Tian pointed at their screen, showing three service cards that were supposed to be horizontally aligned but were plagued with problems.
+
+The cards were using `display: inline-block;` as they'd learned, but:
+
+1. There were mysterious white spaces between the cards that no amount of margin adjustment could fix
+2. The cards weren't vertically aligned properly—one was slightly higher than the others
+3. Centering them horizontally required text-align on the parent, which felt wrong
+4. The cards didn't wrap nicely on smaller screens
+5. Trying to distribute space evenly between them was a nightmare of percentage calculations
+
+"I've been fighting this layout for two hours," Tian said, exhausted. "I've tried floats—clearing issues. I've tried inline-block—spacing issues. I've tried absolute positioning—overlapping issues. CSS layout feels like constantly fighting against the browser instead of working with it."
+
+Rhea Joy nodded sympathetically. She was experiencing similar frustrations with her own project—a navigation menu that needed to be centered both horizontally and vertically within its container.
+
+"To center something both ways, I need like five different properties," she said, pulling up her code:
+
+```css
+.container {
+    position: relative;
+}
+
+.centered-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+```
+
+"It works, but it feels hacky. Like we're exploiting browser behavior instead of using proper tools. Doesn't CSS have, I don't know, a built-in way to handle common layout patterns?"
+
+Their teacher, Ms. Santos, happened to walk by at that moment. She glanced at their screens and immediately understood the problem.
+
+"You're using old layout techniques," she said. "Floats and inline-block were never designed for modern web layouts—they were hacks that developers used because nothing better existed. But CSS has evolved. You should be using Flexbox for one-dimensional layouts and Grid for two-dimensional layouts."
+
+"Flexbox?" Tian and Rhea Joy said simultaneously.
+
+"Flexible Box Layout. It was created specifically to solve the exact problems you're experiencing—alignment, distribution, spacing, ordering. It makes layouts that were painful with old methods incredibly easy with new ones."
+
+Ms. Santos quickly typed a simple example:
+
+```css
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+"That's it. Three lines. Perfectly centered, horizontally and vertically. No positioning hacks. No transform tricks. Just clear, semantic layout properties."
+
+Tian and Rhea Joy stared at the code, then at each other.
+
+That evening, they both called Kuya Miguel.
+
+"Kuya, why didn't you teach us Flexbox earlier?! We've been suffering with inline-block and positioning hacks when there's a modern layout system designed for this!"
+
+Miguel chuckled. "I wanted you to understand the old way first, so you'd appreciate how much better Flexbox is. Now that you've felt the pain of traditional layout methods, you're ready to learn the modern way. Trust me—once you understand Flexbox, you'll never want to go back to floats and inline-block for layout."
 
 ---
 
-## The Modern Layout Solution
-
-"Kuya Miguel, ang hirap mag-align ng elements using `inline-block`!" Tian complained, frustrated with the gaps between his service cards. "There are unwanted spaces, and vertical alignment is confusing."
-
-Rhea Joy nodded. "And paano ko i-center both horizontally and vertically? I need like 5 different properties!"
-
-Kuya Miguel smiled. "That's exactly why Flexbox was created. It's a modern layout system that makes alignment and distribution super easy."
-
----
+## Theory & Lecture Content
 
 ## What is Flexbox?
 

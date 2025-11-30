@@ -70,12 +70,20 @@ Scenario D:
 - C) Encrypt data
 - D) Render HTML
 
+**Answer: B**
+
+DNS (Domain Name System) converts human-readable domain names like shopee.ph into IP addresses like 103.10.29.100 that computers use to communicate.
+
 **Question 2:** In Step 2, what HTTP method is used to **retrieve** the homepage?
 
 - A) POST (send data)
 - B) GET (retrieve data)
 - C) PUT (update data)
 - D) DELETE (remove data)
+
+**Answer: B**
+
+GET is the HTTP method used to retrieve/fetch data from the server. It's used for loading web pages, images, and other resources.
 
 ---
 
@@ -88,6 +96,10 @@ Scenario D:
 - C) 500 Internal Server Error
 - D) 403 Forbidden
 
+**Answer: A**
+
+200 OK indicates that the request was successful. When adding an item to cart works correctly, the server returns this status code.
+
 **Question 4:** What is the status code for Scenario B (product not found)?
 
 - A) 200 OK
@@ -95,10 +107,9 @@ Scenario D:
 - C) 500 Internal Server Error
 - D) 403 Forbidden
 
-**Answer:**
-- **Question 1:** B) Convert domain name to IP address
-- **Question 2:** B) GET (retrieve data)
-- **Question 3:** A) 200 OK
+**Answer: B**
+
+404 Not Found means the requested resource doesn't exist on the server. In this case, the product is no longer available.
 - **Question 4:** B) 404 Not Found
 
 ---

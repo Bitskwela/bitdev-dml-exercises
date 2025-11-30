@@ -1,18 +1,193 @@
-# Lesson 44: Environment Variables + Deployment Config
-
 ## Background Story
 
-Tian pushed the barangay portal code to GitHub to share with Kuya Miguel. Within minutes, Miguel called urgently.
+Tian was proud of the secure barangay portal they'd built—authentication, authorization, password hashing, session management. Everything was working perfectly. He wanted to show Kuya Miguel the complete codebase, so he did what every modern developer does: pushed the code to GitHub.
 
-"Tian, delete that repository NOW!"
+He created a new public repository called `barangay-portal` and pushed all the files:
 
-"Why? What's wrong?"
+```bash
+git init
+git add .
+git commit -m "Complete barangay portal with authentication"
+git remote add origin https://github.com/tian-rodriguez/barangay-portal.git
+git push -u origin main
+```
 
-"Look at your code. Line 15. Your database password. Line 23. Your secret key. Line 67. Your email API key. Everything is PUBLIC. Anyone can see it."
+"Done!" he texted Miguel with the GitHub link. "Check out the complete code!"
 
-Tian's heart sank. The repository had been public for 10 minutes. How many people saw it?
+Within three minutes, his phone rang. Miguel's voice was urgent, almost panicked. "Tian, delete that repository RIGHT NOW. Immediately!"
 
-"This is why we use environment variables," Miguel explained calmly. "Never hardcode secrets. Let me show you the proper way."
+"What? Why? What's wrong?"
+
+"You just exposed every secret in your application to the ENTIRE WORLD. Your database password, your Flask secret key, your email API credentials—everything. Anyone with that GitHub link can see all your secrets. Delete it NOW!"
+
+Tian's heart raced. He opened the GitHub repository and started reading through the files. His face went pale as he saw:
+
+**app.py, line 8:**
+```python
+app.config['SECRET_KEY'] = 'my-super-secret-key-12345'
+```
+
+**app.py, line 15:**
+```python
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:Password123@localhost/barangay_db'
+```
+
+**email_service.py, line 5:**
+```python
+SENDGRID_API_KEY = 'SG.abc123def456ghi789jkl012mno345.pqrstuvwxyz'
+```
+
+All hardcoded. All visible. All PUBLIC.
+
+"Oh no," Tian whispered, immediately deleting the repository. But the damage was potentially done—it had been public for almost 10 minutes.
+
+Miguel guided him through emergency measures: "Change your database password immediately. Regenerate your Flask secret key. Revoke and regenerate your SendGrid API key. Any secret that was in that code needs to be rotated NOW. Assume someone saw it."
+
+Tian frantically changed all credentials, his hands shaking. "I didn't think... I just wanted to share the code. I didn't realize I was exposing secrets."
+
+Rhea Joy, hearing about the incident, checked her own projects. "Oh no, I did the same thing. My Twitter bot project has the API keys right in the code. I pushed it to GitHub last week!"
+
+Miguel, once the immediate crisis was handled, took a teaching tone. "This is one of the most common security mistakes developers make, especially beginners. You hardcode secrets in your code for development, then forget they're there when you share or deploy. You just learned a critical lesson: NEVER hardcode secrets. Ever."
+
+"But how do we use them if we don't write them in the code?" Tian asked, genuinely confused.
+
+"Environment variables," Miguel explained. "You store secrets OUTSIDE your code—in the system environment or in a `.env` file that's never committed to Git. Your code READS those variables at runtime, pero the actual values never appear in your codebase."
+
+He shared his screen showing proper configuration:
+
+**.env file (NOT committed to Git):**
+```
+SECRET_KEY=my-super-secret-key-12345
+DATABASE_URL=postgresql://admin:Password123@localhost/barangay_db
+SENDGRID_API_KEY=SG.abc123def456ghi789jkl012mno345.pqrstuvwxyz
+```
+
+**app.py (safe to commit):**
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+```
+
+**.gitignore:**
+```
+.env
+*.pyc
+__pycache__/
+```
+
+"See the difference?" Miguel explained. "The secrets live in `.env`, which is listed in `.gitignore` so it NEVER gets committed to Git. Your code uses `os.getenv()` to read them at runtime. Someone reading your GitHub repository sees `os.getenv('SECRET_KEY')` pero not the actual key."
+
+Tian understood immediately. "So the secrets exist on my local machine and on the production server, pero never in the Git repository. The code is portable and shareable, but the secrets stay private."
+
+"Exactly," Miguel confirmed. "And this has another huge benefit: different environments can have different secrets. Your development database password can be different from production. Your testing API keys can be different from live keys. Same code, different environment variables."
+
+Rhea Joy was already creating a `.env` file and moving all her secrets there. "So the workflow is:
+
+1. Create `.env` file locally
+2. Add all secrets to `.env`
+3. Add `.env` to `.gitignore`
+4. Use `os.getenv()` in code to read secrets
+5. Share code on GitHub—safe because secrets aren't in code
+6. On production server, create separate `.env` with production secrets
+
+Code is public, secrets stay private!"
+
+"Perfect," Miguel said. "And there are tools to make this even easier—`python-dotenv` for loading `.env` files automatically, cloud provider secret management systems, environment variable management in deployment platforms. But the principle is always the same: secrets NEVER in code."
+
+Tian thought about the implications. "So every public GitHub repository I look at—React apps, Flask APIs, Django sites—they all use environment variables for secrets?"
+
+"Every professional one, yes," Miguel confirmed. "If you see actual API keys or passwords in public repos, that's a mistake. And security researchers scan GitHub constantly looking for exposed secrets. They find thousands every day—AWS keys, database passwords, API tokens. Those get exploited immediately—crypto mining, data theft, spam bots."
+
+Rhea Joy looked concerned. "What if someone DID see Tian's secrets in those 10 minutes?"
+
+"That's why we rotated everything immediately," Miguel said. "Assume breach, respond fast. The old secrets are now useless. Pero this is exactly why you prevent exposure in the first place. Rotating database credentials is annoying. Rotating production secrets can cause downtime. Prevention is always better."
+
+Tian created a comprehensive `.env` file for the barangay portal:
+
+```
+# Flask Configuration
+FLASK_APP=app.py
+FLASK_ENV=development
+SECRET_KEY=generate-a-random-key-here
+
+# Database
+DATABASE_URL=sqlite:///barangay.db
+
+# Email Service
+SENDGRID_API_KEY=your-sendgrid-key-here
+MAIL_FROM=noreply@barangay-portal.ph
+
+# Admin Credentials
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=change-on-first-login
+```
+
+"Much better," Miguel said. "Now your code can reference these with `os.getenv('SECRET_KEY')` and the actual values stay out of version control."
+
+Miguel showed them advanced patterns:
+
+**Development vs Production:**
+```python
+# app.py
+if os.getenv('FLASK_ENV') == 'production':
+    app.config['DEBUG'] = False
+    app.config['DATABASE_URL'] = os.getenv('DATABASE_URL')
+else:
+    app.config['DEBUG'] = True
+    app.config['DATABASE_URL'] = 'sqlite:///dev.db'
+```
+
+**Required vs Optional:**
+```python
+# Crash if required secret is missing
+SECRET_KEY = os.getenv('SECRET_KEY')
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable must be set")
+
+# Optional with default
+MAX_UPLOAD_SIZE = int(os.getenv('MAX_UPLOAD_SIZE', '10485760'))  # 10MB default
+```
+
+Tian updated his entire codebase, moving every hardcoded secret to environment variables. He tested locally—everything worked. He committed and pushed to GitHub—no secrets visible.
+
+"Now I can share the code safely," he said with relief.
+
+Miguel gave them a final checklist:
+
+**Environment Variables Checklist:**
+☑ Create `.env` file
+☑ Add `.env` to `.gitignore`
+☑ Move all secrets to `.env`
+☑ Use `os.getenv()` in code
+☑ Install `python-dotenv` for easy loading
+☑ Document required environment variables in README
+☑ Create `.env.example` with dummy values as a template
+☑ Never commit `.env` to Git
+☑ Rotate any previously exposed secrets
+☑ Use different values for dev and production
+
+"Follow this checklist for every project," Miguel advised. "Make it a habit from day one. The first time you create a Flask app, create `.env` immediately. Configure `python-dotenv` immediately. Add `.env` to `.gitignore` immediately. Make it automatic."
+
+Rhea Joy had already updated all her projects. "I feel so much better now. My GitHub repos are clean, no secrets exposed. And I can share code without worrying."
+
+Captain Cruz, who'd been informed of the security incident, asked, "Is the barangay portal secure now?"
+
+"More secure than before," Tian confirmed. "All secrets are in environment variables. The code is clean. We rotated all credentials. We learned proper configuration management. And we'll never make this mistake again."
+
+Miguel smiled through the video call. "Every developer makes this mistake once. The key is learning from it. You now understand why environment variables exist, why secrets management matters, and how to handle configuration properly. That's professional-level knowledge. You're thinking about security holistically now—not just authentication and authorization, but also secrets management, configuration security, and operational security."
+
+Tian created a new public GitHub repository with the cleaned code, complete with a `.env.example` file showing required variables with dummy values. Anyone could clone the repo, copy `.env.example` to `.env`, fill in their own secrets, and run the application safely.
+
+"This is how professional projects are structured," he said with satisfaction. "Open source code, private secrets. Shareable, secure, professional."
+
+---
+
+## Theory & Lecture Content
 
 ## What are Environment Variables?
 
@@ -652,4 +827,4 @@ That night, Tian realized something important: Professional development wasn't j
 
 The barangay portal was getting closer to real-world readiness. But there was still more to learn: client-side storage, session management, and finally—deployment to a real server where residents could actually use it.
 
-_Next up: Lesson 45—Using Local Storage and Sessions!_ 💾
+_Next up: Lesson 45 - Using Local Storage and Sessions!_

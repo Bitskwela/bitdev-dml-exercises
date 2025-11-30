@@ -11,6 +11,10 @@ b) `<script type="module" src="main.js"></script>`
 c) `<script module src="main.js"></script>`  
 d) `<script import src="main.js"></script>`
 
+**Answer: b**
+
+ES6 modules require `type="module"` attribute: `<script type="module" src="main.js"></script>`
+
 ---
 
 **2. How do you export multiple functions from a module?**
@@ -19,6 +23,10 @@ a) `export {func1, func2, func3};`
 b) `export default {func1, func2, func3};`  
 c) `module.exports = {func1, func2, func3};`  
 d) Both a and b
+
+**Answer: a**
+
+Use named exports with braces: `export {func1, func2, func3};` to export multiple functions.
 
 ---
 
@@ -29,6 +37,10 @@ b) Named can have multiple per file, default only one
 c) Default is faster  
 d) Named exports are deprecated
 
+**Answer: b**
+
+Named exports allow multiple per file, default export allows only one. You can mix both in the same file.
+
 ---
 
 **4. How do you import everything from a module?**
@@ -38,6 +50,10 @@ b) `import {*} from './module.js';`
 c) `import * as name from './module.js';`  
 d) `import everything from './module.js';`
 
+**Answer: c**
+
+Use `import * as name from './module.js';` to import all exports as properties of an object.
+
 ---
 
 **5. Why use modules instead of one big JavaScript file?**
@@ -46,6 +62,10 @@ a) Better organization
 b) Easier to maintain  
 c) Reusable across projects  
 d) All of the above
+
+**Answer: d**
+
+Modules provide better organization, easier maintenance, reusability, and cleaner code structure.
 
 ---
 
@@ -58,6 +78,10 @@ b) Imports add and renames it to sum
 c) Imports both add and sum  
 d) Exports sum
 
+**Answer: b**
+
+This imports the `add` function and renames it to `sum` for use in your code.
+
 ---
 
 **7. Can you have both default and named exports in the same file?**
@@ -66,6 +90,10 @@ a) No, only one type allowed
 b) Yes, default + named exports allowed  
 c) Only in Node.js  
 d) Only named exports allowed
+
+**Answer: b**
+
+Yes, you can have both default and named exports in the same file.
 
 ---
 
@@ -76,6 +104,10 @@ b) Only one
 c) Up to five  
 d) Depends on file size
 
+**Answer: b**
+
+A module can have only one default export, but multiple named exports.
+
 ---
 
 **9. What's required to run ES6 modules locally?**
@@ -84,6 +116,10 @@ a) Nothing special
 b) HTTP server (localhost)  
 c) Node.js installation  
 d) Internet connection
+
+**Answer: b**
+
+ES6 modules require an HTTP server (like Live Server) due to CORS policy - can't run with `file://` protocol.
 
 ---
 
@@ -94,20 +130,9 @@ b) Separate modules by functionality
 c) Random splitting  
 d) Alphabetical order
 
----
+**Answer: b**
 
-## Answers
-
-1. **b** - `<script type="module" src="main.js"></script>`  
-2. **a** - `export {func1, func2, func3};`  
-3. **b** - Named can have multiple per file, default only one  
-4. **c** - `import * as name from './module.js';`  
-5. **d** - All of the above  
-6. **b** - Imports add and renames it to sum  
-7. **b** - Yes, default + named exports allowed  
-8. **b** - Only one  
-9. **b** - HTTP server (localhost)  
-10. **b** - Separate modules by functionality
+Separate modules by functionality (e.g., services.js, utils.js, validation.js) for better organization and maintainability.
 
 ---
 

@@ -1,16 +1,67 @@
-# Lesson 19: Media Queries and Responsive Breakpoints
+## Background Story
+
+The barangay website launch was scheduled for Friday. Tian and Rhea Joy had spent weeks perfecting every detail. On Tian's laptop (1920x1080 screen), the site looked professional—clean layouts, readable text, properly spaced elements, a three-column grid of service cards.
+
+On Wednesday, Ms. Reyes came to review the final version. She opened the site on her phone to test mobile access. Her face immediately showed concern.
+
+"This... doesn't work on mobile," she said, showing them the screen.
+
+Tian and Rhea Joy leaned in to look. The website was a disaster on the phone:
+
+- Text was microscopic, requiring constant zooming
+- The three-column service card grid was squished into tiny, unreadable columns
+- The navigation menu items overlapped each other
+- Images were cut off
+- Buttons were too small to tap accurately
+- Horizontal scrolling was required to see the full width
+
+It looked like someone had taken a desktop website and shrunk it down to 1/4 size without any adaptation.
+
+"But... it looks perfect on my laptop," Tian said weakly.
+
+"Most of our residents will access this on phones," Ms. Reyes explained. "In the Philippines, mobile internet usage is higher than desktop. If the site doesn't work on mobile, it doesn't work for most users."
+
+She was right. According to statistics, over 70% of Filipino internet users primarily access the web via smartphones.
+
+After Ms. Reyes left, Tian and Rhea Joy stared at the mobile version in horror.
+
+"We designed everything for desktop," Rhea Joy said. "We never tested on mobile. We assumed it would just... work."
+
+"We need different layouts for different screen sizes," Tian realized. "On desktop, three columns work great. On mobile, we need a single column. On desktop, the navigation can be horizontal. On mobile, it should probably be a hamburger menu. Desktop can have larger text, mobile needs even larger text for readability."
+
+They pulled up professional websites and tested them across devices. Facebook looked different on mobile versus desktop. Google adapted its interface. News sites reorganized their layouts. E-commerce sites changed their navigation and product grids.
+
+How did they do it? How did one website serve different layouts based on screen size?
+
+Tian opened the DevTools on a responsive website and saw CSS they didn't recognize:
+
+```css
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+```
+
+"What's this `@media` thing?" Tian wondered.
+
+They researched and discovered **media queries**—CSS rules that only apply when certain conditions are met, like screen width. Professional websites used media queries to serve different styling based on whether the user was on a phone, tablet, or desktop.
+
+That evening, they called Kuya Miguel, panic evident in their voices.
+
+"Kuya, we're launching Friday, but the website is completely broken on mobile! We designed everything for desktop screens and never thought about phones. Ms. Reyes said most residents will use mobile, so if it doesn't work on mobile, the project is a failure. How do we fix this in two days?"
+
+Miguel looked at their site on his phone and immediately understood the problem.
+
+"You fell into the classic beginner trap: designing for one screen size. Modern web development is responsive by default—sites must work across phones, tablets, and desktops. The tool for this is media queries. They let you write CSS that only applies at certain screen widths."
+
+"Can we learn this and fix the entire site by Friday?" Rhea Joy asked nervously.
+
+"Yes, but we need to work fast. Today I'm teaching you media queries, breakpoints, and mobile-first design philosophy. Tomorrow you'll refactor your entire stylesheet to be responsive. It's a lot of work, but it's doable. Let's start."
 
 ---
 
-## The Multi-Device Challenge
-
-"Kuya Miguel, tingnan mo!" Tian showed his phone with frustration. "Ang ganda ng barangay website sa computer, pero sa phone ang laki ng text at ang liit ng buttons. Hindi maganda!"
-
-Rhea Joy nodded. "Oo nga! And yung navigation bar, hindi kasya sa screen. We need different layouts for different devices."
-
-Kuya Miguel smiled. "That's exactly what **media queries** are for. They let you apply different CSS based on screen size, making your website look good on phones, tablets, and desktops."
-
----
+## Theory & Lecture Content
 
 ## What Are Media Queries?
 

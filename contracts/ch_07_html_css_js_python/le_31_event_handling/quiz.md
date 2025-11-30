@@ -14,6 +14,10 @@ B) `element.onclick = function() {}`
 C) `element.addEventListener('click', function() {})`  
 D) All are equally good
 
+**Answer: C**
+
+`addEventListener()` is best because it allows multiple listeners, easy removal, and cleaner separation of HTML and JavaScript.
+
 ---
 
 ### Question 2
@@ -23,6 +27,10 @@ A) Removes the event listener
 B) Stops the event from bubbling  
 C) Prevents the default browser action  
 D) Deletes the element
+
+**Answer: C**
+
+`event.preventDefault()` prevents the default browser action (e.g., form submission, link navigation, checkbox toggle).
 
 ---
 
@@ -34,6 +42,10 @@ B) `input`
 C) `keypress`  
 D) B and C
 
+**Answer: D**
+
+Both `input` and `keypress` events fire when typing. `input` is recommended as it works with all input types.
+
 ---
 
 ### Question 4
@@ -44,6 +56,10 @@ B) The parent element
 C) The event type  
 D) The event listener function
 
+**Answer: A**
+
+`event.target` is the element that triggered the event (e.g., the button that was clicked).
+
 ---
 
 ### Question 5
@@ -53,6 +69,10 @@ A) `form.stop()`
 B) `event.preventDefault()` in submit handler  
 C) `return false`  
 D) Remove the submit button
+
+**Answer: B**
+
+Use `event.preventDefault()` in the submit event handler to stop form submission and handle it with JavaScript instead.
 
 ---
 
@@ -66,6 +86,10 @@ B) `input` fires as you type, `change` fires when you leave the field
 C) `change` is for text, `input` is for numbers  
 D) `input` is older
 
+**Answer: B**
+
+`input` fires as you type (real-time), while `change` fires when you leave the field (blur). Use `input` for live validation.
+
 ---
 
 ### Question 7
@@ -75,6 +99,10 @@ A) `mouseenter` or `mouseover`
 B) `hover`  
 C) `mouseenter`  
 D) `mousein`
+
+**Answer: A**
+
+Both `mouseenter` and `mouseover` detect when mouse enters an element. `mouseenter` doesn't bubble, making it often preferred.
 
 ---
 
@@ -92,6 +120,10 @@ B) Adds click event to all buttons
 C) Creates new buttons  
 D) Error
 
+**Answer: B**
+
+This code adds a click event listener to all buttons on the page using `forEach()` to loop through the NodeList.
+
 ---
 
 ### Question 9
@@ -101,6 +133,10 @@ A) `element.value`
 B) `element.textContent`  
 C) `element.innerHTML`  
 D) `event.value`
+
+**Answer: A**
+
+Use `element.value` to get the value from input fields (text, number, email, etc.).
 
 ---
 
@@ -112,20 +148,9 @@ B) `element.removeEvent('click')`
 C) `element.clearEvents()`  
 D) Not possible
 
----
+**Answer: A**
 
-## Answers
-
-1. **C** - `element.addEventListener('click', function() {})`
-2. **C** - Prevents the default browser action
-3. **D** - B and C (`input` and `keypress`)
-4. **A** - The element that triggered the event
-5. **B** - `event.preventDefault()` in submit handler
-6. **B** - `input` fires as you type, `change` fires when you leave the field
-7. **A** - `mouseenter` or `mouseover`
-8. **B** - Adds click event to all buttons
-9. **A** - `element.value`
-10. **A** - `element.removeEventListener('click', functionName)`
+Use `element.removeEventListener('click', functionName)` with the exact same function reference used when adding the listener.
 
 ---
 

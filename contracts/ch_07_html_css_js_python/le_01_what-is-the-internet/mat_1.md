@@ -1,10 +1,36 @@
-# Lesson 1: What is the Internet?
-
 ## Background Story
 
-Tian, a Grade 10 student from Batangas, was super excited when the principal announced that the school now has internet access! But while loading Facebook and YouTube, Tian suddenly thought: "How does this actually work? Why can I see my classmates' posts right away even though Facebook's server is far away in America?"
+The bell rang for recess at Batangas National High School, and the entire campus erupted in excitement. Students poured out of classrooms, but instead of heading to the canteen like usual, they rushed toward the newly renovated computer lab. Today was special—after months of waiting, the school finally had internet access.
 
-Tian called cousin Kuya Miguel, a freelance web developer in Manila. They had a video call (using the school's new internet!), and that's where Tian's adventure into the world of web development began.
+Tian, a Grade 10 student with an insatiable curiosity about technology, managed to secure one of the thirty computers. Fingers trembling with anticipation, Tian typed "facebook.com" into the browser. Within seconds, the familiar blue interface loaded. Friends' posts appeared one after another. Photos from yesterday's basketball game. Status updates about upcoming exams. Messages from classmates.
+
+But as Tian scrolled through the feed, a thought emerged that wouldn't go away: *How is this even possible?*
+
+"Facebook's servers are in America," Tian muttered, staring at the screen. "That's literally across the Pacific Ocean. How can I see Rhea Joy's post that she uploaded just three seconds ago? How does my click turn into... this?" Tian gestured at the screen, where new comments were appearing in real-time.
+
+The questions multiplied. Why doesn't it take hours for pages to load if the data has to travel from the other side of the world? How does the internet know where to send information? What's actually happening beneath all these websites?
+
+That evening, back at home in their small but comfortable house near the town plaza, Tian couldn't stop thinking about it. The curiosity gnawed at them like an itch that couldn't be scratched. Finally, Tian grabbed their phone and dialed Kuya Miguel.
+
+Miguel—Tian's cousin and mentor—was a freelance web developer living in Manila. He'd dropped out of college to pursue programming, a decision that scandalized the family at first. But now, at 28, he was earning more than most of their relatives with degrees, working with clients from Singapore, Australia, and even the United States. He'd promised Tian that once their school got internet, he'd teach them everything about how the web really works.
+
+"Kuya!" Tian said as soon as Miguel picked up. "The school finally has internet! I just used Facebook for the first time on a real computer, not just mobile data. But I need to ask—how does it actually work? Like, how does typing 'facebook.com' make a whole website appear in seconds?"
+
+Miguel laughed on the other end of the line. "I was wondering when you'd ask that question! That curiosity? That's exactly what makes someone a good developer. Most people just use the internet. You want to understand it. That's the difference."
+
+"So can you explain it?" Tian pressed.
+
+"Better than that," Miguel replied. "Let's do a video call. I'll share my screen. Time for your first real lesson in web development. Get your notebook ready—we're starting with the foundation: What the internet actually is, how it works, and why it's the most important technology of our generation."
+
+Ten minutes later, Tian was sitting at the small wooden desk in their room, notebook open, pen ready. The video call connected—ironically, using the very internet technology they were about to learn about. Miguel's face appeared on screen, grinning.
+
+"Welcome to Web Development 101," Miguel said. "Let's start with the question everyone should ask but most people never do: What is the internet?"
+
+And with that, Tian's journey from consumer to creator began.
+
+---
+
+## Theory & Lecture Content
 
 ## What Really is the Internet?
 
@@ -139,4 +165,4 @@ Kuya Miguel's voice echoed in Tian's mind: "The internet isn't magic—it's engi
 
 Tian opened a new note on the phone and typed: "Next: Learn how websites actually load." The curiosity spark had been lit. Tomorrow, the real learning journey begins.
 
-_Next up: How Websites Work—the Client-Server Model!_ 🚀
+Next up: How Websites Work—the Client-Server Model!

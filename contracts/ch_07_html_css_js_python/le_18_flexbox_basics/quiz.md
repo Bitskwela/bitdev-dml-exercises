@@ -8,11 +8,19 @@
    - C. `flex: container;`
    - D. `layout: flex;`
 
+**Answer: B**
+
+Set `display: flex;` on the parent container. The children automatically become flex items.
+
 2. What is the default `flex-direction`?
    - A. `column` (vertical)
    - B. `row` (horizontal)
    - C. `row-reverse`
    - D. `wrap`
+
+**Answer: B**
+
+The default `flex-direction` is `row`, which arranges flex items horizontally from left to right.
 
 3. Rhea Joy wants to center items both horizontally and vertically. Which CSS is correct?
    - A. `justify-content: center;` only
@@ -20,17 +28,29 @@
    - C. `justify-content: center; align-items: center;`
    - D. `text-align: center;`
 
+**Answer: C**
+
+Use both `justify-content: center;` (horizontal center on main axis) and `align-items: center;` (vertical center on cross axis).
+
 4. What does `gap: 20px;` do in a flex container?
    - A. Adds 20px padding to all items
    - B. Adds 20px margin to all items
    - C. Adds 20px space between items
    - D. Sets item width to 20px
 
+**Answer: C**
+
+`gap: 20px;` adds 20px space between flex items (no space at edges). Modern and cleaner than using margins.
+
 5. Which property controls spacing along the main axis?
    - A. `align-items`
    - B. `justify-content`
    - C. `align-content`
    - D. `flex-align`
+
+**Answer: B**
+
+`justify-content` controls spacing along the main axis (horizontal for row, vertical for column).
 
 ---
 
@@ -51,11 +71,19 @@
    - C. `wrap: enabled;`
    - D. `multi-line: true;`
 
+**Answer: A**
+
+`flex-wrap: wrap;` allows items to wrap to the next line if they don't fit. Default is `nowrap` (single line).
+
 7. What does `justify-content: space-between;` do?
    - A. Adds equal space inside each item
    - B. Puts space only between items (no space at edges)
    - C. Centers all items
    - D. Aligns items to the end
+
+**Answer: B**
+
+`space-between` distributes items with equal space between them, but no space at the start or end edges.
 
 8. Rhea Joy wants navigation links side by side with space between them. Which is best?
    - A. `display: block; margin: 10px;`
@@ -63,11 +91,19 @@
    - C. `display: flex; gap: 10px;`
    - D. `display: grid; gap: 10px;`
 
+**Answer: C**
+
+`display: flex; gap: 10px;` is the modern, clean way to create side-by-side navigation with spacing.
+
 9. What does `align-items: center;` do when `flex-direction: row;`?
    - A. Centers items horizontally
    - B. Centers items vertically
    - C. Centers text inside items
    - D. Has no effect
+
+**Answer: B**
+
+When `flex-direction: row`, `align-items` controls the cross axis (vertical), so it centers items vertically.
 
 10. Which property makes a flex item grow to fill available space?
     - A. `flex-size: grow;`
@@ -75,20 +111,9 @@
     - C. `grow: true;`
     - D. `expand: 1;`
 
----
+**Answer: B**
 
-# Answers
-
-1. **B** - `display: flex;`
-2. **B** - `row` (horizontal)
-3. **C** - `justify-content: center; align-items: center;`
-4. **C** - Adds 20px space between items
-5. **B** - `justify-content`
-6. **A** - `flex-wrap: wrap;`
-7. **B** - Puts space only between items (no space at edges)
-8. **C** - `display: flex; gap: 10px;`
-9. **B** - Centers items vertically
-10. **B** - `flex-grow: 1;`
+`flex-grow: 1;` makes a flex item grow to fill available space. Higher values take more space proportionally.
 
 ---
 

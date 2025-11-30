@@ -51,12 +51,20 @@ Tian refactors code using semantic tags:
 - C) Smaller file size
 - D) No benefit
 
+**Answer: B**
+
+Semantic HTML improves: 1) SEO (search engines understand content structure), 2) Accessibility (screen readers navigate by landmarks), 3) Code readability (clear meaning).
+
 **Question 2:** How many `<main>` tags should a page have?
 
 - A) As many as needed
 - B) Only one
 - C) At least two
 - D) None
+
+**Answer: B**
+
+A page should have only one `<main>` tag that identifies the primary content. Multiple `<main>` tags confuse screen readers and search engines.
 
 ---
 
@@ -69,12 +77,20 @@ Tian refactors code using semantic tags:
 - C) `<article>` for images only
 - D) `<section>` for tables only
 
+**Answer: B**
+
+`<article>` is for standalone, reusable content (blog posts, news articles). `<section>` is for thematic grouping of related content within a page.
+
 **Question 4:** Which is more semantic?
 
 - A) `<div class="header">`
 - B) `<header>`
 - C) Both same
 - D) `<div>` better
+
+**Answer: B**
+
+`<header>` is semantic and clearly identifies the header section. `<div class="header">` requires interpretation and doesn't convey meaning to search engines or screen readers.
 
 **Question 5:** What should every `<section>` contain?
 
@@ -83,14 +99,9 @@ Tian refactors code using semantic tags:
 - C) Link
 - D) Table
 
----
+**Answer: B**
 
-## Answers
-1: B  
-2: B  
-3: B  
-4: B  
-5: B  
+Every `<section>` should contain a heading (h2-h6) to describe the section's theme. This helps with document structure and accessibility.  
 
 ---
 

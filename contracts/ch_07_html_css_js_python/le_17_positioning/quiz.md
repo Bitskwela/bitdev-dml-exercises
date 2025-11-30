@@ -8,11 +8,19 @@
    - C. `static`
    - D. `fixed`
 
+**Answer: C**
+
+All HTML elements have `position: static;` by default. This means they follow normal document flow.
+
 2. Rhea Joy wants a badge in the top-right corner of a card. Which positioning should she use?
    - A. Parent: `static`, Badge: `relative`
    - B. Parent: `relative`, Badge: `absolute`
    - C. Parent: `absolute`, Badge: `fixed`
    - D. Parent: `fixed`, Badge: `static`
+
+**Answer: B**
+
+Set parent to `position: relative;` (creates positioning context) and badge to `position: absolute;` (positions within parent).
 
 3. What does `position: fixed;` do?
    - A. Positions element relative to its parent
@@ -20,17 +28,29 @@
    - C. Positions element in normal flow
    - D. Makes element disappear
 
+**Answer: B**
+
+`position: fixed;` positions the element relative to the viewport (browser window) and it stays in place when scrolling.
+
 4. Tian sets `position: relative; top: 20px;` on an element. What happens?
    - A. Element moves 20px up from its original position
    - B. Element moves 20px down from its original position
    - C. Element moves to top of page
    - D. Nothing happens
 
+**Answer: B**
+
+`top: 20px` with `position: relative` moves the element 20px down from its original position (positive values move down).
+
 5. Which property controls stacking order when elements overlap?
    - A. `stack-order`
    - B. `layer`
    - C. `z-index`
    - D. `order`
+
+**Answer: C**
+
+`z-index` controls stacking order. Higher values appear on top. Only works on positioned elements (not `static`).
 
 ---
 
@@ -53,11 +73,19 @@
    - C. Header will scroll with page
    - D. Header will disappear
 
+**Answer: B**
+
+Fixed elements are removed from normal flow, so content starts at the top and gets hidden under the header. Add `padding-top: 60px;` to body to fix this.
+
 7. What's the difference between `position: absolute;` and `position: relative;`?
    - A. They're the same
    - B. Absolute removes element from flow, relative keeps space
    - C. Relative removes element from flow, absolute keeps space
    - D. Absolute works with `top`, relative doesn't
+
+**Answer: B**
+
+`absolute` removes the element from flow (other elements behave as if it doesn't exist). `relative` keeps its space in the flow.
 
 8. When does `z-index` work?
    - A. On any element
@@ -65,11 +93,19 @@
    - C. Only on `fixed` elements
    - D. Only on `absolute` elements
 
+**Answer: B**
+
+`z-index` only works on positioned elements (`relative`, `absolute`, `fixed`, or `sticky`). It has no effect on `static` elements.
+
 9. What does `position: sticky; top: 0;` do?
    - A. Acts like `fixed` immediately
    - B. Acts like `relative` until scrolling past threshold, then acts like `fixed`
    - C. Same as `position: static;`
    - D. Same as `position: absolute;`
+
+**Answer: B**
+
+`sticky` acts like `relative` until you scroll past it, then it "sticks" like `fixed`. Great for section headers.
 
 10. Rhea Joy wants to center a modal dialog. Which CSS is correct?
     - A. `position: fixed; top: 50%; left: 50%;`
@@ -77,20 +113,9 @@
     - C. `position: relative; margin: auto;`
     - D. `position: static; text-align: center;`
 
----
+**Answer: B**
 
-# Answers
-
-1. **C** - `static`
-2. **B** - Parent: `relative`, Badge: `absolute`
-3. **B** - Positions element relative to viewport and stays when scrolling
-4. **B** - Element moves 20px down from its original position
-5. **C** - `z-index`
-6. **B** - Content will be hidden under the header
-7. **B** - Absolute removes element from flow, relative keeps space
-8. **B** - Only on positioned elements (not `static`)
-9. **B** - Acts like `relative` until scrolling past threshold, then acts like `fixed`
-10. **B** - `position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);`
+Use `top: 50%; left: 50%;` to position at center, then `transform: translate(-50%, -50%);` to offset by element's own dimensions for perfect centering.
 
 ---
 

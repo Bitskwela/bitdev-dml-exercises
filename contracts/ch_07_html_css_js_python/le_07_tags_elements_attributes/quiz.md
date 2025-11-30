@@ -29,12 +29,20 @@ Tian creates a barangay official directory:
 - C) Attribute
 - D) Value
 
+**Answer: B**
+
+An element is the complete structure: opening tag + content + closing tag. A tag is just the syntax (`<p>`, `</p>`), but the element is the whole package.
+
 **Question 2:** Which of these is a self-closing tag?
 
 - A) `<p>`
 - B) `<div>`
 - C) `<img>`
 - D) `<strong>`
+
+**Answer: C**
+
+Self-closing tags like `<img>`, `<br>`, `<hr>`, `<input>`, `<meta>` don't need closing tags because they have no content inside. Regular tags like `<p>` and `<div>` require closing tags.
 
 ---
 
@@ -47,12 +55,20 @@ Tian creates a barangay official directory:
 - C) Elements
 - D) Content
 
+**Answer: B**
+
+Attributes provide extra information in the opening tag. Syntax: `attribute="value"`. Common attributes: `id` (unique), `class` (CSS), `src` (source), `href` (link), `alt` (alternate text).
+
 **Question 4:** Which is a block-level element?
 
 - A) `<span>`
 - B) `<strong>`
 - C) `<div>`
 - D) `<em>`
+
+**Answer: C**
+
+Block-level elements take full width and start on a new line (`<div>`, `<p>`, `<h1>`, `<ul>`). Inline elements flow with text (`<span>`, `<strong>`, `<a>`, `<img>`).
 
 **Question 5:** What's wrong with this code?
 ```html
@@ -64,14 +80,9 @@ Tian creates a barangay official directory:
 - C) Missing quotes
 - D) Self-closing issue
 
----
+**Answer: B**
 
-## Answers
-1: B  
-2: C  
-3: B  
-4: C  
-5: B  
+Nesting rule: Last opened, first closed. The tags overlap incorrectly. Correct: `<strong><em>...</em></strong>` (properly nested).  
 
 ---
 

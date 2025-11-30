@@ -1,16 +1,53 @@
-# Lesson 15: The CSS Box Model
+## Background Story
+
+Tian and Rhea Joy sat side by side at the computer lab, both staring at the barangay website they'd been designing for the past two weeks. The HTML structure was solid. The CSS colors and fonts looked professional. They'd even added hover effects to the buttons.
+
+But something was off. The entire page felt... claustrophobic.
+
+Text ran right up against the edges of containers. Images touched paragraph borders. The navigation menu items were so tightly packed they were hard to click. Headlines and body text had no breathing room. The sidebar was crammed against the main content. Everything felt like it was fighting for space, uncomfortably close, visually exhausting.
+
+"This looks terrible," Rhea Joy said bluntly, zooming out to see the full page. "It's like everyone is squeezed into a jeepney during rush hour. Siksikan. No personal space."
+
+Tian nodded, frustrated. "I don't understand. I set widths and heights for all the containers. I used the right fonts. The colors match our design mockup. Why does it still look so cramped?"
+
+They pulled up a professional website for comparison—the official Batangas City government site. Clean. Spacious. Every element had room to breathe. Text wasn't touching container edges. Cards had comfortable spacing between them. The navigation menu was generous and easy to interact with.
+
+"What are they doing that we're not?" Tian asked, inspecting the site with DevTools.
+
+Rhea Joy pointed at the Styles panel in DevTools. "Look at all these properties: `padding`, `margin`, `border`. There are so many spacing-related properties. We barely used any of them. We just set `width` and `height` and thought that was enough."
+
+Tian clicked on a card element on the professional site. DevTools highlighted it, showing a visual representation of its box model. There were four distinct layers: content, padding, border, and margin. Each layer had specific pixel values.
+
+"Wait, there's a whole system here," Tian said slowly, studying the visualization. "It's not just about the content size. There are these layers of spacing around it. The content sits inside padding, which sits inside a border, which sits inside a margin. That's how they create breathing room!"
+
+They tried adding random values to their own site:
+
+```css
+.card {
+    padding: 20px;
+    margin: 15px;
+}
+```
+
+The page transformed. Suddenly, the cards had internal spacing (padding) and space between them (margin). It looked... better. Not perfect, but significantly better.
+
+"This is it!" Rhea Joy exclaimed. "This is what we've been missing. But I still don't fully understand the difference between padding and margin, or how borders work, or how all of this affects the total size of elements."
+
+That evening, Tian called Kuya Miguel and explained their discovery and confusion.
+
+"We figured out that spacing is the key to good design, but we don't understand the CSS Box Model. We're just guessing with `padding` and `margin` values. Can you explain how it really works?"
+
+Miguel pulled up a diagram on his screen—the famous CSS Box Model illustration showing content, padding, border, and margin as concentric rectangles.
+
+"This," Miguel said, "is one of the most fundamental concepts in CSS. Every HTML element is treated as a box, and every box has these four layers. Mastering the box model is what separates amateur-looking websites from professional ones. It's how you control spacing, create layouts, and make designs feel comfortable and intentional instead of cramped and chaotic."
+
+"So the box model is why our site looked like a crowded jeepney?" Tian asked.
+
+"Exactly. You built the structure and added colors, but you didn't control the spacing. Today, I'm teaching you padding, margin, borders, and how they all interact. You'll also learn about `box-sizing`, which is a property that changes how the browser calculates element sizes. By the end of this lesson, you'll be able to create layouts that breathe."
 
 ---
 
-## Understanding Spacing in the Barangay Website
-
-"Kuya Miguel, bakit ang sikip ng website natin?" Tian asked, staring at their barangay website where text and images were crammed together.
-
-Rhea Joy nodded. "Yeah, walang breathing room. Everything is touching each other. Parang siksikan sa jeepney!"
-
-Kuya Miguel laughed. "Ah, that's because you haven't learned about the CSS Box Model yet. It's one of the most important concepts in CSS—it controls spacing, borders, and layout."
-
----
+## Theory & Lecture Content
 
 ## What is the CSS Box Model?
 

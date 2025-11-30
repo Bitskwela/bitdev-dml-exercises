@@ -14,6 +14,10 @@ B) Data Object Management
 C) Display Output Method  
 D) Digital Online Module
 
+**Answer: A**
+
+DOM stands for Document Object Model - a programming interface that represents HTML documents as a tree structure that JavaScript can manipulate.
+
 ---
 
 ### Question 2
@@ -24,6 +28,10 @@ B) `document.querySelector('#header')`
 C) `document.querySelector('.header')`  
 D) `document.getElementById('header')` or B
 
+**Answer: D**
+
+Both `document.getElementById('header')` and `document.querySelector('#header')` work. Use querySelector for flexibility with CSS selectors.
+
 ---
 
 ### Question 3
@@ -33,6 +41,10 @@ A) No difference
 B) `textContent` treats input as plain text, `innerHTML` interprets HTML  
 C) `innerHTML` is faster  
 D) `textContent` doesn't work
+
+**Answer: B**
+
+`textContent` treats input as plain text (safe), while `innerHTML` interprets HTML tags (can be dangerous with user input).
 
 ---
 
@@ -49,6 +61,10 @@ B) `'Hello'`
 C) `#box`  
 D) Error
 
+**Answer: B**
+
+The output is `'Hello'` because we set `textContent` to 'Hello' and then logged it.
+
 ---
 
 ### Question 5
@@ -58,6 +74,10 @@ A) `element.class.add('active')`
 B) `element.classList.add('active')`  
 C) `element.addClass('active')`  
 D) `element.class = 'active'`
+
+**Answer: B**
+
+Use `element.classList.add('active')` to add a CSS class to an element.
 
 ---
 
@@ -76,6 +96,10 @@ B) Creates new div and adds to page
 C) Removes div from page  
 D) Changes existing div
 
+**Answer: B**
+
+This creates a new `<div>` element, sets its text, and appends it to the page body.
+
 ---
 
 ### Question 7
@@ -85,6 +109,10 @@ A) `element.style.background-color = 'red'`
 B) `element.style.backgroundColor = 'red'`  
 C) `element.background = 'red'`  
 D) `element.color = 'red'`
+
+**Answer: B**
+
+Use camelCase for CSS properties in JavaScript: `element.style.backgroundColor = 'red'`.
 
 ---
 
@@ -96,6 +124,10 @@ B) Array
 C) NodeList (array-like)  
 D) String
 
+**Answer: C**
+
+`querySelectorAll()` returns a NodeList (array-like collection) of all matching elements.
+
 ---
 
 ### Question 9
@@ -105,6 +137,10 @@ A) `element.delete()`
 B) `element.remove()`  
 C) `element.hide()`  
 D) `element.destroy()`
+
+**Answer: B**
+
+Use `element.remove()` to remove an element from the DOM.
 
 ---
 
@@ -116,20 +152,9 @@ B) `element.classList.has('active')`
 C) `element.classList.contains('active')`  
 D) `element.class.includes('active')`
 
----
+**Answer: C**
 
-## Answers
-
-1. **A** - Document Object Model
-2. **D** - `document.getElementById('header')` or B
-3. **B** - `textContent` treats input as plain text, `innerHTML` interprets HTML
-4. **B** - `'Hello'`
-5. **B** - `element.classList.add('active')`
-6. **B** - Creates new div and adds to page
-7. **B** - `element.style.backgroundColor = 'red'`
-8. **C** - NodeList (array-like)
-9. **B** - `element.remove()`
-10. **C** - `element.classList.contains('active')`
+Use `element.classList.contains('active')` to check if an element has a specific class.
 
 ---
 

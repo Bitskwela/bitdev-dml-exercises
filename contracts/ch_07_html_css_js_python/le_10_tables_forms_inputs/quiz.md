@@ -46,12 +46,20 @@ Tian creates a clearance application form:
 - C) POST faster
 - D) GET more secure
 
+**Answer: B**
+
+GET shows data in the URL (bookmarkable, for searches/filters). POST hides data in the request body (more secure for passwords/personal info).
+
 **Question 2:** Why should labels have `for` attribute matching input `id`?
 
 - A) Visual styling
 - B) Accessibility (clicking label focuses input)
 - C) Optional decoration
 - D) No benefit
+
+**Answer: B**
+
+Linking labels with `for="id"` improves accessibility (screen readers) and UX (clicking label focuses the input, larger tap target).
 
 ---
 
@@ -64,12 +72,20 @@ Tian creates a clearance application form:
 - C) Radio for text, Checkbox for numbers
 - D) Both choose multiple
 
+**Answer: B**
+
+Radio buttons let you choose one option from a group (same `name`). Checkboxes let you choose multiple options independently.
+
 **Question 4:** In a table, what's the difference between `<th>` and `<td>`?
 
 - A) No difference
 - B) `<th>` = header (bold, centered), `<td>` = data
 - C) `<th>` for numbers only
 - D) `<td>` bold by default
+
+**Answer: B**
+
+`<th>` (table header) is bold and centered by default, describes columns/rows. `<td>` (table data) contains the actual data cells.
 
 **Question 5:** What attribute makes an input field mandatory?
 
@@ -78,14 +94,9 @@ Tian creates a clearance application form:
 - C) `needed`
 - D) `important`
 
----
+**Answer: B**
 
-## Answers
-1: B  
-2: B  
-3: B  
-4: B  
-5: B  
+The `required` attribute makes an input field mandatory. HTML5 validates this before form submission.  
 
 ---
 

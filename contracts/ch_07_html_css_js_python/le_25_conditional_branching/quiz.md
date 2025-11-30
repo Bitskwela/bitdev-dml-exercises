@@ -23,6 +23,10 @@ B) `Adult`
 C) Nothing  
 D) Error
 
+**Answer: B**
+
+Since `age` is 20, which is greater than or equal to 18, the condition `age >= 18` is true, so it executes the if block and outputs "Adult".
+
 ---
 
 ### Question 2
@@ -44,6 +48,10 @@ B) `Very Good`
 C) `Good`  
 D) Error
 
+**Answer: B**
+
+The score is 85. It doesn't meet the first condition (`>= 90`), but it meets the second condition (`>= 80`), so it outputs "Very Good".
+
 ---
 
 ### Question 3
@@ -63,6 +71,10 @@ A) `Approved`
 B) `Denied`  
 C) `true`  
 D) Nothing
+
+**Answer: B**
+
+The `&&` operator requires both conditions to be true. While `hasID` is true, `age >= 18` is false (16 < 18), so the entire condition is false and it outputs "Denied".
 
 ---
 
@@ -88,6 +100,10 @@ B) `Tuesday`
 C) `Other`  
 D) Error
 
+**Answer: B**
+
+The switch statement matches `day` (which is 2) with `case 2`, so it executes that block and outputs "Tuesday", then breaks out.
+
 ---
 
 ### Question 5
@@ -111,6 +127,10 @@ B) `First` and `Second`
 C) Only `Second`  
 D) Error
 
+**Answer: B**
+
+Without a `break` statement, the code "falls through" to the next case. It matches case "A", outputs "First", then continues to case "B" and outputs "Second", then breaks.
+
 ---
 
 ## Quiz 2
@@ -132,6 +152,10 @@ B) `Name missing`
 C) `""`  
 D) Error
 
+**Answer: B**
+
+An empty string `""` is falsy in JavaScript. The if condition evaluates to false, so it executes the else block and outputs "Name missing".
+
 ---
 
 ### Question 7
@@ -148,7 +172,11 @@ console.log("Fee: ₱" + fee);
 ```
 
 A) `Fee: ₱50`  
-B) `Fee: ₱40`  
+B) `Fee: ₱40`
+
+**Answer: B**
+
+Since age (65) is >= 60, the discount is applied: `50 * 0.8 = 40`. So it outputs "Fee: ₱40".  
 C) `Fee: ₱30`  
 D) `Fee: ₱45`
 

@@ -1,12 +1,50 @@
-# Lesson 12: What is CSS and How to Link It
-
 ## Background Story
 
-Tian's HTML website was functional but plain. Rhea Joy, a classmate skilled in design, looked at it and said, "It works, but it's boring. You need **CSS** to make it look good!"
+Tian clicked "Open in Browser" and waited as Chrome loaded their first HTML website—a simple page for Barangay Sto. Niño. The page appeared instantly. All the content was there: headings, paragraphs, lists of services, contact information, properly structured with semantic HTML. It was valid. It was accessible. It was functional.
 
-"What's CSS?" Tian asked.
+It was also, Tian had to admit, painfully boring.
 
-"**Cascading Style Sheets**—it's how you add colors, fonts, layouts, and make websites beautiful. HTML is the skeleton, CSS is the skin and clothing."
+Black text on a white background. Times New Roman font. No spacing, no colors, no visual hierarchy beyond the browser's default styling. It looked like a document from 1995, the early web era before design became a priority.
+
+Tian took a screenshot and sent it to the group chat with Rhea Joy and two other classmates working on the barangay website project.
+
+**Tian:** *First draft of the barangay homepage. All the content is there. Thoughts?*
+
+The reply came within seconds.
+
+**Rhea Joy:** *Functional but... Tian, it looks like a Word document 😅*
+
+**Marco:** *Did you forget to add the design?*
+
+**Jenna:** *It works, but no one will want to use it. Sorry to be harsh.*
+
+Tian stared at the screen, feeling a mix of defensiveness and resignation. They'd worked hard on the HTML structure—proper semantic tags, valid markup, organized sections. But the others were right. Functionality without aesthetics was like a house with no paint, no furniture, no personality. It technically provided shelter, but no one would want to live there.
+
+The next day at school, Rhea Joy pulled Tian aside during lunch.
+
+"Hey, don't feel bad about yesterday's comments. Your HTML structure is actually really good—I looked at the code. You used semantic tags correctly, everything is organized. But Tian, websites in 2024 need to look good. Users expect visual appeal, smooth layouts, intuitive design. That's where CSS comes in."
+
+"CSS?" Tian asked.
+
+"Cascading Style Sheets. It's the language that makes websites beautiful. Colors, fonts, spacing, layouts, responsive design—everything visual is CSS." Rhea Joy pulled out her phone and opened Behance, a portfolio site for designers. "Look at these websites. All of them are HTML for structure, but CSS is what makes them *stunning*."
+
+Tian scrolled through the portfolio pieces—websites with elegant color schemes, creative layouts, smooth hover effects, perfect spacing. Each one felt like a work of art.
+
+"I want our barangay website to look like this," Tian said. "But I have no idea where to start. I'm a structure and logic person, not a designer."
+
+"Then let me teach you," Rhea Joy offered. "I've been learning CSS for a few months. It's easier than you think. You don't have to become a designer—you just need to understand how CSS works, how to link it to HTML, and how to apply basic styling. I'll help with the advanced design stuff."
+
+That evening, Tian told Kuya Miguel about the situation.
+
+"So Rhea Joy is right," Miguel confirmed. "HTML without CSS is like building a house and leaving it unpainted with bare concrete walls. Functional, but not inviting. CSS is how you transform structure into experience."
+
+"Can you teach me the basics?" Tian asked. "I don't need to be a designer, but I need to understand how to style pages, link CSS files, and make things look... not like a 1995 Geocities site."
+
+Miguel laughed. "Absolutely. Let me introduce you to CSS—how to write it, how to link it, and why it's called 'cascading.' By the end of today, your barangay website will actually look like a modern website."
+
+---
+
+## Theory & Lecture Content
 
 ## What is CSS?
 

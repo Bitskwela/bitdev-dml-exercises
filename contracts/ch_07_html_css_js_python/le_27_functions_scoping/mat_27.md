@@ -1,16 +1,91 @@
-# Lesson 27: Functions and Scoping
+## Background Story
+
+Tian's JavaScript file had grown to over 300 lines. The barangay fee calculation appeared in five different places:
+
+```javascript
+// In clearance application section
+let clearanceFee = 50;
+if (isRush) clearanceFee += 30;
+if (isSenior) clearanceFee *= 0.80;
+
+// In ID application section
+let idFee = 30;
+if (isRush) idFee += 30;
+if (isSenior) idFee *= 0.80;
+
+// In indigency certificate section
+let indigencyFee = 20;
+if (isRush) indigencyFee += 30;
+if (isSenior) indigencyFee *= 0.80;
+
+// ...and so on
+```
+
+The same calculation logic—rush processing, senior discount—was copied and pasted throughout the file with minor variations. It worked, but there were serious problems:
+
+1. **Code duplication**: The same 3-4 lines repeated everywhere
+2. **Maintenance nightmare**: If the senior discount changed from 20% to 25%, Tian would have to update it in five places
+3. **Error-prone**: One section had a typo (`clearanceFee *= 0.08` instead of `0.80`), creating a bug that took an hour to find
+4. **Unorganized**: The file was a mess of intermingled logic with no clear structure
+
+Worse, when the barangay office requested a new feature—PWD (persons with disabilities) discount of 15%—Tian would have to add another `if` statement in five different locations. The code was becoming unmaintainable.
+
+Rhea Joy faced a similar problem with form validation. She had three forms—clearance application, ID application, and complaint submission. Each form needed to validate:
+- Required fields aren't empty
+- Email format is correct
+- Phone number has 11 digits
+- Age is a valid number
+
+She'd written the validation logic separately for each form, resulting in 150 lines of duplicated code. When she discovered a bug in the email validation regex, she had to fix it in three places—and she forgot to update one, leaving that form with broken validation.
+
+"This is insane," Rhea Joy said during their Sunday morning work session. "I'm copying the same code over and over. There must be a way to write validation logic once and reuse it everywhere."
+
+"Same problem here," Tian replied, showing the duplicated fee calculation code. "If we're professional developers, we can't keep doing this. It's inefficient, error-prone, and unmaintainable."
+
+They googled "how to reuse code in JavaScript" and found a universal answer: **functions**. Functions are reusable blocks of code that perform specific tasks. Write the logic once, call it whenever needed.
+
+Tian experimented:
+
+```javascript
+function calculateFee(baseFee, isRush, isSenior) {
+    let total = baseFee;
+    if (isRush) total += 30;
+    if (isSenior) total *= 0.80;
+    return total;
+}
+
+let clearanceFee = calculateFee(50, true, false);
+let idFee = calculateFee(30, false, true);
+let indigencyFee = calculateFee(20, true, true);
+```
+
+Three lines replaced 15 lines of duplicated code! And if the senior discount needed to change, they'd update one place—inside the function—and all calculations would automatically use the new logic.
+
+Rhea Joy tried the same with validation:
+
+```javascript
+function isValidEmail(email) {
+    return email.includes('@') && email.includes('.');
+}
+
+if (!isValidEmail(userEmail)) {
+    alert('Invalid email');
+}
+```
+
+Now email validation was a single reusable function instead of duplicated regex checks scattered everywhere.
+
+But they'd stumbled upon functions by trial and error. They didn't understand function syntax properly, parameters, return values, or scope. They'd created functions that worked, but they weren't sure why or how to write more complex ones.
+
+That evening, they called Kuya Miguel.
+
+"Kuya, our code was full of duplication. Same calculations and validations repeated everywhere. We discovered functions let us write logic once and reuse it, but we're just guessing at the syntax. Can you teach us functions properly—how to write them, how to pass data in and out, and how to organize code with reusable functions?"
+
+Miguel pulled up his screen. "Functions are one of the most important concepts in programming. They're how professionals write maintainable, organized, DRY code—Don't Repeat Yourself. Today we're learning function declarations, parameters, arguments, return values, function scope, arrow functions, and best practices for organizing code with functions. By the end of this lesson, your 300-line file will probably shrink to 150 lines of clean, reusable functions."
 
 ---
 
-## Organizing Code with Functions
-
-"Kuya Miguel, we keep calculating barangay fees in different places. How do we avoid repeating the same code?" Tian asked.
-
-Rhea Joy added, "And what if we need to change the calculation formula later?"
-
-Kuya Miguel smiled. "That's why we use **functions**—reusable blocks of code that perform specific tasks. Write once, use anywhere!"
-
----
+## Theory & Lecture Content
 
 ## What are Functions?
 

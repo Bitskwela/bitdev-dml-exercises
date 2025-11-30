@@ -11,6 +11,10 @@ b) To store and track application data
 c) To connect to database  
 d) To create animations
 
+**Answer: b**
+
+State management stores and tracks application data, representing the current condition of your application.
+
 ---
 
 **2. Why separate `allServices` and `filteredServices`?**
@@ -19,6 +23,10 @@ a) No reason, redundant
 b) To preserve original data while showing filtered results  
 c) For better performance  
 d) Required by JavaScript
+
+**Answer: b**
+
+Separating arrays preserves original data (allServices) while allowing filtered views (filteredServices) for search/filter functionality.
 
 ---
 
@@ -29,6 +37,10 @@ b) Stores custom data attribute on HTML element
 c) Assigns JavaScript variable  
 d) Causes an error
 
+**Answer: b**
+
+`dataset.id` stores a custom data attribute (`data-id`) on the HTML element, accessible in JavaScript.
+
 ---
 
 **4. Why use `innerHTML = ''` before adding new cards?**
@@ -38,6 +50,10 @@ b) Clear previous content to avoid duplicates
 c) Required by browsers  
 d) No specific reason
 
+**Answer: b**
+
+Clearing with `innerHTML = ''` removes previous content to avoid duplicates when re-rendering.
+
 ---
 
 **5. What's the purpose of try/catch in fetchServices()?**
@@ -46,6 +62,10 @@ a) Speed up fetching
 b) Handle errors gracefully  
 c) Validate data  
 d) Format responses
+
+**Answer: b**
+
+`try/catch` handles errors gracefully, allowing you to show user-friendly error messages instead of crashes.
 
 ---
 
@@ -58,6 +78,10 @@ b) Code that runs whether success or error
 c) To catch errors  
 d) To return data
 
+**Answer: b**
+
+The `finally` block executes code regardless of success or error (e.g., hiding loading spinner).
+
 ---
 
 **7. What does `grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))` do?**
@@ -66,6 +90,10 @@ a) Creates 3 columns
 b) Creates responsive grid that adapts to screen size  
 c) Fixes column width  
 d) Causes layout errors
+
+**Answer: b**
+
+This creates a responsive grid where columns automatically adjust based on available space (min 300px, max 1fr).
 
 ---
 
@@ -76,6 +104,10 @@ b) Better performance for many elements
 c) Easier to write  
 d) Required by browsers
 
+**Answer: b**
+
+Event delegation attaches one listener to a parent instead of many to children, improving performance.
+
 ---
 
 **9. What's the purpose of `currentService` variable?**
@@ -84,6 +116,10 @@ a) Fetch data
 b) Store selected service for modal calculations  
 c) Display all services  
 d) Filter services
+
+**Answer: b**
+
+`currentService` stores the selected service data for use in modal displays and calculations.
 
 ---
 
@@ -94,20 +130,9 @@ b) Collect data, then update DOM once
 c) Use intervals  
 d) Doesn't matter
 
----
+**Answer: b**
 
-## Answers
-
-1. **b** - To store and track application data  
-2. **b** - To preserve original data while showing filtered results  
-3. **b** - Stores custom data attribute on HTML element  
-4. **b** - Clear previous content to avoid duplicates  
-5. **b** - Handle errors gracefully  
-6. **b** - Code that runs whether success or error  
-7. **b** - Creates responsive grid that adapts to screen size  
-8. **b** - Better performance for many elements  
-9. **b** - Store selected service for modal calculations  
-10. **b** - Collect data, then update DOM once
+Collect all data first, then update the DOM once to minimize reflows and improve performance.
 
 ---
 

@@ -1,16 +1,51 @@
-# Lesson 31: Event Handling - Making Pages Interactive
+## Background Story
+
+Tian's barangay clearance calculator was working perfectly—in the console. They'd written JavaScript that calculated fees based on document type, validated user age, and formatted output messages. Every `console.log()` showed exactly what they expected.
+
+But there was one massive problem: the user couldn't interact with it.
+
+The webpage had a button labeled "Calculate Fee." Users were supposed to click it and see the calculated fee appear on the page. But clicking the button did nothing. Absolutely nothing.
+
+Tian had connected the JavaScript to the HTML and even added a comment next to the button code:
+
+```html
+<button id="calculateBtn">Calculate Fee</button>
+<!-- TODO: Make this button actually do something -->
+```
+
+That TODO had been sitting there for three days.
+
+Rhea Joy was experiencing a similar issue with her form validation. She'd written JavaScript that checked if email addresses were valid, if phone numbers had the correct format, and if required fields weren't empty. But the validation code never ran. Users could submit the form with blank fields, invalid emails, nonsense data—the validation was completely bypassed.
+
+"Our JavaScript works," Rhea Joy said, staring at the console where her validation function executed perfectly when she manually called it. "But it's not connected to user actions. How do we make the validation run when someone clicks 'Submit'? How do we make our code respond to what users do?"
+
+It was Thursday after school, and they were in the library, both facing the same conceptual gap. They could write JavaScript that worked in isolation, but they couldn't make it react to user interactions.
+
+Tian tried something desperate—adding `onclick` directly in the HTML:
+
+```html
+<button onclick="calculateFee()">Calculate Fee</button>
+```
+
+It worked! Clicking the button finally triggered the JavaScript function. But Kuya Miguel had mentioned that inline event handlers were considered bad practice. "Why?" Tian had asked at the time. Miguel had said something about separation of concerns and maintainability, but Tian hadn't fully understood.
+
+Now, with `onclick` attributes scattered throughout their HTML, mixing JavaScript directly into markup, they were starting to see the problem. The code was messy. Hard to read. Difficult to maintain. It felt wrong—like writing CSS inline with `style` attributes instead of in a separate stylesheet.
+
+"There must be a better way," Tian said. "A way to attach JavaScript behavior to HTML elements that keeps the code separated and organized."
+
+They called Kuya Miguel.
+
+"Kuya, we can write JavaScript that works, and we can manipulate the DOM, but we don't know how to make our code respond to user actions properly. We tried inline `onclick` attributes, but they feel messy. What's the right way to handle user interactions?"
+
+Miguel's voice came through with a smile. "You've discovered the need for event handling. Specifically, `addEventListener()`—the modern, proper way to connect user actions to JavaScript code. Events are things that happen in the browser: clicks, typing, scrolling, form submissions, mouse movements. Event handling is how you tell JavaScript: 'When this specific event happens on this specific element, run this specific code.'"
+
+"So we can attach behavior without mixing JavaScript into HTML?"
+
+"Exactly. Clean separation. Your HTML describes structure. Your CSS describes presentation. Your JavaScript describes behavior. And event listeners are the bridge that connects user actions to your code. Today, I'm teaching you click events, form submissions, keyboard events, mouse events, and the Event object that contains information about what happened."
 
 ---
 
-## Responding to User Actions
-
-"Kuya Miguel, we can change the page with JavaScript, but how do we make it respond when users click buttons or type in forms?" Tian asked.
-
-Rhea Joy added, "Like clicking 'Submit' and seeing a response, or typing and seeing suggestions?"
-
-Kuya Miguel smiled. "That's **Event Handling**—making your page respond to user actions. Events are things that happen: clicks, typing, scrolling, and more!"
-
----
+## Theory & Lecture Content
 
 ## What are Events?
 

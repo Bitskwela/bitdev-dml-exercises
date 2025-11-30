@@ -8,11 +8,19 @@
    - C. Margin, Border, Padding, Content
    - D. Content, Margin, Padding, Border
 
+**Answer: B**
+
+The CSS Box Model has four layers from inside to outside: Content (text/images) → Padding (space inside border) → Border (outline) → Margin (space outside border).
+
 2. Rhea Joy wants to add space **inside** an element, between the content and border. Which property should she use?
    - A. `margin`
    - B. `padding`
    - C. `border-spacing`
    - D. `gap`
+
+**Answer: B**
+
+Padding creates space inside an element, between the content and the border. It increases internal spacing while keeping the background color.
 
 3. What does this CSS do? `margin: 20px 10px;`
    - A. 20px on all sides, 10px on top
@@ -20,17 +28,29 @@
    - C. 20px top/bottom, 10px left/right
    - D. 20px left/right, 10px top/bottom
 
+**Answer: C**
+
+When padding/margin has two values, the first is vertical (top/bottom) and the second is horizontal (left/right). So 20px top/bottom, 10px left/right.
+
 4. Tian wants to center a container horizontally. Which CSS should he use?
    - A. `margin: auto;`
    - B. `margin: 0 auto;`
    - C. `padding: 0 auto;`
    - D. `text-align: center;`
 
+**Answer: B**
+
+`margin: 0 auto;` centers a block element horizontally. `0` for top/bottom, `auto` for left/right (equal margins on sides).
+
 5. What does `border-radius: 50%;` do to a square element?
    - A. Makes it slightly rounded
    - B. Makes it a circle
    - C. Makes it an oval
    - D. Has no visible effect
+
+**Answer: B**
+
+`border-radius: 50%;` on a square element creates a perfect circle by rounding corners to 50% of the width/height.
 
 ---
 
@@ -52,11 +72,19 @@
    - C. 350px
    - D. 360px
 
+**Answer: C**
+
+Total width = 300px (width) + 20px (left padding) + 20px (right padding) + 5px (left border) + 5px (right border) = 350px.
+
 7. What does `box-sizing: border-box;` do?
    - A. Removes padding and border
    - B. Makes padding and border part of the width
    - C. Doubles the element's width
    - D. Centers the element
+
+**Answer: B**
+
+`box-sizing: border-box;` includes padding and border in the element's total width. So `width: 300px` means total width is 300px (including padding and border).
 
 8. Which property creates space **outside** an element, between it and other elements?
    - A. `padding`
@@ -64,11 +92,19 @@
    - C. `margin`
    - D. `gap`
 
+**Answer: C**
+
+Margin creates space outside an element, between it and other elements. The background color doesn't extend to margins.
+
 9. What does `padding: 10px 20px 30px 40px;` mean?
    - A. 10px all sides, others ignored
    - B. 10px top, 20px right, 30px bottom, 40px left
    - C. 10px left, 20px top, 30px right, 40px bottom
    - D. Invalid CSS syntax
+
+**Answer: B**
+
+Four values go clockwise: top (10px), right (20px), bottom (30px), left (40px). Think: TRouBLe (Top, Right, Bottom, Left).
 
 10. Rhea Joy wants rounded corners only on the top. Which CSS is correct?
     - A. `border-radius: 10px 10px 0 0;`
@@ -76,20 +112,9 @@
     - C. `border-radius: 10px 0;`
     - D. `border-top-radius: 10px;`
 
----
+**Answer: A**
 
-# Answers
-
-1. **B** - Content, Padding, Border, Margin
-2. **B** - `padding`
-3. **C** - 20px top/bottom, 10px left/right
-4. **B** - `margin: 0 auto;`
-5. **B** - Makes it a circle
-6. **C** - 350px
-7. **B** - Makes padding and border part of the width
-8. **C** - `margin`
-9. **B** - 10px top, 20px right, 30px bottom, 40px left
-10. **A** - `border-radius: 10px 10px 0 0;`
+`border-radius` with four values goes: top-left (10px), top-right (10px), bottom-right (0), bottom-left (0). So top corners are rounded.
 
 ---
 

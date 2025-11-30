@@ -8,11 +8,19 @@
    - C. `grid: enabled;`
    - D. `flex: grid;`
 
+**Answer: B**
+
+To enable CSS Grid, use `display: grid;` on the container element.
+
 2. What does `grid-template-columns: 1fr 2fr 1fr;` create?
    - A. 3 equal columns
    - B. 3 columns: left and right are half the size of middle
    - C. 3 columns with 1px, 2px, 1px widths
    - D. Syntax error
+
+**Answer: B**
+
+`fr` (fraction) represents a portion of available space. `1fr 2fr 1fr` means the middle column is twice as wide as the left and right columns (25%, 50%, 25%).
 
 3. Rhea Joy wants 4 equal columns. Which CSS is correct?
    - A. `grid-template-columns: 4fr;`
@@ -20,17 +28,29 @@
    - C. `grid-template-columns: repeat(4);`
    - D. `grid-columns: 4;`
 
+**Answer: B**
+
+To create 4 equal columns, list `1fr` four times. You can also use `repeat(4, 1fr)` as a shortcut.
+
 4. What does the `gap` property do in CSS Grid?
    - A. Creates space between grid items
    - B. Sets grid container width
    - C. Defines number of columns
    - D. Aligns items vertically
 
+**Answer: A**
+
+The `gap` property creates spacing between grid items (like margin, but only between items, not around edges).
+
 5. Which property makes an item span 2 columns?
    - A. `column-span: 2;`
    - B. `grid-column: span 2;`
    - C. `span: 2 columns;`
    - D. `width: 2fr;`
+
+**Answer: B**
+
+Use `grid-column: span 2;` to make an item span across 2 columns in the grid.
 
 ---
 
@@ -44,11 +64,19 @@
    - C. 3 rows
    - D. Syntax error
 
+**Answer: B**
+
+`repeat(3, 1fr)` is shorthand for `1fr 1fr 1fr`, creating 3 equal columns.
+
 7. Which CSS creates an auto-responsive grid (columns adjust to screen size)?
    - A. `grid-template-columns: auto;`
    - B. `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));`
    - C. `grid-template-columns: responsive;`
    - D. `grid-auto-columns: fit;`
+
+**Answer: B**
+
+`repeat(auto-fit, minmax(250px, 1fr))` creates a responsive grid where columns automatically adjust. Each column is minimum 250px, grows to fill space.
 
 8. When should Rhea Joy use Grid instead of Flexbox?
    - A. For a horizontal navigation bar
@@ -56,11 +84,19 @@
    - C. For a row of buttons
    - D. Grid and Flexbox are the same
 
+**Answer: B**
+
+Use Grid for 2D layouts (rows and columns together). Use Flexbox for 1D layouts (single row or column).
+
 9. What does `fr` unit mean in Grid?
    - A. "Frame" - fixed pixel size
    - B. "Fraction" - portion of available space
    - C. "Free" - no width
    - D. "Full row"
+
+**Answer: B**
+
+`fr` stands for "fraction" - a portion of the available space in the grid container.
 
 10. How do you make an element span all columns in a 3-column grid?
     - A. `grid-column: 1 / 4;`
@@ -68,20 +104,9 @@
     - C. `width: 100%;`
     - D. `grid-column: full;`
 
----
+**Answer: A**
 
-# Answers
-
-1. **B** - `display: grid;`
-2. **B** - 3 columns: left and right are half the size of middle
-3. **B** - `grid-template-columns: 1fr 1fr 1fr 1fr;`
-4. **A** - Creates space between grid items
-5. **B** - `grid-column: span 2;`
-6. **B** - 3 equal columns
-7. **B** - `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));`
-8. **B** - For a page layout with header, sidebar, content, and footer
-9. **B** - "Fraction" - portion of available space
-10. **A** - `grid-column: 1 / 4;`
+`grid-column: 1 / 4;` starts at column line 1 and ends at line 4, spanning all 3 columns.
 
 ---
 

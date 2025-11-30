@@ -1,16 +1,138 @@
-# Lesson 36: Mini Project - Dynamic Barangay Information Page
+## Background Story
+
+Tian sat back in his chair, looking at the collection of JavaScript files spread across his VS Code workspace. Over the past few weeks, he and Rhea Joy had learned an incredible amount: HTML structure, CSS styling, JavaScript fundamentals, DOM manipulation, event handling, modern ES6+ syntax, modular code organization, Fetch API, JSON, async/await, responsive design with Grid and Flexbox, mobile-first methodology.
+
+Each lesson had taught him a specific skill. Each exercise had demonstrated a particular concept. But they were all isolated pieces.
+
+"Kuya Miguel," Tian said during their weekly video call, "I feel like I've learned all the individual instruments in an orchestra, pero I haven't played a complete symphony yet. Each skill makes sense on its own, but how do they all work together in a real application?"
+
+Rhea Joy nodded enthusiastically. "Exactly! Like, I know how to fetch data from an API. I know how to manipulate the DOM. I know how to handle events. I know how to style with CSS. But building an actual, functional web application that combines ALL of these seamlessly? That feels like a big jump."
+
+Miguel smiled knowingly. "You've reached the integration milestone. You have all the tools; now you need to build something complete that uses them together. That's the difference between learning syntax and becoming a developer."
+
+He shared his screen showing a professional-looking barangay information portal. It had a clean header with the barangay name and logo, a search bar for filtering services, organized service cards displaying information beautifully, a modal system for viewing details, a fee calculator with interactive inputs, loading spinners while data fetched, error messages when things went wrong, and smooth animations throughout.
+
+"This is what we're building today," Miguel said. "A **Dynamic Barangay Information Page** that demonstrates every single skill you've learned, working together in harmony."
+
+Tian's eyes widened. "That looks... professional. Like a real website someone would actually use."
+
+"Because it IS a real website," Miguel confirmed. "It fetches data from an API, displays it dynamically, handles user interactions, updates the interface in real-time, validates inputs, manages state, shows loading indicators, handles errors gracefully, and works beautifully on mobile and desktop."
+
+Rhea Joy was already taking notes. "What specific technologies does it use?"
+
+Miguel enumerated: "HTML for semantic structure. CSS with Grid and Flexbox for layout, custom properties for theming, and mobile-first responsive design. JavaScript using ES6+ arrow functions, template literals, destructuring, async/await, modular functions, event delegation. Fetch API to get data from a mock API endpoint. DOM manipulation to create and update elements dynamically. Event handling for interactivity. Error handling for robustness."
+
+Tian realized this was everything they'd learned, organized into a cohesive system. "So it's like the final exam that tests every topic?"
+
+"More like the capstone project that demonstrates you can integrate knowledge," Miguel said. "Anyone can learn concepts in isolation. Professional developers know how to combine them into working applications."
+
+Miguel walked them through the project structure:
+
+```
+barangay-portal/
+├── index.html         # Semantic HTML structure
+├── styles.css         # Mobile-first, responsive CSS
+├── app.js             # Main application logic
+├── api.js             # API interaction module
+├── ui.js              # DOM manipulation module
+└── utils.js           # Utility functions
+```
+
+"Notice the modular organization," Miguel pointed out. "We're not putting everything in one file. The API module handles data fetching. The UI module manages DOM updates. The utils module provides helpers. The main app file orchestrates everything."
+
+Rhea Joy sketched the user experience flow: "User loads page → JavaScript fetches services from API → Display loading spinner → When data arrives, dynamically create service cards → User types in search box → Filter displayed services in real-time → User clicks a service card → Open modal with details → User enters age in fee calculator → Calculate and display fee with discounts → Everything updates without page reload."
+
+"Perfect understanding," Miguel said. "That flow demonstrates: Fetch API, DOM manipulation, event handling, conditional logic, template literals for creating HTML, CSS transitions for animations, and state management."
+
+Tian thought about how this compared to their earlier work. "When we built the first simple HTML pages, everything was static. Then we learned JavaScript and made things interactive with button clicks. Then we learned fetch and could get external data. Now we're putting it all together—data flows from API → JavaScript → DOM → User sees beautiful interface."
+
+"That's the modern web development cycle," Miguel confirmed. "And you'll see this pattern EVERYWHERE. Facebook feed? Fetch posts from API, display in DOM. Twitter timeline? Same thing. GCash transaction history? Same. Gmail inbox? Same. Online shopping cart? Same pattern. This is how web applications work."
+
+Rhea Joy was excited but slightly nervous. "This sounds complex. Where do we even start?"
+
+Miguel broke it down: "We'll build it step by step:
+
+1. **Structure first**: Create HTML with containers for services, search, modals
+2. **Style next**: Make it look professional with CSS Grid, responsive design
+3. **API integration**: Fetch data from a mock API endpoint
+4. **Dynamic rendering**: Loop through data, create cards, append to DOM
+5. **Search functionality**: Filter displayed services based on input
+6. **Modal system**: Show/hide details when users click cards
+7. **Fee calculator**: Take inputs, calculate with discounts, display results
+8. **Loading states**: Show spinners while fetching
+9. **Error handling**: Display friendly messages if API fails
+
+Each step builds on the previous one. By the end, you'll have a complete, functional application."
+
+Tian opened a new project folder, feeling both excited and challenged. "This is different from following a tutorial. We're building something real."
+
+"Exactly," Miguel said. "And here's the key difference: in tutorials, you copy code and hope it works. In real development, you THINK about what you need, PLAN the architecture, IMPLEMENT the features, TEST the functionality, and DEBUG when things break. This project teaches you that workflow."
+
+Rhea Joy pulled up the requirements doc Miguel had shared:
+
+**Barangay Information Page Requirements:**
+- Display list of barangay services fetched from API
+- Each service shows: name, description, fee, processing time, requirements
+- Search box filters services in real-time
+- Clicking a service opens a modal with full details
+- Fee calculator applies senior/PWD discounts automatically
+- Loading spinner while data fetches
+- Error message if API fails
+- Fully responsive (mobile-first)
+- Smooth animations and transitions
+- Accessible and semantic HTML
+
+"These are real-world requirements," Miguel said. "Like what a client or barangay official would actually request. You'll learn to translate requirements into technical implementation."
+
+Tian thought about Ms. Reyes at the barangay hall. "She could actually use this. When residents come asking about services, she could show them this page instead of explaining everything verbally."
+
+"That's the goal," Miguel confirmed. "Build things people can actually use. That's when coding becomes meaningful."
+
+Miguel shared a starter template with comments indicating where each feature would go:
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Services Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header section -->
+    <!-- Search and filter section -->
+    <!-- Services grid (populated dynamically) -->
+    <!-- Modal for service details -->
+    <!-- Fee calculator section -->
+    
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+```
+
+"Start with semantic HTML," Miguel instructed. "Then style it mobile-first. Then add JavaScript functionality piece by piece. Test each feature as you build it."
+
+Rhea Joy was already sketching the layout. "Header at top with logo and title. Search bar below. Grid of service cards. Each card has icon, name, fee, and 'View Details' button."
+
+Tian was planning the JavaScript architecture. "I'll create a `services` array to hold the fetched data. A `displayServices()` function to render them. A `filterServices()` function for search. An `openModal()` function for details. A `calculateFee()` function for the calculator."
+
+"Perfect planning," Miguel said. "That's exactly the mindset you need. Break the big project into small, manageable functions. Implement one at a time. Test thoroughly."
+
+Miguel gave them one final piece of advice: "This project might take you several hours. You'll encounter bugs. You'll get stuck. You'll need to debug. That's NORMAL. Professional developers spend most of their time debugging and problem-solving, not just writing new code. Embrace the struggle—that's where the real learning happens."
+
+Tian saved the starter template and cracked his knuckles. "Time to build something real. Time to put everything together."
+
+Rhea Joy opened her design file. "I'll make it look amazing. You make it work perfectly. Together, we'll build something the barangay can actually use."
+
+Miguel smiled. "That's the developer partnership. Design and functionality working together. When you finish this project, you won't just have learned more code—you'll have proven to yourselves that you can build real, functional web applications. That's the confidence that transforms students into developers."
+
+Tian looked at the blank `app.js` file, ready to write the first line of integrated, purposeful, real-world JavaScript. The training was over. It was time to build.
 
 ---
 
-## Combining Everything You've Learned
-
-"Kuya Miguel, we've learned DOM, events, styling, modern JavaScript, modules, and APIs. Time to build something real?" Tian asked excitedly.
-
-Rhea Joy added, "A complete barangay system that fetches real data and displays it dynamically?"
-
-Kuya Miguel smiled. "Exactly! Let's build a **Dynamic Barangay Information Page** that combines all these skills. You'll fetch data from an API, display services, handle user interactions, and update the page in real-time!"
-
----
+## Theory & Lecture Content
 
 ## Project Overview
 

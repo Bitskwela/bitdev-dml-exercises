@@ -1,16 +1,119 @@
-# Lesson 42: Final Project - Barangay Complaint System
+## Background Story
+
+Tian and Rhea Joy sat in the barangay hall's small conference room, surrounded by stacks of paper complaint forms. Ms. Reyes, the barangay secretary, sighed as she flipped through the disorganized pile.
+
+"We receive about 20-30 complaints per week," she explained, holding up faded carbon copy forms. "Noise complaints, stray animals, broken streetlights, drainage issues, boundary disputes. We write everything on these paper forms, file them in these folders," she gestured to overflowing filing cabinets, "and try to track their status using sticky notes."
+
+She pulled out a complaint form from three months ago. "Look at this one—broken streetlight on Rizal Street. The resident submitted it in September. We assigned it to the maintenance team, but we lost track of it. The resident called twice asking for updates. We had to dig through hundreds of forms to find it. It's still unresolved."
+
+Rhea Joy whispered to Tian, "This is exactly what we've been learning to solve. Digital systems that track, organize, and manage data efficiently."
+
+Ms. Reyes continued, "And sometimes residents come in person asking 'Did you receive my complaint?' We have to manually search through all these papers. Sometimes we find it, sometimes we don't. It's embarrassing."
+
+Captain Cruz joined the meeting. "Tian, Rhea Joy, Ms. Reyes tells me you've been building a system for tracking barangay applications. Can you build something similar for complaints? Something that actually works?"
+
+Tian felt a surge of both excitement and pressure. "We've learned all the pieces—HTML for structure, CSS for design, JavaScript for interactivity, DOM manipulation for dynamic updates, Fetch API for communication, Flask for backend, SQL for database storage, full CRUD operations. Pero we've never combined ALL of them into one complete, functional system that solves a real problem."
+
+Rhea Joy pulled out her notebook. "What exactly do you need the system to do?"
+
+Ms. Reyes enumerated: "Residents should be able to submit complaints with their name, contact info, category of complaint, description, and maybe a photo. We need to see all complaints in one place, organized and searchable. We need to assign complaints to staff members. We need to update status—from 'new' to 'assigned' to 'in progress' to 'resolved.' We need to add comments or notes. And we need to delete complaints once they're fully resolved and archived."
+
+Captain Cruz added, "And it should work on phones. Many residents don't have computers, pero everyone has smartphones. They should be able to submit complaints from anywhere."
+
+Tian started sketching the system architecture on a whiteboard:
+
+```
+Frontend (Browser):
+- HTML form for submitting complaints
+- JavaScript to validate input
+- Fetch API to send data to Flask
+- Display all complaints dynamically
+- Edit/Delete buttons for managing complaints
+- Responsive design for mobile
+
+Backend (Flask):
+- POST /api/complaints - Create new complaint
+- GET /api/complaints - Retrieve all complaints
+- PUT /api/complaints/:id - Update complaint status
+- DELETE /api/complaints/:id - Remove resolved complaint
+
+Database (SQLite):
+- complaints table with columns:
+  id, name, contact, category, description, status, date_submitted
+```
+
+"This is our most complex project yet," Tian said, studying his diagram. "It combines literally everything we've learned over the past 41 lessons. Every single skill, working together."
+
+They called Kuya Miguel to present the requirements. Miguel listened intently, then smiled. "This is exactly what you need at this stage—a **complete, functional, end-to-end application** that solves a real problem. Not a tutorial demo. Not an isolated exercise. A full-stack system."
+
+He shared his screen showing a similar complaint system he'd built for another barangay. Residents submitted complaints through a clean web form. Staff viewed all complaints in a sortable, filterable table. Each complaint had status badges—red for new, yellow for in-progress, green for resolved. Staff could click "Edit" to update status or add notes. The entire system worked smoothly, with no page refreshes, all interactions handled with JavaScript and API calls.
+
+"That's what we're building," Miguel said. "But you're not copying my code. You're building it from scratch using the skills you've learned. This project will prove you can architect, implement, and deploy complete web applications."
+
+Rhea Joy was already planning the user experience: "The homepage shows a form at the top—simple inputs for name, contact, category dropdown, description textarea. Below that, a grid or table displaying all submitted complaints. Each complaint shows the submitter's name, category, status badge, and action buttons. Mobile-first design so it works on any device."
+
+Tian planned the technical implementation: "SQLite database with a complaints table. Flask with four RESTful API endpoints for CRUD operations. JavaScript that fetches all complaints when the page loads and displays them dynamically. Form submission triggers a POST request, then refreshes the display. Edit button loads complaint data into the form, PUT request updates it. Delete button shows confirmation, then sends DELETE request."
+
+Miguel nodded approvingly. "Perfect planning. Now here's the workflow:
+
+1. **Design first**: Sketch the interface, plan the user flow
+2. **Database schema**: Define the table structure
+3. **Backend API**: Build all Flask endpoints, test with Postman or curl
+4. **Frontend structure**: Create HTML with semantic elements
+5. **Styling**: Make it look professional with CSS
+6. **JavaScript integration**: Connect frontend to backend with fetch
+7. **Testing**: Submit complaints, view, edit, delete—test every flow
+8. **Edge cases**: Handle errors, empty states, validation
+9. **Responsive design**: Ensure it works on mobile
+10. **Deployment**: Make it accessible to residents
+
+This is the professional development process. Methodical, tested, complete."
+
+Captain Cruz interjected, "When can residents start using this?"
+
+"Give us three days," Tian said confidently. "We'll build the complete system—frontend, backend, database, tested and deployed. By Friday, residents can submit complaints from their phones, and your staff can manage everything from the barangay hall computer."
+
+Ms. Reyes looked skeptical. "Three days? For a complete system?"
+
+Rhea Joy explained, "We've already learned all the pieces. HTML? Done. CSS? Done. JavaScript? Done. Flask? Done. Databases? Done. CRUD operations? Done. Responsive design? Done. We just need to assemble them into one cohesive application."
+
+Miguel added, "That's the power of modular learning. You learned each skill in isolation, but now you combine them. It's like learning musical notes individually, then finally playing a complete song."
+
+Tian opened his laptop right there in the conference room. "Let's start. Rhea Joy, you design the interface and handle the frontend styling. I'll build the Flask backend and database. We'll integrate everything together, test thoroughly, and deploy."
+
+Ms. Reyes provided more specific requirements: "Categories should include: Noise Complaint, Stray Animals, Broken Infrastructure, Drainage Issues, Garbage Collection, Boundary Dispute, and Other. Status options: New, Assigned, In Progress, Resolved. And please include the date submitted so we can track how long complaints take to resolve."
+
+Rhea Joy sketched a quick mockup: "Header with 'Barangay Complaint System' title. Submit form with labeled inputs. Below that, a heading 'All Complaints' with a search/filter box. Then cards or table rows for each complaint, showing all key info at a glance. Clean, professional, easy to use."
+
+Tian created the database schema:
+
+```sql
+CREATE TABLE complaints (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    contact TEXT NOT NULL,
+    category TEXT NOT NULL,
+    description TEXT NOT NULL,
+    status TEXT DEFAULT 'New',
+    date_submitted DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+"Simple but complete," he said. "Captures all necessary information, auto-generates ID and timestamp, defaults to 'New' status."
+
+Miguel gave them the final push: "This project ties everything together. You'll face challenges—API integration bugs, styling issues, database errors, edge cases you didn't anticipate. That's normal. Professional developers spend most of their time debugging and problem-solving. Embrace the process. When you finish, you won't just have a working application—you'll have proof that you can build complete, functional, production-ready systems."
+
+Captain Cruz shook their hands. "I believe in you. Our residents will finally have a modern way to communicate with the barangay. No more lost paper forms. No more forgotten complaints. Everything tracked digitally."
+
+Tian and Rhea Joy left the barangay hall with a clear mission. This wasn't a school assignment or a tutorial exercise. This was a real system that real people would use to solve real problems. Their most meaningful project yet.
+
+As they walked to the computer lab, Tian said, "We've learned HTML, CSS, JavaScript, Flask, databases, APIs, CRUD, responsive design—everything. Now we prove we can use it all. Let's build something that matters."
+
+Rhea Joy opened VS Code. "Barangay Complaint System. Full-stack. Production-ready. Let's make it happen."
 
 ---
 
-## Building Your Complete Full-Stack Application
-
-"Kuya Miguel, we've learned all the pieces—HTML, CSS, JavaScript, DOM, events, APIs, Flask, CRUD. Can we build something real now?" Tian asked eagerly.
-
-Rhea Joy nodded. "Something that actually works—a complete system residents can use!"
-
-Kuya Miguel smiled proudly. "Absolutely! Let's build the **Barangay Complaint System**—a full-stack application where residents can submit complaints, view all submissions, update statuses, and delete resolved cases. This is your capstone project!"
-
----
+## Theory & Lecture Content
 
 ## Project Overview
 
@@ -302,15 +405,15 @@ function displayComplaints() {
             <div class="complaint-actions">
                 ${complaint.status === 'pending' ? `
                     <button class="btn btn-resolve" onclick="resolveComplaint(${complaint.id})">
-                        ✓ Mark Resolved
+                        Mark Resolved
                     </button>
                 ` : `
                     <button class="btn btn-reopen" onclick="reopenComplaint(${complaint.id})">
-                        ↻ Reopen
+                        Reopen
                     </button>
                 `}
                 <button class="btn btn-delete" onclick="deleteComplaint(${complaint.id})">
-                    🗑 Delete
+                    Delete
                 </button>
             </div>
         </div>
@@ -402,11 +505,11 @@ function showMessage(text, type) {
 // Helper: Get category label
 function getCategoryLabel(category) {
     const labels = {
-        'noise': '🔊 Noise Complaint',
-        'garbage': '🗑 Garbage/Sanitation',
-        'infrastructure': '🏗 Infrastructure',
-        'security': '🚨 Security/Safety',
-        'other': '📋 Other'
+        'noise': 'Noise Complaint',
+        'garbage': 'Garbage/Sanitation',
+        'infrastructure': 'Infrastructure',
+        'security': 'Security/Safety',
+        'other': 'Other'
     };
     return labels[category] || category;
 }
@@ -554,20 +657,20 @@ railway up
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You've completed the **Full Web Development Curriculum**!
 
 **What you've mastered:**
-- ✅ HTML structure and semantics
-- ✅ CSS styling and responsive design
-- ✅ JavaScript programming (ES6+)
-- ✅ DOM manipulation and event handling
-- ✅ Modern JavaScript features
-- ✅ APIs and Fetch
-- ✅ Flask backend development
-- ✅ Full CRUD operations
-- ✅ Complete full-stack applications
+- HTML structure and semantics
+- CSS styling and responsive design
+- JavaScript programming (ES6+)
+- DOM manipulation and event handling
+- Modern JavaScript features
+- APIs and Fetch
+- Flask backend development
+- Full CRUD operations
+- Complete full-stack applications
 
 **You're now ready to:**
 - Build production-ready web applications
@@ -588,7 +691,7 @@ Enhance your Barangay Complaint System with:
 6. Export complaints to PDF
 7. Deploy to cloud platform
 
-**Keep coding, keep learning, and build amazing things! 🚀**
+**Keep coding, keep learning, and build amazing things!**
 
 ---
 

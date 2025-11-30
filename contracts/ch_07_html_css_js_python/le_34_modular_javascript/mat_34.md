@@ -1,16 +1,219 @@
-# Lesson 34: Modular JavaScript - Organizing Code with Import/Export
+## Background Story
+
+Tian scrolled through his `barangay-portal.js` file, and the scroll bar on the right side of VS Code told the story—this file had grown massive. What started as a simple 200-line project had ballooned to over 800 lines as he and Rhea Joy kept adding features: visitor management, service calculations, report generation, search functionality, data validation, UI updates, event handlers, utility functions, configuration objects.
+
+Everything was in one giant file.
+
+Finding specific functions meant scrolling for minutes or using Ctrl+F to search. When he wanted to reuse the fee calculation logic in another project, he had to copy-paste it along with all its dependencies—configuration objects, validation functions, utility helpers. When Rhea Joy wanted to work on the UI code while Tian worked on calculations, they couldn't work simultaneously without creating merge conflicts.
+
+"This is getting ridiculous," Tian said during a video call with Rhea Joy, sharing his screen showing the endless scroll of code. "I spent ten minutes today looking for the `calculateDiscount()` function. It's buried somewhere in the middle of this massive file."
+
+Rhea Joy had the same problem. "And when I want to test the UI code, I have to load all the calculation logic, validation logic, configuration data, utility functions—everything—even though I'm only working on the display components. It's slow and confusing."
+
+They'd tried adding comments to section off different parts:
+
+```javascript
+// ============================================
+// CONFIGURATION
+// ============================================
+const CONFIG = {...};
+
+// ============================================
+// DATA MODELS
+// ============================================
+class Visitor {...}
+
+// ============================================
+// CALCULATION FUNCTIONS
+// ============================================
+function calculateFee() {...}
+function applyDiscount() {...}
+
+// ============================================
+// VALIDATION FUNCTIONS
+// ============================================
+function validateName() {...}
+function validateAge() {...}
+
+// ============================================
+// UI UPDATE FUNCTIONS
+// ============================================
+function displayVisitors() {...}
+function updateSummary() {...}
+
+// ============================================
+// EVENT HANDLERS
+// ============================================
+document.getElementById('addBtn').addEventListener(...);
+```
+
+But even with comments, it felt like a single drawer stuffed with completely different types of items—socks mixed with tools mixed with documents.
+
+"There has to be a better way to organize this," Tian said. "Professional projects have multiple JavaScript files, right? Like, one file for calculations, one for UI, one for validation?"
+
+Rhea Joy pulled up a GitHub repository for a popular open-source project. "Look at this structure:
+
+```
+src/
+  ├── components/
+  │   ├── UserCard.js
+  │   ├── Dashboard.js
+  │   └── Navigation.js
+  ├── utils/
+  │   ├── validators.js
+  │   ├── formatters.js
+  │   └── calculations.js
+  ├── services/
+  │   ├── api.js
+  │   └── auth.js
+  └── config/
+      └── constants.js
+```
+
+They have dozens of small, focused files instead of one giant file. How do they connect them all together?"
+
+Tian had wondered the same thing. He'd seen `import` statements at the top of many modern JavaScript files:
+
+```javascript
+import { calculateFee } from './utils/calculations.js';
+import { validateVisitor } from './utils/validators.js';
+import { displayList } from './components/VisitorList.js';
+```
+
+But he didn't fully understand the mechanism. "I know we can link multiple JavaScript files in HTML with multiple `<script>` tags, pero that causes problems with load order and global namespace pollution. This `import` thing seems cleaner."
+
+They called Kuya Miguel, who immediately understood their pain point.
+
+"Ah, you've hit the scaling problem every developer faces," Miguel said. "One file works great for 100-200 lines. But once you're beyond 500 lines, it becomes unmaintainable. You need **modular JavaScript**—splitting code into separate files (modules), each with a clear, single responsibility."
+
+"How do modules work?" Tian asked.
+
+Miguel shared his screen showing a simple example:
+
+```javascript
+// calculator.js
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+// main.js
+import { add, subtract } from './calculator.js';
+console.log(add(5, 3));  // 8
+```
+
+"Each file is a **module**. You use `export` to make functions, objects, or variables available to other files. You use `import` to bring them into the files that need them. Clean, explicit, no global namespace pollution."
+
+Rhea Joy's eyes lit up with understanding. "So instead of having all our functions in one file where they're automatically globally available, we split them into logical modules and explicitly import only what each file needs?"
+
+"Exactly!" Miguel confirmed. "This gives you several benefits:
+
+1. **Organization**: Each file has one clear purpose
+2. **Maintainability**: Easy to find and update code
+3. **Reusability**: Import modules into any project
+4. **Collaboration**: Multiple developers can work on different modules simultaneously
+5. **Testing**: Test individual modules in isolation
+6. **Performance**: Browsers can load and cache modules efficiently"
+
+Tian was mentally restructuring his project. "So our 800-line file could become:
+
+```
+config.js          // Service types, fees, discount rates
+models.js          // Visitor class definition
+calculations.js    // calculateFee, applyDiscount, etc.
+validators.js      // validateName, validateAge, etc.
+ui.js              // Display functions
+events.js          // Event handlers
+main.js            // Main application logic
+```
+
+Each file small and focused?"
+
+"Perfect structure!" Miguel said. "And the dependencies are explicit. Your `calculations.js` might import from `config.js`. Your `ui.js` might import from `calculations.js` and `validators.js`. Your `main.js` imports from everything and wires it together."
+
+Rhea Joy saw the practical benefit immediately. "This way, if I need to fix a calculation bug, I go straight to `calculations.js`—maybe 50 lines total. I don't have to scroll through 800 lines of unrelated code."
+
+"And if you want to reuse the calculation logic in another project," Miguel added, "you just copy `calculations.js` and `config.js`—two clean files with clear dependencies. No hunting through a monolithic file trying to extract the relevant parts."
+
+Tian had one concern. "Does this work in browsers? I've seen `import` and `export` in Node.js tutorials, but in HTML?"
+
+"Modern browsers fully support ES6 modules," Miguel explained. "You just need to mark your main script as a module:"
+
+```html
+<script type="module" src="main.js"></script>
+```
+
+Then all your imports work natively. No bundler needed for development. Though for production, you might use tools like Webpack or Vite to bundle modules for optimization."
+
+Rhea Joy was already planning the refactoring. "So our workflow would be: create separate module files, add `export` to functions we want to share, use `import` to bring them into files that need them, and mark our main script as `type="module"` in HTML?"
+
+"That's it!" Miguel confirmed. "Let me show you the refactoring process for your barangay portal."
+
+He opened a demo project and live-coded the transformation:
+
+**Before: barangay-portal.js (800 lines)**
+```javascript
+// Everything in one file
+const CONFIG = {...};
+function calculateFee() {...}
+function validateName() {...}
+function displayVisitors() {...}
+document.getElementById('addBtn').addEventListener(...);
+// ...700 more lines
+```
+
+**After: Modular structure**
+
+```javascript
+// config.js
+export const CONFIG = {
+    services: {...},
+    discounts: {...}
+};
+
+// calculations.js
+import { CONFIG } from './config.js';
+export const calculateFee = (visitor) => {...};
+export const applyDiscount = (fee, type) => {...};
+
+// validators.js
+export const validateName = (name) => {...};
+export const validateAge = (age) => {...};
+
+// ui.js
+export const displayVisitors = (visitors) => {...};
+export const updateSummary = (data) => {...};
+
+// main.js
+import { calculateFee } from './calculations.js';
+import { validateName, validateAge } from './validators.js';
+import { displayVisitors, updateSummary } from './ui.js';
+
+// Main application logic
+document.getElementById('addBtn').addEventListener('click', () => {
+    // Uses imported functions
+});
+```
+
+Tian watched in amazement as the 800-line monster transformed into seven focused, manageable files. "Each file is like 50-150 lines. So much easier to work with!"
+
+Miguel showed more advanced patterns—default exports vs named exports, renaming imports, importing everything as a namespace. "But start simple: use named exports for most things. They're explicit and easier to refactor."
+
+Rhea Joy had already opened VS Code and created a new `src/` folder with module files. "I'm going to refactor our entire portal into modules. This will make it so much easier to maintain and expand."
+
+Tian was thinking about team collaboration. "If we split this into modules, you could work on `ui.js` while I work on `calculations.js`, and we wouldn't conflict. We're editing different files!"
+
+"That's another huge benefit," Miguel said. "Modules enable team collaboration. In professional development, projects have dozens of developers working on hundreds of modules simultaneously. That's only possible because each module is independent with clear interfaces."
+
+Miguel gave them a challenge: "Refactor your barangay portal into modules. Think carefully about which functions belong together. Aim for high cohesion within modules and low coupling between them. Each module should have one clear responsibility."
+
+Tian pulled up their project, ready to split the monolith. "Time to organize this code properly. No more 800-line files."
+
+Rhea Joy added, "And once we master modules, we can reuse them across multiple projects. Build a library of utilities we can import anywhere!"
+
+Miguel smiled. "Now you're thinking like professional developers. Modular code is maintainable code. Welcome to the world of scalable JavaScript architecture. 🧩"
 
 ---
 
-## Breaking Code into Modules
-
-"Kuya Miguel, our JavaScript files are getting long and messy. How do real developers organize code?" Tian asked.
-
-Rhea Joy nodded. "Yeah, like having separate files for different features—one for forms, one for calculations, one for display?"
-
-Kuya Miguel smiled. "That's **modular JavaScript** using `import` and `export`. Split your code into logical modules—easier to maintain, test, and reuse. Let's learn it!"
-
----
+## Theory & Lecture Content
 
 ## Why Modules?
 

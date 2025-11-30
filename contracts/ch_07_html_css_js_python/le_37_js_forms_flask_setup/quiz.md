@@ -11,6 +11,10 @@ b) A Python web framework
 c) A database  
 d) A CSS framework
 
+**Answer: b**
+
+Flask is a lightweight Python web framework for building web applications and APIs.
+
 ---
 
 **2. How do you create a Flask route?**
@@ -19,6 +23,10 @@ a) `@app.route('/path')`
 b) `app.get('/path')`  
 c) `route('/path')`  
 d) `flask.route('/path')`
+
+**Answer: a**
+
+Use the `@app.route('/path')` decorator to create a route in Flask.
 
 ---
 
@@ -29,6 +37,10 @@ b) Gets JSON data from request body
 c) Validates JSON  
 d) Creates JSON file
 
+**Answer: b**
+
+`request.get_json()` extracts and parses JSON data from the request body.
+
 ---
 
 **4. How do you return JSON from Flask?**
@@ -38,6 +50,10 @@ b) `return jsonify(data)`
 c) `return JSON.stringify(data)`  
 d) `return data.toJSON()`
 
+**Answer: b**
+
+Use `jsonify(data)` to convert Python data to JSON response with proper headers.
+
 ---
 
 **5. What does `render_template()` do?**
@@ -46,6 +62,10 @@ a) Creates CSS
 b) Renders HTML template file  
 c) Returns JSON  
 d) Validates forms
+
+**Answer: b**
+
+`render_template()` renders an HTML template file from the templates folder.
 
 ---
 
@@ -58,6 +78,10 @@ b) POST
 c) PUT  
 d) DELETE
 
+**Answer: b**
+
+Use POST method to submit form data securely (data not in URL).
+
 ---
 
 **7. What does `debug=True` do in `app.run(debug=True)`?**
@@ -66,6 +90,10 @@ a) Breaks the app
 b) Shows detailed errors and auto-reloads on code changes  
 c) Runs faster  
 d) Required for production
+
+**Answer: b**
+
+`debug=True` shows detailed error messages and automatically reloads the server when code changes. Only use in development.
 
 ---
 
@@ -76,6 +104,10 @@ b) `templates/` folder
 c) `static/` folder  
 d) Anywhere
 
+**Answer: b**
+
+Flask looks for HTML templates in the `templates/` folder by default.
+
 ---
 
 **9. How do you handle errors in Flask routes?**
@@ -84,6 +116,10 @@ a) Try/catch
 b) Try/except  
 c) If/else only  
 d) Errors can't be handled
+
+**Answer: b**
+
+Use `try/except` blocks in Python (Flask) to handle errors gracefully.
 
 ---
 
@@ -94,20 +130,9 @@ b) Static (CSS/JS), Templates (HTML with dynamic content)
 c) Static is faster  
 d) Templates are deprecated
 
----
+**Answer: b**
 
-## Answers
-
-1. **b** - A Python web framework  
-2. **a** - `@app.route('/path')`  
-3. **b** - Gets JSON data from request body  
-4. **b** - `return jsonify(data)`  
-5. **b** - Renders HTML template file  
-6. **b** - POST  
-7. **b** - Shows detailed errors and auto-reloads on code changes  
-8. **b** - `templates/` folder  
-9. **b** - Try/except  
-10. **b** - Static (CSS/JS), Templates (HTML with dynamic content)
+Static files (CSS/JS/images) don't change; templates (HTML) contain dynamic content rendered by Flask.
 
 ---
 

@@ -8,11 +8,19 @@
    - C. `font-color: red;`
    - D. `text: red;`
 
+**Answer: A**
+
+The correct CSS property for text color is `color`. There is no `text-color`, `font-color`, or `text` property for colors in CSS.
+
 2. What does `rgba(255, 0, 0, 0.5)` represent?
    - A. Fully opaque red
    - B. 50% transparent red
    - C. Fully transparent red
    - D. Invalid CSS syntax
+
+**Answer: B**
+
+RGBA stands for Red-Green-Blue-Alpha. The fourth value (alpha) controls transparency: `0.0` = fully transparent, `1.0` = fully opaque. So `rgba(255, 0, 0, 0.5)` is 50% transparent red.
 
 3. Rhea Joy wants to use a custom font from Google Fonts. What should she add to the HTML?
    - A. `<font src="https://fonts.googleapis.com/...">`
@@ -20,17 +28,29 @@
    - C. `<link href="https://fonts.googleapis.com/..." rel="stylesheet">`
    - D. `<style src="https://fonts.googleapis.com/..."></style>`
 
+**Answer: C**
+
+Google Fonts are linked using the `<link>` tag in the HTML `<head>` section, just like linking a CSS file. Use `rel="stylesheet"` to indicate it's a stylesheet.
+
 4. What does `background-size: cover;` do?
    - A. Shows the image at its original size
    - B. Scales the image to cover the entire area (may crop)
    - C. Repeats the image to fill the area
    - D. Centers the image
 
+**Answer: B**
+
+`background-size: cover;` scales the image to cover the entire container area. It maintains aspect ratio but may crop parts of the image.
+
 5. Which font category has decorative strokes?
    - A. `sans-serif`
    - B. `monospace`
    - C. `serif`
    - D. `cursive`
+
+**Answer: C**
+
+Serif fonts have decorative strokes (serifs) at the ends of letters (like Times New Roman). Sans-serif fonts don't have these strokes (like Arial).
 
 ---
 
@@ -44,11 +64,19 @@
    - C. `color: hex(ff0000);`
    - D. `color: 0xff0000;`
 
+**Answer: B**
+
+Hexadecimal colors in CSS start with `#` followed by 6 characters (or 3 as shorthand). `#ff0000` is red. RGB is a different color format.
+
 7. Rhea Joy wants text to be bold. Which CSS property should she use?
    - A. `text-weight: bold;`
    - B. `font-weight: bold;`
    - C. `text-style: bold;`
    - D. `font-bold: true;`
+
+**Answer: B**
+
+`font-weight: bold;` makes text bold. Common values: `normal` (400), `bold` (700), or numeric values 100-900.
 
 8. What does `text-transform: uppercase;` do?
    - A. Makes text bold
@@ -56,11 +84,19 @@
    - C. Increases text size
    - D. Underlines text
 
+**Answer: B**
+
+`text-transform: uppercase;` converts text to all capital letters. Other values: `lowercase`, `capitalize` (first letter of each word).
+
 9. Which CSS creates a background image that doesn't repeat?
    - A. `background-image: url('image.jpg'); background-repeat: none;`
    - B. `background: url('image.jpg') repeat-none;`
    - C. `background-image: url('image.jpg'); background-repeat: no-repeat;`
    - D. `background: url('image.jpg') no-tile;`
+
+**Answer: C**
+
+The correct value is `background-repeat: no-repeat;`. This prevents the background image from tiling/repeating.
 
 10. What unit is relative to the root (html) element's font size?
     - A. `em`
@@ -68,20 +104,9 @@
     - C. `rem`
     - D. `%`
 
----
+**Answer: C**
 
-# Answers
-
-1. **A** - `color: red;`
-2. **B** - 50% transparent red
-3. **C** - `<link href="https://fonts.googleapis.com/..." rel="stylesheet">`
-4. **B** - Scales the image to cover the entire area (may crop)
-5. **C** - `serif`
-6. **B** - `color: #ff0000;`
-7. **B** - `font-weight: bold;`
-8. **B** - Converts text to UPPERCASE
-9. **C** - `background-image: url('image.jpg'); background-repeat: no-repeat;`
-10. **C** - `rem`
+`rem` (root em) is relative to the root (html) element's font size. `em` is relative to the parent element's font size. `px` is absolute.
 
 ---
 

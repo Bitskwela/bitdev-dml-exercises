@@ -8,11 +8,19 @@
    - C. Making desktop sites work on mobile
    - D. A CSS framework
 
+**Answer: B**
+
+Mobile-first design means starting with mobile as the base, then progressively enhancing for tablets and desktops.
+
 2. Why is mobile-first recommended?
    - A. Mobile devices are slower
    - B. It's easier to add features than remove them
    - C. Desktop users don't matter
    - D. It requires less CSS
+
+**Answer: B**
+
+Mobile-first is easier because adding features is simpler than removing/overriding them. Start simple, add enhancements.
 
 3. Which media query syntax is mobile-first?
    - A. `@media (max-width: 768px)`
@@ -20,17 +28,29 @@
    - C. `@media (width: 768px)`
    - D. `@media screen`
 
+**Answer: B**
+
+Mobile-first uses `min-width` (styles apply when screen is this size or larger). Base styles are mobile, enhancements use `min-width`.
+
 4. In mobile-first, where do you write base (mobile) styles?
    - A. Inside `@media (max-width: 767px)`
    - B. In a separate mobile.css file
    - C. Outside any media query (default)
    - D. Inside `@media (mobile)`
 
+**Answer: C**
+
+In mobile-first, write mobile styles outside any media query (they're the default/base). Use `@media (min-width)` for larger screens.
+
 5. What is the minimum recommended tap target size for mobile?
    - A. 20x20px
    - B. 32x32px
    - C. 44x44px
    - D. 64x64px
+
+**Answer: C**
+
+44x44px is the minimum recommended tap target size for mobile to ensure buttons are easy to tap with fingers.
 
 ---
 
@@ -44,11 +64,19 @@
    - C. 70%+
    - D. 10%
 
+**Answer: C**
+
+70%+ of Philippine web traffic is mobile. This is why mobile-first design is critical for Filipino users.
+
 7. Which CSS follows mobile-first approach?
    - A. Desktop styles, then `@media (max-width: 768px)` for mobile
    - B. Mobile styles, then `@media (min-width: 768px)` for desktop
    - C. Only mobile styles
    - D. Both approaches are the same
+
+**Answer: B**
+
+Mobile-first: Write mobile styles first (base), then use `@media (min-width)` to add desktop enhancements.
 
 8. What should Tian prioritize for mobile design?
    - A. All features from desktop version
@@ -56,11 +84,19 @@
    - C. Complex animations
    - D. Large images
 
+**Answer: B**
+
+Prioritize essential content and functionality for mobile. Keep it simple, focused on core user needs.
+
 9. Which is a benefit of mobile-first design?
    - A. Better mobile performance
    - B. Less code overall
    - C. Works only on smartphones
    - D. Doesn't need testing
+
+**Answer: A**
+
+Mobile-first provides better mobile performance because mobile devices load only the CSS they need, not unnecessary desktop styles.
 
 10. What does "progressive enhancement" mean in mobile-first?
     - A. Making websites load faster
@@ -68,20 +104,9 @@
     - C. Using the latest CSS
     - D. Optimizing images
 
----
+**Answer: B**
 
-# Answers
-
-1. **B** - Starting with mobile design, then enhancing for larger screens
-2. **B** - It's easier to add features than remove them
-3. **B** - `@media (min-width: 768px)`
-4. **C** - Outside any media query (default)
-5. **C** - 44x44px
-6. **C** - 70%+
-7. **B** - Mobile styles, then `@media (min-width: 768px)` for desktop
-8. **B** - Essential content and functionality
-9. **A** - Better mobile performance
-10. **B** - Starting simple (mobile), adding features for larger screens
+Progressive enhancement means starting simple (mobile base) and adding features/complexity for larger screens that can handle them.
 
 ---
 

@@ -1,16 +1,97 @@
-# Lesson 32: Inline CSS with JavaScript - Dynamic Styling
+## Background Story
+
+The barangay office had a new requirement: visual status indicators. When an application was submitted, a status box should change color based on the application state:
+
+- Pending: Yellow background
+- Approved: Green background  
+- Rejected: Red background
+- Under Review: Blue background
+
+Tian could change the text content using `textContent`, but they didn't know how to change CSS styles dynamically. They tried modifying the HTML directly:
+
+```javascript
+statusBox.textContent = "Approved";
+// How do I also change the background to green?
+```
+
+The CSS file had classes for each status:
+
+```css
+.status-pending { background: yellow; }
+.status-approved { background: green; }
+.status-rejected { background: red; }
+```
+
+But Tian didn't know how to apply these classes dynamically from JavaScript. They needed a way to manipulate CSS from code.
+
+Rhea Joy had a similar challenge with the office availability indicator. The barangay hall's hours were 8 AM to 5 PM, Monday to Friday. She wanted a visual indicator:
+
+- When open: Green dot, text says "OPEN"
+- When closed: Red dot, text says "CLOSED"
+- Font size should be larger during business hours to draw attention
+
+She could update the text with JavaScript, but not the color or size:
+
+```javascript
+let currentHour = new Date().getHours();
+if (currentHour >= 8 && currentHour < 17) {
+    indicator.textContent = "OPEN";
+    // But how do I make it green and larger?
+} else {
+    indicator.textContent = "CLOSED";
+    // And how do I make it red and smaller?
+}
+```
+
+Both of them realized they'd learned to manipulate content (text, HTML), but not presentation (styles, colors, sizes). Their interfaces were static—they looked the same regardless of state or user interaction.
+
+That evening, they researched "JavaScript change CSS" and found two approaches:
+
+1. **Inline styles**: Directly modify the `style` property
+```javascript
+element.style.backgroundColor = 'green';
+```
+
+2. **CSS classes**: Add/remove class names that have styles defined in CSS
+```javascript
+element.classList.add('status-approved');
+```
+
+Tian tried the inline approach:
+
+```javascript
+statusBox.style.backgroundColor = 'green';
+statusBox.style.color = 'white';
+statusBox.style.padding = '15px';
+```
+
+It worked! The status box changed color based on application state.
+
+Rhea Joy tried the class approach:
+
+```javascript
+indicator.classList.add('office-open');
+indicator.classList.remove('office-closed');
+```
+
+Also worked! The indicator switched between open and closed styling.
+
+But they'd learned through trial and error. They didn't understand:
+- When to use inline styles vs classes
+- How to toggle classes
+- How CSS property names change in JavaScript (background-color → backgroundColor)
+- How to read current styles
+- Best practices for dynamic styling
+
+They called Kuya Miguel.
+
+"Kuya, we can change text and HTML, but we didn't know how to change styles dynamically. We discovered the `style` property and `classList`, but we're just guessing. Can you teach us how to properly manipulate CSS from JavaScript?"
+
+Miguel pulled up examples on his screen. "Dynamic styling is what makes interfaces feel responsive and alive. The `style` property lets you modify CSS directly. The `classList` API lets you add, remove, and toggle classes. Today we're learning both approaches, when to use each, how to create interactive visual feedback, and best practices for keeping styling organized. By the end of this lesson, your interfaces will respond visually to every user interaction."
 
 ---
 
-## Styling Elements Dynamically
-
-"Kuya Miguel, we can change text and handle clicks. Can we change colors and styles based on user actions?" Tian asked.
-
-Rhea Joy added, "Like making a box turn green when clicked, or changing size based on input?"
-
-Kuya Miguel smiled. "Absolutely! Using the `style` property and `classList`, you can create dynamic, responsive interfaces. Let's master **inline CSS with JavaScript**!"
-
----
+## Theory & Lecture Content
 
 ## The style Property
 

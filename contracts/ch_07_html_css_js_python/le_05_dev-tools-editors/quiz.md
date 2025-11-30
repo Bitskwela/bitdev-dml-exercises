@@ -183,59 +183,77 @@ avatar.jpg    404       image       -         120ms ❌
 
 ## Quiz Questions
 
-**Tanong 1:** Anong code editor ang recommended para sa web development (modern, free, extensible)?
+# Quiz 1
+
+**Question 1:** What code editor is recommended for web development (modern, free, extensible)?
 
 - A) Microsoft Word
 - B) Notepad
 - C) Visual Studio Code (VS Code)
 - D) Photoshop
 
-**Tanong 2:** Anong VS Code extension ang nag-a-auto reload ng browser when you save files?
+**Answer: C**
+
+Visual Studio Code (VS Code) is the recommended modern code editor - free, extensible with many extensions, and powerful for web development.
+
+**Question 2:** What VS Code extension automatically reloads the browser when you save files?
 
 - A) Prettier (code formatter)
 - B) Live Server (live reload)
 - C) ESLint (JavaScript linter)
 - D) GitLens (git integration)
 
-**Tanong 3:** Ano ang keyboard shortcut para mag-save ng file sa VS Code?
+**Answer: B**
+
+Live Server extension automatically reloads the browser when you save files, making development faster and easier.
+
+**Question 3:** What is the keyboard shortcut to save a file in VS Code?
 
 - A) Ctrl + C
 - B) Ctrl + V
 - C) Ctrl + S
 - D) Ctrl + Z
 
+**Answer: C**
+
+Ctrl + S is the keyboard shortcut to save files in VS Code (and most applications).
+
 ---
 
 # Quiz 2
 
-**Tanong 4:** Paano mo i-select ang LAHAT ng occurrences ng isang word for simultaneous editing?
+**Question 4:** How do you select ALL occurrences of a word for simultaneous editing?
 
 - A) Ctrl + F (Find)
 - B) Ctrl + Shift + L (Select All Occurrences)
 - C) Ctrl + C (Copy)
 - D) Ctrl + X (Cut)
 
-**Tanong 5:** Sa DevTools, saan mo makikita ang JavaScript errors?
+**Answer: B**
+
+Ctrl + Shift + L selects all occurrences of the currently selected word, allowing you to edit them all at once.
+
+**Question 5:** In DevTools, where can you see JavaScript errors?
 
 - A) Elements Tab
 - B) Console Tab
 - C) Network Tab
 - D) Application Tab
 
-**Tanong 6:** Ang avatar.jpg ay 404 Not Found. Ano ang problema?
+**Answer: B**
 
-- A) Image file ay nasa wrong folder or hindi uploaded
-- B) Browser issue lang
-- C) Internet slow lang
-- D) Kailangan ng special software
+JavaScript errors appear in the Console Tab of DevTools, showing error messages and line numbers.
 
-**Sagot:**
-- **Tanong 1:** C) Visual Studio Code
-- **Tanong 2:** B) Live Server
-- **Tanong 3:** C) Ctrl + S
-- **Tanong 4:** B) Ctrl + Shift + L
-- **Tanong 5:** B) Console Tab
-- **Tanong 6:** A) Image file ay nasa wrong folder
+**Question 6:** The avatar.jpg is 404 Not Found. What's the problem?
+
+- A) Image file is in the wrong folder or not uploaded
+- B) Just a browser issue
+- C) Just slow internet
+- D) Special software needed
+
+**Answer: A**
+
+404 Not Found means the image file is in the wrong folder, has a typo in the filename, or hasn't been uploaded to the server yet.
 
 ---
 
@@ -246,7 +264,7 @@ avatar.jpg    404       image       -         120ms ❌
 **Notepad - Basic Text Editor**
 ```
 Pros:
-✅ Pre-installed sa Windows
+✅ Pre-installed on Windows
 ✅ Super lightweight
 ✅ Opens instantly
 
@@ -278,7 +296,7 @@ Cons:
 ❌ Basic IntelliSense
 ❌ No Git integration
 
-Verdict: ⚠️ Okay for beginners, pero limited
+Verdict: ⚠️ Okay for beginners, but limited
 ```
 
 ---

@@ -1,16 +1,70 @@
-# Lesson 16: CSS Display Types
+## Background Story
+
+Tian was building a horizontal badge system for the barangay website—small colored labels like "New", "Urgent", and "Featured" that would appear inline with text. They'd created the badges using `<span>` elements because spans are inline and shouldn't break to a new line.
+
+But there was a problem. The badges needed specific dimensions—30px height, 60px width—to maintain consistent sizing. Tian tried:
+
+```css
+.badge {
+    width: 60px;
+    height: 30px;
+    background-color: red;
+    color: white;
+}
+```
+
+The background color and text color worked, but the width and height were completely ignored. The badges remained whatever size the text inside made them. Some badges were wider, some narrower, creating an inconsistent, unprofessional appearance.
+
+"Why isn't width and height working?" Tian muttered, checking the CSS file repeatedly. The properties were spelled correctly. They were applied to the right class. But they had no effect.
+
+Meanwhile, Rhea Joy was experiencing the opposite problem. She'd created service cards using `<div>` elements and wanted them to appear side by side—three cards in a row. But every time she added a new card div, it appeared below the previous one, stacking vertically.
+
+```html
+<div class="service-card">Clearance</div>
+<div class="service-card">Barangay ID</div>
+<div class="service-card">Indigency</div>
+```
+
+All three appeared in a vertical stack, each on its own line, taking up the full width of the container.
+
+She tried removing margins and padding, thinking spacing was pushing them down. No change. She tried setting explicit widths on each card. They got narrower, but still stacked vertically.
+
+It was Saturday morning at the internet cafe. Both Tian and Rhea Joy were working on their respective issues, growing increasingly frustrated.
+
+"My spans won't accept width and height," Tian said.
+
+"My divs won't go side by side," Rhea Joy replied.
+
+They pulled up the MDN documentation and started reading about the `display` property. That's when they discovered something fundamental they'd missed:
+
+**Different HTML elements have different default display values that control their layout behavior.**
+
+- `<span>` has `display: inline` by default—flows with text, doesn't accept width/height
+- `<div>` has `display: block` by default—takes full width, starts on new line
+
+That explained everything. Tian's spans were inline elements that didn't accept dimensional properties. Rhea Joy's divs were block elements that automatically stacked vertically.
+
+But the documentation also showed solutions:
+
+- `display: inline-block` — combines inline flow with block properties
+- `display: flex` — modern layout system for horizontal/vertical arrangements
+- `display: none` — completely hides elements
+
+They tried applying `display: inline-block` to Tian's badges and to Rhea Joy's service cards. Both problems were instantly solved. The badges accepted width and height while remaining inline with text. The service cards appeared side by side while accepting dimensional and spacing properties.
+
+That evening, they called Kuya Miguel to understand the full picture.
+
+"Kuya, we discovered that HTML elements have default display values that control their behavior. Spans are inline, divs are block. But we only learned about this by accident when our layouts broke. Why didn't we learn about the display property earlier?"
+
+Miguel smiled. "Because you needed to experience the problem first. If I'd taught you display types without context, it would've been abstract and forgettable. Now that you've hit the actual layout issues—spans not accepting dimensions, divs stacking when you want them side by side—you understand *why* the display property matters."
+
+"So there are multiple display values?"
+
+"Many. `block`, `inline`, `inline-block`, `flex`, `grid`, `none`, and more. Each controls how elements behave in the layout. Today, I'm teaching you the most important ones, when to use each, and how to solve common layout problems by changing display values."
 
 ---
 
-## The Layout Mystery
-
-"Kuya Miguel, bakit yung `<span>` ko hindi tumatanggap ng width at height?" Tian asked, frustrated with his barangay website. "Pero yung `<div>` okay naman?"
-
-Rhea Joy chimed in, "And bakit yung mga `<div>` ko, each one starts on a new line? Gusto ko sila side by side!"
-
-Kuya Miguel smiled. "Ah, that's because of the `display` property. Different HTML elements have different default display values that control how they behave in the layout."
-
----
+## Theory & Lecture Content
 
 ## What is the Display Property?
 

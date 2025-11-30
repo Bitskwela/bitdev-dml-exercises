@@ -11,6 +11,10 @@ b) `element.style.backgroundColor = 'blue';`
 c) `element.style['background-color'] = 'blue';`  
 d) Both b and c
 
+**Answer: d**
+
+Both camelCase (`backgroundColor`) and bracket notation (`['background-color']`) work. Avoid hyphens directly in dot notation.
+
 ---
 
 **2. What does `classList.toggle('active')` do?**
@@ -19,6 +23,10 @@ a) Adds the 'active' class
 b) Removes the 'active' class  
 c) Adds the class if not present, removes if present  
 d) Checks if the class exists
+
+**Answer: c**
+
+`toggle()` adds the class if it's not present, removes it if it is - perfect for show/hide functionality.
 
 ---
 
@@ -29,6 +37,10 @@ b) Define CSS classes and toggle them with `classList`
 c) Use both simultaneously  
 d) Write styles directly in JavaScript strings
 
+**Answer: b**
+
+Define CSS classes and toggle them with `classList` for better separation of concerns, maintainability, and reusability.
+
 ---
 
 **4. What does `element.style.fontSize = '20px'` do?**
@@ -38,6 +50,10 @@ b) Returns the current font size
 c) Causes an error  
 d) Sets font weight to 20
 
+**Answer: a**
+
+This sets the element's font size to 20 pixels using inline CSS via JavaScript.
+
 ---
 
 **5. How do you check if an element has a specific class?**
@@ -46,6 +62,10 @@ a) `element.hasClass('className')`
 b) `element.classList.has('className')`  
 c) `element.classList.contains('className')`  
 d) `element.containsClass('className')`
+
+**Answer: c**
+
+Use `element.classList.contains('className')` to check if an element has a specific class.
 
 ---
 
@@ -58,6 +78,10 @@ b) Element is hidden and removed from layout
 c) Element becomes transparent  
 d) Element changes to inline display
 
+**Answer: b**
+
+`display: none` hides the element and removes it from the layout flow (no space reserved).
+
 ---
 
 **7. How do you add multiple classes at once?**
@@ -66,6 +90,10 @@ a) `element.classList.add('class1', 'class2', 'class3');`
 b) `element.classList.add(['class1', 'class2', 'class3']);`  
 c) `element.classList = 'class1 class2 class3';`  
 d) Both a and c
+
+**Answer: a**
+
+Use `element.classList.add('class1', 'class2', 'class3')` to add multiple classes as separate arguments.
 
 ---
 
@@ -76,6 +104,10 @@ b) Makes all property changes animate over 0.3 seconds
 c) Delays all changes by 0.3 seconds  
 d) Causes an error
 
+**Answer: b**
+
+This adds a CSS transition that animates all property changes over 0.3 seconds with easing.
+
 ---
 
 **9. How do you remove all classes from an element?**
@@ -84,6 +116,10 @@ a) `element.classList.removeAll();`
 b) `element.classList.clear();`  
 c) `element.className = '';`  
 d) `element.classList = [];`
+
+**Answer: c**
+
+Set `element.className = ''` to remove all classes from an element.
 
 ---
 
@@ -94,20 +130,9 @@ b) `element.style.borderRadius = '5px';`
 c) `element.style['border radius'] = '5px';`  
 d) `element.style.BorderRadius = '5px';`
 
----
+**Answer: b**
 
-## Answers
-
-1. **d** - Both b and c  
-2. **c** - Adds the class if not present, removes if present  
-3. **b** - Define CSS classes and toggle them with classList  
-4. **a** - Sets font size to 20 pixels  
-5. **c** - `element.classList.contains('className')`  
-6. **b** - Element is hidden and removed from layout  
-7. **a** - `element.classList.add('class1', 'class2', 'class3');`  
-8. **b** - Makes all property changes animate over 0.3 seconds  
-9. **c** - `element.className = '';`  
-10. **b** - `element.style.borderRadius = '5px';`
+Use camelCase for CSS properties in JavaScript: `borderRadius` instead of `border-radius`.
 
 ---
 

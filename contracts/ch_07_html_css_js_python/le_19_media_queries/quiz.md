@@ -8,11 +8,19 @@
    - C. `media-query: max-width 768px;`
    - D. `if (max-width: 768px) { }`
 
+**Answer: B**
+
+Media query syntax uses `@media` followed by parentheses around the condition, then curly braces for CSS rules.
+
 2. Rhea Joy wants styles for screens **768px or smaller**. Which media query should she use?
    - A. `@media (min-width: 768px)`
    - B. `@media (max-width: 768px)`
    - C. `@media (width: 768px)`
    - D. `@media (screen-width: 768px)`
+
+**Answer: B**
+
+`max-width: 768px` means styles apply when the screen is 768px or smaller (maximum width is 768px).
 
 3. What does this meta tag do? `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
    - A. Sets page background color
@@ -20,17 +28,29 @@
    - C. Loads CSS faster
    - D. Enables JavaScript
 
+**Answer: B**
+
+The viewport meta tag tells mobile browsers how to display the page. Without it, mobile browsers show the desktop version zoomed out.
+
 4. Which approach is recommended for responsive design?
    - A. Desktop-first (start with desktop, override for mobile)
    - B. Mobile-first (start with mobile, add for larger screens)
    - C. Tablet-first
    - D. TV-first
 
+**Answer: B**
+
+Mobile-first approach starts with mobile styles, then progressively enhances for larger screens using `min-width` media queries.
+
 5. What does `@media (orientation: portrait)` target?
    - A. Horizontal screens (width > height)
    - B. Vertical screens (height > width)
    - C. Square screens
    - D. Desktop computers only
+
+**Answer: B**
+
+`orientation: portrait` targets vertical screens where height is greater than width (like a phone held upright).
 
 ---
 
@@ -44,11 +64,19 @@
    - C. `@media (min-width: 768px) and (max-width: 1023px)`
    - D. `@media (min-width: 768px) or (max-width: 1023px)`
 
+**Answer: C**
+
+Use `and` to combine conditions. This targets screens between 768px and 1023px (inclusive).
+
 7. Where should Rhea Joy place media queries in her CSS file?
    - A. At the very top, before all other CSS
    - B. In a separate file
    - C. After the styles they override
    - D. Media queries don't work in CSS
+
+**Answer: C**
+
+Place media queries after the base styles they override. CSS cascades, so later rules override earlier ones.
 
 8. What does `@media (min-width: 768px)` mean?
    - A. Styles apply when screen is exactly 768px
@@ -56,11 +84,19 @@
    - C. Styles apply when screen is 768px or larger
    - D. Styles apply only on tablets
 
+**Answer: C**
+
+`min-width: 768px` means styles apply when the screen is 768px or larger (minimum width is 768px).
+
 9. Tian wants to hide the mobile menu on desktop. Which CSS is correct?
    - A. `.mobile-menu { display: none; }` (in base styles)
    - B. `@media (min-width: 768px) { .mobile-menu { display: none; } }`
    - C. `.mobile-menu { visibility: hidden; }`
    - D. `@media (mobile) { .mobile-menu { display: none; } }`
+
+**Answer: B**
+
+Use `@media (min-width: 768px)` to apply styles on larger screens (desktop). This hides the mobile menu when screen is 768px or wider.
 
 10. Which media query targets dark mode preference?
     - A. `@media (theme: dark)`
@@ -68,20 +104,9 @@
     - C. `@media (prefers-color-scheme: dark)`
     - D. `@media (mode: dark)`
 
----
+**Answer: C**
 
-# Answers
-
-1. **B** - `@media (max-width: 768px) { }`
-2. **B** - `@media (max-width: 768px)`
-3. **B** - Makes website responsive on mobile devices
-4. **B** - Mobile-first (start with mobile, add for larger screens)
-5. **B** - Vertical screens (height > width)
-6. **C** - `@media (min-width: 768px) and (max-width: 1023px)`
-7. **C** - After the styles they override
-8. **C** - Styles apply when screen is 768px or larger
-9. **B** - `@media (min-width: 768px) { .mobile-menu { display: none; } }`
-10. **C** - `@media (prefers-color-scheme: dark)`
+`@media (prefers-color-scheme: dark)` detects if the user has enabled dark mode in their system settings.
 
 ---
 

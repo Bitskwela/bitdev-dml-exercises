@@ -1,12 +1,224 @@
-# Lesson 45: Using Local Storage and Sessions
-
 ## Background Story
 
-Residents started using the barangay portal, but they kept complaining: "Every time I refresh the page, I have to login again!" and "Why doesn't the site remember my dark mode preference?"
+The secure barangay portal had been live for two weeks. Residents were using it regularly, submitting complaints and checking statuses. But Tian started receiving consistent feedback that revealed a user experience problem.
 
-Tian realized the app had no client-side persistence. Every refresh was like starting from scratch.
+Maria Santos, a frequent user, complained: "Every single time I refresh the page, I have to log in again. I was looking at my complaint details, accidentally hit F5, and suddenly I'm at the login screen. Ang hassle!"
 
-Kuya Miguel introduced two solutions: "For preferences and non-sensitive data, use **localStorage**. For temporary session data, use **sessionStorage**. And for server-side sessions, we already have Flask sessions. Let's combine them for the best user experience."
+Pedro Reyes echoed: "I set the text size to large because my eyes aren't great, pero when I come back the next day, it's back to default. The site doesn't remember my preferences."
+
+Ms. Reyes from the barangay office added: "I was editing a long complaint description, my browser crashed, and when I reopened it, everything I typed was gone. There's no auto-save or draft feature."
+
+Tian realized the application had a fundamental problem: **zero client-side persistence**. Every page refresh, every browser tab close, every accidental navigation away—users lost their state. Login status, preferences, form data, everything reset.
+
+He demonstrated the problem to Rhea Joy: "Watch. I log in, browse to the complaints page, refresh—logged out. I change the theme to dark mode, refresh—back to light mode. I start typing a complaint, close the tab, reopen—lost everything."
+
+Rhea Joy tested her own experience: "Even worse—I have three browser tabs open, logged in on one. But the other two tabs don't know I'm logged in. Each tab thinks I'm a different user. There's no shared state across tabs."
+
+They called Kuya Miguel to explain the usability problems. "Kuya, our users keep losing their state. They log in, refresh, logged out. They set preferences, refresh, preferences reset. There's no persistence on the client side. How do real websites handle this?"
+
+Miguel understood immediately. "You've discovered the importance of client-side state management. Right now, everything exists in JavaScript memory, which gets cleared on refresh. You need to use **browser storage APIs**—localStorage for long-term persistence and sessionStorage for temporary data."
+
+He demonstrated by opening Twitter. "Watch what happens when I log into Twitter and refresh the page. Still logged in, right? Twitter stores my authentication token in localStorage. The browser remembers it even after refresh, even after closing the browser. That's client-side persistence."
+
+He opened YouTube and changed the video quality to 1080p. "YouTube saves my preference to localStorage. Tomorrow, when I come back, videos will still play in 1080p. The site remembers."
+
+Tian was taking notes. "So localStorage is like a mini-database in the browser? JavaScript can save data there, and it persists across page reloads and browser sessions?"
+
+"Exactly," Miguel confirmed. "localStorage stores key-value pairs. You can save strings, numbers, objects (as JSON), arrays—anything. The data persists until explicitly deleted. Perfect for user preferences, authentication tokens, cached data, and anything that should survive page refreshes."
+
+Rhea Joy asked, "What about sessionStorage? How is that different?"
+
+"sessionStorage is similar, pero data only lasts for the current tab session," Miguel explained. "Close the tab, data is gone. Perfect for temporary state—form drafts, current filters, pagination state. Stuff you want to persist during navigation pero not permanently."
+
+He pulled up a comparison:
+
+```
+localStorage:
+- Persists forever (until manually cleared)
+- ~5-10MB storage limit
+- Shared across all tabs of the same site
+- Survives browser restart
+- Use for: auth tokens, user preferences, cached data
+
+sessionStorage:
+- Persists until tab closes
+- ~5-10MB storage limit
+- Isolated per tab
+- Lost on browser restart
+- Use for: form drafts, temporary state, tab-specific data
+```
+
+Tian immediately saw applications: "So for the barangay portal:
+
+- **localStorage**: Save auth token after login, so users stay logged in across refreshes. Save theme preference (light/dark). Save text size preference. Save language preference. Cache frequently accessed data like complaint categories.
+
+- **sessionStorage**: Save form drafts as users type, so accidental refresh doesn't lose data. Save current filter/search terms. Save scroll position. Temporary state that shouldn't persist forever."
+
+"Perfect understanding," Miguel said. "And there's a third option—**cookies**—pero localStorage and sessionStorage are easier to use and more storage capacity. Cookies are mainly for server communication and authentication."
+
+Rhea Joy was already thinking about the implementation: "So when a user logs in successfully, instead of just showing them the dashboard, we also save their auth token to localStorage:
+
+```javascript
+const response = await fetch('/api/login', {...});
+const data = await response.json();
+
+if (data.success) {
+    localStorage.setItem('authToken', data.token);
+    localStorage.setItem('username', data.username);
+    // Now redirect to dashboard
+}
+```
+
+Then when the page loads, we check localStorage:
+
+```javascript
+window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        // User is logged in, show dashboard
+        loadDashboard();
+    } else {
+        // No token, show login page
+        showLogin();
+    }
+});
+```
+
+No more forced re-login on every refresh!"
+
+Miguel applauded. "Exactly! And you can extend this to every preference:"
+
+```javascript
+// Save theme preference
+document.getElementById('themeToggle').addEventListener('click', () => {
+    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', newTheme);
+});
+
+// Load theme preference on page load
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+}
+```
+
+Tian saw the dramatic improvement in user experience. "Users set preferences once, and the site remembers forever. That's how professional websites work!"
+
+Miguel showed them the form autosave pattern:
+
+```javascript
+// Auto-save form draft to sessionStorage
+const complaintForm = document.getElementById('complaintForm');
+complaintForm.addEventListener('input', () => {
+    const formData = {
+        name: document.getElementById('name').value,
+        category: document.getElementById('category').value,
+        description: document.getElementById('description').value
+    };
+    sessionStorage.setItem('complaintDraft', JSON.stringify(formData));
+});
+
+// Restore draft on page load
+const draft = sessionStorage.getItem('complaintDraft');
+if (draft) {
+    const data = JSON.parse(draft);
+    document.getElementById('name').value = data.name;
+    document.getElementById('category').value = data.category;
+    document.getElementById('description').value = data.description;
+    
+    // Ask user if they want to restore draft
+    if (confirm('Found unsaved complaint. Restore it?')) {
+        // Keep the data
+    } else {
+        sessionStorage.removeItem('complaintDraft');
+    }
+}
+```
+
+"Now if the browser crashes while typing, the draft is safe!" Rhea Joy said excitedly.
+
+Miguel demonstrated more patterns:
+
+**Remember logged-in status across tabs:**
+```javascript
+// Tab 1: User logs in
+localStorage.setItem('authToken', token);
+
+// Tab 2: Listen for storage changes
+window.addEventListener('storage', (e) => {
+    if (e.key === 'authToken') {
+        if (e.newValue) {
+            // User logged in on another tab, update this tab
+            loadDashboard();
+        } else {
+            // User logged out on another tab, update this tab
+            showLogin();
+        }
+    }
+});
+```
+
+**Cache API responses:**
+```javascript
+// Fetch complaint categories
+const cached = localStorage.getItem('categories');
+if (cached) {
+    // Use cached data
+    displayCategories(JSON.parse(cached));
+} else {
+    // Fetch from API
+    const response = await fetch('/api/categories');
+    const categories = await response.json();
+    
+    // Cache for next time
+    localStorage.setItem('categories', JSON.stringify(categories));
+    displayCategories(categories);
+}
+```
+
+Tian was amazed at how much localStorage improved user experience. "This solves so many annoyances: stay logged in, remember preferences, save drafts, cache data, sync state across tabs. All with just localStorage and sessionStorage!"
+
+Miguel gave important security warnings: "**Never store sensitive data in localStorage**—like full passwords or credit card numbers. Authentication tokens are okay if they're short-lived and properly secured. But localStorage is accessible to any JavaScript on your page, including malicious scripts. So: tokens yes, passwords no. Preferences yes, private data no."
+
+Rhea Joy created a comprehensive storage plan for the barangay portal:
+
+**localStorage (persistent):**
+- authToken (for staying logged in)
+- username (for displaying welcome message)
+- theme (light/dark preference)
+- textSize (accessibility preference)
+- language (Tagalog/English)
+- cachedCategories (complaint categories list)
+
+**sessionStorage (temporary):**
+- complaintDraft (form autosave)
+- searchQuery (current search term)
+- filterStatus (current filter)
+- scrollPosition (where user was on the page)
+
+Tian and Rhea Joy spent the afternoon implementing localStorage and sessionStorage throughout the barangay portal. When they tested it:
+
+- Log in, refresh page → Still logged in! ✓
+- Change to dark mode, close browser, reopen → Still dark! ✓
+- Start typing complaint, accidentally refresh → Draft restored! ✓
+- Log in on one tab, switch to another tab → Automatically logged in there too! ✓
+- Close tab with unsaved form → Draft lost (as intended with sessionStorage) ✓
+- Clear localStorage → Logged out and preferences reset (as expected) ✓
+
+Maria Santos tested the updated portal: "Wow! I don't have to log in every time now. And it remembered my text size preference! This is so much better!"
+
+Pedro Reyes was thrilled: "I started writing a complaint, got distracted, closed the tab accidentally. When I came back, it asked if I wanted to restore my draft. Saved me so much retyping!"
+
+Tian felt proud. "We didn't change any core functionality, pero the user experience improved dramatically. That's the power of client-side persistence."
+
+Miguel smiled through the video call. "You've learned that great applications aren't just about features—they're about user experience. localStorage and sessionStorage are simple APIs, pero they make websites feel professional, polished, and user-friendly. Remember: users judge your app not by your code quality, but by how it feels to use. And persisting state makes it feel smooth, seamless, and respectful of their time."
+
+---
+
+## Theory & Lecture Content
 
 ## Client-Side Storage Options
 
@@ -145,10 +357,10 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
 function applyTheme(theme) {
     if (theme === 'dark') {
         document.body.classList.add('dark-mode');
-        document.getElementById('theme-toggle').textContent = '☀️ Light Mode';
+        document.getElementById('theme-toggle').textContent = 'Light Mode';
     } else {
         document.body.classList.remove('dark-mode');
-        document.getElementById('theme-toggle').textContent = '🌙 Dark Mode';
+        document.getElementById('theme-toggle').textContent = 'Dark Mode';
     }
 }
 ```
@@ -627,4 +839,4 @@ Tomorrow, the barangay portal would go live. Real users. Real data. Real impact.
 
 The journey was almost complete.
 
-_Next up: Lesson 46—Frontend JS + Flask Deployment!_ 🚀
+_Next up: Lesson 46 - Frontend JS + Flask Deployment!_

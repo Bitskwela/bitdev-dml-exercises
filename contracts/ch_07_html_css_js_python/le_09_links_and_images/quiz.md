@@ -30,12 +30,20 @@ Tian creates navigation for barangay website:
 - C) Home Reference
 - D) Header Reference
 
+**Answer: A**
+
+`href` stands for Hyperlink Reference. It specifies the link destination (URL, file, email, phone, anchor). It's a required attribute for `<a>` tags.
+
 **Question 2:** What does `<a href="#contact">` do?
 
 - A) Links to external site
 - B) Jumps to element with id="contact" on same page
 - C) Opens email
 - D) Downloads file
+
+**Answer: B**
+
+Anchor links with `href="#id"` jump to an element with the matching `id` attribute on the same page. Useful for navigation within long pages.
 
 ---
 
@@ -48,12 +56,20 @@ Tian creates navigation for barangay website:
 - C) Downloads file
 - D) Refreshes page
 
+**Answer: B**
+
+`target="_blank"` opens the link in a new tab/window, keeping the original page open. Best practice for external links.
+
 **Question 4:** Why is the `alt` attribute critical for images?
 
 - A) Makes image bigger
 - B) Accessibility, SEO, fallback text if image fails
 - C) Optional decoration
 - D) Changes image color
+
+**Answer: B**
+
+The `alt` attribute provides: 1) Accessibility (screen readers describe images), 2) SEO (Google indexes alt text), 3) Fallback text if image fails to load.
 
 **Question 5:** Which image format supports transparent backgrounds?
 
@@ -62,14 +78,9 @@ Tian creates navigation for barangay website:
 - C) BMP
 - D) TXT
 
----
+**Answer: B**
 
-## Answers
-1: A  
-2: B  
-3: B  
-4: B  
-5: B  
+PNG supports transparent backgrounds. JPG doesn't support transparency. Use PNG for logos/icons, JPG for photos.  
 
 ---
 

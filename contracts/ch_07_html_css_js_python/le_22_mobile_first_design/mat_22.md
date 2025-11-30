@@ -1,16 +1,121 @@
-# Lesson 22: Mobile-First Design Strategy
+## Background Story
+
+It was supposed to be the barangay website's big launch day. Ms. Reyes had invited barangay officials, community members, and even a reporter from the local newspaper to see the new digital portal Tian and his classmates had been working on for weeks. Tian had spent the entire previous evening perfecting every detail on his laptop—adjusting font sizes, fine-tuning hover effects, ensuring the navigation menu looked professional.
+
+Everything looked perfect on his 15-inch laptop screen.
+
+But fifteen minutes before the presentation, Kuya Miguel arrived and asked a simple question that made Tian's heart sink: "Have you tested this on a phone?"
+
+Tian's face went pale. "A phone? I... I mean, I made it responsive. I added some media queries at the end..."
+
+Miguel pulled out his smartphone, navigated to the development URL, and silently handed the phone to Tian.
+
+The website was a disaster. The carefully crafted navigation menu had items stacked on top of each other, half of them cut off the edge of the screen. The hero section image that looked stunning on desktop was zoomed in so much that only the middle third was visible, cutting off the important text. The three-column layout for services had columns so narrow that text was wrapping after every two words, creating a comical tower of broken sentences. The sidebar with "Latest Updates" was pushed all the way to the bottom, below all the main content, making it completely hidden unless someone scrolled for a full minute.
+
+"Oh no," Tian whispered, his hands shaking slightly as he scrolled through the mobile catastrophe. "This is... this is really bad."
+
+Rhea Joy pulled out her own phone and tested it. "Tian, the buttons are so small I can barely tap them! And look—the contact form has inputs so narrow I can't see what I'm typing."
+
+Tian frantically opened his laptop and started adding more media queries, trying to fix issues on the fly. But every fix seemed to break something else. Make the navigation bigger, and it pushed content too far down. Make the columns stack, and spacing became weird. Adjust font sizes, and suddenly desktop text became gigantic.
+
+"Why is this so hard?" Tian said, frustration building. "I spent hours making it look perfect on desktop, and now I have to override everything for mobile. Every single style needs a media query exception!"
+
+Ms. Reyes poked her head in, asking if everything was ready. Tian forced a smile and said they were doing "final adjustments," but internally he was panicking. The presentation was in ten minutes, and he'd need hours to fix the mobile experience.
+
+Kuya Miguel sat down beside him. "Tian, can I share something? You just learned a painful lesson that every web developer learns eventually—you're working backwards."
+
+"What do you mean?" Tian asked, still frantically typing CSS overrides.
+
+"You designed for desktop first, then tried to squeeze everything down to fit mobile," Miguel explained. "That's the old approach—desktop-first design. It made sense ten years ago when most web traffic was desktop. But now..."
+
+He pulled up recent statistics on his laptop. "Over 60% of all web traffic is mobile. In the Philippines, it's even higher—about 70% of people access websites primarily on their phones. Many Filipinos don't even own computers; smartphones are their only internet device."
+
+Rhea Joy nodded slowly, realization dawning. "So by designing for desktop first, we're designing for the minority of our users?"
+
+"Exactly," Miguel said. "And not just that—it's technically harder. You're starting with a complex, feature-rich desktop design, then trying to remove things, shrink things, and hide things to make it work on mobile. You're fighting against your original design the entire way."
+
+Tian stopped typing and looked at his mess of media queries. Miguel was right. He had dozens of overrides, all trying to undo or scale down desktop styles. It was like building a house, then realizing it was too big and trying to squeeze the walls closer together.
+
+"There's a better way," Miguel continued. "It's called **mobile-first design**. You start by designing and coding for mobile devices first—the smallest, most constrained screen. Then, you progressively enhance the design as screens get larger."
+
+"That sounds backwards from everything I've been taught," Rhea Joy said.
+
+Miguel smiled. "I know, but think about it logically. Mobile screens force you to prioritize. You have limited space, so you have to decide: what's MOST important? What content absolutely must be visible? What features are essential?"
+
+He sketched a quick wireframe on paper. "On mobile, you start with the core content: the barangay name, the main navigation, the most important information. Everything is stacked vertically, nice and simple. No complex multi-column layouts, no elaborate navigation systems—just the essentials."
+
+Tian was starting to see the logic. "And then, when we move to tablet and desktop, we add MORE instead of taking away?"
+
+"Exactly!" Miguel said enthusiastically. "On larger screens, you have more room, so you can add a sidebar, split content into multiple columns, add hover effects, display more information at once. You're **enhancing** the experience, not **degrading** it."
+
+Rhea Joy pulled out her notebook, thinking out loud. "So mobile-first CSS would look like... base styles for mobile, then media queries that add complexity for larger screens?"
+
+"Precisely," Miguel confirmed. "Your base CSS is clean and simple—single column, readable text, touch-friendly buttons. Then you use min-width media queries to enhance:"
+
+```css
+/* Mobile-first base styles */
+.container {
+    padding: 1rem;
+    /* Simple, single-column layout */
+}
+
+/* Tablet enhancement */
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Two-column layout for more space */
+    }
+}
+
+/* Desktop enhancement */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        grid-template-columns: 1fr 2fr 1fr;
+        /* Three-column layout with sidebar */
+    }
+}
+```
+
+Tian studied the code, comparing it mentally to his current desktop-first approach which had max-width media queries constantly overriding base desktop styles. This mobile-first approach was so much cleaner—each media query added features rather than undoing them.
+
+"It's also faster," Miguel added. "Mobile devices are often on slower networks with less powerful processors. By loading the simplest, mobile-optimized CSS first, your site loads faster for mobile users. Desktop users have the processing power to handle additional complexity."
+
+Ms. Reyes returned, reminding them they had five minutes. Tian looked at his current desktop-first disaster, then at Miguel.
+
+"Is there any way to save this presentation?"
+
+Miguel thought for a moment. "For now, present only on desktop. Acknowledge that mobile optimization is in progress. But tonight, I want you to rebuild this site using mobile-first methodology. Trust me—it'll take half the time and work twice as well."
+
+Tian nodded, making a mental commitment. Rhea Joy was already sketching a mobile-first wireframe for the homepage, starting with the smallest screen and progressively adding elements for larger viewports.
+
+The presentation went reasonably well, though Tian made sure to keep it on his laptop. But that evening, back home, he opened a fresh HTML file and wrote in his comments:
+
+```html
+<!-- MOBILE-FIRST REBUILD -->
+<!-- Start with mobile (320px+) -->
+<!-- Enhance for tablet (768px+) -->
+<!-- Enhance for desktop (1024px+) -->
+```
+
+He began with a simple, single-column mobile layout—no complex Grid, no multi-column navigation, just clean, vertically stacked content with touch-friendly spacing. It looked basic, but it worked perfectly on his phone.
+
+Then he added a media query at 768px and introduced a two-column layout. Then another at 1024px with a full three-column layout including sidebar. Each step added complexity and features, building up instead of breaking down.
+
+Three hours later, he had a fully responsive site that worked beautifully on every screen size. And the code was half as long as his original desktop-first attempt, with far fewer overrides and hacks.
+
+He texted Miguel: "You were right. Mobile-first is way easier. And it makes me think about what really matters to users."
+
+Miguel replied: "That's the real benefit. Mobile-first isn't just about screen size—it's about prioritizing content and user experience. Welcome to modern web development. 📱✨"
+
+Tian smiled, looking at his phone displaying the barangay website in all its simple, elegant, mobile-optimized glory. Tomorrow, he'd show Ms. Reyes and the barangay officials a site that worked perfectly for the 70% of Filipino users who'd access it on their phones. And this time, he'd built it the right way—mobile-first.
 
 ---
 
-## The Design Dilemma
-
-"Kuya Miguel, when I design websites, should I start with the desktop version or mobile version?" Tian asked, looking at his design mockups.
-
-Rhea Joy added, "I always design for desktop first kasi mas madali, then I try to make it fit on mobile. Pero sobrang hirap!"
-
-Kuya Miguel smiled. "That's the old way—**desktop-first**. The modern approach is **mobile-first**: start with mobile, then enhance for larger screens. It's easier, faster, and results in better websites."
-
----
+## Theory & Lecture Content
 
 ## What is Mobile-First Design?
 

@@ -21,6 +21,10 @@ B) `Hello!`
 C) `greet()`  
 D) Nothing
 
+**Answer: B**
+
+Calling `greet()` executes the function, which runs `console.log("Hello!")` and outputs "Hello!".
+
 ---
 
 ### Question 2
@@ -39,6 +43,10 @@ B) `3`
 C) `8`  
 D) `53`
 
+**Answer: C**
+
+The function returns 5 + 3 = 8, which is stored in `result` and then logged.
+
 ---
 
 ### Question 3
@@ -55,6 +63,10 @@ A) `12`
 B) `undefined`  
 C) `0`  
 D) Error
+
+**Answer: B**
+
+Functions without `return` statements return `undefined` by default. The calculation happens but the result isn't returned.
 
 ---
 
@@ -73,6 +85,10 @@ B) `5`
 C) `15`  
 D) Error
 
+**Answer: C**
+
+`b` has a default value of 5, so when calling `calculate(10)`, it uses 10 + 5 = 15.
+
 ---
 
 ### Question 5
@@ -90,6 +106,10 @@ A) Global scope
 B) Function scope (error when accessing outside)  
 C) Block scope  
 D) No scope
+
+**Answer: B**
+
+`x` is declared inside the function (function scope), so it can't be accessed outside. This causes a ReferenceError.
 
 ---
 
@@ -110,6 +130,10 @@ B) `Hello, name`
 C) `Hello, Juan`  
 D) Error
 
+**Answer: C**
+
+This is a function expression. Calling `greeting("Juan")` returns "Hello, Juan".
+
 ---
 
 ### Question 7
@@ -128,6 +152,10 @@ A) Yes, prints `"Accessible"`
 B) No, error  
 C) Prints `undefined`  
 D) Prints `null`
+
+**Answer: A**
+
+Functions can access variables from outer (global) scope. `globalVar` is accessible inside the function.
 
 ---
 
@@ -150,6 +178,10 @@ B) `80`
 C) `20`  
 D) `120`
 
+**Answer: B**
+
+Since age (65) is >= 60, the senior discount applies: 100 * 0.8 = 80.
+
 ---
 
 ### Question 9
@@ -166,6 +198,10 @@ A) `10`
 B) `NaN`  
 C) `undefined`  
 D) Error
+
+**Answer: B**
+
+When `b` is missing, it's `undefined`. `10 / undefined` results in `NaN` (Not a Number).
 
 ---
 
@@ -190,15 +226,9 @@ B) No, error
 C) Prints `undefined`  
 D) Prints `null`
 
----
+**Answer: A**
 
-## Answers
-
-1. **B** - `Hello!`
-2. **C** - `8`
-3. **B** - `undefined`
-4. **C** - `15`
-5. **B** - Function scope (error when accessing outside)
+Inner functions can access variables from outer functions (closure). This prints "Hello".
 6. **C** - `Hello, Juan`
 7. **A** - Yes, prints `"Accessible"`
 8. **B** - `80`

@@ -78,60 +78,70 @@ Step 6: Combine layers → ________
 
 ```
 Console (showing errors):
-  ❌ Uncaught SyntaxError: Unexpected end of input
-  📍 at index.html:35
+  Uncaught SyntaxError: Unexpected end of input
+  at index.html:35
 
 Network Tab (showing requests):
   index.html      200 OK    1.2 KB    45ms
   styles.css      200 OK    856 B     32ms
-  large-library.js 200 OK   2.5 MB    1850ms ⚠️
-  project1.jpg     404 Not Found      125ms ❌
+  large-library.js 200 OK   2.5 MB    1850ms
+  project1.jpg     404 Not Found      125ms
 
 Performance Tab:
   DOM Content Loaded: 2.1s
   Page Load: 3.8s
-  ⚠️ Warnings: Render-blocking script detected
+  Warnings: Render-blocking script detected
 ```
 
 ---
 
-**Tanong 1:** Sa Step 1 ng rendering pipeline, ano ang nabubuo from HTML parsing?
+**Question 1:** In Step 1 of the rendering pipeline, what is built from HTML parsing?
 
 - A) CSSOM (CSS Object Model)
 - B) DOM (Document Object Model)  
 - C) Render Tree
 - D) JavaScript Engine
 
-**Tanong 2:** Bakit "large-library.js" ay nag-cause ng delay (1850ms)?
+**Answer: B**
 
-- A) JavaScript sa `<head>` ay **render-blocking** - hihintayin ng browser bago mag-render
-- B) Dahil sa slow internet lang
-- C) CSS ang problema, hindi JavaScript
-- D) Normal lang yan, walang issue
+In Step 1, the browser parses HTML and builds the DOM (Document Object Model) - a tree structure that represents HTML elements.
+
+**Question 2:** Why does "large-library.js" cause a delay (1850ms)?
+
+- A) JavaScript in `<head>` is **render-blocking** - the browser waits before rendering
+- B) Just because of slow internet
+- C) CSS is the problem, not JavaScript
+- D) That's normal, no issue
+
+**Answer: A**
+
+JavaScript in `<head>` is render-blocking. The browser waits for the script to download and execute before rendering the page, causing delay.
 
 ---
 
 # Quiz 2
 
-**Tanong 3:** Sa DevTools Console, may SyntaxError. Paano mo itoito-debug?
+**Question 3:** In DevTools Console, there's a SyntaxError. How do you debug it?
 
-- A) **Elements Tab** - para makita ang HTML structure
-- B) **Console Tab** - makikita ang error message at line number
-- C) **Network Tab** - para makita ang HTTP requests
-- D) **Application Tab** - para makita ang cookies
+- A) **Elements Tab** - to see the HTML structure
+- B) **Console Tab** - shows the error message and line number
+- C) **Network Tab** - to see HTTP requests
+- D) **Application Tab** - to see cookies
 
-**Tanong 4:** Ang "project1.jpg" ay 404 Not Found. Ano ang ibig sabihin?
+**Answer: B**
 
-- A) Image ay masyadong malaki
-- B) Image file ay **hindi nahanap sa server** (wrong path or deleted)
-- C) Browser ay hindi nag-support ng JPG
+Use the Console Tab to see JavaScript errors including the error message and line number where the error occurred.
+
+**Question 4:** The "project1.jpg" is 404 Not Found. What does this mean?
+
+- A) Image is too large
+- B) Image file **was not found on the server** (wrong path or deleted)
+- C) Browser doesn't support JPG
 - D) Network connection problem
 
-**Sagot:**
-- **Tanong 1:** B) DOM (Document Object Model)
-- **Tanong 2:** A) JavaScript sa `<head>` ay render-blocking
-- **Tanong 3:** B) Console Tab
-- **Tanong 4:** B) Image file ay hindi nahanap sa server
+**Answer: B**
+
+404 Not Found means the image file was not found on the server - either the wrong path was used or the file is deleted/missing.
 
 ---
 
@@ -205,7 +215,7 @@ Document
 - Browser MUST wait for CSS before rendering
 - Prevents "Flash of Unstyled Content" (FOUC)
 - Users would see ugly page then sudden style change
-- Better to wait at paganda kaagad
+- Better to wait and display beautifully immediately
 
 **Time:** 20-100ms depending on CSS size
 
@@ -230,7 +240,7 @@ DOM:                    CSSOM:              Render Tree:
 **Excluded from Render Tree:**
 - `<head>`, `<meta>`, `<script>` tags
 - Elements with `display: none`
-- Hidden content (`visibility: hidden` is INCLUDED pero transparent)
+- Hidden content (`visibility: hidden` is INCLUDED but transparent)
 
 **Time:** 10-30ms
 

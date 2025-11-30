@@ -1,11 +1,40 @@
-````markdown
-# Lesson 3: Frontend vs Backend
-
 ## Background Story
 
-"Kuya, I think I'm seeing the whole picture!" said Tian excitedly. "But wait, when I develop a website, do I make all the parts? The visual design and the database stuff?"
+Two weeks into their web development journey, Tian felt both enlightened and overwhelmed. They understood how the internet worked, how browsers communicated with servers, how requests and responses flowed through networks. The theory was clear. But a crucial question remained unanswered, and it was starting to cause anxiety.
 
-"Great question!" answered Kuya Miguel. "Actually, web development is divided into two major parts: **Frontend** and **Backend**. Some developers specialize in one, some do both. Let me explain the difference — it's super important so you know where to focus!"
+It was Monday afternoon. Tian and their classmate Rhea Joy were sitting under the large mango tree in the school courtyard, the unofficial spot where students gathered to work on projects away from the crowded classrooms. Rhea Joy was sketching a design for their upcoming group project—a simple website for their barangay's scholarship application system.
+
+Her sketch was beautiful. Clean layouts, intuitive navigation, carefully chosen color palettes that reflected the barangay's identity. She'd even drawn little icons for each section.
+
+"Rhea, this design is amazing," Tian said, genuinely impressed. "You have a real eye for this."
+
+"Thanks! I love the visual stuff—making things beautiful and user-friendly." Rhea Joy looked up from her sketch. "But Tian, you're the one who understands all the technical stuff. The internet, servers, protocols. I barely followed half of what you explained last week."
+
+Tian stared at Rhea Joy's design, then at their own notebook filled with diagrams of TCP/IP handshakes, HTTP status codes, and DNS resolution flows. Two completely different skill sets. Two completely different interests.
+
+"Wait," Tian said slowly, a realization forming. "When we build this website... do I need to do both? The beautiful design part *and* the server, database, logic part? Because honestly, I'm more interested in how data flows and how systems work. The visual design part kind of stresses me out. But you're the opposite—you love design but the backend technical stuff doesn't excite you."
+
+Rhea Joy nodded enthusiastically. "Exactly! I want to make things look good and work smoothly for users. You want to build the engine that powers it all. So... can we specialize? Or does a web developer have to do everything?"
+
+That evening, the question weighed on Tian's mind. They called Kuya Miguel, explaining the dilemma.
+
+"Kuya, when you build websites for clients, do you do everything? The design, the layout, the colors, *and* the server, database, and business logic? Because Rhea Joy and I realized we're interested in completely different parts of web development. Is that okay, or do we need to be good at everything?"
+
+Miguel laughed—not mockingly, but with recognition. "Tian, you just asked one of the most important questions in web development. And the answer will probably shape your entire career path."
+
+"What do you mean?"
+
+"Web development is divided into two major disciplines: **Frontend** and **Backend**. Some developers specialize in one. Some do both—we call them fullstack. But here's the thing: there's no right or wrong choice. It depends on what you love, what excites you, and where your natural talents lie."
+
+Miguel continued, "Rhea Joy sounds like a frontend person—someone who cares about user experience, visual design, interactivity. You sound like a backend person—someone who cares about data, logic, systems, and how things work under the hood. Both are essential. Both are valuable. Both are in high demand here in the Philippines."
+
+Tian felt a weight lift off their shoulders. "So I don't have to be good at everything?"
+
+"No one is good at everything," Miguel said. "The best developers know their strengths and either specialize or build complementary teams. Let me explain the difference between frontend and backend, what each does, the technologies involved, and how they communicate. By the end of this conversation, you and Rhea Joy will know exactly where you each fit in the web development world."
+
+---
+
+## Theory & Lecture Content
 
 ## What is Frontend Development?
 

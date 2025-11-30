@@ -1,16 +1,56 @@
-# Lesson 37: JavaScript Forms + Flask Setup - Connecting Front and Back
+## Background Story
+
+The barangay clearance application system was beautiful. Tian and Rhea Joy had spent weeks perfecting every detail:
+
+- Clean, responsive HTML structure
+- Polished CSS with professional styling
+- Interactive JavaScript with form validation
+- DOM manipulation that updated the UI dynamically
+- Event handlers that responded to every user action
+
+Residents could fill out the form, select document types, enter personal information, and click "Submit Application." The form validation checked everything—required fields, proper email format, valid phone numbers, age requirements.
+
+But when someone clicked Submit, the data disappeared into the void.
+
+There was no database to store it. No server to process it. No way to retrieve submitted applications later. The JavaScript validated and displayed the data on screen, but as soon as you refreshed the page, everything vanished. It was a beautiful, functional interface connected to nothing.
+
+The barangay secretary, Ms. Reyes, had come to test the system. She filled out an application for a resident, submitted it successfully, and saw the confirmation message appear.
+
+"Great!" she said. "Now where can I see all the submitted applications?"
+
+Tian and Rhea Joy exchanged uncomfortable glances.
+
+"Um... there's no database yet," Tian admitted. "The data only exists in the browser. If you refresh the page, it's gone."
+
+Ms. Reyes frowned. "So this is just a demo? It's not actually storing anything? How will we track applications, update their status, generate reports, or retrieve resident information?"
+
+"We... haven't built the backend yet," Rhea Joy said quietly.
+
+"What's a backend?"
+
+And that was the moment Tian and Rhea Joy realized they'd built an impressive facade with no foundation underneath. A restaurant with no kitchen. A car with no engine. A beautiful website that couldn't actually do the one thing it was supposed to do: persist and manage data.
+
+That evening, both of them were on a call with Kuya Miguel, explaining the situation.
+
+"We built everything frontend-related," Tian said. "HTML, CSS, JavaScript, DOM manipulation, event handling, form validation. The user experience is perfect. But it's useless because we can't save data. Ms. Reyes asked where the submitted applications are stored, and we had to admit there's no storage at all."
+
+Miguel nodded knowingly. "You've hit the wall that every frontend developer hits—the realization that beautiful interfaces mean nothing without backend systems to support them. You need a server. A database. Business logic. APIs for your JavaScript to communicate with. You need the backend."
+
+"We've been learning JavaScript," Rhea Joy said. "Do we need to learn a completely different language now?"
+
+"Good news," Miguel said. "You can use Python—a language that's easier and more readable than JavaScript in many ways. And we'll use Flask, a lightweight Python web framework that's perfect for beginners and powerful enough for production applications. Flask will let you build a server that receives form submissions from your JavaScript frontend, stores data in a database, queries that data, and sends responses back to the browser."
+
+"So JavaScript handles the frontend, Python handles the backend, and they communicate through... what?"
+
+"HTTP requests. Your JavaScript uses `fetch()` to send data to Flask API endpoints. Flask processes the request, interacts with the database, and returns JSON responses. Your JavaScript receives those responses and updates the DOM. That's modern web development—frontend and backend working together."
+
+Miguel continued, "Today, we're setting up the complete stack. You'll install Python and Flask, create your first Flask server, define API endpoints, connect your JavaScript frontend to those endpoints, and finally see data flow from the browser to the server and back. By the end of tonight, your barangay application system will actually save data. For real."
+
+Tian and Rhea Joy looked at each other, equal parts nervous and excited. This was the leap from frontend developer to full-stack developer. The moment when everything would finally connect.
 
 ---
 
-## Welcome to Full-Stack Development
-
-"Kuya Miguel, we've built amazing frontends with JavaScript. But where does the data actually go?" Tian asked.
-
-Rhea Joy added, "How do we save form submissions, store resident data, and build real systems with databases?"
-
-Kuya Miguel smiled. "Time to learn **backend development with Flask**! You'll connect your JavaScript frontend to a Python Flask server, handle form submissions, work with databases, and build complete web applications!"
-
----
+## Theory & Lecture Content
 
 ## What is Flask?
 

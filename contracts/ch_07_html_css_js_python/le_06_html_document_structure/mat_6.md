@@ -1,12 +1,46 @@
-# Lesson 6: Structure of an HTML Document
-
 ## Background Story
 
-After learning how websites work, Tian was excited to actually **build** one. Kuya Miguel said, "Let's start with the foundation—HTML. Think of it as the blueprint of a bahay kubo."
+For three weeks, Tian had been consuming theory like a student cramming for finals. The internet. Client-server architecture. Frontend versus backend. HTTP protocols. DNS resolution. Request-response cycles. The notebooks were filled with diagrams, flowcharts, and detailed notes about how the web worked.
 
-Tian asked, "What's HTML?"
+But they hadn't built anything yet.
 
-"HTML stands for **HyperText Markup Language**. It's not a programming language—it's a markup language that structures content on the web. Every website you visit—Facebook, YouTube, Shopee—all start with HTML."
+It was Saturday morning, and Tian woke up with a restless energy. The knowledge was there, packed into their brain like books on a shelf. But knowledge without application felt hollow, incomplete. Tian wanted to *create* something, to move from consumer to builder, from student to developer.
+
+They called Kuya Miguel.
+
+"Kuya, I'm ready."
+
+"Ready for what?" Miguel asked, his voice still groggy with sleep.
+
+"To build something. I've been learning theory for weeks. I understand how everything works. But I haven't actually *made* anything. I want to write code. Real code. Today."
+
+Miguel was quiet for a moment, then Tian heard him chuckle. "I was wondering when you'd say that. Theory is important—you needed that foundation. But you're right. It's time to build. Let me get some coffee and call you back in ten minutes. We're starting with HTML today."
+
+Fifteen minutes later, Tian was sitting at their desk, VS Code installed and open (Miguel had walked them through the installation earlier that week), a blank screen waiting to be filled. The video call connected.
+
+"Alright," Miguel said, his screen now showing a simple HTML file. "Today we're going to build your first webpage from scratch. Not a fancy one—just the structure. Think of it like building a bahay kubo. Before you add walls, roofing, windows, and paint, you need the foundation and frame. That's what HTML is."
+
+"HTML," Tian repeated, fingers hovering over the keyboard. "HyperText Markup Language, right? You mentioned it before."
+
+"Exactly. It's not a programming language—there's no logic, no calculations, no decisions. It's a **markup language**. It structures and organizes content. Every website you've ever visited—Facebook, YouTube, Shopee, Google—they all start with HTML. The structure is the same."
+
+Miguel pulled up Facebook in his browser, right-clicked, and selected "View Page Source." The screen flooded with code—thousands of lines of HTML, mixed with CSS and JavaScript.
+
+"See this?" Miguel said. "All of this started with the same basic HTML structure you're about to learn. `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`. Those are the bones. Everything else is built on top."
+
+Tian stared at the massive wall of code, feeling both intimidated and exhilarated. "That's... a lot."
+
+"Don't let it scare you. Facebook is complex because it's been built by thousands of engineers over nearly two decades. But the foundation? The document structure? It's the same as what you're about to write. That's the beauty of HTML—it's universal, standardized, and surprisingly simple once you understand the rules."
+
+Miguel closed the Facebook source code and returned to his simple example.
+
+"Today, you're going to learn the anatomy of an HTML document. Every tag, every section, every piece has a purpose. By the end of this lesson, you'll create a valid HTML page. It won't look fancy—that's CSS, which comes later. But it will be *yours*. Your first real step into web development."
+
+Tian took a deep breath, fingers finally resting on the keyboard. "Okay. Let's build."
+
+---
+
+## Theory & Lecture Content
 
 ## What is HTML?
 

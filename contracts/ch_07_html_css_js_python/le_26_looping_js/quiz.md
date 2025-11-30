@@ -19,6 +19,10 @@ B) `0 1 2`
 C) `1` `2` `3` (on separate lines)  
 D) Error
 
+**Answer: C**
+
+The loop runs 3 times with i = 1, 2, 3. Each `console.log()` prints on a separate line, so the output is `1`, `2`, `3` (each on its own line).
+
 ---
 
 ### Question 2
@@ -33,6 +37,10 @@ A) 4 times
 B) 5 times  
 C) 6 times  
 D) Infinite
+
+**Answer: B**
+
+The loop starts at 0 and runs while i < 5, so i = 0, 1, 2, 3, 4. That's 5 iterations.
 
 ---
 
@@ -52,6 +60,10 @@ B) `1 2 3`
 C) `3 2 1 0`  
 D) Infinite loop
 
+**Answer: A**
+
+The loop runs while count > 0. It prints 3, decrements to 2, prints 2, decrements to 1, prints 1, decrements to 0, then stops (0 > 0 is false).
+
 ---
 
 ### Question 4
@@ -70,6 +82,10 @@ B) Prints nothing
 C) Infinite loop  
 D) Error
 
+**Answer: B**
+
+The condition `x < 5` is false from the start (5 is not less than 5), so the loop never executes.
+
 ---
 
 ### Question 5
@@ -79,6 +95,10 @@ A) No difference
 B) `do...while` runs at least once  
 C) `while` is faster  
 D) `do...while` requires a condition
+
+**Answer: B**
+
+`do...while` executes the code block at least once before checking the condition. `while` checks the condition first and may not execute at all.
 
 ---
 
@@ -100,6 +120,10 @@ B) `1 2`
 C) `1 2 3 4 5`  
 D) `1 2 4 5`
 
+**Answer: B**
+
+The loop prints 1, then 2. When i === 3, `break` exits the loop entirely, so 3, 4, 5 are never printed.
+
 ---
 
 ### Question 7
@@ -117,6 +141,10 @@ A) `1 2 3 4 5`
 B) `1 2 4 5`  
 C) `1 2`  
 D) `3`
+
+**Answer: B**
+
+`continue` skips the current iteration. When i === 3, it skips printing 3 but continues with i = 4 and 5. Output: 1, 2, 4, 5.
 
 ---
 
@@ -137,6 +165,10 @@ B) `6`
 C) `123`  
 D) `0`
 
+**Answer: B**
+
+The loop adds 1 + 2 + 3 = 6. Each iteration: sum = 0+1=1, then 1+2=3, then 3+3=6.
+
 ---
 
 ### Question 9
@@ -148,6 +180,10 @@ for (let i = 0; i < 2; i++) {
     }
 }
 ```
+
+**Answer: 6**
+
+The outer loop runs 2 times, and for each outer iteration, the inner loop runs 3 times. Total: 2 × 3 = 6 times.
 
 A) 2 times  
 B) 3 times  

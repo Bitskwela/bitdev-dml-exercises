@@ -1,12 +1,51 @@
-# Lesson 7: Tags, Elements, and Attributes
-
 ## Background Story
 
-Tian successfully created the basic HTML structure. Now Kuya Miguel showed him actual content creation: "HTML uses **tags** to wrap content. Think of tags as containers—each one has a specific purpose."
+Tian's first HTML file sat complete on their screen—a valid document with `<!DOCTYPE html>`, proper `<html>`, `<head>`, and `<body>` structure. It was technically correct. But inside the `<body>` tag was just one line:
 
-"Like what?" Tian asked.
+```html
+<body>
+Welcome to Barangay Sto. Niño
+</body>
+```
 
-"A `<p>` tag creates a paragraph. An `<h1>` tag creates a heading. An `<img>` tag displays an image. Each tag tells the browser what type of content it is."
+Plain text. No formatting. No structure within the content itself. When Tian opened it in the browser, all the text appeared in a single line with default browser styling.
+
+Tian wanted to add more—a heading, paragraphs explaining barangay services, maybe a list of contact information. But they didn't know *how* to tell the browser "this is a heading" or "this is a paragraph" or "this should be bold."
+
+They tried adding line breaks in the code:
+
+```html
+<body>
+Barangay Sto. Niño
+
+Our Services:
+Barangay Clearance
+Barangay ID
+Indigency Certificate
+</body>
+```
+
+But when they refreshed the browser, everything still appeared in one continuous line. The line breaks in the code didn't translate to line breaks in the display.
+
+"Why doesn't the browser respect line breaks?" Tian wondered, frustrated.
+
+They remembered Kuya Miguel mentioning something about "semantic HTML" and "tags describing content types," but they hadn't fully understood what that meant. It was time to find out.
+
+That evening's call with Miguel started with Tian sharing their screen.
+
+"Kuya, I have the HTML structure down, but I can't format the actual content. I want headings, paragraphs, bold text, lists... how do I tell the browser what type of content each piece is?"
+
+Miguel smiled. "You need HTML tags—specific instructions that wrap your content and give it meaning. Think of tags as containers. Each one has a specific purpose and tells the browser how to interpret what's inside."
+
+"Can you give examples?"
+
+"Of course. A `<p>` tag creates a paragraph. An `<h1>` tag creates a top-level heading. A `<strong>` tag makes text bold and important. An `<img>` tag displays an image. An `<a>` tag creates a link. There are dozens of tags, each with its own semantic meaning—not just how it looks, but what it *represents*."
+
+Miguel continued, "What you need to understand is the anatomy of tags: opening tags, closing tags, self-closing tags, and attributes that modify behavior. Once you master tags, you can structure any type of content—articles, portfolios, forms, entire web applications."
+
+---
+
+## Theory & Lecture Content
 
 ## What Are HTML Tags?
 

@@ -1,12 +1,50 @@
-# Lesson 9: Links and Images
-
 ## Background Story
 
-Tian's website had text structure, but Kuya Miguel said, "Now let's add links to connect pages and images to make it visual. These two elements make the web truly *hyper*text."
+The barangay website was taking shape. Tian had properly structured text—headings, paragraphs, lists—and the content was finally readable. But it still felt incomplete, static, isolated.
 
-"What's the difference between a link and an image?" Tian asked.
+The barangay secretary, Ms. Reyes, reviewed the draft and pointed out two critical missing elements:
 
-"Links take you places. Images show you things. Both are essential for modern websites."
+"First, how do users navigate between pages? You have a homepage, a services page, and a contact page, but there's no way to move from one to another. Users would have to manually type each URL, which is ridiculous."
+
+Tian nodded, embarrassed. They hadn't even thought about navigation.
+
+"Second, where are the images? The barangay logo, photos of officials, pictures of our community projects. Right now it's just text—no visual identity at all. Modern websites need images."
+
+Tian opened their project folder. Three HTML files sat there: `index.html`, `services.html`, and `contact.html`. Each page existed independently with no connection to the others. There was also a folder named `images` containing the barangay logo and several photos, but Tian didn't know how to display them on the webpage.
+
+They tried typing the image filename directly in the HTML:
+
+```html
+barangay-logo.png
+```
+
+Just the text appeared in the browser, not the actual image. Obviously that wasn't how it worked.
+
+For navigation, Tian tried writing:
+
+```html
+Click here to go to Services page: services.html
+```
+
+But `services.html` appeared as plain text, not as a clickable link. Again, wrong approach.
+
+That evening, Tian called Kuya Miguel, frustration evident in their voice.
+
+"Kuya, my website has three pages but they're isolated from each other. I need navigation—clickable links that take users from one page to another. And I need to display images—the barangay logo, photos of officials. But I don't know the HTML tags for either. How do I make text clickable? How do I show images?"
+
+Miguel pulled up his own screen, opening a simple example page.
+
+"You need two of the most fundamental HTML elements: the `<a>` tag for links—also called anchor tags—and the `<img>` tag for images. These two elements are what made the web revolutionary. Before hyperlinks, documents were isolated. The `<a>` tag created the 'hyper' in hypertext—the ability to connect documents together. And the `<img>` tag transformed the web from pure text to a multimedia platform."
+
+"So links connect pages, images add visuals?"
+
+"Exactly. Links can point to other pages on your site, to external websites, to specific sections within a page, to email addresses, or even to downloadable files. Images can be local files in your project folder, or they can be hosted on external servers. Both elements use attributes—`href` for links to specify the destination, `src` for images to specify the image location, `alt` for images to provide alternative text for accessibility."
+
+Miguel continued, "Today we're learning both elements thoroughly. You'll create navigation menus that connect all your pages, add the barangay logo to your header, include official photos, understand absolute vs relative paths, learn about image formats, and implement accessibility best practices. By the end of this lesson, your website won't be isolated pages with text—it'll be an interconnected, visual web presence."
+
+---
+
+## Theory & Lecture Content
 
 ## Links (`<a>` - Anchor Tag)
 

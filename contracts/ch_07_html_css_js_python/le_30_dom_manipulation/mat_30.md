@@ -1,16 +1,61 @@
-# Lesson 30: DOM Manipulation - Controlling the Web Page
+## Background Story
+
+Tian stared at the browser console, watching their JavaScript code execute perfectly. Variables declared. Functions defined. Loops running. Conditional logic working flawlessly. Every `console.log()` statement printed exactly what they expected.
+
+But the webpage itself? Completely unchanged. Still the same static HTML, displaying the same text, showing the same content. It was as if the JavaScript existed in a parallel dimension, running invisibly in the background while the visible page remained frozen in time.
+
+"This is so frustrating!" Tian said, slamming their hands on the desk.
+
+It was Sunday afternoon, week seven of their JavaScript journey. Tian and Rhea Joy were at Tian's house, working on their barangay website project. They'd learned variables, data types, operators, conditionals, loops, functions, arrays, and objects. They could write JavaScript that worked—the console proved it.
+
+But they couldn't make their code affect the actual webpage.
+
+Rhea Joy pulled up their project file—a form for barangay clearance applications. The HTML was clean. The CSS was polished. And there was JavaScript in a linked file, calculating the application fee based on the type of document requested. The calculation worked perfectly in the console.
+
+But the result never appeared on the page.
+
+"We're writing code that lives in a bubble," Rhea Joy said, echoing Tian's frustration. "Our JavaScript runs, does its thing, and then... nothing. The page doesn't know the JavaScript exists. How do other websites do it? When you click 'Like' on Facebook, the button changes color instantly. When you add items to your Shopee cart, the count updates in real-time. How do they connect JavaScript to the actual HTML elements?"
+
+Tian opened Facebook in another tab, opened DevTools, and switched to the Console. They typed:
+
+```javascript
+document.querySelector('h1').textContent = 'HACKED!';
+```
+
+They pressed Enter. The Facebook logo at the top of the page instantly changed to the text "HACKED!" Tian's eyes widened.
+
+"Wait. WHAT?!" Tian shouted. "How did that work?!"
+
+Rhea Joy leaned in, equally shocked. "You just changed Facebook's page with JavaScript in the console!"
+
+Tian frantically typed more commands:
+
+```javascript
+document.body.style.backgroundColor = 'pink';
+document.querySelectorAll('p').forEach(p => p.style.color = 'red');
+```
+
+The entire Facebook page transformed—pink background, all paragraphs turned red. It was temporary (refreshing would restore everything), but the power was undeniable.
+
+"This is it," Tian whispered. "This is the bridge. `document.querySelector`. That's how JavaScript talks to HTML. We've been writing code in isolation, but we never learned how to connect it to the DOM. That's the missing piece!"
+
+Tian immediately called Kuya Miguel.
+
+"Kuya! I just hacked Facebook!"
+
+Miguel laughed. "Did you use `document.querySelector` in the console?"
+
+"Yes! How did you know?!"
+
+"Because every developer discovers DOM manipulation that way—by experimenting in the console on live websites. Congratulations, Tian. You just figured out the most important concept in client-side JavaScript: the Document Object Model. The DOM is the bridge between your JavaScript code and the HTML elements on the page. Without it, your code lives in a bubble. With it, you can control everything."
+
+"Can you teach us properly?" Tian asked, excitement overtaking the earlier frustration. "We need to learn how to select elements, change text, modify styles, respond to clicks—all of it. That's what we've been missing."
+
+"Absolutely," Miguel said. "Clear your afternoon. We're diving deep into DOM manipulation. By the end of today, your barangay form won't just calculate fees in the console—it'll display results directly on the page, respond to user input in real-time, and actually feel like a modern web application."
 
 ---
 
-## Bringing JavaScript to the Browser
-
-"Kuya Miguel, our JavaScript works in the console, but how do we change what's on the actual web page?" Tian asked.
-
-Rhea Joy added, "Like clicking a button and seeing text appear, or changing colors?"
-
-Kuya Miguel smiled. "That's **DOM Manipulation**—using JavaScript to control HTML elements. The DOM (Document Object Model) is the bridge between your code and the page!"
-
----
+## Theory & Lecture Content
 
 ## What is the DOM?
 

@@ -8,11 +8,19 @@
    - C. `var`
    - D. `variable`
 
+**Answer: B**
+
+Use `let` for variables that will change (can be reassigned). `const` is for values that won't change, and `var` is outdated.
+
 2. What data type is `"Barangay San Miguel"`?
    - A. Number
    - B. String
    - C. Boolean
    - D. Object
+
+**Answer: B**
+
+Text enclosed in quotes is a String data type. Strings represent text.
 
 3. What will `console.log(typeof 42)` output?
    - A. `"string"`
@@ -20,17 +28,29 @@
    - C. `"integer"`
    - D. `42`
 
+**Answer: B**
+
+The `typeof` operator returns `"number"` for numeric values. JavaScript doesn't distinguish between integers and floats.
+
 4. Which variable declaration will cause an error?
    - A. `let age = 15;`
    - B. `const name = "Tian";`
    - C. `const PI = 3.14; PI = 3.15;`
    - D. `let city = "Batangas"; city = "Manila";`
 
+**Answer: C**
+
+You cannot reassign a `const` variable. Once declared, its value is fixed.
+
 5. What data type is `true`?
    - A. String
    - B. Number
    - C. Boolean
    - D. Truthy
+
+**Answer: C**
+
+`true` and `false` are Boolean data types representing logical values.
 
 ---
 
@@ -44,11 +64,19 @@
    - C. `"105"`
    - D. Error
 
+**Answer: C**
+
+When you use `+` with a string and number, JavaScript converts the number to a string and concatenates them: `"10" + "5"` = `"105"`.
+
 7. Which is the correct way to declare a constant?
    - A. `constant BARANGAY = "San Miguel";`
    - B. `const BARANGAY = "San Miguel";`
    - C. `let const BARANGAY = "San Miguel";`
    - D. `var BARANGAY = "San Miguel";`
+
+**Answer: B**
+
+Use the `const` keyword to declare constants. Convention is to use UPPERCASE for constant names.
 
 8. What is the difference between `null` and `undefined`?
    - A. They are the same
@@ -56,11 +84,19 @@
    - C. `null` is for numbers, `undefined` is for strings
    - D. `undefined` is newer than `null`
 
+**Answer: B**
+
+`null` is explicitly set by the programmer to mean "no value". `undefined` means a variable was declared but not assigned a value.
+
 9. Which variable name is INVALID?
    - A. `firstName`
    - B. `first_name`
    - C. `first-name`
    - D. `_firstName`
+
+**Answer: C**
+
+Hyphens (-) are not allowed in variable names. Use camelCase or snake_case instead.
 
 10. What does `` `Hello, ${name}!` `` use?
     - A. String concatenation
@@ -68,20 +104,9 @@
     - C. Variable interpolation
     - D. Both B and C
 
----
+**Answer: D**
 
-# Answers
-
-1. **B** - `let`
-2. **B** - String
-3. **B** - `"number"`
-4. **C** - `const PI = 3.14; PI = 3.15;`
-5. **C** - Boolean
-6. **C** - `"105"`
-7. **B** - `const BARANGAY = "San Miguel";`
-8. **B** - `null` is intentional, `undefined` is unassigned
-9. **C** - `first-name`
-10. **D** - Both B and C
+Backticks (`) create template literals which allow variable interpolation using `${}`.
 
 ---
 

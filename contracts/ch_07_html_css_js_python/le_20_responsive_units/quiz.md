@@ -8,11 +8,19 @@
    - C. 32px
    - D. 64px
 
+**Answer: C**
+
+`rem` (root em) is relative to the root `<html>` element's font-size. `2rem` = 2 × 16px = 32px.
+
 2. What does `1vw` represent?
    - A. 1% of the viewport width
    - B. 1 pixel
    - C. 1% of the parent width
    - D. 1% of the viewport height
+
+**Answer: A**
+
+`vw` (viewport width) is 1% of the viewport's width. On a 1920px screen, 1vw = 19.2px.
 
 3. Rhea Joy wants consistent font sizing across nested elements. Which unit should she use?
    - A. `px`
@@ -20,17 +28,29 @@
    - C. `rem`
    - D. `%`
 
+**Answer: C**
+
+`rem` provides consistent sizing across nested elements because it's always relative to the root, not the parent.
+
 4. What is the difference between `em` and `rem`?
    - A. `em` is relative to parent, `rem` is relative to root
    - B. `em` is absolute, `rem` is relative
    - C. They are the same
    - D. `em` is for fonts, `rem` is for spacing
 
+**Answer: A**
+
+`em` is relative to the parent element's font-size, while `rem` is always relative to the root `<html>` element's font-size.
+
 5. Which unit is best for a full-screen hero section height?
    - A. `px`
    - B. `%`
    - C. `vh`
    - D. `vw`
+
+**Answer: C**
+
+`vh` (viewport height) is perfect for full-screen sections. `100vh` = full viewport height.
 
 ---
 
@@ -44,11 +64,19 @@
    - C. Font is 1rem on mobile, 2rem on desktop
    - D. Syntax error
 
+**Answer: B**
+
+`clamp()` sets minimum (1rem), preferred (3vw), and maximum (2rem) values. Font scales with viewport but stays within bounds.
+
 7. If parent element has `font-size: 20px`, what is `1.5em` in pixels?
    - A. 15px
    - B. 20px
    - C. 30px
    - D. 1.5px
+
+**Answer: C**
+
+`em` is relative to parent's font-size. `1.5em` = 1.5 × 20px = 30px.
 
 8. Which unit is recommended for padding and margins?
    - A. `px` (absolute)
@@ -56,11 +84,19 @@
    - C. `em` (scales with parent)
    - D. `vw` (scales with viewport)
 
+**Answer: B**
+
+`rem` is recommended for spacing because it scales proportionally with the root font-size, maintaining consistency.
+
 9. On a 1200px wide screen, what is `50vw` in pixels?
    - A. 50px
    - B. 120px
    - C. 600px
    - D. 1200px
+
+**Answer: C**
+
+`50vw` = 50% of viewport width. On 1200px screen: 1200 × 0.50 = 600px.
 
 10. What is the benefit of using `rem` instead of `px`?
     - A. Smaller file size
@@ -68,20 +104,9 @@
     - C. Scales proportionally when root font-size changes
     - D. Works on older browsers
 
----
+**Answer: C**
 
-# Answers
-
-1. **C** - 32px
-2. **A** - 1% of the viewport width
-3. **C** - `rem`
-4. **A** - `em` is relative to parent, `rem` is relative to root
-5. **C** - `vh`
-6. **B** - Font is between 1rem and 2rem, preferring 3vw
-7. **C** - 30px
-8. **B** - `rem` (scales with root)
-9. **C** - 600px
-10. **C** - Scales proportionally when root font-size changes
+Using `rem` allows all sizes to scale proportionally when you change the root font-size, making responsive design easier.
 
 ---
 

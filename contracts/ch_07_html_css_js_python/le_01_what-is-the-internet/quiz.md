@@ -38,12 +38,20 @@ Tian is setting up a new home network in Quezon City. He wants to understand how
 - C) `157.240.1.35` (Server IP)
 - D) `8.8.8.8` (Google DNS)
 
+**Answer: B**
+
+`192.168.1.1` is the typical private/local IP address for routers in home networks. This is a private IP range that's not accessible from the internet.
+
 **Question 2:** When posting to Facebook, how many **major components** does the data pass through before reaching the server?
 
 - A) 3 components (Router → ISP → Server)
 - B) 4 components (Router → Modem → ISP → Server)
 - C) 5 components (Router → Modem → ISP → Backbone → Server)
 - D) 2 components (Router → Server)
+
+**Answer: C**
+
+Data passes through 5 major components: Router → Modem → ISP → Backbone → Server. Each component plays a crucial role in transmitting your data across the internet.
 
 ---
 
@@ -56,10 +64,9 @@ Tian is setting up a new home network in Quezon City. He wants to understand how
 - C) Iba-iba per device ang IP
 - D) Error yan, dapat isa lang
 
-**Answer:**
-- **Question 1:** B) `192.168.1.1`
-- **Question 2:** C) 5 components
-- **Question 3:** B) Private IP for local devices, Public IP for internet communication
+**Answer: B**
+
+The router has a Private IP (192.168.1.1) for local network communication with devices inside your home, and a Public IP (203.177.45.123) assigned by the ISP for internet communication. This is how Network Address Translation (NAT) works.
 
 ---
 

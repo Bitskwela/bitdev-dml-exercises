@@ -1,16 +1,68 @@
-# Lesson 17: CSS Positioning
+## Background Story
+
+The barangay website had a new requirement from Ms. Reyes, the barangay secretary: emergency announcements needed a visual indicator. When an announcement was urgent (like typhoon warnings, health alerts, or security notices), a red "EMERGENCY" badge should appear in the top-right corner of the announcement card.
+
+Tian created the badge HTML:
+
+```html
+<div class="announcement-card">
+  <span class="emergency-badge">EMERGENCY</span>
+  <h3>Typhoon Warning</h3>
+  <p>All residents are advised to stay indoors...</p>
+</div>
+```
+
+They styled the badge with red background and white text. But positioning it in the top-right corner was proving impossible. The badge appeared at the beginning of the card, pushing the heading down. When Tian tried using margins to move it right and up, it pushed other content around, breaking the layout.
+
+```css
+.emergency-badge {
+    background: red;
+    color: white;
+    margin-top: -20px;  /* Trying to move it up */
+    margin-right: -100px;  /* Trying to move it right */
+}
+```
+
+This created chaos—overlapping text, broken layouts, content pushed out of containers. There had to be a better way to place elements precisely without affecting surrounding content.
+
+Rhea Joy was facing a different but related problem. She'd created a navigation bar that looked great at the top of the page. But when users scrolled down to read long content, the navigation disappeared off-screen. She'd seen websites where the navigation "stuck" to the top of the viewport even during scrolling—how was that achieved?
+
+She tried various CSS approaches:
+
+```css
+.navbar {
+    margin-top: 0;
+    top: 0;
+}
+```
+
+Nothing worked. The navbar remained in its normal position in the document flow, scrolling away when users moved down the page.
+
+Both of them were encountering the limits of normal document flow. They needed to break elements out of the standard layout and position them in specific, controlled ways.
+
+It was Tuesday evening. They were both on a video call with Kuya Miguel, sharing screens and explaining their positioning challenges.
+
+"I need this badge to float in the top-right corner of its container," Tian said, "but every method I try either pushes content around or doesn't work at all."
+
+"And I need this navbar to stay at the top of the screen even when scrolling," Rhea Joy added. "I've seen it on professional websites but I don't know the CSS for it."
+
+Miguel pulled up his code editor.
+
+"You both need to understand CSS positioning—one of the most powerful but initially confusing topics in CSS. By default, all elements use `position: static`, which means they follow normal document flow. But CSS provides four other positioning schemes: `relative`, `absolute`, `fixed`, and `sticky`. Each removes elements from normal flow in different ways."
+
+"So we can make elements ignore normal flow?" Tian asked.
+
+"Exactly. Absolute positioning removes an element from the document flow entirely and positions it relative to its nearest positioned ancestor. That's perfect for your emergency badge. Fixed positioning positions elements relative to the viewport and keeps them there even during scrolling—perfect for Rhea Joy's navbar."
+
+Miguel continued, "But here's the tricky part: positioning is powerful but can be confusing. You need to understand the relationship between `position` values and the offset properties (`top`, `right`, `bottom`, `left`). You need to understand `z-index` for stacking order. And you need to know when *not* to use positioning—modern layout systems like Flexbox and Grid often provide better solutions."
+
+"Can you teach us all of this today?" both asked.
+
+"Absolutely. Today we're covering all positioning types, when to use each, common positioning patterns, and how to avoid common pitfalls. By the end of this lesson, you'll be able to place elements exactly where you need them."
 
 ---
 
-## The Floating Banner Problem
-
-"Kuya Miguel, paano ko ilalagay yung 'Emergency' badge sa top-right corner ng announcement card?" Tian asked, struggling with the barangay website layout. "It keeps pushing other content down!"
-
-Rhea Joy added, "And gusto ko yung navigation bar stays at the top even when scrolling. Paano yun?"
-
-Kuya Miguel smiled. "You need to learn about CSS positioning—one of the most powerful but tricky topics in CSS."
-
----
+## Theory & Lecture Content
 
 ## What is CSS Positioning?
 

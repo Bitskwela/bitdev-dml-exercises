@@ -18,6 +18,10 @@ B) `20`
 C) `30`  
 D) `1`
 
+**Answer: B**
+
+Arrays use zero-based indexing. Index 0 is 10, index 1 is 20, index 2 is 30.
+
 ---
 
 ### Question 2
@@ -31,6 +35,10 @@ A) `2`
 B) `3`  
 C) `4`  
 D) `undefined`
+
+**Answer: B**
+
+`.length` returns the number of elements in the array. There are 3 elements: "Juan", "Maria", "Pedro".
 
 ---
 
@@ -47,6 +55,10 @@ B) `["Juan", "Maria", "Pedro"]`
 C) `["Pedro", "Juan", "Maria"]`  
 D) `["Pedro"]`
 
+**Answer: B**
+
+`push()` adds an element to the end of the array. "Pedro" is added after "Maria".
+
 ---
 
 ### Question 4
@@ -61,6 +73,10 @@ B) Removes and returns last element
 C) Removes first element  
 D) Returns array length
 
+**Answer: B**
+
+`pop()` removes and returns the last element. It modifies the original array.
+
 ---
 
 ### Question 5
@@ -73,6 +89,10 @@ A) `person[0]`
 B) `person.name` or `person["name"]`  
 C) `person->name`  
 D) `person(name)`
+
+**Answer: B**
+
+Access object properties with dot notation (`person.name`) or bracket notation (`person["name"]`).
 
 ---
 
@@ -94,6 +114,10 @@ B) `25`
 C) `undefined`  
 D) `age`
 
+**Answer: B**
+
+`visitor.age` accesses the `age` property, which has the value 25.
+
 ---
 
 ### Question 7
@@ -107,6 +131,10 @@ A) `0`
 B) `1`  
 C) `true`  
 D) `false`
+
+**Answer: C**
+
+`includes()` returns `true` if the element exists in the array, `false` otherwise. "Clearance" is in the array.
 
 ---
 
@@ -126,6 +154,10 @@ B) `"Maria"`
 C) `25`  
 D) `0`
 
+**Answer: A**
+
+`visitors[0]` gets the first object, then `.name` accesses its name property: "Juan".
+
 ---
 
 ### Question 9
@@ -139,6 +171,10 @@ A) Adds element to beginning
 B) Removes and returns first element  
 C) Removes last element  
 D) Returns array length
+
+**Answer: B**
+
+`shift()` removes and returns the first element. It modifies the original array.
 
 ---
 
@@ -155,20 +191,9 @@ B) `25`
 C) `"age"`  
 D) Error
 
----
+**Answer: B**
 
-## Answers
-
-1. **B** - `20`
-2. **B** - `3`
-3. **B** - `["Juan", "Maria", "Pedro"]`
-4. **B** - Removes and returns last element
-5. **B** - `person.name` or `person["name"]`
-6. **B** - `25`
-7. **C** - `true`
-8. **A** - `"Juan"`
-9. **B** - Removes and returns first element
-10. **B** - `25`
+You can add new properties to objects dynamically. `person.age = 25;` adds the `age` property with value 25.
 
 ---
 

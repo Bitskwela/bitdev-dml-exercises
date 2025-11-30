@@ -1,14 +1,122 @@
-# Lesson 43: Authentication with JS + Flask
-
 ## Background Story
 
-The barangay complaint system was live and working perfectly. But Captain Cruz raised an important concern during the monthly meeting: "Tian, anyone can submit complaints pretending to be someone else. We need a way to verify who's really submitting."
+The Barangay Complaint System had been live for exactly one week. Residents were using it enthusiastically—over 50 complaints submitted in just seven days. The digital transformation was working.
 
-Kuya Miguel nodded through the video call. "That's authentication—proving you are who you say you are. Time to add user accounts, login, and session management."
+Then, on Monday morning, Ms. Reyes called Tian urgently. "We have a problem."
 
-Tian felt a mix of excitement and nervousness. This was security territory. Real user data. Real passwords. Real responsibility.
+Tian rushed to the barangay hall. Ms. Reyes showed him the complaints list. "Look at this one—submitted by 'Juan Dela Cruz,' complaining that 'Maria Santos is too noisy.' Then look at this one, also from 'Juan Dela Cruz,' saying 'Pedro Reyes stole my chicken.' And this one, 'Juan Dela Cruz' again, with a vulgar complaint about the barangay captain."
 
-"Don't worry," Miguel reassured. "We'll do it right. Hashed passwords, secure sessions, proper validation. By the end of this lesson, your app will be production-secure."
+She pulled up the barangay records. "There are THREE residents named Juan Dela Cruz in our barangay. But none of them submitted these complaints. Someone is using their names to post fake complaints. We have no way to verify who actually submitted what."
+
+Captain Cruz joined them, clearly frustrated. "This is a serious problem. If people can submit complaints anonymously or using fake names, the system loses credibility. We need to know: Who submitted this complaint? Are they really a resident of this barangay? Can we contact them?"
+
+Tian felt his stomach sink. He'd built a perfectly functional complaint system—create, read, update, delete—pero he'd completely overlooked **identity verification**. Anyone could type any name and submit anything. There was no accountability, no way to prevent abuse.
+
+Rhea Joy, who'd joined the emergency meeting, pointed out another issue: "And look—anyone can delete anyone's complaints. I accidentally clicked 'Delete' on someone else's complaint yesterday. There's no concept of 'ownership.' No way to say 'you can only edit or delete YOUR OWN complaints.'"
+
+Ms. Reyes added, "We need residents to register accounts, log in, and then only see and manage their own submissions. Staff and admin should see everything, pero regular residents should only access their own data."
+
+Captain Cruz was firm: "Until we fix this security problem, I can't trust the system for official use. We'll keep using paper forms until the digital system has proper authentication."
+
+Tian felt devastated. He'd worked so hard on the complaint system, but he'd missed a fundamental requirement: **security and authentication**.
+
+They immediately video called Kuya Miguel. "Kuya, our complaint system works perfectly, pero we have zero security. Anyone can submit using any name. Anyone can delete anyone's complaints. How do we fix this?"
+
+Miguel had anticipated this moment. "You've discovered why every real web application needs authentication. Facebook doesn't let you post as someone else. Gmail doesn't let you read someone else's emails. Twitter doesn't let you delete other people's tweets. Every application needs to answer two questions:
+
+1. **Authentication**: Who are you? (Prove your identity)
+2. **Authorization**: What are you allowed to do? (Check permissions)
+
+Your complaint system is missing both."
+
+He shared his screen showing a login page. "Authentication means users register accounts with usernames and passwords. When they log in, the system verifies their credentials. Once authenticated, the system knows WHO is making each request—viewing, creating, editing, deleting. You can enforce rules: users can only edit their own complaints, only admins can change status, only the submitter or admin can delete."
+
+Tian understood the architecture immediately: "So instead of just submitting complaints with a name field, users first register and log in. Then when they submit a complaint, we associate it with their user account. When they view complaints, we only show THEIR complaints unless they're admin. When they try to delete, we check: does this complaint belong to you?"
+
+"Exactly," Miguel confirmed. "That's how every web application works. The system tracks WHO you are and WHAT you're allowed to do."
+
+Rhea Joy had a critical question: "But passwords are sensitive. How do we store them safely?"
+
+Miguel's expression turned serious. "This is crucial. NEVER store passwords in plain text. If your database is compromised, all passwords are exposed. You must use **password hashing**—one-way encryption. When a user registers, you hash their password using bcrypt or Werkzeug. You store the hash, not the password. When they log in, you hash what they entered and compare hashes. If someone steals your database, they get useless hash strings, not actual passwords."
+
+He demonstrated:
+
+```python
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# User registers with password "secret123"
+hashed = generate_password_hash("secret123")
+# Stored in database: "pbkdf2:sha256:260000$xT4..."
+
+# User logs in with password "secret123"
+check_password_hash(hashed, "secret123")  # Returns True
+check_password_hash(hashed, "wrong")      # Returns False
+```
+
+"Even as the developer, you can't see users' passwords," Miguel explained. "That's proper security."
+
+Tian thought about the implementation plan: "So we need:
+
+1. **Users table**: id, username, email, hashed_password, role (resident/staff/admin)
+2. **Register endpoint**: Create new user, hash password, save to database
+3. **Login endpoint**: Check credentials, create session, return success
+4. **Session management**: Track who's logged in using Flask sessions
+5. **Protected routes**: Check if user is logged in before allowing actions
+6. **Authorization**: Check if user owns the complaint before allowing edit/delete
+7. **Frontend**: Login/register forms, logout button, display username"
+
+Rhea Joy added the user experience flow: "When users visit the site, they see the login page. New users click 'Register,' create account with username, email, password. After registering, they're automatically logged in. They see 'Welcome, [username]' at the top with a logout button. They can submit complaints, which are tied to their account. They see only THEIR complaints unless they're admin. They can edit/delete only their own. Log out, and they're back to the login page."
+
+"Perfect understanding," Miguel said. "And here's the security mindset you need: always assume users will try to do things they shouldn't. They'll try to delete other people's complaints by guessing IDs. They'll try to access admin features by manipulating URLs. Your backend must verify EVERY request: Is this user logged in? Do they have permission for this action? Never trust the frontend alone."
+
+Captain Cruz, listening intently, asked, "How long will this take to implement?"
+
+Tian thought carefully. "We need to restructure the entire application. Add user management, modify the database schema, add authentication endpoints, implement sessions, update all existing endpoints to check permissions, modify the frontend to handle login state. Maybe... three days?"
+
+Miguel interrupted, "Take your time and do it right. Security isn't something you rush. One vulnerability can compromise the entire system. Better to take a week and build it securely than take two days and leave holes."
+
+Ms. Reyes was supportive. "We'll continue with paper forms until the secure version is ready. Take the time you need. We'd rather wait and get a secure system than rush and have problems."
+
+Tian felt the weight of responsibility. "This isn't just adding features. This is security. People's data. Their trust. We need to do this perfectly."
+
+Rhea Joy pulled up authentication tutorials and Flask-Login documentation. "Let's learn properly. Password hashing with Werkzeug. Session management with Flask. Login required decorators. Permission checks. CSRF protection. Everything."
+
+Miguel gave them a comprehensive checklist:
+
+**Authentication Implementation Checklist:**
+☐ Create users table in database
+☐ Implement register endpoint with password hashing
+☐ Implement login endpoint with credential verification
+☐ Set up Flask sessions for tracking logged-in users
+☐ Add logout functionality
+☐ Protect all API routes with login_required decorator
+☐ Modify complaints table to include user_id foreign key
+☐ Update create complaint to associate with logged-in user
+☐ Update get complaints to filter by user (unless admin)
+☐ Update edit/delete to check ownership
+☐ Build register/login frontend forms
+☐ Handle login state in JavaScript
+☐ Store session token in localStorage
+☐ Add logout button and functionality
+☐ Test all authentication flows thoroughly
+☐ Test authorization rules (can users access what they shouldn't?)
+☐ Review for security vulnerabilities
+
+"Work through this checklist methodically," Miguel advised. "Test each piece before moving to the next. Security is layers—authentication, session management, authorization, input validation, password hashing. Get each layer right."
+
+Tian opened his code, ready for the major refactoring. "We built a functional system. Now we're making it secure. From anyone-can-do-anything to properly authenticated and authorized. This is what professional applications require."
+
+Rhea Joy was already sketching the login page design. "Clean, professional login form. Clear error messages. Registration with password confirmation. 'Forgot password?' link for future implementation. User-friendly security."
+
+Captain Cruz stood to leave. "I trust you both. When this is done, we'll have a system that's not just functional, but secure. Residents can trust that their complaints are protected, their identities verified, their data safe. That's the standard we need."
+
+As he left, Tian turned to Miguel's video call. "Kuya, this is the most important lesson yet. We've learned how to build features. Now we're learning how to build them securely. That's the difference between amateur and professional development."
+
+Miguel nodded with pride. "You're thinking like a professional developer now. Security isn't an afterthought—it's foundational. Let's build authentication the right way."
+
+---
+
+## Theory & Lecture Content
 
 ## What is Authentication?
 
@@ -597,4 +705,4 @@ The barangay portal now had user accounts. Residents could register, login, and 
 
 Tomorrow? Environment variables, deployment configuration, and production readiness. The app was almost ready for the world.
 
-_Next up: Lesson 44—Environment Variables + Deployment Config!_ 🔐
+_Next up: Lesson 44 - Environment Variables + Deployment Config!_

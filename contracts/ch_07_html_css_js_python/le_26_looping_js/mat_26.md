@@ -1,16 +1,87 @@
-# Lesson 26: Looping in JavaScript
+## Background Story
+
+The barangay office had provided Tian with a CSV file containing visitor records—100 entries with names, dates, purposes of visit, and processing status. The goal was to analyze this data: count how many clearance applications were processed, identify the busiest days, and generate a summary report.
+
+Tian opened the file and started writing JavaScript to process the first record:
+
+```javascript
+let visitor1Name = "Juan Dela Cruz";
+let visitor1Purpose = "Clearance";
+let visitor1Status = "Processed";
+console.log(visitor1Name + ": " + visitor1Status);
+```
+
+Then the second record:
+
+```javascript
+let visitor2Name = "Maria Santos";
+let visitor2Purpose = "Barangay ID";
+let visitor2Status = "Pending";
+console.log(visitor2Name + ": " + visitor2Status);
+```
+
+Then the third... and suddenly the horrible realization hit. There were 100 records. Writing this code manually would require 300+ lines of repetitive, mind-numbing code. And if the processing logic needed to change, they'd have to update it in 100 different places.
+
+"There has to be a better way," Tian muttered.
+
+Meanwhile, Rhea Joy was building the announcements page. The barangay had 15 active announcements, and she needed to display each one with a title, date, and description. She started manually creating the HTML:
+
+```javascript
+document.querySelector('#announcements').innerHTML = `
+    <div class="announcement">
+        <h3>Announcement 1</h3>
+        <p>Date: May 1, 2024</p>
+        <p>Description...</p>
+    </div>
+    <div class="announcement">
+        <h3>Announcement 2</h3>
+        <p>Date: May 2, 2024</p>
+        <p>Description...</p>
+    </div>
+    ...
+`;
+```
+
+After writing out three announcements manually, she stopped. This was going to be 15 nearly identical blocks of code. And when new announcements were added, she'd have to manually add more HTML.
+
+"This feels wrong," she thought. "Professional websites don't manually code every item. There must be a programming concept for repeating tasks."
+
+It was Sunday afternoon. Both Tian and Rhea Joy were at the internet cafe, each stuck on the same fundamental problem: how to perform repetitive tasks without writing repetitive code.
+
+Tian pulled up Stack Overflow and found answers mentioning "for loops," "while loops," and "iteration." Rhea Joy googled "how to display array items" and found similar results.
+
+They experimented with a simple example:
+
+```javascript
+for (let i = 1; i <= 5; i++) {
+    console.log("Count: " + i);
+}
+```
+
+The console printed:
+```
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5
+```
+
+Five lines of output from three lines of code! The `for` loop had repeated the `console.log` statement five times automatically, with `i` changing each iteration.
+
+"This is it!" Tian exclaimed. "This is how we process 100 records without writing 100 blocks of code. We loop through the data!"
+
+But understanding the basic concept and actually implementing it were different challenges. What's the proper syntax? How do you loop through arrays? When do you use `for`, `while`, or `do...while`? How do you break out of loops early or skip iterations?
+
+That evening, they both called Kuya Miguel.
+
+"Kuya, we've been writing repetitive code—processing multiple records, displaying multiple items. We discovered loops can automate repetition, but we only understand the basic concept. Can you teach us all types of loops, when to use each, and how to loop through arrays and data structures?"
+
+Miguel smiled. "Loops are one of programming's fundamental superpowers. They transform tedious manual repetition into elegant automation. Today we're learning `for` loops, `while` loops, `do...while` loops, `for...of` for arrays, `for...in` for objects, and loop control with `break` and `continue`. By the end of this lesson, you'll process that 100-record dataset with just a few lines of code."
 
 ---
 
-## Repeating Tasks Efficiently
-
-"Kuya Miguel, how do we process 100 visitor records without writing 100 lines of code?" Tian asked.
-
-Rhea Joy added, "Or display all barangay announcements automatically?"
-
-Kuya Miguel smiled. "That's where **loops** come in—they let you repeat code multiple times automatically. It's like telling someone: 'Do this until I say stop.'"
-
----
+## Theory & Lecture Content
 
 ## What are Loops?
 

@@ -1,10 +1,39 @@
-# Combined Quiz: Lessons 38-42 - Full-Stack Development
+# Quiz: JavaScript Fetch to Flask API (Lesson 38)
+
+Test your understanding of connecting JavaScript frontend to Flask backend!
 
 ---
 
-## Lesson 38: JavaScript Fetch to Flask API
+## Question 1
+What is the `fetch()` function used for?
 
-**1. How do you make a POST request to Flask from JavaScript?**
+A) To style HTML elements
+B) To send HTTP requests from JavaScript to a server
+C) To create Flask routes
+D) To manipulate the DOM
+
+**Answer: B**
+`fetch()` is JavaScript's built-in function for making HTTP requests to servers (like Flask backends).
+
+---
+
+## Question 2
+What is the correct syntax for a simple GET request using fetch?
+
+A) `fetch('GET /api/data')`
+B) `fetch('/api/data')`
+C) `get('/api/data')`
+D) `request('/api/data')`
+
+**Answer: B**
+By default, `fetch()` uses GET method, so you only need to provide the URL: `fetch('/api/data')`
+
+---
+
+## Question 3
+How do you make a POST request with fetch?
+
+A)
 ```javascript
 fetch('/api/data', {
     method: 'POST',
@@ -13,157 +42,286 @@ fetch('/api/data', {
 });
 ```
 
-**2. How do you handle CORS errors between JavaScript and Flask?**
+B)
+```javascript
+fetch('POST /api/data', data);
+```
+
+C)
+```javascript
+post('/api/data', data);
+```
+
+D)
+```javascript
+fetch('/api/data', data);
+```
+
+**Answer: A**
+POST requests require method, headers, and body. Body must be stringified JSON.
+
+---
+
+## Question 4
+What does `await response.json()` do?
+
+A) Sends JSON to the server
+B) Parses the response body as JSON
+C) Creates a JSON file
+D) Validates JSON data
+
+**Answer: B**
+`.json()` parses the response body as JSON and returns a JavaScript object.
+
+---
+
+## Question 5
+How does Flask receive JSON data from JavaScript?
+
+A) `request.data()`
+B) `request.get_json()`
+C) `request.json`
+D) `get_json(request)`
+
+**Answer: B**
+`request.get_json()` parses the JSON body from the request and returns a Python dictionary.
+
+---
+
+## Question 6
+How does Flask send JSON data back to JavaScript?
+
+A) `return data`
+B) `send_json(data)`
+C) `jsonify(data)`
+D) `json.dumps(data)`
+
+**Answer: C**
+`jsonify(data)` converts Python objects to JSON and sets the correct Content-Type header.
+
+---
+
+## Question 7
+What does CORS stand for?
+
+A) Cross-Origin Request System
+B) Cross-Origin Resource Sharing
+C) Common Origin Request Standard
+D) Content Origin Resource Sharing
+
+**Answer: B**
+CORS = Cross-Origin Resource Sharing, a security feature to control which origins can access your API.
+
+---
+
+## Question 8
+How do you enable CORS in Flask?
+
+A)
 ```python
 from flask_cors import CORS
-app = Flask(__name__)
 CORS(app)
 ```
 
----
-
-## Lesson 39: DOM Updates from Flask
-
-**3. How do you dynamically display Flask data?**
-```javascript
-const response = await fetch('/api/data');
-const data = await response.json();
-
-container.innerHTML = data.map(item => `
-    <div>${item.name}</div>
-`).join('');
-```
-
-**4. Best practice for updating DOM after fetch?**
-- Clear container first: `container.innerHTML = ''`
-- Show loading state while fetching
-- Handle empty results gracefully
-
----
-
-## Lesson 40: CRUD - Create and Read
-
-**5. Flask CREATE endpoint:**
+B)
 ```python
-@app.route('/api/items', methods=['POST'])
-def create():
-    data = request.get_json()
-    item = {'id': 1, 'name': data['name']}
-    items.append(item)
-    return jsonify(item), 201
+app.enable_cors = True
 ```
 
-**6. JavaScript CREATE request:**
+C)
+```python
+@app.cors('/api')
+```
+
+D)
+```python
+cors.enable()
+```
+
+**Answer: A**
+Install flask-cors and apply it to your app: `CORS(app)`
+
+---
+
+## Question 9
+What HTTP status code means "Created successfully"?
+
+A) 200
+B) 201
+C) 400
+D) 500
+
+**Answer: B**
+201 Created indicates a resource was successfully created.
+
+---
+
+## Question 10
+What is the correct Flask route for a POST endpoint?
+
+A)
+```python
+@app.route('/api/data', methods=['POST'])
+def create_data():
+    pass
+```
+
+B)
+```python
+@app.post('/api/data')
+def create_data():
+    pass
+```
+
+C)
+```python
+@app.route('/api/data', method='POST')
+def create_data():
+    pass
+```
+
+D)
+```python
+@app.route_post('/api/data')
+def create_data():
+    pass
+```
+
+**Answer: A**
+Use `methods=['POST']` to specify HTTP methods. Note: `methods` is plural and takes a list.
+
+---
+
+## Question 11
+How do you handle errors in fetch requests?
+
+A) Use if statements only
+B) Use try/catch blocks
+C) Errors are automatic
+D) Use catch() method only
+
+**Answer: B**
+Use try/catch blocks with async/await or .catch() with promises to handle errors.
+
+---
+
+## Question 12
+What does `async/await` do in JavaScript?
+
+A) Makes code run faster
+B) Makes asynchronous code look synchronous
+C) Creates multiple threads
+D) Delays code execution
+
+**Answer: B**
+`async/await` makes asynchronous code (like fetch) easier to read by making it look synchronous.
+
+---
+
+## Question 13
+How do you check if a fetch request was successful?
+
+A) Check if response exists
+B) Check `response.ok` or `response.status`
+C) Check `response.success`
+D) Fetch always succeeds
+
+**Answer: B**
+Check `response.ok` (true if status 200-299) or check specific `response.status` codes.
+
+---
+
+## Question 14
+What is the correct way to send form data to Flask?
+
+A)
 ```javascript
-await fetch('/api/items', {
+const formData = new FormData(form);
+fetch('/api/submit', {
+    method: 'POST',
+    body: formData
+});
+```
+
+B)
+```javascript
+const data = {name: form.name.value};
+fetch('/api/submit', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({name: 'New Item'})
+    body: JSON.stringify(data)
 });
 ```
 
-**7. Flask READ ALL endpoint:**
-```python
-@app.route('/api/items', methods=['GET'])
-def read_all():
-    return jsonify(items)
-```
+C) Both A and B are correct
+D) Neither is correct
 
-**8. Flask READ ONE endpoint:**
-```python
-@app.route('/api/items/<int:id>', methods=['GET'])
-def read_one(id):
-    item = next((i for i in items if i['id'] == id), None)
-    if item:
-        return jsonify(item)
-    return jsonify({'error': 'Not found'}), 404
-```
+**Answer: C**
+Both FormData (for files) and JSON (for simple data) are valid approaches.
 
 ---
 
-## Lesson 41: CRUD - Update and Delete
+## Question 15
+What happens if you forget `JSON.stringify()` in fetch body?
 
-**9. Flask UPDATE endpoint:**
+A) Nothing, it works fine
+B) The data is sent as [object Object]
+C) Flask can't parse the data properly
+D) Both B and C
+
+**Answer: D**
+Without stringify, JavaScript sends "[object Object]" string, and Flask can't parse it as JSON.
+
+---
+
+## Practical Challenge
+
+Build a simple barangay application form that:
+1. Has name, age, and service fields
+2. Submits data to Flask `/api/applications` (POST)
+3. Flask validates the data
+4. Flask returns success/error response
+5. JavaScript displays the response
+
+**Flask endpoint:**
 ```python
-@app.route('/api/items/<int:id>', methods=['PUT'])
-def update(id):
-    item = find_item(id)
+@app.route('/api/applications', methods=['POST'])
+def create_application():
     data = request.get_json()
-    item['name'] = data.get('name', item['name'])
-    return jsonify(item)
+    
+    if not data.get('name'):
+        return jsonify({'error': 'Name required'}), 400
+    
+    application = {
+        'id': 1,
+        'name': data['name'],
+        'age': data.get('age'),
+        'service': data.get('service'),
+        'status': 'pending'
+    }
+    
+    return jsonify({'message': 'Application created', 'data': application}), 201
 ```
 
-**10. JavaScript UPDATE request:**
-```javascript
-await fetch(`/api/items/${id}`, {
-    method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({name: 'Updated Name'})
-});
-```
-
-**11. Flask DELETE endpoint:**
-```python
-@app.route('/api/items/<int:id>', methods=['DELETE'])
-def delete(id):
-    global items
-    items = [i for i in items if i['id'] != id]
-    return jsonify({'message': 'Deleted'})
-```
-
-**12. JavaScript DELETE request:**
-```javascript
-await fetch(`/api/items/${id}`, {
-    method: 'DELETE'
-});
-```
+Can you write the JavaScript fetch code to submit this form?
 
 ---
 
-## Lesson 42: Final Project - Barangay Complaint System
+## Summary
 
-**13. Complete CRUD workflow:**
-1. Create complaint form (JavaScript)
-2. Submit to Flask POST endpoint
-3. Store in list/database
-4. Display all complaints (GET)
-5. Update status (PUT)
-6. Delete complaint (DELETE)
+Key Concepts:
+- **fetch()**: JavaScript function for HTTP requests
+- **async/await**: Makes asynchronous code easier
+- **GET**: Fetch data (default method)
+- **POST**: Send data (requires method, headers, body)
+- **request.get_json()**: Flask gets JSON data
+- **jsonify()**: Flask sends JSON response
+- **CORS**: Enable cross-origin requests
+- **Status Codes**: 200 OK, 201 Created, 400 Bad Request, 404 Not Found
+- **Error Handling**: Use try/catch blocks
+- **JSON.stringify()**: Convert JS objects to JSON string
 
-**14. Key features to implement:**
-- Form validation
-- Loading states
-- Error handling
-- Status indicators
-- Confirmation dialogs
-
-**15. Full-stack best practices:**
-- Validate on both frontend and backend
-- Use try/catch for error handling
-- Return proper HTTP status codes (200, 201, 400, 404, 500)
-- Keep code organized (separate files for routes/models)
-- Use consistent naming conventions
-
----
-
-## Answers Summary
-
-**Lesson 38:**
-1. Use fetch with POST method, headers, and JSON body
-2. Install flask-cors and apply to app
-
-**Lesson 39:**
-3. Fetch data, parse JSON, map to HTML, update innerHTML
-4. Clear first, show loading, handle empty results
-
-**Lesson 40:**
-5-8. CRUD CREATE (POST) and READ (GET) endpoints
-
-**Lesson 41:**
-9-12. CRUD UPDATE (PUT) and DELETE endpoints
-
-**Lesson 42:**
-13-15. Complete application integration with all CRUD operations
+Next: Learn how to display fetched data dynamically!
 
 ---
 

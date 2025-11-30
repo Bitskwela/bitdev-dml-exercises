@@ -1,16 +1,73 @@
-# Lesson 35: JSON, APIs, and Fetch - Getting Data from Servers
+## Background Story
+
+Tian's barangay website displayed resident information, service lists, and announcements. But all the data was hardcoded in the JavaScript file:
+
+```javascript
+let residents = [
+    { name: "Juan Dela Cruz", age: 34, service: "Clearance" },
+    { name: "Maria Santos", age: 28, service: "Barangay ID" },
+    // ...45 more hardcoded objects
+];
+
+let announcements = [
+    { title: "Community Meeting", date: "May 15", description: "..." },
+    { title: "Health Program", date: "May 20", description: "..." },
+    // ...10 more hardcoded announcements
+];
+```
+
+Every time the barangay office updated resident records or posted new announcements, Tian had to manually edit the JavaScript file, find the correct array, add or modify objects, save, and redeploy. It was tedious, error-prone, and completely impractical for a real system.
+
+Worse, the data wasn't dynamic. When a new resident applied for a service, the website wouldn't show it until Tian manually added it to the code. The website was essentially a static snapshot, not a live system connected to actual data.
+
+Rhea Joy was building a weather widget for the barangay website—showing current temperature and conditions in Batangas City. She needed real-time weather data, but she only had:
+
+```javascript
+let weather = {
+    temperature: "28°C",
+    condition: "Partly Cloudy",
+    humidity: "75%"
+};
+```
+
+Hardcoded fake data. The "current weather" would be the same whether it was actually sunny, rainy, or stormy outside. She'd seen weather websites that showed real, live data. How did they do it?
+
+Both of them realized a fundamental limitation: their JavaScript could only work with data that existed in the code itself. They couldn't fetch data from databases, APIs, or external sources. Their applications were isolated, static, and disconnected from the real world.
+
+It was Sunday afternoon, and they were researching "how to get data from server JavaScript." Every answer mentioned the same concepts:
+
+- **API**: Application Programming Interface—a way for applications to communicate
+- **JSON**: JavaScript Object Notation—a data format for transferring information
+- **Fetch**: JavaScript's built-in method for making network requests
+- **Promises**: A way to handle asynchronous operations
+
+They found a free weather API and saw an example:
+
+```javascript
+fetch('https://api.weather.com/current?city=Batangas')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.temperature);
+    });
+```
+
+They copied it, modified the URL, and ran it. The console logged real, live temperature data from an actual weather service. For the first time, their JavaScript had communicated with an external server and retrieved dynamic data.
+
+Rhea Joy's eyes widened. "This is how real apps work! They don't hardcode data. They fetch it from APIs!"
+
+"And that means," Tian added excitedly, "when we build the backend with Flask, our frontend JavaScript can fetch data from our own API instead of having hardcoded arrays. The website will be live—connected to a real database."
+
+But they'd just copied code without understanding it. What's an API? What's JSON? How does `fetch()` work? What are Promises and why the `.then()` syntax? How do you handle errors? How do you send data to servers, not just receive it?
+
+They called Kuya Miguel.
+
+"Kuya, we've been using hardcoded data, but real apps fetch data from servers. We discovered the Fetch API and got it working, but we don't understand how it works. Can you teach us APIs, JSON, Fetch, Promises, and how to properly communicate with servers from JavaScript?"
+
+Miguel smiled. "You've reached the bridge between frontend and backend—the moment when your isolated JavaScript application becomes connected to the wider world. Today we're learning JSON data format, what APIs are, how to use the Fetch API, Promises and async/await, handling responses and errors, and making GET and POST requests. By the end of this lesson, your barangay website will be ready to communicate with any API—including the Flask backend you'll build soon."
 
 ---
 
-## Connecting to External Data
-
-"Kuya Miguel, all our data is hardcoded. How do real apps get data from servers?" Tian asked.
-
-Rhea Joy added, "Like weather apps, news feeds, barangay records from a database?"
-
-Kuya Miguel nodded. "Using **APIs** (Application Programming Interfaces) and the **Fetch API**. You request data from a server, it responds with JSON, and you display it. Let's learn!"
-
----
+## Theory & Lecture Content
 
 ## What is JSON?
 

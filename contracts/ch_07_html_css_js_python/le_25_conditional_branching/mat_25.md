@@ -1,16 +1,59 @@
-# Lesson 25: Conditional Branching (if/else)
+## Background Story
+
+Tian stared at their JavaScript code, feeling both proud and limited. They'd successfully created variables, performed calculations, concatenated strings, and logged results to the console. The barangay clearance application form could now calculate fees based on document type:
+
+```javascript
+let documentType = "clearance";
+let baseFee = 50;
+let processingFee = 20;
+let totalFee = baseFee + processingFee;
+console.log("Total fee: ₱" + totalFee);
+```
+
+It worked. But it was rigid. The fee was always 70 pesos because the values were hardcoded. In reality, different documents had different fees. Clearance: ₱50. Barangay ID: ₱30. Indigency Certificate: ₱20. Certificate of Residency: ₱40.
+
+How could they make the code adapt based on which document the user selected?
+
+Rhea Joy, working on the same project, ran into a different problem. She was validating user age for voting registration:
+
+```javascript
+let userAge = 17;
+console.log("Registration submitted");
+```
+
+It always submitted the registration, even though 17-year-olds weren't eligible to vote. The code needed to *check* the age first and respond differently based on whether the user was 18 or older.
+
+They were both hitting the same wall: their code was **sequential**—it executed line by line, top to bottom, with no ability to make decisions, branch into different paths, or adapt to different situations.
+
+It was Wednesday evening, and they were at Tian's house working on their joint project. The frustration was palpable.
+
+"Our code is like a robot following instructions blindly," Tian said. "It doesn't think. It doesn't adapt. It just does exactly what we tell it, even when it should do something different."
+
+"How do we make it smart?" Rhea Joy asked. "Like, how do we tell JavaScript: 'If the age is under 18, show an error. If it's 18 or above, proceed.' That's such a simple concept in real life, but I don't know how to write it in code."
+
+Tian pulled out their phone and called Kuya Miguel.
+
+"Kuya, we're stuck. Our code can calculate things and store values, but it can't make decisions. We need it to do different things based on conditions. Like checking if someone is old enough, or calculating different fees based on document type. How do we add logic to our code?"
+
+Miguel's response was immediate. "You need conditional statements. Specifically, `if-else` logic. This is where programming goes from simple calculations to actual intelligence. You're giving your code the ability to make decisions—to branch into different paths based on whether conditions are true or false."
+
+"Like... the code can decide?"
+
+"Exactly. Think about how you make decisions in real life. IF it's raining, THEN bring an umbrella, ELSE wear sunglasses. IF you have enough money, THEN buy the item, ELSE save up more. IF age is 18 or above, THEN allow voting, ELSE show error. That's conditional logic, and it's one of the most fundamental concepts in all of programming."
+
+Miguel continued, "JavaScript has several ways to write conditionals: `if` statements, `if-else`, `else if` chains, `switch` statements, and even ternary operators. Today, I'm teaching you all of them. By the end of this lesson, your barangay form will check eligibility, calculate fees dynamically, validate input, and respond intelligently to different scenarios."
+
+Tian and Rhea Joy exchanged excited glances.
+
+"So our code will actually think?" Rhea Joy asked.
+
+"It'll make decisions based on logic you define," Miguel clarified. "That's not artificial intelligence, but it's the foundation of it. Every complex program—Facebook's algorithm, GCash's transaction system, Shopee's checkout process—is built on conditional logic. You're about to learn the building blocks of real programming."
+
+Tian opened VS Code, creating a new file: `conditionals.js`. Rhea Joy pulled her chair closer. They were ready to make their code smart.
 
 ---
 
-## Making Decisions
-
-"Kuya Miguel, how do we make our website smart? Like showing different messages based on user age?" Tian asked.
-
-Rhea Joy added, "Or checking if someone qualifies for a barangay service before processing?"
-
-Kuya Miguel smiled. "That's **conditional branching**—making your code choose different paths based on conditions. It's like decision-making in real life: 'IF this is true, THEN do that.'"
-
----
+## Theory & Lecture Content
 
 ## What is Conditional Branching?
 

@@ -1,12 +1,55 @@
-# Lesson 8: Text Formatting - Headings, Paragraphs, Lists
-
 ## Background Story
 
-Tian started building the barangay website content. Kuya Miguel said, "Now let's organize text properly. You need headings for titles, paragraphs for content, and lists for organized information. These are the foundation of readable web content."
+Tian opened their barangay website project, ready to add the actual content. They had the HTML structure—doctype, head, body—and they'd learned about tags, elements, and attributes. Now it was time to fill the pages with real information about the barangay.
 
-"Like Microsoft Word?" Tian asked.
+They started typing inside the `<body>` tag:
 
-"Exactly! But in HTML, you use specific tags for each text type."
+```html
+<body>
+Barangay Sto. Niño Official Website
+Welcome to our community portal. We serve 5,432 residents across 8 sitios.
+Our Services:
+Barangay Clearance - ₱50
+Barangay ID - ₱30
+Indigency Certificate - ₱20
+Certificate of Residency - ₱40
+Contact Information:
+Barangay Hall Address: 123 Main Street, Batangas City
+Contact Number: (043) 123-4567
+Email: barangay@example.com
+Office Hours: Monday to Friday, 8:00 AM - 5:00 PM
+</body>
+```
+
+Tian saved the file and opened it in Chrome. The content appeared... but it was a disaster. Everything was crammed into a single continuous line with no structure, no hierarchy, no visual organization. The title wasn't emphasized. The services list wasn't actually a list. The contact information was jumbled together.
+
+It looked like a wall of text with no formatting whatsoever.
+
+Tian tried adding line breaks in the code, pressing Enter after each line. But when they refreshed the browser, nothing changed. HTML ignored line breaks in the source code.
+
+"Why doesn't formatting work?" Tian muttered in frustration. "In Microsoft Word, I just press Enter for a new line, or make text bold by clicking a button. Why is HTML so different?"
+
+They called Rhea Joy, who was working on her own section of the website.
+
+"Rhea, how do you organize text in HTML? I have all this content—titles, descriptions, lists, contact info—but I don't know how to structure it properly. Everything appears as one long sentence."
+
+"I'm having the same problem!" Rhea Joy replied. "I tried putting spaces between sections, but the browser ignores them. There must be specific HTML tags for different text types, right? Like one tag for headings, another for paragraphs, another for lists?"
+
+That evening, they both joined a video call with Kuya Miguel and shared their screens, showing the unformatted wall of text.
+
+Miguel couldn't help but smile—he'd made the same mistake when he first learned HTML.
+
+"You two have discovered a fundamental principle of HTML: formatting doesn't come from spaces and line breaks in your code. It comes from semantic tags that describe the *type* of content. HTML is a markup language—you mark up content with tags that tell the browser: 'This is a heading. This is a paragraph. This is a list. This is emphasized text.'"
+
+"So we need specific tags for each content type?" Tian asked.
+
+"Exactly. Just like in Microsoft Word, you have formatting options—Title, Heading 1, Heading 2, Body Text, Bullet List. HTML has equivalent tags: `<h1>` through `<h6>` for headings, `<p>` for paragraphs, `<ul>` and `<ol>` for lists, `<strong>` for bold, `<em>` for italic. Each tag serves a specific purpose and creates both visual formatting *and* semantic meaning."
+
+Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end of this lesson, your content won't be a wall of text—it'll be properly structured with hierarchical headings, readable paragraphs, organized lists, and emphasized text. You'll learn the foundation of readable web content."
+
+---
+
+## Theory & Lecture Content
 
 ## Headings (`<h1>` to `<h6>`)
 

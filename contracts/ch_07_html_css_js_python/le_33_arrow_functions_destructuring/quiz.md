@@ -11,6 +11,10 @@ b) `const add = (a, b) => a + b;`
 c) `const add = a, b => a + b;`  
 d) Both a and b
 
+**Answer: d**
+
+Both explicit return with braces and implicit return without braces are valid arrow function syntax.
+
 ---
 
 **2. What does `let {name, age} = person;` do?**
@@ -19,6 +23,10 @@ a) Creates an object
 b) Extracts name and age properties from person  
 c) Assigns person to name and age  
 d) Causes an error
+
+**Answer: b**
+
+This is object destructuring - it extracts the `name` and `age` properties from the `person` object into variables.
 
 ---
 
@@ -29,6 +37,10 @@ b) `10`
 c) `x * 2`  
 d) Error
 
+**Answer: b**
+
+The arrow function doubles the input: `double(5)` returns `5 * 2 = 10`.
+
 ---
 
 **4. What does the spread operator `...` do in `[...array1, ...array2]`?**
@@ -38,6 +50,10 @@ b) Combines arrays into one
 c) Compares arrays  
 d) Removes duplicates
 
+**Answer: b**
+
+The spread operator `...` combines (concatenates) multiple arrays into one new array.
+
 ---
 
 **5. How do you destructure the second element of an array?**
@@ -46,6 +62,10 @@ a) `let [, second] = array;`
 b) `let [second] = array;`  
 c) `let {1} = array;`  
 d) `let second = array.second;`
+
+**Answer: a**
+
+Use a comma to skip the first element: `let [, second] = array;` gets the second element.
 
 ---
 
@@ -64,6 +84,10 @@ b) A creates reference, B creates copy
 c) B is slower  
 d) A is ES6, B is old syntax
 
+**Answer: b**
+
+A creates a reference (both variables point to same array), B creates a shallow copy (new array with same values).
+
 ---
 
 **7. What does `const sum = (...nums) => nums.reduce((a,b) => a+b, 0);` do?**
@@ -73,6 +97,10 @@ b) Sums all arguments passed
 c) Returns an array  
 d) Causes an error
 
+**Answer: b**
+
+The rest parameter `...nums` collects all arguments into an array, then `reduce()` sums them all.
+
 ---
 
 **8. How do you rename a destructured property?**
@@ -81,6 +109,10 @@ a) `let {name as fullName} = person;`
 b) `let {name: fullName} = person;`  
 c) `let {name.fullName} = person;`  
 d) `let {name = fullName} = person;`
+
+**Answer: b**
+
+Use colon syntax to rename: `let {name: fullName} = person;` extracts `name` and stores it in `fullName`.
 
 ---
 
@@ -96,6 +128,10 @@ b) `{a: 1, b: 3, c: 4}`
 c) `{a: 1, b: 2, b: 3, c: 4}`  
 d) Error
 
+**Answer: b**
+
+Later properties override earlier ones. `obj2.b` (3) overrides `obj1.b` (2), resulting in `{a: 1, b: 3, c: 4}`.
+
 ---
 
 **10. When should you NOT use arrow functions?**
@@ -105,20 +141,9 @@ b) Event listeners
 c) Methods that need `this` context  
 d) Simple one-liners
 
----
+**Answer: c**
 
-## Answers
-
-1. **d** - Both a and b  
-2. **b** - Extracts name and age properties from person  
-3. **b** - `10`  
-4. **b** - Combines arrays into one  
-5. **a** - `let [, second] = array;`  
-6. **b** - A creates reference, B creates copy  
-7. **b** - Sums all arguments passed  
-8. **b** - `let {name: fullName} = person;`  
-9. **b** - `{a: 1, b: 3, c: 4}`  
-10. **c** - Methods that need `this` context
+Avoid arrow functions for object methods that need `this` context, as arrow functions don't have their own `this`.
 
 ---
 

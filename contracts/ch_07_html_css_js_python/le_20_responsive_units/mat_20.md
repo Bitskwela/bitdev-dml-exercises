@@ -1,16 +1,72 @@
-# Lesson 20: Responsive CSS Units
+## Background Story
+
+After learning media queries, Tian and Rhea Joy had refactored their barangay website to be responsive. They'd added breakpoints for mobile, tablet, and desktop. The layout adapted properly—single column on mobile, multiple columns on desktop.
+
+But there were still problems. Subtle, frustrating problems.
+
+On mobile, they'd set:
+
+```css
+@media (max-width: 768px) {
+    h1 { font-size: 24px; }
+    p { font-size: 14px; }
+    .container { padding: 15px; }
+}
+```
+
+On desktop:
+
+```css
+@media (min-width: 769px) {
+    h1 { font-size: 36px; }
+    p { font-size: 16px; }
+    .container { padding: 30px; }
+}
+```
+
+They'd specified exact pixel values for every screen size. The website worked, but it required dozens of media query rules for every minor adjustment. Adding a new element meant defining its size at every breakpoint.
+
+Worse, when users zoomed in or out (common for accessibility), the fixed pixel values didn't scale. A visually impaired user who increased browser zoom to 150% found that the layout broke because the pixel-based sizing didn't adapt.
+
+Then there was the issue of viewport variation. Not all phones are the same size. An iPhone SE (375px wide) and an iPhone Pro Max (428px wide) both fell into the same mobile breakpoint, but Tian's fixed 14px font looked very different on each. Too small on the larger phone, almost too large on the smaller one.
+
+Rhea Joy encountered a related problem with her hero section—the large banner at the top of the homepage. She wanted it to always fill the entire viewport height, regardless of device. She tried:
+
+```css
+.hero {
+    height: 800px;  /* Looks good on desktop */
+}
+```
+
+But 800px was taller than most phone screens and shorter than many desktop monitors. The hero section was either cut off or had awkward empty space.
+
+It was Thursday night—the day before launch. They'd fixed the responsive layout, but these sizing issues made the site feel unpolished.
+
+Tian was in the school library, Rhea Joy was at home, and both were on a group video call.
+
+"The media queries work, but we're using fixed pixels for everything," Tian said. "Font sizes don't scale smoothly. Spacing doesn't feel proportional across devices. And when users zoom, things break."
+
+"My hero section won't fill the viewport height properly," Rhea Joy added. "I'd need separate media queries for every possible screen height, which is insane."
+
+They'd both been researching and kept seeing references to units other than `px`: `rem`, `em`, `%`, `vh`, `vw`. Professional websites seemed to use these extensively.
+
+"What's the difference between all these units?" Tian asked aloud. "And which should we use?"
+
+They called Kuya Miguel.
+
+"Kuya, we fixed the responsive layout with media queries, but we're still using fixed pixel values for everything. Our font sizes don't scale naturally, our spacing isn't proportional, and our hero section won't adapt to viewport height. We keep seeing references to relative units like `rem` and `vh` but we don't understand when to use what."
+
+Miguel pulled up a comparison chart on his screen.
+
+"You've discovered the limitation of absolute units. Pixels are fixed—they don't scale, they don't adapt, they don't respect user preferences. Modern responsive design uses relative units that scale based on context. `rem` for typography that respects browser settings. `em` for spacing relative to font size. `%` for layouts relative to parents. `vh` and `vw` for viewport-based sizing. Each has specific use cases."
+
+"So we should never use pixels?" Rhea Joy asked.
+
+"Not never, but rarely. Borders, maybe. But for fonts, spacing, layouts—relative units create more flexible, accessible, truly responsive designs. Today, I'm teaching you every relative unit, when to use each, and how to refactor your pixel-based stylesheet to use scalable, adaptive sizing."
 
 ---
 
-## The Sizing Problem
-
-"Kuya Miguel, may problema pa rin!" Tian showed his screen. "I used `font-size: 16px` sa title, pero ang liit sa phone at ang laki sa 4K monitor. How do I make text that adjusts automatically?"
-
-Rhea Joy nodded. "And spacing! I used `padding: 20px`, pero hindi proportional across devices."
-
-Kuya Miguel smiled. "That's why we have **responsive units**. Instead of fixed `px`, use `rem`, `em`, `%`, `vh`, `vw`—units that scale automatically based on screen or parent element."
-
----
+## Theory & Lecture Content
 
 ## Absolute vs Relative Units
 

@@ -1,18 +1,88 @@
-# Lesson 13: CSS Selectors, Properties, and Values
+## Background Story
+
+Tian stared at their `style.css` file. It was linked to their HTML—the `<link>` tag was correct, the file path was valid, and the browser was loading it (they'd verified in DevTools). But the file itself was empty except for a CSS reset at the top.
+
+They wanted to style their barangay website. Change heading colors. Adjust font sizes. Add spacing. Make the navigation menu horizontal. Style the service cards. But they didn't know where to start.
+
+"How do I tell CSS which element to style?" Tian wondered. "And once I select an element, how do I actually change its appearance?"
+
+They tried writing what seemed logical:
+
+```css
+heading color blue
+```
+
+Saved the file. Refreshed the browser. Nothing changed. Obviously the syntax was wrong.
+
+They tried again:
+
+```css
+heading {
+  color: blue
+}
+```
+
+Still nothing. The heading remained black.
+
+Rhea Joy, working on the same project, was having the exact same problem. She wanted to style the service cards with specific colors, but she'd created three cards with the class name `service-card`, and she didn't know how to target elements by class name.
+
+She tried:
+
+```css
+service-card {
+  background-color: lightblue;
+}
+```
+
+No effect. The cards remained unstyled.
+
+It was Friday afternoon, computer lab period. Both of them had linked their CSS files correctly but couldn't figure out how to actually write CSS rules that worked.
+
+Their teacher, Ms. Santos, noticed their frustration and came over to help.
+
+"What are you trying to do?" she asked.
+
+"Style the headings," Tian said, showing their CSS file.
+
+"And style these service cards," Rhea Joy added, pointing to her HTML where three divs had `class="service-card"`.
+
+Ms. Santos looked at their CSS attempts and immediately saw the problem.
+
+"You don't understand CSS selectors yet. In CSS, you need to know three things for every style rule: First, the **selector**—which element(s) you want to style. Second, the **property**—what aspect you want to change, like color or size. Third, the **value**—how you want to change it, like 'blue' or '16px'."
+
+She corrected Tian's code:
+
+```css
+/* Element selector - selects all <h1> tags */
+h1 {
+  color: blue;
+}
+```
+
+The heading immediately turned blue when Tian refreshed.
+
+Then she corrected Rhea Joy's code:
+
+```css
+/* Class selector - selects elements with class="service-card" */
+.service-card {
+  background-color: lightblue;
+}
+```
+
+The three service cards got light blue backgrounds instantly.
+
+"See the difference?" Ms. Santos explained. "Element selectors use just the tag name. Class selectors use a dot before the class name. ID selectors use a hashtag. There are also descendant selectors, pseudo-class selectors, attribute selectors... dozens of types. Mastering selectors is fundamental to CSS."
+
+That evening, both Tian and Rhea Joy called Kuya Miguel together.
+
+"Kuya, we linked our CSS files but we didn't know how to write actual CSS rules. Ms. Santos showed us that we need to understand selectors—how to target specific elements—and the syntax of properties and values. Can you teach us all the types of selectors and how to use them?"
+
+Miguel smiled. "Absolutely. CSS selectors are like addresses. HTML elements are houses in a neighborhood, and selectors are how you tell the browser which houses should get the styling package. Today, we're learning element selectors, class selectors, ID selectors, descendant selectors, combinators, pseudo-classes, pseudo-elements, and attribute selectors. By the end of this lesson, you'll be able to target any element on your page with precision."
 
 ---
 
-## The Barangay Website Styling Challenge
-
-Tian sat beside Rhea Joy in their computer laboratory, both staring at their plain HTML barangay website. The structure was perfect—headers, paragraphs, lists, and images were all properly organized—but it looked boring.
-
-"Ang plain naman ng website natin," Rhea Joy sighed. "Parang newspaper lang from the 1900s."
-
-Tian nodded. "Yeah, pero at least na-link na natin yung CSS file last lesson. Now we need to learn kung paano actually mag-style using CSS."
-
-Kuya Miguel, who was helping set up the laboratory's projector, overheard them. "Ah, perfect timing! Today you'll learn about CSS selectors, properties, and values—the three building blocks of styling any website."
-
----
+## Theory & Lecture Content
 
 ## What Are CSS Selectors?
 

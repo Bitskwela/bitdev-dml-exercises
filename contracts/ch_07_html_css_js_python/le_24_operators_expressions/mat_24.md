@@ -1,16 +1,96 @@
-# Lesson 24: Operators and Expressions in JavaScript
+## Background Story
+
+Tian had learned variables and data types. They could store information—names, ages, fees, quantities. Their JavaScript could remember things. But it couldn't *do* anything with that data yet.
+
+The barangay clearance application needed to calculate fees dynamically:
+- Clearance: ₱50
+- Rush processing: additional ₱30
+- Senior citizen discount: 20% off
+- Multiple documents: ₱10 discount per additional document
+
+Tian created variables for each component:
+
+```javascript
+let baseFee = 50;
+let rushFee = 30;
+let seniorDiscount = 0.20;
+let multiDocDiscount = 10;
+```
+
+But how do you calculate the total? If someone requests a clearance with rush processing, the total should be ₱80. If they're a senior citizen, apply the 20% discount. If they're ordering multiple documents, subtract ₱10 per additional document.
+
+Tian stared at the variables, unsure how to combine them.
+
+```javascript
+// How do I add baseFee and rushFee?
+// How do I calculate 20% of a total?
+// How do I check if someone IS a senior citizen?
+```
+
+Meanwhile, Rhea Joy was building the voter registration form. It needed to validate user age:
+- Under 18: "You are not eligible to vote"
+- 18 or older: "You are eligible to vote"
+
+She had the user's age stored in a variable:
+
+```javascript
+let userAge = 17;
+```
+
+But how do you check if that number is greater than or equal to 18? How do you compare values in JavaScript?
+
+Both of them had data stored in variables but lacked the tools to manipulate that data—to perform calculations, make comparisons, or combine conditions.
+
+It was Saturday morning at Tian's house. They'd invited Rhea Joy over to work on their projects together. Both were stuck at the same conceptual bottleneck.
+
+"We can store data, but we can't work with it," Tian said. "I need to add numbers, subtract discounts, calculate percentages. Basic math. But I don't know the JavaScript syntax."
+
+"I need to compare numbers," Rhea Joy added. "Check if age is greater than or equal to 18. Check if two values are equal. Check if something is true or false. But I don't know how to write these comparisons in code."
+
+They started googling "JavaScript math" and "JavaScript comparisons." The search results kept mentioning **operators**: arithmetic operators, comparison operators, logical operators, assignment operators.
+
+Tian found an example:
+
+```javascript
+let total = price + tax;
+```
+
+The `+` symbol adds two values! That was the missing piece.
+
+Rhea Joy found:
+
+```javascript
+if (age >= 18) {
+    console.log("Eligible to vote");
+}
+```
+
+The `>=` symbol checks if a value is greater than or equal to another.
+
+They experimented in the browser console:
+
+```javascript
+let a = 50;
+let b = 30;
+let sum = a + b;
+console.log(sum);  // Output: 80
+
+let age = 20;
+let isAdult = age >= 18;
+console.log(isAdult);  // Output: true
+```
+
+It worked! They'd discovered operators—the symbols that perform operations on values.
+
+That evening, they called Kuya Miguel to learn properly.
+
+"Kuya, we've been storing data in variables but we couldn't work with it. We just discovered operators—symbols like `+` for addition and `>=` for comparison. But we're just guessing. Can you teach us all the operators in JavaScript and how to use them?"
+
+Miguel smiled. "You've discovered one of the fundamental building blocks of programming. Operators are how you transform data. Arithmetic operators for math—addition, subtraction, multiplication, division, modulo. Comparison operators for checking relationships—greater than, less than, equal to. Logical operators for combining conditions—AND, OR, NOT. Assignment operators for updating variables. String operators for text manipulation. JavaScript has dozens of operators, each with specific purposes. Today, we're learning them all."
 
 ---
 
-## Calculating and Comparing
-
-"Kuya Miguel, now that we can store data in variables, how do we do calculations?" Tian asked, thinking about the barangay budget system.
-
-Rhea Joy added, "And how do we compare values? Like checking if someone is old enough to vote?"
-
-Kuya Miguel smiled. "That's what **operators** are for! They let you perform math, compare values, and make logical decisions. Let's explore how JavaScript does calculations and comparisons."
-
----
+## Theory & Lecture Content
 
 ## What are Operators?
 

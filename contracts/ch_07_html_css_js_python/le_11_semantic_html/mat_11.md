@@ -1,12 +1,59 @@
-# Lesson 11: Semantic HTML
-
 ## Background Story
 
-Tian's website worked, but Kuya Miguel said, "Your code uses too many `<div>` tags. Let's use **semantic HTML**—tags that describe their meaning, not just appearance. It helps search engines, screen readers, and other developers understand your content."
+Tian's barangay website was functional. It had proper structure, formatted text, navigation links, and images. The HTML was valid according to the W3C validator. Everything worked.
 
-"What's the difference?" Tian asked.
+But when Tian showed the code to Ms. Santos, their Computer Science teacher, she frowned while scrolling through the HTML.
 
-"Instead of `<div id="header">`, use `<header>`. Instead of `<div class="nav">`, use `<nav>`. The tag name itself explains its purpose."
+"Tian, your website works, but your code is full of generic `<div>` tags. Look at this:"
+
+```html
+<div id="header">
+  <div id="logo">...</div>
+  <div id="navigation">...</div>
+</div>
+<div id="main-content">
+  <div class="article">...</div>
+  <div class="sidebar">...</div>
+</div>
+<div id="footer">...</div>
+```
+
+"Everything is a `<div>`. When I read this code, I can't immediately understand what each section does. I have to read the IDs and classes to figure out that this div is a header, that div is navigation, another div is an article. The tags themselves are meaningless."
+
+Tian was confused. "But it works fine. And I used descriptive IDs and classes, so it's clear what each section does, right?"
+
+"It's clear to you because you wrote it and named everything descriptively. But HTML5 introduced semantic tags specifically designed for common page structures. Instead of `<div id='header'>`, you should use `<header>`. Instead of `<div id='navigation'>`, use `<nav>`. Instead of `<div class='article'>`, use `<article>`."
+
+"But why? What's the actual difference if it looks and works the same?"
+
+Ms. Santos opened the Chrome DevTools and navigated to the Lighthouse audit tool. She ran an accessibility test on Tian's website. The results showed several warnings:
+
+- "Document doesn't use semantic landmarks"
+- "Navigation regions not properly identified"
+- "Main content area not defined"
+- "Accessibility score: 73/100"
+
+"See these warnings? Screen readers used by visually impaired users rely on semantic landmarks to navigate. When everything is a generic `<div>`, screen readers can't distinguish between your header, navigation, main content, and footer. A blind user would have difficulty navigating your site."
+
+Tian felt a wave of guilt. They'd been so focused on making the website *look* good, they hadn't considered accessibility.
+
+Ms. Santos continued, "Also, search engines like Google use semantic HTML to better understand your content structure. When Google's crawler sees a `<header>` tag, it knows that's the site header. When it sees an `<article>` tag, it knows that's main content. When it sees a `<nav>` tag, it knows that's navigation. Generic `<div>` tags don't provide that information."
+
+That evening, Tian researched semantic HTML and found that HTML5 had introduced dozens of meaningful tags designed to replace generic divs: `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`, and more.
+
+They called Kuya Miguel.
+
+"Kuya, Ms. Santos criticized my code for using too many generic `<div>` tags. She said I should use semantic HTML—tags like `<header>`, `<nav>`, `<article>` that actually describe what the content is, not just generic containers. She showed me accessibility warnings and said it affects both screen readers and SEO. I thought I was doing well, but apparently I've been writing HTML the old way."
+
+Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice—everything was divs and spans with classes and IDs. But HTML5 gave us semantic elements that make code more meaningful, more accessible, and more SEO-friendly. The structure becomes self-documenting. When another developer reads your code, they immediately understand what each section is without having to parse through class names."
+
+"So I need to refactor my entire website?"
+
+"Yes, but it's worth it. Today, I'll teach you all the major semantic HTML5 elements, when to use each one, and how to restructure your website from div-soup into meaningful, semantic markup. By the end of this lesson, your accessibility score will improve, your code will be cleaner, and you'll be writing modern, professional HTML."
+
+---
+
+## Theory & Lecture Content
 
 ## What is Semantic HTML?
 

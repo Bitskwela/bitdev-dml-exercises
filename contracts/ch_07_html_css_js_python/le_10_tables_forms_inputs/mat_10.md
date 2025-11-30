@@ -1,8 +1,45 @@
-# Lesson 10: Tables, Forms, and Input Fields
-
 ## Background Story
 
-Tian needed to display barangay population data and create an online application form. Kuya Miguel said, "For structured data, use tables. For user input, use forms. These are fundamental for interactive websites."
+The barangay website project was progressing well. Tian and Rhea Joy had built beautiful pages with semantic HTML and polished CSS. But two critical features were missing: displaying structured data and collecting user input.
+
+The barangay captain had requested two specific functionalities:
+
+1. **Population Data Table**: A page showing the population breakdown by sitio (sub-village), households, and registered voters
+2. **Online Application Form**: A form where residents could apply for barangay clearances online instead of coming to the office
+
+Tian stared at the population data spreadsheet the barangay secretary had provided. Rows and columns of numbers—sitios, population counts, household numbers. How do you display tabular data in HTML?
+
+They tried using `<div>` elements and CSS Grid, but it felt clunky and semantically wrong. There had to be a proper HTML element for tables... right?
+
+Rhea Joy was tackling the application form. She'd created a beautiful design in Figma—text inputs for name and address, radio buttons for document type selection, a textarea for the request reason, a submit button. But translating that design into functional HTML was proving difficult.
+
+How do you create a text input field? How do you make radio buttons where only one can be selected? How do you capture user submissions?
+
+It was Saturday afternoon, and they were both at the internet cafe, each struggling with their respective challenges.
+
+"This feels like we're missing fundamental knowledge," Tian said, frustrated. "We've learned headings, paragraphs, links, images... but nothing about displaying data tables or creating forms."
+
+"Are these advanced topics?" Rhea Joy asked.
+
+Tian pulled out their phone and called Kuya Miguel.
+
+"Kuya, we need to display a population data table and create an application form, but we don't know the HTML for either. Are those advanced topics, or did we skip something?"
+
+Miguel laughed. "Not advanced at all! Those are actually fundamental HTML topics—you definitely need to learn them. HTML has specific elements for tables (`<table>`, `<tr>`, `<td>`) and forms (`<form>`, `<input>`, `<textarea>`, `<select>`). Both are essential for real-world websites."
+
+"Why didn't we learn them earlier?"
+
+"We focused on structure, content, and basic styling first. But now that you have that foundation, it's time to learn data display and user input collection. Tables for structured data. Forms for collecting information from users. Combined with CSS for styling and eventually JavaScript for validation and submission handling, these elements become incredibly powerful."
+
+Miguel continued, "Tables have been part of HTML since the beginning—though people used to misuse them for page layouts before CSS Flexbox and Grid existed. Forms are how the web became interactive. Every login page, every search box, every signup form—all built with HTML form elements."
+
+"Can you teach us both today?" Tian asked.
+
+"Absolutely. Let's start with tables—how to structure data in rows and columns, use headers, add borders and styling. Then we'll move to forms—text inputs, radio buttons, checkboxes, dropdowns, textareas, and how to handle form submission. By the end of today, you'll have your population table displaying beautifully and your application form ready to collect user data."
+
+---
+
+## Theory & Lecture Content
 
 ## HTML Tables
 
