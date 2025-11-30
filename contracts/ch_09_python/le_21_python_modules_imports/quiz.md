@@ -11,11 +11,21 @@ B. Only standard library
 C. Binary compiled code
 D. Database connection
 
+**Answer: A**  
+**Explanation:** Any .py file can be imported as module.
+
+---
+
 **Question 2:** Import specific function:
 A. import math.sqrt
 B. from math import sqrt
 C. load math.sqrt
 D. use sqrt from math
+
+**Answer: B**  
+**Explanation:** from module import name syntax.
+
+---
 
 **Question 3:** Alias purpose:
 A. Slows import
@@ -23,17 +33,30 @@ B. Shortens long names
 C. Prevents import
 D. No benefit
 
+**Answer: B**  
+**Explanation:** Alias shortens (e.g., pd for pandas).
+
+---
+
 **Question 4:** from module import * issue:
 A. Faster execution
 B. Namespace pollution
 C. More secure
 D. Required practice
 
+**Answer: B**  
+**Explanation:** import * clutters namespace, unclear origin.
+
+---
+
 **Question 5:** Package marker file:
 A. setup.py
 B. __init__.py
 C. main.py
 D. config.py
+
+**Answer: B**  
+**Explanation:** __init__.py marks directory as package.
 
 ---
 # Quiz 2
@@ -46,11 +69,21 @@ B. Runs only when script executed directly
 C. Prevents imports
 D. Speeds execution
 
+**Answer: B**  
+**Explanation:** __main__ guard runs code only when script executed.
+
+---
+
 **Question 7:** Standard library includes:
 A. Pandas
 B. os, sys, datetime
 C. Flask
 D. NumPy
+
+**Answer: B**  
+**Explanation:** Standard library built-in (os, sys, datetime).
+
+---
 
 **Question 8:** Install third-party package:
 A. import install package
@@ -58,11 +91,21 @@ B. pip install package
 C. python add package
 D. load package
 
+**Answer: B**  
+**Explanation:** pip install command for third-party packages.
+
+---
+
 **Question 9:** Relative import syntax (same package):
 A. import .module
 B. from . import module
 C. load ./module
 D. use module
+
+**Answer: B**  
+**Explanation:** from . import sibling in same package.
+
+---
 
 **Question 10:** Module organization benefit:
 A. Slows development
@@ -70,31 +113,8 @@ B. Easier maintenance, reuse
 C. More bugs
 D. Harder testing
 
----
-## Answers
-1: A  
-2: B  
-3: B  
-4: B  
-5: B  
-6: B  
-7: B  
-8: B  
-9: B  
-10: B  
-
----
-## Detailed Explanations
-Q1 Any .py file can be imported as module.  
-Q2 from module import name syntax.  
-Q3 Alias shortens (e.g., pd for pandas).  
-Q4 import * clutters namespace, unclear origin.  
-Q5 __init__.py marks directory as package.  
-Q6 __main__ guard runs code only when script executed.  
-Q7 Standard library built-in (os, sys, datetime).  
-Q8 pip install command for third-party packages.  
-Q9 from . import sibling in same package.  
-Q10 Modules improve maintainability, reusability.  
+**Answer: B**  
+**Explanation:** Modules improve maintainability, reusability.
 
 ---
 **Next:** Proceed to Lesson 21 exercises.
