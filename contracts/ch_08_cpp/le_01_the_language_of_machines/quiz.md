@@ -28,12 +28,18 @@ Tian saves this as `welcome.cpp` and attempts to run it. His mentor explains tha
 - C) `g++ welcome.cpp -o welcome.exe` then `welcome.exe`
 - D) `compile welcome.cpp` then `run welcome`
 
+**Answer:** C) `g++ welcome.cpp -o welcome.exe` then `welcome.exe`
+
+---
+
 **Question 2:** What is the purpose of `#include <iostream>` in this program?
 
 - A) It prints output to the console
 - B) It includes the input/output stream library needed for cout and cin
 - C) It defines the main function
 - D) It compiles the program automatically
+
+**Answer:** B) It includes the input/output stream library needed for cout and cin
 
 ---
 
@@ -46,10 +52,7 @@ Tian saves this as `welcome.cpp` and attempts to run it. His mentor explains tha
 - C) To restart the program
 - D) It is required syntax with no meaning
 
-**Answer:**
-- **Question 1:** C) `g++ welcome.cpp -o welcome.exe` then `welcome.exe`
-- **Question 2:** B) It includes the input/output stream library needed for cout and cin
-- **Question 3:** A) To indicate successful program execution to the operating system
+**Answer:** A) To indicate successful program execution to the operating system
 
 ---
 

@@ -111,6 +111,10 @@ Flow Chart:
 - C) Neither
 - D) Both
 
+**Answer:** A) if branch (distance <= 5)
+
+---
+
 **Question 2:** For passengerCount = 3, which condition is checked FIRST?
 
 - A) passengerCount <= 6
@@ -118,12 +122,20 @@ Flow Chart:
 - C) passengerCount <= 0
 - D) All checked simultaneously
 
+**Answer:** C) passengerCount <= 0 (checked from top to bottom)
+
+---
+
 **Question 3:** What happens when passengerCount = 4?
 
 - A) First condition true, multiplier = 0
 - B) Second condition true, multiplier = 1.0
 - C) Third condition true, multiplier = 0.9
 - D) Fourth condition true, multiplier = 0
+
+**Answer:** C) Third condition true, multiplier = 0.9
+
+---
 
 **Part 3: Nested if Statements**
 
@@ -181,12 +193,20 @@ else {  // Off-peak
 - C) 1.2
 - D) 1.5
 
+**Answer:** D) 1.5 (morning peak + raining)
+
+---
+
 **Question 5:** How many conditions are evaluated for hour = 15 and isRaining = false?
 
 - A) 1 condition
 - B) 2 conditions
 - C) 3 conditions
 - D) 4 conditions
+
+**Answer:** C) 3 conditions (hour >= 6 fails, hour >= 17 fails, isRaining evaluated)
+
+---
 
 **Part 4: Ternary Operator**
 
@@ -218,12 +238,20 @@ int fasterTime = (route1Time < route2Time) ? route1Time : route2Time;
 - C) Empty string
 - D) Error
 
+**Answer:** B) "Group" (4 > 3, so false, returns second value)
+
+---
+
 **Question 7:** What does this ternary do: `(a > b) ? a : b`?
 
 - A) Returns smaller value
 - B) Returns larger value (maximum)
 - C) Returns average
 - D) Returns difference
+
+**Answer:** B) Returns larger value (maximum)
+
+---
 
 **Part 5: Switch Statement**
 
@@ -282,12 +310,20 @@ cout << "Estimated time: " << estimatedTime << " minutes" << endl;
 - C) Error occurs
 - D) Default case executes
 
+**Answer:** B) Cases 4 and 5 both execute (fall-through intended)
+
+---
+
 **Question 9:** What is the purpose of break statement?
 
 - A) Stop the program
 - B) Exit the switch block (prevent fall-through)
 - C) Skip to default case
 - D) Repeat the switch
+
+**Answer:** B) Exit the switch block (prevent fall-through)
+
+---
 
 **Question 10:** What happens if you forget break in case 1?
 
@@ -296,17 +332,7 @@ cout << "Estimated time: " << estimatedTime << " minutes" << endl;
 - C) Compilation error
 - D) Runtime error
 
-**Answer:**
-- **Question 1:** A) if branch (distance <= 5)
-- **Question 2:** C) passengerCount <= 0 (checked from top to bottom)
-- **Question 3:** C) Third condition true, multiplier = 0.9
-- **Question 4:** D) 1.5 (morning peak + raining)
-- **Question 5:** C) 3 conditions (hour >= 6 fails, hour >= 17 fails, isRaining evaluated)
-- **Question 6:** B) "Group" (4 > 3, so false, returns second value)
-- **Question 7:** B) Returns larger value (maximum)
-- **Question 8:** B) Cases 4 and 5 both execute (fall-through intended)
-- **Question 9:** B) Exit the switch block (prevent fall-through)
-- **Question 10:** B) Fall-through: case 2 code also executes
+**Answer:** B) Fall-through: case 2 code also executes
 
 ---
 

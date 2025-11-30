@@ -116,6 +116,10 @@ int main() {
 - C) Semicolon
 - D) Null character
 
+**Answer:** B) Whitespace (space, tab, newline)
+
+---
+
 **Question 2:** Why does `cin >> productName` only capture "Lucky" instead of "Lucky Me Pancit Canton"?
 
 - A) String size limit
@@ -123,12 +127,18 @@ int main() {
 - C) Buffer overflow
 - D) Memory allocation error
 
+**Answer:** B) cin >> stops at whitespace, only reads first word
+
+---
+
 **Question 3:** What does `cin.ignore()` do?
 
 - A) Ignores all input
 - B) Clears the entire buffer
 - C) Discards the next character (usually newline) from input buffer
 - D) Pauses program execution
+
+**Answer:** C) Discards the next character (usually newline) from input buffer
 
 ---
 
@@ -141,12 +151,20 @@ int main() {
 - C) cin.get(variable)
 - D) scanf(variable)
 
+**Answer:** B) getline(cin, variable)
+
+---
+
 **Question 5:** What does `setprecision(2)` do when combined with `fixed`?
 
 - A) Sets 2 significant figures
 - B) Sets 2 decimal places (12.5 becomes 12.50)
 - C) Rounds to nearest 2
 - D) Sets field width to 2
+
+**Answer:** B) Sets 2 decimal places
+
+---
 
 **Question 6:** What does `setw(15)` do?
 
@@ -155,13 +173,7 @@ int main() {
 - C) Sets 15 decimal places
 - D) Sets 15 significant figures
 
-**Answer:**
-- **Question 1:** B) Whitespace (space, tab, newline)
-- **Question 2:** B) cin >> stops at whitespace, only reads first word
-- **Question 3:** C) Discards the next character (usually newline) from input buffer
-- **Question 4:** B) getline(cin, variable)
-- **Question 5:** B) Sets 2 decimal places
-- **Question 6:** A) Sets column width to 15 characters (for next output only)
+**Answer:** A) Sets column width to 15 characters (for next output only)
 
 ---
 

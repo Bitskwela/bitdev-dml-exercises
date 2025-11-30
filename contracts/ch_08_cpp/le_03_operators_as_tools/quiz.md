@@ -62,12 +62,18 @@ int main() {
 - C) `130` (85 + 45)
 - D) `4500` (multiplication error)
 
+**Answer:** C) `130`
+
+---
+
 **Question 2:** Given that `qualifies_for_reward` is `true` and `gets_bonus` is `true`, what discount rate is applied?
 
 - A) `0.0` (no discount)
 - B) `0.05` (5%)
 - C) `0.10` (10%)
 - D) `0.15` (15%)
+
+**Answer:** D) `0.15` (15%)
 
 ---
 
@@ -80,10 +86,7 @@ int main() {
 - C) `consecutive_visits++` returns the old value then increments, `++consecutive_visits` increments then returns new value
 - D) `++consecutive_visits` is not valid C++ syntax
 
-**Answer:**
-- **Question 1:** C) `130`
-- **Question 2:** D) `0.15` (15%)
-- **Question 3:** C) `consecutive_visits++` returns the old value then increments, `++consecutive_visits` increments then returns new value
+**Answer:** C) `consecutive_visits++` returns the old value then increments, `++consecutive_visits` increments then returns new value
 
 ---
 

@@ -48,12 +48,18 @@ int main() {
 - C) `1027` (rounded up)
 - D) Compiler error
 
+**Answer:** B) `1026` (truncated)
+
+---
+
 **Question 2:** Why did Tian use `double` for `hourly_rate` instead of `int`?
 
 - A) `double` is faster than `int`
 - B) `double` can store decimal values like 85.50, while `int` only stores whole numbers
 - C) `double` uses less memory
 - D) `int` cannot store values above 85
+
+**Answer:** B) `double` can store decimal values like 85.50, while `int` only stores whole numbers
 
 ---
 
@@ -66,10 +72,7 @@ int main() {
 - C) Compiler error occurs
 - D) The value becomes 0
 
-**Answer:**
-- **Question 1:** B) `1026` (truncated)
-- **Question 2:** B) `double` can store decimal values like 85.50, while `int` only stores whole numbers
-- **Question 3:** B) The decimal part is truncated
+**Answer:** B) The decimal part is truncated
 
 ---
 
