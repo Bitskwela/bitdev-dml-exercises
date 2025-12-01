@@ -96,6 +96,9 @@ app.config['DEBUG'] = os.getenv('DEBUG', 'False') == 'True'
 pip freeze > requirements.txt
 ```
 
+<details>
+<summary><strong>Click here to view local deployment setup (Optional)</strong></summary>
+
 "Add Gunicorn:"
 
 ```bash
@@ -108,6 +111,10 @@ pip freeze > requirements.txt
 ```
 web: gunicorn app:app
 ```
+
+**Note:** This course uses in-browser coding environments. The deployment steps above are for reference if you want to deploy locally.
+
+</details>
 
 Rhea Joy handled the database configuration: "We need to support both SQLite for local development and PostgreSQL for production:"
 

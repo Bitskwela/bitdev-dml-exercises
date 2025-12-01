@@ -648,9 +648,6 @@ JSON is:
 **Key Takeaway:** Both frontend and backend are essential. Choose based on your interests, but understanding both makes you a better developer regardless of specialization.
 
 Next lesson: Let's dive deeper into how browsers actually work — the rendering pipeline, DevTools, and optimization!
-````
-
----
 
 ## Closing Story
 

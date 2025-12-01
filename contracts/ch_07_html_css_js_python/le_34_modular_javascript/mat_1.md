@@ -608,6 +608,9 @@ export default config;
 
 ---
 
+<details>
+<summary><strong>Click here to view local setup guide (Optional)</strong></summary>
+
 ## Running Modules Locally
 
 **Problem:** Browsers block modules from `file://` protocol
@@ -628,6 +631,10 @@ Then visit `http://localhost:8000`
 ```bash
 npx http-server
 ```
+
+**Note:** This course uses in-browser coding environments, so local setup is optional for learning purposes.
+
+</details>
 
 ---
 

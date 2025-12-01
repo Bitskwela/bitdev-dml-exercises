@@ -229,7 +229,10 @@ app.config['SENDGRID_API_KEY'] = os.getenv('SENDGRID_API_KEY')
 - Safe to push to GitHub
 - Easy to update without code changes
 
-## Setting Up Environment Variables
+<details>
+<summary><strong>Click here to view local setup guide (Optional)</strong></summary>
+
+## Setting Up Environment Variables Locally
 
 ### Step 1: Create `.env` File
 
@@ -256,6 +259,8 @@ GOOGLE_MAPS_API_KEY=AIza...
 ```bash
 pip install python-dotenv
 ```
+
+**Note:** This course uses in-browser coding environments with pre-configured environment variables, so local installation is optional for learning purposes.
 
 ### Step 3: Load Environment Variables
 

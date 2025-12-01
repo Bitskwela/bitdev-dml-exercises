@@ -525,9 +525,6 @@ Compare to:
 - Free hosting options great for students (GitHub Pages, Netlify)
 
 Next lesson: Let's explore the difference between Frontend and Backend — the two sides of web development!
-````
-
----
 
 ## Closing Story
 
