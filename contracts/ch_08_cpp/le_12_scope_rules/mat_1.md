@@ -524,24 +524,6 @@ void function2() {
 
 ---
 
-## Challenge Exercises
-
-1. **Resident Counter:**
-   - Create a function that tracks how many times it's been called using `static`
-   - Display "Resident #1", "Resident #2", etc.
-
-2. **Fee Calculator with Discount:**
-   - Global constant: `BASE_FEE = 100`
-   - Function calculates discounts in block scope
-   - Use static to count total transactions
-
-3. **Shadowing Example:**
-   - Create global `balance = 1000`
-   - Function with local `balance = 500`
-   - Print both using `::`
-
----
-
 ## Summary
 
 Tian stretched. "So scope is like knowing which office a document belongs to!"

@@ -527,32 +527,6 @@ main()
 
 ---
 
-## Challenge Exercises
-
-### Challenge 1: Barangay Clearance System
-Refactor the clearance system from earlier lessons:
-- `getClearanceInfo()` — input name, age, purpose
-- `calculateFee()` — returns fee based on age (senior discount)
-- `isEligible()` — checks if age >= 18
-- `displayClearance()` — prints clearance
-- `updateStats()` — tracks clearances issued (static)
-
-### Challenge 2: BMI Calculator
-Create modular functions:
-- `getHeightWeight()` — input height (m) and weight (kg)
-- `calculateBMI()` — returns BMI
-- `classifyBMI()` — returns "Underweight", "Normal", "Overweight", "Obese"
-- `displayResults()` — shows BMI and classification
-- `trackPatients()` — count total patients (static)
-
-### Challenge 3: Voting Eligibility Tracker
-- `getVoterInfo()` — name, age, citizenship
-- `isEligible()` — checks age >= 18 and citizenship
-- `displayEligibility()` — shows result
-- `updateVoterStats()` — tracks eligible vs ineligible (static)
-
----
-
 ## Summary
 
 Tian saved the program. "This is so much cleaner than my first grade calculator!"

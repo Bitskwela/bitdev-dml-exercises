@@ -564,26 +564,6 @@ char ch = name.at(0);  // ✓ Throws exception if out of bounds
 
 ---
 
-## Challenge Exercises
-
-1. **Name Reverser:**
-   - Input: "Juan Dela Cruz"
-   - Output: "Cruz Dela Juan"
-
-2. **Vowel Counter:**
-   - Count a, e, i, o, u in a string
-
-3. **Palindrome Checker:**
-   - Check if string reads same forwards/backwards
-   - Example: "racecar" → palindrome
-
-4. **Clearance Number Generator:**
-   - Input: resident name
-   - Generate: "CLR-" + first 3 letters + random number
-   - Example: "Juan" → "CLR-JUA-1234"
-
----
-
 ## Summary
 
 Tian typed various string operations. "Strings are just like arrays, but smarter!"

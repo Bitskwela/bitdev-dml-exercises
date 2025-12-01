@@ -572,28 +572,6 @@ void display(int arr[], int size) {
 
 ---
 
-## Challenge Exercises
-
-1. **Attendance Tracker:**
-   - Array of 7 elements for days of week
-   - Input attendance count for each day
-   - Find highest and lowest attendance
-   - Calculate average
-
-2. **Clearance Fee Calculator:**
-   - Array of 5 resident ages
-   - Calculate fee for each (50 for adults, 30 for seniors)
-   - Store fees in parallel array
-   - Display total revenue
-
-3. **Grade Analyzer:**
-   - Array of 10 student grades
-   - Count passing (>= 75) and failing
-   - Find highest and lowest grade
-   - Calculate class average
-
----
-
 ## Summary
 
 Tian practiced creating arrays. "So instead of 50 separate variables, I use one array!"

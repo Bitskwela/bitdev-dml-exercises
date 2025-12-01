@@ -249,68 +249,55 @@ Kumusta, Pilipinas!
 - **Compiled:** Translating an entire book before reading it (takes time upfront, but you can read it fast afterward)
 - **Interpreted:** Translating each sentence as you read it (starts immediately, but slower overall)
 
-## Setting Up Your C++ Environment
+## Writing and Running C++ Code
 
-### Option 1: Online Compilers (Easiest for Beginners)
+In this course, **all coding exercises will be done in your browser** using our integrated online compiler. You don't need to install anything on your computer to get started!
 
-**Recommended for students:**
+### Our In-Browser Coding Environment
 
-1. **OnlineGDB** (https://onlinegdb.com/online_c++_compiler)
-   - Free, no installation
-   - Supports debugging
-   - Save and share code
+You'll write and run all your C++ programs directly in the lesson pages using an online compiler. This means you can:
+- Start coding immediately without setup
+- Practice anywhere with just a browser
+- Focus on learning C++ concepts, not installation troubleshooting
 
-2. **Programiz C++ Compiler** (https://www.programiz.com/cpp-programming/online-compiler/)
-   - Clean interface
-   - Beginner-friendly
-   - Instant compilation
+### For Local Development (Optional Reference Guide)
 
-3. **Replit** (https://replit.com)
-   - Full IDE in browser
-   - Can save projects
-   - Collaboration features
+If you're curious about running C++ on your own computer after you've learned the basics, here's how it's typically done. **Note: This is purely optional and not required for this course.**
 
-### Option 2: Local Installation (Recommended for Serious Learning)
+<details>
+<summary><strong>Click here to view local installation guide (Optional)</strong></summary>
 
-**For Windows:**
+#### Online Compilers (Quick Testing)
 
-**Step 1:** Download MinGW (Minimalist GNU for Windows)
-- Visit: https://sourceforge.net/projects/mingw/
-- Download and install
-- Add to PATH environment variable
+If you want to experiment outside the course platform:
+- **OnlineGDB**: https://onlinegdb.com/online_c++_compiler
+- **Programiz C++ Compiler**: https://www.programiz.com/cpp-programming/online-compiler/
+- **Replit**: https://replit.com
 
-**Step 2:** Install VS Code
-- Download from https://code.visualstudio.com
-- Install C/C++ extension by Microsoft
+#### Local Installation (For Advanced Users)
 
-**Step 3:** Test installation
-```bash
-g++ --version
-```
-Should show version info.
+**Windows:**
+1. Download MinGW from https://sourceforge.net/projects/mingw/
+2. Install and add to PATH
+3. Install VS Code from https://code.visualstudio.com
+4. Add C/C++ extension
+5. Test with: `g++ --version`
 
-**For Mac:**
-- Install Xcode Command Line Tools:
+**Mac:**
 ```bash
 xcode-select --install
 ```
 
-**For Linux:**
+**Linux:**
 ```bash
 sudo apt-get install g++
 ```
 
-### Option 3: Full IDE
+**Standalone IDEs:**
+- **Code::Blocks**: http://www.codeblocks.org
+- **Dev-C++**: https://www.bloodshed.net/devcpp.html (popular in PH)
 
-**Code::Blocks**
-- Free, beginner-friendly
-- Everything included (compiler + editor)
-- Download: http://www.codeblocks.org
-
-**Dev-C++**
-- Popular in Philippines
-- Simple interface
-- Download: https://www.bloodshed.net/devcpp.html
+</details>
 
 ## Common Mistakes for Beginners
 
@@ -437,88 +424,7 @@ discount = price * 0.15;
 cout << "Hello";
 ```
 
-## Your First Programming Challenge
 
-### Exercise 1: Hello Philippines
-
-**Task:** Write a C++ program that prints "Mabuhay, Pilipinas!"
-
-**Starter code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // Your code here
-    
-    return 0;
-}
-```
-
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "Mabuhay, Pilipinas!" << endl;
-    return 0;
-}
-```
-
-### Exercise 2: Multiple Lines
-
-**Task:** Print your name, age, and school on separate lines
-
-**Expected output:**
-```
-Name: Tian
-Age: 16
-School: Batangas National High School
-```
-
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "Name: Tian" << endl;
-    cout << "Age: 16" << endl;
-    cout << "School: Batangas National High School" << endl;
-    return 0;
-}
-```
-
-### Exercise 3: ASCII Art
-
-**Task:** Print a simple house using ASCII characters
-
-**Expected output:**
-```
-   *
-  ***
- *****
-*******
-  | |
-  | |
-```
-
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "   *" << endl;
-    cout << "  ***" << endl;
-    cout << " *****" << endl;
-    cout << "*******" << endl;
-    cout << "  | |" << endl;
-    cout << "  | |" << endl;
-    return 0;
-}
-```
 
 ## Philippine Context: C++ in Local Tech
 

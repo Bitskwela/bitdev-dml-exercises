@@ -439,20 +439,6 @@ int main() {
 
 ---
 
-## Challenge Exercises
-
-1. **Swap Function:**
-   - Write `swap(int* a, int* b)` to swap two integers
-
-2. **Array Maximum:**
-   - Return pointer to largest element in array
-
-3. **Balance Updater:**
-   - Function that takes pointer to balance and updates it
-   - Return true if successful, false if invalid
-
----
-
 ## Summary
 
 Tian stared at the pointer code. "So pointers let me work with memory addresses directly?"
