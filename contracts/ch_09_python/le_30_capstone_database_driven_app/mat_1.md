@@ -386,10 +386,13 @@ All tests passed. ✅
 
 **Deployment Day:**
 
-Tian configured the production environment:
+<details>
+<summary><strong>Click here to view local deployment guide (Optional)</strong></summary>
+
+Tian configured the production environment for local deployment:
 
 ```bash
-# Install dependencies
+# Install dependencies (for local setup)
 pip install flask gunicorn
 
 # Initialize database
@@ -398,6 +401,10 @@ python init_db.py
 # Run with Gunicorn (production server)
 gunicorn -w 4 -b 0.0.0.0:8000 app:app
 ```
+
+**Note:** This course uses in-browser coding environments. The deployment steps above are for reference if you want to run the system locally.
+
+</details>
 
 The system went live. Barangay officials logged in. Within the first week:
 - 150 residents registered

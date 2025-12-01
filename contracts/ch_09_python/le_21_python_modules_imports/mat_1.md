@@ -77,12 +77,22 @@ from .. import parent_module
 - re: regular expressions
 - pathlib: modern path handling
 
-### 10. Third-Party Packages (pip)
+<details>
+<summary><strong>Click here to view local installation guide (Optional)</strong></summary>
+
+### 10. Installing Third-Party Packages Locally
+
+If you want to install packages on your local machine, you can use pip:
+
 ```bash
 pip install requests pandas flask
 ```
 
-### 11. if __name__ == "__main__":
+**Note:** This course uses in-browser coding environments with pre-installed packages, so local installation is optional for learning purposes.
+
+</details>
+
+### 10. if __name__ == "__main__":
 ```python
 def main():
     print("Running as script")

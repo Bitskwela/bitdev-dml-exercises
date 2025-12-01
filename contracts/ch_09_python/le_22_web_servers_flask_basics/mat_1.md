@@ -18,12 +18,22 @@ Program listening on port, responding to HTTP requests.
 ### 2. Flask Introduction
 Micro web framework for Python.
 
-### 3. Install Flask
+<details>
+<summary><strong>Click here to view local installation guide (Optional)</strong></summary>
+
+### Installing Flask Locally
+
+If you want to run Flask on your local machine, you can install it using pip:
+
 ```bash
 pip install Flask
 ```
 
-### 4. Minimal Flask App
+**Note:** This course uses in-browser coding environments, so local installation is optional for learning purposes.
+
+</details>
+
+### 3. Minimal Flask App
 ```python
 from flask import Flask
 app = Flask(__name__)
