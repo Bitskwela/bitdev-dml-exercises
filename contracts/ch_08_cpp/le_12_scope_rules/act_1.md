@@ -1,362 +1,221 @@
 # Lesson 12 Activities: Scope Rules
 
+## The Possessed Variables
+
+Marites' program was **haunted**—variables changed mysteriously! She declared `count` in a loop, but it disappeared outside. She made a global `total`, but a function's local `total` shadowed it.
+
+**Scope is the "privacy zone" of variables.** Local scope = function/block only. Global scope = entire file. Understanding scope prevents ghost bugs!
+
 ---
 
-## Challenge 1: Resident Counter with Static Variables
+## Task 1: Block Scope Discovery
 
-**Objective:** Practice using `static` variables to maintain state across function calls.
-
-**Task:**  
-Create a function `registerResident()` that tracks how many times it's been called using a static variable. Each time it's called, display "Resident #1", "Resident #2", etc.
-
-**Requirements:**
-- Use a `static int` variable inside the function to count calls
-- Display the resident number each time the function is called
-- The counter should persist between function calls
+**Context:** Variables declared in `{}` blocks only exist there.
 
 **Starter Code:**
 ```cpp
 #include <iostream>
 using namespace std;
 
-void registerResident() {
-    // Use static variable to count calls
-    
-    // Display resident number
-}
-
 int main() {
-    registerResident();  // Should print: Resident #1
-    registerResident();  // Should print: Resident #2
-    registerResident();  // Should print: Resident #3
+    int outer = 10;
     
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-Resident #1 registered
-Resident #2 registered
-Resident #3 registered
-```
-
-<details>
-<summary>Click to view solution</summary>
-
-```cpp
-#include <iostream>
-using namespace std;
-
-void registerResident() {
-    static int residentCount = 0;  // Static: retains value between calls
-    residentCount++;
-    
-    cout << "Resident #" << residentCount << " registered" << endl;
-}
-
-int main() {
-    registerResident();  // Resident #1
-    registerResident();  // Resident #2
-    registerResident();  // Resident #3
-    registerResident();  // Resident #4
-    
-    return 0;
-}
-```
-
-</details>
-
----
-
-## Challenge 2: Fee Calculator with Discounts and Transaction Counter
-
-**Objective:** Combine global constants, local variables, and static variables for a transaction system.
-
-**Task:**  
-Create a fee calculator system that:
-- Uses a global constant `BASE_FEE = 100`
-- Calculates discounts in block scope (local variables)
-- Uses static variable to count total transactions
-
-**Requirements:**
-- Global constant: `const int BASE_FEE = 100;`
-- Function `calculateFee(int age)` returns fee after discount
-  - Senior citizens (age >= 60): 20% discount
-  - Students (age < 18): 10% discount
-  - Regular: no discount
-- Use static variable to track total number of transactions
-- Display transaction count with each call
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-const int BASE_FEE = 100;
-
-double calculateFee(int age) {
-    // Static transaction counter
-    
-    // Calculate discount in local scope
-    
-    // Return final fee
-}
-
-int main() {
-    cout << "Fee for age 65: " << calculateFee(65) << endl;
-    cout << "Fee for age 15: " << calculateFee(15) << endl;
-    cout << "Fee for age 30: " << calculateFee(30) << endl;
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-Transaction #1 - Fee for age 65: 80
-Transaction #2 - Fee for age 15: 90
-Transaction #3 - Fee for age 30: 100
-```
-
-<details>
-<summary>Click to view solution</summary>
-
-```cpp
-#include <iostream>
-using namespace std;
-
-const int BASE_FEE = 100;
-
-double calculateFee(int age) {
-    static int transactionCount = 0;  // Track total transactions
-    transactionCount++;
-    
-    double fee = BASE_FEE;
-    double discount = 0;
-    
-    // Calculate discount in block scope
-    {
-        if (age >= 60) {
-            discount = BASE_FEE * 0.20;  // 20% senior discount
-        } else if (age < 18) {
-            discount = BASE_FEE * 0.10;  // 10% student discount
-        }
+    if (true) {
+        int inner = 20;
+        cout << "Inside block: outer=" << outer << " inner=" << inner << endl;
     }
     
-    fee = BASE_FEE - discount;
-    
-    cout << "Transaction #" << transactionCount << " - ";
-    
-    return fee;
-}
-
-int main() {
-    cout << "Fee for age 65: " << calculateFee(65) << endl;
-    cout << "Fee for age 15: " << calculateFee(15) << endl;
-    cout << "Fee for age 30: " << calculateFee(30) << endl;
-    cout << "Fee for age 70: " << calculateFee(70) << endl;
+    cout << "Outside block: outer=" << outer << endl;
+    // cout << inner;  // ERROR: inner doesn't exist here
     
     return 0;
 }
 ```
 
-</details>
+**Task:** Add a for-loop that declares `int i`. Try to access `i` after the loop. Note the error.
 
 ---
 
-## Challenge 3: Shadowing Example with Global and Local Balance
+## Task 2: Local vs Global
 
-**Objective:** Demonstrate variable shadowing and accessing global variables using the scope resolution operator `::`.
-
-**Task:**  
-Create a program that:
-- Has a global variable `balance = 1000`
-- Has a function with a local variable also named `balance = 500`
-- Prints both balances, showing how local shadows global
-- Uses `::balance` to access the global variable from within the function
-
-**Requirements:**
-- Global `int balance = 1000;`
-- Function `checkBalance()` with local `int balance = 500;`
-- Print both local and global balance from within the function
-- Use `::` to explicitly access global variable
+**Context:** Global variables accessible everywhere, but locals take priority.
 
 **Starter Code:**
 ```cpp
 #include <iostream>
 using namespace std;
 
-int balance = 1000;  // Global balance
+int counter = 0;  // Global
 
-void checkBalance() {
-    int balance = 500;  // Local balance (shadows global)
-    
-    // Print both local and global balance
+void increment() {
+    counter++;  // Accesses global
+}
+
+void showLocal() {
+    int counter = 100;  // Local shadows global
+    cout << "Local counter: " << counter << endl;
 }
 
 int main() {
-    cout << "From main - Global balance: " << balance << endl;
-    checkBalance();
-    
+    increment();
+    increment();
+    cout << "Global counter: " << counter << endl;
+    showLocal();
+    cout << "Global counter still: " << counter << endl;
     return 0;
 }
 ```
 
-**Expected Output:**
-```
-From main - Global balance: 1000
-Local balance: 500
-Global balance (using ::): 1000
-```
-
-<details>
-<summary>Click to view solution</summary>
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int balance = 1000;  // Global balance
-
-void checkBalance() {
-    int balance = 500;  // Local balance (shadows global)
-    
-    cout << "Local balance: " << balance << endl;
-    cout << "Global balance (using ::): " << ::balance << endl;
-}
-
-int main() {
-    cout << "From main - Global balance: " << balance << endl;
-    cout << endl;
-    
-    checkBalance();
-    
-    cout << endl;
-    cout << "After function - Global balance: " << balance << endl;
-    
-    return 0;
-}
-```
-
-</details>
+**Expected:** Global increments to 2, local shows 100, global unchanged.
 
 ---
 
-## Bonus Challenge: Complete Scope Demonstration
+## Task 3: Shadowing Problem
 
-**Objective:** Create a comprehensive program that demonstrates all scope concepts in one example.
+**Context:** Fix Marites' bug where local variables hide globals unintentionally.
 
-**Task:**  
-Build a barangay clearance tracking system that demonstrates:
-- Global constants (fee amounts)
-- Static variables (clearance counter)
-- Local variables (temporary calculations)
-- Variable shadowing
-- Block scope
+**Challenge:** Use `::` (scope resolution operator) to access the global when shadowed.
 
-**Features:**
-- Track total clearances issued (static)
-- Global clearance fee constant
-- Local discount calculations
-- Display clearance number and fee
-
-<details>
-<summary>Click to view solution</summary>
-
+**Starter Code:**
 ```cpp
 #include <iostream>
-#include <string>
 using namespace std;
 
-// Global constants
-const double BASE_CLEARANCE_FEE = 150.00;
-const double SENIOR_DISCOUNT = 0.30;  // 30%
+int price = 100;  // Global price
 
-// Global variable (generally avoid, but showing for demo)
-int totalRevenue = 0;
+void calculateTotal() {
+    int price = 50;  // Local shadows global
+    int quantity = 3;
+    
+    cout << "Using local price: " << (price * quantity) << endl;
+    cout << "Using global price: " << (::price * quantity) << endl;
+}
 
-double issueClearance(string name, int age) {
-    static int clearanceNumber = 1000;  // Static: persistent counter
-    clearanceNumber++;
-    
-    double fee = BASE_CLEARANCE_FEE;
-    
-    // Block scope for discount calculation
-    {
-        if (age >= 60) {
-            double discount = BASE_CLEARANCE_FEE * SENIOR_DISCOUNT;
-            fee = BASE_CLEARANCE_FEE - discount;
-            cout << "Senior discount applied: -" << discount << endl;
-        }
+int main() {
+    calculateTotal();
+    return 0;
+}
+```
+
+**Expected:** Local gives 150, global gives 300.
+
+---
+
+## Task 4: Loop Variable Scope
+
+**Context:** Modern C++ allows loop variables to stay in loop scope only.
+
+**Starter Code:**
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    // i only exists inside this loop
+    for (int i = 0; i < 3; i++) {
+        cout << "Loop 1, i=" << i << endl;
     }
     
-    cout << "Clearance #" << clearanceNumber << " issued to " << name << endl;
-    cout << "Fee: PHP " << fee << endl;
-    cout << "------------------------" << endl;
+    // Can reuse i in another loop!
+    for (int i = 10; i < 13; i++) {
+        cout << "Loop 2, i=" << i << endl;
+    }
     
-    // Update global revenue (shadowing example)
-    int totalRevenue = fee;  // Local totalRevenue shadows global
-    ::totalRevenue += totalRevenue;  // Use :: to access global
-    
-    return fee;
-}
-
-void displayStatistics() {
-    cout << "\n=== TOTAL REVENUE ===" << endl;
-    cout << "PHP " << ::totalRevenue << endl;
-}
-
-int main() {
-    cout << "=== BARANGAY CLEARANCE SYSTEM ===" << endl;
-    cout << endl;
-    
-    issueClearance("Juan Dela Cruz", 35);
-    issueClearance("Maria Santos", 65);
-    issueClearance("Pedro Reyes", 70);
-    issueClearance("Ana Lopez", 28);
-    
-    displayStatistics();
+    // cout << i;  // ERROR: i doesn't exist here
     
     return 0;
 }
 ```
 
+**Task:** Explain why this code works without redeclaration errors.
+
+---
+
+## Task 5: Function Parameter Scope
+
+**Context:** Parameters are local to the function.
+
+**Starter Code:**
+```cpp
+#include <iostream>
+using namespace std;
+
+int balance = 1000;  // Global
+
+void deduct(int amount) {
+    // amount is local to this function
+    balance -= amount;
+    cout << "Deducted " << amount << ", balance now: " << balance << endl;
+}
+
+int main() {
+    deduct(200);
+    deduct(300);
+    // cout << amount;  // ERROR: amount doesn't exist here
+    return 0;
+}
+```
+
+**Expected:** Balance becomes 800, then 500.
+
+---
+
+## Task 6: Barangay Clearance System
+
+**Context:** Multiple functions with proper scope management.
+
+**Challenge:** Build a system with global resident count, local processing variables.
+
+**Starter Code:**
+```cpp
+#include <iostream>
+using namespace std;
+
+int totalResidents = 0;  // Global counter
+
+void registerResident(string name) {
+    totalResidents++;
+    int newID = totalResidents;  // Local ID
+    cout << "Registered: " << name << " (ID: " << newID << ")" << endl;
+}
+
+void showStatistics() {
+    double averagePerDay = totalResidents / 7.0;  // Local calculation
+    cout << "Total residents: " << totalResidents << endl;
+    cout << "Average per day: " << averagePerDay << endl;
+}
+
+int main() {
+    registerResident("Juan");
+    registerResident("Maria");
+    registerResident("Pedro");
+    
+    showStatistics();
+    
+    return 0;
+}
+```
+
+---
+
+<details>
+<summary><strong>📝 Scope Summary</strong></summary>
+
+**Scope Levels:**
+1. **Block scope:** `{ int x; }` - exists only in block
+2. **Function scope:** Parameters and locals exist only in function
+3. **Global scope:** Declared outside all functions, accessible everywhere
+
+**Shadowing:** Local variable with same name hides global. Use `::globalVar` to access global.
+
+**Best Practices:**
+- Minimize global variables (hard to track, dangerous)
+- Keep variables in smallest scope needed
+- Avoid shadowing (confusing!)
+- Use meaningful names to prevent conflicts
+
 </details>
 
 ---
 
-## Reflection Questions
-
-After completing these challenges:
-
-1. **What's the difference between local and global scope?**
-   - Local: Variables exist only within their function/block
-   - Global: Variables accessible from anywhere in the program
-
-2. **When should you use static variables?**
-   - When you need a variable to retain its value between function calls
-   - Example: counters, state tracking
-
-3. **What is variable shadowing?**
-   - When a local variable has the same name as a global variable
-   - Local variable "hides" the global one within that scope
-
-4. **Why should global variables be used sparingly?**
-   - Hard to track where they're modified
-   - Can cause unexpected side effects
-   - Makes code harder to test and debug
-
----
-
-## Key Takeaways
-
-- **Local scope:** Variables exist only in their function/block
-- **Global scope:** Accessible everywhere (use const for constants)
-- **Static variables:** Retain values between function calls
-- **Shadowing:** Local variables hide global ones with same name
-- **`::` operator:** Access global variables when shadowed
-- **Block scope:** Variables inside `{}` blocks
-
-**Next Lesson:**  
-You'll learn about **modular programming** - organizing your code into focused, reusable functions!
+**Remember:** Scope controls where variables live and die. Master it to prevent mysterious bugs!

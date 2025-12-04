@@ -1,13 +1,41 @@
 # Lesson 3 Activities: Operators as Tools
 
+## From Static Variables to Dynamic Calculations
+
+Remember Tian's frustration building the barangay dues calculator? Variables were declared but just sitting there—500 pesos stored but no way to actually calculate who owes what! Kuya Miguel's analogy was perfect: "You've got the ingredients but no cooking tools!"
+
+**Operators are your mathematical and logical tools.** Think of them as the jeepney driver's skills—knowing when to add speed, when to subtract by braking, when to multiply distance by time. Every calculation you see in games (damage reduction, score multipliers, health regeneration), every financial system, every data analysis tool—all use operators.
+
+**What You'll Master:**
+- **Arithmetic operators** (+, -, *, /, %) for mathematical calculations
+- **Comparison operators** (==, !=, <, >, <=, >=) for decision-making
+- **Assignment operators** (=, +=, -=, *=, /=) for updating values
+- **Increment/Decrement** (++, --) for counters and loops
+
+This lesson transforms static data into dynamic, interactive programs!
+
 ---
 
-## Activity 1: Simple Calculator
+## Task 1: Complete Calculator System
 
-**Objective:** Practice using arithmetic operators on two numbers.
+**Context:**  
+You're building a calculator for a barangay office that needs to perform various calculations daily—from budget planning to resident fee calculations. Unlike a simple hardcoded calculation, this calculator demonstrates all arithmetic operations on any two numbers.
 
-**Task:**  
-Create a program that performs all basic arithmetic operations (addition, subtraction, multiplication, division, and modulo) on two numbers.
+**Your Challenge:**  
+Create a comprehensive calculator that performs ALL basic arithmetic operations and displays the results clearly.
+
+**What You'll Practice:**
+- Addition (+) for combining values
+- Subtraction (-) for finding differences
+- Multiplication (*) for scaling values
+- Division (/) for distributing or averaging
+- Modulo (%) for finding remainders
+
+**Important Concepts:**
+- Integer division vs decimal division
+- Modulo for remainder calculations
+- Order of operations (PEMDAS)
+- Type casting when needed
 
 **Starter Code:**
 ```cpp
@@ -18,7 +46,7 @@ int main() {
     double num1 = 10;
     double num2 = 3;
     
-    // Calculate and display results
+    // Perform and display ALL arithmetic operations
     
     return 0;
 }
@@ -26,8 +54,11 @@ int main() {
 
 **Expected Output:**
 ```
+=== CALCULATOR SYSTEM ===
 Number 1: 10
 Number 2: 3
+
+ARITHMETIC OPERATIONS:
 Sum: 13
 Difference: 7
 Product: 30
@@ -35,45 +66,60 @@ Quotient: 3.33333
 Remainder: 1
 ```
 
-**Solution:**
+**Challenge:** Why do we cast to `int` for the modulo operation? What happens if you try modulo with doubles?
+
+---
+
+## Task 2: Jeepney Fare Calculator
+
+**Context:**  
+Manila jeepneys have a base fare of ₱13 for the first 4 kilometers, then ₱2 for each additional kilometer. You need to calculate fares using multiplication and addition operators.
+
+**Your Challenge:**  
+Build a fare calculator that computes the total fare based on distance traveled.
+
+**Formula:**
+- Distance ≤ 4 km: ₱13
+- Distance > 4 km: ₱13 + (additional km × ₱2)
+
+**What You'll Learn:**
+- Combining operators in calculations
+- Real-world application of arithmetic
+- Working with money (double precision)
+
+**Starter Code:**
 ```cpp
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 int main() {
-    double num1 = 10;
-    double num2 = 3;
+    double distance = 7.5;  // kilometers
+    double baseFare = 13.00;
+    double additionalRate = 2.00;
+    double totalFare;
     
-    cout << "Number 1: " << num1 << endl;
-    cout << "Number 2: " << num2 << endl;
-    cout << "Sum: " << (num1 + num2) << endl;
-    cout << "Difference: " << (num1 - num2) << endl;
-    cout << "Product: " << (num1 * num2) << endl;
-    cout << "Quotient: " << (num1 / num2) << endl;
-    cout << "Remainder: " << ((int)num1 % (int)num2) << endl;
+    // Calculate fare based on distance
     
     return 0;
 }
 ```
 
+**Expected Output:**
+```
+Distance: 7.5 km
+Base Fare (first 4km): ₱13.00
+Additional Distance: 3.5 km
+Additional Charge: ₱7.00
+Total Fare: ₱20.00
+```
+
 ---
 
-## Activity 2: Even or Odd Checker
+## Task 3: Modulo Magic - Even/Odd Detector
 
-**Objective:** Use the modulo operator to determine if a number is even or odd.
-
-**Task:**  
-Write a program that checks whether a given number is even or odd.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int number = 17;
-    
-    // Check if even using modulo operator
+**Context:**  
+The modulo operator (%) is incredibly useful! It returns the remainder after division. If `number % 2 == 0`, the number is even (no remainder). This is used everywhere—from determining alternating colors in UI to scheduling shifts.
     
     return 0;
 }

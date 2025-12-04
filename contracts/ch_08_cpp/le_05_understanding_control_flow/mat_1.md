@@ -1,4 +1,4 @@
-## Background Story: The Crossroads
+## Background Story
 
 Tian stared at the screen in disbelief. The calculator displayed: `Result: inf`. The culprit? A user had divided by zero, and the program blindly executed the calculation without checking.
 
