@@ -105,15 +105,6 @@ Runs only when script executed directly.
 ### 12. Story Thread
 Refactor: validation.py, data_loader.py, report.py; main.py imports and orchestrates.
 
-### 13. Practice Prompts
-1. Import datetime; print current date.
-2. Create helper.py with utility function; import in main.
-3. Use alias for long module name.
-4. Demonstrate __name__ == "__main__" pattern.
-
-### 14. Reflection
-Two benefits of modular code organization.
-
 ---
 
 ## Closing Story

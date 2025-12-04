@@ -97,15 +97,6 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"Clara"}' http://lo
 ### 11. Story Thread
 Full CRUD API for scholarship applicants: list, create, update, delete.
 
-### 12. Practice Prompts
-1. GET endpoint returning JSON list.
-2. POST endpoint accepting JSON, adding to list.
-3. DELETE endpoint removing by ID.
-4. Return appropriate status codes.
-
-### 13. Reflection
-Two benefits of REST API over HTML pages for data exchange.
-
 ---
 
 ## Closing Story

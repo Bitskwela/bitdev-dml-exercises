@@ -98,15 +98,6 @@ plt.show()
 ### 12. Story Thread
 Load CSV → filter approved applicants → group by barangay → bar chart of counts.
 
-### 13. Practice Prompts
-1. Create NumPy array; calculate mean.
-2. Load CSV into DataFrame; print first 5 rows.
-3. Filter DataFrame for age > 25.
-4. Plot line chart of quarterly totals.
-
-### 14. Reflection
-Two advantages of DataFrame over list of dicts.
-
 ---
 
 ## Closing Story

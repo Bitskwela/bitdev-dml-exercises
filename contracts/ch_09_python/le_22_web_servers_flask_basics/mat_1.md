@@ -98,15 +98,6 @@ Auto-reloads on code change; shows detailed errors.
 ### 12. Story Thread
 Tian builds /status/<applicant_id> route returning approval info.
 
-### 13. Practice Prompts
-1. Create Flask app with home route.
-2. Add dynamic route /greet/<name>.
-3. Query param route: /add?a=5&b=3.
-4. JSON endpoint returning dict.
-
-### 14. Reflection
-Two advantages of web interface over command-line scripts.
-
 ---
 
 ## Closing Story

@@ -84,15 +84,6 @@ if os.path.exists("data.txt"):
 ### 11. Story Thread
 Load applicant names from file; process each; append approval status to output file.
 
-### 12. Practice Prompts
-1. Read file into list of lines.
-2. Write list of names to file.
-3. Append timestamp to log.
-4. Check if file exists before reading.
-
-### 13. Reflection
-Two reasons to use context manager over manual close.
-
 ---
 
 ## Closing Story

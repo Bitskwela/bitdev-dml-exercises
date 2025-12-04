@@ -87,15 +87,6 @@ new_id = cursor.lastrowid
 ### 11. Story Thread
 Tian builds /api/residents?min_age=18&barangay=3 endpoint with dynamic SQL.
 
-### 12. Practice Prompts
-1. Filter by age range; parameterize min/max.
-2. JOIN residents and barangays; print names.
-3. COUNT residents per barangay (GROUP BY).
-4. Bulk insert 5 rows with executemany.
-
-### 13. Reflection
-Two risks of string formatting in SQL; how parameterization prevents.
-
 ---
 
 ## Closing Story

@@ -76,15 +76,6 @@ Repeat sampling; observe mean distribution (Central Limit Theorem).
 ### 10. Story Thread
 Simulate next year: 1000 runs; histogram of total cost; identify 95th percentile for budget ceiling.
 
-### 11. Practice Prompts
-1. Generate 100 random integers 1-50.
-2. Simulate normal distribution (mean 22, std 3).
-3. Run Monte Carlo with 500 iterations.
-4. Plot histogram of simulation results.
-
-### 12. Reflection
-Two benefits of simulation over single-point estimates.
-
 ---
 
 ## Closing Story

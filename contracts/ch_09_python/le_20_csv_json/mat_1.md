@@ -92,15 +92,6 @@ df.to_json("output.json", orient="records")
 ### 11. Story Thread
 Import CSV applicants; process; export filtered subset as JSON for API.
 
-### 12. Practice Prompts
-1. Read CSV using DictReader; print each row.
-2. Write list of dicts to CSV using DictWriter.
-3. Load JSON file; access nested key.
-4. Convert DataFrame to JSON.
-
-### 13. Reflection
-Two advantages of JSON over CSV for nested data.
-
 ---
 
 ## Closing Story

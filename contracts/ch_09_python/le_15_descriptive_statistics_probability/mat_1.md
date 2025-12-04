@@ -74,15 +74,6 @@ sample = random.sample(population, 50)
 ### 11. Story Thread
 Compute mean age, std dev; identify outliers; estimate approval probability from historical data.
 
-### 12. Practice Prompts
-1. Compute mean, median, mode of sample.
-2. Calculate variance and std dev.
-3. Find Q1, Q3, IQR.
-4. Compute approval probability from counts.
-
-### 13. Reflection
-When is median preferable to mean? Give two scenarios.
-
 ---
 
 ## Closing Story

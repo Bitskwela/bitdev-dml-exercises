@@ -107,15 +107,6 @@ Rhea Joy refactors: resident caches become `dict` keyed by ID; static coordinate
 ### 12. Mini Performance Hint
 List append: amortized O(1). Dict lookup: average O(1). Linear search in list: O(n). For large N, prefer dict for membership tests.
 
-### 13. Practice Prompts
-1. Convert a list of `(id, name)` tuples to a dict.
-2. Show code that mistakenly mutates shared default list and fix it.
-3. Build a frequency dict of tag counts from list of resident dicts.
-4. Replace nested list-of-lists with list-of-dicts and explain clarity gain.
-
-### 14. Reflection
-When will you deliberately choose a tuple over a list? List two reasons.
-
 ---
 
 ## Closing Story

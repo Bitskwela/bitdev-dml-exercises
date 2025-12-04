@@ -160,17 +160,6 @@ Barangay could use:
 - Redis for caching counts (`approved_count`)
 - MongoDB for flexible event logs (application status changes)
 
-## 15. Reflection Dialogue
-
-"So if I need strict relationships, SQL; if flexibility, NoSQL?" Rhea Joy clarifies.
-"Yes," Kuya Miguel nods. "Start with relational unless a clear flexibility or scale reason pushes you toward NoSQL."
-
-## 16. Quick Practice Prompts
-
-1. Pick one dataset you handle—would you choose SQL or NoSQL? Why?
-2. Identify a place where denormalization could help—what's the trade-off?
-3. Describe one hybrid design for a future barangay portal.
-
 ---
 
 ## Closing Story

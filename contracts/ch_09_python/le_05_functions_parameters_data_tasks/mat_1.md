@@ -105,15 +105,6 @@ Rule of thumb: One clear responsibility. Split if multiple unrelated concerns ap
 ### 12. Story Thread
 Refactoring yields `build_tag_index(residents)` pure logic separated from file reading (impure). Tests simplified.
 
-### 13. Practice Prompts
-1. Write pure function computing median of list.
-2. Convert global-modifying function to return new value instead.
-3. Show example using `*args` to collect resident IDs.
-4. Use `**kwargs` for flexible metadata logging.
-
-### 14. Reflection
-List two benefits of pure function design in collaborative projects.
-
 ---
 
 ## Closing Story

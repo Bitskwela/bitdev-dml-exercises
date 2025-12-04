@@ -110,15 +110,6 @@ squares = [x**2 for x in range(10)]
 ### 14. Story Thread
 Batch approval: for loop over applicants; while loop for retries on API failures.
 
-### 15. Practice Prompts
-1. Sum numbers 1-100 using for/range.
-2. Find first even number > 50 with while + break.
-3. Use enumerate to add line numbers.
-4. Zip two lists and build dict.
-
-### 16. Reflection
-When to choose for vs while? Give two criteria.
-
 ---
 
 ## Closing Story

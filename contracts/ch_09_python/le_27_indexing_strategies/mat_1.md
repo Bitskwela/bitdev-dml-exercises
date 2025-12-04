@@ -71,15 +71,6 @@ Shows index usage.
 ### 13. Story Thread
 Tian indexes barangay_id; query time drops from 800ms to 15ms.
 
-### 14. Practice Prompts
-1. Create index on frequently filtered column.
-2. Composite index for two-column WHERE.
-3. Explain query; verify index used.
-4. Discuss trade-off for high-write table.
-
-### 15. Reflection
-Two scenarios where indexing critical; two where unnecessary.
-
 ---
 
 ## Closing Story

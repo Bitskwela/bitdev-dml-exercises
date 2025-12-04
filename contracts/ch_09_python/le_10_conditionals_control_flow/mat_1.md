@@ -98,15 +98,6 @@ def process(data):
 ### 12. Story Thread
 Refactored eligibility checks: clear branches for age, residency, income thresholds—easier debugging.
 
-### 13. Practice Prompts
-1. Write 3-branch grading if-elif-else.
-2. Combine two conditions with and.
-3. Use in to check tag membership.
-4. Demonstrate ternary for even/odd.
-
-### 14. Reflection
-Two benefits of guard clauses over deeply nested if.
-
 ---
 
 ## Closing Story

@@ -93,15 +93,6 @@ path = r"C:\Users\Tian\Documents"
 ### 13. Story Thread
 Report template: f-strings embed calculations; title() normalizes names; zero-padding formats IDs consistently.
 
-### 14. Practice Prompts
-1. Format float to 3 decimals.
-2. Pad resident ID to 6 digits.
-3. Title-case mixed-case name.
-4. Split CSV line and strip spaces.
-
-### 15. Reflection
-Two advantages of f-strings over concatenation.
-
 ---
 
 ## Closing Story

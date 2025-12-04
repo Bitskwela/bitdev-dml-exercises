@@ -98,15 +98,6 @@ flash("Submitted successfully")
 ### 12. Story Thread
 Build form: name, age, barangay. POST handler validates; displays confirmation page.
 
-### 13. Practice Prompts
-1. Create template with variable interpolation.
-2. Loop through list in template.
-3. Form accepting input; POST handler prints form data.
-4. Redirect after successful POST.
-
-### 14. Reflection
-Two benefits of separating HTML templates from Python logic.
-
 ---
 
 ## Closing Story

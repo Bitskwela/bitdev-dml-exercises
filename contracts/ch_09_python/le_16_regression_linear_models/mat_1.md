@@ -68,15 +68,6 @@ Use np.polyfit for higher degrees.
 ### 11. Story Thread
 Fit line predicting cost from count; R^2 = 0.98; forecast next quarter budget.
 
-### 12. Practice Prompts
-1. Fit simple linear model to sample data.
-2. Compute R^2.
-3. Predict y for new x value.
-4. Plot data + fitted line.
-
-### 13. Reflection
-Two signs regression model is appropriate for your data.
-
 ---
 
 ## Closing Story

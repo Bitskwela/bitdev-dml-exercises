@@ -102,15 +102,6 @@ class ResidentRecord: ...
 ### 11. Story Thread
 Refactoring messy script into neat blocks: indentation clarifies loops vs conditionals, comments highlight only tricky logic.
 
-### 12. Practice Prompts
-1. Reformat a one‑line multi‑statement script into readable blocks.
-2. Replace a redundant inline comment with a docstring.
-3. Demonstrate an IndentationError then correct.
-4. Show line continuation using parentheses.
-
-### 13. Reflection
-Why does indentation over braces aid quick scanning? Give two reasons.
-
 ---
 
 ## Closing Story

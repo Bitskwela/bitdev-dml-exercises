@@ -82,15 +82,6 @@ Barangay: id | captain
 ### 8. Story Thread
 Tian refactors flat ApplicantData table into Residents, Applications, Programs (3NF).
 
-### 9. Practice Prompts
-1. Convert multi-valued column to 1NF.
-2. Identify partial dependency; split to 2NF.
-3. Identify transitive dependency; split to 3NF.
-4. Justify trade-off for denormalization scenario.
-
-### 10. Reflection
-Two real-world problems solved by 3NF.
-
 ---
 
 ## Closing Story

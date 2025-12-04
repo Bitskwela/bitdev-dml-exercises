@@ -89,15 +89,6 @@ print("{:<10} {:>5}".format("Ana", 21))
 ### 12. Story Thread
 Interactive prompt script deployed: volunteers record attendee names; file persists list; simple feedback loop encourages correct spelling.
 
-### 13. Practice Prompts
-1. Prompt for three tags; store in list.
-2. Write validated ages to file.
-3. Read file lines into list stripping whitespace.
-4. Show formatted column output for 3 residents.
-
-### 14. Reflection
-Two reasons to use with for file operations.
-
 ---
 
 ## Closing Story

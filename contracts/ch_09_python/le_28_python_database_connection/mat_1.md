@@ -97,15 +97,6 @@ for row in cursor:
 ### 12. Story Thread
 Tian migrates Flask app from in-memory list to SQLite; persistent CRUD.
 
-### 13. Practice Prompts
-1. Connect to SQLite; create table.
-2. Insert 3 rows; query and print.
-3. Parameterized query by name.
-4. Update row; verify change.
-
-### 14. Reflection
-Two advantages of database over in-memory Python list.
-
 ---
 
 ## Closing Story

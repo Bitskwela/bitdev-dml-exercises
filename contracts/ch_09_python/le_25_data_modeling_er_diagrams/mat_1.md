@@ -57,15 +57,6 @@ Relationship: Barangay 1 → N Residents
 ### 12. Story Thread
 Tian maps Scholarship System: Resident, Application, ScholarshipProgram, Approval.
 
-### 13. Practice Prompts
-1. Identify entities in library system.
-2. Draw 1:N relationship (Author → Books).
-3. Design junction table for Students ↔ Clubs.
-4. Label primary and foreign keys.
-
-### 14. Reflection
-Two benefits of ER diagrams before coding schema.
-
 ---
 
 ## Closing Story

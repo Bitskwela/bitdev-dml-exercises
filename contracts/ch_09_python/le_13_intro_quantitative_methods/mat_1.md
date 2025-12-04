@@ -79,15 +79,6 @@ Historical scholarship count per quarter plotted; trend line fitted; next quarte
 - Transparency in predictions
 - Privacy of sensitive fields
 
-### 12. Practice Prompts
-1. Calculate mean, median of sample list.
-2. Identify categorical vs numeric fields in dataset.
-3. Sketch workflow for predicting applicant approval rate.
-4. List 3 Python libraries relevant to analysis.
-
-### 13. Reflection
-Two reasons automated quantitative analysis beats manual.
-
 ---
 
 ## Closing Story

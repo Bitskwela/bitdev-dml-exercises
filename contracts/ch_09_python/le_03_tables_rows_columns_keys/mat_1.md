@@ -96,15 +96,6 @@ Note: Where do relationships form? Which keys? Which columns might need constrai
 ### 12. Story Thread
 Rhea Joy drafts an ER diagram; Tian labels keys with stars. They debate natural vs generated IDs—generated wins for simplicity.
 
-### 13. Practice Prompts
-1. Pick natural key candidate for residents (why it fails).  
-2. Convert a repeating attribute set into a new table.  
-3. Add a composite key somewhere meaningful.  
-4. Suggest one index to support a frequent query.  
-
-### 14. Reflection
-List two integrity protections offered by foreign keys; one trade‑off (write overhead).
-
 ---
 
 ## Closing Story

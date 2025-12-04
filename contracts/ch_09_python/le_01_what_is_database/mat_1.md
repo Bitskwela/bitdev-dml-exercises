@@ -164,12 +164,6 @@ Plain files are acceptable when:
 
 "Exactly," Kuya Miguel smiled. "Data Bahandi—your treasure—is safer, faster, and clearer. Tomorrow we’ll compare SQL and NoSQL so you can choose the right chest for the right treasure." Rhea Joy grinned: "Goodbye manual counting!"
 
-## 14. Your Turn (Quick Practice)
-
-1. List 3 pain points in your own school / community that a database could solve.
-2. Categorize these needs: relational, document, or key‑value?
-3. Write one SQL query you *think* would answer a real question.
-
 ---
 
 ## Closing Story

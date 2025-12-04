@@ -129,23 +129,6 @@ except sqlite3.IntegrityError as e:
 ### 11. Story Thread
 Tian deploys portal. Rhea Joy: "All concepts unified—Python, databases, web, validation. Scholarship system live."
 
-### 12. Practice Prompts
-1. Implement full CRUD for residents.
-2. Add validation: age >= 18, email unique.
-3. JOIN query for dashboard.
-4. Aggregation report: COUNT approvals by barangay.
-5. Error handling with rollback.
-
-### 13. Stretch Goals
-- Pagination for large lists
-- Search/filter by name or barangay
-- Export report as CSV
-- Authentication (login/logout)
-- Deploy to cloud (Heroku, PythonAnywhere)
-
-### 14. Reflection
-Describe three technical decisions and trade-offs in your implementation.
-
 ---
 
 ## Closing Story

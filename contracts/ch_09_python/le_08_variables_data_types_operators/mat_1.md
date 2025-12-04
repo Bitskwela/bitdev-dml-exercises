@@ -109,15 +109,6 @@ Lists mutate in place.
 ### 12. Story Thread
 Type mismatch bug fixed by validating numeric input before arithmetic; logic becomes predictable.
 
-### 13. Practice Prompts
-1. Show difference of == vs is on two identical small ints vs lists.
-2. Build a Boolean expression combining 3 conditions.
-3. Convert a numeric string safely; fallback to 0.
-4. Demonstrate modulo for even/odd classification.
-
-### 14. Reflection
-List 2 benefits of understanding truthiness when simplifying conditionals.
-
 ---
 
 ## Closing Story

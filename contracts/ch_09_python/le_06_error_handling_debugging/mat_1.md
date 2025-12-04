@@ -102,15 +102,6 @@ if not isinstance(tags, list): raise TypeError("tags must be list")
 ### 11. Story Thread
 KeyError replaced by controlled fallback -> alert log -> data flagged for correction without stopping processing pipeline.
 
-### 12. Practice Prompts
-1. Wrap integer parsing with graceful fallback.
-2. Create custom exception for duplicate resident ID.
-3. Add logging around function measuring execution time.
-4. Demonstrate `finally` closing resource after an exception.
-
-### 13. Reflection
-Describe difference between catching broad `Exception` vs specific types. Provide 2 pros, 2 cons.
-
 ---
 
 ## Closing Story

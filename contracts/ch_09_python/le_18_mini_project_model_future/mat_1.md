@@ -88,9 +88,6 @@ Committee receives report: "Q7 forecast 118 applicants (95% CI: 102-134); budget
 - [ ] Visualization created
 - [ ] Report written
 
-### 13. Reflection
-Two improvements for next iteration.
-
 ---
 
 ## Closing Story
