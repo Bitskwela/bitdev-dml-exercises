@@ -1,4 +1,4 @@
-# Lesson 4 Activities: Basic Input and Output
+﻿# Lesson 4 Activities: Basic Input and Output
 
 ## From Hardcoded to Interactive Programs
 
@@ -64,22 +64,48 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== RESIDENT REGISTRATION FORM ===
+# Tasks for Learners
 
-Full name: Juan Dela Cruz
-Age: 28
-City: Manila
-Monthly income: 35000
+- Create personal information form: Collect and display resident information with proper input handling using getline() and cin.ignore().
 
-=== REGISTRATION SUMMARY ===
-Name: Juan Dela Cruz
-Age: 28 years old
-City: Manila
-Monthly Income: PHP 35,000.00
-Registration: COMPLETE ✓
-```
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      string fullName, city;
+      int age;
+      double income;
+      
+      cout << "=== RESIDENT REGISTRATION FORM ===" << endl;
+      cout << endl;
+      
+      cout << "Full name: ";
+      getline(cin, fullName);  // Use getline for names with spaces
+      
+      cout << "Age: ";
+      cin >> age;
+      cin.ignore();  // CRITICAL: Clear buffer after numeric input
+      
+      cout << "City: ";
+      getline(cin, city);
+      
+      cout << "Monthly income: ";
+      cin >> income;
+      
+      cout << endl;
+      cout << "=== REGISTRATION SUMMARY ===" << endl;
+      cout << "Name: " << fullName << endl;
+      cout << "Age: " << age << " years old" << endl;
+      cout << "City: " << city << endl;
+      cout << "Monthly Income: PHP " << fixed << setprecision(2) << income << endl;
+      cout << "Registration: COMPLETE ✓" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -127,21 +153,46 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== SARI-SARI STORE CALCULATOR ===
+# Tasks for Learners
 
-Product name: Lucky Me Pancit Canton
-Quantity: 5
-Price per unit: 15.50
+- Create sari-sari store calculator: Build an interactive calculator that takes product details and calculates the total cost.
 
------ RECEIPT -----
-Product: Lucky Me Pancit Canton
-Quantity: 5
-Unit Price: PHP 15.50
-Total Cost: PHP 77.50
-Thank you for shopping!
-```
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      string productName;
+      int quantity;
+      double pricePerUnit, totalCost;
+      
+      cout << "=== SARI-SARI STORE CALCULATOR ===" << endl;
+      cout << endl;
+      
+      cout << "Product name: ";
+      getline(cin, productName);
+      
+      cout << "Quantity: ";
+      cin >> quantity;
+      
+      cout << "Price per unit: ";
+      cin >> pricePerUnit;
+      
+      totalCost = quantity * pricePerUnit;
+      
+      cout << endl;
+      cout << "----- RECEIPT -----" << endl;
+      cout << "Product: " << productName << endl;
+      cout << "Quantity: " << quantity << endl;
+      cout << "Unit Price: PHP " << fixed << setprecision(2) << pricePerUnit << endl;
+      cout << "Total Cost: PHP " << totalCost << endl;
+      cout << "Thank you for shopping!" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -185,19 +236,46 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== JEEPNEY FARE CALCULATOR ===
+# Tasks for Learners
 
-Passenger name: Maria Santos
-Distance traveled (km): 7.5
+- Create jeepney fare calculator: Calculate fare based on distance with conditional pricing (base fare + additional rate).
 
------ FARE RECEIPT -----
-Passenger: Maria Santos
-Distance: 7.5 km
-Fare: PHP 20.00
-Safe travels!
-```
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      string passengerName;
+      double distance, fare;
+      
+      cout << "=== JEEPNEY FARE CALCULATOR ===" << endl;
+      cout << endl;
+      
+      cout << "Passenger name: ";
+      getline(cin, passengerName);
+      
+      cout << "Distance traveled (km): ";
+      cin >> distance;
+      
+      // Calculate fare: base 13 for first 4km, +2 per additional km
+      if (distance <= 4) {
+          fare = 13.00;
+      } else {
+          fare = 13.00 + ((distance - 4) * 2.00);
+      }
+      
+      cout << endl;
+      cout << "----- FARE RECEIPT -----" << endl;
+      cout << "Passenger: " << passengerName << endl;
+      cout << "Distance: " << fixed << setprecision(1) << distance << " km" << endl;
+      cout << "Fare: PHP " << setprecision(2) << fare << endl;
+      cout << "Safe travels!" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -237,23 +315,51 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== STUDENT GRADE CALCULATOR ===
+# Tasks for Learners
 
-Student name: Pedro Reyes
-Quiz score (100): 85
-Project score (100): 92
-Exam score (100): 88
+- Create student grade calculator: Calculate weighted final grade from quiz, project, and exam scores.
 
------ GRADE REPORT -----
-Student: Pedro Reyes
-Quiz:     85.00 (30%)
-Project:  92.00 (30%)
-Exam:     88.00 (40%)
--------------------
-Final Grade: 88.10
-```
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      string studentName;
+      double quiz, project, exam, finalGrade;
+      
+      cout << "=== STUDENT GRADE CALCULATOR ===" << endl;
+      cout << endl;
+      
+      cout << "Student name: ";
+      getline(cin, studentName);
+      
+      cout << "Quiz score (100): ";
+      cin >> quiz;
+      
+      cout << "Project score (100): ";
+      cin >> project;
+      
+      cout << "Exam score (100): ";
+      cin >> exam;
+      
+      // Weighted average: 30% quiz, 30% project, 40% exam
+      finalGrade = (quiz * 0.3) + (project * 0.3) + (exam * 0.4);
+      
+      cout << endl;
+      cout << "----- GRADE REPORT -----" << endl;
+      cout << "Student: " << studentName << endl;
+      cout << fixed << setprecision(2);
+      cout << "Quiz:     " << quiz << " (30%)" << endl;
+      cout << "Project:  " << project << " (30%)" << endl;
+      cout << "Exam:     " << exam << " (40%)" << endl;
+      cout << "-------------------" << endl;
+      cout << "Final Grade: " << finalGrade << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -294,22 +400,48 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== BARANGAY CLEARANCE FEE CALCULATOR ===
+# Tasks for Learners
 
-Applicant name: Teresa Cruz
-Purpose: Employment
-Base fee: 150
+- Create barangay clearance fee calculator: Calculate total fee including 12% tax and display an official receipt.
 
------ OFFICIAL RECEIPT -----
-Applicant: Teresa Cruz
-Purpose: Employment
-Base Fee: PHP 150.00
-Tax (12%): PHP 18.00
-Total Fee: PHP 168.00
-Please proceed to payment window.
-```
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      string applicantName, purpose;
+      double baseFee, tax, totalFee;
+      
+      cout << "=== BARANGAY CLEARANCE FEE CALCULATOR ===" << endl;
+      cout << endl;
+      
+      cout << "Applicant name: ";
+      getline(cin, applicantName);
+      
+      cout << "Purpose: ";
+      getline(cin, purpose);
+      
+      cout << "Base fee: ";
+      cin >> baseFee;
+      
+      tax = baseFee * 0.12;  // 12% tax
+      totalFee = baseFee + tax;
+      
+      cout << endl;
+      cout << "----- OFFICIAL RECEIPT -----" << endl;
+      cout << "Applicant: " << applicantName << endl;
+      cout << "Purpose: " << purpose << endl;
+      cout << fixed << setprecision(2);
+      cout << "Base Fee: PHP " << baseFee << endl;
+      cout << "Tax (12%): PHP " << tax << endl;
+      cout << "Total Fee: PHP " << totalFee << endl;
+      cout << "Please proceed to payment window." << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -349,20 +481,46 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== OFW CURRENCY CONVERTER ===
+# Tasks for Learners
 
-Foreign amount: 1000
-Currency name: US Dollar
-Exchange rate (to PHP): 56.50
+- Create OFW currency converter: Convert foreign currency to Philippine pesos using user-provided exchange rate.
 
------ CONVERSION SUMMARY -----
-Foreign Amount: 1,000.00 USD
-Exchange Rate: PHP 56.50
-Peso Equivalent: PHP 56,500.00
-Conversion complete!
-```
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      string currencyName;
+      double foreignAmount, exchangeRate, pesoAmount;
+      
+      cout << "=== OFW CURRENCY CONVERTER ===" << endl;
+      cout << endl;
+      
+      cout << "Foreign amount: ";
+      cin >> foreignAmount;
+      cin.ignore();  // Clear buffer before getline
+      
+      cout << "Currency name: ";
+      getline(cin, currencyName);
+      
+      cout << "Exchange rate (to PHP): ";
+      cin >> exchangeRate;
+      
+      pesoAmount = foreignAmount * exchangeRate;
+      
+      cout << endl;
+      cout << "----- CONVERSION SUMMARY -----" << endl;
+      cout << fixed << setprecision(2);
+      cout << "Foreign Amount: " << foreignAmount << " " << currencyName << endl;
+      cout << "Exchange Rate: PHP " << exchangeRate << endl;
+      cout << "Peso Equivalent: PHP " << pesoAmount << endl;
+      cout << "Conversion complete!" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -401,25 +559,53 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== RESTAURANT MENU MAKER ===
+# Tasks for Learners
 
-Dish 1 name: Chicken Adobo
-Dish 1 price: 120
+- Create restaurant menu formatter: Display dishes and prices in a professionally formatted table using setw() for alignment.
 
-Dish 2 name: Sinigang na Baboy
-Dish 2 price: 150
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
 
-Dish 3 name: Lumpia Shanghai
-Dish 3 price: 80
-
-========== MENU ==========
-Chicken Adobo        PHP 120.00
-Sinigang na Baboy    PHP 150.00
-Lumpia Shanghai      PHP  80.00
-==========================
-```
+  int main() {
+      string dish1, dish2, dish3;
+      double price1, price2, price3;
+      
+      cout << "=== RESTAURANT MENU MAKER ===" << endl;
+      cout << endl;
+      
+      cout << "Dish 1 name: ";
+      getline(cin, dish1);
+      cout << "Dish 1 price: ";
+      cin >> price1;
+      cin.ignore();
+      
+      cout << endl;
+      cout << "Dish 2 name: ";
+      getline(cin, dish2);
+      cout << "Dish 2 price: ";
+      cin >> price2;
+      cin.ignore();
+      
+      cout << endl;
+      cout << "Dish 3 name: ";
+      getline(cin, dish3);
+      cout << "Dish 3 price: ";
+      cin >> price3;
+      
+      cout << endl;
+      cout << "========== MENU ==========" << endl;
+      cout << fixed << setprecision(2);
+      cout << left << setw(20) << dish1 << " PHP " << right << setw(6) << price1 << endl;
+      cout << left << setw(20) << dish2 << " PHP " << right << setw(6) << price2 << endl;
+      cout << left << setw(20) << dish3 << " PHP " << right << setw(6) << price3 << endl;
+      cout << "==========================" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -482,358 +668,10 @@ Next lesson, you'll add intelligence—teaching your programs to **make decision
 
 ---
 
-<details>
-<summary><strong>📝 Answer Key for All Tasks</strong></summary>
-
-### Task 1: Personal Information Form
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string fullName, city;
-    int age;
-    double income;
-    
-    cout << "=== RESIDENT REGISTRATION FORM ===" << endl;
-    cout << endl;
-    
-    cout << "Full name: ";
-    getline(cin, fullName);  // Use getline for names with spaces
-    
-    cout << "Age: ";
-    cin >> age;
-    cin.ignore();  // CRITICAL: Clear buffer after numeric input
-    
-    cout << "City: ";
-    getline(cin, city);
-    
-    cout << "Monthly income: ";
-    cin >> income;
-    
-    cout << endl;
-    cout << "=== REGISTRATION SUMMARY ===" << endl;
-    cout << "Name: " << fullName << endl;
-    cout << "Age: " << age << " years old" << endl;
-    cout << "City: " << city << endl;
-    cout << "Monthly Income: PHP " << fixed << setprecision(2) << income << endl;
-    cout << "Registration: COMPLETE ✓" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `getline()` reads full names with spaces
-- `cin.ignore()` after `cin >> age` prevents getline() from reading leftover newline
-- `fixed << setprecision(2)` formats currency to 2 decimal places
-
----
-
-### Task 2: Sari-Sari Store Calculator
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string productName;
-    int quantity;
-    double pricePerUnit, totalCost;
-    
-    cout << "=== SARI-SARI STORE CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Product name: ";
-    getline(cin, productName);
-    
-    cout << "Quantity: ";
-    cin >> quantity;
-    
-    cout << "Price per unit: ";
-    cin >> pricePerUnit;
-    
-    totalCost = quantity * pricePerUnit;
-    
-    cout << endl;
-    cout << "----- RECEIPT -----" << endl;
-    cout << "Product: " << productName << endl;
-    cout << "Quantity: " << quantity << endl;
-    cout << "Unit Price: PHP " << fixed << setprecision(2) << pricePerUnit << endl;
-    cout << "Total Cost: PHP " << totalCost << endl;
-    cout << "Thank you for shopping!" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Mixed data types: string, int, double
-- Arithmetic with user input: `quantity * pricePerUnit`
-- Professional receipt formatting
-
----
-
-### Task 3: Jeepney Fare Calculator
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string passengerName;
-    double distance, fare;
-    
-    cout << "=== JEEPNEY FARE CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Passenger name: ";
-    getline(cin, passengerName);
-    
-    cout << "Distance traveled (km): ";
-    cin >> distance;
-    
-    // Calculate fare: base 13 for first 4km, +2 per additional km
-    if (distance <= 4) {
-        fare = 13.00;
-    } else {
-        fare = 13.00 + ((distance - 4) * 2.00);
-    }
-    
-    cout << endl;
-    cout << "----- FARE RECEIPT -----" << endl;
-    cout << "Passenger: " << passengerName << endl;
-    cout << "Distance: " << fixed << setprecision(1) << distance << " km" << endl;
-    cout << "Fare: PHP " << setprecision(2) << fare << endl;
-    cout << "Safe travels!" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Conditional calculation (base + additional)
-- Different `setprecision()` for distance (1) vs. fare (2)
-- Real-world Philippine transportation pricing
-
----
-
-### Task 4: Student Grade Input System
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string studentName;
-    double quiz, project, exam, finalGrade;
-    
-    cout << "=== STUDENT GRADE CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Student name: ";
-    getline(cin, studentName);
-    
-    cout << "Quiz score (100): ";
-    cin >> quiz;
-    
-    cout << "Project score (100): ";
-    cin >> project;
-    
-    cout << "Exam score (100): ";
-    cin >> exam;
-    
-    // Weighted average: 30% quiz, 30% project, 40% exam
-    finalGrade = (quiz * 0.3) + (project * 0.3) + (exam * 0.4);
-    
-    cout << endl;
-    cout << "----- GRADE REPORT -----" << endl;
-    cout << "Student: " << studentName << endl;
-    cout << fixed << setprecision(2);
-    cout << "Quiz:     " << quiz << " (30%)" << endl;
-    cout << "Project:  " << project << " (30%)" << endl;
-    cout << "Exam:     " << exam << " (40%)" << endl;
-    cout << "-------------------" << endl;
-    cout << "Final Grade: " << finalGrade << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Weighted percentage calculations
-- `setprecision(2)` applied once for all subsequent output
-- Clear breakdown of grade components
-
----
-
-### Task 5: Barangay Clearance Fee Calculator
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string applicantName, purpose;
-    double baseFee, tax, totalFee;
-    
-    cout << "=== BARANGAY CLEARANCE FEE CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Applicant name: ";
-    getline(cin, applicantName);
-    
-    cout << "Purpose: ";
-    getline(cin, purpose);
-    
-    cout << "Base fee: ";
-    cin >> baseFee;
-    
-    tax = baseFee * 0.12;  // 12% tax
-    totalFee = baseFee + tax;
-    
-    cout << endl;
-    cout << "----- OFFICIAL RECEIPT -----" << endl;
-    cout << "Applicant: " << applicantName << endl;
-    cout << "Purpose: " << purpose << endl;
-    cout << fixed << setprecision(2);
-    cout << "Base Fee: PHP " << baseFee << endl;
-    cout << "Tax (12%): PHP " << tax << endl;
-    cout << "Total Fee: PHP " << totalFee << endl;
-    cout << "Please proceed to payment window." << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Tax calculation as percentage
-- Multiple string inputs with getline()
-- Government document formatting
-
----
-
-### Task 6: Philippine Peso Converter
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string currencyName;
-    double foreignAmount, exchangeRate, pesoAmount;
-    
-    cout << "=== OFW CURRENCY CONVERTER ===" << endl;
-    cout << endl;
-    
-    cout << "Foreign amount: ";
-    cin >> foreignAmount;
-    cin.ignore();  // Clear buffer before getline
-    
-    cout << "Currency name: ";
-    getline(cin, currencyName);
-    
-    cout << "Exchange rate (to PHP): ";
-    cin >> exchangeRate;
-    
-    pesoAmount = foreignAmount * exchangeRate;
-    
-    cout << endl;
-    cout << "----- CONVERSION SUMMARY -----" << endl;
-    cout << fixed << setprecision(2);
-    cout << "Foreign Amount: " << foreignAmount << " " << currencyName << endl;
-    cout << "Exchange Rate: PHP " << exchangeRate << endl;
-    cout << "Peso Equivalent: PHP " << pesoAmount << endl;
-    cout << "Conversion complete!" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Multiplication for currency conversion
-- `cin.ignore()` between numeric input and getline()
-- Real-world financial calculations for OFWs
-
----
-
-### Task 7: Interactive Table Formatter
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    string dish1, dish2, dish3;
-    double price1, price2, price3;
-    
-    cout << "=== RESTAURANT MENU MAKER ===" << endl;
-    cout << endl;
-    
-    cout << "Dish 1 name: ";
-    getline(cin, dish1);
-    cout << "Dish 1 price: ";
-    cin >> price1;
-    cin.ignore();
-    
-    cout << endl;
-    cout << "Dish 2 name: ";
-    getline(cin, dish2);
-    cout << "Dish 2 price: ";
-    cin >> price2;
-    cin.ignore();
-    
-    cout << endl;
-    cout << "Dish 3 name: ";
-    getline(cin, dish3);
-    cout << "Dish 3 price: ";
-    cin >> price3;
-    
-    cout << endl;
-    cout << "========== MENU ==========" << endl;
-    cout << fixed << setprecision(2);
-    cout << left << setw(20) << dish1 << " PHP " << right << setw(6) << price1 << endl;
-    cout << left << setw(20) << dish2 << " PHP " << right << setw(6) << price2 << endl;
-    cout << left << setw(20) << dish3 << " PHP " << right << setw(6) << price3 << endl;
-    cout << "==========================" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `setw()` controls column width
-- `left` aligns dish names left, `right` aligns prices right
-- Professional table formatting with alignment
-- `cin.ignore()` after each numeric input before getline()
-
----
-
-</details>
-
 ---
 
 **Next Steps:**  
 Test each program with different inputs. Try breaking them (negative numbers, very long names). Notice how proper formatting makes output professional. Get ready for Lesson 5—where your programs learn to **make intelligent decisions** with `if/else`!
-
----
-
-## Answer Key
 
 **Solution:**
 ```cpp
@@ -853,7 +691,7 @@ int main() {
     cout << "Full name: ";
     getline(cin, fullName);
     
-    cout << "Age: ";
+    cout << "Age: ";333
     cin >> age;
     cin.ignore();
     
@@ -906,20 +744,6 @@ int main() {
     
     return 0;
 }
-```
-
-**Expected Output:**
-```
-=== Restaurant Bill ===
-
-Enter bill amount: 850.50
-Enter tip percentage: 10
-
-=== Summary ===
-Bill Amount:  PHP  850.50
-Tip (10%):    PHP   85.05
-----------------------------
-Total:        PHP  935.55
 ```
 
 **Solution:**
@@ -991,21 +815,6 @@ int main() {
     
     return 0;
 }
-```
-
-**Expected Output:**
-```
-=== Jeepney Fare Calculator ===
-
-Distance (km): 8.5
-Are you a student? (1=yes, 0=no): 1
-
-Base fare (4 km):       PHP  13.00
-Additional (4.5 km):    PHP   6.75
-Subtotal:               PHP  19.75
-Student discount (20%): PHP  -3.95
------------------------------------
-Total fare:             PHP  15.80
 ```
 
 **Solution:**
@@ -1099,22 +908,6 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== BMI Calculator ===
-
-Name: Maria Santos
-Weight (kg): 65
-Height (m): 1.65
-
-=== Results ===
-Name: Maria Santos
-Weight: 65.00 kg
-Height: 1.65 m
-BMI: 23.88
-Category: Normal weight
-```
-
 **Solution:**
 ```cpp
 #include <iostream>
@@ -1194,19 +987,6 @@ int main() {
     
     return 0;
 }
-```
-
-**Expected Output:**
-```
-=== Load Balance ===
-
-Current balance: PHP 50.00
-
-Add load? (y/n): y
-Enter amount: 100
-
-Transaction successful!
-New balance: PHP 150.00
 ```
 
 **Solution:**
@@ -1487,11 +1267,11 @@ After completing these activities:
 ## Next Steps
 
 Excellent work! You now know how to:
-- ✅ Get user input with `cin` and `getline()`
-- ✅ Format output with manipulators
-- ✅ Handle different data types
-- ✅ Create interactive programs
-- ✅ Use proper input/output techniques
+- Get user input with `cin` and `getline()`
+- Format output with manipulators
+- Handle different data types
+- Create interactive programs
+- Use proper input/output techniques
 
 **Ready for Lesson 5?**  
 Next, you'll learn about **control flow** - making decisions with if/else statements and switch cases to create more intelligent programs!

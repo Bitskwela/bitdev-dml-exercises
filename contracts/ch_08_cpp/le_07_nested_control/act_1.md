@@ -1,4 +1,4 @@
-# Lesson 7 Activities: Nested Control Structures
+﻿# Lesson 7 Activities: Nested Control Structures
 
 ## Multi-Layer Verification System
 
@@ -44,16 +44,28 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== MULTIPLICATION TABLE ===
+# Tasks for Learners
 
-1	2	3	4	5	6	7	8	9	10	
-2	4	6	8	10	12	14	16	18	20	
-3	6	9	12	15	18	21	24	27	30	
-...
-10	20	30	40	50	60	70	80	90	100
-```
+- Generate multiplication table using nested loops: Use outer loop for rows and inner loop for columns.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      cout << "=== MULTIPLICATION TABLE ===" << endl;
+      cout << endl;
+      
+      for (int i = 1; i <= 10; i++) {  // Rows
+          for (int j = 1; j <= 10; j++) {  // Columns
+              cout << (i * j) << "\t";
+          }
+          cout << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -83,16 +95,30 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== WEEKLY ATTENDANCE GRID ===
-Day	R1	R2	R3	R4	R5
---------------------------------------
-1	P	P	P	P	P	
-2	P	P	P	P	P	
-...
-7	P	P	P	P	P
-```
+# Tasks for Learners
+
+- Create attendance grid with nested loops: Display 7 days × 5 residents grid.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      cout << "=== WEEKLY ATTENDANCE GRID ===" << endl;
+      cout << "Day\tR1\tR2\tR3\tR4\tR5" << endl;
+      cout << "--------------------------------------" << endl;
+      
+      for (int day = 1; day <= 7; day++) {
+          cout << day << "\t";
+          for (int resident = 1; resident <= 5; resident++) {
+              cout << "P\t";
+          }
+          cout << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -119,16 +145,27 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-* 
-* * 
-* * * 
-* * * * 
-* * * * * 
-* * * * * * 
-* * * * * * *
-```
+# Tasks for Learners
+
+- Generate star pattern triangle: Use nested loops where inner loop runs i times for row i.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int rows = 7;
+      
+      for (int i = 1; i <= rows; i++) {
+          for (int j = 1; j <= i; j++) {
+              cout << "* ";
+          }
+          cout << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -157,14 +194,32 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== GRADE CLASSIFICATION ===
-Student 1: 85 - PASSED
-Student 2: 92 - PASSED
-Student 3: 68 - FAILED
-...
-```
+# Tasks for Learners
+
+- Classify grades with condition inside loop: Loop through grades array and check pass/fail for each.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int grades[] = {85, 92, 68, 74, 95, 58, 88, 79, 91, 64};
+      
+      cout << "=== GRADE CLASSIFICATION ===" << endl;
+      
+      for (int i = 0; i < 10; i++) {
+          cout << "Student " << (i + 1) << ": " << grades[i] << " - ";
+          
+          if (grades[i] >= 75) {
+              cout << "PASSED ✓" << endl;
+          } else {
+              cout << "FAILED ✗" << endl;
+          }
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -195,130 +250,32 @@ int main() {
 }
 ```
 
-**Expected Output (if yes):**
-```
-Display resident list? (yes/no): yes
+# Tasks for Learners
 
-=== RESIDENT LIST ===
-Resident #1
-Resident #2
-...
-Resident #20
-```
+- Nest loop inside condition: Execute loop only if condition is true.
 
----
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
 
-<details>
-<summary><strong>📝 Answer Key</strong></summary>
+  int main() {
+      string response;
+      
+      cout << "Display resident list? (yes/no): ";
+      cin >> response;
+      
+      if (response == "yes") {
+          cout << "\n=== RESIDENT LIST ===" << endl;
+          for (int i = 1; i <= 20; i++) {
+              cout << "Resident #" << i << endl;
+          }
+      } else {
+          cout << "List display cancelled." << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
-### Task 1: Multiplication Table
-```cpp
-#include <iostream>
-using namespace std;
 
-int main() {
-    cout << "=== MULTIPLICATION TABLE ===" << endl;
-    cout << endl;
-    
-    for (int i = 1; i <= 10; i++) {  // Rows
-        for (int j = 1; j <= 10; j++) {  // Columns
-            cout << (i * j) << "\t";
-        }
-        cout << endl;
-    }
-    
-    return 0;
-}
-```
-
-### Task 2: Attendance Grid
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "=== WEEKLY ATTENDANCE GRID ===" << endl;
-    cout << "Day\tR1\tR2\tR3\tR4\tR5" << endl;
-    cout << "--------------------------------------" << endl;
-    
-    for (int day = 1; day <= 7; day++) {
-        cout << day << "\t";
-        for (int resident = 1; resident <= 5; resident++) {
-            cout << "P\t";
-        }
-        cout << endl;
-    }
-    
-    return 0;
-}
-```
-
-### Task 3: Star Pattern
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int rows = 7;
-    
-    for (int i = 1; i <= rows; i++) {
-        for (int j = 1; j <= i; j++) {
-            cout << "* ";
-        }
-        cout << endl;
-    }
-    
-    return 0;
-}
-```
-
-### Task 4: Condition Inside Loop
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int grades[] = {85, 92, 68, 74, 95, 58, 88, 79, 91, 64};
-    
-    cout << "=== GRADE CLASSIFICATION ===" << endl;
-    
-    for (int i = 0; i < 10; i++) {
-        cout << "Student " << (i + 1) << ": " << grades[i] << " - ";
-        
-        if (grades[i] >= 75) {
-            cout << "PASSED ✓" << endl;
-        } else {
-            cout << "FAILED ✗" << endl;
-        }
-    }
-    
-    return 0;
-}
-```
-
-### Task 5: Loop Inside Condition
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string response;
-    
-    cout << "Display resident list? (yes/no): ";
-    cin >> response;
-    
-    if (response == "yes") {
-        cout << "\n=== RESIDENT LIST ===" << endl;
-        for (int i = 1; i <= 20; i++) {
-            cout << "Resident #" << i << endl;
-        }
-    } else {
-        cout << "List display cancelled." << endl;
-    }
-    
-    return 0;
-}
-```
-
-</details>

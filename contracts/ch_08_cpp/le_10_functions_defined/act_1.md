@@ -1,4 +1,4 @@
-# Lesson 10 Activities: Functions Defined
+﻿# Lesson 10 Activities: Functions Defined
 
 ## From Spaghetti Code to Clean Architecture
 
@@ -32,6 +32,24 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Create a simple welcome function: Define `displayWelcome()` that prints a greeting message.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  void displayWelcome() {
+      cout << "Welcome to Barangay Portal!" << endl;
+  }
+
+  int main() {
+      displayWelcome();
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 2: Function with Parameter
@@ -58,6 +76,26 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create personalized greeting function: Define `greetResident(string name)` that takes a name parameter.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  void greetResident(string name) {
+      cout << "Welcome, " << name << "!" << endl;
+  }
+
+  int main() {
+      greetResident("Juan");
+      greetResident("Maria");
+      return 0;
+  }
+  ```
 
 ---
 
@@ -87,6 +125,27 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Calculate fees with return value: Create `calculateFee(int age)` that returns different fees based on age.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int calculateFee(int age) {
+      if (age < 18) return 50;
+      else if (age >= 60) return 30;
+      else return 100;
+  }
+
+  int main() {
+      int fee = calculateFee(25);
+      cout << "Fee: PHP " << fee << endl;
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 4: Multiple Parameters
@@ -112,6 +171,25 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Calculate total with multiple parameters: Create `calculateTotal(double price, int quantity)` that multiplies price by quantity.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  double calculateTotal(double price, int quantity) {
+      return price * quantity;
+  }
+
+  int main() {
+      double total = calculateTotal(50.0, 3);
+      cout << "Total: PHP " << total << endl;
+      return 0;
+  }
+  ```
 
 ---
 
@@ -146,18 +224,31 @@ int main() {
 }
 ```
 
----
+# Tasks for Learners
 
-<details>
-<summary><strong>📝 Complete Solutions Provided Above</strong></summary>
+- Apply percentage discount: Create `applyDiscount(double amount, double percent)` that calculates discounted amount.
 
-All solutions are already in the starter code sections. Practice modifying them:
-- Add more parameters
-- Change return types
-- Create new functions
-- Refactor your ATM project using functions!
+  ```cpp
+  #include <iostream>
+  using namespace std;
 
-</details>
+  double applyDiscount(double amount, double percent) {
+      double discount = amount * (percent / 100.0);
+      return amount - discount;
+  }
+
+  int main() {
+      double original = 200.0;
+      double senior = applyDiscount(original, 20.0);
+      double pwd = applyDiscount(original, 25.0);
+      
+      cout << "Regular: PHP " << original << endl;
+      cout << "Senior: PHP " << senior << endl;
+      cout << "PWD: PHP " << pwd << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 

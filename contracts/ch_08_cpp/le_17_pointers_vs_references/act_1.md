@@ -1,4 +1,4 @@
-# Lesson 17 Activities: Pointers vs References
+﻿# Lesson 17 Activities: Pointers vs References
 
 ## The Cleaner Alternative
 
@@ -51,6 +51,34 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Create an alias for a variable using a reference and demonstrate that modifying the reference modifies the original variable.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int balance = 1000;
+      
+      // Reference: another name for balance
+      int& balanceRef = balance;
+      
+      cout << "balance: " << balance << endl;
+      cout << "balanceRef: " << balanceRef << endl;
+      
+      // Modifying reference modifies original
+      balanceRef = 1500;
+      
+      cout << "After change:" << endl;
+      cout << "balance: " << balance << endl;
+      cout << "balanceRef: " << balanceRef << endl;
+      
+      return 0;
+  }
+  ```
+
 **Expected:** Both show 1500 (they're the same variable!)
 
 ---
@@ -87,6 +115,38 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Compare pointer and reference syntax by implementing functions that add ten to a value using both approaches.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  // Using pointer
+  void addTenPtr(int* ptr) {
+      *ptr += 10;  // Need to dereference
+  }
+
+  // Using reference
+  void addTenRef(int& ref) {
+      ref += 10;   // Direct access, no * needed
+  }
+
+  int main() {
+      int value1 = 100;
+      int value2 = 100;
+      
+      addTenPtr(&value1);  // Pass address
+      addTenRef(value2);   // Pass variable directly
+      
+      cout << "value1 (pointer): " << value1 << endl;
+      cout << "value2 (reference): " << value2 << endl;
+      
+      return 0;
+  }
+  ```
 
 **Expected:** Both become 110. **References are cleaner!**
 
@@ -133,6 +193,46 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Demonstrate when to use references versus pointers by implementing functions for different use cases: simple pass-by-reference, optional parameters, and pointer reassignment.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  // Use reference: simple pass-by-reference
+  void updateBalance(double& balance, double amount) {
+      balance += amount;
+  }
+
+  // Use pointer: might be null (optional parameter)
+  void displayName(string* name) {
+      if (name != nullptr) {
+          cout << "Name: " << *name << endl;
+      } else {
+          cout << "No name provided" << endl;
+      }
+  }
+
+  // Use pointer: need to reassign
+  void reassignValue(int* ptr, int newValue) {
+      ptr = &newValue;  // Can change what pointer points to
+  }
+
+  int main() {
+      double myBalance = 1000.0;
+      updateBalance(myBalance, 500.0);
+      cout << "Balance: " << myBalance << endl;
+      
+      string myName = "Juan";
+      displayName(&myName);  // Pass address
+      displayName(nullptr);   // Pass null (optional)
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 4: Const References for Efficiency
@@ -164,6 +264,33 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Pass strings efficiently to a display function using const references to avoid copying while preventing modification.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  // Const reference: read-only, no copy
+  void displayResident(const string& name, const string& address) {
+      cout << "Resident: " << name << endl;
+      cout << "Address: " << address << endl;
+      
+      // name = "Changed";  // ERROR: can't modify const reference
+  }
+
+  int main() {
+      string residentName = "Maria Santos";
+      string residentAddress = "123 Main St, Iloilo City";
+      
+      displayResident(residentName, residentAddress);
+      
+      return 0;
+  }
+  ```
 
 **Why?** Passing by value copies the string (expensive!). Const reference avoids the copy but prevents modification.
 
@@ -211,6 +338,47 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Implement swap functions using both pointers and references to compare the syntax and demonstrate that both approaches work.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  // Using pointers
+  void swapPtr(int* a, int* b) {
+      int temp = *a;
+      *a = *b;
+      *b = temp;
+  }
+
+  // Using references
+  void swapRef(int& a, int& b) {
+      int temp = a;
+      a = b;
+      b = temp;
+  }
+
+  int main() {
+      int x1 = 10, y1 = 20;
+      int x2 = 10, y2 = 20;
+      
+      cout << "Before swap:" << endl;
+      cout << "x1=" << x1 << " y1=" << y1 << endl;
+      cout << "x2=" << x2 << " y2=" << y2 << endl;
+      
+      swapPtr(&x1, &y1);  // Pass addresses
+      swapRef(x2, y2);    // Pass variables
+      
+      cout << "\nAfter swap:" << endl;
+      cout << "x1=" << x1 << " y1=" << y1 << endl;
+      cout << "x2=" << x2 << " y2=" << y2 << endl;
+      
+      return 0;
+  }
+  ```
+
 **Expected:** Both methods swap successfully. **References are cleaner!**
 
 ---
@@ -246,6 +414,37 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Understand reference limitations by demonstrating that references must be initialized immediately and cannot be reassigned, while pointers can be reassigned to point to different variables.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int value1 = 100;
+      int value2 = 200;
+      
+      // Reference must be initialized
+      // int& ref;  // ERROR: must initialize immediately
+      int& ref = value1;
+      
+      // Reference can't be reassigned
+      ref = value2;  // This changes value1 to 200, doesn't rebind ref!
+      cout << "value1: " << value1 << endl;  // 200
+      cout << "value2: " << value2 << endl;  // 200
+      
+      // Pointer CAN be reassigned
+      int* ptr = &value1;
+      cout << "Pointer to value1: " << *ptr << endl;
+      ptr = &value2;  // Now points to value2
+      cout << "Pointer to value2: " << *ptr << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -298,6 +497,55 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Apply the decision guide by implementing functions that demonstrate the appropriate use of references and pointers for different scenarios: modifying originals, reading large objects efficiently, handling optional parameters, and changing pointer targets.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  // ✅ Use reference: modify original
+  void updateScore(int& score, int points) {
+      score += points;
+  }
+
+  // ✅ Use const reference: read large object efficiently
+  void printReport(const string& longReport) {
+      cout << longReport << endl;
+  }
+
+  // ✅ Use pointer: optional parameter (can be null)
+  void displayOptionalAddress(string* address) {
+      if (address != nullptr) {
+          cout << "Address: " << *address << endl;
+      } else {
+          cout << "No address provided" << endl;
+      }
+  }
+
+  // ✅ Use pointer: need to change what you point to
+  void switchTarget(int* ptr, int& target1, int& target2, bool useFirst) {
+      ptr = useFirst ? &target1 : &target2;
+  }
+
+  int main() {
+      int score = 80;
+      updateScore(score, 15);
+      cout << "Score: " << score << endl;
+      
+      string report = "This is a very long report...";
+      printReport(report);
+      
+      string addr = "123 Main St";
+      displayOptionalAddress(&addr);
+      displayOptionalAddress(nullptr);
+      
+      return 0;
+  }
+  ```
 
 ---
 

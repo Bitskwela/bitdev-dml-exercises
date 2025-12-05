@@ -1,4 +1,4 @@
-# Lesson 19 Activities: Structs
+﻿# Lesson 19 Activities: Structs
 
 ## No More Parallel Arrays!
 
@@ -47,7 +47,34 @@ int main() {
 }
 ```
 
-**Task:** Create a `Student` struct with name, grade, and section.
+# Tasks for Learners
+
+- Create a `Student` struct with name, grade, and section. Declare a student, initialize the members, and display the information.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Student {
+      string name;
+      int grade;
+      string section;
+  };
+
+  int main() {
+      Student s1;
+      s1.name = "Maria Clara";
+      s1.grade = 95;
+      s1.section = "A";
+      
+      cout << "Name: " << s1.name << endl;
+      cout << "Grade: " << s1.grade << endl;
+      cout << "Section: " << s1.section << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -88,6 +115,42 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Practice all three initialization methods by creating a `Book` struct with title, author, and price. Initialize three books using different methods and display them.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Book {
+      string title;
+      string author;
+      double price;
+  };
+
+  int main() {
+      // Method 1: Declare then assign
+      Book b1;
+      b1.title = "Noli Me Tangere";
+      b1.author = "Jose Rizal";
+      b1.price = 250.0;
+      
+      // Method 2: Aggregate initialization
+      Book b2 = {"El Filibusterismo", "Jose Rizal", 300.0};
+      
+      // Method 3: Uniform initialization
+      Book b3{"Florante at Laura", "Francisco Balagtas", 200.0};
+      
+      cout << "Book 1: " << b1.title << " by " << b1.author << " - P" << b1.price << endl;
+      cout << "Book 2: " << b2.title << " by " << b2.author << " - P" << b2.price << endl;
+      cout << "Book 3: " << b3.title << " by " << b3.author << " - P" << b3.price << endl;
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 3: Array of Structs
@@ -127,6 +190,40 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create an array of 4 `Employee` structs with name, position, and salary. Display all employees in a formatted list.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Employee {
+      string name;
+      string position;
+      double salary;
+  };
+
+  int main() {
+      Employee employees[4] = {
+          {"Juan Dela Cruz", "Manager", 50000.0},
+          {"Maria Santos", "Developer", 40000.0},
+          {"Pedro Garcia", "Designer", 35000.0},
+          {"Ana Reyes", "Analyst", 38000.0}
+      };
+      
+      cout << "=== EMPLOYEE LIST ===" << endl;
+      for (int i = 0; i < 4; i++) {
+          cout << (i+1) << ". " << employees[i].name 
+               << " - " << employees[i].position
+               << " (P" << employees[i].salary << ")" << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 **Compare:** 1 array of structs vs 3 parallel arrays. Which is cleaner?
 
@@ -174,6 +271,46 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create a `Student` struct with name, grade, and course. Write functions to display student info and check if they passed (grade >= 75). Test with two students.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Student {
+      string name;
+      int grade;
+      string course;
+  };
+
+  void displayStudent(Student s) {
+      cout << "Name: " << s.name << endl;
+      cout << "Grade: " << s.grade << endl;
+      cout << "Course: " << s.course << endl;
+  }
+
+  bool hasPassed(Student s) {
+      return s.grade >= 75;
+  }
+
+  int main() {
+      Student s1 = {"Maria Clara", 85, "Computer Science"};
+      Student s2 = {"Jose Rizal", 72, "Mathematics"};
+      
+      displayStudent(s1);
+      cout << "Passed: " << (hasPassed(s1) ? "Yes" : "No") << endl;
+      cout << endl;
+      
+      displayStudent(s2);
+      cout << "Passed: " << (hasPassed(s2) ? "Yes" : "No") << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -226,6 +363,57 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create a `Product` struct with name, stock, and price. Write functions to add stock and sell product (decrease stock). Test by adding 50 units and selling 20 units.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Product {
+      string name;
+      int stock;
+      double price;
+  };
+
+  void addStock(Product& product, int quantity) {
+      product.stock += quantity;
+      cout << "Added " << quantity << " units to stock" << endl;
+  }
+
+  void sellProduct(Product& product, int quantity) {
+      if (product.stock >= quantity) {
+          product.stock -= quantity;
+          cout << "Sold " << quantity << " units" << endl;
+      } else {
+          cout << "Insufficient stock!" << endl;
+      }
+  }
+
+  void displayProduct(const Product& product) {
+      cout << "Product: " << product.name << endl;
+      cout << "Stock: " << product.stock << endl;
+      cout << "Price: P" << product.price << endl;
+  }
+
+  int main() {
+      Product p = {"Rice", 100, 50.0};
+      
+      displayProduct(p);
+      cout << endl;
+      
+      addStock(p, 50);
+      sellProduct(p, 20);
+      cout << endl;
+      
+      displayProduct(p);
+      
+      return 0;
+  }
+  ```
 
 **Expected:** Balance: 5000 → 7000 → 5500
 
@@ -285,6 +473,57 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create an array of 4 `Student` structs with name, id, and grade. Write a search function to find a student by ID and display their information.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Student {
+      string name;
+      int id;
+      int grade;
+  };
+
+  int findStudent(Student students[], int size, int searchId) {
+      for (int i = 0; i < size; i++) {
+          if (students[i].id == searchId) {
+              return i;
+          }
+      }
+      return -1;
+  }
+
+  int main() {
+      Student students[4] = {
+          {"Juan Dela Cruz", 101, 85},
+          {"Maria Santos", 102, 92},
+          {"Pedro Garcia", 103, 78},
+          {"Ana Reyes", 104, 88}
+      };
+      
+      int searchId;
+      cout << "Enter student ID to search: ";
+      cin >> searchId;
+      
+      int index = findStudent(students, 4, searchId);
+      
+      if (index != -1) {
+          cout << "Found!" << endl;
+          cout << "Name: " << students[index].name << endl;
+          cout << "ID: " << students[index].id << endl;
+          cout << "Grade: " << students[index].grade << endl;
+      } else {
+          cout << "Student not found." << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -372,6 +611,91 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Build a complete Barangay Management System that registers residents with name, age, address, and contact number. Display all residents and count senior citizens.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  struct Resident {
+      string name;
+      int age;
+      string address;
+      string contactNumber;
+  };
+
+  void displayResident(const Resident& r, int number) {
+      cout << "\nResident #" << number << endl;
+      cout << "Name: " << r.name << endl;
+      cout << "Age: " << r.age << endl;
+      cout << "Address: " << r.address << endl;
+      cout << "Contact: " << r.contactNumber << endl;
+  }
+
+  void displayAllResidents(Resident residents[], int count) {
+      cout << "\n=== ALL RESIDENTS ===" << endl;
+      for (int i = 0; i < count; i++) {
+          displayResident(residents[i], i + 1);
+      }
+      cout << "Total: " << count << " residents" << endl;
+  }
+
+  int countSeniors(Resident residents[], int count) {
+      int seniors = 0;
+      for (int i = 0; i < count; i++) {
+          if (residents[i].age >= 60) seniors++;
+      }
+      return seniors;
+  }
+
+  int main() {
+      const int MAX_RESIDENTS = 100;
+      Resident residents[MAX_RESIDENTS];
+      int count = 0;
+      
+      cout << "=== BARANGAY RESIDENT REGISTRATION ===" << endl;
+      
+      char addMore = 'y';
+      while (addMore == 'y' && count < MAX_RESIDENTS) {
+          cout << "\n--- Resident " << (count + 1) << " ---" << endl;
+          
+          if (count == 0) {
+              cin.ignore();
+          }
+          
+          cout << "Name: ";
+          getline(cin, residents[count].name);
+          
+          cout << "Age: ";
+          cin >> residents[count].age;
+          
+          cin.ignore();
+          cout << "Address: ";
+          getline(cin, residents[count].address);
+          
+          cout << "Contact Number: ";
+          getline(cin, residents[count].contactNumber);
+          
+          count++;
+          
+          if (count < MAX_RESIDENTS) {
+              cout << "Add another resident? (y/n): ";
+              cin >> addMore;
+          }
+      }
+      
+      displayAllResidents(residents, count);
+      
+      int seniors = countSeniors(residents, count);
+      cout << "\nSenior citizens: " << seniors << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 

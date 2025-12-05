@@ -1,4 +1,4 @@
-# Lesson 9 Activities: Mini Project - ATM System
+﻿# Lesson 9 Activities: Mini Project - ATM System
 
 ## Your First Real Project
 
@@ -52,6 +52,132 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Build complete ATM system: Implement PIN authentication, balance check, deposit, withdraw, and transaction history.
+
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  #include <string>
+  using namespace std;
+
+  int main() {
+      int correctPIN = 1234;
+      double balance = 5000.00;
+      string transactions[5];
+      int transactionCount = 0;
+      
+      cout << "======================================" << endl;
+      cout << "   BARANGAY COOPERATIVE BANK ATM" << endl;
+      cout << "======================================" << endl;
+      
+      // PIN Authentication
+      int enteredPIN, attempts = 0;
+      bool authenticated = false;
+      
+      while (attempts < 3 && !authenticated) {
+          cout << "\\nEnter PIN: ";
+          cin >> enteredPIN;
+          
+          if (enteredPIN == correctPIN) {
+              authenticated = true;
+              cout << "✓ Authentication successful!" << endl;
+          } else {
+              attempts++;
+              if (attempts < 3) {
+                  cout << "✗ Incorrect. Attempts left: " << (3 - attempts) << endl;
+              } else {
+                  cout << "✗ Card blocked!" << endl;
+                  return 0;
+              }
+          }
+      }
+      
+      // Main Menu
+      int choice;
+      
+      do {
+          cout << "\\n======================================" << endl;
+          cout << "           MAIN MENU" << endl;
+          cout << "======================================" << endl;
+          cout << "1. Check Balance" << endl;
+          cout << "2. Deposit" << endl;
+          cout << "3. Withdraw" << endl;
+          cout << "4. Transaction History" << endl;
+          cout << "5. Exit" << endl;
+          cout << "======================================" << endl;
+          cout << "Choice: ";
+          cin >> choice;
+          
+          if (choice == 1) {
+              cout << "\\n--- Balance ---" << endl;
+              cout << "PHP " << fixed << setprecision(2) << balance << endl;
+              
+              if (transactionCount < 5) {
+                  transactions[transactionCount++] = "Balance Inquiry";
+              }
+          }
+          else if (choice == 2) {
+              double amount;
+              cout << "\\n--- Deposit ---" << endl;
+              cout << "Amount: PHP ";
+              cin >> amount;
+              
+              if (amount > 0 && amount <= 50000) {
+                  balance += amount;
+                  cout << "✓ Deposit successful!" << endl;
+                  cout << "New balance: PHP " << balance << endl;
+                  
+                  if (transactionCount < 5) {
+                      transactions[transactionCount++] = "Deposit: PHP " + to_string(amount);
+                  }
+              } else {
+                  cout << "✗ Invalid amount!" << endl;
+              }
+          }
+          else if (choice == 3) {
+              double amount;
+              cout << "\\n--- Withdraw ---" << endl;
+              cout << "Balance: PHP " << balance << endl;
+              cout << "Amount: PHP ";
+              cin >> amount;
+              
+              if (amount > 0 && amount <= balance && amount <= 20000) {
+                  balance -= amount;
+                  cout << "✓ Withdrawal successful!" << endl;
+                  cout << "New balance: PHP " << balance << endl;
+                  
+                  if (transactionCount < 5) {
+                      transactions[transactionCount++] = "Withdraw: PHP " + to_string(amount);
+                  }
+              } else {
+                  cout << "✗ Transaction failed!" << endl;
+              }
+          }
+          else if (choice == 4) {
+              cout << "\\n--- Transaction History ---" << endl;
+              if (transactionCount == 0) {
+                  cout << "No transactions yet." << endl;
+              } else {
+                  for (int i = 0; i < transactionCount; i++) {
+                      cout << (i + 1) << ". " << transactions[i] << endl;
+                  }
+              }
+          }
+          else if (choice == 5) {
+              cout << "\\nThank you for banking with us!" << endl;
+          }
+          else {
+              cout << "\\n✗ Invalid choice!" << endl;
+          }
+          
+      } while (choice != 5);
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Enhancement Challenges
@@ -70,135 +196,6 @@ Let users change their PIN after verifying old one.
 
 ### Challenge 5: Multiple Accounts
 Support 3+ accounts with array-based storage.
-
----
-
-<details>
-<summary><strong>📝 Complete Solution</strong></summary>
-
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-using namespace std;
-
-int main() {
-    int correctPIN = 1234;
-    double balance = 5000.00;
-    string transactions[5];
-    int transactionCount = 0;
-    
-    cout << "======================================" << endl;
-    cout << "   BARANGAY COOPERATIVE BANK ATM" << endl;
-    cout << "======================================" << endl;
-    
-    // PIN Authentication
-    int enteredPIN, attempts = 0;
-    bool authenticated = false;
-    
-    while (attempts < 3 && !authenticated) {
-        cout << "\nEnter PIN: ";
-        cin >> enteredPIN;
-        
-        if (enteredPIN == correctPIN) {
-            authenticated = true;
-            cout << "✓ Authentication successful!" << endl;
-        } else {
-            attempts++;
-            if (attempts < 3) {
-                cout << "✗ Incorrect. Attempts left: " << (3 - attempts) << endl;
-            } else {
-                cout << "✗ Card blocked!" << endl;
-                return 0;
-            }
-        }
-    }
-    
-    // Main Menu
-    int choice;
-    
-    do {
-        cout << "\n======================================" << endl;
-        cout << "           MAIN MENU" << endl;
-        cout << "======================================" << endl;
-        cout << "1. Check Balance" << endl;
-        cout << "2. Deposit" << endl;
-        cout << "3. Withdraw" << endl;
-        cout << "4. Transaction History" << endl;
-        cout << "5. Exit" << endl;
-        cout << "======================================" << endl;
-        cout << "Choice: ";
-        cin >> choice;
-        
-        if (choice == 1) {
-            cout << "\n--- Balance ---" << endl;
-            cout << "PHP " << fixed << setprecision(2) << balance << endl;
-            
-            if (transactionCount < 5) {
-                transactions[transactionCount++] = "Balance Inquiry";
-            }
-        }
-        else if (choice == 2) {
-            double amount;
-            cout << "\n--- Deposit ---" << endl;
-            cout << "Amount: PHP ";
-            cin >> amount;
-            
-            if (amount > 0 && amount <= 50000) {
-                balance += amount;
-                cout << "✓ Deposit successful!" << endl;
-                cout << "New balance: PHP " << balance << endl;
-                
-                if (transactionCount < 5) {
-                    transactions[transactionCount++] = "Deposit: PHP " + to_string(amount);
-                }
-            } else {
-                cout << "✗ Invalid amount!" << endl;
-            }
-        }
-        else if (choice == 3) {
-            double amount;
-            cout << "\n--- Withdraw ---" << endl;
-            cout << "Balance: PHP " << balance << endl;
-            cout << "Amount: PHP ";
-            cin >> amount;
-            
-            if (amount > 0 && amount <= balance && amount <= 20000) {
-                balance -= amount;
-                cout << "✓ Withdrawal successful!" << endl;
-                cout << "New balance: PHP " << balance << endl;
-                
-                if (transactionCount < 5) {
-                    transactions[transactionCount++] = "Withdraw: PHP " + to_string(amount);
-                }
-            } else {
-                cout << "✗ Transaction failed!" << endl;
-            }
-        }
-        else if (choice == 4) {
-            cout << "\n--- Transaction History ---" << endl;
-            if (transactionCount == 0) {
-                cout << "No transactions yet." << endl;
-            } else {
-                for (int i = 0; i < transactionCount; i++) {
-                    cout << (i + 1) << ". " << transactions[i] << endl;
-                }
-            }
-        }
-        else if (choice == 5) {
-            cout << "\nThank you for banking with us!" << endl;
-        }
-        else {
-            cout << "\n✗ Invalid choice!" << endl;
-        }
-        
-    } while (choice != 5);
-    
-    return 0;
-}
-```
-
-</details>
 
 ---
 

@@ -1,4 +1,4 @@
-# Lesson 1 Activities: The Language of Machines
+﻿# Lesson 1 Activities: The Language of Machines
 
 ## Your First Step into C++ Programming
 
@@ -30,7 +30,7 @@ Write a C++ program that greets the Philippines with the message "Mabuhay, Pilip
 - Proper semicolon usage
 - Return statements
 
-**Starter Code:**
+**Boilerplate Code:**
 ```cpp
 #include <iostream>
 using namespace std;
@@ -42,25 +42,37 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-Mabuhay, Pilipinas!
-```
+# Tasks for Learners
 
----
+- Display "Mabuhay, Pilipinas!" message: Use `cout` to print the greeting to the console.
 
-## Answer Key
+  ```cpp
+  #include <iostream>
+  using namespace std;
 
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
+  int main() {
+      cout << "Mabuhay, Pilipinas!" << endl;
+      return 0;
+  }
+  ```
 
-int main() {
-    cout << "Mabuhay, Pilipinas!" << endl;
-    return 0;
-}
-```
+### Breakdown for Learners
+
+**Understanding the Components:**
+- `#include <iostream>` - Provides input/output functionality (like importing a library)
+- `using namespace std;` - Allows us to use `cout` without writing `std::cout` every time
+- `int main()` - Entry point where program execution begins
+- `cout << "text" << endl;` - Prints text to console, `endl` adds a new line
+- `return 0;` - Signals successful program completion to the operating system
+
+**Key Points:**
+- Every C++ program must have a `main()` function
+- Semicolons (`;`) are required at the end of statements
+- `cout` is used for console output (think of it as console.log in JavaScript)
+- C++ is case-sensitive: `Main` ≠ `main`, `Cout` ≠ `cout`
+
+**Why It Matters:**
+This is your foundation! Every C++ application—from Dota 2 to Windows itself—follows this basic structure. Understanding these components prepares you for building complex systems. The discipline C++ teaches makes you a better programmer in ANY language.
 
 ---
 
@@ -71,14 +83,7 @@ int main() {
 **Task:**  
 Write a program that prints your name, age, and school on separate lines.
 
-**Expected Output:**
-```
-Name: Tian
-Age: 16
-School: Batangas National High School
-```
-
-**Starter Code:**
+**Boilerplate Code:**
 ```cpp
 #include <iostream>
 using namespace std;
@@ -92,18 +97,38 @@ int main() {
 }
 ```
 
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
+# Tasks for Learners
 
-int main() {
-    cout << "Name: Tian" << endl;
-    cout << "Age: 16" << endl;
-    cout << "School: Batangas National High School" << endl;
-    return 0;
-}
-```
+- Print personal information on separate lines: Use multiple `cout` statements to display name, age, and school.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      cout << "Name: Tian" << endl;
+      cout << "Age: 16" << endl;
+      cout << "School: Batangas National High School" << endl;
+      return 0;
+  }
+  ```
+
+### Breakdown for Learners
+
+**Understanding Multiple Output Statements:**
+- Each `cout` statement prints one line of text
+- `endl` creates a new line after each output (like pressing Enter)
+- You can chain multiple `cout` statements to build formatted displays
+- Order matters: statements execute from top to bottom
+
+**Key Points:**
+- Use `endl` or `\n` to move to a new line
+- Multiple `cout` statements = multiple lines of output
+- Good formatting makes output readable and professional
+- This technique is essential for creating menus, reports, and user interfaces
+
+**Why It Matters:**
+Real-world applications display information clearly: ATM screens show balance and transactions on separate lines, game UIs display health/score/inventory, and database reports present organized data. Mastering `cout` with `endl` is your first step to creating professional user interfaces.
 
 ---
 
@@ -114,17 +139,7 @@ int main() {
 **Task:**  
 Print a simple house using ASCII characters (asterisks and vertical bars).
 
-**Expected Output:**
-```
-   *
-  ***
- *****
-*******
-  | |
-  | |
-```
-
-**Starter Code:**
+**Boilerplate Code:**
 ```cpp
 #include <iostream>
 using namespace std;
@@ -138,21 +153,42 @@ int main() {
 }
 ```
 
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
+# Tasks for Learners
 
-int main() {
-    cout << "   *" << endl;
-    cout << "  ***" << endl;
-    cout << " *****" << endl;
-    cout << "*******" << endl;
-    cout << "  | |" << endl;
-    cout << "  | |" << endl;
-    return 0;
-}
-```
+- Create ASCII art house: Use multiple `cout` statements to draw a house with a roof and walls.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      cout << "   *" << endl;
+      cout << "  ***" << endl;
+      cout << " *****" << endl;
+      cout << "*******" << endl;
+      cout << "  | |" << endl;
+      cout << "  | |" << endl;
+      return 0;
+  }
+  ```
+
+### Breakdown for Learners
+
+**Understanding ASCII Art:**
+- Spaces control horizontal positioning (indentation)
+- Asterisks (`*`) create the visible shapes
+- Each `cout` prints one line of the drawing
+- Proper spacing creates the illusion of a 2D image
+
+**Key Points:**
+- Count spaces carefully to align elements properly
+- ASCII art = using keyboard characters to draw pictures
+- The roof uses increasing asterisks: 1, 3, 5, 7 (odd numbers create symmetry)
+- The walls use consistent `| |` with spacing to align under the roof
+- This technique was used in early computer games and terminal UIs
+
+**Why It Matters:**
+ASCII art teaches precision and visual thinking. Filipino developers use similar concepts in terminal UIs, game development (sprites before graphics), and even modern loading animations. Understanding how characters create visual patterns prepares you for graphics programming and UI design.
 
 ---
 
@@ -162,17 +198,6 @@ int main() {
 
 **Task:**  
 Create a simplified ASCII representation of the Philippine flag.
-
-**Expected Output:**
-```
-********************
-********************
-    ***   *** 
-     * * * *
-      *****
-********************
-********************
-```
 
 **Hint:**  
 - Use asterisks (*) for the colored parts
@@ -287,13 +312,12 @@ After completing these activities, reflect deeply on what you've learned:
 
 Through these activities, you've practiced:
 
-✅ **Program Structure**: Understanding the essential components every C++ program needs  
-✅ **Console Output**: Using `cout` to display text and formatted information  
-✅ **Syntax Rules**: Following C++'s strict requirements for semicolons, case sensitivity  
-✅ **Code Organization**: Writing clean, readable code with proper indentation  
-✅ **Debugging**: Identifying and fixing common syntax errors  
-✅ **Comments**: Documenting code to explain logic and decisions
-
+**Program Structure**: Understanding the essential components every C++ program needs  
+**Console Output**: Using `cout` to display text and formatted information  
+**Syntax Rules**: Following C++'s strict requirements for semicolons, case sensitivity  
+**Code Organization**: Writing clean, readable code with proper indentation  
+**Debugging**: Identifying and fixing common syntax errors  
+**Comments**: Documenting code to explain logic and decisions
 **Connection to Real World:**
 - Every C++ application—from Dota 2 to Windows—starts with these basics
 - Understanding program structure prepares you for building complex systems
@@ -312,4 +336,9 @@ Through these activities, you've practiced:
 **Ready for Lesson 2?**  
 Next, you'll learn about **variables and data types**—how C++ stores and manages different kinds of information. You'll discover why C++ makes you declare types explicitly and how this strictness prevents bugs and improves performance.
 
-From hardcoded values to dynamic data storage—let's level up! 🚀
+From hardcoded values to dynamic data storage—let's level up!t Steps
+
+**Ready for Lesson 2?**  
+Next, you'll learn about **variables and data types**—how C++ stores and manages different kinds of information. You'll discover why C++ makes you declare types explicitly and how this strictness prevents bugs and improves performance.
+
+From hardcoded values to dynamic data storage—let's level up!

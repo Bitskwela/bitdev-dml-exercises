@@ -1,4 +1,4 @@
-# Lesson 11 Activities: Parameters and Return Values
+﻿# Lesson 11 Activities: Parameters and Return Values
 
 ## The Photocopy vs The Key
 
@@ -31,7 +31,27 @@ int main() {
 }
 ```
 
-**Expected:** Original stays 50 (copy was modified, not original)
+# Tasks for Learners
+
+- Demonstrate pass by value: Show that modifying a parameter doesn't affect the original variable.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  void tryChange(int num) {
+      num = 100;
+      cout << "Inside: " << num << endl;
+  }
+
+  int main() {
+      int original = 50;
+      cout << "Before: " << original << endl;
+      tryChange(original);
+      cout << "After: " << original << endl;
+      return 0;
+  }
+  ```
 
 ---
 
@@ -58,7 +78,25 @@ int main() {
 }
 ```
 
-**Expected:** Balance becomes 1500
+# Tasks for Learners
+
+- Use pass by reference to modify original: Create `updateBalance` that actually changes the balance parameter.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  void updateBalance(double& balance, double amount) {
+      balance += amount;
+  }
+
+  int main() {
+      double myBalance = 1000.0;
+      updateBalance(myBalance, 500.0);
+      cout << "New balance: " << myBalance << endl;
+      return 0;
+  }
+  ```
 
 ---
 
@@ -94,6 +132,35 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Return multiple values using reference parameters: Use output parameters to find both minimum and maximum.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  void getMinMax(int arr[], int size, int& min, int& max) {
+      min = max = arr[0];
+      for (int i = 1; i < size; i++) {
+          if (arr[i] < min) min = arr[i];
+          if (arr[i] > max) max = arr[i];
+      }
+  }
+
+  int main() {
+      int grades[] = {85, 92, 78, 95, 68};
+      int minimum, maximum;
+      
+      getMinMax(grades, 5, minimum, maximum);
+      
+      cout << "Lowest: " << minimum << endl;
+      cout << "Highest: " << maximum << endl;
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 4: Const References
@@ -123,6 +190,30 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Use const reference for read-only access: Pass large data efficiently without allowing modification.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  void displayResident(const string& name, const string& address) {
+      cout << "Resident: " << name << endl;
+      cout << "Address: " << address << endl;
+  }
+
+  int main() {
+      string residentName = "Juan Dela Cruz";
+      string residentAddress = "123 Main St, Iloilo";
+      
+      displayResident(residentName, residentAddress);
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -163,19 +254,39 @@ int main() {
 }
 ```
 
----
+# Tasks for Learners
 
-<details>
-<summary><strong>📝 Solutions Above</strong></summary>
+- Compare return values vs output parameters: Implement two versions of the same function using different approaches.
 
-All starter code contains complete working solutions. Key concepts:
-- **Pass by value:** `void func(int x)` - copies data
-- **Pass by reference:** `void func(int& x)` - modifies original
-- **Const reference:** `void func(const string& s)` - read-only efficiency
-- **Return values:** Simple for single output
-- **Output parameters:** Useful for multiple outputs
+  ```cpp
+  #include <iostream>
+  using namespace std;
 
-</details>
+  // Version 1: Return value
+  double calculateDiscount(double price, double percent) {
+      return price * (percent / 100.0);
+  }
+
+  // Version 2: Output parameter
+  void calculateDiscount(double price, double percent, double& discount) {
+      discount = price * (percent / 100.0);
+  }
+
+  int main() {
+      double price = 1000.0;
+      
+      // Method 1
+      double discount1 = calculateDiscount(price, 20.0);
+      cout << "Discount (return): " << discount1 << endl;
+      
+      // Method 2
+      double discount2;
+      calculateDiscount(price, 20.0, discount2);
+      cout << "Discount (output param): " << discount2 << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 

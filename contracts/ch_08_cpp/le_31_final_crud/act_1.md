@@ -1,4 +1,4 @@
-# Lesson 31 Activities: Final CRUD Project
+﻿# Lesson 31 Activities: Final CRUD Project
 
 ## The Final Test
 
@@ -310,6 +310,50 @@ static Resident fromFileFormat(const string& line) {
 }
 ```
 
+# Tasks for Learners
+
+- Implement the `fromFileFormat()` method to parse pipe-delimited file lines into Resident objects using `find()` and `substr()`.
+
+  ```cpp
+  static Resident fromFileFormat(const string& line) {
+      // Parse: ID|Name|Age|Contact|Address|Status
+      Resident r;
+      
+      size_t pos = 0;
+      size_t nextPos;
+      
+      // Extract ID
+      nextPos = line.find('|', pos);
+      r.setResidentID(stoi(line.substr(pos, nextPos - pos)));
+      pos = nextPos + 1;
+      
+      // Extract Name
+      nextPos = line.find('|', pos);
+      r.setName(line.substr(pos, nextPos - pos));
+      pos = nextPos + 1;
+      
+      // Extract Age
+      nextPos = line.find('|', pos);
+      r.setAge(stoi(line.substr(pos, nextPos - pos)));
+      pos = nextPos + 1;
+      
+      // Extract Contact
+      nextPos = line.find('|', pos);
+      r.setContact(line.substr(pos, nextPos - pos));
+      pos = nextPos + 1;
+      
+      // Extract Address
+      nextPos = line.find('|', pos);
+      r.setAddress(line.substr(pos, nextPos - pos));
+      pos = nextPos + 1;
+      
+      // Extract Status
+      r.setStatus(line.substr(pos));
+      
+      return r;
+  }
+  ```
+
 ---
 
 ## Task 2: Implement CREATE Operation
@@ -351,6 +395,37 @@ void addResident() {
 }
 ```
 
+# Tasks for Learners
+
+- Implement the CREATE operation by gathering user input, validating fields, creating a new Resident object, and adding it to the vector.
+
+  ```cpp
+  void addResident() {
+      cout << "\n=== Add New Resident ===" << endl;
+      
+      string name, contact, address;
+      int age;
+      
+      cout << "Name: ";
+      getline(cin, name);
+      
+      cout << "Age: ";
+      cin >> age;
+      cin.ignore();
+      
+      cout << "Contact: ";
+      getline(cin, contact);
+      
+      cout << "Address: ";
+      getline(cin, address);
+      
+      Resident r(getNextID(), name, age, contact, address);
+      residents.push_back(r);
+      
+      cout << "Resident added successfully with ID: " << r.getResidentID() << endl;
+  }
+  ```
+
 ---
 
 ## Task 3: Implement READ Operations
@@ -390,6 +465,60 @@ void searchByID() {
     }
 }
 ```
+
+# Tasks for Learners
+
+- Implement READ operations: `displayAll()` to show all residents, `searchByID()` to find by ID using `find_if()`, and `searchByName()` to search by name.
+
+  ```cpp
+  void displayAll() {
+      if (residents.empty()) {
+          cout << "No residents found." << endl;
+          return;
+      }
+      
+      cout << "\n=== All Residents ===" << endl;
+      for (const Resident& r : residents) {
+          r.display();
+          cout << "-------------------" << endl;
+      }
+  }
+
+  void searchByID() {
+      int id;
+      cout << "Enter Resident ID: ";
+      cin >> id;
+      
+      auto it = find_if(residents.begin(), residents.end(),
+                       [id](const Resident& r) { return r.getResidentID() == id; });
+      
+      if (it != residents.end()) {
+          it->display();
+      } else {
+          cout << "Resident not found." << endl;
+      }
+  }
+
+  void searchByName() {
+      string name;
+      cout << "Enter Name to search: ";
+      getline(cin, name);
+      
+      bool found = false;
+      cout << "\n=== Search Results ===" << endl;
+      for (const Resident& r : residents) {
+          if (r.getName().find(name) != string::npos) {
+              r.display();
+              cout << "-------------------" << endl;
+              found = true;
+          }
+      }
+      
+      if (!found) {
+          cout << "No residents found with name containing '" << name << "'" << endl;
+      }
+  }
+  ```
 
 ---
 
@@ -439,6 +568,62 @@ void updateResident() {
 }
 ```
 
+# Tasks for Learners
+
+- Implement the UPDATE operation by finding a resident by ID, displaying current data, prompting for new data (allowing blank to keep current), and updating the fields.
+
+  ```cpp
+  void updateResident() {
+      int id;
+      cout << "Enter Resident ID to update: ";
+      cin >> id;
+      cin.ignore();
+      
+      auto it = find_if(residents.begin(), residents.end(),
+                       [id](const Resident& r) { return r.getResidentID() == id; });
+      
+      if (it == residents.end()) {
+          cout << "Resident not found." << endl;
+          return;
+      }
+      
+      cout << "\n=== Current Data ===" << endl;
+      it->display();
+      
+      cout << "\n=== Enter New Data (press Enter to keep current) ===" << endl;
+      
+      string name;
+      cout << "Name (" << it->getName() << "): ";
+      getline(cin, name);
+      if (!name.empty()) {
+          it->setName(name);
+      }
+      
+      string ageStr;
+      cout << "Age (" << it->getAge() << "): ";
+      getline(cin, ageStr);
+      if (!ageStr.empty()) {
+          it->setAge(stoi(ageStr));
+      }
+      
+      string contact;
+      cout << "Contact (" << it->getContact() << "): ";
+      getline(cin, contact);
+      if (!contact.empty()) {
+          it->setContact(contact);
+      }
+      
+      string address;
+      cout << "Address (" << it->getAddress() << "): ";
+      getline(cin, address);
+      if (!address.empty()) {
+          it->setAddress(address);
+      }
+      
+      cout << "Resident updated successfully!" << endl;
+  }
+  ```
+
 ---
 
 ## Task 5: Implement DELETE Operation
@@ -464,6 +649,29 @@ void deleteResident() {
     cout << "Resident deactivated successfully!" << endl;
 }
 ```
+
+# Tasks for Learners
+
+- Implement the DELETE operation using soft delete by finding the resident and setting their status to "Inactive" instead of removing from the vector.
+
+  ```cpp
+  void deleteResident() {
+      int id;
+      cout << "Enter Resident ID to delete: ";
+      cin >> id;
+      
+      auto it = find_if(residents.begin(), residents.end(),
+                       [id](const Resident& r) { return r.getResidentID() == id; });
+      
+      if (it == residents.end()) {
+          cout << "Resident not found." << endl;
+          return;
+      }
+      
+      it->setStatus("Inactive");
+      cout << "Resident deactivated successfully!" << endl;
+  }
+  ```
 
 ---
 
@@ -505,6 +713,44 @@ void loadFromFile() {
     cout << "Loaded " << residents.size() << " residents." << endl;
 }
 ```
+
+# Tasks for Learners
+
+- Implement file loading to read resident data from a file at startup, parse each line, populate the vector, and calculate the next available ID.
+
+  ```cpp
+  void loadFromFile() {
+      ifstream file(filename);
+      if (!file.is_open()) {
+          cout << "No existing data file. Starting fresh." << endl;
+          return;
+      }
+      
+      string line;
+      int maxID = 1000;
+      
+      while (getline(file, line)) {
+          if (line.empty()) continue;
+          
+          try {
+              Resident r = Resident::fromFileFormat(line);
+              residents.push_back(r);
+              
+              if (r.getResidentID() > maxID) {
+                  maxID = r.getResidentID();
+              }
+          }
+          catch (exception& e) {
+              cout << "Error loading resident: " << e.what() << endl;
+          }
+      }
+      
+      nextID = maxID + 1;
+      file.close();
+      
+      cout << "Loaded " << residents.size() << " residents." << endl;
+  }
+  ```
 
 ---
 
@@ -558,6 +804,59 @@ void exportToCSV() {
     cout << "Exported to residents.csv" << endl;
 }
 ```
+
+# Tasks for Learners
+
+- Add optional advanced features including sort by name using lambda comparator, display statistics with `count_if()`, and export data to CSV format.
+
+  ```cpp
+  // 1. Sort residents by name
+  void sortByName() {
+      sort(residents.begin(), residents.end(),
+           [](const Resident& a, const Resident& b) {
+               return a.getName() < b.getName();
+           });
+      cout << "Residents sorted by name!" << endl;
+  }
+
+  // 2. Display statistics
+  void displayStatistics() {
+      int active = count_if(residents.begin(), residents.end(),
+                           [](const Resident& r) { return r.getStatus() == "Active"; });
+      
+      int seniors = count_if(residents.begin(), residents.end(),
+                            [](const Resident& r) { return r.getAge() >= 60; });
+      
+      cout << "\n=== Statistics ===" << endl;
+      cout << "Total residents: " << residents.size() << endl;
+      cout << "Active: " << active << endl;
+      cout << "Inactive: " << (residents.size() - active) << endl;
+      cout << "Senior citizens: " << seniors << endl;
+  }
+
+  // 3. Export to CSV
+  void exportToCSV() {
+      ofstream file("residents.csv");
+      if (!file.is_open()) {
+          cout << "Error creating CSV file." << endl;
+          return;
+      }
+      
+      file << "ID,Name,Age,Contact,Address,Status" << endl;
+      
+      for (const Resident& r : residents) {
+          file << r.getResidentID() << ","
+               << r.getName() << ","
+               << r.getAge() << ","
+               << r.getContact() << ","
+               << r.getAddress() << ","
+               << r.getStatus() << endl;
+      }
+      
+      file.close();
+      cout << "Exported to residents.csv" << endl;
+  }
+  ```
 
 ---
 

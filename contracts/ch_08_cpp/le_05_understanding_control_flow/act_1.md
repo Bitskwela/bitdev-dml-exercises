@@ -1,976 +1,773 @@
-# Lesson 5 Activities: Understanding Control Flow
-
-## The Jeepney Driver Who Looks at the Road
-
-Remember Tian's divide-by-zero crash? Her calculator crashed spectacularly when divisor was zero. Kuya Miguel gave her the perfect analogy: **"Right now, your program is like a jeepney driver who never looks at the road—keeps driving straight no matter what's ahead."**
-
-**This lesson changes that.** You're teaching your programs to **make intelligent decisions**—to check conditions before acting, to choose different paths based on data, to validate input before processing it.
-
-**What makes control flow powerful:**
-- **`if/else`** statements let your code choose between paths
-- **Comparison operators** (`==`, `!=`, `<`, `>`, `<=`, `>=`) test relationships
-- **Logical operators** (`&&`, `||`, `!`) combine multiple conditions
-- **Input validation** prevents crashes and bad data
-
-Every real program makes decisions: ATMs checking PINs, games detecting collisions, websites verifying passwords. Today, your code gets smart!
-
----
-
-## Task 1: Safe Division Calculator
-
-**Context:**  
-Tian's calculator crashed when dividing by zero. Build a smarter version that checks the divisor before performing division—just like a driver checks for obstacles before moving forward.
-
-**Your Challenge:**  
-Create a calculator that validates input and prevents division by zero crashes with clear error messages.
-
-**What You'll Practice:**
-- `if/else` statements for decision-making
-- Comparison operators (`==`, `!=`)
-- Input validation before operations
-- User-friendly error messages
-
-**Key Concepts:**
-```cpp
-if (divisor == 0) {
-    // Handle error case
-} else {
-    // Safe to divide
-}
-```
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double num1, num2, result;
-    
-    cout << "=== SAFE DIVISION CALCULATOR ===" << endl;
-    cout << endl;
-    
-    // Get two numbers from user
-    // Check if divisor is zero
-    // If zero, show error
-    // If not zero, perform division and show result
-    
-    return 0;
-}
-```
-
-**Expected Output (valid input):**
-```
-=== SAFE DIVISION CALCULATOR ===
-
-Enter first number: 100
-Enter second number: 5
-
-100.00 ÷ 5.00 = 20.00
-```
-
-**Expected Output (division by zero):**
-```
-=== SAFE DIVISION CALCULATOR ===
-
-Enter first number: 100
-Enter second number: 0
-
-ERROR: Cannot divide by zero!
-Division by zero is mathematically undefined.
-Please enter a non-zero divisor.
-```
-
----
-
-## Task 2: Jeepney Fare with Discount Checker
-
-**Context:**  
-Jeepney drivers give discounts to students (20%), senior citizens (20%), and PWDs (20%). Build a fare calculator that asks if the passenger qualifies for a discount before calculating the final fare.
-
-**Your Challenge:**  
-Create an interactive fare system that checks discount eligibility and applies it automatically.
-
-**What You'll Practice:**
-- `if/else if/else` chains for multiple conditions
-- Character input (`y/n`)
-- Discount calculations
-- Clear conditional logic
-
-**Formula:**
-- Base fare: PHP 13.00 (first 4 km)
-- Additional: PHP 2.00 per km after 4 km
-- Discount: 20% if qualified
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double distance, fare, discount = 0, finalFare;
-    char hasDiscount;
-    
-    cout << "=== JEEPNEY FARE CALCULATOR ===" << endl;
-    cout << endl;
-    
-    // Get distance
-    // Calculate base fare
-    // Ask if qualified for discount (y/n)
-    // Apply discount if applicable
-    // Display breakdown
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== JEEPNEY FARE CALCULATOR ===
-
-Enter distance traveled (km): 7.5
-Are you a student/senior citizen/PWD? (y/n): y
-
------ FARE RECEIPT -----
-Distance: 7.5 km
-Base Fare: PHP 20.00
-Discount (20%): PHP 4.00
-Final Fare: PHP 16.00
-Thank you for riding!
-```
-
----
-
-## Task 3: Barangay Age Classification System
-
-**Context:**  
-Your barangay needs to classify residents for vaccination priority. Different age groups have different priorities: senior citizens (60+), adults (18-59), minors (13-17), and children (0-12).
-
-**Your Challenge:**  
-Build a classification system that uses nested `if/else` to categorize residents and assign vaccination priority levels.
-
-**What You'll Practice:**
-- Nested `if/else` for age ranges
-- Multiple comparison operators
-- Range checking (`>= && <=`)
-- Complex conditional logic
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string name;
-    int age;
-    
-    cout << "=== BARANGAY AGE CLASSIFICATION ===" << endl;
-    cout << endl;
-    
-    // Get name and age
-    // Classify:
-    //   - Senior Citizen (60+): Priority A
-    //   - Adult (18-59): Priority B
-    //   - Minor (13-17): Priority C
-    //   - Child (0-12): Priority D
-    //   - Invalid (negative): Error
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== BARANGAY AGE CLASSIFICATION ===
-
-Full name: Rosa Santos
-Age: 65
-
------ CLASSIFICATION RESULT -----
-Name: Rosa Santos
-Age: 65
-Category: Senior Citizen
-Vaccination Priority: A (High Priority)
-Special Assistance: Available
-```
-
----
-
-## Task 4: Grade Classification with Honors
-
-**Context:**  
-Teachers need a system that not only shows if a student passed but also awards honors based on performance. Create a comprehensive grading system with multiple classification levels.
-
-**Your Challenge:**  
-Build a grade classifier that determines pass/fail status AND awards honors (Summa Cum Laude, Magna Cum Laude, Cum Laude) based on final grade.
-
-**What You'll Practice:**
-- Multiple `if/else if` chains
-- Range validation (0-100)
-- Nested conditions
-- Comprehensive classification logic
-
-**Classification:**
-- 98-100: Passed with Summa Cum Laude
-- 95-97: Passed with Magna Cum Laude
-- 90-94: Passed with Cum Laude
-- 75-89: Passed
-- 0-74: Failed
-- Outside 0-100: Invalid
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string studentName;
-    double grade;
-    
-    cout << "=== STUDENT GRADE CLASSIFICATION ===" << endl;
-    cout << endl;
-    
-    // Get student name and grade
-    // Validate grade (0-100)
-    // Classify and display result
-    
-    return 0;
-}
-```
-
-**Expected Output (with honors):**
-```
-=== STUDENT GRADE CLASSIFICATION ===
-
-Student name: Maria Clara
-Final grade: 96.5
-
------ GRADE REPORT -----
-Student: Maria Clara
-Grade: 96.50
-Status: PASSED ✓
-Honors: MAGNA CUM LAUDE
-Remarks: Outstanding performance!
-```
-
-**Expected Output (failed):**
-```
-=== STUDENT GRADE CLASSIFICATION ===
-
-Student name: Juan Reyes
-Final grade: 68.0
-
------ GRADE REPORT -----
-Student: Juan Reyes
-Grade: 68.00
-Status: FAILED ✗
-Remarks: Need to retake this subject.
-```
-
----
-
-## Task 5: Electricity Bill with Penalty Checker
-
-**Context:**  
-Meralco charges penalties for late payments. Build a bill calculator that checks if payment is late and applies a 5% penalty automatically based on due date status.
-
-**Your Challenge:**  
-Create a billing system that uses conditional logic to add penalties, applies tiered pricing for electricity consumption, and generates a complete bill.
-
-**What You'll Practice:**
-- Nested `if/else` for tiered pricing
-- Boolean conditions for late payment
-- Multiple percentage calculations
-- Complex real-world logic
-
-**Pricing Tiers:**
-- 0-100 kWh: PHP 10.50/kWh
-- 101-200 kWh: PHP 11.00/kWh
-- 201-300 kWh: PHP 12.00/kWh
-- 301+ kWh: PHP 13.50/kWh
-- Late penalty: 5% if late
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double kwh, baseCharge = 0, penalty = 0, totalBill;
-    char isLate;
-    
-    cout << "=== MERALCO BILLING SYSTEM ===" << endl;
-    cout << endl;
-    
-    // Get kWh consumed
-    // Calculate tiered base charge
-    // Ask if payment is late (y/n)
-    // Add 5% penalty if late
-    // Display complete bill
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== MERALCO BILLING SYSTEM ===
-
-Enter kWh consumed: 250
-Is payment late? (y/n): y
-
------ ELECTRICITY BILL -----
-kWh Consumed: 250.00
-Base Charge: PHP 2,850.00
-Late Penalty (5%): PHP 142.50
-----------------------------
-TOTAL AMOUNT DUE: PHP 2,992.50
-Payment Status: OVERDUE ⚠
-```
-
----
-
-## Task 6: BMI Calculator with Health Recommendations
-
-**Context:**  
-Healthcare workers need a tool that calculates Body Mass Index (BMI) and provides specific health recommendations based on classification (underweight, normal, overweight, obese).
-
-**Your Challenge:**  
-Build a comprehensive BMI calculator that validates input, classifies results, and gives personalized health advice.
-
-**What You'll Practice:**
-- Input validation (positive values only)
-- Formula calculations (BMI = weight / height²)
-- Multi-level `if/else` classification
-- Contextual recommendations
-
-**BMI Classification:**
-- Below 18.5: Underweight
-- 18.5-24.9: Normal weight
-- 25.0-29.9: Overweight
-- 30.0+: Obese
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double weight, height, bmi;
-    
-    cout << "=== BMI HEALTH CALCULATOR ===" << endl;
-    cout << endl;
-    
-    // Get weight (kg) and height (m)
-    // Validate positive values
-    // Calculate BMI = weight / (height * height)
-    // Classify and give recommendations
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== BMI HEALTH CALCULATOR ===
-
-Enter weight (kg): 70
-Enter height (m): 1.75
-
------ BMI ANALYSIS -----
-Weight: 70.0 kg
-Height: 1.75 m
-BMI: 22.86
-Classification: Normal Weight
-Health Status: ✓ Healthy range
-Recommendation: Maintain your current lifestyle with balanced diet and regular exercise.
-```
-
----
-
-## Task 7: Scholarship Eligibility Checker
-
-**Context:**  
-Universities offer different scholarships based on combined criteria: grade (must be ≥ 90) AND family income (must be < PHP 50,000/month). Both conditions must be true to qualify.
-
-**Your Challenge:**  
-Create a scholarship eligibility system that uses **logical AND operator (`&&`)** to check if BOTH conditions are met.
-
-**What You'll Practice:**
-- Logical AND operator (`&&`)
-- Multiple condition checking
-- Clear eligibility messages
-- Real-world policy implementation
-
-**Scholarship Types:**
-- Full Scholarship: Grade ≥ 95 AND Income < 30,000
-- Partial Scholarship: Grade ≥ 90 AND Income < 50,000
-- Not Eligible: Otherwise
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    string studentName;
-    double grade, monthlyIncome;
-    
-    cout << "=== SCHOLARSHIP ELIGIBILITY CHECKER ===" << endl;
-    cout << endl;
-    
-    // Get student name, grade, monthly family income
-    // Check eligibility using && operator
-    // Display scholarship type or rejection
-    
-    return 0;
-}
-```
-
-**Expected Output (full scholarship):**
-```
-=== SCHOLARSHIP ELIGIBILITY CHECKER ===
-
-Student name: Ana Reyes
-Final grade: 96.5
-Monthly family income (PHP): 25000
-
------ ELIGIBILITY RESULT -----
-Student: Ana Reyes
-Grade: 96.50
-Family Income: PHP 25,000.00
-
-✓ ELIGIBLE FOR FULL SCHOLARSHIP
-Coverage: 100% tuition + PHP 5,000 monthly stipend
-Congratulations!
-```
-
-**Expected Output (not eligible):**
-```
-=== SCHOLARSHIP ELIGIBILITY CHECKER ===
-
-Student name: Juan Cruz
-Final grade: 88.0
-Monthly family income (PHP): 60000
-
------ ELIGIBILITY RESULT -----
-Student: Juan Cruz
-Grade: 88.00
-Family Income: PHP 60,000.00
-
-✗ NOT ELIGIBLE
-Reason: Grade below 90 OR income exceeds threshold
-Consider applying next semester after improvement.
-```
-
----
-
-## Reflection Questions
-
-After completing these tasks, think deeply about decision-making in code:
-
-1. **The Crash Prevention Mindset**: Before lesson 5, Tian's calculator crashed on zero. Now it checks first. What other real-world programs MUST validate input before acting? (ATMs, airplanes, medical devices?)
-
-2. **Comparison vs Assignment**: What's the difference between `if (x = 5)` and `if (x == 5)`? Why is the first one dangerous? Test it—what happens?
-
-3. **Logical Operators in Daily Life**: The scholarship checker uses `&&` (both conditions must be true). Think of 3 real situations where you need `&&` (AND) vs `||` (OR) logic. Example: "You can withdraw money if you have correct PIN AND sufficient balance."
-
-4. **Range Checking Patterns**: Look at Task 3 (age classification). How do you check if a number is between 18 and 59? Why use `age >= 18 && age <= 59` instead of two separate if statements?
-
-5. **Nested vs Flat Conditionals**: Task 5 has nested `if/else` for electricity tiers. Could you rewrite it with flat `if/else if` chains? Which is clearer? When does nesting make sense?
-
-6. **Error Messages Matter**: Compare "ERROR" vs "ERROR: Cannot divide by zero! Division by zero is mathematically undefined." Which helps users more? Why do professional programs invest in good error messages?
-
-7. **The Jeepney Driver Analogy**: Kuya Miguel said your program was "a driver who never looks at the road." Now with `if/else`, your code checks conditions before acting. Think of 3 more analogies for decision-making in code (chef tasting food before serving? doctor checking symptoms before diagnosis?).
-
-8. **Boolean Logic Complexity**: In Task 7, scholarship needs grade ≥ 90 AND income < 50,000. What if the rule was "grade ≥ 90 OR income < 50,000 (but not both)"? How would you code that with `&&`, `||`, and `!` operators?
-
----
-
-## What You've Learned
-
-You've given your programs **intelligence**. They're no longer linear scripts—they can **analyze, decide, and adapt** based on data.
-
-**Core Skills Unlocked:**
-- **`if/else` statements** – Choose between code paths
-- **Comparison operators** – `==`, `!=`, `<`, `>`, `<=`, `>=`
-- **Logical operators** – `&&` (AND), `||` (OR), `!` (NOT)
-- **Input validation** – Check before processing
-- **Nested conditions** – Handle complex multi-level decisions
-- **Range checking** – Validate data within boundaries
-
-**Real-World Applications:**
-- **Banking**: ATMs checking PINs, verifying balances before withdrawal
-- **E-commerce**: Discount eligibility, free shipping thresholds
-- **Healthcare**: BMI classification, disease risk assessment
-- **Education**: Grading systems, scholarship eligibility
-- **Government**: Barangay systems, age-based classifications, bill calculations
-
-**The Transformation:**
-```cpp
-// Before (Lesson 4): Blind execution
-double result = num1 / num2;  // CRASH if num2 is 0!
-
-// After (Lesson 5): Smart checking
-if (num2 == 0) {
-    cout << "ERROR: Cannot divide by zero!" << endl;
-} else {
-    double result = num1 / num2;
-    cout << "Result: " << result << endl;
-}
-```
-
-As Kuya Miguel said: **"Now your program is like a smart jeepney driver—it checks the road, avoids obstacles, and makes decisions."** Your code is no longer reckless—it's **careful, intelligent, and crash-proof**.
-
-Next lesson: **Loops**—because typing 200 lines of the same code is absurd. You'll learn to automate repetition with `for`, `while`, and `do-while` loops!
-
----
-
-<details>
-<summary><strong>📝 Answer Key for All Tasks</strong></summary>
-
-### Task 1: Safe Division Calculator
-
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double num1, num2, result;
-    
-    cout << "=== SAFE DIVISION CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Enter first number: ";
-    cin >> num1;
-    
-    cout << "Enter second number: ";
-    cin >> num2;
-    
-    cout << endl;
-    
-    // Check if divisor is zero
-    if (num2 == 0) {
-        cout << "ERROR: Cannot divide by zero!" << endl;
-        cout << "Division by zero is mathematically undefined." << endl;
-        cout << "Please enter a non-zero divisor." << endl;
-    } else {
-        result = num1 / num2;
-        cout << fixed << setprecision(2);
-        cout << num1 << " ÷ " << num2 << " = " << result << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `if (num2 == 0)` checks for zero BEFORE dividing
-- Clear error message explains WHY it's an error
-- `else` block only runs when division is safe
-- This prevents the crash Tian experienced!
-
----
-
-### Task 2: Jeepney Fare with Discount Checker
-
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double distance, fare, discount = 0, finalFare;
-    char hasDiscount;
-    
-    cout << "=== JEEPNEY FARE CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Enter distance traveled (km): ";
-    cin >> distance;
-    
-    // Calculate base fare
-    if (distance <= 4) {
-        fare = 13.00;
-    } else {
-        fare = 13.00 + ((distance - 4) * 2.00);
-    }
-    
-    // Check discount eligibility
-    cout << "Are you a student/senior citizen/PWD? (y/n): ";
-    cin >> hasDiscount;
-    
-    if (hasDiscount == 'y' || hasDiscount == 'Y') {
-        discount = fare * 0.20;  // 20% discount
-        finalFare = fare - discount;
-    } else {
-        finalFare = fare;
-    }
-    
-    cout << endl;
-    cout << "----- FARE RECEIPT -----" << endl;
-    cout << fixed << setprecision(2);
-    cout << "Distance: " << distance << " km" << endl;
-    cout << "Base Fare: PHP " << fare << endl;
-    
-    if (discount > 0) {
-        cout << "Discount (20%): PHP " << discount << endl;
-    }
-    
-    cout << "Final Fare: PHP " << finalFare << endl;
-    cout << "Thank you for riding!" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- First `if/else` calculates base fare with distance check
-- Second `if` applies discount only if qualified
-- Uses `||` (OR) to accept both 'y' and 'Y'
-- Discount only displays if actually applied
-
----
-
-### Task 3: Barangay Age Classification System
-
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string name;
-    int age;
-    
-    cout << "=== BARANGAY AGE CLASSIFICATION ===" << endl;
-    cout << endl;
-    
-    cout << "Full name: ";
-    getline(cin, name);
-    
-    cout << "Age: ";
-    cin >> age;
-    
-    cout << endl;
-    cout << "----- CLASSIFICATION RESULT -----" << endl;
-    cout << "Name: " << name << endl;
-    cout << "Age: " << age << endl;
-    
-    if (age < 0) {
-        cout << "ERROR: Invalid age! Age cannot be negative." << endl;
-    } else if (age >= 0 && age <= 12) {
-        cout << "Category: Child" << endl;
-        cout << "Vaccination Priority: D" << endl;
-        cout << "Special Assistance: Pediatric care available" << endl;
-    } else if (age >= 13 && age <= 17) {
-        cout << "Category: Minor" << endl;
-        cout << "Vaccination Priority: C" << endl;
-        cout << "Special Assistance: Parental consent required" << endl;
-    } else if (age >= 18 && age <= 59) {
-        cout << "Category: Adult" << endl;
-        cout << "Vaccination Priority: B" << endl;
-        cout << "Special Assistance: Standard process" << endl;
-    } else {  // age >= 60
-        cout << "Category: Senior Citizen" << endl;
-        cout << "Vaccination Priority: A (High Priority)" << endl;
-        cout << "Special Assistance: Available" << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Uses `if/else if/else` chain for multiple age ranges
-- Range checking with `age >= X && age <= Y`
-- Validates negative ages as error
-- Each category gets specific information
-
----
-
-### Task 4: Grade Classification with Honors
-
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string studentName;
-    double grade;
-    
-    cout << "=== STUDENT GRADE CLASSIFICATION ===" << endl;
-    cout << endl;
-    
-    cout << "Student name: ";
-    getline(cin, studentName);
-    
-    cout << "Final grade: ";
-    cin >> grade;
-    
-    cout << endl;
-    cout << "----- GRADE REPORT -----" << endl;
-    cout << "Student: " << studentName << endl;
-    cout << fixed << setprecision(2);
-    cout << "Grade: " << grade << endl;
-    
-    // Validate grade range
-    if (grade < 0 || grade > 100) {
-        cout << "ERROR: Invalid grade! Must be between 0 and 100." << endl;
-        return 1;
-    }
-    
-    // Classify grade
-    if (grade >= 98) {
-        cout << "Status: PASSED ✓" << endl;
-        cout << "Honors: SUMMA CUM LAUDE" << endl;
-        cout << "Remarks: Exceptional academic excellence!" << endl;
-    } else if (grade >= 95) {
-        cout << "Status: PASSED ✓" << endl;
-        cout << "Honors: MAGNA CUM LAUDE" << endl;
-        cout << "Remarks: Outstanding performance!" << endl;
-    } else if (grade >= 90) {
-        cout << "Status: PASSED ✓" << endl;
-        cout << "Honors: CUM LAUDE" << endl;
-        cout << "Remarks: Excellent work!" << endl;
-    } else if (grade >= 75) {
-        cout << "Status: PASSED ✓" << endl;
-        cout << "Remarks: Good job! Keep improving." << endl;
-    } else {
-        cout << "Status: FAILED ✗" << endl;
-        cout << "Remarks: Need to retake this subject." << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Input validation first: `if (grade < 0 || grade > 100)`
-- Uses `||` (OR) because grade outside EITHER bound is invalid
-- `if/else if` chain for honors levels
-- Different messages for each classification
-- `return 1;` exits program early if invalid input
-
----
-
-### Task 5: Electricity Bill with Penalty Checker
-
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double kwh, baseCharge = 0, penalty = 0, totalBill;
-    char isLate;
-    
-    cout << "=== MERALCO BILLING SYSTEM ===" << endl;
-    cout << endl;
-    
-    cout << "Enter kWh consumed: ";
-    cin >> kwh;
-    
-    // Calculate tiered base charge
-    if (kwh <= 100) {
-        baseCharge = kwh * 10.50;
-    } else if (kwh <= 200) {
-        baseCharge = (100 * 10.50) + ((kwh - 100) * 11.00);
-    } else if (kwh <= 300) {
-        baseCharge = (100 * 10.50) + (100 * 11.00) + ((kwh - 200) * 12.00);
-    } else {  // kwh > 300
-        baseCharge = (100 * 10.50) + (100 * 11.00) + (100 * 12.00) + ((kwh - 300) * 13.50);
-    }
-    
-    // Check if late payment
-    cout << "Is payment late? (y/n): ";
-    cin >> isLate;
-    
-    if (isLate == 'y' || isLate == 'Y') {
-        penalty = baseCharge * 0.05;  // 5% late penalty
-    }
-    
-    totalBill = baseCharge + penalty;
-    
-    cout << endl;
-    cout << "----- ELECTRICITY BILL -----" << endl;
-    cout << fixed << setprecision(2);
-    cout << "kWh Consumed: " << kwh << endl;
-    cout << "Base Charge: PHP " << baseCharge << endl;
-    
-    if (penalty > 0) {
-        cout << "Late Penalty (5%): PHP " << penalty << endl;
-    }
-    
-    cout << "----------------------------" << endl;
-    cout << "TOTAL AMOUNT DUE: PHP " << totalBill << endl;
-    
-    if (penalty > 0) {
-        cout << "Payment Status: OVERDUE ⚠" << endl;
-    } else {
-        cout << "Payment Status: On Time ✓" << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Nested `if/else if` for tiered pricing (each tier has different rate)
-- Calculates cumulative charge: first 100 at 10.50, next 100 at 11.00, etc.
-- Penalty only applies if late (`isLate == 'y'`)
-- Conditional display: penalty only shows if it exists
-
----
-
-### Task 6: BMI Calculator with Health Recommendations
-
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double weight, height, bmi;
-    
-    cout << "=== BMI HEALTH CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Enter weight (kg): ";
-    cin >> weight;
-    
-    cout << "Enter height (m): ";
-    cin >> height;
-    
-    // Validate positive values
-    if (weight <= 0 || height <= 0) {
-        cout << "\nERROR: Weight and height must be positive values!" << endl;
-        return 1;
-    }
-    
-    // Calculate BMI
-    bmi = weight / (height * height);
-    
-    cout << endl;
-    cout << "----- BMI ANALYSIS -----" << endl;
-    cout << fixed << setprecision(2);
-    cout << "Weight: " << weight << " kg" << endl;
-    cout << "Height: " << height << " m" << endl;
-    cout << "BMI: " << setprecision(2) << bmi << endl;
-    
-    // Classify BMI
-    cout << "Classification: ";
-    if (bmi < 18.5) {
-        cout << "Underweight" << endl;
-        cout << "Health Status: ⚠ Below healthy range" << endl;
-        cout << "Recommendation: Increase calorie intake with nutrient-rich foods. Consult a nutritionist." << endl;
-    } else if (bmi < 25.0) {
-        cout << "Normal Weight" << endl;
-        cout << "Health Status: ✓ Healthy range" << endl;
-        cout << "Recommendation: Maintain your current lifestyle with balanced diet and regular exercise." << endl;
-    } else if (bmi < 30.0) {
-        cout << "Overweight" << endl;
-        cout << "Health Status: ⚠ Above healthy range" << endl;
-        cout << "Recommendation: Increase physical activity and monitor calorie intake. Consider consulting a doctor." << endl;
-    } else {
-        cout << "Obese" << endl;
-        cout << "Health Status: ⚠ High risk" << endl;
-        cout << "Recommendation: Consult a doctor immediately. Start a supervised weight loss program." << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Input validation: checks if weight or height is ≤ 0
-- BMI formula: `weight / (height * height)`
-- `if/else if` classifies BMI into 4 categories
-- Each category gets health status and specific recommendations
-- Uses comparison operators to check ranges
-
----
-
-### Task 7: Scholarship Eligibility Checker
-
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    string studentName;
-    double grade, monthlyIncome;
-    
-    cout << "=== SCHOLARSHIP ELIGIBILITY CHECKER ===" << endl;
-    cout << endl;
-    
-    cout << "Student name: ";
-    getline(cin, studentName);
-    
-    cout << "Final grade: ";
-    cin >> grade;
-    
-    cout << "Monthly family income (PHP): ";
-    cin >> monthlyIncome;
-    
-    cout << endl;
-    cout << "----- ELIGIBILITY RESULT -----" << endl;
-    cout << "Student: " << studentName << endl;
-    cout << fixed << setprecision(2);
-    cout << "Grade: " << grade << endl;
-    cout << "Family Income: PHP " << monthlyIncome << endl;
-    cout << endl;
-    
-    // Check scholarship eligibility using && operator
-    if (grade >= 95 && monthlyIncome < 30000) {
-        cout << "✓ ELIGIBLE FOR FULL SCHOLARSHIP" << endl;
-        cout << "Coverage: 100% tuition + PHP 5,000 monthly stipend" << endl;
-        cout << "Congratulations!" << endl;
-    } else if (grade >= 90 && monthlyIncome < 50000) {
-        cout << "✓ ELIGIBLE FOR PARTIAL SCHOLARSHIP" << endl;
-        cout << "Coverage: 50% tuition" << endl;
-        cout << "Congratulations!" << endl;
-    } else {
-        cout << "✗ NOT ELIGIBLE" << endl;
-        
-        // Provide specific feedback
-        if (grade < 90 && monthlyIncome >= 50000) {
-            cout << "Reason: Grade below 90 AND income exceeds threshold" << endl;
-        } else if (grade < 90) {
-            cout << "Reason: Grade below 90" << endl;
-        } else if (monthlyIncome >= 50000) {
-            cout << "Reason: Income exceeds threshold" << endl;
-        }
-        
-        cout << "Consider applying next semester after improvement." << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- **Logical AND (`&&`)**: BOTH conditions must be true
-- `grade >= 95 && monthlyIncome < 30000` - full scholarship
-- `grade >= 90 && monthlyIncome < 50000` - partial scholarship
-- Nested `if` in else block provides specific rejection reasons
-- Demonstrates real-world multi-criteria eligibility checking
-
----
-
-</details>
-
----
-
-**Next Steps:**  
-Test each program with edge cases: zero values, negative numbers, boundary values (exactly 75, exactly 90). See how `if/else` prevents crashes and guides users. Get ready for Lesson 6—**loops** will teach you to automate repetition instead of typing the same code 200 times!
+﻿XXX#XXX XXXLXXXeXXXsXXXsXXXoXXXnXXX XXX5XXX XXXAXXXcXXXtXXXiXXXvXXXiXXXtXXXiXXXeXXXsXXX:XXX XXXUXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXXCXXXoXXXnXXXtXXXrXXXoXXXlXXX XXXFXXXlXXXoXXXwXXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXhXXXeXXX XXXJXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXDXXXrXXXiXXXvXXXeXXXrXXX XXXWXXXhXXXoXXX XXXLXXXoXXXoXXXkXXXsXXX XXXaXXXtXXX XXXtXXXhXXXeXXX XXXRXXXoXXXaXXXdXXXXXX
+XXXXXX
+XXXRXXXeXXXmXXXeXXXmXXXbXXXeXXXrXXX XXXTXXXiXXXaXXXnXXX'XXXsXXX XXXdXXXiXXXvXXXiXXXdXXXeXXX-XXXbXXXyXXX-XXXzXXXeXXXrXXXoXXX XXXcXXXrXXXaXXXsXXXhXXX?XXX XXXHXXXeXXXrXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXcXXXrXXXaXXXsXXXhXXXeXXXdXXX XXXsXXXpXXXeXXXcXXXtXXXaXXXcXXXuXXXlXXXaXXXrXXXlXXXyXXX XXXwXXXhXXXeXXXnXXX XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX XXXwXXXaXXXsXXX XXXzXXXeXXXrXXXoXXX.XXX XXXKXXXuXXXyXXXaXXX XXXMXXXiXXXgXXXuXXXeXXXlXXX XXXgXXXaXXXvXXXeXXX XXXhXXXeXXXrXXX XXXtXXXhXXXeXXX XXXpXXXeXXXrXXXfXXXeXXXcXXXtXXX XXXaXXXnXXXaXXXlXXXoXXXgXXXyXXX:XXX XXX*XXX*XXX"XXXRXXXiXXXgXXXhXXXtXXX XXXnXXXoXXXwXXX,XXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXiXXXsXXX XXXlXXXiXXXkXXXeXXX XXXaXXX XXXjXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXdXXXrXXXiXXXvXXXeXXXrXXX XXXwXXXhXXXoXXX XXXnXXXeXXXvXXXeXXXrXXX XXXlXXXoXXXoXXXkXXXsXXX XXXaXXXtXXX XXXtXXXhXXXeXXX XXXrXXXoXXXaXXXdXXX—XXXkXXXeXXXeXXXpXXXsXXX XXXdXXXrXXXiXXXvXXXiXXXnXXXgXXX XXXsXXXtXXXrXXXaXXXiXXXgXXXhXXXtXXX XXXnXXXoXXX XXXmXXXaXXXtXXXtXXXeXXXrXXX XXXwXXXhXXXaXXXtXXX'XXXsXXX XXXaXXXhXXXeXXXaXXXdXXX.XXX"XXX*XXX*XXXXXX
+XXXXXX
+XXX*XXX*XXXTXXXhXXXiXXXsXXX XXXlXXXeXXXsXXXsXXXoXXXnXXX XXXcXXXhXXXaXXXnXXXgXXXeXXXsXXX XXXtXXXhXXXaXXXtXXX.XXX*XXX*XXX XXXYXXXoXXXuXXX'XXXrXXXeXXX XXXtXXXeXXXaXXXcXXXhXXXiXXXnXXXgXXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXXsXXX XXXtXXXoXXX XXX*XXX*XXXmXXXaXXXkXXXeXXX XXXiXXXnXXXtXXXeXXXlXXXlXXXiXXXgXXXeXXXnXXXtXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXXsXXX*XXX*XXX—XXXtXXXoXXX XXXcXXXhXXXeXXXcXXXkXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXaXXXcXXXtXXXiXXXnXXXgXXX,XXX XXXtXXXoXXX XXXcXXXhXXXoXXXoXXXsXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXpXXXaXXXtXXXhXXXsXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXdXXXaXXXtXXXaXXX,XXX XXXtXXXoXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXiXXXnXXXpXXXuXXXtXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXpXXXrXXXoXXXcXXXeXXXsXXXsXXXiXXXnXXXgXXX XXXiXXXtXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXmXXXaXXXkXXXeXXXsXXX XXXcXXXoXXXnXXXtXXXrXXXoXXXlXXX XXXfXXXlXXXoXXXwXXX XXXpXXXoXXXwXXXeXXXrXXXfXXXuXXXlXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX*XXX*XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX*XXX*XXX XXXsXXXtXXXaXXXtXXXeXXXmXXXeXXXnXXXtXXXsXXX XXXlXXXeXXXtXXX XXXyXXXoXXXuXXXrXXX XXXcXXXoXXXdXXXeXXX XXXcXXXhXXXoXXXoXXXsXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXXpXXXaXXXtXXXhXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXCXXXoXXXmXXXpXXXaXXXrXXXiXXXsXXXoXXXnXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX*XXX*XXX XXX(XXX`XXX=XXX=XXX`XXX,XXX XXX`XXX!XXX=XXX`XXX,XXX XXX`XXX<XXX`XXX,XXX XXX`XXX>XXX`XXX,XXX XXX`XXX<XXX=XXX`XXX,XXX XXX`XXX>XXX=XXX`XXX)XXX XXXtXXXeXXXsXXXtXXX XXXrXXXeXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXXhXXXiXXXpXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXLXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX*XXX*XXX XXX(XXX`XXX&XXX&XXX`XXX,XXX XXX`XXX|XXX|XXX`XXX,XXX XXX`XXX!XXX`XXX)XXX XXXcXXXoXXXmXXXbXXXiXXXnXXXeXXX XXXmXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXIXXXnXXXpXXXuXXXtXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXiXXXoXXXnXXX*XXX*XXX XXXpXXXrXXXeXXXvXXXeXXXnXXXtXXXsXXX XXXcXXXrXXXaXXXsXXXhXXXeXXXsXXX XXXaXXXnXXXdXXX XXXbXXXaXXXdXXX XXXdXXXaXXXtXXXaXXXXXX
+XXXXXX
+XXXEXXXvXXXeXXXrXXXyXXX XXXrXXXeXXXaXXXlXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXmXXXaXXXkXXXeXXXsXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXXsXXX:XXX XXXAXXXTXXXMXXXsXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXX XXXPXXXIXXXNXXXsXXX,XXX XXXgXXXaXXXmXXXeXXXsXXX XXXdXXXeXXXtXXXeXXXcXXXtXXXiXXXnXXXgXXX XXXcXXXoXXXlXXXlXXXiXXXsXXXiXXXoXXXnXXXsXXX,XXX XXXwXXXeXXXbXXXsXXXiXXXtXXXeXXXsXXX XXXvXXXeXXXrXXXiXXXfXXXyXXXiXXXnXXXgXXX XXXpXXXaXXXsXXXsXXXwXXXoXXXrXXXdXXXsXXX.XXX XXXTXXXoXXXdXXXaXXXyXXX,XXX XXXyXXXoXXXuXXXrXXX XXXcXXXoXXXdXXXeXXX XXXgXXXeXXXtXXXsXXX XXXsXXXmXXXaXXXrXXXtXXX!XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX1XXX:XXX XXXSXXXaXXXfXXXeXXX XXXDXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXTXXXiXXXaXXXnXXX'XXXsXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXcXXXrXXXaXXXsXXXhXXXeXXXdXXX XXXwXXXhXXXeXXXnXXX XXXdXXXiXXXvXXXiXXXdXXXiXXXnXXXgXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX.XXX XXXBXXXuXXXiXXXlXXXdXXX XXXaXXX XXXsXXXmXXXaXXXrXXXtXXXeXXXrXXX XXXvXXXeXXXrXXXsXXXiXXXoXXXnXXX XXXtXXXhXXXaXXXtXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXtXXXhXXXeXXX XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXXiXXXnXXXgXXX XXXdXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX—XXXjXXXuXXXsXXXtXXX XXXlXXXiXXXkXXXeXXX XXXaXXX XXXdXXXrXXXiXXXvXXXeXXXrXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXfXXXoXXXrXXX XXXoXXXbXXXsXXXtXXXaXXXcXXXlXXXeXXXsXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXmXXXoXXXvXXXiXXXnXXXgXXX XXXfXXXoXXXrXXXwXXXaXXXrXXXdXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXtXXXhXXXaXXXtXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXXsXXX XXXiXXXnXXXpXXXuXXXtXXX XXXaXXXnXXXdXXX XXXpXXXrXXXeXXXvXXXeXXXnXXXtXXXsXXX XXXdXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX XXXcXXXrXXXaXXXsXXXhXXXeXXXsXXX XXXwXXXiXXXtXXXhXXX XXXcXXXlXXXeXXXaXXXrXXX XXXeXXXrXXXrXXXoXXXrXXX XXXmXXXeXXXsXXXsXXXaXXXgXXXeXXXsXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXsXXXtXXXaXXXtXXXeXXXmXXXeXXXnXXXtXXXsXXX XXXfXXXoXXXrXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX-XXXmXXXaXXXkXXXiXXXnXXXgXXXXXX
+XXX-XXX XXXCXXXoXXXmXXXpXXXaXXXrXXXiXXXsXXXoXXXnXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX XXX(XXX`XXX=XXX=XXX`XXX,XXX XXX`XXX!XXX=XXX`XXX)XXXXXX
+XXX-XXX XXXIXXXnXXXpXXXuXXXtXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXiXXXoXXXnXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXXUXXXsXXXeXXXrXXX-XXXfXXXrXXXiXXXeXXXnXXXdXXXlXXXyXXX XXXeXXXrXXXrXXXoXXXrXXX XXXmXXXeXXXsXXXsXXXaXXXgXXXeXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXKXXXeXXXyXXX XXXCXXXoXXXnXXXcXXXeXXXpXXXtXXXsXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXXiXXXfXXX XXX(XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX XXX=XXX=XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXHXXXaXXXnXXXdXXXlXXXeXXX XXXeXXXrXXXrXXXoXXXrXXX XXXcXXXaXXXsXXXeXXXXXX
+XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXSXXXaXXXfXXXeXXX XXXtXXXoXXX XXXdXXXiXXXvXXXiXXXdXXXeXXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXnXXXuXXXmXXX1XXX,XXX XXXnXXXuXXXmXXX2XXX,XXX XXXrXXXeXXXsXXXuXXXlXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXAXXXFXXXEXXX XXXDXXXIXXXVXXXIXXXSXXXIXXXOXXXNXXX XXXCXXXAXXXLXXXCXXXUXXXLXXXAXXXTXXXOXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXtXXXwXXXoXXX XXXnXXXuXXXmXXXbXXXeXXXrXXXsXXX XXXfXXXrXXXoXXXmXXX XXXuXXXsXXXeXXXrXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXhXXXeXXXcXXXkXXX XXXiXXXfXXX XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX XXXiXXXsXXX XXXzXXXeXXXrXXXoXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXIXXXfXXX XXXzXXXeXXXrXXXoXXX,XXX XXXsXXXhXXXoXXXwXXX XXXeXXXrXXXrXXXoXXXrXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXIXXXfXXX XXXnXXXoXXXtXXX XXXzXXXeXXXrXXXoXXX,XXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXX XXXdXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX XXXaXXXnXXXdXXX XXXsXXXhXXXoXXXwXXX XXXrXXXeXXXsXXXuXXXlXXXtXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXIXXXmXXXpXXXlXXXeXXXmXXXeXXXnXXXtXXX XXXdXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX XXXwXXXiXXXtXXXhXXX XXXzXXXeXXXrXXXoXXX-XXXcXXXhXXXeXXXcXXXkXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXiXXXoXXXnXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXiXXXfXXX XXXtXXXhXXXeXXX XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX XXXiXXXsXXX XXXzXXXeXXXrXXXoXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXXiXXXnXXXgXXX XXXdXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX,XXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXiXXXnXXXgXXX XXXaXXXnXXX XXXeXXXrXXXrXXXoXXXrXXX XXXmXXXeXXXsXXXsXXXaXXXgXXXeXXX XXXiXXXfXXX XXXtXXXrXXXuXXXeXXX,XXX XXXoXXXrXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXnXXXgXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXXiXXXfXXX XXXsXXXaXXXfXXXeXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXnXXXuXXXmXXX1XXX,XXX XXXnXXXuXXXmXXX2XXX,XXX XXXrXXXeXXXsXXXuXXXlXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXAXXXFXXXEXXX XXXDXXXIXXXVXXXIXXXSXXXIXXXOXXXNXXX XXXCXXXAXXXLXXXCXXXUXXXLXXXAXXXTXXXOXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXnXXXtXXXeXXXrXXX XXXfXXXiXXXrXXXsXXXtXXX XXXnXXXuXXXmXXXbXXXeXXXrXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXnXXXuXXXmXXX1XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXnXXXtXXXeXXXrXXX XXXsXXXeXXXcXXXoXXXnXXXdXXX XXXnXXXuXXXmXXXbXXXeXXXrXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXnXXXuXXXmXXX2XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXhXXXeXXXcXXXkXXX XXXiXXXfXXX XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX XXXiXXXsXXX XXXzXXXeXXXrXXXoXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXnXXXuXXXmXXX2XXX XXX=XXX=XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXRXXXRXXXOXXXRXXX:XXX XXXCXXXaXXXnXXXnXXXoXXXtXXX XXXdXXXiXXXvXXXiXXXdXXXeXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXDXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX XXXiXXXsXXX XXXmXXXaXXXtXXXhXXXeXXXmXXXaXXXtXXXiXXXcXXXaXXXlXXXlXXXyXXX XXXuXXXnXXXdXXXeXXXfXXXiXXXnXXXeXXXdXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXPXXXlXXXeXXXaXXXsXXXeXXX XXXeXXXnXXXtXXXeXXXrXXX XXXaXXX XXXnXXXoXXXnXXX-XXXzXXXeXXXrXXXoXXX XXXdXXXiXXXvXXXiXXXsXXXoXXXrXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXX=XXX XXXnXXXuXXXmXXX1XXX XXX/XXX XXXnXXXuXXXmXXX2XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXnXXXuXXXmXXX1XXX XXX<XXX<XXX XXX"XXX XXX÷XXX XXX"XXX XXX<XXX<XXX XXXnXXXuXXXmXXX2XXX XXX<XXX<XXX XXX"XXX XXX=XXX XXX"XXX XXX<XXX<XXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX2XXX:XXX XXXJXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXFXXXaXXXrXXXeXXX XXXwXXXiXXXtXXXhXXX XXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXCXXXhXXXeXXXcXXXkXXXeXXXrXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXJXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXdXXXrXXXiXXXvXXXeXXXrXXXsXXX XXXgXXXiXXXvXXXeXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXXsXXX XXXtXXXoXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXsXXX XXX(XXX2XXX0XXX%XXX)XXX,XXX XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXXsXXX XXX(XXX2XXX0XXX%XXX)XXX,XXX XXXaXXXnXXXdXXX XXXPXXXWXXXDXXXsXXX XXX(XXX2XXX0XXX%XXX)XXX.XXX XXXBXXXuXXXiXXXlXXXdXXX XXXaXXX XXXfXXXaXXXrXXXeXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXtXXXhXXXaXXXtXXX XXXaXXXsXXXkXXXsXXX XXXiXXXfXXX XXXtXXXhXXXeXXX XXXpXXXaXXXsXXXsXXXeXXXnXXXgXXXeXXXrXXX XXXqXXXuXXXaXXXlXXXiXXXfXXXiXXXeXXXsXXX XXXfXXXoXXXrXXX XXXaXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXXfXXXiXXXnXXXaXXXlXXX XXXfXXXaXXXrXXXeXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXXnXXX XXXiXXXnXXXtXXXeXXXrXXXaXXXcXXXtXXXiXXXvXXXeXXX XXXfXXXaXXXrXXXeXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXaXXXnXXXdXXX XXXaXXXpXXXpXXXlXXXiXXXeXXXsXXX XXXiXXXtXXX XXXaXXXuXXXtXXXoXXXmXXXaXXXtXXXiXXXcXXXaXXXlXXXlXXXyXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXcXXXhXXXaXXXiXXXnXXXsXXX XXXfXXXoXXXrXXX XXXmXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXXCXXXhXXXaXXXrXXXaXXXcXXXtXXXeXXXrXXX XXXiXXXnXXXpXXXuXXXtXXX XXX(XXX`XXXyXXX/XXXnXXX`XXX)XXXXXX
+XXX-XXX XXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXXCXXXlXXXeXXXaXXXrXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXaXXXlXXX XXXlXXXoXXXgXXXiXXXcXXXXXX
+XXXXXX
+XXX*XXX*XXXFXXXoXXXrXXXmXXXuXXXlXXXaXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXBXXXaXXXsXXXeXXX XXXfXXXaXXXrXXXeXXX:XXX XXXPXXXHXXXPXXX XXX1XXX3XXX.XXX0XXX0XXX XXX(XXXfXXXiXXXrXXXsXXXtXXX XXX4XXX XXXkXXXmXXX)XXXXXX
+XXX-XXX XXXAXXXdXXXdXXXiXXXtXXXiXXXoXXXnXXXaXXXlXXX:XXX XXXPXXXHXXXPXXX XXX2XXX.XXX0XXX0XXX XXXpXXXeXXXrXXX XXXkXXXmXXX XXXaXXXfXXXtXXXeXXXrXXX XXX4XXX XXXkXXXmXXXXXX
+XXX-XXX XXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX:XXX XXX2XXX0XXX%XXX XXXiXXXfXXX XXXqXXXuXXXaXXXlXXXiXXXfXXXiXXXeXXXdXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX,XXX XXXfXXXaXXXrXXXeXXX,XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX=XXX XXX0XXX,XXX XXXfXXXiXXXnXXXaXXXlXXXFXXXaXXXrXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXhXXXaXXXsXXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXJXXXEXXXEXXXPXXXNXXXEXXXYXXX XXXFXXXAXXXRXXXEXXX XXXCXXXAXXXLXXXCXXXUXXXLXXXAXXXTXXXOXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXbXXXaXXXsXXXeXXX XXXfXXXaXXXrXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXAXXXsXXXkXXX XXXiXXXfXXX XXXqXXXuXXXaXXXlXXXiXXXfXXXiXXXeXXXdXXX XXXfXXXoXXXrXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX(XXXyXXX/XXXnXXX)XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXAXXXpXXXpXXXlXXXyXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXiXXXfXXX XXXaXXXpXXXpXXXlXXXiXXXcXXXaXXXbXXXlXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXbXXXrXXXeXXXaXXXkXXXdXXXoXXXwXXXnXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXjXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXfXXXaXXXrXXXeXXX XXXwXXXiXXXtXXXhXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXXsXXX XXXbXXXaXXXsXXXeXXX XXXfXXXaXXXrXXXeXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX,XXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXiXXXfXXX XXXtXXXhXXXeXXX XXXpXXXaXXXsXXXsXXXeXXXnXXXgXXXeXXXrXXX XXXqXXXuXXXaXXXlXXXiXXXfXXXiXXXeXXXsXXX XXXfXXXoXXXrXXX XXXaXXX XXX2XXX0XXX%XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX,XXX XXXaXXXpXXXpXXXlXXXiXXXeXXXsXXX XXXiXXXtXXX XXXiXXXfXXX XXXaXXXpXXXpXXXlXXXiXXXcXXXaXXXbXXXlXXXeXXX,XXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXsXXX XXXaXXX XXXdXXXeXXXtXXXaXXXiXXXlXXXeXXXdXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX,XXX XXXfXXXaXXXrXXXeXXX,XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX=XXX XXX0XXX,XXX XXXfXXXiXXXnXXXaXXXlXXXFXXXaXXXrXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXhXXXaXXXsXXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXJXXXEXXXEXXXPXXXNXXXEXXXYXXX XXXFXXXAXXXRXXXEXXX XXXCXXXAXXXLXXXCXXXUXXXLXXXAXXXTXXXOXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXnXXXtXXXeXXXrXXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX XXXtXXXrXXXaXXXvXXXeXXXlXXXeXXXdXXX XXX(XXXkXXXmXXX)XXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXbXXXaXXXsXXXeXXX XXXfXXXaXXXrXXXeXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX XXX<XXX=XXX XXX4XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXfXXXaXXXrXXXeXXX XXX=XXX XXX1XXX3XXX.XXX0XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXfXXXaXXXrXXXeXXX XXX=XXX XXX1XXX3XXX.XXX0XXX0XXX XXX+XXX XXX(XXX(XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX XXX-XXX XXX4XXX)XXX XXX*XXX XXX2XXX.XXX0XXX0XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXhXXXeXXXcXXXkXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXXrXXXeXXX XXXyXXXoXXXuXXX XXXaXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX/XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXX/XXXPXXXWXXXDXXX?XXX XXX(XXXyXXX/XXXnXXX)XXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXhXXXaXXXsXXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXhXXXaXXXsXXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX=XXX=XXX XXX'XXXyXXX'XXX XXX|XXX|XXX XXXhXXXaXXXsXXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX=XXX=XXX XXX'XXXYXXX'XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX=XXX XXXfXXXaXXXrXXXeXXX XXX*XXX XXX0XXX.XXX2XXX0XXX;XXX XXX XXX/XXX/XXX XXX2XXX0XXX%XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXfXXXiXXXnXXXaXXXlXXXFXXXaXXXrXXXeXXX XXX=XXX XXXfXXXaXXXrXXXeXXX XXX-XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXfXXXiXXXnXXXaXXXlXXXFXXXaXXXrXXXeXXX XXX=XXX XXXfXXXaXXXrXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX XXXFXXXAXXXRXXXEXXX XXXRXXXEXXXCXXXEXXXIXXXPXXXTXXX XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXDXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXdXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX XXX<XXX<XXX XXX"XXX XXXkXXXmXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXBXXXaXXXsXXXeXXX XXXFXXXaXXXrXXXeXXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXfXXXaXXXrXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX>XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX(XXX2XXX0XXX%XXX)XXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXFXXXiXXXnXXXaXXXlXXX XXXFXXXaXXXrXXXeXXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXfXXXiXXXnXXXaXXXlXXXFXXXaXXXrXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXTXXXhXXXaXXXnXXXkXXX XXXyXXXoXXXuXXX XXXfXXXoXXXrXXX XXXrXXXiXXXdXXXiXXXnXXXgXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX3XXX:XXX XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXXAXXXgXXXeXXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXXSXXXyXXXsXXXtXXXeXXXmXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXYXXXoXXXuXXXrXXX XXXbXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXXnXXXeXXXeXXXdXXXsXXX XXXtXXXoXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXXsXXX XXXfXXXoXXXrXXX XXXvXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXpXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX.XXX XXXDXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXaXXXgXXXeXXX XXXgXXXrXXXoXXXuXXXpXXXsXXX XXXhXXXaXXXvXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXpXXXrXXXiXXXoXXXrXXXiXXXtXXXiXXXeXXXsXXX:XXX XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXXsXXX XXX(XXX6XXX0XXX+XXX)XXX,XXX XXXaXXXdXXXuXXXlXXXtXXXsXXX XXX(XXX1XXX8XXX-XXX5XXX9XXX)XXX,XXX XXXmXXXiXXXnXXXoXXXrXXXsXXX XXX(XXX1XXX3XXX-XXX1XXX7XXX)XXX,XXX XXXaXXXnXXXdXXX XXXcXXXhXXXiXXXlXXXdXXXrXXXeXXXnXXX XXX(XXX0XXX-XXX1XXX2XXX)XXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXBXXXuXXXiXXXlXXXdXXX XXXaXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXuXXXsXXXeXXXsXXX XXXnXXXeXXXsXXXtXXXeXXXdXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXtXXXoXXX XXXcXXXaXXXtXXXeXXXgXXXoXXXrXXXiXXXzXXXeXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXXsXXX XXXaXXXnXXXdXXX XXXaXXXsXXXsXXXiXXXgXXXnXXX XXXvXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXpXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX XXXlXXXeXXXvXXXeXXXlXXXsXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXNXXXeXXXsXXXtXXXeXXXdXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXfXXXoXXXrXXX XXXaXXXgXXXeXXX XXXrXXXaXXXnXXXgXXXeXXXsXXXXXX
+XXX-XXX XXXMXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXcXXXoXXXmXXXpXXXaXXXrXXXiXXXsXXXoXXXnXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXXXXX
+XXX-XXX XXXRXXXaXXXnXXXgXXXeXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXX XXX(XXX`XXX>XXX=XXX XXX&XXX&XXX XXX<XXX=XXX`XXX)XXXXXX
+XXX-XXX XXXCXXXoXXXmXXXpXXXlXXXeXXXxXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXaXXXlXXX XXXlXXXoXXXgXXXiXXXcXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXBXXXAXXXRXXXAXXXNXXXGXXXAXXXYXXX XXXAXXXGXXXEXXX XXXCXXXLXXXAXXXSXXXSXXXIXXXFXXXIXXXCXXXAXXXTXXXIXXXOXXXNXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXnXXXaXXXmXXXeXXX XXXaXXXnXXXdXXX XXXaXXXgXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX:XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXX XXX XXX-XXX XXXSXXXeXXXnXXXiXXXoXXXrXXX XXXCXXXiXXXtXXXiXXXzXXXeXXXnXXX XXX(XXX6XXX0XXX+XXX)XXX:XXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX XXXAXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXX XXX XXX-XXX XXXAXXXdXXXuXXXlXXXtXXX XXX(XXX1XXX8XXX-XXX5XXX9XXX)XXX:XXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX XXXBXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXX XXX XXX-XXX XXXMXXXiXXXnXXXoXXXrXXX XXX(XXX1XXX3XXX-XXX1XXX7XXX)XXX:XXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX XXXCXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXX XXX XXX-XXX XXXCXXXhXXXiXXXlXXXdXXX XXX(XXX0XXX-XXX1XXX2XXX)XXX:XXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX XXXDXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXX XXX XXX-XXX XXXIXXXnXXXvXXXaXXXlXXXiXXXdXXX XXX(XXXnXXXeXXXgXXXaXXXtXXXiXXXvXXXeXXX)XXX:XXX XXXEXXXrXXXrXXXoXXXrXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXXsXXX XXXbXXXyXXX XXXaXXXgXXXeXXX XXXgXXXrXXXoXXXuXXXpXXX XXXwXXXiXXXtXXXhXXX XXXvXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXpXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXgXXXeXXXtXXXsXXX XXXaXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX'XXXsXXX XXXnXXXaXXXmXXXeXXX XXXaXXXnXXXdXXX XXXaXXXgXXXeXXX,XXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXXsXXX XXXtXXXhXXXeXXX XXXiXXXnXXXpXXXuXXXtXXX,XXX XXXcXXXaXXXtXXXeXXXgXXXoXXXrXXXiXXXzXXXeXXXsXXX XXXtXXXhXXXeXXXmXXX XXXiXXXnXXXtXXXoXXX XXXaXXXgXXXeXXX XXXgXXXrXXXoXXXuXXXpXXXsXXX XXX(XXXcXXXhXXXiXXXlXXXdXXX,XXX XXXmXXXiXXXnXXXoXXXrXXX,XXX XXXaXXXdXXXuXXXlXXXtXXX,XXX XXXoXXXrXXX XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXX)XXX,XXX XXXaXXXnXXXdXXX XXXaXXXsXXXsXXXiXXXgXXXnXXXsXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXvXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXpXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX XXXlXXXeXXXvXXXeXXXlXXXsXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXBXXXAXXXRXXXAXXXNXXXGXXXAXXXYXXX XXXAXXXGXXXEXXX XXXCXXXLXXXAXXXSXXXSXXXIXXXFXXXIXXXCXXXAXXXTXXXIXXXOXXXNXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXFXXXuXXXlXXXlXXX XXXnXXXaXXXmXXXeXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXgXXXeXXXtXXXlXXXiXXXnXXXeXXX(XXXcXXXiXXXnXXX,XXX XXXnXXXaXXXmXXXeXXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXXgXXXeXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXaXXXgXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX XXXCXXXLXXXAXXXSXXXSXXXIXXXFXXXIXXXCXXXAXXXTXXXIXXXOXXXNXXX XXXRXXXEXXXSXXXUXXXLXXXTXXX XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXNXXXaXXXmXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXnXXXaXXXmXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXXgXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXaXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXaXXXgXXXeXXX XXX<XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXRXXXRXXXOXXXRXXX:XXX XXXIXXXnXXXvXXXaXXXlXXXiXXXdXXX XXXaXXXgXXXeXXX!XXX XXXAXXXgXXXeXXX XXXcXXXaXXXnXXXnXXXoXXXtXXX XXXbXXXeXXX XXXnXXXeXXXgXXXaXXXtXXXiXXXvXXXeXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXaXXXgXXXeXXX XXX>XXX=XXX XXX0XXX XXX&XXX&XXX XXXaXXXgXXXeXXX XXX<XXX=XXX XXX1XXX2XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXaXXXtXXXeXXXgXXXoXXXrXXXyXXX:XXX XXXCXXXhXXXiXXXlXXXdXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXVXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX:XXX XXXDXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXpXXXeXXXcXXXiXXXaXXXlXXX XXXAXXXsXXXsXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX:XXX XXXPXXXeXXXdXXXiXXXaXXXtXXXrXXXiXXXcXXX XXXcXXXaXXXrXXXeXXX XXXaXXXvXXXaXXXiXXXlXXXaXXXbXXXlXXXeXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXaXXXgXXXeXXX XXX>XXX=XXX XXX1XXX3XXX XXX&XXX&XXX XXXaXXXgXXXeXXX XXX<XXX=XXX XXX1XXX7XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXaXXXtXXXeXXXgXXXoXXXrXXXyXXX:XXX XXXMXXXiXXXnXXXoXXXrXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXVXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX:XXX XXXCXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXpXXXeXXXcXXXiXXXaXXXlXXX XXXAXXXsXXXsXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX:XXX XXXPXXXaXXXrXXXeXXXnXXXtXXXaXXXlXXX XXXcXXXoXXXnXXXsXXXeXXXnXXXtXXX XXXrXXXeXXXqXXXuXXXiXXXrXXXeXXXdXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXaXXXgXXXeXXX XXX>XXX=XXX XXX1XXX8XXX XXX&XXX&XXX XXXaXXXgXXXeXXX XXX<XXX=XXX XXX5XXX9XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXaXXXtXXXeXXXgXXXoXXXrXXXyXXX:XXX XXXAXXXdXXXuXXXlXXXtXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXVXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX:XXX XXXBXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXpXXXeXXXcXXXiXXXaXXXlXXX XXXAXXXsXXXsXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX:XXX XXXSXXXtXXXaXXXnXXXdXXXaXXXrXXXdXXX XXXpXXXrXXXoXXXcXXXeXXXsXXXsXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXX XXX XXX/XXX/XXX XXXaXXXgXXXeXXX XXX>XXX=XXX XXX6XXX0XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXaXXXtXXXeXXXgXXXoXXXrXXXyXXX:XXX XXXSXXXeXXXnXXXiXXXoXXXrXXX XXXCXXXiXXXtXXXiXXXzXXXeXXXnXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXVXXXaXXXcXXXcXXXiXXXnXXXaXXXtXXXiXXXoXXXnXXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX:XXX XXXAXXX XXX(XXXHXXXiXXXgXXXhXXX XXXPXXXrXXXiXXXoXXXrXXXiXXXtXXXyXXX)XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXpXXXeXXXcXXXiXXXaXXXlXXX XXXAXXXsXXXsXXXiXXXsXXXtXXXaXXXnXXXcXXXeXXX:XXX XXXAXXXvXXXaXXXiXXXlXXXaXXXbXXXlXXXeXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX4XXX:XXX XXXGXXXrXXXaXXXdXXXeXXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXXwXXXiXXXtXXXhXXX XXXHXXXoXXXnXXXoXXXrXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXTXXXeXXXaXXXcXXXhXXXeXXXrXXXsXXX XXXnXXXeXXXeXXXdXXX XXXaXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXnXXXoXXXtXXX XXXoXXXnXXXlXXXyXXX XXXsXXXhXXXoXXXwXXXsXXX XXXiXXXfXXX XXXaXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXpXXXaXXXsXXXsXXXeXXXdXXX XXXbXXXuXXXtXXX XXXaXXXlXXXsXXXoXXX XXXaXXXwXXXaXXXrXXXdXXXsXXX XXXhXXXoXXXnXXXoXXXrXXXsXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXXaXXXnXXXcXXXeXXX.XXX XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXcXXXoXXXmXXXpXXXrXXXeXXXhXXXeXXXnXXXsXXXiXXXvXXXeXXX XXXgXXXrXXXaXXXdXXXiXXXnXXXgXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXwXXXiXXXtXXXhXXX XXXmXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXXlXXXeXXXvXXXeXXXlXXXsXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXBXXXuXXXiXXXlXXXdXXX XXXaXXX XXXgXXXrXXXaXXXdXXXeXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXeXXXrXXX XXXtXXXhXXXaXXXtXXX XXXdXXXeXXXtXXXeXXXrXXXmXXXiXXXnXXXeXXXsXXX XXXpXXXaXXXsXXXsXXX/XXXfXXXaXXXiXXXlXXX XXXsXXXtXXXaXXXtXXXuXXXsXXX XXXAXXXNXXXDXXX XXXaXXXwXXXaXXXrXXXdXXXsXXX XXXhXXXoXXXnXXXoXXXrXXXsXXX XXX(XXXSXXXuXXXmXXXmXXXaXXX XXXCXXXuXXXmXXX XXXLXXXaXXXuXXXdXXXeXXX,XXX XXXMXXXaXXXgXXXnXXXaXXX XXXCXXXuXXXmXXX XXXLXXXaXXXuXXXdXXXeXXX,XXX XXXCXXXuXXXmXXX XXXLXXXaXXXuXXXdXXXeXXX)XXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXfXXXiXXXnXXXaXXXlXXX XXXgXXXrXXXaXXXdXXXeXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXMXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX`XXX XXXcXXXhXXXaXXXiXXXnXXXsXXXXXX
+XXX-XXX XXXRXXXaXXXnXXXgXXXeXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXiXXXoXXXnXXX XXX(XXX0XXX-XXX1XXX0XXX0XXX)XXXXXX
+XXX-XXX XXXNXXXeXXXsXXXtXXXeXXXdXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXXCXXXoXXXmXXXpXXXrXXXeXXXhXXXeXXXnXXXsXXXiXXXvXXXeXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXXlXXXoXXXgXXXiXXXcXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX9XXX8XXX-XXX1XXX0XXX0XXX:XXX XXXPXXXaXXXsXXXsXXXeXXXdXXX XXXwXXXiXXXtXXXhXXX XXXSXXXuXXXmXXXmXXXaXXX XXXCXXXuXXXmXXX XXXLXXXaXXXuXXXdXXXeXXXXXX
+XXX-XXX XXX9XXX5XXX-XXX9XXX7XXX:XXX XXXPXXXaXXXsXXXsXXXeXXXdXXX XXXwXXXiXXXtXXXhXXX XXXMXXXaXXXgXXXnXXXaXXX XXXCXXXuXXXmXXX XXXLXXXaXXXuXXXdXXXeXXXXXX
+XXX-XXX XXX9XXX0XXX-XXX9XXX4XXX:XXX XXXPXXXaXXXsXXXsXXXeXXXdXXX XXXwXXXiXXXtXXXhXXX XXXCXXXuXXXmXXX XXXLXXXaXXXuXXXdXXXeXXXXXX
+XXX-XXX XXX7XXX5XXX-XXX8XXX9XXX:XXX XXXPXXXaXXXsXXXsXXXeXXXdXXXXXX
+XXX-XXX XXX0XXX-XXX7XXX4XXX:XXX XXXFXXXaXXXiXXXlXXXeXXXdXXXXXX
+XXX-XXX XXXOXXXuXXXtXXXsXXXiXXXdXXXeXXX XXX0XXX-XXX1XXX0XXX0XXX:XXX XXXIXXXnXXXvXXXaXXXlXXXiXXXdXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXTXXXUXXXDXXXEXXXNXXXTXXX XXXGXXXRXXXAXXXDXXXEXXX XXXCXXXLXXXAXXXSXXXSXXXIXXXFXXXIXXXCXXXAXXXTXXXIXXXOXXXNXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXnXXXaXXXmXXXeXXX XXXaXXXnXXXdXXX XXXgXXXrXXXaXXXdXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXVXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX XXX(XXX0XXX-XXX1XXX0XXX0XXX)XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXrXXXeXXXsXXXuXXXlXXXtXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXgXXXrXXXaXXXdXXXeXXXsXXX XXXwXXXiXXXtXXXhXXX XXXhXXXoXXXnXXXoXXXrXXXsXXX XXXaXXXwXXXaXXXrXXXdXXXsXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXXsXXX XXXtXXXhXXXaXXXtXXX XXXtXXXhXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX XXXiXXXsXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXX0XXX-XXX1XXX0XXX0XXX,XXX XXXtXXXhXXXeXXXnXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXeXXXsXXX XXXiXXXtXXX XXXiXXXnXXXtXXXoXXX XXXcXXXaXXXtXXXeXXXgXXXoXXXrXXXiXXXeXXXsXXX XXX(XXXfXXXaXXXiXXXlXXXeXXXdXXX,XXX XXXpXXXaXXXsXXXsXXXeXXXdXXX,XXX XXXcXXXuXXXmXXX XXXlXXXaXXXuXXXdXXXeXXX,XXX XXXmXXXaXXXgXXXnXXXaXXX XXXcXXXuXXXmXXX XXXlXXXaXXXuXXXdXXXeXXX,XXX XXXoXXXrXXX XXXsXXXuXXXmXXXmXXXaXXX XXXcXXXuXXXmXXX XXXlXXXaXXXuXXXdXXXeXXX)XXX XXXwXXXiXXXtXXXhXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXrXXXeXXXmXXXaXXXrXXXkXXXsXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXTXXXUXXXDXXXEXXXNXXXTXXX XXXGXXXRXXXAXXXDXXXEXXX XXXCXXXLXXXAXXXSXXXSXXXIXXXFXXXIXXXCXXXAXXXTXXXIXXXOXXXNXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXnXXXaXXXmXXXeXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXgXXXeXXXtXXXlXXXiXXXnXXXeXXX(XXXcXXXiXXXnXXX,XXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXFXXXiXXXnXXXaXXXlXXX XXXgXXXrXXXaXXXdXXXeXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXgXXXrXXXaXXXdXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX XXXGXXXRXXXAXXXDXXXEXXX XXXRXXXEXXXPXXXOXXXRXXXTXXX XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXGXXXrXXXaXXXdXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXgXXXrXXXaXXXdXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXVXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX XXXrXXXaXXXnXXXgXXXeXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX<XXX XXX0XXX XXX|XXX|XXX XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX XXX1XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXRXXXRXXXOXXXRXXX:XXX XXXIXXXnXXXvXXXaXXXlXXXiXXXdXXX XXXgXXXrXXXaXXXdXXXeXXX!XXX XXXMXXXuXXXsXXXtXXX XXXbXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXX0XXX XXXaXXXnXXXdXXX XXX1XXX0XXX0XXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX1XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXgXXXrXXXaXXXdXXXeXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX=XXX XXX9XXX8XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXPXXXAXXXSXXXSXXXEXXXDXXX XXX✓XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXoXXXnXXXoXXXrXXXsXXX:XXX XXXSXXXUXXXMXXXMXXXAXXX XXXCXXXUXXXMXXX XXXLXXXAXXXUXXXDXXXEXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXmXXXaXXXrXXXkXXXsXXX:XXX XXXEXXXxXXXcXXXeXXXpXXXtXXXiXXXoXXXnXXXaXXXlXXX XXXaXXXcXXXaXXXdXXXeXXXmXXXiXXXcXXX XXXeXXXxXXXcXXXeXXXlXXXlXXXeXXXnXXXcXXXeXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX=XXX XXX9XXX5XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXPXXXAXXXSXXXSXXXEXXXDXXX XXX✓XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXoXXXnXXXoXXXrXXXsXXX:XXX XXXMXXXAXXXGXXXNXXXAXXX XXXCXXXUXXXMXXX XXXLXXXAXXXUXXXDXXXEXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXmXXXaXXXrXXXkXXXsXXX:XXX XXXOXXXuXXXtXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXXaXXXnXXXcXXXeXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX=XXX XXX9XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXPXXXAXXXSXXXSXXXEXXXDXXX XXX✓XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXoXXXnXXXoXXXrXXXsXXX:XXX XXXCXXXUXXXMXXX XXXLXXXAXXXUXXXDXXXEXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXmXXXaXXXrXXXkXXXsXXX:XXX XXXEXXXxXXXcXXXeXXXlXXXlXXXeXXXnXXXtXXX XXXwXXXoXXXrXXXkXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX=XXX XXX7XXX5XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXPXXXAXXXSXXXSXXXEXXXDXXX XXX✓XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXmXXXaXXXrXXXkXXXsXXX:XXX XXXGXXXoXXXoXXXdXXX XXXjXXXoXXXbXXX!XXX XXXKXXXeXXXeXXXpXXX XXXiXXXmXXXpXXXrXXXoXXXvXXXiXXXnXXXgXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXFXXXAXXXIXXXLXXXEXXXDXXX XXX✗XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXmXXXaXXXrXXXkXXXsXXX:XXX XXXNXXXeXXXeXXXdXXX XXXtXXXoXXX XXXrXXXeXXXtXXXaXXXkXXXeXXX XXXtXXXhXXXiXXXsXXX XXXsXXXuXXXbXXXjXXXeXXXcXXXtXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX5XXX:XXX XXXEXXXlXXXeXXXcXXXtXXXrXXXiXXXcXXXiXXXtXXXyXXX XXXBXXXiXXXlXXXlXXX XXXwXXXiXXXtXXXhXXX XXXPXXXeXXXnXXXaXXXlXXXtXXXyXXX XXXCXXXhXXXeXXXcXXXkXXXeXXXrXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXMXXXeXXXrXXXaXXXlXXXcXXXoXXX XXXcXXXhXXXaXXXrXXXgXXXeXXXsXXX XXXpXXXeXXXnXXXaXXXlXXXtXXXiXXXeXXXsXXX XXXfXXXoXXXrXXX XXXlXXXaXXXtXXXeXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXXsXXX.XXX XXXBXXXuXXXiXXXlXXXdXXX XXXaXXX XXXbXXXiXXXlXXXlXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXtXXXhXXXaXXXtXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXiXXXfXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXX XXXiXXXsXXX XXXlXXXaXXXtXXXeXXX XXXaXXXnXXXdXXX XXXaXXXpXXXpXXXlXXXiXXXeXXXsXXX XXXaXXX XXX5XXX%XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXXaXXXuXXXtXXXoXXXmXXXaXXXtXXXiXXXcXXXaXXXlXXXlXXXyXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXdXXXuXXXeXXX XXXdXXXaXXXtXXXeXXX XXXsXXXtXXXaXXXtXXXuXXXsXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXbXXXiXXXlXXXlXXXiXXXnXXXgXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXuXXXsXXXeXXXsXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXaXXXlXXX XXXlXXXoXXXgXXXiXXXcXXX XXXtXXXoXXX XXXaXXXdXXXdXXX XXXpXXXeXXXnXXXaXXXlXXXtXXXiXXXeXXXsXXX,XXX XXXaXXXpXXXpXXXlXXXiXXXeXXXsXXX XXXtXXXiXXXeXXXrXXXeXXXdXXX XXXpXXXrXXXiXXXcXXXiXXXnXXXgXXX XXXfXXXoXXXrXXX XXXeXXXlXXXeXXXcXXXtXXXrXXXiXXXcXXXiXXXtXXXyXXX XXXcXXXoXXXnXXXsXXXuXXXmXXXpXXXtXXXiXXXoXXXnXXX,XXX XXXaXXXnXXXdXXX XXXgXXXeXXXnXXXeXXXrXXXaXXXtXXXeXXXsXXX XXXaXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXtXXXeXXX XXXbXXXiXXXlXXXlXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXNXXXeXXXsXXXtXXXeXXXdXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXfXXXoXXXrXXX XXXtXXXiXXXeXXXrXXXeXXXdXXX XXXpXXXrXXXiXXXcXXXiXXXnXXXgXXXXXX
+XXX-XXX XXXBXXXoXXXoXXXlXXXeXXXaXXXnXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX XXXfXXXoXXXrXXX XXXlXXXaXXXtXXXeXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXXXXX
+XXX-XXX XXXMXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXpXXXeXXXrXXXcXXXeXXXnXXXtXXXaXXXgXXXeXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXXCXXXoXXXmXXXpXXXlXXXeXXXxXXX XXXrXXXeXXXaXXXlXXX-XXXwXXXoXXXrXXXlXXXdXXX XXXlXXXoXXXgXXXiXXXcXXXXXX
+XXXXXX
+XXX*XXX*XXXPXXXrXXXiXXXcXXXiXXXnXXXgXXX XXXTXXXiXXXeXXXrXXXsXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX0XXX-XXX1XXX0XXX0XXX XXXkXXXWXXXhXXX:XXX XXXPXXXHXXXPXXX XXX1XXX0XXX.XXX5XXX0XXX/XXXkXXXWXXXhXXXXXX
+XXX-XXX XXX1XXX0XXX1XXX-XXX2XXX0XXX0XXX XXXkXXXWXXXhXXX:XXX XXXPXXXHXXXPXXX XXX1XXX1XXX.XXX0XXX0XXX/XXXkXXXWXXXhXXXXXX
+XXX-XXX XXX2XXX0XXX1XXX-XXX3XXX0XXX0XXX XXXkXXXWXXXhXXX:XXX XXXPXXXHXXXPXXX XXX1XXX2XXX.XXX0XXX0XXX/XXXkXXXWXXXhXXXXXX
+XXX-XXX XXX3XXX0XXX1XXX+XXX XXXkXXXWXXXhXXX:XXX XXXPXXXHXXXPXXX XXX1XXX3XXX.XXX5XXX0XXX/XXXkXXXWXXXhXXXXXX
+XXX-XXX XXXLXXXaXXXtXXXeXXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX:XXX XXX5XXX%XXX XXXiXXXfXXX XXXlXXXaXXXtXXXeXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXkXXXwXXXhXXX,XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX=XXX XXX0XXX,XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX=XXX XXX0XXX,XXX XXXtXXXoXXXtXXXaXXXlXXXBXXXiXXXlXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXiXXXsXXXLXXXaXXXtXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXMXXXEXXXRXXXAXXXLXXXCXXXOXXX XXXBXXXIXXXLXXXLXXXIXXXNXXXGXXX XXXSXXXYXXXSXXXTXXXEXXXMXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXkXXXWXXXhXXX XXXcXXXoXXXnXXXsXXXuXXXmXXXeXXXdXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXtXXXiXXXeXXXrXXXeXXXdXXX XXXbXXXaXXXsXXXeXXX XXXcXXXhXXXaXXXrXXXgXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXAXXXsXXXkXXX XXXiXXXfXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXX XXXiXXXsXXX XXXlXXXaXXXtXXXeXXX XXX(XXXyXXX/XXXnXXX)XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXAXXXdXXXdXXX XXX5XXX%XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXXiXXXfXXX XXXlXXXaXXXtXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXtXXXeXXX XXXbXXXiXXXlXXXlXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXeXXXlXXXeXXXcXXXtXXXrXXXiXXXcXXXiXXXtXXXyXXX XXXbXXXiXXXlXXXlXXX XXXwXXXiXXXtXXXhXXX XXXtXXXiXXXeXXXrXXXeXXXdXXX XXXpXXXrXXXiXXXcXXXiXXXnXXXgXXX XXXaXXXnXXXdXXX XXXlXXXaXXXtXXXeXXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXaXXXpXXXpXXXlXXXiXXXeXXXsXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXrXXXaXXXtXXXeXXXsXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXcXXXoXXXnXXXsXXXuXXXmXXXpXXXtXXXiXXXoXXXnXXX XXXtXXXiXXXeXXXrXXXsXXX,XXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXiXXXfXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXX XXXiXXXsXXX XXXlXXXaXXXtXXXeXXX,XXX XXXaXXXdXXXdXXXsXXX XXXaXXX XXX5XXX%XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXXiXXXfXXX XXXaXXXpXXXpXXXlXXXiXXXcXXXaXXXbXXXlXXXeXXX,XXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXsXXX XXXaXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXtXXXeXXX XXXbXXXiXXXlXXXlXXXiXXXnXXXgXXX XXXsXXXtXXXaXXXtXXXeXXXmXXXeXXXnXXXtXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXkXXXwXXXhXXX,XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX=XXX XXX0XXX,XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX=XXX XXX0XXX,XXX XXXtXXXoXXXtXXXaXXXlXXXBXXXiXXXlXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXiXXXsXXXLXXXaXXXtXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXMXXXEXXXRXXXAXXXLXXXCXXXOXXX XXXBXXXIXXXLXXXLXXXIXXXNXXXGXXX XXXSXXXYXXXSXXXTXXXEXXXMXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXnXXXtXXXeXXXrXXX XXXkXXXWXXXhXXX XXXcXXXoXXXnXXXsXXXuXXXmXXXeXXXdXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXkXXXwXXXhXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXtXXXiXXXeXXXrXXXeXXXdXXX XXXbXXXaXXXsXXXeXXX XXXcXXXhXXXaXXXrXXXgXXXeXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXkXXXwXXXhXXX XXX<XXX=XXX XXX1XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX=XXX XXXkXXXwXXXhXXX XXX*XXX XXX1XXX0XXX.XXX5XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXkXXXwXXXhXXX XXX<XXX=XXX XXX2XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX=XXX XXX(XXX1XXX0XXX0XXX XXX*XXX XXX1XXX0XXX.XXX5XXX0XXX)XXX XXX+XXX XXX(XXX(XXXkXXXwXXXhXXX XXX-XXX XXX1XXX0XXX0XXX)XXX XXX*XXX XXX1XXX1XXX.XXX0XXX0XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXkXXXwXXXhXXX XXX<XXX=XXX XXX3XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX=XXX XXX(XXX1XXX0XXX0XXX XXX*XXX XXX1XXX0XXX.XXX5XXX0XXX)XXX XXX+XXX XXX(XXX1XXX0XXX0XXX XXX*XXX XXX1XXX1XXX.XXX0XXX0XXX)XXX XXX+XXX XXX(XXX(XXXkXXXwXXXhXXX XXX-XXX XXX2XXX0XXX0XXX)XXX XXX*XXX XXX1XXX2XXX.XXX0XXX0XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXX XXX XXX/XXX/XXX XXXkXXXwXXXhXXX XXX>XXX XXX3XXX0XXX0XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX=XXX XXX(XXX1XXX0XXX0XXX XXX*XXX XXX1XXX0XXX.XXX5XXX0XXX)XXX XXX+XXX XXX(XXX1XXX0XXX0XXX XXX*XXX XXX1XXX1XXX.XXX0XXX0XXX)XXX XXX+XXX XXX(XXX1XXX0XXX0XXX XXX*XXX XXX1XXX2XXX.XXX0XXX0XXX)XXX XXX+XXX XXX(XXX(XXXkXXXwXXXhXXX XXX-XXX XXX3XXX0XXX0XXX)XXX XXX*XXX XXX1XXX3XXX.XXX5XXX0XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXhXXXeXXXcXXXkXXX XXXiXXXfXXX XXXlXXXaXXXtXXXeXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXIXXXsXXX XXXpXXXaXXXyXXXmXXXeXXXnXXXtXXX XXXlXXXaXXXtXXXeXXX?XXX XXX(XXXyXXX/XXXnXXX)XXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXiXXXsXXXLXXXaXXXtXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXiXXXsXXXLXXXaXXXtXXXeXXX XXX=XXX=XXX XXX'XXXyXXX'XXX XXX|XXX|XXX XXXiXXXsXXXLXXXaXXXtXXXeXXX XXX=XXX=XXX XXX'XXXYXXX'XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX=XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX*XXX XXX0XXX.XXX0XXX5XXX;XXX XXX XXX/XXX/XXX XXX5XXX%XXX XXXlXXXaXXXtXXXeXXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXtXXXoXXXtXXXaXXXlXXXBXXXiXXXlXXXlXXX XXX=XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX+XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX XXXEXXXLXXXEXXXCXXXTXXXRXXXIXXXCXXXIXXXTXXXYXXX XXXBXXXIXXXLXXXLXXX XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXkXXXWXXXhXXX XXXCXXXoXXXnXXXsXXXuXXXmXXXeXXXdXXX:XXX XXX"XXX XXX<XXX<XXX XXXkXXXwXXXhXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXBXXXaXXXsXXXeXXX XXXCXXXhXXXaXXXrXXXgXXXeXXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXbXXXaXXXsXXXeXXXCXXXhXXXaXXXrXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX>XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXLXXXaXXXtXXXeXXX XXXPXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX(XXX5XXX%XXX)XXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXTXXXOXXXTXXXAXXXLXXX XXXAXXXMXXXOXXXUXXXNXXXTXXX XXXDXXXUXXXEXXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXtXXXoXXXtXXXaXXXlXXXBXXXiXXXlXXXlXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXpXXXeXXXnXXXaXXXlXXXtXXXyXXX XXX>XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXPXXXaXXXyXXXmXXXeXXXnXXXtXXX XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXOXXXVXXXEXXXRXXXDXXXUXXXEXXX XXX⚠XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXPXXXaXXXyXXXmXXXeXXXnXXXtXXX XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXXOXXXnXXX XXXTXXXiXXXmXXXeXXX XXX✓XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX6XXX:XXX XXXBXXXMXXXIXXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXwXXXiXXXtXXXhXXX XXXHXXXeXXXaXXXlXXXtXXXhXXX XXXRXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXHXXXeXXXaXXXlXXXtXXXhXXXcXXXaXXXrXXXeXXX XXXwXXXoXXXrXXXkXXXeXXXrXXXsXXX XXXnXXXeXXXeXXXdXXX XXXaXXX XXXtXXXoXXXoXXXlXXX XXXtXXXhXXXaXXXtXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXXsXXX XXXBXXXoXXXdXXXyXXX XXXMXXXaXXXsXXXsXXX XXXIXXXnXXXdXXXeXXXxXXX XXX(XXXBXXXMXXXIXXX)XXX XXXaXXXnXXXdXXX XXXpXXXrXXXoXXXvXXXiXXXdXXXeXXXsXXX XXXsXXXpXXXeXXXcXXXiXXXfXXXiXXXcXXX XXXhXXXeXXXaXXXlXXXtXXXhXXX XXXrXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXXsXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXX(XXXuXXXnXXXdXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXnXXXoXXXrXXXmXXXaXXXlXXX,XXX XXXoXXXvXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXoXXXbXXXeXXXsXXXeXXX)XXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXBXXXuXXXiXXXlXXXdXXX XXXaXXX XXXcXXXoXXXmXXXpXXXrXXXeXXXhXXXeXXXnXXXsXXXiXXXvXXXeXXX XXXBXXXMXXXIXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXtXXXhXXXaXXXtXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXXsXXX XXXiXXXnXXXpXXXuXXXtXXX,XXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXeXXXsXXX XXXrXXXeXXXsXXXuXXXlXXXtXXXsXXX,XXX XXXaXXXnXXXdXXX XXXgXXXiXXXvXXXeXXXsXXX XXXpXXXeXXXrXXXsXXXoXXXnXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXhXXXeXXXaXXXlXXXtXXXhXXX XXXaXXXdXXXvXXXiXXXcXXXeXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXIXXXnXXXpXXXuXXXtXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXiXXXoXXXnXXX XXX(XXXpXXXoXXXsXXXiXXXtXXXiXXXvXXXeXXX XXXvXXXaXXXlXXXuXXXeXXXsXXX XXXoXXXnXXXlXXXyXXX)XXXXXX
+XXX-XXX XXXFXXXoXXXrXXXmXXXuXXXlXXXaXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXX XXX(XXXBXXXMXXXIXXX XXX=XXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX/XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX²XXX)XXXXXX
+XXX-XXX XXXMXXXuXXXlXXXtXXXiXXX-XXXlXXXeXXXvXXXeXXXlXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXX-XXX XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXXuXXXaXXXlXXX XXXrXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXBXXXMXXXIXXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXBXXXeXXXlXXXoXXXwXXX XXX1XXX8XXX.XXX5XXX:XXX XXXUXXXnXXXdXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXXXXX
+XXX-XXX XXX1XXX8XXX.XXX5XXX-XXX2XXX4XXX.XXX9XXX:XXX XXXNXXXoXXXrXXXmXXXaXXXlXXX XXXwXXXeXXXiXXXgXXXhXXXtXXXXXX
+XXX-XXX XXX2XXX5XXX.XXX0XXX-XXX2XXX9XXX.XXX9XXX:XXX XXXOXXXvXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXXXXX
+XXX-XXX XXX3XXX0XXX.XXX0XXX+XXX:XXX XXXOXXXbXXXeXXXsXXXeXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXbXXXmXXXiXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXBXXXMXXXIXXX XXXHXXXEXXXAXXXLXXXTXXXHXXX XXXCXXXAXXXLXXXCXXXUXXXLXXXAXXXTXXXOXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX(XXXkXXXgXXX)XXX XXXaXXXnXXXdXXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX(XXXmXXX)XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXVXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXpXXXoXXXsXXXiXXXtXXXiXXXvXXXeXXX XXXvXXXaXXXlXXXuXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXBXXXMXXXIXXX XXX=XXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX/XXX XXX(XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX*XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX)XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXaXXXnXXXdXXX XXXgXXXiXXXvXXXeXXX XXXrXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXBXXXMXXXIXXX XXXaXXXnXXXdXXX XXXpXXXrXXXoXXXvXXXiXXXdXXXeXXX XXXhXXXeXXXaXXXlXXXtXXXhXXX XXXrXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXXsXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXXsXXX XXXtXXXhXXXaXXXtXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXXaXXXnXXXdXXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXXaXXXrXXXeXXX XXXpXXXoXXXsXXXiXXXtXXXiXXXvXXXeXXX,XXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXXsXXX XXXBXXXMXXXIXXX XXXuXXXsXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXXfXXXoXXXrXXXmXXXuXXXlXXXaXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX/XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX²XXX,XXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXeXXXsXXX XXXtXXXhXXXeXXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXXiXXXnXXXtXXXoXXX XXXcXXXaXXXtXXXeXXXgXXXoXXXrXXXiXXXeXXXsXXX XXX(XXXuXXXnXXXdXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXnXXXoXXXrXXXmXXXaXXXlXXX,XXX XXXoXXXvXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXoXXXbXXXeXXXsXXXeXXX)XXX,XXX XXXaXXXnXXXdXXX XXXpXXXrXXXoXXXvXXXiXXXdXXXeXXXsXXX XXXsXXXpXXXeXXXcXXXiXXXfXXXiXXXcXXX XXXhXXXeXXXaXXXlXXXtXXXhXXX XXXrXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXXsXXX XXXfXXXoXXXrXXX XXXeXXXaXXXcXXXhXXX XXXcXXXaXXXtXXXeXXXgXXXoXXXrXXXyXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX,XXX XXXbXXXmXXXiXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXBXXXMXXXIXXX XXXHXXXEXXXAXXXLXXXTXXXHXXX XXXCXXXAXXXLXXXCXXXUXXXLXXXAXXXTXXXOXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXnXXXtXXXeXXXrXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX(XXXkXXXgXXX)XXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXwXXXeXXXiXXXgXXXhXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXnXXXtXXXeXXXrXXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX(XXXmXXX)XXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXVXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXpXXXoXXXsXXXiXXXtXXXiXXXvXXXeXXX XXXvXXXaXXXlXXXuXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX<XXX=XXX XXX0XXX XXX|XXX|XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX<XXX=XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX\XXXnXXXEXXXRXXXRXXXOXXXRXXX:XXX XXXWXXXeXXXiXXXgXXXhXXXtXXX XXXaXXXnXXXdXXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXXmXXXuXXXsXXXtXXX XXXbXXXeXXX XXXpXXXoXXXsXXXiXXXtXXXiXXXvXXXeXXX XXXvXXXaXXXlXXXuXXXeXXXsXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX1XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXBXXXMXXXIXXXXXX
+XXX XXX XXX XXX XXX XXX XXXbXXXmXXXiXXX XXX=XXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX/XXX XXX(XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX*XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX XXXBXXXMXXXIXXX XXXAXXXNXXXAXXXLXXXYXXXSXXXIXXXSXXX XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXWXXXeXXXiXXXgXXXhXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXX<XXX<XXX XXX"XXX XXXkXXXgXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXeXXXiXXXgXXXhXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX<XXX<XXX XXX"XXX XXXmXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXBXXXMXXXIXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX XXX<XXX<XXX XXXbXXXmXXXiXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXyXXX XXXBXXXMXXXIXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXbXXXmXXXiXXX XXX<XXX XXX1XXX8XXX.XXX5XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXUXXXnXXXdXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXeXXXaXXXlXXXtXXXhXXX XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXX⚠XXX XXXBXXXeXXXlXXXoXXXwXXX XXXhXXXeXXXaXXXlXXXtXXXhXXXyXXX XXXrXXXaXXXnXXXgXXXeXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXX:XXX XXXIXXXnXXXcXXXrXXXeXXXaXXXsXXXeXXX XXXcXXXaXXXlXXXoXXXrXXXiXXXeXXX XXXiXXXnXXXtXXXaXXXkXXXeXXX XXXwXXXiXXXtXXXhXXX XXXnXXXuXXXtXXXrXXXiXXXeXXXnXXXtXXX-XXXrXXXiXXXcXXXhXXX XXXfXXXoXXXoXXXdXXXsXXX.XXX XXXCXXXoXXXnXXXsXXXuXXXlXXXtXXX XXXaXXX XXXnXXXuXXXtXXXrXXXiXXXtXXXiXXXoXXXnXXXiXXXsXXXtXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXbXXXmXXXiXXX XXX<XXX XXX2XXX5XXX.XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXNXXXoXXXrXXXmXXXaXXXlXXX XXXWXXXeXXXiXXXgXXXhXXXtXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXeXXXaXXXlXXXtXXXhXXX XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXX✓XXX XXXHXXXeXXXaXXXlXXXtXXXhXXXyXXX XXXrXXXaXXXnXXXgXXXeXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXX:XXX XXXMXXXaXXXiXXXnXXXtXXXaXXXiXXXnXXX XXXyXXXoXXXuXXXrXXX XXXcXXXuXXXrXXXrXXXeXXXnXXXtXXX XXXlXXXiXXXfXXXeXXXsXXXtXXXyXXXlXXXeXXX XXXwXXXiXXXtXXXhXXX XXXbXXXaXXXlXXXaXXXnXXXcXXXeXXXdXXX XXXdXXXiXXXeXXXtXXX XXXaXXXnXXXdXXX XXXrXXXeXXXgXXXuXXXlXXXaXXXrXXX XXXeXXXxXXXeXXXrXXXcXXXiXXXsXXXeXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXbXXXmXXXiXXX XXX<XXX XXX3XXX0XXX.XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXOXXXvXXXeXXXrXXXwXXXeXXXiXXXgXXXhXXXtXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXeXXXaXXXlXXXtXXXhXXX XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXX⚠XXX XXXAXXXbXXXoXXXvXXXeXXX XXXhXXXeXXXaXXXlXXXtXXXhXXXyXXX XXXrXXXaXXXnXXXgXXXeXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXX:XXX XXXIXXXnXXXcXXXrXXXeXXXaXXXsXXXeXXX XXXpXXXhXXXyXXXsXXXiXXXcXXXaXXXlXXX XXXaXXXcXXXtXXXiXXXvXXXiXXXtXXXyXXX XXXaXXXnXXXdXXX XXXmXXXoXXXnXXXiXXXtXXXoXXXrXXX XXXcXXXaXXXlXXXoXXXrXXXiXXXeXXX XXXiXXXnXXXtXXXaXXXkXXXeXXX.XXX XXXCXXXoXXXnXXXsXXXiXXXdXXXeXXXrXXX XXXcXXXoXXXnXXXsXXXuXXXlXXXtXXXiXXXnXXXgXXX XXXaXXX XXXdXXXoXXXcXXXtXXXoXXXrXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXOXXXbXXXeXXXsXXXeXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXHXXXeXXXaXXXlXXXtXXXhXXX XXXSXXXtXXXaXXXtXXXuXXXsXXX:XXX XXX⚠XXX XXXHXXXiXXXgXXXhXXX XXXrXXXiXXXsXXXkXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXcXXXoXXXmXXXmXXXeXXXnXXXdXXXaXXXtXXXiXXXoXXXnXXX:XXX XXXCXXXoXXXnXXXsXXXuXXXlXXXtXXX XXXaXXX XXXdXXXoXXXcXXXtXXXoXXXrXXX XXXiXXXmXXXmXXXeXXXdXXXiXXXaXXXtXXXeXXXlXXXyXXX.XXX XXXSXXXtXXXaXXXrXXXtXXX XXXaXXX XXXsXXXuXXXpXXXeXXXrXXXvXXXiXXXsXXXeXXXdXXX XXXwXXXeXXXiXXXgXXXhXXXtXXX XXXlXXXoXXXsXXXsXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX7XXX:XXX XXXSXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXEXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXCXXXhXXXeXXXcXXXkXXXeXXXrXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXUXXXnXXXiXXXvXXXeXXXrXXXsXXXiXXXtXXXiXXXeXXXsXXX XXXoXXXfXXXfXXXeXXXrXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXXsXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXcXXXoXXXmXXXbXXXiXXXnXXXeXXXdXXX XXXcXXXrXXXiXXXtXXXeXXXrXXXiXXXaXXX:XXX XXXgXXXrXXXaXXXdXXXeXXX XXX(XXXmXXXuXXXsXXXtXXX XXXbXXXeXXX XXX≥XXX XXX9XXX0XXX)XXX XXXAXXXNXXXDXXX XXXfXXXaXXXmXXXiXXXlXXXyXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXX(XXXmXXXuXXXsXXXtXXX XXXbXXXeXXX XXX<XXX XXXPXXXHXXXPXXX XXX5XXX0XXX,XXX0XXX0XXX0XXX/XXXmXXXoXXXnXXXtXXXhXXX)XXX.XXX XXXBXXXoXXXtXXXhXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX XXXmXXXuXXXsXXXtXXX XXXbXXXeXXX XXXtXXXrXXXuXXXeXXX XXXtXXXoXXX XXXqXXXuXXXaXXXlXXXiXXXfXXXyXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXuXXXsXXXeXXXsXXX XXX*XXX*XXXlXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXAXXXNXXXDXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXX XXX(XXX`XXX&XXX&XXX`XXX)XXX*XXX*XXX XXXtXXXoXXX XXXcXXXhXXXeXXXcXXXkXXX XXXiXXXfXXX XXXBXXXOXXXTXXXHXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX XXXaXXXrXXXeXXX XXXmXXXeXXXtXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXLXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXAXXXNXXXDXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXX XXX(XXX`XXX&XXX&XXX`XXX)XXXXXX
+XXX-XXX XXXMXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXXXXX
+XXX-XXX XXXCXXXlXXXeXXXaXXXrXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXmXXXeXXXsXXXsXXXaXXXgXXXeXXXsXXXXXX
+XXX-XXX XXXRXXXeXXXaXXXlXXX-XXXwXXXoXXXrXXXlXXXdXXX XXXpXXXoXXXlXXXiXXXcXXXyXXX XXXiXXXmXXXpXXXlXXXeXXXmXXXeXXXnXXXtXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXTXXXyXXXpXXXeXXXsXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXFXXXuXXXlXXXlXXX XXXSXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX:XXX XXXGXXXrXXXaXXXdXXXeXXX XXX≥XXX XXX9XXX5XXX XXXAXXXNXXXDXXX XXXIXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX XXX3XXX0XXX,XXX0XXX0XXX0XXXXXX
+XXX-XXX XXXPXXXaXXXrXXXtXXXiXXXaXXXlXXX XXXSXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX:XXX XXXGXXXrXXXaXXXdXXXeXXX XXX≥XXX XXX9XXX0XXX XXXAXXXNXXXDXXX XXXIXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX XXX5XXX0XXX,XXX0XXX0XXX0XXXXXX
+XXX-XXX XXXNXXXoXXXtXXX XXXEXXXlXXXiXXXgXXXiXXXbXXXlXXXeXXX:XXX XXXOXXXtXXXhXXXeXXXrXXXwXXXiXXXsXXXeXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX,XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXCXXXHXXXOXXXLXXXAXXXRXXXSXXXHXXXIXXXPXXX XXXEXXXLXXXIXXXGXXXIXXXBXXXIXXXLXXXIXXXTXXXYXXX XXXCXXXHXXXEXXXCXXXKXXXEXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXGXXXeXXXtXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXnXXXaXXXmXXXeXXX,XXX XXXgXXXrXXXaXXXdXXXeXXX,XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXX XXXfXXXaXXXmXXXiXXXlXXXyXXX XXXiXXXnXXXcXXXoXXXmXXXeXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXhXXXeXXXcXXXkXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXuXXXsXXXiXXXnXXXgXXX XXX&XXX&XXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXtXXXyXXXpXXXeXXX XXXoXXXrXXX XXXrXXXeXXXjXXXeXXXcXXXtXXXiXXXoXXXnXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXhXXXeXXXcXXXkXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXwXXXiXXXtXXXhXXX XXXmXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXAXXXNXXXDXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX:XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXeXXXvXXXaXXXlXXXuXXXaXXXtXXXeXXXsXXX XXXbXXXoXXXtXXXhXXX XXXgXXXrXXXaXXXdXXXeXXX XXXaXXXnXXXdXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXXcXXXrXXXiXXXtXXXeXXXrXXXiXXXaXXX XXXuXXXsXXXiXXXnXXXgXXX XXXlXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXAXXXNXXXDXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX XXXtXXXoXXX XXXdXXXeXXXtXXXeXXXrXXXmXXXiXXXnXXXeXXX XXXiXXXfXXX XXXaXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXqXXXuXXXaXXXlXXXiXXXfXXXiXXXeXXXsXXX XXXfXXXoXXXrXXX XXXfXXXuXXXlXXXlXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX,XXX XXXpXXXaXXXrXXXtXXXiXXXaXXXlXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX,XXX XXXoXXXrXXX XXXiXXXsXXX XXXnXXXoXXXtXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXlXXXeXXX,XXX XXXpXXXrXXXoXXXvXXXiXXXdXXXiXXXnXXXgXXX XXXsXXXpXXXeXXXcXXXiXXXfXXXiXXXcXXX XXXfXXXeXXXeXXXdXXXbXXXaXXXcXXXkXXX XXXfXXXoXXXrXXX XXXeXXXaXXXcXXXhXXX XXXcXXXaXXXsXXXeXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXgXXXrXXXaXXXdXXXeXXX,XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXCXXXHXXXOXXXLXXXAXXXRXXXSXXXHXXXIXXXPXXX XXXEXXXLXXXIXXXGXXXIXXXBXXXIXXXLXXXIXXXTXXXYXXX XXXCXXXHXXXEXXXCXXXKXXXEXXXRXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXnXXXaXXXmXXXeXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXgXXXeXXXtXXXlXXXiXXXnXXXeXXX(XXXcXXXiXXXnXXX,XXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXFXXXiXXXnXXXaXXXlXXX XXXgXXXrXXXaXXXdXXXeXXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXgXXXrXXXaXXXdXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXMXXXoXXXnXXXtXXXhXXXlXXXyXXX XXXfXXXaXXXmXXXiXXXlXXXyXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXX(XXXPXXXHXXXPXXX)XXX:XXX XXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXiXXXnXXX XXX>XXX>XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX XXXEXXXLXXXIXXXGXXXIXXXBXXXIXXXLXXXIXXXTXXXYXXX XXXRXXXEXXXSXXXUXXXLXXXTXXX XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXXNXXXaXXXmXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXGXXXrXXXaXXXdXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXgXXXrXXXaXXXdXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXFXXXaXXXmXXXiXXXlXXXyXXX XXXIXXXnXXXcXXXoXXXmXXXeXXX:XXX XXXPXXXHXXXPXXX XXX"XXX XXX<XXX<XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXhXXXeXXXcXXXkXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX XXXuXXXsXXXiXXXnXXXgXXX XXX&XXX&XXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX=XXX XXX9XXX5XXX XXX&XXX&XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX XXX3XXX0XXX0XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX✓XXX XXXEXXXLXXXIXXXGXXXIXXXBXXXLXXXEXXX XXXFXXXOXXXRXXX XXXFXXXUXXXLXXXLXXX XXXSXXXCXXXHXXXOXXXLXXXAXXXRXXXSXXXHXXXIXXXPXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXoXXXvXXXeXXXrXXXaXXXgXXXeXXX:XXX XXX1XXX0XXX0XXX%XXX XXXtXXXuXXXiXXXtXXXiXXXoXXXnXXX XXX+XXX XXXPXXXHXXXPXXX XXX5XXX,XXX0XXX0XXX0XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXX XXXsXXXtXXXiXXXpXXXeXXXnXXXdXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXoXXXnXXXgXXXrXXXaXXXtXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX>XXX=XXX XXX9XXX0XXX XXX&XXX&XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX XXX5XXX0XXX0XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX✓XXX XXXEXXXLXXXIXXXGXXXIXXXBXXXLXXXEXXX XXXFXXXOXXXRXXX XXXPXXXAXXXRXXXTXXXIXXXAXXXLXXX XXXSXXXCXXXHXXXOXXXLXXXAXXXRXXXSXXXHXXXIXXXPXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXoXXXvXXXeXXXrXXXaXXXgXXXeXXX:XXX XXX5XXX0XXX%XXX XXXtXXXuXXXiXXXtXXXiXXXoXXXnXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXoXXXnXXXgXXXrXXXaXXXtXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX✗XXX XXXNXXXOXXXTXXX XXXEXXXLXXXIXXXGXXXIXXXBXXXLXXXEXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXPXXXrXXXoXXXvXXXiXXXdXXXeXXX XXXsXXXpXXXeXXXcXXXiXXXfXXXiXXXcXXX XXXfXXXeXXXeXXXdXXXbXXXaXXXcXXXkXXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX<XXX XXX9XXX0XXX XXX&XXX&XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX>XXX=XXX XXX5XXX0XXX0XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXaXXXsXXXoXXXnXXX:XXX XXXGXXXrXXXaXXXdXXXeXXX XXXbXXXeXXXlXXXoXXXwXXX XXX9XXX0XXX XXXAXXXNXXXDXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXXeXXXxXXXcXXXeXXXeXXXdXXXsXXX XXXtXXXhXXXrXXXeXXXsXXXhXXXoXXXlXXXdXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXgXXXrXXXaXXXdXXXeXXX XXX<XXX XXX9XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXaXXXsXXXoXXXnXXX:XXX XXXGXXXrXXXaXXXdXXXeXXX XXXbXXXeXXXlXXXoXXXwXXX XXX9XXX0XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX}XXX XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX XXX(XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX>XXX=XXX XXX5XXX0XXX0XXX0XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXaXXXsXXXoXXXnXXX:XXX XXXIXXXnXXXcXXXoXXXmXXXeXXX XXXeXXXxXXXcXXXeXXXeXXXdXXXsXXX XXXtXXXhXXXrXXXeXXXsXXXhXXXoXXXlXXXdXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXXoXXXnXXXsXXXiXXXdXXXeXXXrXXX XXXaXXXpXXXpXXXlXXXyXXXiXXXnXXXgXXX XXXnXXXeXXXxXXXtXXX XXXsXXXeXXXmXXXeXXXsXXXtXXXeXXXrXXX XXXaXXXfXXXtXXXeXXXrXXX XXXiXXXmXXXpXXXrXXXoXXXvXXXeXXXmXXXeXXXnXXXtXXX.XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXX}XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXRXXXeXXXfXXXlXXXeXXXcXXXtXXXiXXXoXXXnXXX XXXQXXXuXXXeXXXsXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXXXXX
+XXXAXXXfXXXtXXXeXXXrXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXtXXXiXXXnXXXgXXX XXXtXXXhXXXeXXXsXXXeXXX XXXtXXXaXXXsXXXkXXXsXXX,XXX XXXtXXXhXXXiXXXnXXXkXXX XXXdXXXeXXXeXXXpXXXlXXXyXXX XXXaXXXbXXXoXXXuXXXtXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX-XXXmXXXaXXXkXXXiXXXnXXXgXXX XXXiXXXnXXX XXXcXXXoXXXdXXXeXXX:XXXXXX
+XXXXXX
+XXX1XXX.XXX XXX*XXX*XXXTXXXhXXXeXXX XXXCXXXrXXXaXXXsXXXhXXX XXXPXXXrXXXeXXXvXXXeXXXnXXXtXXXiXXXoXXXnXXX XXXMXXXiXXXnXXXdXXXsXXXeXXXtXXX*XXX*XXX:XXX XXXBXXXeXXXfXXXoXXXrXXXeXXX XXXlXXXeXXXsXXXsXXXoXXXnXXX XXX5XXX,XXX XXXTXXXiXXXaXXXnXXX'XXXsXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXcXXXrXXXaXXXsXXXhXXXeXXXdXXX XXXoXXXnXXX XXXzXXXeXXXrXXXoXXX.XXX XXXNXXXoXXXwXXX XXXiXXXtXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXfXXXiXXXrXXXsXXXtXXX.XXX XXXWXXXhXXXaXXXtXXX XXXoXXXtXXXhXXXeXXXrXXX XXXrXXXeXXXaXXXlXXX-XXXwXXXoXXXrXXXlXXXdXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXXsXXX XXXMXXXUXXXSXXXTXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXiXXXnXXXpXXXuXXXtXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXaXXXcXXXtXXXiXXXnXXXgXXX?XXX XXX(XXXAXXXTXXXMXXXsXXX,XXX XXXaXXXiXXXrXXXpXXXlXXXaXXXnXXXeXXXsXXX,XXX XXXmXXXeXXXdXXXiXXXcXXXaXXXlXXX XXXdXXXeXXXvXXXiXXXcXXXeXXXsXXX?XXX)XXXXXX
+XXXXXX
+XXX2XXX.XXX XXX*XXX*XXXCXXXoXXXmXXXpXXXaXXXrXXXiXXXsXXXoXXXnXXX XXXvXXXsXXX XXXAXXXsXXXsXXXiXXXgXXXnXXXmXXXeXXXnXXXtXXX*XXX*XXX:XXX XXXWXXXhXXXaXXXtXXX'XXXsXXX XXXtXXXhXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXcXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXX`XXXiXXXfXXX XXX(XXXxXXX XXX=XXX XXX5XXX)XXX`XXX XXXaXXXnXXXdXXX XXX`XXXiXXXfXXX XXX(XXXxXXX XXX=XXX=XXX XXX5XXX)XXX`XXX?XXX XXXWXXXhXXXyXXX XXXiXXXsXXX XXXtXXXhXXXeXXX XXXfXXXiXXXrXXXsXXXtXXX XXXoXXXnXXXeXXX XXXdXXXaXXXnXXXgXXXeXXXrXXXoXXXuXXXsXXX?XXX XXXTXXXeXXXsXXXtXXX XXXiXXXtXXX—XXXwXXXhXXXaXXXtXXX XXXhXXXaXXXpXXXpXXXeXXXnXXXsXXX?XXXXXX
+XXXXXX
+XXX3XXX.XXX XXX*XXX*XXXLXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXOXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX XXXiXXXnXXX XXXDXXXaXXXiXXXlXXXyXXX XXXLXXXiXXXfXXXeXXX*XXX*XXX:XXX XXXTXXXhXXXeXXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXcXXXhXXXeXXXcXXXkXXXeXXXrXXX XXXuXXXsXXXeXXXsXXX XXX`XXX&XXX&XXX`XXX XXX(XXXbXXXoXXXtXXXhXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX XXXmXXXuXXXsXXXtXXX XXXbXXXeXXX XXXtXXXrXXXuXXXeXXX)XXX.XXX XXXTXXXhXXXiXXXnXXXkXXX XXXoXXXfXXX XXX3XXX XXXrXXXeXXXaXXXlXXX XXXsXXXiXXXtXXXuXXXaXXXtXXXiXXXoXXXnXXXsXXX XXXwXXXhXXXeXXXrXXXeXXX XXXyXXXoXXXuXXX XXXnXXXeXXXeXXXdXXX XXX`XXX&XXX&XXX`XXX XXX(XXXAXXXNXXXDXXX)XXX XXXvXXXsXXX XXX`XXX|XXX|XXX`XXX XXX(XXXOXXXRXXX)XXX XXXlXXXoXXXgXXXiXXXcXXX.XXX XXXEXXXxXXXaXXXmXXXpXXXlXXXeXXX:XXX XXX"XXXYXXXoXXXuXXX XXXcXXXaXXXnXXX XXXwXXXiXXXtXXXhXXXdXXXrXXXaXXXwXXX XXXmXXXoXXXnXXXeXXXyXXX XXXiXXXfXXX XXXyXXXoXXXuXXX XXXhXXXaXXXvXXXeXXX XXXcXXXoXXXrXXXrXXXeXXXcXXXtXXX XXXPXXXIXXXNXXX XXXAXXXNXXXDXXX XXXsXXXuXXXfXXXfXXXiXXXcXXXiXXXeXXXnXXXtXXX XXXbXXXaXXXlXXXaXXXnXXXcXXXeXXX.XXX"XXXXXX
+XXXXXX
+XXX4XXX.XXX XXX*XXX*XXXRXXXaXXXnXXXgXXXeXXX XXXCXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXX XXXPXXXaXXXtXXXtXXXeXXXrXXXnXXXsXXX*XXX*XXX:XXX XXXLXXXoXXXoXXXkXXX XXXaXXXtXXX XXXTXXXaXXXsXXXkXXX XXX3XXX XXX(XXXaXXXgXXXeXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX)XXX.XXX XXXHXXXoXXXwXXX XXXdXXXoXXX XXXyXXXoXXXuXXX XXXcXXXhXXXeXXXcXXXkXXX XXXiXXXfXXX XXXaXXX XXXnXXXuXXXmXXXbXXXeXXXrXXX XXXiXXXsXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXX1XXX8XXX XXXaXXXnXXXdXXX XXX5XXX9XXX?XXX XXXWXXXhXXXyXXX XXXuXXXsXXXeXXX XXX`XXXaXXXgXXXeXXX XXX>XXX=XXX XXX1XXX8XXX XXX&XXX&XXX XXXaXXXgXXXeXXX XXX<XXX=XXX XXX5XXX9XXX`XXX XXXiXXXnXXXsXXXtXXXeXXXaXXXdXXX XXXoXXXfXXX XXXtXXXwXXXoXXX XXXsXXXeXXXpXXXaXXXrXXXaXXXtXXXeXXX XXXiXXXfXXX XXXsXXXtXXXaXXXtXXXeXXXmXXXeXXXnXXXtXXXsXXX?XXXXXX
+XXXXXX
+XXX5XXX.XXX XXX*XXX*XXXNXXXeXXXsXXXtXXXeXXXdXXX XXXvXXXsXXX XXXFXXXlXXXaXXXtXXX XXXCXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXaXXXlXXXsXXX*XXX*XXX:XXX XXXTXXXaXXXsXXXkXXX XXX5XXX XXXhXXXaXXXsXXX XXXnXXXeXXXsXXXtXXXeXXXdXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXfXXXoXXXrXXX XXXeXXXlXXXeXXXcXXXtXXXrXXXiXXXcXXXiXXXtXXXyXXX XXXtXXXiXXXeXXXrXXXsXXX.XXX XXXCXXXoXXXuXXXlXXXdXXX XXXyXXXoXXXuXXX XXXrXXXeXXXwXXXrXXXiXXXtXXXeXXX XXXiXXXtXXX XXXwXXXiXXXtXXXhXXX XXXfXXXlXXXaXXXtXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX XXXiXXXfXXX`XXX XXXcXXXhXXXaXXXiXXXnXXXsXXX?XXX XXXWXXXhXXXiXXXcXXXhXXX XXXiXXXsXXX XXXcXXXlXXXeXXXaXXXrXXXeXXXrXXX?XXX XXXWXXXhXXXeXXXnXXX XXXdXXXoXXXeXXXsXXX XXXnXXXeXXXsXXXtXXXiXXXnXXXgXXX XXXmXXXaXXXkXXXeXXX XXXsXXXeXXXnXXXsXXXeXXX?XXXXXX
+XXXXXX
+XXX6XXX.XXX XXX*XXX*XXXEXXXrXXXrXXXoXXXrXXX XXXMXXXeXXXsXXXsXXXaXXXgXXXeXXXsXXX XXXMXXXaXXXtXXXtXXXeXXXrXXX*XXX*XXX:XXX XXXCXXXoXXXmXXXpXXXaXXXrXXXeXXX XXX"XXXEXXXRXXXRXXXOXXXRXXX"XXX XXXvXXXsXXX XXX"XXXEXXXRXXXRXXXOXXXRXXX:XXX XXXCXXXaXXXnXXXnXXXoXXXtXXX XXXdXXXiXXXvXXXiXXXdXXXeXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX!XXX XXXDXXXiXXXvXXXiXXXsXXXiXXXoXXXnXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX XXXiXXXsXXX XXXmXXXaXXXtXXXhXXXeXXXmXXXaXXXtXXXiXXXcXXXaXXXlXXXlXXXyXXX XXXuXXXnXXXdXXXeXXXfXXXiXXXnXXXeXXXdXXX.XXX"XXX XXXWXXXhXXXiXXXcXXXhXXX XXXhXXXeXXXlXXXpXXXsXXX XXXuXXXsXXXeXXXrXXXsXXX XXXmXXXoXXXrXXXeXXX?XXX XXXWXXXhXXXyXXX XXXdXXXoXXX XXXpXXXrXXXoXXXfXXXeXXXsXXXsXXXiXXXoXXXnXXXaXXXlXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXXsXXX XXXiXXXnXXXvXXXeXXXsXXXtXXX XXXiXXXnXXX XXXgXXXoXXXoXXXdXXX XXXeXXXrXXXrXXXoXXXrXXX XXXmXXXeXXXsXXXsXXXaXXXgXXXeXXXsXXX?XXXXXX
+XXXXXX
+XXX7XXX.XXX XXX*XXX*XXXTXXXhXXXeXXX XXXJXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXDXXXrXXXiXXXvXXXeXXXrXXX XXXAXXXnXXXaXXXlXXXoXXXgXXXyXXX*XXX*XXX:XXX XXXKXXXuXXXyXXXaXXX XXXMXXXiXXXgXXXuXXXeXXXlXXX XXXsXXXaXXXiXXXdXXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXwXXXaXXXsXXX XXX"XXXaXXX XXXdXXXrXXXiXXXvXXXeXXXrXXX XXXwXXXhXXXoXXX XXXnXXXeXXXvXXXeXXXrXXX XXXlXXXoXXXoXXXkXXXsXXX XXXaXXXtXXX XXXtXXXhXXXeXXX XXXrXXXoXXXaXXXdXXX.XXX"XXX XXXNXXXoXXXwXXX XXXwXXXiXXXtXXXhXXX XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX,XXX XXXyXXXoXXXuXXXrXXX XXXcXXXoXXXdXXXeXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXaXXXcXXXtXXXiXXXnXXXgXXX.XXX XXXTXXXhXXXiXXXnXXXkXXX XXXoXXXfXXX XXX3XXX XXXmXXXoXXXrXXXeXXX XXXaXXXnXXXaXXXlXXXoXXXgXXXiXXXeXXXsXXX XXXfXXXoXXXrXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX-XXXmXXXaXXXkXXXiXXXnXXXgXXX XXXiXXXnXXX XXXcXXXoXXXdXXXeXXX XXX(XXXcXXXhXXXeXXXfXXX XXXtXXXaXXXsXXXtXXXiXXXnXXXgXXX XXXfXXXoXXXoXXXdXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXsXXXeXXXrXXXvXXXiXXXnXXXgXXX?XXX XXXdXXXoXXXcXXXtXXXoXXXrXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXX XXXsXXXyXXXmXXXpXXXtXXXoXXXmXXXsXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXdXXXiXXXaXXXgXXXnXXXoXXXsXXXiXXXsXXX?XXX)XXX.XXXXXX
+XXXXXX
+XXX8XXX.XXX XXX*XXX*XXXBXXXoXXXoXXXlXXXeXXXaXXXnXXX XXXLXXXoXXXgXXXiXXXcXXX XXXCXXXoXXXmXXXpXXXlXXXeXXXxXXXiXXXtXXXyXXX*XXX*XXX:XXX XXXIXXXnXXX XXXTXXXaXXXsXXXkXXX XXX7XXX,XXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXnXXXeXXXeXXXdXXXsXXX XXXgXXXrXXXaXXXdXXXeXXX XXX≥XXX XXX9XXX0XXX XXXAXXXNXXXDXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX XXX5XXX0XXX,XXX0XXX0XXX0XXX.XXX XXXWXXXhXXXaXXXtXXX XXXiXXXfXXX XXXtXXXhXXXeXXX XXXrXXXuXXXlXXXeXXX XXXwXXXaXXXsXXX XXX"XXXgXXXrXXXaXXXdXXXeXXX XXX≥XXX XXX9XXX0XXX XXXOXXXRXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX XXX5XXX0XXX,XXX0XXX0XXX0XXX XXX(XXXbXXXuXXXtXXX XXXnXXXoXXXtXXX XXXbXXXoXXXtXXXhXXX)XXX"XXX?XXX XXXHXXXoXXXwXXX XXXwXXXoXXXuXXXlXXXdXXX XXXyXXXoXXXuXXX XXXcXXXoXXXdXXXeXXX XXXtXXXhXXXaXXXtXXX XXXwXXXiXXXtXXXhXXX XXX`XXX&XXX&XXX`XXX,XXX XXX`XXX|XXX|XXX`XXX,XXX XXXaXXXnXXXdXXX XXX`XXX!XXX`XXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX?XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXvXXXeXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXdXXXXXX
+XXXXXX
+XXXYXXXoXXXuXXX'XXXvXXXeXXX XXXgXXXiXXXvXXXeXXXnXXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXXsXXX XXX*XXX*XXXiXXXnXXXtXXXeXXXlXXXlXXXiXXXgXXXeXXXnXXXcXXXeXXX*XXX*XXX.XXX XXXTXXXhXXXeXXXyXXX'XXXrXXXeXXX XXXnXXXoXXX XXXlXXXoXXXnXXXgXXXeXXXrXXX XXXlXXXiXXXnXXXeXXXaXXXrXXX XXXsXXXcXXXrXXXiXXXpXXXtXXXsXXX—XXXtXXXhXXXeXXXyXXX XXXcXXXaXXXnXXX XXX*XXX*XXXaXXXnXXXaXXXlXXXyXXXzXXXeXXX,XXX XXXdXXXeXXXcXXXiXXXdXXXeXXX,XXX XXXaXXXnXXXdXXX XXXaXXXdXXXaXXXpXXXtXXX*XXX*XXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXdXXXaXXXtXXXaXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXrXXXeXXX XXXSXXXkXXXiXXXlXXXlXXXsXXX XXXUXXXnXXXlXXXoXXXcXXXkXXXeXXXdXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX*XXX*XXX`XXXiXXXfXXX/XXXeXXXlXXXsXXXeXXX`XXX XXXsXXXtXXXaXXXtXXXeXXXmXXXeXXXnXXXtXXXsXXX*XXX*XXX XXX–XXX XXXCXXXhXXXoXXXoXXXsXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXXcXXXoXXXdXXXeXXX XXXpXXXaXXXtXXXhXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXCXXXoXXXmXXXpXXXaXXXrXXXiXXXsXXXoXXXnXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX*XXX*XXX XXX–XXX XXX`XXX=XXX=XXX`XXX,XXX XXX`XXX!XXX=XXX`XXX,XXX XXX`XXX<XXX`XXX,XXX XXX`XXX>XXX`XXX,XXX XXX`XXX<XXX=XXX`XXX,XXX XXX`XXX>XXX=XXX`XXXXXX
+XXX-XXX XXX*XXX*XXXLXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX*XXX*XXX XXX–XXX XXX`XXX&XXX&XXX`XXX XXX(XXXAXXXNXXXDXXX)XXX,XXX XXX`XXX|XXX|XXX`XXX XXX(XXXOXXXRXXX)XXX,XXX XXX`XXX!XXX`XXX XXX(XXXNXXXOXXXTXXX)XXXXXX
+XXX-XXX XXX*XXX*XXXIXXXnXXXpXXXuXXXtXXX XXXvXXXaXXXlXXXiXXXdXXXaXXXtXXXiXXXoXXXnXXX*XXX*XXX XXX–XXX XXXCXXXhXXXeXXXcXXXkXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXpXXXrXXXoXXXcXXXeXXXsXXXsXXXiXXXnXXXgXXXXXX
+XXX-XXX XXX*XXX*XXXNXXXeXXXsXXXtXXXeXXXdXXX XXXcXXXoXXXnXXXdXXXiXXXtXXXiXXXoXXXnXXXsXXX*XXX*XXX XXX–XXX XXXHXXXaXXXnXXXdXXXlXXXeXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXxXXX XXXmXXXuXXXlXXXtXXXiXXX-XXXlXXXeXXXvXXXeXXXlXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXRXXXaXXXnXXXgXXXeXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXX*XXX*XXX XXX–XXX XXXVXXXaXXXlXXXiXXXdXXXaXXXtXXXeXXX XXXdXXXaXXXtXXXaXXX XXXwXXXiXXXtXXXhXXXiXXXnXXX XXXbXXXoXXXuXXXnXXXdXXXaXXXrXXXiXXXeXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXRXXXeXXXaXXXlXXX-XXXWXXXoXXXrXXXlXXXdXXX XXXAXXXpXXXpXXXlXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXXsXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX*XXX*XXXBXXXaXXXnXXXkXXXiXXXnXXXgXXX*XXX*XXX:XXX XXXAXXXTXXXMXXXsXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXX XXXPXXXIXXXNXXXsXXX,XXX XXXvXXXeXXXrXXXiXXXfXXXyXXXiXXXnXXXgXXX XXXbXXXaXXXlXXXaXXXnXXXcXXXeXXXsXXX XXXbXXXeXXXfXXXoXXXrXXXeXXX XXXwXXXiXXXtXXXhXXXdXXXrXXXaXXXwXXXaXXXlXXXXXX
+XXX-XXX XXX*XXX*XXXEXXX-XXXcXXXoXXXmXXXmXXXeXXXrXXXcXXXeXXX*XXX*XXX:XXX XXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXX,XXX XXXfXXXrXXXeXXXeXXX XXXsXXXhXXXiXXXpXXXpXXXiXXXnXXXgXXX XXXtXXXhXXXrXXXeXXXsXXXhXXXoXXXlXXXdXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXHXXXeXXXaXXXlXXXtXXXhXXXcXXXaXXXrXXXeXXX*XXX*XXX:XXX XXXBXXXMXXXIXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX,XXX XXXdXXXiXXXsXXXeXXXaXXXsXXXeXXX XXXrXXXiXXXsXXXkXXX XXXaXXXsXXXsXXXeXXXsXXXsXXXmXXXeXXXnXXXtXXXXXX
+XXX-XXX XXX*XXX*XXXEXXXdXXXuXXXcXXXaXXXtXXXiXXXoXXXnXXX*XXX*XXX:XXX XXXGXXXrXXXaXXXdXXXiXXXnXXXgXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX,XXX XXXsXXXcXXXhXXXoXXXlXXXaXXXrXXXsXXXhXXXiXXXpXXX XXXeXXXlXXXiXXXgXXXiXXXbXXXiXXXlXXXiXXXtXXXyXXXXXX
+XXX-XXX XXX*XXX*XXXGXXXoXXXvXXXeXXXrXXXnXXXmXXXeXXXnXXXtXXX*XXX*XXX:XXX XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX,XXX XXXaXXXgXXXeXXX-XXXbXXXaXXXsXXXeXXXdXXX XXXcXXXlXXXaXXXsXXXsXXXiXXXfXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXXsXXX,XXX XXXbXXXiXXXlXXXlXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXTXXXhXXXeXXX XXXTXXXrXXXaXXXnXXXsXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX/XXX/XXX XXXBXXXeXXXfXXXoXXXrXXXeXXX XXX(XXXLXXXeXXXsXXXsXXXoXXXnXXX XXX4XXX)XXX:XXX XXXBXXXlXXXiXXXnXXXdXXX XXXeXXXxXXXeXXXcXXXuXXXtXXXiXXXoXXXnXXXXXX
+XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXX=XXX XXXnXXXuXXXmXXX1XXX XXX/XXX XXXnXXXuXXXmXXX2XXX;XXX XXX XXX/XXX/XXX XXXCXXXRXXXAXXXSXXXHXXX XXXiXXXfXXX XXXnXXXuXXXmXXX2XXX XXXiXXXsXXX XXX0XXX!XXXXXX
+XXXXXX
+XXX/XXX/XXX XXXAXXXfXXXtXXXeXXXrXXX XXX(XXXLXXXeXXXsXXXsXXXoXXXnXXX XXX5XXX)XXX:XXX XXXSXXXmXXXaXXXrXXXtXXX XXXcXXXhXXXeXXXcXXXkXXXiXXXnXXXgXXXXXX
+XXXiXXXfXXX XXX(XXXnXXXuXXXmXXX2XXX XXX=XXX=XXX XXX0XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXEXXXRXXXRXXXOXXXRXXX:XXX XXXCXXXaXXXnXXXnXXXoXXXtXXX XXXdXXXiXXXvXXXiXXXdXXXeXXX XXXbXXXyXXX XXXzXXXeXXXrXXXoXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX}XXX XXXeXXXlXXXsXXXeXXX XXX{XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXX=XXX XXXnXXXuXXXmXXX1XXX XXX/XXX XXXnXXXuXXXmXXX2XXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXRXXXeXXXsXXXuXXXlXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXrXXXeXXXsXXXuXXXlXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXXAXXXsXXX XXXKXXXuXXXyXXXaXXX XXXMXXXiXXXgXXXuXXXeXXXlXXX XXXsXXXaXXXiXXXdXXX:XXX XXX*XXX*XXX"XXXNXXXoXXXwXXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXiXXXsXXX XXXlXXXiXXXkXXXeXXX XXXaXXX XXXsXXXmXXXaXXXrXXXtXXX XXXjXXXeXXXeXXXpXXXnXXXeXXXyXXX XXXdXXXrXXXiXXXvXXXeXXXrXXX—XXXiXXXtXXX XXXcXXXhXXXeXXXcXXXkXXXsXXX XXXtXXXhXXXeXXX XXXrXXXoXXXaXXXdXXX,XXX XXXaXXXvXXXoXXXiXXXdXXXsXXX XXXoXXXbXXXsXXXtXXXaXXXcXXXlXXXeXXXsXXX,XXX XXXaXXXnXXXdXXX XXXmXXXaXXXkXXXeXXXsXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXXsXXX.XXX"XXX*XXX*XXX XXXYXXXoXXXuXXXrXXX XXXcXXXoXXXdXXXeXXX XXXiXXXsXXX XXXnXXXoXXX XXXlXXXoXXXnXXXgXXXeXXXrXXX XXXrXXXeXXXcXXXkXXXlXXXeXXXsXXXsXXX—XXXiXXXtXXX'XXXsXXX XXX*XXX*XXXcXXXaXXXrXXXeXXXfXXXuXXXlXXX,XXX XXXiXXXnXXXtXXXeXXXlXXXlXXXiXXXgXXXeXXXnXXXtXXX,XXX XXXaXXXnXXXdXXX XXXcXXXrXXXaXXXsXXXhXXX-XXXpXXXrXXXoXXXoXXXfXXX*XXX*XXX.XXXXXX
+XXXXXX
+XXXNXXXeXXXxXXXtXXX XXXlXXXeXXXsXXXsXXXoXXXnXXX:XXX XXX*XXX*XXXLXXXoXXXoXXXpXXXsXXX*XXX*XXX—XXXbXXXeXXXcXXXaXXXuXXXsXXXeXXX XXXtXXXyXXXpXXXiXXXnXXXgXXX XXX2XXX0XXX0XXX XXXlXXXiXXXnXXXeXXXsXXX XXXoXXXfXXX XXXtXXXhXXXeXXX XXXsXXXaXXXmXXXeXXX XXXcXXXoXXXdXXXeXXX XXXiXXXsXXX XXXaXXXbXXXsXXXuXXXrXXXdXXX.XXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXlXXXeXXXaXXXrXXXnXXX XXXtXXXoXXX XXXaXXXuXXXtXXXoXXXmXXXaXXXtXXXeXXX XXXrXXXeXXXpXXXeXXXtXXXiXXXtXXXiXXXoXXXnXXX XXXwXXXiXXXtXXXhXXX XXX`XXXfXXXoXXXrXXX`XXX,XXX XXX`XXXwXXXhXXXiXXXlXXXeXXX`XXX,XXX XXXaXXXnXXXdXXX XXX`XXXdXXXoXXX-XXXwXXXhXXXiXXXlXXXeXXX`XXX XXXlXXXoXXXoXXXpXXXsXXX!XXXXXX
+XXXXXX
+XXXXXX
+XXX

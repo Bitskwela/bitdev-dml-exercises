@@ -1,756 +1,468 @@
-# Lesson 2 Activities: Declaring Data
-
-## From Static Text to Dynamic Information
-
-Remember Tian's frustration? The game score tracker printed "Player Score:" but couldn't remember anything. The program had no memory! Just like in the lesson's background story, you've now learned that **variables are named storage locations**—labeled containers that hold values.
-
-Kuya Miguel's warehouse analogy is key: "You can't just throw items anywhere. Shoes go in the shoe section, electronics in electronics." C++ variables work the same way—each data type has its specific purpose and memory allocation.
-
-**Why C++ is strict about types:**
-- **Memory efficiency:** `int` uses 4 bytes, `char` uses 1 byte
-- **Type safety:** Prevents adding numbers to text accidentally
-- **Performance:** Compiler optimizes based on types
-- **Error prevention:** Catches mistakes during compilation, not at runtime
-
-In this activity, you'll practice declaring and using different data types: `int`, `double`, `float`, `char`, `bool`, and `string`. You'll understand WHY C++ makes you think like the computer's memory manager.
-
----
-
-## Task 1: Personal Profile System
-
-**Context:**  
-You're building a student information system for your school. Unlike JavaScript where you can just write `let age = 16` and later change it to `age = "sixteen"`, C++ requires you to commit to a data type. This prevents bugs and makes programs faster.
-
-**Your Challenge:**  
-Create a personal profile system that stores and displays different types of information about a student.
-
-**What You'll Practice:**
-- Declaring different variable types (`int`, `string`, `double`)
-- Understanding why each type is appropriate for its data
-- Displaying formatted output with mixed data types
-- Using the `<string>` library for text data
-
-**Requirements:**
-Create variables for:
-- Full name (`string`) - Text data
-- Age (`int`) - Whole number
-- Grade level (`int`) - Whole number
-- Favorite subject (`string`) - Text data
-- GPA (`double`) - Decimal number (precision matters!)
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>  // Required for string type!
-using namespace std;
-
-int main() {
-    // Declare your variables here with appropriate types
-    
-    // Display the formatted profile
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== My Profile ===
-Name: Tian Reyes
-Age: 16
-Grade: 10
-Favorite Subject: Computer Science
-GPA: 91.5
-```
-
-**Reflection:** Why is `double` better than `int` for GPA? What happens if you use `int` instead?
-
----
-
-## Task 2: Sari-Sari Store Receipt Calculator
-
-**Context:**  
-Filipino sari-sari stores handle thousands of transactions daily. You're building a simple receipt calculator that needs to track prices (decimals) and calculate totals. This is where `double` shines—perfect for currency with centavo precision!
-
-**Your Challenge:**  
-Create a program that calculates the total cost of items from a sari-sari store and displays a formatted receipt.
-
-**What You'll Practice:**
-- Using `double` for currency (decimal values)
-- Performing arithmetic with variables
-- Understanding when to use `float` vs `double` (precision matters for money!)
-- Formatting output for readability
-
-**Items to Calculate:**
-- Lucky Me Instant Noodles: ₱15.00
-- C2 Green Tea: ₱20.00
-- Pandesal (5 pcs): ₱12.50
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // Declare price variables (use double for currency!)
-    
-    // Calculate total
-    
-    // Display formatted receipt
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== SARI-SARI STORE RECEIPT ===
-Lucky Me Noodles: ₱15.00
-C2 Green Tea: ₱20.00
-Pandesal (5 pcs): ₱12.50
---------------------------
-TOTAL: ₱47.50
-```
-
-**Challenge:** Can you add a 5% discount for senior citizens? How would you calculate and display that?
-
----
-
-## Task 3: Data Type Exploration
-
-**Context:**  
-Understanding data types isn't just theory—it affects how much memory your program uses and what operations you can perform. Let's explore the characteristics of each type.
-
-**Your Challenge:**  
-Create a program that demonstrates the size and range of different data types using `sizeof()` operator.
-
-**What You'll Learn:**
-- How much memory each type uses
-- Why choosing the right type matters
-- The difference between `int`, `float`, and `double`
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // Declare one variable of each basic type
-    int age = 16;
-    float price = 99.99f;
-    double piValue = 3.14159;
-    char grade = 'A';
-    bool isStudent = true;
-    
-    // Display each variable and its size in bytes
-    cout << "=== DATA TYPE SIZES ===" << endl;
-    cout << "int: " << sizeof(age) << " bytes" << endl;
-    // Add more...
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-=== DATA TYPE SIZES ===
-int: 4 bytes
-float: 4 bytes
-double: 8 bytes
-char: 1 byte
-bool: 1 byte
-```
-
----
-
-## Task 4: Barangay Resident Information Card
-
-**Context:**  
-Barangay offices need to store resident information digitally. You'll create a digital ID card that combines ALL data types you've learned.
-
-**Your Challenge:**  
-Create a comprehensive resident information system that stores:
-- Name (string)
-- Age (int)
-- Height in meters (double)
-- Blood type (char)
-- Is registered voter? (bool)
-- Barangay (string)
-- Monthly income (double)
-
-**What This Teaches:**
-- Practical application of multiple data types
-- Real-world data organization
-- Choosing appropriate types for different information
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    // Declare all resident information variables
-    
-    // Display formatted ID card
-    cout << "╔════════════════════════════════╗" << endl;
-    cout << "║   BARANGAY RESIDENT ID CARD   ║" << endl;
-    cout << "╠════════════════════════════════╣" << endl;
-    // Add information display
-    
-    return 0;
-}
-```
-
-**Expected Output:**
-```
-╔════════════════════════════════╗
-║   BARANGAY RESIDENT ID CARD   ║
-╠════════════════════════════════╣
-║ Name: Juan Dela Cruz          ║
-║ Age: 28 years old              ║
-║ Height: 1.75 meters            ║
-║ Blood Type: O                  ║
-║ Registered Voter: Yes          ║
-║ Barangay: San Jose             ║
-║ Monthly Income: ₱25,000.00     ║
-╚════════════════════════════════╝
-```
-
----
-
-## Task 5: Variable Initialization vs Declaration
-
-**Context:**  
-One of the most common bugs in C++ is using uninitialized variables. Unlike JavaScript, C++ doesn't automatically set variables to 0 or null—they contain garbage values from memory!
-
-**Your Challenge:**  
-Demonstrate the difference between declared and initialized variables, and understand why initialization matters.
-
-**What You'll Learn:**
-- The danger of uninitialized variables
-- Best practices for variable declaration
-- Why C++ doesn't auto-initialize (performance!)
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // Declared but NOT initialized (dangerous!)
-    int uninitializedAge;
-    
-    // Declared AND initialized (safe!)
-    int initializedAge = 0;
-    
-    // Try to display both
-    cout << "Uninitialized: " << uninitializedAge << endl;  // Garbage value!
-    cout << "Initialized: " << initializedAge << endl;      // Safe: 0
-    
-    return 0;
-}
-```
-
-**Experiment:** Run this program multiple times. Does the uninitialized value change? Why?
-
----
-
-## Reflection Questions
-
-After completing these activities, reflect deeply on C++'s approach to data:
-
-1. **Why does C++ require you to declare variable types, unlike JavaScript's loose typing?**
-   
-   _[Your answer: Consider memory efficiency, type safety, and performance optimization]_
-
-2. **What's the difference between `float` and `double`? When would you choose one over the other?**
-   
-   _[Your answer: Think about precision (7 vs 15 digits) and memory (4 vs 8 bytes)]_
-
-3. **Why should you always initialize variables in C++? What happens if you don't?**
-   
-   _[Your answer: Remember the "garbage value" from uninitialized memory]_
-
-4. **How does choosing the right data type affect your program's memory usage?**
-   
-   _[Your answer: Compare char (1 byte) vs int (4 bytes) vs double (8 bytes)]_
-
-5. **In the sari-sari store example, why is `double` better than `int` for prices?**
-   
-   _[Your answer: Think about centavos and decimal precision]_
-
-6. **How would you store someone's phone number in C++? String or int? Why?**
-   
-   _[Your answer: Consider leading zeros and the fact that you don't do math with phone numbers]_
-
----
-
-## What You've Learned
-
-Through these activities, you've practiced:
-
-✅ **Variable Declaration**: Creating named storage locations with specific types  
-✅ **Data Types**: Understanding `int`, `double`, `float`, `char`, `bool`, `string`  
-✅ **Type Selection**: Choosing appropriate types for different kinds of data  
-✅ **Memory Awareness**: Understanding how much space each type uses  
-✅ **Initialization**: Always giving variables starting values to avoid bugs  
-✅ **Real-World Application**: Building practical systems like receipts and ID cards
-
-**Connection to Real World:**
-- Every database field has a data type (varchar, int, decimal)
-- Game engines track different data types (position=float, health=int, name=string)
-- Financial systems require precise decimal types for money
-- Embedded systems optimize memory by choosing smallest appropriate types
-
-**Philippine Context:**
-- Sari-sari store systems process thousands of `double` transactions
-- Barangay information systems store mixed data types for residents
-- BPO databases handle billions of properly-typed records
-- Game studios optimize memory using appropriate types for each game asset
-
----
-
-## Answer Key
-
-<details>
-<summary><strong>📝 Click to view all solutions</strong></summary>
-
-### Task 1: Personal Profile System
-
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    // Declare variables with appropriate types
-    string fullName = "Tian Reyes";
-    int age = 16;
-    int gradeLevel = 10;
-    string favoriteSubject = "Computer Science";
-    double gpa = 91.5;  // double for decimal precision
-    
-    // Display formatted profile
-    cout << "=== My Profile ===" << endl;
-    cout << "Name: " << fullName << endl;
-    cout << "Age: " << age << endl;
-    cout << "Grade: " << gradeLevel << endl;
-    cout << "Favorite Subject: " << favoriteSubject << endl;
-    cout << "GPA: " << gpa << endl;
-    
-    return 0;
-}
-```
-
-**Why these types?**
-- `string` for names and text (variable length)
-- `int` for age and grade (whole numbers, no decimals needed)
-- `double` for GPA (need decimal precision: 91.5 not 91)
-
----
-
-### Task 2: Sari-Sari Store Receipt
-
-```cpp
-#include <iostream>
-#include <iomanip>  // For formatting currency
-using namespace std;
-
-int main() {
-    // Declare price variables (double for currency precision)
-    double luckyMePrice = 15.00;
-    double c2Price = 20.00;
-    double pandesalPrice = 12.50;
-    
-    // Calculate total
-    double total = luckyMePrice + c2Price + pandesalPrice;
-    
-    // Display formatted receipt
-    cout << "=== SARI-SARI STORE RECEIPT ===" << endl;
-    cout << fixed << setprecision(2);  // Always show 2 decimal places
-    cout << "Lucky Me Noodles: ₱" << luckyMePrice << endl;
-    cout << "C2 Green Tea: ₱" << c2Price << endl;
-    cout << "Pandesal (5 pcs): ₱" << pandesalPrice << endl;
-    cout << "--------------------------" << endl;
-    cout << "TOTAL: ₱" << total << endl;
-    
-    return 0;
-}
-```
-
-**With Senior Discount:**
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double luckyMePrice = 15.00;
-    double c2Price = 20.00;
-    double pandesalPrice = 12.50;
-    
-    double subtotal = luckyMePrice + c2Price + pandesalPrice;
-    
-    // Senior citizen discount (5%)
-    double discount = subtotal * 0.05;
-    double total = subtotal - discount;
-    
-    cout << "=== SARI-SARI STORE RECEIPT ===" << endl;
-    cout << fixed << setprecision(2);
-    cout << "Lucky Me Noodles: ₱" << luckyMePrice << endl;
-    cout << "C2 Green Tea: ₱" << c2Price << endl;
-    cout << "Pandesal (5 pcs): ₱" << pandesalPrice << endl;
-    cout << "--------------------------" << endl;
-    cout << "Subtotal: ₱" << subtotal << endl;
-    cout << "Senior Discount (5%): -₱" << discount << endl;
-    cout << "TOTAL: ₱" << total << endl;
-    
-    return 0;
-}
-```
-
----
-
-### Task 3: Data Type Exploration
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // Declare one variable of each type
-    int age = 16;
-    float price = 99.99f;
-    double piValue = 3.14159265359;
-    char grade = 'A';
-    bool isStudent = true;
-    
-    // Display sizes
-    cout << "=== DATA TYPE SIZES ===" << endl;
-    cout << "int: " << sizeof(age) << " bytes (value: " << age << ")" << endl;
-    cout << "float: " << sizeof(price) << " bytes (value: " << price << ")" << endl;
-    cout << "double: " << sizeof(piValue) << " bytes (value: " << piValue << ")" << endl;
-    cout << "char: " << sizeof(grade) << " byte (value: " << grade << ")" << endl;
-    cout << "bool: " << sizeof(isStudent) << " byte (value: " << isStudent << ")" << endl;
-    
-    cout << "\n=== MEMORY COMPARISON ===" << endl;
-    cout << "A char uses " << sizeof(int) / sizeof(char) << "x less memory than an int" << endl;
-    cout << "A double uses " << sizeof(double) / sizeof(float) << "x more memory than a float" << endl;
-    
-    return 0;
-}
-```
-
----
-
-### Task 4: Barangay Resident Information Card
-
-```cpp
-#include <iostream>
-#include <string>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    // Declare resident information with appropriate types
-    string name = "Juan Dela Cruz";
-    int age = 28;
-    double height = 1.75;  // meters
-    char bloodType = 'O';
-    bool isRegisteredVoter = true;
-    string barangay = "San Jose";
-    double monthlyIncome = 25000.00;
-    
-    // Display formatted ID card
-    cout << "╔════════════════════════════════╗" << endl;
-    cout << "║   BARANGAY RESIDENT ID CARD   ║" << endl;
-    cout << "╠════════════════════════════════╣" << endl;
-    cout << "║ Name: " << setw(23) << left << name << " ║" << endl;
-    cout << "║ Age: " << age << " years old" << setw(14) << " " << "║" << endl;
-    cout << "║ Height: " << fixed << setprecision(2) << height << " meters" << setw(13) << " " << "║" << endl;
-    cout << "║ Blood Type: " << bloodType << setw(18) << " " << "║" << endl;
-    cout << "║ Registered Voter: " << (isRegisteredVoter ? "Yes" : "No") << setw(10) << " " << "║" << endl;
-    cout << "║ Barangay: " << setw(20) << left << barangay << " ║" << endl;
-    cout << "║ Monthly Income: ₱" << fixed << setprecision(2) << monthlyIncome << setw(7) << " " << "║" << endl;
-    cout << "╚════════════════════════════════╝" << endl;
-    
-    return 0;
-}
-```
-
----
-
-### Task 5: Variable Initialization
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // DANGEROUS: Declared but not initialized
-    int uninitializedAge;
-    int uninitializedScore;
-    
-    // SAFE: Declared and initialized
-    int initializedAge = 0;
-    int initializedScore = 0;
-    
-    cout << "=== UNINITIALIZED VARIABLES (GARBAGE VALUES) ===" << endl;
-    cout << "Uninitialized Age: " << uninitializedAge << endl;
-    cout << "Uninitialized Score: " << uninitializedScore << endl;
-    
-    cout << "\n=== INITIALIZED VARIABLES (SAFE) ===" << endl;
-    cout << "Initialized Age: " << initializedAge << endl;
-    cout << "Initialized Score: " << initializedScore << endl;
-    
-    cout << "\n=== BEST PRACTICE ===" << endl;
-    cout << "Always initialize variables!" << endl;
-    cout << "int age = 0;  // Good" << endl;
-    cout << "int age;      // Bad - contains garbage!" << endl;
-    
-    return 0;
-}
-```
-
-**Note:** The uninitialized variables will show random values from memory. These values can be different each time you run the program!
-
-</details>
-
----
-
-**Next Lesson Preview:**  
-In Lesson 3, you'll learn about **operators**—the mathematical and logical tools that let you perform calculations and make decisions. From simple addition to complex comparisons, operators turn static data into dynamic programs!
-
-**Ready to calculate like a pro? Let's master operators! 🚀**
-
-**Expected Output:**
-```
-=== Sari-Sari Store Receipt ===
-Lucky Me: ₱15.00
-C2 Drink: ₱20.00
-Bread: ₱12.50
-Total: ₱47.50
-```
-
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    double noodles = 15.00;
-    double drink = 20.00;
-    double bread = 12.50;
-    
-    double total = noodles + drink + bread;
-    
-    cout << "=== Sari-Sari Store Receipt ===" << endl;
-    cout << "Lucky Me: ₱" << noodles << endl;
-    cout << "C2 Drink: ₱" << drink << endl;
-    cout << "Bread: ₱" << bread << endl;
-    cout << "Total: ₱" << total << endl;
-    
-    return 0;
-}
-```
-
----
-
-## Activity 3: Type Conversion Practice
-
-**Objective:** Understand how type conversion works and when data loss occurs.
-
-**Task:**  
-Practice converting between different data types and observe the results.
-
-**Operations to perform:**
-1. Convert int to double
-2. Convert double to int (observe decimal loss)
-3. Convert char to int (ASCII value)
-4. Convert int to char
-
-**Expected Output:**
-```
-Int to double: 42.0
-Double to int: 99
-Char 'A' to int: 65
-Int 66 to char: B
-```
-
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    // Integer to double
-    int wholeNumber = 42;
-    double decimal = wholeNumber;
-    cout << "Int to double: " << decimal << endl;
-    
-    // Double to int (loses decimal)
-    double price = 99.99;
-    int rounded = (int)price;
-    cout << "Double to int: " << rounded << endl;
-    
-    // Char to int (ASCII value)
-    char letter = 'A';
-    int asciiValue = (int)letter;
-    cout << "Char 'A' to int: " << asciiValue << endl;
-    
-    // Int to char
-    int code = 66;
-    char character = (char)code;
-    cout << "Int 66 to char: " << character << endl;
-    
-    return 0;
-}
-```
-
----
-
-## Challenge Activity: GCash Balance Tracker
-
-**Objective:** Apply variable concepts to a real-world Philippine context.
-
-**Task:**  
-Create a program that simulates a GCash account display.
-
-**Variables needed:**
-- Account name (string)
-- Phone number (string)
-- Current balance (double)
-- Is verified (bool)
-- Last transaction amount (double)
-
-**Expected Output:**
-```
-=== GCash Account ===
-Name: Tian Reyes
-Phone: 09171234567
-Balance: ₱5,432.50
-Verified: Yes
-Last Transaction: ₱250.00
-```
-
-**Hint:** Use conditional output for the boolean value (if verified, print "Yes", otherwise "No")
-
-<details>
-<summary>Click to view solution</summary>
-
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string accountName = "Tian Reyes";
-    string phoneNumber = "09171234567";
-    double balance = 5432.50;
-    bool isVerified = true;
-    double lastTransaction = 250.00;
-    
-    cout << "=== GCash Account ===" << endl;
-    cout << "Name: " << accountName << endl;
-    cout << "Phone: " << phoneNumber << endl;
-    cout << "Balance: ₱" << balance << endl;
-    cout << "Verified: " << (isVerified ? "Yes" : "No") << endl;
-    cout << "Last Transaction: ₱" << lastTransaction << endl;
-    
-    return 0;
-}
-```
-
-</details>
-
----
-
-## Debugging Exercise: Fix the Variable Errors
-
-**Objective:** Practice identifying and fixing variable-related errors.
-
-**Task:**  
-The following program has 5 errors related to variables. Find and fix them.
-
-**Buggy Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int age = "25";
-    string name = John;
-    double price = 99,99;
-    bool isActive;
-    
-    cout << "Name: " << name << endl;
-    cout << "Age: " << age << endl;
-    cout << "Price: " << price << endl;
-    cout << "Active: " << isActive << endl;
-    
-    return 0;
-}
-```
-
-**Errors to find:**
-1. Wrong type assignment (int with string value)
-2. Missing quotes on string value
-3. Wrong decimal separator (comma instead of period)
-4. Uninitialized boolean variable used
-
-<details>
-<summary>Click to view corrected code</summary>
-
-```cpp
-#include <iostream>
-#include <string>  // Added <string> header
-using namespace std;
-
-int main() {
-    int age = 25;  // Removed quotes
-    string name = "John";  // Added quotes
-    double price = 99.99;  // Changed comma to period
-    bool isActive = true;  // Initialized the variable
-    
-    cout << "Name: " << name << endl;
-    cout << "Age: " << age << endl;
-    cout << "Price: " << price << endl;
-    cout << "Active: " << isActive << endl;
-    
-    return 0;
-}
-```
-
-</details>
-
----
-
-## Reflection Questions
-
-After completing these activities, consider:
-
-1. **Why does C++ require you to specify data types?**
-   - For memory efficiency, type safety, and performance optimization
-
-2. **What happens when you convert a double to an int?**
-   - The decimal part is truncated (cut off), not rounded
-
-3. **When would you use `const` for a variable?**
-   - When the value should never change (like PI, tax rates, maximum limits)
-
-4. **What's the difference between `float` and `double`?**
-   - `double` has more precision (8 bytes vs 4 bytes) and is preferred for most calculations
-
----
-
-## Next Steps
-
-Excellent work! You now understand:
-- ✅ How to declare variables with specific types
-- ✅ Different data types (int, double, string, char, bool)
-- ✅ Type conversion and potential data loss
-- ✅ When to use const for unchanging values
-
-**Ready for Lesson 3?**  
-Next, you'll learn about **operators** - the tools that let you perform calculations, comparisons, and logical operations with your variables!
+﻿XXX#XXX XXXLXXXeXXXsXXXsXXXoXXXnXXX XXX2XXX XXXAXXXcXXXtXXXiXXXvXXXiXXXtXXXiXXXeXXXsXXX:XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXiXXXnXXXgXXX XXXDXXXaXXXtXXXaXXXXXX
+XXXXXX
+XXX#XXX#XXX XXXFXXXrXXXoXXXmXXX XXXSXXXtXXXaXXXtXXXiXXXcXXX XXXTXXXeXXXxXXXtXXX XXXtXXXoXXX XXXDXXXyXXXnXXXaXXXmXXXiXXXcXXX XXXIXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXXXXX
+XXXRXXXeXXXmXXXeXXXmXXXbXXXeXXXrXXX XXXTXXXiXXXaXXXnXXX'XXXsXXX XXXfXXXrXXXuXXXsXXXtXXXrXXXaXXXtXXXiXXXoXXXnXXX?XXX XXXTXXXhXXXeXXX XXXgXXXaXXXmXXXeXXX XXXsXXXcXXXoXXXrXXXeXXX XXXtXXXrXXXaXXXcXXXkXXXeXXXrXXX XXXpXXXrXXXiXXXnXXXtXXXeXXXdXXX XXX"XXXPXXXlXXXaXXXyXXXeXXXrXXX XXXSXXXcXXXoXXXrXXXeXXX:XXX"XXX XXXbXXXuXXXtXXX XXXcXXXoXXXuXXXlXXXdXXXnXXX'XXXtXXX XXXrXXXeXXXmXXXeXXXmXXXbXXXeXXXrXXX XXXaXXXnXXXyXXXtXXXhXXXiXXXnXXXgXXX.XXX XXXTXXXhXXXeXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXhXXXaXXXdXXX XXXnXXXoXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX!XXX XXXJXXXuXXXsXXXtXXX XXXlXXXiXXXkXXXeXXX XXXiXXXnXXX XXXtXXXhXXXeXXX XXXlXXXeXXXsXXXsXXXoXXXnXXX'XXXsXXX XXXbXXXaXXXcXXXkXXXgXXXrXXXoXXXuXXXnXXXdXXX XXXsXXXtXXXoXXXrXXXyXXX,XXX XXXyXXXoXXXuXXX'XXXvXXXeXXX XXXnXXXoXXXwXXX XXXlXXXeXXXaXXXrXXXnXXXeXXXdXXX XXXtXXXhXXXaXXXtXXX XXX*XXX*XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXaXXXrXXXeXXX XXXnXXXaXXXmXXXeXXXdXXX XXXsXXXtXXXoXXXrXXXaXXXgXXXeXXX XXXlXXXoXXXcXXXaXXXtXXXiXXXoXXXnXXXsXXX*XXX*XXX—XXXlXXXaXXXbXXXeXXXlXXXeXXXdXXX XXXcXXXoXXXnXXXtXXXaXXXiXXXnXXXeXXXrXXXsXXX XXXtXXXhXXXaXXXtXXX XXXhXXXoXXXlXXXdXXX XXXvXXXaXXXlXXXuXXXeXXXsXXX.XXXXXX
+XXXXXX
+XXXKXXXuXXXyXXXaXXX XXXMXXXiXXXgXXXuXXXeXXXlXXX'XXXsXXX XXXwXXXaXXXrXXXeXXXhXXXoXXXuXXXsXXXeXXX XXXaXXXnXXXaXXXlXXXoXXXgXXXyXXX XXXiXXXsXXX XXXkXXXeXXXyXXX:XXX XXX"XXXYXXXoXXXuXXX XXXcXXXaXXXnXXX'XXXtXXX XXXjXXXuXXXsXXXtXXX XXXtXXXhXXXrXXXoXXXwXXX XXXiXXXtXXXeXXXmXXXsXXX XXXaXXXnXXXyXXXwXXXhXXXeXXXrXXXeXXX.XXX XXXSXXXhXXXoXXXeXXXsXXX XXXgXXXoXXX XXXiXXXnXXX XXXtXXXhXXXeXXX XXXsXXXhXXXoXXXeXXX XXXsXXXeXXXcXXXtXXXiXXXoXXXnXXX,XXX XXXeXXXlXXXeXXXcXXXtXXXrXXXoXXXnXXXiXXXcXXXsXXX XXXiXXXnXXX XXXeXXXlXXXeXXXcXXXtXXXrXXXoXXXnXXXiXXXcXXXsXXX.XXX"XXX XXXCXXX+XXX+XXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXwXXXoXXXrXXXkXXX XXXtXXXhXXXeXXX XXXsXXXaXXXmXXXeXXX XXXwXXXaXXXyXXX—XXXeXXXaXXXcXXXhXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXX XXXhXXXaXXXsXXX XXXiXXXtXXXsXXX XXXsXXXpXXXeXXXcXXXiXXXfXXXiXXXcXXX XXXpXXXuXXXrXXXpXXXoXXXsXXXeXXX XXXaXXXnXXXdXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXaXXXlXXXlXXXoXXXcXXXaXXXtXXXiXXXoXXXnXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXyXXX XXXCXXX+XXX+XXX XXXiXXXsXXX XXXsXXXtXXXrXXXiXXXcXXXtXXX XXXaXXXbXXXoXXXuXXXtXXX XXXtXXXyXXXpXXXeXXXsXXX:XXX*XXX*XXXXXX
+XXX-XXX XXX*XXX*XXXMXXXeXXXmXXXoXXXrXXXyXXX XXXeXXXfXXXfXXXiXXXcXXXiXXXeXXXnXXXcXXXyXXX:XXX*XXX*XXX XXX`XXXiXXXnXXXtXXX`XXX XXXuXXXsXXXeXXXsXXX XXX4XXX XXXbXXXyXXXtXXXeXXXsXXX,XXX XXX`XXXcXXXhXXXaXXXrXXX`XXX XXXuXXXsXXXeXXXsXXX XXX1XXX XXXbXXXyXXXtXXXeXXXXXX
+XXX-XXX XXX*XXX*XXXTXXXyXXXpXXXeXXX XXXsXXXaXXXfXXXeXXXtXXXyXXX:XXX*XXX*XXX XXXPXXXrXXXeXXXvXXXeXXXnXXXtXXXsXXX XXXaXXXdXXXdXXXiXXXnXXXgXXX XXXnXXXuXXXmXXXbXXXeXXXrXXXsXXX XXXtXXXoXXX XXXtXXXeXXXxXXXtXXX XXXaXXXcXXXcXXXiXXXdXXXeXXXnXXXtXXXaXXXlXXXlXXXyXXXXXX
+XXX-XXX XXX*XXX*XXXPXXXeXXXrXXXfXXXoXXXrXXXmXXXaXXXnXXXcXXXeXXX:XXX*XXX*XXX XXXCXXXoXXXmXXXpXXXiXXXlXXXeXXXrXXX XXXoXXXpXXXtXXXiXXXmXXXiXXXzXXXeXXXsXXX XXXbXXXaXXXsXXXeXXXdXXX XXXoXXXnXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXX-XXX XXX*XXX*XXXEXXXrXXXrXXXoXXXrXXX XXXpXXXrXXXeXXXvXXXeXXXnXXXtXXXiXXXoXXXnXXX:XXX*XXX*XXX XXXCXXXaXXXtXXXcXXXhXXXeXXXsXXX XXXmXXXiXXXsXXXtXXXaXXXkXXXeXXXsXXX XXXdXXXuXXXrXXXiXXXnXXXgXXX XXXcXXXoXXXmXXXpXXXiXXXlXXXaXXXtXXXiXXXoXXXnXXX,XXX XXXnXXXoXXXtXXX XXXaXXXtXXX XXXrXXXuXXXnXXXtXXXiXXXmXXXeXXXXXX
+XXXXXX
+XXXIXXXnXXX XXXtXXXhXXXiXXXsXXX XXXaXXXcXXXtXXXiXXXvXXXiXXXtXXXyXXX,XXX XXXyXXXoXXXuXXX'XXXlXXXlXXX XXXpXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX XXXdXXXeXXXcXXXlXXXaXXXrXXXiXXXnXXXgXXX XXXaXXXnXXXdXXX XXXuXXXsXXXiXXXnXXXgXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXX:XXX XXX`XXXiXXXnXXXtXXX`XXX,XXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX,XXX XXX`XXXfXXXlXXXoXXXaXXXtXXX`XXX,XXX XXX`XXXcXXXhXXXaXXXrXXX`XXX,XXX XXX`XXXbXXXoXXXoXXXlXXX`XXX,XXX XXXaXXXnXXXdXXX XXX`XXXsXXXtXXXrXXXiXXXnXXXgXXX`XXX.XXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXuXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXX XXXWXXXHXXXYXXX XXXCXXX+XXX+XXX XXXmXXXaXXXkXXXeXXXsXXX XXXyXXXoXXXuXXX XXXtXXXhXXXiXXXnXXXkXXX XXXlXXXiXXXkXXXeXXX XXXtXXXhXXXeXXX XXXcXXXoXXXmXXXpXXXuXXXtXXXeXXXrXXX'XXXsXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXmXXXaXXXnXXXaXXXgXXXeXXXrXXX.XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX1XXX:XXX XXXPXXXeXXXrXXXsXXXoXXXnXXXaXXXlXXX XXXPXXXrXXXoXXXfXXXiXXXlXXXeXXX XXXSXXXyXXXsXXXtXXXeXXXmXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXYXXXoXXXuXXX'XXXrXXXeXXX XXXbXXXuXXXiXXXlXXXdXXXiXXXnXXXgXXX XXXaXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXfXXXoXXXrXXX XXXyXXXoXXXuXXXrXXX XXXsXXXcXXXhXXXoXXXoXXXlXXX.XXX XXXUXXXnXXXlXXXiXXXkXXXeXXX XXXJXXXaXXXvXXXaXXXSXXXcXXXrXXXiXXXpXXXtXXX XXXwXXXhXXXeXXXrXXXeXXX XXXyXXXoXXXuXXX XXXcXXXaXXXnXXX XXXjXXXuXXXsXXXtXXX XXXwXXXrXXXiXXXtXXXeXXX XXX`XXXlXXXeXXXtXXX XXXaXXXgXXXeXXX XXX=XXX XXX1XXX6XXX`XXX XXXaXXXnXXXdXXX XXXlXXXaXXXtXXXeXXXrXXX XXXcXXXhXXXaXXXnXXXgXXXeXXX XXXiXXXtXXX XXXtXXXoXXX XXX`XXXaXXXgXXXeXXX XXX=XXX XXX"XXXsXXXiXXXxXXXtXXXeXXXeXXXnXXX"XXX`XXX,XXX XXXCXXX+XXX+XXX XXXrXXXeXXXqXXXuXXXiXXXrXXXeXXXsXXX XXXyXXXoXXXuXXX XXXtXXXoXXX XXXcXXXoXXXmXXXmXXXiXXXtXXX XXXtXXXoXXX XXXaXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXX.XXX XXXTXXXhXXXiXXXsXXX XXXpXXXrXXXeXXXvXXXeXXXnXXXtXXXsXXX XXXbXXXuXXXgXXXsXXX XXXaXXXnXXXdXXX XXXmXXXaXXXkXXXeXXXsXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXXsXXX XXXfXXXaXXXsXXXtXXXeXXXrXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXpXXXeXXXrXXXsXXXoXXXnXXXaXXXlXXX XXXpXXXrXXXoXXXfXXXiXXXlXXXeXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXsXXXtXXXoXXXrXXXeXXXsXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXsXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXtXXXyXXXpXXXeXXXsXXX XXXoXXXfXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXaXXXbXXXoXXXuXXXtXXX XXXaXXX XXXsXXXtXXXuXXXdXXXeXXXnXXXtXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXiXXXnXXXgXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXtXXXyXXXpXXXeXXXsXXX XXX(XXX`XXXiXXXnXXXtXXX`XXX,XXX XXX`XXXsXXXtXXXrXXXiXXXnXXXgXXX`XXX,XXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX)XXXXXX
+XXX-XXX XXXUXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXXwXXXhXXXyXXX XXXeXXXaXXXcXXXhXXX XXXtXXXyXXXpXXXeXXX XXXiXXXsXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXfXXXoXXXrXXX XXXiXXXtXXXsXXX XXXdXXXaXXXtXXXaXXXXXX
+XXX-XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXXiXXXnXXXgXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXoXXXuXXXtXXXpXXXuXXXtXXX XXXwXXXiXXXtXXXhXXX XXXmXXXiXXXxXXXeXXXdXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXX-XXX XXXUXXXsXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXX`XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXX`XXX XXXlXXXiXXXbXXXrXXXaXXXrXXXyXXX XXXfXXXoXXXrXXX XXXtXXXeXXXxXXXtXXX XXXdXXXaXXXtXXXaXXXXXX
+XXXXXX
+XXX*XXX*XXXRXXXeXXXqXXXuXXXiXXXrXXXeXXXmXXXeXXXnXXXtXXXsXXX:XXX*XXX*XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXfXXXoXXXrXXX:XXXXXX
+XXX-XXX XXXFXXXuXXXlXXXlXXX XXXnXXXaXXXmXXXeXXX XXX(XXX`XXXsXXXtXXXrXXXiXXXnXXXgXXX`XXX)XXX XXX-XXX XXXTXXXeXXXxXXXtXXX XXXdXXXaXXXtXXXaXXXXXX
+XXX-XXX XXXAXXXgXXXeXXX XXX(XXX`XXXiXXXnXXXtXXX`XXX)XXX XXX-XXX XXXWXXXhXXXoXXXlXXXeXXX XXXnXXXuXXXmXXXbXXXeXXXrXXXXXX
+XXX-XXX XXXGXXXrXXXaXXXdXXXeXXX XXXlXXXeXXXvXXXeXXXlXXX XXX(XXX`XXXiXXXnXXXtXXX`XXX)XXX XXX-XXX XXXWXXXhXXXoXXXlXXXeXXX XXXnXXXuXXXmXXXbXXXeXXXrXXXXXX
+XXX-XXX XXXFXXXaXXXvXXXoXXXrXXXiXXXtXXXeXXX XXXsXXXuXXXbXXXjXXXeXXXcXXXtXXX XXX(XXX`XXXsXXXtXXXrXXXiXXXnXXXgXXX`XXX)XXX XXX-XXX XXXTXXXeXXXxXXXtXXX XXXdXXXaXXXtXXXaXXXXXX
+XXX-XXX XXXGXXXPXXXAXXX XXX(XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX)XXX XXX-XXX XXXDXXXeXXXcXXXiXXXmXXXaXXXlXXX XXXnXXXuXXXmXXXbXXXeXXXrXXX XXX(XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX XXXmXXXaXXXtXXXtXXXeXXXrXXXsXXX!XXX)XXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXX XXX XXX/XXX/XXX XXXRXXXeXXXqXXXuXXXiXXXrXXXeXXXdXXX XXXfXXXoXXXrXXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXtXXXyXXXpXXXeXXX!XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXyXXXoXXXuXXXrXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXhXXXeXXXrXXXeXXX XXXwXXXiXXXtXXXhXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXtXXXhXXXeXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXpXXXrXXXoXXXfXXXiXXXlXXXeXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXpXXXeXXXrXXXsXXXoXXXnXXXaXXXlXXX XXXpXXXrXXXoXXXfXXXiXXXlXXXeXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX:XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXfXXXoXXXrXXX XXXnXXXaXXXmXXXeXXX,XXX XXXaXXXgXXXeXXX,XXX XXXgXXXrXXXaXXXdXXXeXXX XXXlXXXeXXXvXXXeXXXlXXX,XXX XXXfXXXaXXXvXXXoXXXrXXXiXXXtXXXeXXX XXXsXXXuXXXbXXXjXXXeXXXcXXXtXXX,XXX XXXaXXXnXXXdXXX XXXGXXXPXXXAXXX XXXwXXXiXXXtXXXhXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXwXXXiXXXtXXXhXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXfXXXuXXXlXXXlXXXNXXXaXXXmXXXeXXX XXX=XXX XXX"XXXTXXXiXXXaXXXnXXX XXXRXXXeXXXyXXXeXXXsXXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX XXX=XXX XXX1XXX6XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXgXXXrXXXaXXXdXXXeXXXLXXXeXXXvXXXeXXXlXXX XXX=XXX XXX1XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXfXXXaXXXvXXXoXXXrXXXiXXXtXXXeXXXSXXXuXXXbXXXjXXXeXXXcXXXtXXX XXX=XXX XXX"XXXCXXXoXXXmXXXpXXXuXXXtXXXeXXXrXXX XXXSXXXcXXXiXXXeXXXnXXXcXXXeXXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXgXXXpXXXaXXX XXX=XXX XXX9XXX1XXX.XXX5XXX;XXX XXX XXX/XXX/XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXfXXXoXXXrXXX XXXdXXXeXXXcXXXiXXXmXXXaXXXlXXX XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXpXXXrXXXoXXXfXXXiXXXlXXXeXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXMXXXyXXX XXXPXXXrXXXoXXXfXXXiXXXlXXXeXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXNXXXaXXXmXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXfXXXuXXXlXXXlXXXNXXXaXXXmXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXXgXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXaXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXGXXXrXXXaXXXdXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXgXXXrXXXaXXXdXXXeXXXLXXXeXXXvXXXeXXXlXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXFXXXaXXXvXXXoXXXrXXXiXXXtXXXeXXX XXXSXXXuXXXbXXXjXXXeXXXcXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXfXXXaXXXvXXXoXXXrXXXiXXXtXXXeXXXSXXXuXXXbXXXjXXXeXXXcXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXGXXXPXXXAXXX:XXX XXX"XXX XXX<XXX<XXX XXXgXXXpXXXaXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX*XXX*XXXRXXXeXXXfXXXlXXXeXXXcXXXtXXXiXXXoXXXnXXX:XXX*XXX*XXX XXXWXXXhXXXyXXX XXXiXXXsXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX XXXbXXXeXXXtXXXtXXXeXXXrXXX XXXtXXXhXXXaXXXnXXX XXX`XXXiXXXnXXXtXXX`XXX XXXfXXXoXXXrXXX XXXGXXXPXXXAXXX?XXX XXXWXXXhXXXaXXXtXXX XXXhXXXaXXXpXXXpXXXeXXXnXXXsXXX XXXiXXXfXXX XXXyXXXoXXXuXXX XXXuXXXsXXXeXXX XXX`XXXiXXXnXXXtXXX`XXX XXXiXXXnXXXsXXXtXXXeXXXaXXXdXXX?XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX2XXX:XXX XXXSXXXaXXXrXXXiXXX-XXXSXXXaXXXrXXXiXXX XXXSXXXtXXXoXXXrXXXeXXX XXXRXXXeXXXcXXXeXXXiXXXpXXXtXXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXFXXXiXXXlXXXiXXXpXXXiXXXnXXXoXXX XXXsXXXaXXXrXXXiXXX-XXXsXXXaXXXrXXXiXXX XXXsXXXtXXXoXXXrXXXeXXXsXXX XXXhXXXaXXXnXXXdXXXlXXXeXXX XXXtXXXhXXXoXXXuXXXsXXXaXXXnXXXdXXXsXXX XXXoXXXfXXX XXXtXXXrXXXaXXXnXXXsXXXaXXXcXXXtXXXiXXXoXXXnXXXsXXX XXXdXXXaXXXiXXXlXXXyXXX.XXX XXXYXXXoXXXuXXX'XXXrXXXeXXX XXXbXXXuXXXiXXXlXXXdXXXiXXXnXXXgXXX XXXaXXX XXXsXXXiXXXmXXXpXXXlXXXeXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX XXXtXXXhXXXaXXXtXXX XXXnXXXeXXXeXXXdXXXsXXX XXXtXXXoXXX XXXtXXXrXXXaXXXcXXXkXXX XXXpXXXrXXXiXXXcXXXeXXXsXXX XXX(XXXdXXXeXXXcXXXiXXXmXXXaXXXlXXXsXXX)XXX XXXaXXXnXXXdXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXtXXXoXXXtXXXaXXXlXXXsXXX.XXX XXXTXXXhXXXiXXXsXXX XXXiXXXsXXX XXXwXXXhXXXeXXXrXXXeXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX XXXsXXXhXXXiXXXnXXXeXXXsXXX—XXXpXXXeXXXrXXXfXXXeXXXcXXXtXXX XXXfXXXoXXXrXXX XXXcXXXuXXXrXXXrXXXeXXXnXXXcXXXyXXX XXXwXXXiXXXtXXXhXXX XXXcXXXeXXXnXXXtXXXaXXXvXXXoXXX XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX!XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXtXXXhXXXaXXXtXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXXsXXX XXXtXXXhXXXeXXX XXXtXXXoXXXtXXXaXXXlXXX XXXcXXXoXXXsXXXtXXX XXXoXXXfXXX XXXiXXXtXXXeXXXmXXXsXXX XXXfXXXrXXXoXXXmXXX XXXaXXX XXXsXXXaXXXrXXXiXXX-XXXsXXXaXXXrXXXiXXX XXXsXXXtXXXoXXXrXXXeXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXsXXX XXXaXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXUXXXsXXXiXXXnXXXgXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX XXXfXXXoXXXrXXX XXXcXXXuXXXrXXXrXXXeXXXnXXXcXXXyXXX XXX(XXXdXXXeXXXcXXXiXXXmXXXaXXXlXXX XXXvXXXaXXXlXXXuXXXeXXXsXXX)XXXXXX
+XXX-XXX XXXPXXXeXXXrXXXfXXXoXXXrXXXmXXXiXXXnXXXgXXX XXXaXXXrXXXiXXXtXXXhXXXmXXXeXXXtXXXiXXXcXXX XXXwXXXiXXXtXXXhXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXXXXX
+XXX-XXX XXXUXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXXwXXXhXXXeXXXnXXX XXXtXXXoXXX XXXuXXXsXXXeXXX XXX`XXXfXXXlXXXoXXXaXXXtXXX`XXX XXXvXXXsXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX XXX(XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX XXXmXXXaXXXtXXXtXXXeXXXrXXXsXXX XXXfXXXoXXXrXXX XXXmXXXoXXXnXXXeXXXyXXX!XXX)XXXXXX
+XXX-XXX XXXFXXXoXXXrXXXmXXXaXXXtXXXtXXXiXXXnXXXgXXX XXXoXXXuXXXtXXXpXXXuXXXtXXX XXXfXXXoXXXrXXX XXXrXXXeXXXaXXXdXXXaXXXbXXXiXXXlXXXiXXXtXXXyXXXXXX
+XXXXXX
+XXX*XXX*XXXIXXXtXXXeXXXmXXXsXXX XXXtXXXoXXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXLXXXuXXXcXXXkXXXyXXX XXXMXXXeXXX XXXIXXXnXXXsXXXtXXXaXXXnXXXtXXX XXXNXXXoXXXoXXXdXXXlXXXeXXXsXXX:XXX XXX₱XXX1XXX5XXX.XXX0XXX0XXXXXX
+XXX-XXX XXXCXXX2XXX XXXGXXXrXXXeXXXeXXXnXXX XXXTXXXeXXXaXXX:XXX XXX₱XXX2XXX0XXX.XXX0XXX0XXXXXX
+XXX-XXX XXXPXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXX XXX(XXX5XXX XXXpXXXcXXXsXXX)XXX:XXX XXX₱XXX1XXX2XXX.XXX5XXX0XXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXpXXXrXXXiXXXcXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXX(XXXuXXXsXXXeXXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXfXXXoXXXrXXX XXXcXXXuXXXrXXXrXXXeXXXnXXXcXXXyXXX!XXX)XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXtXXXoXXXtXXXaXXXlXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXsXXXaXXXrXXXiXXX-XXXsXXXaXXXrXXXiXXX XXXsXXXtXXXoXXXrXXXeXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXoXXXrXXX:XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXpXXXrXXXiXXXcXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXaXXXnXXXdXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXtXXXhXXXeXXX XXXtXXXoXXXtXXXaXXXlXXX XXXfXXXoXXXrXXX XXXLXXXuXXXcXXXkXXXyXXX XXXMXXXeXXX XXXNXXXoXXXoXXXdXXXlXXXeXXXsXXX,XXX XXXCXXX2XXX XXXGXXXrXXXeXXXeXXXnXXX XXXTXXXeXXXaXXX,XXX XXXaXXXnXXXdXXX XXXPXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXpXXXrXXXiXXXcXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXX(XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXfXXXoXXXrXXX XXXcXXXuXXXrXXXrXXXeXXXnXXXcXXXyXXX XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX)XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXlXXXuXXXcXXXkXXXyXXXMXXXeXXXPXXXrXXXiXXXcXXXeXXX XXX=XXX XXX1XXX5XXX.XXX0XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXcXXX2XXXPXXXrXXXiXXXcXXXeXXX XXX=XXX XXX2XXX0XXX.XXX0XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXpXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXXPXXXrXXXiXXXcXXXeXXX XXX=XXX XXX1XXX2XXX.XXX5XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXtXXXoXXXtXXXaXXXlXXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXtXXXoXXXtXXXaXXXlXXX XXX=XXX XXXlXXXuXXXcXXXkXXXyXXXMXXXeXXXPXXXrXXXiXXXcXXXeXXX XXX+XXX XXXcXXX2XXXPXXXrXXXiXXXcXXXeXXX XXX+XXX XXXpXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXXPXXXrXXXiXXXcXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXAXXXRXXXIXXX-XXXSXXXAXXXRXXXIXXX XXXSXXXTXXXOXXXRXXXEXXX XXXRXXXEXXXCXXXEXXXIXXXPXXXTXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXLXXXuXXXcXXXkXXXyXXX XXXMXXXeXXX XXXNXXXoXXXoXXXdXXXlXXXeXXXsXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXlXXXuXXXcXXXkXXXyXXXMXXXeXXXPXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXX2XXX XXXGXXXrXXXeXXXeXXXnXXX XXXTXXXeXXXaXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXcXXX2XXXPXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXPXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXX XXX(XXX5XXX XXXpXXXcXXXsXXX)XXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXpXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXXPXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXTXXXOXXXTXXXAXXXLXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXtXXXoXXXtXXXaXXXlXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX XXXAXXXdXXXdXXX XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX:XXX XXXCXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXaXXX XXX5XXX%XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXfXXXoXXXrXXX XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXXsXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXlXXXuXXXcXXXkXXXyXXXMXXXeXXXPXXXrXXXiXXXcXXXeXXX XXX=XXX XXX1XXX5XXX.XXX0XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXcXXX2XXXPXXXrXXXiXXXcXXXeXXX XXX=XXX XXX2XXX0XXX.XXX0XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXpXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXXPXXXrXXXiXXXcXXXeXXX XXX=XXX XXX1XXX2XXX.XXX5XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXsXXXuXXXbXXXtXXXoXXXtXXXaXXXlXXX XXX=XXX XXXlXXXuXXXcXXXkXXXyXXXMXXXeXXXPXXXrXXXiXXXcXXXeXXX XXX+XXX XXXcXXX2XXXPXXXrXXXiXXXcXXXeXXX XXX+XXX XXXpXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXXPXXXrXXXiXXXcXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXSXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX(XXX5XXX%XXX)XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX=XXX XXXsXXXuXXXbXXXtXXXoXXXtXXXaXXXlXXX XXX*XXX XXX0XXX.XXX0XXX5XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXtXXXoXXXtXXXaXXXlXXX XXX=XXX XXXsXXXuXXXbXXXtXXXoXXXtXXXaXXXlXXX XXX-XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXSXXXAXXXRXXXIXXX-XXXSXXXAXXXRXXXIXXX XXXSXXXTXXXOXXXRXXXEXXX XXXRXXXEXXXCXXXEXXXIXXXPXXXTXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXLXXXuXXXcXXXkXXXyXXX XXXMXXXeXXX XXXNXXXoXXXoXXXdXXXlXXXeXXXsXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXlXXXuXXXcXXXkXXXyXXXMXXXeXXXPXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXCXXX2XXX XXXGXXXrXXXeXXXeXXXnXXX XXXTXXXeXXXaXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXcXXX2XXXPXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXPXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXX XXX(XXX5XXX XXXpXXXcXXXsXXX)XXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXpXXXaXXXnXXXdXXXeXXXsXXXaXXXlXXXPXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX-XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXuXXXbXXXtXXXoXXXtXXXaXXXlXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXsXXXuXXXbXXXtXXXoXXXtXXXaXXXlXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXSXXXeXXXnXXXiXXXoXXXrXXX XXXDXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX(XXX5XXX%XXX)XXX:XXX XXX-XXX₱XXX"XXX XXX<XXX<XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXTXXXOXXXTXXXAXXXLXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXtXXXoXXXtXXXaXXXlXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXXCXXXaXXXnXXX XXXyXXXoXXXuXXX XXXaXXXdXXXdXXX XXXaXXX XXX5XXX%XXX XXXdXXXiXXXsXXXcXXXoXXXuXXXnXXXtXXX XXXfXXXoXXXrXXX XXXsXXXeXXXnXXXiXXXoXXXrXXX XXXcXXXiXXXtXXXiXXXzXXXeXXXnXXXsXXX?XXX XXXHXXXoXXXwXXX XXXwXXXoXXXuXXXlXXXdXXX XXXyXXXoXXXuXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXtXXXhXXXaXXXtXXX?XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX3XXX:XXX XXXDXXXaXXXtXXXaXXX XXXTXXXyXXXpXXXeXXX XXXEXXXxXXXpXXXlXXXoXXXrXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXUXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXX XXXiXXXsXXXnXXX'XXXtXXX XXXjXXXuXXXsXXXtXXX XXXtXXXhXXXeXXXoXXXrXXXyXXX—XXXiXXXtXXX XXXaXXXfXXXfXXXeXXXcXXXtXXXsXXX XXXhXXXoXXXwXXX XXXmXXXuXXXcXXXhXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXuXXXsXXXeXXXsXXX XXXaXXXnXXXdXXX XXXwXXXhXXXaXXXtXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXiXXXoXXXnXXXsXXX XXXyXXXoXXXuXXX XXXcXXXaXXXnXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXX.XXX XXXLXXXeXXXtXXX'XXXsXXX XXXeXXXxXXXpXXXlXXXoXXXrXXXeXXX XXXtXXXhXXXeXXX XXXcXXXhXXXaXXXrXXXaXXXcXXXtXXXeXXXrXXXiXXXsXXXtXXXiXXXcXXXsXXX XXXoXXXfXXX XXXeXXXaXXXcXXXhXXX XXXtXXXyXXXpXXXeXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXtXXXhXXXaXXXtXXX XXXdXXXeXXXmXXXoXXXnXXXsXXXtXXXrXXXaXXXtXXXeXXXsXXX XXXtXXXhXXXeXXX XXXsXXXiXXXzXXXeXXX XXXaXXXnXXXdXXX XXXrXXXaXXXnXXXgXXXeXXX XXXoXXXfXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXX XXXuXXXsXXXiXXXnXXXgXXX XXX`XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXX)XXX`XXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXLXXXeXXXaXXXrXXXnXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXHXXXoXXXwXXX XXXmXXXuXXXcXXXhXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXeXXXaXXXcXXXhXXX XXXtXXXyXXXpXXXeXXX XXXuXXXsXXXeXXXsXXXXXX
+XXX-XXX XXXWXXXhXXXyXXX XXXcXXXhXXXoXXXoXXXsXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXXrXXXiXXXgXXXhXXXtXXX XXXtXXXyXXXpXXXeXXX XXXmXXXaXXXtXXXtXXXeXXXrXXXsXXXXXX
+XXX-XXX XXXTXXXhXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXcXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXX`XXXiXXXnXXXtXXX`XXX,XXX XXX`XXXfXXXlXXXoXXXaXXXtXXX`XXX,XXX XXXaXXXnXXXdXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXoXXXnXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXoXXXfXXX XXXeXXXaXXXcXXXhXXX XXXbXXXaXXXsXXXiXXXcXXX XXXtXXXyXXXpXXXeXXXXXX
+XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX XXX=XXX XXX1XXX6XXX;XXXXXX
+XXX XXX XXX XXX XXXfXXXlXXXoXXXaXXXtXXX XXXpXXXrXXXiXXXcXXXeXXX XXX=XXX XXX9XXX9XXX.XXX9XXX9XXXfXXX;XXXXXX
+XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXpXXXiXXXVXXXaXXXlXXXuXXXeXXX XXX=XXX XXX3XXX.XXX1XXX4XXX1XXX5XXX9XXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXgXXXrXXXaXXXdXXXeXXX XXX=XXX XXX'XXXAXXX'XXX;XXXXXX
+XXX XXX XXX XXX XXXbXXXoXXXoXXXlXXX XXXiXXXsXXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX XXX=XXX XXXtXXXrXXXuXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXeXXXaXXXcXXXhXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXaXXXnXXXdXXX XXXiXXXtXXXsXXX XXXsXXXiXXXzXXXeXXX XXXiXXXnXXX XXXbXXXyXXXtXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXDXXXAXXXTXXXAXXX XXXTXXXYXXXPXXXEXXX XXXSXXXIXXXZXXXEXXXSXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXiXXXnXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXaXXXgXXXeXXX)XXX XXX<XXX<XXX XXX"XXX XXXbXXXyXXXtXXXeXXXsXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXAXXXdXXXdXXX XXXmXXXoXXXrXXXeXXX.XXX.XXX.XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXDXXXeXXXmXXXoXXXnXXXsXXXtXXXrXXXaXXXtXXXeXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXX XXXsXXXiXXXzXXXeXXXsXXX:XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXtXXXhXXXeXXX XXXsXXXiXXXzXXXeXXX XXXiXXXnXXX XXXbXXXyXXXtXXXeXXXsXXX XXXoXXXfXXX XXXeXXXaXXXcXXXhXXX XXXbXXXaXXXsXXXiXXXcXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXX XXXuXXXsXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXX)XXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXoXXXnXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXoXXXfXXX XXXeXXXaXXXcXXXhXXX XXXtXXXyXXXpXXXeXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX XXX=XXX XXX1XXX6XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXfXXXlXXXoXXXaXXXtXXX XXXpXXXrXXXiXXXcXXXeXXX XXX=XXX XXX9XXX9XXX.XXX9XXX9XXXfXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXpXXXiXXXVXXXaXXXlXXXuXXXeXXX XXX=XXX XXX3XXX.XXX1XXX4XXX1XXX5XXX9XXX2XXX6XXX5XXX3XXX5XXX9XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXgXXXrXXXaXXXdXXXeXXX XXX=XXX XXX'XXXAXXX'XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXbXXXoXXXoXXXlXXX XXXiXXXsXXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX XXX=XXX XXXtXXXrXXXuXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXsXXXiXXXzXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXDXXXAXXXTXXXAXXX XXXTXXXYXXXPXXXEXXX XXXSXXXIXXXZXXXEXXXSXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXiXXXnXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXaXXXgXXXeXXX)XXX XXX<XXX<XXX XXX"XXX XXXbXXXyXXXtXXXeXXXsXXX XXX(XXXvXXXaXXXlXXXuXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXaXXXgXXXeXXX XXX<XXX<XXX XXX"XXX)XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXfXXXlXXXoXXXaXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXpXXXrXXXiXXXcXXXeXXX)XXX XXX<XXX<XXX XXX"XXX XXXbXXXyXXXtXXXeXXXsXXX XXX(XXXvXXXaXXXlXXXuXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXpXXXrXXXiXXXcXXXeXXX XXX<XXX<XXX XXX"XXX)XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXdXXXoXXXuXXXbXXXlXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXpXXXiXXXVXXXaXXXlXXXuXXXeXXX)XXX XXX<XXX<XXX XXX"XXX XXXbXXXyXXXtXXXeXXXsXXX XXX(XXXvXXXaXXXlXXXuXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXpXXXiXXXVXXXaXXXlXXXuXXXeXXX XXX<XXX<XXX XXX"XXX)XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXcXXXhXXXaXXXrXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXgXXXrXXXaXXXdXXXeXXX)XXX XXX<XXX<XXX XXX"XXX XXXbXXXyXXXtXXXeXXX XXX(XXXvXXXaXXXlXXXuXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXgXXXrXXXaXXXdXXXeXXX XXX<XXX<XXX XXX"XXX)XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXbXXXoXXXoXXXlXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXiXXXsXXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX)XXX XXX<XXX<XXX XXX"XXX XXXbXXXyXXXtXXXeXXX XXX(XXXvXXXaXXXlXXXuXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXiXXXsXXXSXXXtXXXuXXXdXXXeXXXnXXXtXXX XXX<XXX<XXX XXX"XXX)XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX\XXXnXXX=XXX=XXX=XXX XXXMXXXEXXXMXXXOXXXRXXXYXXX XXXCXXXOXXXMXXXPXXXAXXXRXXXIXXXSXXXOXXXNXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXX XXXcXXXhXXXaXXXrXXX XXXuXXXsXXXeXXXsXXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXiXXXnXXXtXXX)XXX XXX/XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXcXXXhXXXaXXXrXXX)XXX XXX<XXX<XXX XXX"XXXxXXX XXXlXXXeXXXsXXXsXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXtXXXhXXXaXXXnXXX XXXaXXXnXXX XXXiXXXnXXXtXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXuXXXsXXXeXXXsXXX XXX"XXX XXX<XXX<XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXdXXXoXXXuXXXbXXXlXXXeXXX)XXX XXX/XXX XXXsXXXiXXXzXXXeXXXoXXXfXXX(XXXfXXXlXXXoXXXaXXXtXXX)XXX XXX<XXX<XXX XXX"XXXxXXX XXXmXXXoXXXrXXXeXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXtXXXhXXXaXXXnXXX XXXaXXX XXXfXXXlXXXoXXXaXXXtXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX4XXX:XXX XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXXRXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXIXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXCXXXaXXXrXXXdXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXXoXXXfXXXfXXXiXXXcXXXeXXXsXXX XXXnXXXeXXXeXXXdXXX XXXtXXXoXXX XXXsXXXtXXXoXXXrXXXeXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXdXXXiXXXgXXXiXXXtXXXaXXXlXXXlXXXyXXX.XXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXcXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXdXXXiXXXgXXXiXXXtXXXaXXXlXXX XXXIXXXDXXX XXXcXXXaXXXrXXXdXXX XXXtXXXhXXXaXXXtXXX XXXcXXXoXXXmXXXbXXXiXXXnXXXeXXXsXXX XXXAXXXLXXXLXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXX XXXyXXXoXXXuXXX'XXXvXXXeXXX XXXlXXXeXXXaXXXrXXXnXXXeXXXdXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXaXXX XXXcXXXoXXXmXXXpXXXrXXXeXXXhXXXeXXXnXXXsXXXiXXXvXXXeXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX XXXtXXXhXXXaXXXtXXX XXXsXXXtXXXoXXXrXXXeXXXsXXX:XXXXXX
+XXX-XXX XXXNXXXaXXXmXXXeXXX XXX(XXXsXXXtXXXrXXXiXXXnXXXgXXX)XXXXXX
+XXX-XXX XXXAXXXgXXXeXXX XXX(XXXiXXXnXXXtXXX)XXXXXX
+XXX-XXX XXXHXXXeXXXiXXXgXXXhXXXtXXX XXXiXXXnXXX XXXmXXXeXXXtXXXeXXXrXXXsXXX XXX(XXXdXXXoXXXuXXXbXXXlXXXeXXX)XXXXXX
+XXX-XXX XXXBXXXlXXXoXXXoXXXdXXX XXXtXXXyXXXpXXXeXXX XXX(XXXcXXXhXXXaXXXrXXX)XXXXXX
+XXX-XXX XXXIXXXsXXX XXXrXXXeXXXgXXXiXXXsXXXtXXXeXXXrXXXeXXXdXXX XXXvXXXoXXXtXXXeXXXrXXX?XXX XXX(XXXbXXXoXXXoXXXlXXX)XXXXXX
+XXX-XXX XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXX(XXXsXXXtXXXrXXXiXXXnXXXgXXX)XXXXXX
+XXX-XXX XXXMXXXoXXXnXXXtXXXhXXXlXXXyXXX XXXiXXXnXXXcXXXoXXXmXXXeXXX XXX(XXXdXXXoXXXuXXXbXXXlXXXeXXX)XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXTXXXhXXXiXXXsXXX XXXTXXXeXXXaXXXcXXXhXXXeXXXsXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXPXXXrXXXaXXXcXXXtXXXiXXXcXXXaXXXlXXX XXXaXXXpXXXpXXXlXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX XXXoXXXfXXX XXXmXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXX-XXX XXXRXXXeXXXaXXXlXXX-XXXwXXXoXXXrXXXlXXXdXXX XXXdXXXaXXXtXXXaXXX XXXoXXXrXXXgXXXaXXXnXXXiXXXzXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXX-XXX XXXCXXXhXXXoXXXoXXXsXXXiXXXnXXXgXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXX XXXfXXXoXXXrXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXaXXXlXXXlXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXIXXXDXXX XXXcXXXaXXXrXXXdXXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX╔XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX╗XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXX XXX XXXBXXXAXXXRXXXAXXXNXXXGXXXAXXXYXXX XXXRXXXEXXXSXXXIXXXDXXXEXXXNXXXTXXX XXXIXXXDXXX XXXCXXXAXXXRXXXDXXX XXX XXX XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX╠XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX╣XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXAXXXdXXXdXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXCXXXrXXXeXXXaXXXtXXXeXXX XXXcXXXoXXXmXXXpXXXrXXXeXXXhXXXeXXXnXXXsXXXiXXXvXXXeXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXsXXXyXXXsXXXtXXXeXXXmXXX:XXX XXXSXXXtXXXoXXXrXXXeXXX XXXaXXXnXXXdXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXaXXXlXXXlXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXiXXXnXXX XXXaXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXIXXXDXXX XXXcXXXaXXXrXXXdXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXsXXXtXXXrXXXiXXXnXXXgXXX>XXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXmXXXaXXXnXXXiXXXpXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXwXXXiXXXtXXXhXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXX XXX=XXX XXX"XXXJXXXuXXXaXXXnXXX XXXDXXXeXXXlXXXaXXX XXXCXXXrXXXuXXXzXXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX XXX=XXX XXX2XXX8XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX=XXX XXX1XXX.XXX7XXX5XXX;XXX XXX XXX/XXX/XXX XXXmXXXeXXXtXXXeXXXrXXXsXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXhXXXaXXXrXXX XXXbXXXlXXXoXXXoXXXdXXXTXXXyXXXpXXXeXXX XXX=XXX XXX'XXXOXXX'XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXbXXXoXXXoXXXlXXX XXXiXXXsXXXRXXXeXXXgXXXiXXXsXXXtXXXeXXXrXXXeXXXdXXXVXXXoXXXtXXXeXXXrXXX XXX=XXX XXXtXXXrXXXuXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXsXXXtXXXrXXXiXXXnXXXgXXX XXXbXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXX=XXX XXX"XXXSXXXaXXXnXXX XXXJXXXoXXXsXXXeXXX"XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX=XXX XXX2XXX5XXX0XXX0XXX0XXX.XXX0XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXfXXXoXXXrXXXmXXXaXXXtXXXtXXXeXXXdXXX XXXIXXXDXXX XXXcXXXaXXXrXXXdXXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX╔XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX╗XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXX XXX XXXBXXXAXXXRXXXAXXXNXXXGXXXAXXXYXXX XXXRXXXEXXXSXXXIXXXDXXXEXXXNXXXTXXX XXXIXXXDXXX XXXCXXXAXXXRXXXDXXX XXX XXX XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX╠XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX╣XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXNXXXaXXXmXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX2XXX3XXX)XXX XXX<XXX<XXX XXXlXXXeXXXfXXXtXXX XXX<XXX<XXX XXXnXXXaXXXmXXXeXXX XXX<XXX<XXX XXX"XXX XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXAXXXgXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXaXXXgXXXeXXX XXX<XXX<XXX XXX"XXX XXXyXXXeXXXaXXXrXXXsXXX XXXoXXXlXXXdXXX"XXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX1XXX4XXX)XXX XXX<XXX<XXX XXX"XXX XXX"XXX XXX<XXX<XXX XXX"XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXHXXXeXXXiXXXgXXXhXXXtXXX:XXX XXX"XXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX XXX<XXX<XXX XXXhXXXeXXXiXXXgXXXhXXXtXXX XXX<XXX<XXX XXX"XXX XXXmXXXeXXXtXXXeXXXrXXXsXXX"XXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX1XXX3XXX)XXX XXX<XXX<XXX XXX"XXX XXX"XXX XXX<XXX<XXX XXX"XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXBXXXlXXXoXXXoXXXdXXX XXXTXXXyXXXpXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXbXXXlXXXoXXXoXXXdXXXTXXXyXXXpXXXeXXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX1XXX8XXX)XXX XXX<XXX<XXX XXX"XXX XXX"XXX XXX<XXX<XXX XXX"XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXRXXXeXXXgXXXiXXXsXXXtXXXeXXXrXXXeXXXdXXX XXXVXXXoXXXtXXXeXXXrXXX:XXX XXX"XXX XXX<XXX<XXX XXX(XXXiXXXsXXXRXXXeXXXgXXXiXXXsXXXtXXXeXXXrXXXeXXXdXXXVXXXoXXXtXXXeXXXrXXX XXX?XXX XXX"XXXYXXXeXXXsXXX"XXX XXX:XXX XXX"XXXNXXXoXXX"XXX)XXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX1XXX0XXX)XXX XXX<XXX<XXX XXX"XXX XXX"XXX XXX<XXX<XXX XXX"XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX:XXX XXX"XXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX2XXX0XXX)XXX XXX<XXX<XXX XXXlXXXeXXXfXXXtXXX XXX<XXX<XXX XXXbXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXX<XXX<XXX XXX"XXX XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX║XXX XXXMXXXoXXXnXXXtXXXhXXXlXXXyXXX XXXIXXXnXXXcXXXoXXXmXXXeXXX:XXX XXX₱XXX"XXX XXX<XXX<XXX XXXfXXXiXXXxXXXeXXXdXXX XXX<XXX<XXX XXXsXXXeXXXtXXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX(XXX2XXX)XXX XXX<XXX<XXX XXXmXXXoXXXnXXXtXXXhXXXlXXXyXXXIXXXnXXXcXXXoXXXmXXXeXXX XXX<XXX<XXX XXXsXXXeXXXtXXXwXXX(XXX7XXX)XXX XXX<XXX<XXX XXX"XXX XXX"XXX XXX<XXX<XXX XXX"XXX║XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX╚XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX═XXX╝XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXTXXXaXXXsXXXkXXX XXX5XXX:XXX XXXVXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXIXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXaXXXtXXXiXXXoXXXnXXX XXXvXXXsXXX XXXDXXXeXXXcXXXlXXXaXXXrXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXX XXX XXXXXX
+XXXOXXXnXXXeXXX XXXoXXXfXXX XXXtXXXhXXXeXXX XXXmXXXoXXXsXXXtXXX XXXcXXXoXXXmXXXmXXXoXXXnXXX XXXbXXXuXXXgXXXsXXX XXXiXXXnXXX XXXCXXX+XXX+XXX XXXiXXXsXXX XXXuXXXsXXXiXXXnXXXgXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX.XXX XXXUXXXnXXXlXXXiXXXkXXXeXXX XXXJXXXaXXXvXXXaXXXSXXXcXXXrXXXiXXXpXXXtXXX,XXX XXXCXXX+XXX+XXX XXXdXXXoXXXeXXXsXXXnXXX'XXXtXXX XXXaXXXuXXXtXXXoXXXmXXXaXXXtXXXiXXXcXXXaXXXlXXXlXXXyXXX XXXsXXXeXXXtXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXtXXXoXXX XXX0XXX XXXoXXXrXXX XXXnXXXuXXXlXXXlXXX—XXXtXXXhXXXeXXXyXXX XXXcXXXoXXXnXXXtXXXaXXXiXXXnXXX XXXgXXXaXXXrXXXbXXXaXXXgXXXeXXX XXXvXXXaXXXlXXXuXXXeXXXsXXX XXXfXXXrXXXoXXXmXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX!XXXXXX
+XXXXXX
+XXX*XXX*XXXYXXXoXXXuXXXrXXX XXXCXXXhXXXaXXXlXXXlXXXeXXXnXXXgXXXeXXX:XXX*XXX*XXX XXX XXXXXX
+XXXDXXXeXXXmXXXoXXXnXXXsXXXtXXXrXXXaXXXtXXXeXXX XXXtXXXhXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXcXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXXdXXXeXXXcXXXlXXXaXXXrXXXeXXXdXXX XXXaXXXnXXXdXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX,XXX XXXaXXXnXXXdXXX XXXuXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXX XXXwXXXhXXXyXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXaXXXtXXXiXXXoXXXnXXX XXXmXXXaXXXtXXXtXXXeXXXrXXXsXXX.XXXXXX
+XXXXXX
+XXX*XXX*XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXlXXXlXXX XXXLXXXeXXXaXXXrXXXnXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXTXXXhXXXeXXX XXXdXXXaXXXnXXXgXXXeXXXrXXX XXXoXXXfXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXXXXX
+XXX-XXX XXXBXXXeXXXsXXXtXXX XXXpXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXXsXXX XXXfXXXoXXXrXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXdXXXeXXXcXXXlXXXaXXXrXXXaXXXtXXXiXXXoXXXnXXXXXX
+XXX-XXX XXXWXXXhXXXyXXX XXXCXXX+XXX+XXX XXXdXXXoXXXeXXXsXXXnXXX'XXXtXXX XXXaXXXuXXXtXXXoXXX-XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXX XXX(XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXXaXXXnXXXcXXXeXXX!XXX)XXXXXX
+XXXXXX
+XXX*XXX*XXXSXXXtXXXaXXXrXXXtXXXeXXXrXXX XXXCXXXoXXXdXXXeXXX:XXX*XXX*XXXXXX
+XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXXdXXX XXXbXXXuXXXtXXX XXXNXXXOXXXTXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXX(XXXdXXXaXXXnXXXgXXXeXXXrXXXoXXXuXXXsXXX!XXX)XXXXXX
+XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXXdXXX XXXAXXXNXXXDXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXX(XXXsXXXaXXXfXXXeXXX!XXX)XXXXXX
+XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX XXX=XXX XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX/XXX/XXX XXXTXXXrXXXyXXX XXXtXXXoXXX XXXdXXXiXXXsXXXpXXXlXXXaXXXyXXX XXXbXXXoXXXtXXXhXXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXUXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX:XXX XXX"XXX XXX<XXX<XXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXX XXX XXX/XXX/XXX XXXGXXXaXXXrXXXbXXXaXXXgXXXeXXX XXXvXXXaXXXlXXXuXXXeXXX!XXXXXX
+XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXIXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX:XXX XXX"XXX XXX<XXX<XXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXSXXXaXXXfXXXeXXX:XXX XXX0XXXXXX
+XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX}XXXXXX
+XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX#XXX XXXTXXXaXXXsXXXkXXXsXXX XXXfXXXoXXXrXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXrXXXsXXXXXX
+XXXXXX
+XXX-XXX XXXDXXXeXXXmXXXoXXXnXXXsXXXtXXXrXXXaXXXtXXXeXXX XXXtXXXhXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXcXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXaXXXnXXXdXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX:XXX XXXSXXXhXXXoXXXwXXX XXXtXXXhXXXeXXX XXXdXXXaXXXnXXXgXXXeXXXrXXXsXXX XXXoXXXfXXX XXXuXXXsXXXiXXXnXXXgXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX.XXXXXX
+XXXXXX
+XXX XXX XXX`XXX`XXX`XXXcXXXpXXXpXXXXXX
+XXX XXX XXX#XXXiXXXnXXXcXXXlXXXuXXXdXXXeXXX XXX<XXXiXXXoXXXsXXXtXXXrXXXeXXXaXXXmXXX>XXXXXX
+XXX XXX XXXuXXXsXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXsXXXpXXXaXXXcXXXeXXX XXXsXXXtXXXdXXX;XXXXXX
+XXXXXX
+XXX XXX XXXiXXXnXXXtXXX XXXmXXXaXXXiXXXnXXX(XXX)XXX XXX{XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXDXXXAXXXNXXXGXXXEXXXRXXXOXXXUXXXSXXX:XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXXdXXX XXXbXXXuXXXtXXX XXXnXXXoXXXtXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXSXXXcXXXoXXXrXXXeXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXSXXXAXXXFXXXEXXX:XXX XXXDXXXeXXXcXXXlXXXaXXXrXXXeXXXdXXX XXXaXXXnXXXdXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX XXX=XXX XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXiXXXnXXXtXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXSXXXcXXXoXXXrXXXeXXX XXX=XXX XXX0XXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX=XXX=XXX=XXX XXXUXXXNXXXIXXXNXXXIXXXTXXXIXXXAXXXLXXXIXXXZXXXEXXXDXXX XXXVXXXAXXXRXXXIXXXAXXXBXXXLXXXEXXXSXXX XXX(XXXGXXXAXXXRXXXBXXXAXXXGXXXEXXX XXXVXXXAXXXLXXXUXXXEXXXSXXX)XXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXUXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXAXXXgXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXUXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXSXXXcXXXoXXXrXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXSXXXcXXXoXXXrXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX\XXXnXXX=XXX=XXX=XXX XXXIXXXNXXXIXXXTXXXIXXXAXXXLXXXIXXXZXXXEXXXDXXX XXXVXXXAXXXRXXXIXXXAXXXBXXXLXXXEXXXSXXX XXX(XXXSXXXAXXXFXXXEXXX)XXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXIXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXAXXXgXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXAXXXgXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXIXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXSXXXcXXXoXXXrXXXeXXX:XXX XXX"XXX XXX<XXX<XXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXXSXXXcXXXoXXXrXXXeXXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXX\XXXnXXX=XXX=XXX=XXX XXXBXXXEXXXSXXXTXXX XXXPXXXRXXXAXXXCXXXTXXXIXXXCXXXEXXX XXX=XXX=XXX=XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXAXXXlXXXwXXXaXXXyXXXsXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX XXX=XXX XXX0XXX;XXX XXX XXX/XXX/XXX XXXGXXXoXXXoXXXdXXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXcXXXoXXXuXXXtXXX XXX<XXX<XXX XXX"XXXiXXXnXXXtXXX XXXaXXXgXXXeXXX;XXX XXX XXX XXX XXX XXX XXX/XXX/XXX XXXBXXXaXXXdXXX XXX-XXX XXXcXXXoXXXnXXXtXXXaXXXiXXXnXXXsXXX XXXgXXXaXXXrXXXbXXXaXXXgXXXeXXX!XXX"XXX XXX<XXX<XXX XXXeXXXnXXXdXXXlXXX;XXXXXX
+XXX XXX XXX XXX XXX XXX XXXXXX
+XXX XXX XXX XXX XXX XXX XXXrXXXeXXXtXXXuXXXrXXXnXXX XXX0XXX;XXXXXX
+XXX XXX XXX}XXXXXX
+XXX XXX XXX`XXX`XXX`XXXXXX
+XXXXXX
+XXX*XXX*XXXEXXXxXXXpXXXeXXXrXXXiXXXmXXXeXXXnXXXtXXX:XXX*XXX*XXX XXXRXXXuXXXnXXX XXXtXXXhXXXiXXXsXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX XXXmXXXuXXXlXXXtXXXiXXXpXXXlXXXeXXX XXXtXXXiXXXmXXXeXXXsXXX.XXX XXXDXXXoXXXeXXXsXXX XXXtXXXhXXXeXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXvXXXaXXXlXXXuXXXeXXX XXXcXXXhXXXaXXXnXXXgXXXeXXX?XXX XXXWXXXhXXXyXXX?XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXRXXXeXXXfXXXlXXXeXXXcXXXtXXXiXXXoXXXnXXX XXXQXXXuXXXeXXXsXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXXXXX
+XXXAXXXfXXXtXXXeXXXrXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXtXXXiXXXnXXXgXXX XXXtXXXhXXXeXXXsXXXeXXX XXXaXXXcXXXtXXXiXXXvXXXiXXXtXXXiXXXeXXXsXXX,XXX XXXrXXXeXXXfXXXlXXXeXXXcXXXtXXX XXXdXXXeXXXeXXXpXXXlXXXyXXX XXXoXXXnXXX XXXCXXX+XXX+XXX'XXXsXXX XXXaXXXpXXXpXXXrXXXoXXXaXXXcXXXhXXX XXXtXXXoXXX XXXdXXXaXXXtXXXaXXX:XXXXXX
+XXXXXX
+XXX1XXX.XXX XXX*XXX*XXXWXXXhXXXyXXX XXXdXXXoXXXeXXXsXXX XXXCXXX+XXX+XXX XXXrXXXeXXXqXXXuXXXiXXXrXXXeXXX XXXyXXXoXXXuXXX XXXtXXXoXXX XXXdXXXeXXXcXXXlXXXaXXXrXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXtXXXyXXXpXXXeXXXsXXX,XXX XXXuXXXnXXXlXXXiXXXkXXXeXXX XXXJXXXaXXXvXXXaXXXSXXXcXXXrXXXiXXXpXXXtXXX'XXXsXXX XXXlXXXoXXXoXXXsXXXeXXX XXXtXXXyXXXpXXXiXXXnXXXgXXX?XXX*XXX*XXXXXX
+XXX XXX XXX XXXXXX
+XXX XXX XXX XXX_XXX[XXXYXXXoXXXuXXXrXXX XXXaXXXnXXXsXXXwXXXeXXXrXXX:XXX XXXCXXXoXXXnXXXsXXXiXXXdXXXeXXXrXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXeXXXfXXXfXXXiXXXcXXXiXXXeXXXnXXXcXXXyXXX,XXX XXXtXXXyXXXpXXXeXXX XXXsXXXaXXXfXXXeXXXtXXXyXXX,XXX XXXaXXXnXXXdXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXXaXXXnXXXcXXXeXXX XXXoXXXpXXXtXXXiXXXmXXXiXXXzXXXaXXXtXXXiXXXoXXXnXXX]XXX_XXXXXX
+XXXXXX
+XXX2XXX.XXX XXX*XXX*XXXWXXXhXXXaXXXtXXX'XXXsXXX XXXtXXXhXXXeXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXcXXXeXXX XXXbXXXeXXXtXXXwXXXeXXXeXXXnXXX XXX`XXXfXXXlXXXoXXXaXXXtXXX`XXX XXXaXXXnXXXdXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX?XXX XXXWXXXhXXXeXXXnXXX XXXwXXXoXXXuXXXlXXXdXXX XXXyXXXoXXXuXXX XXXcXXXhXXXoXXXoXXXsXXXeXXX XXXoXXXnXXXeXXX XXXoXXXvXXXeXXXrXXX XXXtXXXhXXXeXXX XXXoXXXtXXXhXXXeXXXrXXX?XXX*XXX*XXXXXX
+XXX XXX XXX XXXXXX
+XXX XXX XXX XXX_XXX[XXXYXXXoXXXuXXXrXXX XXXaXXXnXXXsXXXwXXXeXXXrXXX:XXX XXXTXXXhXXXiXXXnXXXkXXX XXXaXXXbXXXoXXXuXXXtXXX XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX XXX(XXX7XXX XXXvXXXsXXX XXX1XXX5XXX XXXdXXXiXXXgXXXiXXXtXXXsXXX)XXX XXXaXXXnXXXdXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXX(XXX4XXX XXXvXXXsXXX XXX8XXX XXXbXXXyXXXtXXXeXXXsXXX)XXX]XXX_XXXXXX
+XXXXXX
+XXX3XXX.XXX XXX*XXX*XXXWXXXhXXXyXXX XXXsXXXhXXXoXXXuXXXlXXXdXXX XXXyXXXoXXXuXXX XXXaXXXlXXXwXXXaXXXyXXXsXXX XXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXiXXXnXXX XXXCXXX+XXX+XXX?XXX XXXWXXXhXXXaXXXtXXX XXXhXXXaXXXpXXXpXXXeXXXnXXXsXXX XXXiXXXfXXX XXXyXXXoXXXuXXX XXXdXXXoXXXnXXX'XXXtXXX?XXX*XXX*XXXXXX
+XXX XXX XXX XXXXXX
+XXX XXX XXX XXX_XXX[XXXYXXXoXXXuXXXrXXX XXXaXXXnXXXsXXXwXXXeXXXrXXX:XXX XXXRXXXeXXXmXXXeXXXmXXXbXXXeXXXrXXX XXXtXXXhXXXeXXX XXX"XXXgXXXaXXXrXXXbXXXaXXXgXXXeXXX XXXvXXXaXXXlXXXuXXXeXXX"XXX XXXfXXXrXXXoXXXmXXX XXXuXXXnXXXiXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXeXXXdXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX]XXX_XXXXXX
+XXXXXX
+XXX4XXX.XXX XXX*XXX*XXXHXXXoXXXwXXX XXXdXXXoXXXeXXXsXXX XXXcXXXhXXXoXXXoXXXsXXXiXXXnXXXgXXX XXXtXXXhXXXeXXX XXXrXXXiXXXgXXXhXXXtXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXX XXXaXXXfXXXfXXXeXXXcXXXtXXX XXXyXXXoXXXuXXXrXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXX'XXXsXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXuXXXsXXXaXXXgXXXeXXX?XXX*XXX*XXXXXX
+XXX XXX XXX XXXXXX
+XXX XXX XXX XXX_XXX[XXXYXXXoXXXuXXXrXXX XXXaXXXnXXXsXXXwXXXeXXXrXXX:XXX XXXCXXXoXXXmXXXpXXXaXXXrXXXeXXX XXXcXXXhXXXaXXXrXXX XXX(XXX1XXX XXXbXXXyXXXtXXXeXXX)XXX XXXvXXXsXXX XXXiXXXnXXXtXXX XXX(XXX4XXX XXXbXXXyXXXtXXXeXXXsXXX)XXX XXXvXXXsXXX XXXdXXXoXXXuXXXbXXXlXXXeXXX XXX(XXX8XXX XXXbXXXyXXXtXXXeXXXsXXX)XXX]XXX_XXXXXX
+XXXXXX
+XXX5XXX.XXX XXX*XXX*XXXIXXXnXXX XXXtXXXhXXXeXXX XXXsXXXaXXXrXXXiXXX-XXXsXXXaXXXrXXXiXXX XXXsXXXtXXXoXXXrXXXeXXX XXXeXXXxXXXaXXXmXXXpXXXlXXXeXXX,XXX XXXwXXXhXXXyXXX XXXiXXXsXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX XXXbXXXeXXXtXXXtXXXeXXXrXXX XXXtXXXhXXXaXXXnXXX XXX`XXXiXXXnXXXtXXX`XXX XXXfXXXoXXXrXXX XXXpXXXrXXXiXXXcXXXeXXXsXXX?XXX*XXX*XXXXXX
+XXX XXX XXX XXXXXX
+XXX XXX XXX XXX_XXX[XXXYXXXoXXXuXXXrXXX XXXaXXXnXXXsXXXwXXXeXXXrXXX:XXX XXXTXXXhXXXiXXXnXXXkXXX XXXaXXXbXXXoXXXuXXXtXXX XXXcXXXeXXXnXXXtXXXaXXXvXXXoXXXsXXX XXXaXXXnXXXdXXX XXXdXXXeXXXcXXXiXXXmXXXaXXXlXXX XXXpXXXrXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXX]XXX_XXXXXX
+XXXXXX
+XXX6XXX.XXX XXX*XXX*XXXHXXXoXXXwXXX XXXwXXXoXXXuXXXlXXXdXXX XXXyXXXoXXXuXXX XXXsXXXtXXXoXXXrXXXeXXX XXXsXXXoXXXmXXXeXXXoXXXnXXXeXXX'XXXsXXX XXXpXXXhXXXoXXXnXXXeXXX XXXnXXXuXXXmXXXbXXXeXXXrXXX XXXiXXXnXXX XXXCXXX+XXX+XXX?XXX XXXSXXXtXXXrXXXiXXXnXXXgXXX XXXoXXXrXXX XXXiXXXnXXXtXXX?XXX XXXWXXXhXXXyXXX?XXX*XXX*XXXXXX
+XXX XXX XXX XXXXXX
+XXX XXX XXX XXX_XXX[XXXYXXXoXXXuXXXrXXX XXXaXXXnXXXsXXXwXXXeXXXrXXX:XXX XXXCXXXoXXXnXXXsXXXiXXXdXXXeXXXrXXX XXXlXXXeXXXaXXXdXXXiXXXnXXXgXXX XXXzXXXeXXXrXXXoXXXsXXX XXXaXXXnXXXdXXX XXXtXXXhXXXeXXX XXXfXXXaXXXcXXXtXXX XXXtXXXhXXXaXXXtXXX XXXyXXXoXXXuXXX XXXdXXXoXXXnXXX'XXXtXXX XXXdXXXoXXX XXXmXXXaXXXtXXXhXXX XXXwXXXiXXXtXXXhXXX XXXpXXXhXXXoXXXnXXXeXXX XXXnXXXuXXXmXXXbXXXeXXXrXXXsXXX]XXX_XXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX#XXX#XXX XXXWXXXhXXXaXXXtXXX XXXYXXXoXXXuXXX'XXXvXXXeXXX XXXLXXXeXXXaXXXrXXXnXXXeXXXdXXXXXX
+XXXXXX
+XXXTXXXhXXXrXXXoXXXuXXXgXXXhXXX XXXtXXXhXXXeXXXsXXXeXXX XXXaXXXcXXXtXXXiXXXvXXXiXXXtXXXiXXXeXXXsXXX,XXX XXXyXXXoXXXuXXX'XXXvXXXeXXX XXXpXXXrXXXaXXXcXXXtXXXiXXXcXXXeXXXdXXX:XXXXXX
+XXXXXX
+XXX✅XXX XXX*XXX*XXXVXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXX XXXDXXXeXXXcXXXlXXXaXXXrXXXaXXXtXXXiXXXoXXXnXXX*XXX*XXX:XXX XXXCXXXrXXXeXXXaXXXtXXXiXXXnXXXgXXX XXXnXXXaXXXmXXXeXXXdXXX XXXsXXXtXXXoXXXrXXXaXXXgXXXeXXX XXXlXXXoXXXcXXXaXXXtXXXiXXXoXXXnXXXsXXX XXXwXXXiXXXtXXXhXXX XXXsXXXpXXXeXXXcXXXiXXXfXXXiXXXcXXX XXXtXXXyXXXpXXXeXXXsXXX XXX XXXXXX
+XXX✅XXX XXX*XXX*XXXDXXXaXXXtXXXaXXX XXXTXXXyXXXpXXXeXXXsXXX*XXX*XXX:XXX XXXUXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXX`XXXiXXXnXXXtXXX`XXX,XXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX,XXX XXX`XXXfXXXlXXXoXXXaXXXtXXX`XXX,XXX XXX`XXXcXXXhXXXaXXXrXXX`XXX,XXX XXX`XXXbXXXoXXXoXXXlXXX`XXX,XXX XXX`XXXsXXXtXXXrXXXiXXXnXXXgXXX`XXX XXX XXXXXX
+XXX✅XXX XXX*XXX*XXXTXXXyXXXpXXXeXXX XXXSXXXeXXXlXXXeXXXcXXXtXXXiXXXoXXXnXXX*XXX*XXX:XXX XXXCXXXhXXXoXXXoXXXsXXXiXXXnXXXgXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXX XXXfXXXoXXXrXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXkXXXiXXXnXXXdXXXsXXX XXXoXXXfXXX XXXdXXXaXXXtXXXaXXX XXX XXXXXX
+XXX✅XXX XXX*XXX*XXXMXXXeXXXmXXXoXXXrXXXyXXX XXXAXXXwXXXaXXXrXXXeXXXnXXXeXXXsXXXsXXX*XXX*XXX:XXX XXXUXXXnXXXdXXXeXXXrXXXsXXXtXXXaXXXnXXXdXXXiXXXnXXXgXXX XXXhXXXoXXXwXXX XXXmXXXuXXXcXXXhXXX XXXsXXXpXXXaXXXcXXXeXXX XXXeXXXaXXXcXXXhXXX XXXtXXXyXXXpXXXeXXX XXXuXXXsXXXeXXXsXXX XXX XXXXXX
+XXX✅XXX XXX*XXX*XXXIXXXnXXXiXXXtXXXiXXXaXXXlXXXiXXXzXXXaXXXtXXXiXXXoXXXnXXX*XXX*XXX:XXX XXXAXXXlXXXwXXXaXXXyXXXsXXX XXXgXXXiXXXvXXXiXXXnXXXgXXX XXXvXXXaXXXrXXXiXXXaXXXbXXXlXXXeXXXsXXX XXXsXXXtXXXaXXXrXXXtXXXiXXXnXXXgXXX XXXvXXXaXXXlXXXuXXXeXXXsXXX XXXtXXXoXXX XXXaXXXvXXXoXXXiXXXdXXX XXXbXXXuXXXgXXXsXXX XXX XXXXXX
+XXX✅XXX XXX*XXX*XXXRXXXeXXXaXXXlXXX-XXXWXXXoXXXrXXXlXXXdXXX XXXAXXXpXXXpXXXlXXXiXXXcXXXaXXXtXXXiXXXoXXXnXXX*XXX*XXX:XXX XXXBXXXuXXXiXXXlXXXdXXXiXXXnXXXgXXX XXXpXXXrXXXaXXXcXXXtXXXiXXXcXXXaXXXlXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX XXXlXXXiXXXkXXXeXXX XXXrXXXeXXXcXXXeXXXiXXXpXXXtXXXsXXX XXXaXXXnXXXdXXX XXXIXXXDXXX XXXcXXXaXXXrXXXdXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXCXXXoXXXnXXXnXXXeXXXcXXXtXXXiXXXoXXXnXXX XXXtXXXoXXX XXXRXXXeXXXaXXXlXXX XXXWXXXoXXXrXXXlXXXdXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXEXXXvXXXeXXXrXXXyXXX XXXdXXXaXXXtXXXaXXXbXXXaXXXsXXXeXXX XXXfXXXiXXXeXXXlXXXdXXX XXXhXXXaXXXsXXX XXXaXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXX XXX(XXXvXXXaXXXrXXXcXXXhXXXaXXXrXXX,XXX XXXiXXXnXXXtXXX,XXX XXXdXXXeXXXcXXXiXXXmXXXaXXXlXXX)XXXXXX
+XXX-XXX XXXGXXXaXXXmXXXeXXX XXXeXXXnXXXgXXXiXXXnXXXeXXXsXXX XXXtXXXrXXXaXXXcXXXkXXX XXXdXXXiXXXfXXXfXXXeXXXrXXXeXXXnXXXtXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXX XXX(XXXpXXXoXXXsXXXiXXXtXXXiXXXoXXXnXXX=XXXfXXXlXXXoXXXaXXXtXXX,XXX XXXhXXXeXXXaXXXlXXXtXXXhXXX=XXXiXXXnXXXtXXX,XXX XXXnXXXaXXXmXXXeXXX=XXXsXXXtXXXrXXXiXXXnXXXgXXX)XXXXXX
+XXX-XXX XXXFXXXiXXXnXXXaXXXnXXXcXXXiXXXaXXXlXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX XXXrXXXeXXXqXXXuXXXiXXXrXXXeXXX XXXpXXXrXXXeXXXcXXXiXXXsXXXeXXX XXXdXXXeXXXcXXXiXXXmXXXaXXXlXXX XXXtXXXyXXXpXXXeXXXsXXX XXXfXXXoXXXrXXX XXXmXXXoXXXnXXXeXXXyXXXXXX
+XXX-XXX XXXEXXXmXXXbXXXeXXXdXXXdXXXeXXXdXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX XXXoXXXpXXXtXXXiXXXmXXXiXXXzXXXeXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXbXXXyXXX XXXcXXXhXXXoXXXoXXXsXXXiXXXnXXXgXXX XXXsXXXmXXXaXXXlXXXlXXXeXXXsXXXtXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXXXXX
+XXXXXX
+XXX*XXX*XXXPXXXhXXXiXXXlXXXiXXXpXXXpXXXiXXXnXXXeXXX XXXCXXXoXXXnXXXtXXXeXXXxXXXtXXX:XXX*XXX*XXXXXX
+XXX-XXX XXXSXXXaXXXrXXXiXXX-XXXsXXXaXXXrXXXiXXX XXXsXXXtXXXoXXXrXXXeXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX XXXpXXXrXXXoXXXcXXXeXXXsXXXsXXX XXXtXXXhXXXoXXXuXXXsXXXaXXXnXXXdXXXsXXX XXXoXXXfXXX XXX`XXXdXXXoXXXuXXXbXXXlXXXeXXX`XXX XXXtXXXrXXXaXXXnXXXsXXXaXXXcXXXtXXXiXXXoXXXnXXXsXXXXXX
+XXX-XXX XXXBXXXaXXXrXXXaXXXnXXXgXXXaXXXyXXX XXXiXXXnXXXfXXXoXXXrXXXmXXXaXXXtXXXiXXXoXXXnXXX XXXsXXXyXXXsXXXtXXXeXXXmXXXsXXX XXXsXXXtXXXoXXXrXXXeXXX XXXmXXXiXXXxXXXeXXXdXXX XXXdXXXaXXXtXXXaXXX XXXtXXXyXXXpXXXeXXXsXXX XXXfXXXoXXXrXXX XXXrXXXeXXXsXXXiXXXdXXXeXXXnXXXtXXXsXXXXXX
+XXX-XXX XXXBXXXPXXXOXXX XXXdXXXaXXXtXXXaXXXbXXXaXXXsXXXeXXXsXXX XXXhXXXaXXXnXXXdXXXlXXXeXXX XXXbXXXiXXXlXXXlXXXiXXXoXXXnXXXsXXX XXXoXXXfXXX XXXpXXXrXXXoXXXpXXXeXXXrXXXlXXXyXXX-XXXtXXXyXXXpXXXeXXXdXXX XXXrXXXeXXXcXXXoXXXrXXXdXXXsXXXXXX
+XXX-XXX XXXGXXXaXXXmXXXeXXX XXXsXXXtXXXuXXXdXXXiXXXoXXXsXXX XXXoXXXpXXXtXXXiXXXmXXXiXXXzXXXeXXX XXXmXXXeXXXmXXXoXXXrXXXyXXX XXXuXXXsXXXiXXXnXXXgXXX XXXaXXXpXXXpXXXrXXXoXXXpXXXrXXXiXXXaXXXtXXXeXXX XXXtXXXyXXXpXXXeXXXsXXX XXXfXXXoXXXrXXX XXXeXXXaXXXcXXXhXXX XXXgXXXaXXXmXXXeXXX XXXaXXXsXXXsXXXeXXXtXXXXXX
+XXXXXX
+XXX-XXX-XXX-XXXXXX
+XXXXXX
+XXX*XXX*XXXNXXXeXXXxXXXtXXX XXXLXXXeXXXsXXXsXXXoXXXnXXX XXXPXXXrXXXeXXXvXXXiXXXeXXXwXXX:XXX*XXX*XXX XXX XXXXXX
+XXXIXXXnXXX XXXLXXXeXXXsXXXsXXXoXXXnXXX XXX3XXX,XXX XXXyXXXoXXXuXXX'XXXlXXXlXXX XXXlXXXeXXXaXXXrXXXnXXX XXXaXXXbXXXoXXXuXXXtXXX XXX*XXX*XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX*XXX*XXX—XXXtXXXhXXXeXXX XXXmXXXaXXXtXXXhXXXeXXXmXXXaXXXtXXXiXXXcXXXaXXXlXXX XXXaXXXnXXXdXXX XXXlXXXoXXXgXXXiXXXcXXXaXXXlXXX XXXtXXXoXXXoXXXlXXXsXXX XXXtXXXhXXXaXXXtXXX XXXlXXXeXXXtXXX XXXyXXXoXXXuXXX XXXpXXXeXXXrXXXfXXXoXXXrXXXmXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXiXXXoXXXnXXXsXXX XXXaXXXnXXXdXXX XXXmXXXaXXXkXXXeXXX XXXdXXXeXXXcXXXiXXXsXXXiXXXoXXXnXXXsXXX.XXX XXXFXXXrXXXoXXXmXXX XXXsXXXiXXXmXXXpXXXlXXXeXXX XXXaXXXdXXXdXXXiXXXtXXXiXXXoXXXnXXX XXXtXXXoXXX XXXcXXXoXXXmXXXpXXXlXXXeXXXxXXX XXXcXXXoXXXmXXXpXXXaXXXrXXXiXXXsXXXoXXXnXXXsXXX,XXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX XXXtXXXuXXXrXXXnXXX XXXsXXXtXXXaXXXtXXXiXXXcXXX XXXdXXXaXXXtXXXaXXX XXXiXXXnXXXtXXXoXXX XXXdXXXyXXXnXXXaXXXmXXXiXXXcXXX XXXpXXXrXXXoXXXgXXXrXXXaXXXmXXXsXXX!XXXXXX
+XXXXXX
+XXX*XXX*XXXRXXXeXXXaXXXdXXXyXXX XXXtXXXoXXX XXXcXXXaXXXlXXXcXXXuXXXlXXXaXXXtXXXeXXX XXXlXXXiXXXkXXXeXXX XXXaXXX XXXpXXXrXXXoXXX?XXX XXXLXXXeXXXtXXX'XXXsXXX XXXmXXXaXXXsXXXtXXXeXXXrXXX XXXoXXXpXXXeXXXrXXXaXXXtXXXoXXXrXXXsXXX!XXX XXX�XXX�XXX*XXX*XXXXXX
+XXX

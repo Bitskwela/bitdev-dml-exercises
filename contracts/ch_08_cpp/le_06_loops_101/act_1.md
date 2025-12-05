@@ -1,4 +1,4 @@
-# Lesson 6 Activities: Loops
+﻿# Lesson 6 Activities: Loops
 
 ## From 200 Lines to 3 Lines
 
@@ -52,16 +52,25 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== GARBAGE COLLECTION REMINDERS ===
+# Tasks for Learners
 
-Reminder #1: Please segregate your waste properly.
-Reminder #2: Please segregate your waste properly.
-Reminder #3: Please segregate your waste properly.
-...
-Reminder #50: Please segregate your waste properly.
-```
+- Generate 50 numbered reminders using a for loop: Automatically print 50 reminder messages with loop counter.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      cout << "=== GARBAGE COLLECTION REMINDERS ===" << endl;
+      cout << endl;
+      
+      for (int i = 1; i <= 50; i++) {
+          cout << "Reminder #" << i << ": Please segregate your waste properly." << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -104,20 +113,39 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== JEEPNEY FARE TABLE ===
-Distance (km)     Fare (PHP)
--------------------------------
-1                 13.00
-2                 13.00
-3                 13.00
-4                 13.00
-5                 15.00
-6                 17.00
-...
-20                45.00
-```
+# Tasks for Learners
+
+- Generate jeepney fare table for 1-20 km: Use loop with conditional fare calculation based on distance.
+
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  using namespace std;
+
+  int main() {
+      double fare;
+      
+      cout << "=== JEEPNEY FARE TABLE ===" << endl;
+      cout << "Distance (km)     Fare (PHP)" << endl;
+      cout << "-------------------------------" << endl;
+      
+      for (int distance = 1; distance <= 20; distance++) {
+          // Calculate fare based on distance
+          if (distance <= 4) {
+              fare = 13.00;
+          } else {
+              fare = 13.00 + ((distance - 4) * 2.00);
+          }
+          
+          // Display formatted output
+          cout << fixed << setprecision(2);
+          cout << left << setw(18) << distance;
+          cout << fare << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -165,19 +193,35 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== MONTHLY DUES CALCULATOR ===
+# Tasks for Learners
 
-Collecting dues from 100 residents...
-Resident 1: PHP 150
-Resident 2: PHP 150
-Resident 3: PHP 150
-...
-Resident 100: PHP 150
+- Calculate total monthly dues using accumulator pattern: Start at 0, add dues in each loop iteration.
 
-Total dues collected: PHP 15,000
-```
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int totalDues = 0;  // Accumulator starts at 0
+      int monthlyDue = 150;
+      int numResidents = 100;
+      
+      cout << "=== MONTHLY DUES CALCULATOR ===" << endl;
+      cout << endl;
+      
+      cout << "Collecting dues from " << numResidents << " residents..." << endl;
+      
+      for (int i = 1; i <= numResidents; i++) {
+          cout << "Resident " << i << ": PHP " << monthlyDue << endl;
+          totalDues += monthlyDue;  // Add to accumulator
+      }
+      
+      cout << endl;
+      cout << "Total dues collected: PHP " << totalDues << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -225,22 +269,41 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== SECURE BARANGAY PORTAL ===
+# Tasks for Learners
 
-Enter password: hello
-    Incorrect password! Try again.
-Attempts: 1
+- Validate password with while loop: Keep prompting until correct password is entered, count attempts.
 
-Enter password: 1234
-    Incorrect password! Try again.
-Attempts: 2
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
 
-Enter password: Barangay2025
-    Access granted!
-Total attempts: 3
-```
+  int main() {
+      string password;
+      string correctPassword = "Barangay2025";
+      int attempts = 0;
+      
+      cout << "=== SECURE BARANGAY PORTAL ===" << endl;
+      cout << endl;
+      
+      while (password != correctPassword) {
+          cout << "Enter password: ";
+          cin >> password;
+          attempts++;
+          
+          if (password != correctPassword) {
+              cout << "❌ Incorrect password! Try again." << endl;
+              cout << "Attempts: " << attempts << endl;
+              cout << endl;
+          }
+      }
+      
+      cout << "✅ Access granted!" << endl;
+      cout << "Total attempts: " << attempts << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -284,15 +347,30 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== BARANGAY ASSEMBLY MEETING ===
-Meeting starts in...
+# Tasks for Learners
 
-10... 9... 8... 7... 6... 5... 4... 3... 2... 1... 
+- Create countdown timer using decrementing for loop: Count from 10 down to 1.
 
-MEETING STARTS NOW!
-```
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      cout << "=== BARANGAY ASSEMBLY MEETING ===" << endl;
+      cout << "Meeting starts in..." << endl;
+      cout << endl;
+      
+      for (int i = 10; i >= 1; i--) {
+          cout << i << "... ";
+      }
+      
+      cout << endl;
+      cout << endl;
+      cout << "🔔 MEETING STARTS NOW!" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -332,33 +410,52 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-========================================
-     BARANGAY SERVICE CENTER
-========================================
-1. Request Barangay Clearance
-2. Pay Monthly Dues
-3. File Complaint
-4. Exit
-========================================
-Enter choice (1-4): 1
+# Tasks for Learners
 
-Clearance request form opened.
-Please proceed to Window 3.
+- Create interactive menu system with do-while loop: Display menu, process choices, loop until exit selected.
 
-========================================
-     BARANGAY SERVICE CENTER
-========================================
-1. Request Barangay Clearance
-2. Pay Monthly Dues
-3. File Complaint
-4. Exit
-========================================
-Enter choice (1-4): 4
+  ```cpp
+  #include <iostream>
+  using namespace std;
 
-Thank you for using Barangay services!
-```
+  int main() {
+      int choice;
+      
+      do {
+          cout << "========================================" << endl;
+          cout << "     BARANGAY SERVICE CENTER" << endl;
+          cout << "========================================" << endl;
+          cout << "1. Request Barangay Clearance" << endl;
+          cout << "2. Pay Monthly Dues" << endl;
+          cout << "3. File Complaint" << endl;
+          cout << "4. Exit" << endl;
+          cout << "========================================" << endl;
+          cout << "Enter choice (1-4): ";
+          cin >> choice;
+          cout << endl;
+          
+          if (choice == 1) {
+              cout << "✅ Clearance request form opened." << endl;
+              cout << "Please proceed to Window 3." << endl;
+          } else if (choice == 2) {
+              cout << "✅ Payment portal opened." << endl;
+              cout << "Please pay at Cashier Window." << endl;
+          } else if (choice == 3) {
+              cout << "✅ Complaint form opened." << endl;
+              cout << "Please write your concern." << endl;
+          } else if (choice == 4) {
+              cout << "Thank you for using Barangay services!" << endl;
+          } else {
+              cout << "❌ Invalid choice. Please select 1-4." << endl;
+          }
+          
+          cout << endl;
+          
+      } while (choice != 4);
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -395,23 +492,31 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== MULTIPLICATION TABLE GENERATOR ===
-Enter a number: 7
+# Tasks for Learners
 
-Multiplication Table for 7:
-7 × 1 = 7
-7 × 2 = 14
-7 × 3 = 21
-7 × 4 = 28
-7 × 5 = 35
-7 × 6 = 42
-7 × 7 = 49
-7 × 8 = 56
-7 × 9 = 63
-7 × 10 = 70
-```
+- Generate multiplication table for user input: Use loop to multiply number by 1 through 10.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int number;
+      
+      cout << "=== MULTIPLICATION TABLE GENERATOR ===" << endl;
+      cout << "Enter a number: ";
+      cin >> number;
+      cout << endl;
+      
+      cout << "Multiplication Table for " << number << ":" << endl;
+      
+      for (int i = 1; i <= 10; i++) {
+          cout << number << " × " << i << " = " << (number * i) << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -475,273 +580,6 @@ for (int i = 1; i <= 200; i++) {
 As Kuya Miguel said: **"Loops turn 200 lines into just 3. That's the power of automation."** You've transformed from manual coder to automation engineer.
 
 Next lesson: **Nested Control**—putting loops inside loops, creating multi-dimensional logic for complex real-world problems!
-
----
-
-<details>
-<summary><strong>📝 Answer Key for All Tasks</strong></summary>
-
-### Task 1: Barangay Reminder Notices
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "=== GARBAGE COLLECTION REMINDERS ===" << endl;
-    cout << endl;
-    
-    for (int i = 1; i <= 50; i++) {
-        cout << "Reminder #" << i << ": Please segregate your waste properly." << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `for (int i = 1; i <= 50; i++)` creates loop counter from 1 to 50
-- `i++` increments counter after each iteration
-- Loop body runs 50 times automatically
-- This replaces 50 lines of manual `cout` statements!
-
----
-
-### Task 2: Jeepney Fare Table Generator
-
-```cpp
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-int main() {
-    double fare;
-    
-    cout << "=== JEEPNEY FARE TABLE ===" << endl;
-    cout << "Distance (km)     Fare (PHP)" << endl;
-    cout << "-------------------------------" << endl;
-    
-    for (int distance = 1; distance <= 20; distance++) {
-        // Calculate fare based on distance
-        if (distance <= 4) {
-            fare = 13.00;
-        } else {
-            fare = 13.00 + ((distance - 4) * 2.00);
-        }
-        
-        // Display formatted output
-        cout << fixed << setprecision(2);
-        cout << left << setw(18) << distance;
-        cout << fare << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- Loop variable `distance` represents kilometers (1 to 20)
-- `if/else` inside loop calculates different fares
-- Combines loops (Lesson 6) with conditions (Lesson 5)
-- Automated pricing table generation
-
----
-
-### Task 3: Sum Accumulator Pattern
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int totalDues = 0;  // Accumulator starts at 0
-    int monthlyDue = 150;
-    int numResidents = 100;
-    
-    cout << "=== MONTHLY DUES CALCULATOR ===" << endl;
-    cout << endl;
-    
-    cout << "Collecting dues from " << numResidents << " residents..." << endl;
-    
-    for (int i = 1; i <= numResidents; i++) {
-        cout << "Resident " << i << ": PHP " << monthlyDue << endl;
-        totalDues += monthlyDue;  // Add to accumulator
-    }
-    
-    cout << endl;
-    cout << "Total dues collected: PHP " << totalDues << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- **Accumulator pattern**: Start at 0, add in each iteration
-- `totalDues += monthlyDue` is same as `totalDues = totalDues + monthlyDue`
-- After loop, `totalDues` contains sum of all iterations
-- Classic pattern for calculating totals, averages, counts
-
----
-
-### Task 4: Password Validator with While Loop
-
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-    string password;
-    string correctPassword = "Barangay2025";
-    int attempts = 0;
-    
-    cout << "=== SECURE BARANGAY PORTAL ===" << endl;
-    cout << endl;
-    
-    while (password != correctPassword) {
-        cout << "Enter password: ";
-        cin >> password;
-        attempts++;
-        
-        if (password != correctPassword) {
-            cout << "❌ Incorrect password! Try again." << endl;
-            cout << "Attempts: " << attempts << endl;
-            cout << endl;
-        }
-    }
-    
-    cout << "✅ Access granted!" << endl;
-    cout << "Total attempts: " << attempts << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `while (password != correctPassword)` keeps looping until correct
-- Don't know how many attempts needed—condition-based
-- `attempts++` counts failed tries
-- Loop exits when condition becomes false (correct password entered)
-
----
-
-### Task 5: Countdown Timer with For Loop
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "=== BARANGAY ASSEMBLY MEETING ===" << endl;
-    cout << "Meeting starts in..." << endl;
-    cout << endl;
-    
-    for (int i = 10; i >= 1; i--) {
-        cout << i << "... ";
-    }
-    
-    cout << endl;
-    cout << endl;
-    cout << "🔔 MEETING STARTS NOW!" << endl;
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `i--` decrements counter (10, 9, 8... down to 1)
-- `i >= 1` ensures loop runs until i reaches 1 (inclusive)
-- Countdown pattern: start high, decrement, stop at target
-- Same loop structure as incrementing, just reversed
-
----
-
-### Task 6: Menu System with Do-While Loop
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int choice;
-    
-    do {
-        cout << "========================================" << endl;
-        cout << "     BARANGAY SERVICE CENTER" << endl;
-        cout << "========================================" << endl;
-        cout << "1. Request Barangay Clearance" << endl;
-        cout << "2. Pay Monthly Dues" << endl;
-        cout << "3. File Complaint" << endl;
-        cout << "4. Exit" << endl;
-        cout << "========================================" << endl;
-        cout << "Enter choice (1-4): ";
-        cin >> choice;
-        cout << endl;
-        
-        if (choice == 1) {
-            cout << "✅ Clearance request form opened." << endl;
-            cout << "Please proceed to Window 3." << endl;
-        } else if (choice == 2) {
-            cout << "✅ Payment portal opened." << endl;
-            cout << "Please pay at Cashier Window." << endl;
-        } else if (choice == 3) {
-            cout << "✅ Complaint form opened." << endl;
-            cout << "Please write your concern." << endl;
-        } else if (choice == 4) {
-            cout << "Thank you for using Barangay services!" << endl;
-        } else {
-            cout << "❌ Invalid choice. Please select 1-4." << endl;
-        }
-        
-        cout << endl;
-        
-    } while (choice != 4);
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- `do { } while (condition);` executes body FIRST, checks condition AFTER
-- Menu always displays at least once
-- Loop continues while `choice != 4` (user hasn't chosen exit)
-- Perfect for interactive menus that need to show before checking
-
----
-
-### Task 7: Multiplication Table Generator
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int number;
-    
-    cout << "=== MULTIPLICATION TABLE GENERATOR ===" << endl;
-    cout << "Enter a number: ";
-    cin >> number;
-    cout << endl;
-    
-    cout << "Multiplication Table for " << number << ":" << endl;
-    
-    for (int i = 1; i <= 10; i++) {
-        cout << number << " × " << i << " = " << (number * i) << endl;
-    }
-    
-    return 0;
-}
-```
-
-**Key Points:**
-- User input determines what to multiply
-- Loop multiplies number by 1, 2, 3... up to 10
-- `(number * i)` calculates result for each row
-- Dynamic table generation based on input
-
----
-
-</details>
 
 ---
 

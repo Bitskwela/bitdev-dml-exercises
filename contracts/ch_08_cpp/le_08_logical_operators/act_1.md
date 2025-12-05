@@ -1,4 +1,4 @@
-# Lesson 8 Activities: Logical Operators
+﻿# Lesson 8 Activities: Logical Operators
 
 ## Fixing the Broken Clearance System
 
@@ -37,12 +37,33 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-Age: 25
-Registered? (1=Yes, 0=No): 1
-✓ Eligible to vote!
-```
+# Tasks for Learners
+
+- Check voter eligibility with AND operator: Both conditions must be true.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int age;
+      bool isRegistered;
+      
+      cout << "=== VOTER ELIGIBILITY CHECKER ===" << endl;
+      cout << "Age: ";
+      cin >> age;
+      cout << "Registered? (1=Yes, 0=No): ";
+      cin >> isRegistered;
+      
+      if (age >= 18 && isRegistered) {
+          cout << "✓ Eligible to vote!" << endl;
+      } else {
+          cout << "✗ Not eligible." << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -74,6 +95,33 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Apply discount with OR operator: Either condition qualifies for discount.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int age;
+      bool isPWD;
+      
+      cout << "Age: ";
+      cin >> age;
+      cout << "PWD? (1/0): ";
+      cin >> isPWD;
+      
+      if (age >= 60 || isPWD) {
+          cout << "✓ 20% discount applies!" << endl;
+      } else {
+          cout << "No discount." << endl;
+      }
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 3: Access Control (NOT Operator)
@@ -100,6 +148,30 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Deny access with NOT operator: Reverse boolean condition.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      bool isResident;
+      
+      cout << "Resident? (1/0): ";
+      cin >> isResident;
+      
+      if (!isResident) {
+          cout << "✗ Access DENIED!" << endl;
+      } else {
+          cout << "✓ Welcome!" << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -133,6 +205,35 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Approve clearance with multiple AND operators: All three conditions must be true.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      bool hasID, paidDues, noViolations;
+      
+      cout << "=== CLEARANCE CHECKER ===" << endl;
+      cout << "Valid ID? (1/0): ";
+      cin >> hasID;
+      cout << "Paid dues? (1/0): ";
+      cin >> paidDues;
+      cout << "No violations? (1/0): ";
+      cin >> noViolations;
+      
+      if (hasID && paidDues && noViolations) {
+          cout << "✓ CLEARANCE APPROVED!" << endl;
+      } else {
+          cout << "✗ DENIED!" << endl;
+      }
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 5: Scholarship Eligibility (Complex Logic)
@@ -165,54 +266,33 @@ int main() {
 }
 ```
 
----
+# Tasks for Learners
 
-<details>
-<summary><strong>📝 Answer Key</strong></summary>
+- Check scholarship eligibility with complex logic: Mix AND/OR operators with parentheses.
 
-### Task 1: Voter Eligibility
-```cpp
-if (age >= 18 && isRegistered) {
-    cout << "✓ Eligible to vote!" << endl;
-} else {
-    cout << "✗ Not eligible." << endl;
-}
-```
+  ```cpp
+  #include <iostream>
+  using namespace std;
 
-### Task 2: Senior/PWD Discount
-```cpp
-if (age >= 60 || isPWD) {
-    cout << "✓ 20% discount applies!" << endl;
-} else {
-    cout << "No discount." << endl;
-}
-```
+  int main() {
+      double gpa;
+      bool isResident, hasNeed;
+      
+      cout << "GPA: ";
+      cin >> gpa;
+      cout << "Resident? (1/0): ";
+      cin >> isResident;
+      cout << "Financial need? (1/0): ";
+      cin >> hasNeed;
+      
+      if (gpa >= 85 && (isResident || hasNeed)) {
+          cout << "✓ SCHOLARSHIP APPROVED!" << endl;
+      } else {
+          cout << "✗ Not eligible." << endl;
+      }
+      
+      return 0;
+  }
+  ```
 
-### Task 3: Access Control
-```cpp
-if (!isResident) {
-    cout << "✗ Access DENIED!" << endl;
-} else {
-    cout << "✓ Welcome!" << endl;
-}
-```
 
-### Task 4: Clearance Approval
-```cpp
-if (hasID && paidDues && noViolations) {
-    cout << "✓ CLEARANCE APPROVED!" << endl;
-} else {
-    cout << "✗ DENIED!" << endl;
-}
-```
-
-### Task 5: Scholarship Eligibility
-```cpp
-if (gpa >= 85 && (isResident || hasNeed)) {
-    cout << "✓ SCHOLARSHIP APPROVED!" << endl;
-} else {
-    cout << "✗ Not eligible." << endl;
-}
-```
-
-</details>

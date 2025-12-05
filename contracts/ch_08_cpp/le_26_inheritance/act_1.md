@@ -1,4 +1,4 @@
-# Lesson 26 Activities: Inheritance
+﻿# Lesson 26 Activities: Inheritance
 
 ## The Code Duplication Problem
 
@@ -60,6 +60,64 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Create a `Vehicle` base class with brand and year. Create a `Car` derived class that adds numberOfDoors. Demonstrate inheritance by creating a Car object and calling both base and derived methods.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  // Base class
+  class Vehicle {
+  protected:
+      string brand;
+      int year;
+      
+  public:
+      Vehicle(string b, int y) : brand(b), year(y) {
+          cout << "Vehicle created: " << brand << " (" << year << ")" << endl;
+      }
+      
+      void display() {
+          cout << "Brand: " << brand << ", Year: " << year << endl;
+      }
+      
+      void honk() {
+          cout << brand << " says: Beep beep!" << endl;
+      }
+  };
+
+  // Derived class
+  class Car : public Vehicle {
+  private:
+      int numberOfDoors;
+      
+  public:
+      Car(string b, int y, int doors) 
+          : Vehicle(b, y), numberOfDoors(doors) {
+          cout << "Car created with " << doors << " doors" << endl;
+      }
+      
+      void showDetails() {
+          cout << "Car: " << brand << " (" << year << ") - " 
+               << numberOfDoors << " doors" << endl;
+      }
+  };
+
+  int main() {
+      Car myCar("Toyota", 2022, 4);
+      
+      cout << endl;
+      myCar.display();      // Inherited from Vehicle
+      myCar.honk();         // Inherited from Vehicle
+      myCar.showDetails();  // Own method
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 2: Protected Members
@@ -113,6 +171,74 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create a `BankAccount` base class with protected accountNumber and balance. Create a `SavingsAccount` derived class that adds interestRate. Show how protected members are accessible in the derived class but not outside.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  class BankAccount {
+  private:
+      int id;  // Only BankAccount can access
+      
+  protected:
+      string accountNumber;  // BankAccount and derived classes can access
+      double balance;
+      
+  public:
+      BankAccount(string accNum, double bal) 
+          : id(0), accountNumber(accNum), balance(bal) {
+          cout << "BankAccount created: " << accountNumber << endl;
+      }
+      
+      void display() {
+          cout << "Account: " << accountNumber << ", Balance: P" << balance << endl;
+      }
+  };
+
+  class SavingsAccount : public BankAccount {
+  private:
+      double interestRate;
+      
+  public:
+      SavingsAccount(string accNum, double bal, double rate) 
+          : BankAccount(accNum, bal), interestRate(rate) {
+          cout << "SavingsAccount created with " << (rate * 100) << "% interest" << endl;
+      }
+      
+      void applyInterest() {
+          // Can access protected members
+          double interest = balance * interestRate;
+          balance += interest;
+          cout << "Applied interest of P" << interest << " to account " << accountNumber << endl;
+      }
+      
+      void showDetails() {
+          cout << "Savings Account: " << accountNumber << endl;
+          cout << "Balance: P" << balance << endl;
+          cout << "Interest Rate: " << (interestRate * 100) << "%" << endl;
+          
+          // cout << id;  // ❌ Error! id is private to BankAccount
+      }
+  };
+
+  int main() {
+      SavingsAccount savings("SA-1001", 10000.0, 0.05);
+      
+      cout << endl;
+      savings.display();
+      savings.applyInterest();
+      savings.showDetails();
+      
+      // savings.balance = 50000;  // ❌ Error! balance is protected
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -170,6 +296,67 @@ Creating resident...
 Person constructor: Juan Dela Cruz
 Resident constructor: 1000
 ```
+
+# Tasks for Learners
+
+- Create an `Employee` base class and a `Manager` derived class. Show constructor chaining where the Manager constructor calls the Employee constructor, then initializes its own members.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  class Employee {
+  protected:
+      string name;
+      int id;
+      double salary;
+      
+  public:
+      Employee(string n, int i, double sal) : name(n), id(i), salary(sal) {
+          cout << "Employee constructor: " << name << " (ID: " << id << ")" << endl;
+      }
+      
+      void display() {
+          cout << "Employee: " << name << ", ID: " << id << ", Salary: P" << salary << endl;
+      }
+  };
+
+  class Manager : public Employee {
+  private:
+      string department;
+      int teamSize;
+      
+  public:
+      // Must call Employee constructor first
+      Manager(string n, int i, double sal, string dept, int team) 
+          : Employee(n, i, sal), department(dept), teamSize(team) {
+          cout << "Manager constructor: Department=" << department 
+               << ", Team Size=" << teamSize << endl;
+      }
+      
+      void showManagerInfo() {
+          cout << "Manager: " << name << endl;
+          cout << "ID: " << id << endl;
+          cout << "Salary: P" << salary << endl;
+          cout << "Department: " << department << endl;
+          cout << "Team Size: " << teamSize << " people" << endl;
+      }
+  };
+
+  int main() {
+      cout << "Creating manager..." << endl;
+      Manager mgr("Maria Santos", 2001, 50000.0, "IT", 10);
+      
+      cout << "\nDisplaying info:" << endl;
+      mgr.display();
+      
+      cout << "\nDetailed manager info:" << endl;
+      mgr.showManagerInfo();
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -236,6 +423,78 @@ int main() {
 }
 ```
 
+# Tasks for Learners
+
+- Create a `Shape` base class with a `getInfo()` method. Create derived classes `Rectangle` and `Circle` that override the method to provide shape-specific information.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  #include <cmath>
+  using namespace std;
+
+  class Shape {
+  protected:
+      string name;
+      
+  public:
+      Shape(string n) : name(n) {}
+      
+      void getInfo() {
+          cout << "This is a generic shape: " << name << endl;
+      }
+  };
+
+  class Rectangle : public Shape {
+  private:
+      double width;
+      double height;
+      
+  public:
+      Rectangle(double w, double h) 
+          : Shape("Rectangle"), width(w), height(h) {}
+      
+      // Override base class method
+      void getInfo() {
+          cout << "Rectangle: " << width << " x " << height << endl;
+          cout << "Area: " << (width * height) << endl;
+          cout << "Perimeter: " << (2 * (width + height)) << endl;
+      }
+  };
+
+  class Circle : public Shape {
+  private:
+      double radius;
+      
+  public:
+      Circle(double r) 
+          : Shape("Circle"), radius(r) {}
+      
+      // Override base class method
+      void getInfo() {
+          cout << "Circle with radius: " << radius << endl;
+          cout << "Area: " << (M_PI * radius * radius) << endl;
+          cout << "Circumference: " << (2 * M_PI * radius) << endl;
+      }
+  };
+
+  int main() {
+      Shape s("Generic");
+      Rectangle rect(5.0, 10.0);
+      Circle circ(7.0);
+      
+      s.getInfo();
+      cout << endl;
+      
+      rect.getInfo();
+      cout << endl;
+      
+      circ.getInfo();
+      
+      return 0;
+  }
+  ```
+
 ---
 
 ## Task 5: Multiple Levels of Inheritance
@@ -299,6 +558,102 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create a three-level inheritance chain: `Animal` → `Mammal` → `Dog`. Each level should add its own properties and methods. Show how the most derived class can access methods from all levels.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  // Level 1: Base
+  class Animal {
+  protected:
+      bool isAlive;
+      int age;
+      
+  public:
+      Animal(int a) : isAlive(true), age(a) {
+          cout << "Animal created (age " << age << ")" << endl;
+      }
+      
+      void breathe() {
+          cout << "Breathing..." << endl;
+      }
+      
+      void eat() {
+          cout << "Eating..." << endl;
+      }
+  };
+
+  // Level 2: Derived from Animal
+  class Mammal : public Animal {
+  protected:
+      bool hasFur;
+      
+  public:
+      Mammal(int a, bool fur) : Animal(a), hasFur(fur) {
+          cout << "Mammal created (has fur: " << (fur ? "yes" : "no") << ")" << endl;
+      }
+      
+      void produceMilk() {
+          cout << "Producing milk for babies" << endl;
+      }
+      
+      void regulate Temperature() {
+          cout << "Regulating body temperature" << endl;
+      }
+  };
+
+  // Level 3: Derived from Mammal
+  class Dog : public Mammal {
+  private:
+      string breed;
+      string name;
+      
+  public:
+      Dog(string n, string b, int a) 
+          : Mammal(a, true), name(n), breed(b) {
+          cout << "Dog created: " << name << " (" << breed << ")" << endl;
+      }
+      
+      void bark() {
+          cout << name << " says: Woof! Woof!" << endl;
+      }
+      
+      void wagTail() {
+          cout << name << " is wagging its tail happily!" << endl;
+      }
+      
+      void showInfo() {
+          cout << "Name: " << name << endl;
+          cout << "Breed: " << breed << endl;
+          cout << "Age: " << age << " years" << endl;
+          cout << "Has fur: " << (hasFur ? "Yes" : "No") << endl;
+          cout << "Alive: " << (isAlive ? "Yes" : "No") << endl;
+      }
+  };
+
+  int main() {
+      cout << "Creating a dog..." << endl;
+      Dog myDog("Bantay", "Aspin", 3);
+      
+      cout << "\nDog actions:" << endl;
+      myDog.breathe();            // From Animal
+      myDog.eat();                // From Animal
+      myDog.produceMilk();        // From Mammal
+      myDog.regulateTemperature(); // From Mammal
+      myDog.bark();               // From Dog
+      myDog.wagTail();            // From Dog
+      
+      cout << "\nDog info:" << endl;
+      myDog.showInfo();
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -393,6 +748,170 @@ int main() {
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create a complete barangay management system with a `Person` base class, and derived `Resident`, `Official`, and `BusinessOwner` classes. Each derived class should have its own unique attributes and override the display method.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  using namespace std;
+
+  class Person {
+  protected:
+      int id;
+      string name;
+      int age;
+      string address;
+      
+  public:
+      Person(int i, string n, int a, string addr) 
+          : id(i), name(n), age(a), address(addr) {
+          cout << "Person created: " << name << endl;
+      }
+      
+      virtual void display() {
+          cout << "ID: " << id << endl;
+          cout << "Name: " << name << endl;
+          cout << "Age: " << age << endl;
+          cout << "Address: " << address << endl;
+      }
+      
+      bool isSenior() {
+          return age >= 60;
+      }
+      
+      string getName() { return name; }
+  };
+
+  class Resident : public Person {
+  private:
+      double balance;
+      bool isPaid;
+      
+  public:
+      Resident(int i, string n, int a, string addr) 
+          : Person(i, n, a, addr), balance(0), isPaid(false) {
+          cout << "Resident registered" << endl;
+      }
+      
+      void addDues(double amount) {
+          balance += amount;
+          isPaid = false;
+      }
+      
+      void makePayment(double amount) {
+          if (amount <= balance) {
+              balance -= amount;
+              if (balance == 0) {
+                  isPaid = true;
+              }
+              cout << "Payment of P" << amount << " received from " << name << endl;
+          }
+      }
+      
+      void display() override {
+          Person::display();
+          cout << "Balance: P" << balance << endl;
+          cout << "Payment Status: " << (isPaid ? "Paid" : "Pending") << endl;
+          cout << "Type: Resident" << endl;
+      }
+  };
+
+  class Official : public Person {
+  private:
+      string position;
+      double salary;
+      int yearsOfService;
+      
+  public:
+      Official(int i, string n, int a, string addr, string pos, double sal) 
+          : Person(i, n, a, addr), position(pos), salary(sal), yearsOfService(0) {
+          cout << "Official appointed: " << position << endl;
+      }
+      
+      void incrementYears() {
+          yearsOfService++;
+      }
+      
+      void display() override {
+          Person::display();
+          cout << "Position: " << position << endl;
+          cout << "Salary: P" << salary << endl;
+          cout << "Years of Service: " << yearsOfService << endl;
+          cout << "Type: Official" << endl;
+      }
+  };
+
+  class BusinessOwner : public Person {
+  private:
+      string businessName;
+      string businessType;
+      double businessPermitFee;
+      bool permitValid;
+      
+  public:
+      BusinessOwner(int i, string n, int a, string addr, string bname, string btype) 
+          : Person(i, n, a, addr), businessName(bname), businessType(btype), 
+            businessPermitFee(0), permitValid(false) {
+          cout << "Business owner registered: " << businessName << endl;
+      }
+      
+      void setPermitFee(double fee) {
+          businessPermitFee = fee;
+      }
+      
+      void renewPermit() {
+          permitValid = true;
+          cout << "Business permit renewed for " << businessName << endl;
+      }
+      
+      void display() override {
+          Person::display();
+          cout << "Business Name: " << businessName << endl;
+          cout << "Business Type: " << businessType << endl;
+          cout << "Permit Fee: P" << businessPermitFee << endl;
+          cout << "Permit Status: " << (permitValid ? "Valid" : "Expired") << endl;
+          cout << "Type: Business Owner" << endl;
+      }
+  };
+
+  int main() {
+      cout << "=== BARANGAY MANAGEMENT SYSTEM ===\n" << endl;
+      
+      Resident r1(1001, "Juan Dela Cruz", 30, "123 Main St");
+      r1.addDues(500);
+      
+      cout << "\n=== RESIDENT INFO ===" << endl;
+      r1.display();
+      
+      cout << "\n" << endl;
+      
+      Official o1(2001, "Maria Santos", 45, "Municipal Hall", "Barangay Captain", 35000);
+      o1.incrementYears();
+      o1.incrementYears();
+      
+      cout << "\n=== OFFICIAL INFO ===" << endl;
+      o1.display();
+      
+      cout << "\n" << endl;
+      
+      BusinessOwner b1(3001, "Pedro Reyes", 40, "456 Commerce Ave", 
+                       "Reyes Sari-Sari Store", "Retail");
+      b1.setPermitFee(2000);
+      b1.renewPermit();
+      
+      cout << "\n=== BUSINESS OWNER INFO ===" << endl;
+      b1.display();
+      
+      cout << "\n=== TRANSACTIONS ===" << endl;
+      r1.makePayment(300);
+      r1.display();
+      
+      return 0;
+  }
+  ```
 
 ---
 

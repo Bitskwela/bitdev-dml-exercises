@@ -1,4 +1,4 @@
-# Lesson 3 Activities: Operators as Tools
+﻿# Lesson 3 Activities: Operators as Tools
 
 ## From Static Variables to Dynamic Calculations
 
@@ -52,19 +52,40 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-=== CALCULATOR SYSTEM ===
-Number 1: 10
-Number 2: 3
+# Tasks for Learners
 
-ARITHMETIC OPERATIONS:
-Sum: 13
-Difference: 7
-Product: 30
-Quotient: 3.33333
-Remainder: 1
-```
+- Create a complete calculator system: Perform all basic arithmetic operations (+, -, *, /, %) on two numbers and display the results.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      double num1 = 10;
+      double num2 = 3;
+      
+      // Perform all arithmetic operations
+      double sum = num1 + num2;
+      double difference = num1 - num2;
+      double product = num1 * num2;
+      double quotient = num1 / num2;
+      int remainder = (int)num1 % (int)num2;  // Modulo works with integers
+      
+      // Display results
+      cout << "=== CALCULATOR SYSTEM ===" << endl;
+      cout << "Number 1: " << num1 << endl;
+      cout << "Number 2: " << num2 << endl;
+      cout << endl;
+      cout << "ARITHMETIC OPERATIONS:" << endl;
+      cout << "Sum: " << sum << endl;
+      cout << "Difference: " << difference << endl;
+      cout << "Product: " << product << endl;
+      cout << "Quotient: " << quotient << endl;
+      cout << "Remainder: " << remainder << endl;
+      
+      return 0;
+  }
+  ```
 
 **Challenge:** Why do we cast to `int` for the modulo operation? What happens if you try modulo with doubles?
 
@@ -105,14 +126,33 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-Distance: 7.5 km
-Base Fare (first 4km): ₱13.00
-Additional Distance: 3.5 km
-Additional Charge: ₱7.00
-Total Fare: ₱20.00
-```
+# Tasks for Learners
+
+- Build jeepney fare calculator: Calculate total fare based on distance with base fare and additional rate.
+
+  ```cpp
+  #include <iostream>
+  #include <iomanip>
+  using namespace std;
+
+  int main() {
+      double distance = 7.5;  // kilometers
+      double baseFare = 13.00;
+      double additionalRate = 2.00;
+      double additionalDistance = distance - 4.0;
+      double additionalCharge = additionalDistance * additionalRate;
+      double totalFare = baseFare + additionalCharge;
+      
+      cout << fixed << setprecision(2);
+      cout << "Distance: " << distance << " km" << endl;
+      cout << "Base Fare (first 4km): ₱" << baseFare << endl;
+      cout << "Additional Distance: " << additionalDistance << " km" << endl;
+      cout << "Additional Charge: ₱" << additionalCharge << endl;
+      cout << "Total Fare: ₱" << totalFare << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -120,18 +160,16 @@ Total Fare: ₱20.00
 
 **Context:**  
 The modulo operator (%) is incredibly useful! It returns the remainder after division. If `number % 2 == 0`, the number is even (no remainder). This is used everywhere—from determining alternating colors in UI to scheduling shifts.
-    
-    return 0;
-}
-```
 
-**Expected Output:**
-```
-Number: 17
-Type: Odd
-```
+**Your Challenge:**  
+Create a program that uses the modulo operator to determine if a number is even or odd.
 
-**Solution:**
+**What You'll Practice:**
+- Modulo operator (%) for remainders
+- Boolean expressions
+- Ternary operator for conditional output
+
+**Starter Code:**
 ```cpp
 #include <iostream>
 using namespace std;
@@ -139,14 +177,31 @@ using namespace std;
 int main() {
     int number = 17;
     
-    bool isEven = (number % 2 == 0);
-    
-    cout << "Number: " << number << endl;
-    cout << "Type: " << (isEven ? "Even" : "Odd") << endl;
+    // Check if even or odd using modulo
     
     return 0;
 }
 ```
+
+# Tasks for Learners
+
+- Create even/odd detector: Use modulo operator to determine if a number is even or odd.
+
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      int number = 17;
+      
+      bool isEven = (number % 2 == 0);
+      
+      cout << "Number: " << number << endl;
+      cout << "Type: " << (isEven ? "Even" : "Odd") << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -174,31 +229,27 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-GPA: 90
-Family Income: ₱25000
-Scholarship Qualified: YES
-```
+# Tasks for Learners
 
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
+- Create scholarship eligibility checker: Use logical AND operator to check if student qualifies based on GPA and family income.
 
-int main() {
-    double gpa = 90.0;
-    double familyIncome = 25000.00;
-    
-    bool qualifies = (gpa >= 85.0) && (familyIncome <= 30000.00);
-    
-    cout << "GPA: " << gpa << endl;
-    cout << "Family Income: ₱" << familyIncome << endl;
-    cout << "Scholarship Qualified: " << (qualifies ? "YES" : "NO") << endl;
-    
-    return 0;
-}
-```
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      double gpa = 90.0;
+      double familyIncome = 25000.00;
+      
+      bool qualifies = (gpa >= 85.0) && (familyIncome <= 30000.00);
+      
+      cout << "GPA: " << gpa << endl;
+      cout << "Family Income: ₱" << familyIncome << endl;
+      cout << "Scholarship Qualified: " << (qualifies ? "YES" : "NO") << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 
@@ -224,25 +275,23 @@ int main() {
 }
 ```
 
-**Expected Output:**
-```
-30°C = 86°F
-```
+# Tasks for Learners
 
-**Solution:**
-```cpp
-#include <iostream>
-using namespace std;
+- Create temperature converter: Convert Celsius to Fahrenheit using the formula F = (C × 9/5) + 32.
 
-int main() {
-    double celsius = 30.0;
-    double fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
-    
-    cout << celsius << "°C = " << fahrenheit << "°F" << endl;
-    
-    return 0;
-}
-```
+  ```cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+      double celsius = 30.0;
+      double fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+      
+      cout << celsius << "°C = " << fahrenheit << "°F" << endl;
+      
+      return 0;
+  }
+  ```
 
 ---
 

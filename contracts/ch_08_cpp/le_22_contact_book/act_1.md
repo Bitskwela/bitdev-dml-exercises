@@ -1,4 +1,4 @@
-# Lesson 22 Activities: Contact Book Project
+﻿# Lesson 22 Activities: Contact Book Project
 
 ## The Real Developer Test
 
@@ -158,6 +158,52 @@ void addContact() {
 }
 ```
 
+# Tasks for Learners
+
+- Implement the addContact() function to add new contacts to the contact book.
+
+  ```cpp
+  void addContact() {
+      if (contactCount >= MAX_CONTACTS) {
+          cout << "Contact book is full!" << endl;
+          return;
+      }
+      
+      Contact newContact;
+      newContact.id = nextId++;
+      newContact.active = true;
+      
+      cin.ignore();
+      cout << "\n=== ADD NEW CONTACT ===" << endl;
+      cout << "Name: ";
+      getline(cin, newContact.name);
+      
+      cout << "Phone: ";
+      getline(cin, newContact.phone);
+      
+      cout << "Email: ";
+      getline(cin, newContact.email);
+      
+      cout << "\nContact Type:" << endl;
+      cout << "1. Personal" << endl;
+      cout << "2. Work" << endl;
+      cout << "3. Family" << endl;
+      cout << "4. Emergency" << endl;
+      cout << "Choice: ";
+      int typeChoice;
+      cin >> typeChoice;
+      
+      if (typeChoice >= 1 && typeChoice <= 4) {
+          newContact.type = (ContactType)typeChoice;
+      } else {
+          newContact.type = PERSONAL;  // Default
+      }
+      
+      contacts[contactCount++] = newContact;
+      cout << "\n✓ Contact added successfully! (ID: " << newContact.id << ")" << endl;
+  }
+  ```
+
 ---
 
 ## Task 2: Implement displayAllContacts()
@@ -179,6 +225,40 @@ ID   Name              Phone         Email               Type
 
 Total active contacts: 2
 ```
+
+# Tasks for Learners
+
+- Implement the displayAllContacts() function to show all active contacts in a formatted table.
+
+  ```cpp
+  void displayAllContacts() {
+      cout << "\n=== ALL CONTACTS ===" << endl;
+      cout << left << setw(5) << "ID" 
+           << setw(20) << "Name" 
+           << setw(15) << "Phone" 
+           << setw(25) << "Email" 
+           << setw(12) << "Type" << endl;
+      cout << string(77, '-') << endl;
+      
+      int activeCount = 0;
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].active) {
+              cout << left << setw(5) << contacts[i].id
+                   << setw(20) << contacts[i].name
+                   << setw(15) << contacts[i].phone
+                   << setw(25) << contacts[i].email
+                   << setw(12) << typeToString(contacts[i].type) << endl;
+              activeCount++;
+          }
+      }
+      
+      if (activeCount == 0) {
+          cout << "No contacts found." << endl;
+      }
+      
+      cout << "\nTotal active contacts: " << activeCount << endl;
+  }
+  ```
 
 ---
 
@@ -216,6 +296,38 @@ void searchByName() {
 }
 ```
 
+# Tasks for Learners
+
+- Implement the searchByName() function to search for contacts by name.
+
+  ```cpp
+  void searchByName() {
+      string searchTerm;
+      cin.ignore();
+      cout << "\nEnter name to search: ";
+      getline(cin, searchTerm);
+      
+      cout << "\n=== SEARCH RESULTS ===" << endl;
+      bool found = false;
+      
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].active && 
+              contacts[i].name.find(searchTerm) != string::npos) {
+              cout << "\nID: " << contacts[i].id << endl;
+              cout << "Name: " << contacts[i].name << endl;
+              cout << "Phone: " << contacts[i].phone << endl;
+              cout << "Email: " << contacts[i].email << endl;
+              cout << "Type: " << typeToString(contacts[i].type) << endl;
+              found = true;
+          }
+      }
+      
+      if (!found) {
+          cout << "No contacts found matching '" << searchTerm << "'" << endl;
+      }
+  }
+  ```
+
 ---
 
 ## Task 4: Implement updateContact()
@@ -227,6 +339,75 @@ void searchByName() {
 - Let user update: name, phone, email, type
 - Validate ID exists and is active
 - Confirm update success
+
+# Tasks for Learners
+
+- Implement the updateContact() function to update existing contact information.
+
+  ```cpp
+  void updateContact() {
+      int id;
+      cout << "\nEnter contact ID to update: ";
+      cin >> id;
+      
+      int index = -1;
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].id == id && contacts[i].active) {
+              index = i;
+              break;
+          }
+      }
+      
+      if (index == -1) {
+          cout << "Contact not found!" << endl;
+          return;
+      }
+      
+      cout << "\n=== UPDATE CONTACT #" << id << " ===" << endl;
+      cout << "Current: " << contacts[index].name << endl;
+      
+      cin.ignore();
+      cout << "New name (or press Enter to keep): ";
+      string newName;
+      getline(cin, newName);
+      if (!newName.empty()) {
+          contacts[index].name = newName;
+      }
+      
+      cout << "New phone (or press Enter to keep): ";
+      string newPhone;
+      getline(cin, newPhone);
+      if (!newPhone.empty()) {
+          contacts[index].phone = newPhone;
+      }
+      
+      cout << "New email (or press Enter to keep): ";
+      string newEmail;
+      getline(cin, newEmail);
+      if (!newEmail.empty()) {
+          contacts[index].email = newEmail;
+      }
+      
+      cout << "Update type? (Y/N): ";
+      char updateType;
+      cin >> updateType;
+      if (updateType == 'Y' || updateType == 'y') {
+          cout << "\nContact Type:" << endl;
+          cout << "1. Personal" << endl;
+          cout << "2. Work" << endl;
+          cout << "3. Family" << endl;
+          cout << "4. Emergency" << endl;
+          cout << "Choice: ";
+          int typeChoice;
+          cin >> typeChoice;
+          if (typeChoice >= 1 && typeChoice <= 4) {
+              contacts[index].type = (ContactType)typeChoice;
+          }
+      }
+      
+      cout << "\n✓ Contact updated successfully!" << endl;
+  }
+  ```
 
 ---
 
@@ -241,6 +422,48 @@ void searchByName() {
 - Don't actually remove from array
 
 **Why soft delete?** Preserves history, allows undelete, maintains ID integrity.
+
+# Tasks for Learners
+
+- Implement the deleteContact() function to soft-delete contacts.
+
+  ```cpp
+  void deleteContact() {
+      int id;
+      cout << "\nEnter contact ID to delete: ";
+      cin >> id;
+      
+      int index = -1;
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].id == id && contacts[i].active) {
+              index = i;
+              break;
+          }
+      }
+      
+      if (index == -1) {
+          cout << "Contact not found!" << endl;
+          return;
+      }
+      
+      cout << "\n=== DELETE CONTACT ===" << endl;
+      cout << "ID: " << contacts[index].id << endl;
+      cout << "Name: " << contacts[index].name << endl;
+      cout << "Phone: " << contacts[index].phone << endl;
+      cout << "Email: " << contacts[index].email << endl;
+      
+      cout << "\nAre you sure you want to delete this contact? (Y/N): ";
+      char confirm;
+      cin >> confirm;
+      
+      if (confirm == 'Y' || confirm == 'y') {
+          contacts[index].active = false;
+          cout << "\n✓ Contact deleted successfully!" << endl;
+      } else {
+          cout << "\nDeletion cancelled." << endl;
+      }
+  }
+  ```
 
 ---
 
@@ -268,6 +491,59 @@ Family: 1
 Emergency: 0
 ```
 
+# Tasks for Learners
+
+- Add a statistics feature to show contact counts by type and status.
+
+  ```cpp
+  void showStatistics() {
+      cout << "\n=== CONTACT STATISTICS ===" << endl;
+      
+      int activeCount = 0;
+      int deletedCount = 0;
+      int personalCount = 0;
+      int workCount = 0;
+      int familyCount = 0;
+      int emergencyCount = 0;
+      
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].active) {
+              activeCount++;
+              switch (contacts[i].type) {
+                  case PERSONAL:
+                      personalCount++;
+                      break;
+                  case WORK:
+                      workCount++;
+                      break;
+                  case FAMILY:
+                      familyCount++;
+                      break;
+                  case EMERGENCY:
+                      emergencyCount++;
+                      break;
+              }
+          } else {
+              deletedCount++;
+          }
+      }
+      
+      cout << "Total contacts: " << contactCount << endl;
+      cout << "Active: " << activeCount << endl;
+      cout << "Deleted: " << deletedCount << endl;
+      cout << "\nBy Type:" << endl;
+      cout << "Personal: " << personalCount << endl;
+      cout << "Work: " << workCount << endl;
+      cout << "Family: " << familyCount << endl;
+      cout << "Emergency: " << emergencyCount << endl;
+  }
+  
+  // Add to menu and switch statement:
+  // case 6:
+  //     showStatistics();
+  //     break;
+  ```
+
 ---
 
 ## Task 7: Complete Working System
@@ -292,10 +568,260 @@ Emergency: 0
 - ✅ No memory leaks (using arrays, not dynamic)
 - ✅ Edge cases handled (empty list, ID not found, etc.)
 
+# Tasks for Learners
+
+- Complete the entire contact book system with all features working together.
+
+  ```cpp
+  #include <iostream>
+  #include <string>
+  #include <iomanip>
+  using namespace std;
+
+  enum ContactType {
+      PERSONAL = 1,
+      WORK = 2,
+      FAMILY = 3,
+      EMERGENCY = 4
+  };
+
+  struct Contact {
+      int id;
+      string name;
+      string phone;
+      string email;
+      ContactType type;
+      bool active;
+  };
+
+  const int MAX_CONTACTS = 100;
+  Contact contacts[MAX_CONTACTS];
+  int contactCount = 0;
+  int nextId = 1;
+
+  string typeToString(ContactType type) {
+      switch (type) {
+          case PERSONAL: return "Personal";
+          case WORK: return "Work";
+          case FAMILY: return "Family";
+          case EMERGENCY: return "Emergency";
+          default: return "Unknown";
+      }
+  }
+
+  void addContact() {
+      if (contactCount >= MAX_CONTACTS) {
+          cout << "Contact book is full!" << endl;
+          return;
+      }
+      
+      Contact newContact;
+      newContact.id = nextId++;
+      newContact.active = true;
+      
+      cin.ignore();
+      cout << "\n=== ADD NEW CONTACT ===" << endl;
+      cout << "Name: ";
+      getline(cin, newContact.name);
+      cout << "Phone: ";
+      getline(cin, newContact.phone);
+      cout << "Email: ";
+      getline(cin, newContact.email);
+      
+      cout << "\nContact Type:" << endl;
+      cout << "1. Personal" << endl;
+      cout << "2. Work" << endl;
+      cout << "3. Family" << endl;
+      cout << "4. Emergency" << endl;
+      cout << "Choice: ";
+      int typeChoice;
+      cin >> typeChoice;
+      newContact.type = (ContactType)typeChoice;
+      
+      contacts[contactCount++] = newContact;
+      cout << "\n✓ Contact added successfully! (ID: " << newContact.id << ")" << endl;
+  }
+
+  void displayAllContacts() {
+      cout << "\n=== ALL CONTACTS ===" << endl;
+      cout << left << setw(5) << "ID" 
+           << setw(20) << "Name" 
+           << setw(15) << "Phone" 
+           << setw(25) << "Email" 
+           << setw(12) << "Type" << endl;
+      cout << string(77, '-') << endl;
+      
+      int activeCount = 0;
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].active) {
+              cout << left << setw(5) << contacts[i].id
+                   << setw(20) << contacts[i].name
+                   << setw(15) << contacts[i].phone
+                   << setw(25) << contacts[i].email
+                   << setw(12) << typeToString(contacts[i].type) << endl;
+              activeCount++;
+          }
+      }
+      
+      cout << "\nTotal active contacts: " << activeCount << endl;
+  }
+
+  void searchByName() {
+      string searchTerm;
+      cin.ignore();
+      cout << "\nEnter name to search: ";
+      getline(cin, searchTerm);
+      
+      cout << "\n=== SEARCH RESULTS ===" << endl;
+      bool found = false;
+      
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].active && 
+              contacts[i].name.find(searchTerm) != string::npos) {
+              cout << "\nID: " << contacts[i].id << endl;
+              cout << "Name: " << contacts[i].name << endl;
+              cout << "Phone: " << contacts[i].phone << endl;
+              cout << "Email: " << contacts[i].email << endl;
+              cout << "Type: " << typeToString(contacts[i].type) << endl;
+              found = true;
+          }
+      }
+      
+      if (!found) {
+          cout << "No contacts found matching '" << searchTerm << "'" << endl;
+      }
+  }
+
+  void updateContact() {
+      int id;
+      cout << "\nEnter contact ID to update: ";
+      cin >> id;
+      
+      int index = -1;
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].id == id && contacts[i].active) {
+              index = i;
+              break;
+          }
+      }
+      
+      if (index == -1) {
+          cout << "Contact not found!" << endl;
+          return;
+      }
+      
+      cout << "\n=== UPDATE CONTACT #" << id << " ===" << endl;
+      cout << "Current: " << contacts[index].name << endl;
+      
+      cin.ignore();
+      cout << "New name (or press Enter to keep): ";
+      string newName;
+      getline(cin, newName);
+      if (!newName.empty()) {
+          contacts[index].name = newName;
+      }
+      
+      cout << "New phone (or press Enter to keep): ";
+      string newPhone;
+      getline(cin, newPhone);
+      if (!newPhone.empty()) {
+          contacts[index].phone = newPhone;
+      }
+      
+      cout << "New email (or press Enter to keep): ";
+      string newEmail;
+      getline(cin, newEmail);
+      if (!newEmail.empty()) {
+          contacts[index].email = newEmail;
+      }
+      
+      cout << "\n✓ Contact updated successfully!" << endl;
+  }
+
+  void deleteContact() {
+      int id;
+      cout << "\nEnter contact ID to delete: ";
+      cin >> id;
+      
+      int index = -1;
+      for (int i = 0; i < contactCount; i++) {
+          if (contacts[i].id == id && contacts[i].active) {
+              index = i;
+              break;
+          }
+      }
+      
+      if (index == -1) {
+          cout << "Contact not found!" << endl;
+          return;
+      }
+      
+      cout << "\nDelete contact: " << contacts[index].name << "?" << endl;
+      cout << "Confirm (Y/N): ";
+      char confirm;
+      cin >> confirm;
+      
+      if (confirm == 'Y' || confirm == 'y') {
+          contacts[index].active = false;
+          cout << "✓ Contact deleted successfully!" << endl;
+      } else {
+          cout << "Deletion cancelled." << endl;
+      }
+  }
+
+  void showMenu() {
+      cout << "\n=== BARANGAY CONTACT BOOK ===" << endl;
+      cout << "1. Add Contact" << endl;
+      cout << "2. Display All Contacts" << endl;
+      cout << "3. Search by Name" << endl;
+      cout << "4. Update Contact" << endl;
+      cout << "5. Delete Contact" << endl;
+      cout << "0. Exit" << endl;
+  }
+
+  int main() {
+      int choice;
+      
+      cout << "Welcome to Barangay Contact Book System!" << endl;
+      
+      do {
+          showMenu();
+          cout << "Enter choice: ";
+          cin >> choice;
+          
+          switch (choice) {
+              case 1:
+                  addContact();
+                  break;
+              case 2:
+                  displayAllContacts();
+                  break;
+              case 3:
+                  searchByName();
+                  break;
+              case 4:
+                  updateContact();
+                  break;
+              case 5:
+                  deleteContact();
+                  break;
+              case 0:
+                  cout << "\nThank you for using the Contact Book!" << endl;
+                  break;
+              default:
+                  cout << "Invalid choice! Please try again." << endl;
+          }
+          
+      } while (choice != 0);
+      
+      return 0;
+  }
+  ```
+
 ---
 
 <details>
-<summary><strong>💡 Complete Solution Example</strong></summary>
+<summary><strong>💡 Solution</strong></summary>
 
 ```cpp
 #include <iostream>
