@@ -7,7 +7,7 @@ Practice optimizing database queries with indexes.
 -- Frequent query: SELECT * FROM applicants WHERE age >= 18;
 
 -- Your code: create index
-
+CREATE INDEX idx_applicants_age ON applicants(age);
 ```
 
 ### Task 2: Composite Index
@@ -16,13 +16,18 @@ Practice optimizing database queries with indexes.
 --        WHERE status = 'pending' AND submission_date > '2024-01-01';
 
 -- Your code: create composite index
-
+CREATE INDEX idx_applications_status_date 
+ON applications(status, submission_date);
 ```
 
 ### Task 3: Verify Index Usage
 ```sql
 -- Your code: use EXPLAIN QUERY PLAN
+EXPLAIN QUERY PLAN
+SELECT * FROM applications 
+WHERE status = 'pending' AND submission_date > '2024-01-01';
 
+-- Look for: "USING INDEX idx_applications_status_date"
 ```
 
 ### Task 4: High-Write Trade-off

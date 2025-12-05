@@ -23,16 +23,19 @@ def parse_age(user_input):
         Integer age, or None if invalid
     """
     # Your code here with try/except:
-    
-    
-    
-    
+    try:
+        age = int(user_input)
+        if 0 <= age <= 120:
+            return age
+        return None
+    except (ValueError, TypeError):
+        return None
 
 # Test cases
-print(parse_age("18"))      # Should return 18
-print(parse_age("twenty"))  # Should return None (or default value)
-print(parse_age(""))         # Should return None
-print(parse_age("18.5"))    # Should return None (not a valid int)
+print(parse_age("18"))
+print(parse_age("twenty"))
+print(parse_age(""))
+print(parse_age("18.5"))
 ```
 
 **What exception type should you catch?**
@@ -69,15 +72,16 @@ def add_resident(resident_id, residents_db):
     # Check if resident_id exists
     # If yes, raise DuplicateResidentError with helpful message
     # If no, add to residents_db
-    
-    
-    
+    if resident_id in residents_db:
+        raise DuplicateResidentError(f"Resident ID {resident_id} already exists")
+    residents_db[resident_id] = f"Resident {resident_id}"
+    return True
 
 # Test it
 db = {101: "Ana", 102: "Ben"}
 try:
-    add_resident(103, db)  # Should succeed
-    add_resident(101, db)  # Should raise DuplicateResidentError
+    add_resident(103, db)
+    add_resident(101, db)
 except DuplicateResidentError as e:
     print(f"Error caught: {e}")
 ```
@@ -113,20 +117,20 @@ def logged_process(applications):
     # Call process_applications
     # Log end time and duration
     # Handle any exceptions
-    
-    
-    
-    
+    logger.info("Processing started...")
+    start_time = time.time()
+    try:
+        result = process_applications(applications)
+        duration = time.time() - start_time
+        logger.info(f"Processed {result} applications in {duration:.2f} seconds")
+        return result
+    except Exception as e:
+        logger.error(f"Processing failed: {e}")
+        raise
 
 # Test it
 applications = [{"name": f"Applicant {i}"} for i in range(100)]
 logged_process(applications)
-```
-
-**Expected Output:**
-```
-INFO: Processing started...
-INFO: Processed 100 applications in 2.01 seconds
 ```
 
 ---
@@ -147,21 +151,27 @@ def read_resident_data(filename):
         # Open file
         # Read data (might raise exception)
         # Return data
-        pass
+        file_handle = open(filename, "r")
+        data = file_handle.read()
+        return data
     
     except FileNotFoundError:
         # Handle missing file
-        pass
+        print(f"File {filename} not found")
+        return None
     
     except PermissionError:
         # Handle permission denied
-        pass
+        print(f"Permission denied: {filename}")
+        return None
     
     finally:
         # Your cleanup code here:
         # Always close file if it was opened
         # Log completion
-        pass
+        if file_handle:
+            file_handle.close()
+            print("File closed")
 
 # Test with non-existent file
 data = read_resident_data("nonexistent.txt")

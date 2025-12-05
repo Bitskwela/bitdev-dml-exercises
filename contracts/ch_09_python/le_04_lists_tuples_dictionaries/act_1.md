@@ -25,11 +25,13 @@ residents = [
 resident_dict = {}
 
 # Your code here:
+for id_num, name in residents:
+    resident_dict[id_num] = name
 
-
+# Or using dict comprehension:
+# resident_dict = {id_num: name for id_num, name in residents}
 
 print(resident_dict)
-# Expected: {101: "Ana Cruz", 102: "Ben Reyes", 103: "Carla Santos"}
 ```
 
 **Why is dictionary better for lookups?**
@@ -61,15 +63,16 @@ _[Explain why the default list is shared]_
 ```python
 def add_applicant(name, applicants=None):
     # Your fix here:
-    
-    
+    if applicants is None:
+        applicants = []
+    applicants.append(name)
     return applicants
 
 # Test it
 list1 = add_applicant("Ana")
 list2 = add_applicant("Ben")
-print(list1)  # ["Ana"]
-print(list2)  # ["Ben"]
+print(list1)
+print(list2)
 ```
 
 ---
@@ -94,11 +97,11 @@ residents = [
 tag_counts = {}
 
 # Your code here:
-
-
+for resident in residents:
+    for tag in resident["tags"]:
+        tag_counts[tag] = tag_counts.get(tag, 0) + 1
 
 print(tag_counts)
-# Expected: {"PWD": 2, "Scholar": 3, "Athlete": 1, "Senior": 1}
 ```
 
 **Bonus:** Sort by count (most common first)
@@ -125,13 +128,13 @@ print(applicants[0][2])  # Confusing!
 ```python
 applicants = [
     # Your dict format here:
-    
-    
-    
+    {"name": "Ana Cruz", "age": 18, "barangay": "San Roque", "status": "Approved"},
+    {"name": "Ben Reyes", "age": 21, "barangay": "Sto. Niño", "status": "Pending"},
+    {"name": "Carla Santos", "age": 19, "barangay": "San Jose", "status": "Approved"}
 ]
 
 # Accessing data - much clearer!
-print(applicants[0]["barangay"])  # Self-documenting!
+print(applicants[0]["barangay"])
 ```
 
 **Why is this better?**

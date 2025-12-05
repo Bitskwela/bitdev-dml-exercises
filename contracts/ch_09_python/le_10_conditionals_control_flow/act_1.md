@@ -28,12 +28,16 @@ def assign_grade(score):
     # 70-79:  "C"
     # 60-69:  "D"
     # Below 60: "F"
-    
-    
-    
-    
-    
-    
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
 
 # Test cases
 test_scores = [95, 85, 75, 65, 55, 100, 0]
@@ -63,15 +67,14 @@ def check_scholarship_eligibility(age, is_resident):
     """
     # Your code here:
     # Must be 17 or older AND must be resident
-    
-    
+    return age >= 17 and is_resident
 
 # Test all combinations
 test_cases = [
-    (18, True),   # Should be True
-    (16, True),   # Should be False (age)
-    (20, False),  # Should be False (not resident)
-    (16, False),  # Should be False (both)
+    (18, True),
+    (16, True),
+    (20, False),
+    (16, False),
 ]
 
 for age, is_resident in test_cases:
@@ -109,17 +112,18 @@ def has_special_status(tags):
     
     # Your code here:
     # Check if any special tag is in the tags list
-    
-    
-    
+    for tag in tags:
+        if tag in special_tags:
+            return True
+    return False
 
 # Test cases
 test_cases = [
-    ["PWD", "Resident"],              # True (has PWD)
-    ["Scholar", "Athlete"],           # True (has Scholar)
-    ["Resident", "Athlete"],          # False (no special tags)
-    ["PWD", "Scholar", "Senior"],     # True (has all three)
-    [],                                # False (empty)
+    ["PWD", "Resident"],
+    ["Scholar", "Athlete"],
+    ["Resident", "Athlete"],
+    ["PWD", "Scholar", "Senior"],
+    [],
 ]
 
 for tags in test_cases:
@@ -145,7 +149,7 @@ def classify_regular(number):
 # Ternary (conditional expression)
 def classify_ternary(number):
     # Your one-line ternary expression here:
-    return 
+    return "even" if number % 2 == 0 else "odd" 
 
 # Test both
 for num in [0, 1, 2, 7, 10, 15]:

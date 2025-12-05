@@ -10,7 +10,7 @@ with open("applicants.csv", "r") as f:
     reader = csv.DictReader(f)
     for row in reader:
         # Your code to print name and age
-        
+        print(f"{row['name']}: {row['age']} years old")
 ```
 
 ### Task 2: Write CSV with DictWriter
@@ -25,8 +25,8 @@ applicants = [
 with open("output.csv", "w", newline="") as f:
     writer = csv.DictWriter(f, fieldnames=["name", "age", "gpa"])
     # Your code
-    
-    
+    writer.writeheader()
+    writer.writerows(applicants)
 ```
 
 ### Task 3: Load and Access JSON
@@ -36,7 +36,8 @@ import json
 with open("data.json", "r") as f:
     data = json.load(f)
     # Access nested: data["applicant"]["contact"]["email"]
-    
+    email = data["applicant"]["contact"]["email"]
+    print(email)
 ```
 
 ### Task 4: DataFrame to JSON

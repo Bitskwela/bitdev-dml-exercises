@@ -18,8 +18,8 @@ import statistics
 amounts = [5000, 3000, 4500, 5500, 3500, 6000, 4000, 3000, 5000, 4500]
 
 # Your code here:
-mean_amount = 
-median_amount = 
+mean_amount = statistics.mean(amounts)
+median_amount = statistics.median(amounts) 
 
 print(f"Mean scholarship amount: ₱{mean_amount:,.2f}")
 print(f"Median scholarship amount: ₱{median_amount:,.2f}")

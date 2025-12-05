@@ -23,9 +23,12 @@ x=5;y=10;z=x+y;print(z);print("Done")
 # - Clear variable names
 # - Appropriate comments where needed
 
-
-
-
+# Calculate sum and display result
+first_number = 5
+second_number = 10
+total = first_number + second_number
+print(total)
+print("Done")
 ```
 
 **What makes the refactored version better?**
@@ -52,9 +55,16 @@ def add(a, b):
 ```python
 def add(a, b):
     # Your docstring here
+    """
+    Add two numbers and return the sum.
     
+    Args:
+        a: First number
+        b: Second number
     
-    
+    Returns:
+        Sum of a and b
+    """
     return a + b
 ```
 
@@ -86,11 +96,11 @@ if age >= 18:
 **Corrected Code:**
 ```python
 # Your fixed code here with proper indentation:
-
-
-
-
-
+def check_age(age):
+    if age >= 18:
+        print("Adult")
+    else:
+        print("Minor")
 ```
 
 **Python indentation rules:**
@@ -115,18 +125,21 @@ message = "Approved scholarship applicant: " + applicant_name + " from Barangay 
 # Use parentheses for implicit line continuation
 # Make it readable and maintainable
 
-
-
-
-
+message = (
+    "Approved scholarship applicant: " + applicant_name +
+    " from Barangay " + barangay +
+    " with amount: " + str(amount)
+)
 ```
 
 **Alternative (Using f-strings):**
 ```python
 # Even better with f-strings:
-
-
-
+message = (
+    f"Approved scholarship applicant: {applicant_name} "
+    f"from Barangay {barangay} "
+    f"with amount: ₱{amount:,}"
+)
 ```
 
 ---

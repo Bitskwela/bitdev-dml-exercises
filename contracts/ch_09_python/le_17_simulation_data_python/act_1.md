@@ -7,7 +7,7 @@ Practice generating synthetic data and running simulations.
 import random
 
 # Generate 100 random integers between 1-50
-random_numbers = 
+random_numbers = [random.randint(1, 50) for _ in range(100)] 
 
 print(f"First 10: {random_numbers[:10]}")
 print(f"Mean: {sum(random_numbers)/len(random_numbers):.2f}")
@@ -18,7 +18,7 @@ print(f"Mean: {sum(random_numbers)/len(random_numbers):.2f}")
 import numpy as np
 
 # Simulate ages: mean=22, std=3, n=100
-ages = 
+ages = np.random.normal(22, 3, 100) 
 
 print(f"Mean: {np.mean(ages):.2f}")
 print(f"Std: {np.std(ages):.2f}")

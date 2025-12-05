@@ -13,7 +13,11 @@ Practice building interactive web forms.
 from flask import render_template
 
 # Your code: render template with variables
-
+@app.route('/')
+def welcome():
+    return render_template('welcome.html', 
+                          title="Scholarship Portal", 
+                          username="Ana")
 ```
 
 ### Task 2: Loop in Template
@@ -28,7 +32,10 @@ from flask import render_template
 
 ```python
 # Your code: render with list of names
-
+@app.route('/applicants')
+def applicants():
+    names = ["Ana Cruz", "Ben Reyes", "Carla Santos"]
+    return render_template('applicants.html', applicants=names)
 ```
 
 ### Task 3: POST Handler
@@ -44,7 +51,13 @@ from flask import render_template
 from flask import request
 
 # Your code: handle POST and print form data
-
+@app.route('/apply', methods=['GET', 'POST'])
+def apply():
+    if request.method == 'POST':
+        name = request.form['name']
+        print(f"Received application from: {name}")
+        return f"Thank you, {name}!"
+    return render_template('apply.html')
 ```
 
 ### Task 4: Redirect After POST
@@ -52,7 +65,14 @@ from flask import request
 from flask import redirect, url_for
 
 # Your code: redirect to success page after POST
+@app.route('/submit', methods=['POST'])
+def submit():
+    # Process form...
+    return redirect(url_for('success'))
 
+@app.route('/success')
+def success():
+    return "Application submitted successfully!"
 ```
 
 ## Reflection

@@ -12,7 +12,7 @@ quarters = np.array([1, 2, 3, 4, 5, 6])
 applications = np.array([45, 52, 58, 67, 73, 81])
 
 # Your code:
-slope, intercept, r_value, p_value, std_err = 
+slope, intercept, r_value, p_value, std_err = stats.linregress(quarters, applications) 
 
 print(f"Equation: y = {slope:.2f}x + {intercept:.2f}")
 print(f"R-squared: {r_value**2:.4f}")
@@ -21,14 +21,14 @@ print(f"R-squared: {r_value**2:.4f}")
 ### Task 2: Compute R²
 ```python
 # Using result from Task 1
-r_squared = 
+r_squared = r_value ** 2 
 print(f"R²: {r_squared:.4f} ({r_squared*100:.2f}% variance explained)")
 ```
 
 ### Task 3: Make Prediction
 ```python
 def predict(quarter):
-    return  # slope * quarter + intercept
+    return slope * quarter + intercept
 
 q7_prediction = predict(7)
 print(f"Predicted applications for Q7: {q7_prediction:.0f}")

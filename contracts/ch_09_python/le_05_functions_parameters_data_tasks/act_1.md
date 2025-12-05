@@ -29,16 +29,21 @@ def calculate_median(numbers):
         The median value, or None if list is empty
     """
     # Your code here:
-    
-    
-    
-    
+    if not numbers:
+        return None
+    sorted_nums = sorted(numbers)
+    n = len(sorted_nums)
+    mid = n // 2
+    if n % 2 == 0:
+        return (sorted_nums[mid - 1] + sorted_nums[mid]) / 2
+    else:
+        return sorted_nums[mid]
 
 # Test cases
-print(calculate_median([1, 2, 3, 4, 5]))  # Should return 3
-print(calculate_median([1, 2, 3, 4]))     # Should return 2.5
-print(calculate_median([]))                # Should return None
-print(calculate_median([42]))              # Should return 42
+print(calculate_median([1, 2, 3, 4, 5]))
+print(calculate_median([1, 2, 3, 4]))
+print(calculate_median([]))
+print(calculate_median([42]))
 ```
 
 **Why is this a "pure" function?**
@@ -64,13 +69,12 @@ def add_applicant():
 ```python
 def add_applicant(current_count):
     # Your refactored code here:
-    
-    
+    return current_count + 1
 
 # Usage:
 total = 0
-total = add_applicant(total)  # total is now 1
-total = add_applicant(total)  # total is now 2
+total = add_applicant(total)
+total = add_applicant(total)
 ```
 
 **Why is this better?**
@@ -95,9 +99,9 @@ def log_resident_access(*resident_ids):
         *resident_ids: Variable number of resident ID integers
     """
     # Your code here - print a log message for each ID
-    
-    
-    
+    print(f"Accessing {len(resident_ids)} resident records:")
+    for rid in resident_ids:
+        print(f"  - Resident {rid}")
 
 # Test it - should accept any number of arguments
 log_resident_access(101)
@@ -125,9 +129,9 @@ def log_event(event_type, **metadata):
         **metadata: Any additional key-value pairs
     """
     # Your code here - print event type and all metadata
-    
-    
-    
+    print(f"Event: {event_type}")
+    for key, value in metadata.items():
+        print(f"  {key}: {value}")
 
 # Test with different metadata
 log_event("application_submitted", 

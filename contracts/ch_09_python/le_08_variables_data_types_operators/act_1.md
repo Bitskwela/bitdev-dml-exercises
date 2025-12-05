@@ -71,18 +71,18 @@ def is_eligible(age, gpa, is_resident):
     # Your complex boolean expression here:
     return (
         # Condition 1:
-        
+        (17 <= age <= 25) and
         # Condition 2:
-        
+        (gpa >= 3.0) and
         # Condition 3:
-        
+        is_resident
     )
 
 # Test cases
-print(is_eligible(18, 3.5, True))   # Should be True
-print(is_eligible(16, 3.5, True))   # Should be False (too young)
-print(is_eligible(20, 2.5, True))   # Should be False (GPA too low)
-print(is_eligible(20, 3.5, False))  # Should be False (not resident)
+print(is_eligible(18, 3.5, True))
+print(is_eligible(16, 3.5, True))
+print(is_eligible(20, 2.5, True))
+print(is_eligible(20, 3.5, False))
 ```
 
 ---
@@ -105,17 +105,17 @@ def safe_int(value, default=0):
         Integer value or default
     """
     # Your code here with try/except:
-    
-    
-    
-    
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return default
 
 # Test cases
-print(safe_int("42"))          # 42
-print(safe_int("abc"))         # 0 (fallback)
-print(safe_int("3.14"))        # 0 (not valid int)
-print(safe_int(42))             # 42 (already int)
-print(safe_int("", default=1)) # 1 (custom fallback)
+print(safe_int("42"))
+print(safe_int("abc"))
+print(safe_int("3.14"))
+print(safe_int(42))
+print(safe_int("", default=1))
 ```
 
 **Why not just use int(value) directly?**
@@ -140,8 +140,10 @@ def classify_number(n):
         String: "even" or "odd"
     """
     # Your code using modulo operator:
-    
-    
+    if n % 2 == 0:
+        return "even"
+    else:
+        return "odd"
 
 # Test it
 for num in [0, 1, 2, 7, 10, 15, 100, 999]:
@@ -152,11 +154,10 @@ for num in [0, 1, 2, 7, 10, 15, 100, 999]:
 ```python
 def divisible_by_three(n):
     # Your code:
-    
-    
+    return n % 3 == 0
 
-print(divisible_by_three(9))   # True
-print(divisible_by_three(10))  # False
+print(divisible_by_three(9))
+print(divisible_by_three(10))
 ```
 
 ---

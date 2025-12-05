@@ -22,14 +22,13 @@ def sum_to_hundred():
     total = 0
     
     # Your for loop here:
-    
-    
+    for i in range(1, 101):
+        total += i
     
     return total
 
 result = sum_to_hundred()
 print(f"Sum of 1-100: {result}")
-# Expected: 5050
 ```
 
 **Verify:** The formula is n*(n+1)/2, so 100*101/2 = 5050
@@ -69,16 +68,15 @@ def find_first_even_after(threshold):
     # Your while loop here:
     # Keep checking numbers
     # Break when you find an even one
-    
-    
-    
-    
+    while True:
+        if number % 2 == 0:
+            break
+        number += 1
     
     return number
 
 result = find_first_even_after(50)
 print(f"First even number after 50: {result}")
-# Expected: 52
 
 # Test with odd and even thresholds
 print(find_first_even_after(51))  # 52
@@ -108,9 +106,8 @@ def number_lines(text_lines):
     # Your code using enumerate:
     # Start numbering from 1
     # Format as "1. First line"
-    
-    
-    
+    for index, line in enumerate(text_lines, start=1):
+        numbered.append(f"{index}. {line}")
     
     return numbered
 
@@ -124,12 +121,6 @@ poem = [
 
 for line in number_lines(poem):
     print(line)
-
-# Expected output:
-# 1. Roses are red
-# 2. Violets are blue
-# 3. Python is awesome
-# 4. And so are you
 ```
 
 ---
@@ -152,9 +143,7 @@ def create_resident_dict(ids, names):
         Dictionary {id: name}
     """
     # Your code using zip:
-    
-    
-    
+    return dict(zip(ids, names))
 
 # Test data
 ids = [101, 102, 103, 104]
@@ -162,7 +151,6 @@ names = ["Ana Cruz", "Ben Reyes", "Carla Santos", "Dan Lim"]
 
 resident_dict = create_resident_dict(ids, names)
 print(resident_dict)
-# Expected: {101: "Ana Cruz", 102: "Ben Reyes", ...}
 
 # Lookup example
 print(f"Resident 102: {resident_dict[102]}")
@@ -175,8 +163,7 @@ def create_full_records(ids, names, ages):
     Create list of (id, name, age) tuples.
     """
     # Your code:
-    
-    
+    return list(zip(ids, names, ages))
 
 ids = [101, 102, 103]
 names = ["Ana", "Ben", "Carla"]
@@ -184,7 +171,6 @@ ages = [18, 21, 19]
 
 records = create_full_records(ids, names, ages)
 print(records)
-# Expected: [(101, "Ana", 18), (102, "Ben", 21), (103, "Carla", 19)]
 ```
 
 ---

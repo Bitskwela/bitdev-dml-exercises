@@ -6,8 +6,8 @@ Practice reading and writing files safely.
 ```python
 def read_file_lines(filename):
     # Your code with 'with' statement
-    
-    
+    with open(filename, "r", encoding="utf-8") as f:
+        lines = [line.strip() for line in f.readlines()]
     return lines
 
 lines = read_file_lines("data.txt")
@@ -20,8 +20,8 @@ names = ["Ana Cruz", "Ben Reyes", "Carla Santos"]
 
 with open("names.txt", "w", encoding="utf-8") as f:
     # Your code to write each name
-    
-    
+    for name in names:
+        f.write(name + "\n")
 ```
 
 ### Task 3: Append to Log
@@ -32,7 +32,7 @@ def log_event(message):
     timestamp = datetime.datetime.now().isoformat()
     with open("activity.log", "a", encoding="utf-8") as f:
         # Your code
-        
+        f.write(f"[{timestamp}] {message}\n")
 
 log_event("Application submitted")
 ```
@@ -43,7 +43,8 @@ import os
 
 if os.path.exists("data.txt"):
     # Your code to read
-    
+    with open("data.txt", "r", encoding="utf-8") as f:
+        data = f.read()
 else:
     print("File not found")
 ```

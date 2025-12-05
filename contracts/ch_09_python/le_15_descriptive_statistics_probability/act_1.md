@@ -18,9 +18,9 @@ import statistics as stats
 ages = [18, 21, 19, 18, 22, 20, 18, 21, 19, 20, 18, 23, 19, 21, 18]
 
 # Your code here:
-mean_age = 
-median_age = 
-mode_age = 
+mean_age = stats.mean(ages)
+median_age = stats.median(ages)
+mode_age = stats.mode(ages) 
 
 print(f"Mean age: {mean_age:.2f}")
 print(f"Median age: {median_age}")
@@ -43,9 +43,9 @@ import statistics as stats
 incomes = [15000, 18000, 12000, 25000, 16000, 14000, 19000, 13000, 17000, 21000]
 
 # Your code here:
-variance = 
-std_dev = 
-mean_income = 
+variance = stats.variance(incomes)
+std_dev = stats.stdev(incomes)
+mean_income = stats.mean(incomes) 
 
 print(f"Mean income: ₱{mean_income:,.2f}")
 print(f"Variance: {variance:,.2f}")
@@ -68,10 +68,10 @@ import numpy as np
 gpas = [3.2, 3.5, 2.8, 3.7, 3.1, 3.9, 3.3, 2.9, 3.6, 3.4, 3.8, 3.0, 3.5, 3.2, 3.7]
 
 # Your code here:
-q1 = 
-q2 =  # This is the median
-q3 = 
-iqr = 
+q1 = np.percentile(gpas, 25)
+q2 = np.percentile(gpas, 50)  # This is the median
+q3 = np.percentile(gpas, 75)
+iqr = q3 - q1 
 
 print(f"Q1 (25th percentile): {q1:.2f}")
 print(f"Q2 (Median): {q2:.2f}")
@@ -99,8 +99,8 @@ approved_applicants = 194
 rejected_applicants = 93
 
 # Your code here:
-prob_approved = 
-prob_rejected = 
+prob_approved = approved_applicants / total_applicants
+prob_rejected = rejected_applicants / total_applicants 
 
 print(f"P(Approved) = {prob_approved:.2%}")
 print(f"P(Rejected) = {prob_rejected:.2%}")

@@ -13,19 +13,43 @@ cursor = conn.cursor()
 min_age = 18
 max_age = 25
 
+cursor.execute('''
+    SELECT * FROM applicants 
+    WHERE age BETWEEN ? AND ?
+''', (min_age, max_age))
+
+for row in cursor.fetchall():
+    print(f"{row[1]}: {row[2]} years old")
 ```
 
 ### Task 2: JOIN Query
 ```python
 # Your code: JOIN applicants and barangays
 # Print: applicant name, barangay name
+cursor.execute('''
+    SELECT a.name AS applicant, b.name AS barangay
+    FROM applicants a
+    JOIN barangays b ON a.barangay_id = b.id
+''')
 
+for row in cursor.fetchall():
+    print(f"{row[0]} from {row[1]}")
 ```
 
 ### Task 3: GROUP BY Aggregation
 ```python
 # Your code: COUNT applicants per barangay
+cursor.execute('''
+    SELECT b.name, COUNT(a.id) AS applicant_count
+    FROM barangays b
+    LEFT JOIN applicants a ON b.id = a.barangay_id
+    GROUP BY b.id, b.name
+    ORDER BY applicant_count DESC
+''')
 
+print("\nApplicants per Barangay:")
+for row in cursor.fetchall():
+    print(f"{row[0]}: {row[1]} applicants")
 ```
 
 ### Task 4: Bulk Insert
@@ -39,7 +63,14 @@ new_applicants = [
 ]
 
 # Your code: executemany
+cursor.executemany('''
+    INSERT INTO applicants (name, age, barangay_id) 
+    VALUES (?, ?, ?)
+''', new_applicants)
 
+conn.commit()
+print(f"\nInserted {cursor.rowcount} rows")
+conn.close()
 ```
 
 ## Reflection

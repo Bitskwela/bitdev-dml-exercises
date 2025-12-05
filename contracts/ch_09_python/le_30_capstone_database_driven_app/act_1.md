@@ -61,7 +61,40 @@ import sqlite3
 
 def init_db():
     # Your code: create all tables
-    pass
+    conn = sqlite3.connect('scholarship.db')
+    cursor = conn.cursor()
+    cursor.executescript('''
+        CREATE TABLE IF NOT EXISTS barangays (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE NOT NULL,
+            captain TEXT
+        );
+        CREATE TABLE IF NOT EXISTS applicants (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            age INTEGER NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            barangay_id INTEGER,
+            FOREIGN KEY (barangay_id) REFERENCES barangays(id)
+        );
+        CREATE TABLE IF NOT EXISTS scholarships (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            amount INTEGER NOT NULL,
+            deadline DATE
+        );
+        CREATE TABLE IF NOT EXISTS applications (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            applicant_id INTEGER,
+            scholarship_id INTEGER,
+            status TEXT DEFAULT 'pending',
+            submission_date DATE DEFAULT CURRENT_DATE,
+            FOREIGN KEY (applicant_id) REFERENCES applicants(id),
+            FOREIGN KEY (scholarship_id) REFERENCES scholarships(id)
+        );
+    ''')
+    conn.commit()
+    conn.close()
 ```
 
 ### Task 2: CRUD for Applicants
@@ -72,7 +105,23 @@ from flask import Flask, render_template, request, redirect
 @app.route('/applicants/create', methods=['GET', 'POST'])
 def create_applicant():
     # Your code
-    pass
+    if request.method == 'POST':
+        name = request.form['name']
+        age = int(request.form['age'])
+        email = request.form['email']
+        barangay_id = request.form['barangay_id']
+        
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO applicants (name, age, email, barangay_id)
+            VALUES (?, ?, ?, ?)
+        ''', (name, age, email, barangay_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('list_applicants'))
+    
+    return render_template('create_applicant.html')
 
 # TODO: read, update, delete routes
 ```
@@ -82,6 +131,10 @@ def create_applicant():
 def validate_applicant(data):
     errors = []
     # Your code: check age, email format, uniqueness
+    if not (18 <= data['age'] <= 25):
+        errors.append("Age must be between 18 and 25")
+    if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', data['email']):
+        errors.append("Invalid email format")
     return errors
 ```
 
@@ -90,7 +143,17 @@ def validate_applicant(data):
 @app.route('/dashboard')
 def dashboard():
     # Your code: JOIN query
-    pass
+    conn = get_db()
+    data = conn.execute('''
+        SELECT a.name AS applicant_name, s.name AS scholarship_name, 
+               app.status, b.name AS barangay_name
+        FROM applications app
+        JOIN applicants a ON app.applicant_id = a.id
+        JOIN scholarships s ON app.scholarship_id = s.id
+        JOIN barangays b ON a.barangay_id = b.id
+    ''').fetchall()
+    conn.close()
+    return render_template('dashboard.html', applications=data)
 ```
 
 ### Task 5: Error Handling
@@ -101,6 +164,8 @@ try:
 except sqlite3.IntegrityError:
     conn.rollback()
     # Your code: handle error
+    flash('Duplicate entry or constraint violation!', 'error')
+    return redirect(url_for('create_applicant'))
 ```
 
 ## Reflection

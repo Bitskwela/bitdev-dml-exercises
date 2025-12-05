@@ -9,7 +9,9 @@ from flask import Flask
 app = Flask(__name__)
 
 # Your code: create @app.route('/') returning welcome message
-
+@app.route('/')
+def home():
+    return "Welcome to Barangay Scholarship Portal!"
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -18,7 +20,9 @@ if __name__ == '__main__':
 ### Task 2: Dynamic Route
 ```python
 # Your code: /greet/<name> returns personalized greeting
-
+@app.route('/greet/<name>')
+def greet(name):
+    return f"Hello, {name}! Welcome to our system."
 ```
 
 ### Task 3: Query Parameters
@@ -26,7 +30,11 @@ if __name__ == '__main__':
 from flask import request
 
 # Your code: /add?a=5&b=3 returns sum as text
-
+@app.route('/add')
+def add():
+    a = int(request.args.get('a', 0))
+    b = int(request.args.get('b', 0))
+    return f"Sum: {a + b}"
 ```
 
 ### Task 4: JSON Endpoint
@@ -34,7 +42,13 @@ from flask import request
 from flask import jsonify
 
 # Your code: /api/info returns dict as JSON
-
+@app.route('/api/info')
+def api_info():
+    return jsonify({
+        "system": "Barangay Scholarship",
+        "version": "1.0",
+        "status": "running"
+    })
 ```
 
 ## Reflection

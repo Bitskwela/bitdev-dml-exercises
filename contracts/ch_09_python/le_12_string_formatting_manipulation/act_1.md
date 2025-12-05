@@ -23,19 +23,13 @@ def format_gpa(gpa):
         Formatted string
     """
     # Your f-string with formatting:
-    return
+    return f"{gpa:.3f}"
 
 # Test cases
 test_gpas = [3.5, 3.14159, 4.0, 2.7777777]
 for gpa in test_gpas:
     formatted = format_gpa(gpa)
     print(f"GPA {gpa} -> {formatted}")
-
-# Expected output:
-# GPA 3.5 -> 3.500
-# GPA 3.14159 -> 3.142
-# GPA 4.0 -> 4.000
-# GPA 2.7777777 -> 2.778
 ```
 
 **Bonus:** Format as percentage:
@@ -67,21 +61,13 @@ def format_resident_id(id_number):
         6-digit zero-padded string
     """
     # Your code using zfill() or format specifier:
-    
-    
+    return str(id_number).zfill(6)
 
 # Test cases
 test_ids = [42, 1, 9999, 123, 100000]
 for id_num in test_ids:
     formatted = format_resident_id(id_num)
     print(f"ID {id_num} -> {formatted}")
-
-# Expected output:
-# ID 42 -> 000042
-# ID 1 -> 000001
-# ID 9999 -> 009999
-# ID 123 -> 000123
-# ID 100000 -> 100000
 ```
 
 ---
@@ -103,8 +89,7 @@ def normalize_name(name):
         Title-cased name
     """
     # Your code using .title() or .capitalize():
-    
-    
+    return name.title()
 
 # Test cases
 test_names = [
@@ -117,12 +102,6 @@ test_names = [
 for name in test_names:
     normalized = normalize_name(name)
     print(f"{name:20s} -> {normalized}")
-
-# Expected output:
-# JUAN DELA CRUZ       -> Juan Dela Cruz
-# maria santos         -> Maria Santos
-# Ana REYES            -> Ana Reyes
-# beN lIM              -> Ben Lim
 ```
 
 ---
@@ -146,9 +125,8 @@ def parse_csv_line(line):
     # Your code:
     # Split by comma
     # Strip whitespace from each field
-    
-    
-    
+    fields = line.split(',')
+    return [field.strip() for field in fields]
 
 # Test cases
 test_lines = [
@@ -160,11 +138,6 @@ test_lines = [
 for line in test_lines:
     fields = parse_csv_line(line)
     print(f"Parsed: {fields}")
-
-# Expected output:
-# Parsed: ['Ana Cruz', '18', 'San Roque']
-# Parsed: ['Ben Reyes', '21', 'Sto. Niño']
-# Parsed: ['Carla Santos', '19', 'San Jose']
 ```
 
 **Bonus:** Build dict from headers and values:
@@ -174,15 +147,14 @@ def csv_to_dict(headers, values):
     Convert CSV headers and values to dictionary.
     """
     # Your code using zip:
-    
-    
+    headers = [h.strip() for h in headers]
+    return dict(zip(headers, values))
 
 headers = "name,age,barangay"
 values = "Ana Cruz, 18, San Roque"
 
 result = csv_to_dict(headers.split(','), parse_csv_line(values))
 print(result)
-# Expected: {'name': 'Ana Cruz', 'age': '18', 'barangay': 'San Roque'}
 ```
 
 ---

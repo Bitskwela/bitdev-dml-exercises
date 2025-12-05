@@ -18,10 +18,10 @@ import numpy as np
 amounts = np.array([5000, 3500, 4000, 5500, 3000, 6000, 4500, 3500, 5000, 4000])
 
 # Your code here:
-mean_amount = 
-std_amount = 
-max_amount = 
-min_amount = 
+mean_amount = amounts.mean()
+std_amount = amounts.std()
+max_amount = amounts.max()
+min_amount = amounts.min() 
 
 print(f"Mean: ₱{mean_amount:,.2f}")
 print(f"Std Dev: ₱{std_amount:,.2f}")
@@ -55,11 +55,13 @@ df.to_csv("applicants.csv", index=False)
 df = pd.read_csv("applicants.csv")
 
 # Display first 5 rows
+print(df.head())
 
 # Display info about the DataFrame
+print(df.info())
 
 # Display basic statistics
-
+print(df.describe())
 ```
 
 ---
@@ -73,13 +75,13 @@ df = pd.read_csv("applicants.csv")
 # Using the same DataFrame from Task 2
 
 # Filter for age > 19
-filtered_df = 
+filtered_df = df[df["age"] > 19]
 
 print("Applicants older than 19:")
 print(filtered_df)
 
 # Bonus: Filter for Approved AND age > 19
-approved_older = 
+approved_older = df[(df["status"] == "Approved") & (df["age"] > 19)] 
 
 print("\nApproved applicants older than 19:")
 print(approved_older)
@@ -102,10 +104,12 @@ applications = [45, 52, 58, 67]
 # Your plotting code:
 plt.figure(figsize=(10, 6))
 # Add your plot code here
-
-
-
-
+plt.plot(quarters, applications, marker='o', linewidth=2, markersize=8)
+plt.xlabel("Quarter")
+plt.ylabel("Number of Applications")
+plt.title("Scholarship Applications by Quarter")
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
 plt.show()
 ```
 

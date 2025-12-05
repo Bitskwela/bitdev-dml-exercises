@@ -26,10 +26,10 @@ def collect_tags():
     # Store each tag in the list
     # Strip whitespace
     # Handle empty inputs
-    
-    
-    
-    
+    for i in range(1, 4):
+        tag = input(f"Enter tag {i}: ").strip()
+        if tag:
+            tags.append(tag)
     
     return tags
 
@@ -37,15 +37,6 @@ def collect_tags():
 if __name__ == "__main__":
     resident_tags = collect_tags()
     print(f"\nYou entered: {resident_tags}")
-```
-
-**Sample Run:**
-```
-Enter tag 1: PWD
-Enter tag 2: Scholar
-Enter tag 3: Athlete
-
-You entered: ['PWD', 'Scholar', 'Athlete']
 ```
 
 ---
@@ -71,11 +62,17 @@ def save_ages_to_file(ages, filename="ages.txt"):
     # Write valid ages to file (one per line)
     # Use 'with' statement
     # Handle errors
+    for age in ages:
+        try:
+            age_int = int(age)
+            if 0 <= age_int <= 120:
+                validated_ages.append(age_int)
+        except (ValueError, TypeError):
+            pass
     
-    
-    
-    
-    
+    with open(filename, "w") as f:
+        for age in validated_ages:
+            f.write(str(age) + "\n")
 
 # Test it
 test_ages = [18, 21, -5, 150, 19, "invalid", 25, 0]
@@ -85,14 +82,6 @@ print("Ages saved to ages.txt")
 # Check the file:
 with open("ages.txt") as f:
     print(f"\nFile contents:\n{f.read()}")
-```
-
-**Expected Output File:**
-```
-18
-21
-19
-25
 ```
 
 ---
@@ -120,10 +109,11 @@ def read_names_from_file(filename):
     # Read all lines
     # Strip whitespace from each line
     # Skip empty lines
-    
-    
-    
-    
+    with open(filename, "r") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                names.append(line)
     
     return names
 
@@ -137,7 +127,6 @@ with open("names.txt", "w") as f:
 # Test your function
 names = read_names_from_file("names.txt")
 print(f"Names read: {names}")
-# Expected: ['Ana Cruz', 'Ben Reyes', 'Carla Santos']
 ```
 
 ---
@@ -160,11 +149,10 @@ def display_residents(residents):
     # Print separator line
     # Print each resident with proper alignment
     # Use f-string formatting for columns
-    
-    
-    
-    
-    
+    print(f"{'Name':<20} {'Age':>3}  {'Barangay':<15}")
+    print("-" * 45)
+    for name, age, barangay in residents:
+        print(f"{name:<20} {age:>3}  {barangay:<15}")
 
 # Test data
 residents = [
@@ -174,15 +162,6 @@ residents = [
 ]
 
 display_residents(residents)
-```
-
-**Expected Output:**
-```
-Name                 Age  Barangay
-----------------------------------------
-Ana Cruz              18  San Roque
-Ben Reyes             21  Sto. Niño
-Carla Santos          19  San Jose
 ```
 
 **Hint:** Use format specifiers:

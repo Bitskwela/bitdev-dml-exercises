@@ -5,7 +5,9 @@ Practice organizing code with modules.
 ### Task 1: Import datetime
 ```python
 # Your code: import datetime and print today's date
-
+import datetime
+today = datetime.date.today()
+print(f"Today: {today}")
 ```
 
 ### Task 2: Create Custom Module
@@ -13,17 +15,21 @@ Practice organizing code with modules.
 # File: helper.py
 def validate_age(age):
     # Your code
-    
+    return 16 <= age <= 25
 
 # File: main.py
 # Your code: import validate_age and test it
-
+from helper import validate_age
+print(validate_age(20))  # True
+print(validate_age(30))  # False
 ```
 
 ### Task 3: Module Alias
 ```python
 # Your code: import pandas as pd
-
+import pandas as pd
+df = pd.DataFrame({"name": ["Ana", "Ben"], "age": [20, 22]})
+print(df)
 ```
 
 ### Task 4: __name__ Pattern
@@ -32,7 +38,8 @@ def main():
     print("Running main function")
 
 # Your code: add __name__ check
-
+if __name__ == "__main__":
+    main()
 ```
 
 ## Reflection
