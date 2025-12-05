@@ -1028,8 +1028,236 @@ do {
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** Validation prototype for loops.
+
+---
+
+### Challenge 1: Sum Numbers
+
+**Scenario:** Calculate total from 1 to N.
+
+**Your Task:**
+Sum all numbers from 1 to n using a for loop.
+
+**Starter Code:**
+```javascript
+function sumToN(n) {
+    // Use for loop
+    // Sum 1 + 2 + 3 + ... + n
+    
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Use for loop
+- ✅ Return the sum
+
+**Test Cases:**
+```javascript
+console.assert(sumToN(5) === 15);    // 1+2+3+4+5
+console.assert(sumToN(10) === 55);   // 1+2+...+10
+console.assert(sumToN(1) === 1);
+console.assert(sumToN(0) === 0);
+console.assert(sumToN(100) === 5050);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+
+---
+
+### Challenge 2: Count Down Array
+
+**Scenario:** Create countdown array.
+
+**Your Task:**
+Return array counting from n down to 1 using while loop.
+
+**Starter Code:**
+```javascript
+function countDown(n) {
+    // Use while loop
+    // Return array [n, n-1, ..., 2, 1]
+    
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Use while loop
+- ✅ Return array
+
+**Test Cases:**
+```javascript
+console.assert(JSON.stringify(countDown(5)) === JSON.stringify([5,4,3,2,1]));
+console.assert(JSON.stringify(countDown(3)) === JSON.stringify([3,2,1]));
+console.assert(JSON.stringify(countDown(1)) === JSON.stringify([1]));
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 3: Find First Even
+
+**Scenario:** Find first even number in array.
+
+**Your Task:**
+Return first even number, or -1 if none found. Use break.
+
+**Starter Code:**
+```javascript
+function findFirstEven(numbers) {
+    // Loop through array
+    // Return first even number
+    // Use break to exit early
+    
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Use loop with break
+- ✅ Return -1 if no even found
+
+**Test Cases:**
+```javascript
+console.assert(findFirstEven([1, 3, 4, 7]) === 4);
+console.assert(findFirstEven([2, 3, 5]) === 2);
+console.assert(findFirstEven([1, 3, 5]) === -1);
+console.assert(findFirstEven([]) === -1);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 4: Sum Only Evens
+
+**Scenario:** Sum only even numbers from array.
+
+**Your Task:**
+Sum even numbers, skip odds using continue.
+
+**Starter Code:**
+```javascript
+function sumEvens(numbers) {
+    // Loop through array
+    // Skip odd numbers (continue)
+    // Sum even numbers
+    
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Use loop with continue
+- ✅ Check even with modulo
+
+**Test Cases:**
+```javascript
+console.assert(sumEvens([1, 2, 3, 4, 5, 6]) === 12);  // 2+4+6
+console.assert(sumEvens([2, 4, 6]) === 12);
+console.assert(sumEvens([1, 3, 5]) === 0);
+console.assert(sumEvens([]) === 0);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Sum Numbers | 10 | Easy | for loop |
+| Count Down | 15 | Easy | while loop |
+| Find First Even | 15 | Medium | break statement |
+| Sum Only Evens | 15 | Medium | continue statement |
+| **Total** | **55** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**Common Mistakes:**
+- ❌ Infinite loops (forgetting increment)
+- ❌ Off-by-one errors
+- ❌ Not initializing accumulator
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Sum Numbers
+```javascript
+function sumToN(n) {
+    let sum = 0;
+    for (let i = 1; i <= n; i++) {
+        sum += i;
+    }
+    return sum;
+}
+```
+
+---
+
+### Challenge 2: Count Down
+```javascript
+function countDown(n) {
+    const result = [];
+    while (n > 0) {
+        result.push(n);
+        n--;
+    }
+    return result;
+}
+```
+
+---
+
+### Challenge 3: Find First Even
+```javascript
+function findFirstEven(numbers) {
+    for (let i = 0; i < numbers.length; i++) {
+        if (numbers[i] % 2 === 0) {
+            return numbers[i];
+        }
+    }
+    return -1;
+}
+```
+
+---
+
+### Challenge 4: Sum Only Evens
+```javascript
+function sumEvens(numbers) {
+    let sum = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        if (numbers[i] % 2 !== 0) {
+            continue;  // Skip odd numbers
+        }
+        sum += numbers[i];
+    }
+    return sum;
+}
+```
+
+---
 
 ## Looping and Iteration Reference
 

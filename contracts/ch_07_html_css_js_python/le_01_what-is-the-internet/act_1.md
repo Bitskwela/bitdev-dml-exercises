@@ -45,15 +45,6 @@ After learning about the global network connecting billions of devices, Tian wan
 3. Which hop took the longest time (highest ms)?
 4. Can you identify any Philippine ISPs in the route?
 
-**Expected Output Example:**
-```
-1    2 ms   192.168.1.1 (your router)
-2   15 ms   PLDT gateway
-3   25 ms   Manila exchange point
-...
-12  45 ms   Facebook server (Singapore)
-```
-
 ---
 
 ## Activity 3: Speed Test Comparison

@@ -1285,8 +1285,276 @@ Master the Document Object Model (DOM) to dynamically change HTML and CSS!
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** DOM manipulation validation challenges.
+
+---
+
+### Challenge 1: Create Element
+
+**Scenario:** Create new list item programmatically.
+
+**Your Task:**
+Create `<li>` element with text and return it.
+
+**Starter Code:**
+```javascript
+function createListItem(text) {
+    // Create li element
+    // Set textContent to text
+    // Return the element
+    
+}
+```
+
+**Requirements:**
+- ✅ Use document.createElement()
+- ✅ Set textContent property
+
+**Test Cases:**
+```javascript
+const item = createListItem("Juan Dela Cruz");
+console.assert(item.tagName === "LI");
+console.assert(item.textContent === "Juan Dela Cruz");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 2: Toggle Class
+
+**Scenario:** Toggle highlight class on element.
+
+**Your Task:**
+Add 'highlight' class if not present, remove if present.
+
+**Starter Code:**
+```javascript
+function toggleHighlight(element) {
+    // Use classList.toggle()
+    
+}
+```
+
+**Requirements:**
+- ✅ Use classList.toggle()
+- ✅ Class name: 'highlight'
+
+**Test Cases:**
+```javascript
+const div = document.createElement('div');
+toggleHighlight(div);
+console.assert(div.classList.contains('highlight'));
+toggleHighlight(div);
+console.assert(!div.classList.contains('highlight'));
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 3: Update Content
+
+**Scenario:** Update element's text and style.
+
+**Your Task:**
+Set element's textContent and color style.
+
+**Starter Code:**
+```javascript
+function updateElement(element, text, color) {
+    // Set textContent to text
+    // Set style.color to color
+    
+}
+```
+
+**Requirements:**
+- ✅ Update textContent
+- ✅ Update style.color
+
+**Test Cases:**
+```javascript
+const p = document.createElement('p');
+updateElement(p, "Hello Barangay", "blue");
+console.assert(p.textContent === "Hello Barangay");
+console.assert(p.style.color === "blue");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 4: Get Form Data
+
+**Scenario:** Extract data from form inputs.
+
+**Your Task:**
+Return object with input values.
+
+**Starter Code:**
+```javascript
+function getFormData(form) {
+    // Get values from inputs: name, age
+    // Return { name: ..., age: ... }
+    
+}
+```
+
+**Requirements:**
+- ✅ Get input values by name
+- ✅ Return object
+
+**Test Cases:**
+```javascript
+const form = document.createElement('form');
+form.innerHTML = '<input name="name" value="Juan"><input name="age" value="25">';
+const data = getFormData(form);
+console.assert(data.name === "Juan");
+console.assert(data.age === "25");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+
+---
+
+### Challenge 5: Filter and Display
+
+**Scenario:** Filter array and display results.
+
+**Your Task:**
+Filter residents by age >= 18, create list items.
+
+**Starter Code:**
+```javascript
+function displayAdults(residents) {
+    // Filter age >= 18
+    // Map to array of <li> elements with name
+    // Return array of li elements
+    
+}
+```
+
+**Requirements:**
+- ✅ Filter by age >= 18
+- ✅ Return array of li elements
+
+**Test Cases:**
+```javascript
+const residents = [
+    { name: "Juan", age: 25 },
+    { name: "Pedro", age: 15 },
+    { name: "Maria", age: 30 }
+];
+const items = displayAdults(residents);
+console.assert(items.length === 2);
+console.assert(items[0].textContent === "Juan");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 25
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Create Element | 15 | Easy | createElement |
+| Toggle Class | 15 | Easy | classList |
+| Update Content | 15 | Easy | textContent, style |
+| Get Form Data | 20 | Medium | Form inputs |
+| Filter Display | 25 | Hard | Array + DOM |
+| **Total** | **90** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**DOM Manipulation Essentials:**
+- `createElement()` - Create new elements
+- `textContent` - Set text safely
+- `classList` - Manage CSS classes
+- `querySelector()` - Select elements
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Create Element
+```javascript
+function createListItem(text) {
+    const li = document.createElement('li');
+    li.textContent = text;
+    return li;
+}
+```
+
+---
+
+### Challenge 2: Toggle Class
+```javascript
+function toggleHighlight(element) {
+    element.classList.toggle('highlight');
+}
+```
+
+---
+
+### Challenge 3: Update Content
+```javascript
+function updateElement(element, text, color) {
+    element.textContent = text;
+    element.style.color = color;
+}
+```
+
+---
+
+### Challenge 4: Get Form Data
+```javascript
+function getFormData(form) {
+    return {
+        name: form.querySelector('[name="name"]').value,
+        age: form.querySelector('[name="age"]').value
+    };
+}
+
+// Alternative using FormData
+function getFormData(form) {
+    const formData = new FormData(form);
+    return {
+        name: formData.get('name'),
+        age: formData.get('age')
+    };
+}
+```
+
+---
+
+### Challenge 5: Filter and Display
+```javascript
+function displayAdults(residents) {
+    return residents
+        .filter(resident => resident.age >= 18)
+        .map(resident => {
+            const li = document.createElement('li');
+            li.textContent = resident.name;
+            return li;
+        });
+}
+```
+
+---
 
 ## DOM Manipulation Reference
 

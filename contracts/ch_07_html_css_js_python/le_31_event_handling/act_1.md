@@ -991,4 +991,235 @@ This will test your understanding of all event types!
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** Event handling validation challenges.
+
+---
+
+### Challenge 1: Add Click Handler
+
+**Scenario:** Attach click event to button.
+
+**Your Task:**
+Add event listener that calls callback on click.
+
+**Starter Code:**
+```javascript
+function addClickHandler(button, callback) {
+    // Add click event listener
+    // Call callback when clicked
+    
+}
+```
+
+**Requirements:**
+- ✅ Use addEventListener()
+- ✅ Event type: 'click'
+
+**Test Cases:**
+```javascript
+const btn = document.createElement('button');
+let clicked = false;
+addClickHandler(btn, () => { clicked = true; });
+btn.click();
+console.assert(clicked === true);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+
+---
+
+### Challenge 2: Get Input Value
+
+**Scenario:** Get value when input changes.
+
+**Your Task:**
+Add 'input' event listener that calls callback with value.
+
+**Starter Code:**
+```javascript
+function trackInput(inputElement, callback) {
+    // Add input event listener
+    // Call callback with inputElement.value
+    
+}
+```
+
+**Requirements:**
+- ✅ Use addEventListener('input')
+- ✅ Pass input value to callback
+
+**Test Cases:**
+```javascript
+const input = document.createElement('input');
+let lastValue = '';
+trackInput(input, (val) => { lastValue = val; });
+input.value = 'Juan';
+input.dispatchEvent(new Event('input'));
+console.assert(lastValue === 'Juan');
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 3: Prevent Default
+
+**Scenario:** Prevent form submission, call custom handler.
+
+**Your Task:**
+Add submit listener that prevents default and calls callback.
+
+**Starter Code:**
+```javascript
+function handleFormSubmit(form, callback) {
+    // Add submit event listener
+    // Prevent default behavior
+    // Call callback
+    
+}
+```
+
+**Requirements:**
+- ✅ Use addEventListener('submit')
+- ✅ Call event.preventDefault()
+
+**Test Cases:**
+```javascript
+const form = document.createElement('form');
+let submitted = false;
+handleFormSubmit(form, () => { submitted = true; });
+const event = new Event('submit', { cancelable: true });
+form.dispatchEvent(event);
+console.assert(submitted === true);
+console.assert(event.defaultPrevented === true);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+
+---
+
+### Challenge 4: Event Delegation
+
+**Scenario:** Handle clicks on list items using delegation.
+
+**Your Task:**
+Attach one listener to parent, handle child clicks.
+
+**Starter Code:**
+```javascript
+function delegateClick(parent, callback) {
+    // Add click listener to parent
+    // Check if target is LI
+    // Call callback with target.textContent
+    
+}
+```
+
+**Requirements:**
+- ✅ Use event delegation
+- ✅ Check event.target.tagName
+
+**Test Cases:**
+```javascript
+const ul = document.createElement('ul');
+ul.innerHTML = '<li>Juan</li><li>Maria</li>';
+let clickedItem = '';
+delegateClick(ul, (text) => { clickedItem = text; });
+ul.querySelector('li').click();
+console.assert(clickedItem === 'Juan');
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 25
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Add Click Handler | 10 | Easy | addEventListener |
+| Track Input | 15 | Easy | input event |
+| Prevent Default | 20 | Medium | preventDefault |
+| Event Delegation | 25 | Hard | Event bubbling |
+| **Total** | **70** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**Event Handling Essentials:**
+- `addEventListener()` - Attach event handlers
+- `event.preventDefault()` - Stop default behavior
+- `event.target` - Element that triggered event
+- Event delegation - Handle child events on parent
+
+---
+
+<details>
+<summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Add Click Handler
+```javascript
+function addClickHandler(button, callback) {
+    button.addEventListener('click', callback);
+}
+```
+
+---
+
+### Challenge 2: Track Input
+```javascript
+function trackInput(inputElement, callback) {
+    inputElement.addEventListener('input', function() {
+        callback(inputElement.value);
+    });
+}
+
+// Arrow function version
+function trackInput(inputElement, callback) {
+    inputElement.addEventListener('input', () => {
+        callback(inputElement.value);
+    });
+}
+```
+
+---
+
+### Challenge 3: Prevent Default
+```javascript
+function handleFormSubmit(form, callback) {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        callback();
+    });
+}
+```
+
+---
+
+### Challenge 4: Event Delegation
+```javascript
+function delegateClick(parent, callback) {
+    parent.addEventListener('click', function(event) {
+        if (event.target.tagName === 'LI') {
+            callback(event.target.textContent);
+        }
+    });
+}
+```
+
+---
+
+</details>
+
+---
+
 **Great job!** You now know how to make web pages interactive with events. Next, we'll learn form validation techniques to ensure data quality! 🎉

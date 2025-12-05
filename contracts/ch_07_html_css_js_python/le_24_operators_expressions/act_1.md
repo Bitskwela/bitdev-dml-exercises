@@ -883,8 +883,329 @@ let discount = age >= 60 ? 0.20 : 0;
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+---
+
+### Challenge 1: Calculate Total Revenue
+
+**Scenario:** Calculate total daily revenue from barangay services.
+
+**Your Task:**
+Write a function `calculateRevenue(clearances, ids, permits)` that:
+- Clearance fee: ₱50 each
+- ID fee: ₱30 each  
+- Permit fee: ₱500 each
+- Returns the total revenue
+
+**Starter Code:**
+```javascript
+function calculateRevenue(clearances, ids, permits) {
+    // Your code here
+    // Calculate and return total revenue
+    
+}
+```
+
+**Requirements:**
+- ✅ Function must accept 3 parameters
+- ✅ Must return a number
+- ✅ Use correct fee amounts
+- ✅ Use multiplication and addition operators
+
+**Test Cases (Your code will be tested with these):**
+```javascript
+// Hidden from students during practice
+console.assert(calculateRevenue(10, 5, 2) === 1650);  // (10*50) + (5*30) + (2*500)
+console.assert(calculateRevenue(0, 0, 0) === 0);
+console.assert(calculateRevenue(5, 10, 1) === 1050);
+console.assert(calculateRevenue(1, 1, 1) === 580);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Time Limit: None
+- ⚠️ Must pass all test cases
+
+---
+
+### Challenge 2: Apply Senior Discount
+
+**Scenario:** Apply 20% discount for senior citizens on clearance fees.
+
+**Your Task:**
+Write a function `applyDiscount(amount, isSenior)` that:
+- If `isSenior` is true, apply 20% discount
+- If `isSenior` is false, return original amount
+- Return the final amount
+
+**Starter Code:**
+```javascript
+function applyDiscount(amount, isSenior) {
+    // Your code here
+    // Return discounted amount if senior, otherwise original
+    
+}
+```
+
+**Requirements:**
+- ✅ Use conditional (if/else or ternary operator)
+- ✅ Calculate 20% discount correctly
+- ✅ Return number with 2 decimal precision
+
+**Test Cases:**
+```javascript
+console.assert(applyDiscount(50, true) === 40);      // 50 * 0.8 = 40
+console.assert(applyDiscount(50, false) === 50);     // No discount
+console.assert(applyDiscount(100, true) === 80);     // 100 * 0.8 = 80
+console.assert(applyDiscount(0, true) === 0);        // Edge case
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+- ⚠️ Edge cases tested: Yes
+- ⚠️ Must handle boolean parameter correctly
+
+---
+
+### Challenge 3: Check Odd or Even
+
+**Scenario:** Determine if a resident ID number is odd or even.
+
+**Your Task:**
+Write a function `isEven(number)` that:
+- Returns `true` if number is even
+- Returns `false` if number is odd
+- Use the modulo operator (%)
+
+**Starter Code:**
+```javascript
+function isEven(number) {
+    // Your code here
+    // Use modulo (%) to check if divisible by 2
+    
+}
+```
+
+**Requirements:**
+- ✅ Must use modulo operator (%)
+- ✅ Must return boolean (true/false)
+- ✅ Single line solution is possible
+
+**Test Cases:**
+```javascript
+console.assert(isEven(2) === true);
+console.assert(isEven(3) === false);
+console.assert(isEven(0) === true);
+console.assert(isEven(101) === false);
+console.assert(isEven(1000) === true);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Hint: `number % 2 === 0` means even
+- ⚠️ Must handle negative numbers
+
+---
+
+### Challenge 4: Order of Operations
+
+**Scenario:** Calculate complex fee structure with proper order.
+
+**Your Task:**
+Write a function `calculateComplexFee(base, quantity, tax, discount)` that:
+- Calculates: `(base * quantity) * (1 + tax) * (1 - discount)`
+- Returns final amount rounded to 2 decimals
+- Must use proper parentheses
+
+**Starter Code:**
+```javascript
+function calculateComplexFee(base, quantity, tax, discount) {
+    // Your code here
+    // Remember: multiplication before addition!
+    // Use parentheses to control order
+    
+}
+```
+
+**Requirements:**
+- ✅ Multiply base by quantity first
+- ✅ Apply tax (add to 1)
+- ✅ Apply discount (subtract from 1)
+- ✅ Use `.toFixed(2)` or `Math.round()` for precision
+
+**Test Cases:**
+```javascript
+console.assert(calculateComplexFee(100, 2, 0.12, 0.10) === 201.60);
+// (100 * 2) * (1 + 0.12) * (1 - 0.10)
+// = 200 * 1.12 * 0.90
+// = 224 * 0.90
+// = 201.60
+
+console.assert(calculateComplexFee(50, 1, 0, 0) === 50.00);
+console.assert(calculateComplexFee(75, 3, 0.05, 0.20) === 189.00);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+- ⚠️ Difficulty: Medium
+- ⚠️ Tests order of operations understanding
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|-----------------|
+| Calculate Revenue | 10 | Easy | Arithmetic operators |
+| Apply Discount | 15 | Easy | Conditionals, arithmetic |
+| Odd or Even | 10 | Easy | Modulo operator |
+| Order of Operations | 20 | Medium | Parentheses, PEMDAS |
+| **Total** | **55** | - | - |
+
+**Grading:**
+- 45-55 points: Excellent ⭐⭐⭐
+- 30-44 points: Good ⭐⭐
+- 15-29 points: Needs Practice ⭐
+- 0-14 points: Review Lesson
+
+---
+
+## 💡 Tips for Success
+
+**Before Submitting:**
+1. ✅ Test your code with provided examples
+2. ✅ Check console for errors (F12)
+3. ✅ Read error messages carefully
+4. ✅ Try edge cases (0, negative numbers)
+5. ✅ Use `console.log()` to debug
+
+**Common Mistakes:**
+- ❌ Forgetting to `return` a value
+- ❌ Wrong operator (`=` instead of `===`)
+- ❌ Incorrect order of operations
+- ❌ Not handling edge cases
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Calculate Revenue
+```javascript
+function calculateRevenue(clearances, ids, permits) {
+    const clearanceFee = 50;
+    const idFee = 30;
+    const permitFee = 500;
+    
+    return (clearances * clearanceFee) + (ids * idFee) + (permits * permitFee);
+}
+
+// Tests
+console.log(calculateRevenue(10, 5, 2));  // 1650
+console.log(calculateRevenue(0, 0, 0));   // 0
+console.log(calculateRevenue(5, 10, 1));  // 1050
+console.log(calculateRevenue(1, 1, 1));   // 580
+```
+
+**Explanation:**
+- Multiply each quantity by its fee
+- Add all three amounts together
+- Use parentheses for clarity (optional but good practice)
+
+---
+
+### Challenge 2: Apply Senior Discount
+```javascript
+function applyDiscount(amount, isSenior) {
+    if (isSenior) {
+        return amount * 0.8;  // 20% off means pay 80%
+    }
+    return amount;
+}
+
+// Alternative: Ternary operator (more concise)
+function applyDiscount(amount, isSenior) {
+    return isSenior ? amount * 0.8 : amount;
+}
+
+// Tests
+console.log(applyDiscount(50, true));   // 40
+console.log(applyDiscount(50, false));  // 50
+console.log(applyDiscount(100, true));  // 80
+console.log(applyDiscount(0, true));    // 0
+```
+
+**Explanation:**
+- 20% discount = multiply by 0.8 (or multiply by (1 - 0.20))
+- If not senior, return original amount unchanged
+- Ternary operator makes it a one-liner
+
+---
+
+### Challenge 3: Check Odd or Even
+```javascript
+function isEven(number) {
+    return number % 2 === 0;
+}
+
+// Tests
+console.log(isEven(2));     // true
+console.log(isEven(3));     // false
+console.log(isEven(0));     // true
+console.log(isEven(101));   // false
+console.log(isEven(1000));  // true
+```
+
+**Explanation:**
+- Modulo `%` gives remainder of division
+- Even numbers divided by 2 have remainder 0
+- `number % 2 === 0` returns `true` if even, `false` if odd
+- This is a one-line solution!
+
+---
+
+### Challenge 4: Order of Operations
+```javascript
+function calculateComplexFee(base, quantity, tax, discount) {
+    const subtotal = base * quantity;
+    const withTax = subtotal * (1 + tax);
+    const final = withTax * (1 - discount);
+    return parseFloat(final.toFixed(2));
+}
+
+// Alternative: One-liner (advanced)
+function calculateComplexFee(base, quantity, tax, discount) {
+    return parseFloat(((base * quantity) * (1 + tax) * (1 - discount)).toFixed(2));
+}
+
+// Tests
+console.log(calculateComplexFee(100, 2, 0.12, 0.10));  // 201.60
+console.log(calculateComplexFee(50, 1, 0, 0));         // 50.00
+console.log(calculateComplexFee(75, 3, 0.05, 0.20));   // 189.00
+```
+
+**Explanation:**
+- Step 1: `base * quantity` = subtotal
+- Step 2: `subtotal * (1 + tax)` = add tax percentage
+  - Example: 0.12 tax means multiply by 1.12 (112%)
+- Step 3: `withTax * (1 - discount)` = subtract discount percentage
+  - Example: 0.10 discount means multiply by 0.90 (90%)
+- Use `.toFixed(2)` to round to 2 decimals
+- Convert back to number with `parseFloat()`
+
+**Why parentheses matter:**
+```javascript
+// WRONG - order of operations issue
+base * quantity * 1 + tax * 1 - discount  // Incorrect!
+
+// CORRECT - explicit grouping
+(base * quantity) * (1 + tax) * (1 - discount)  // Correct!
+```
+
+---
 
 ## JavaScript Operators Reference
 

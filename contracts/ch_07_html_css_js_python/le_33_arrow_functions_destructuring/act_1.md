@@ -1119,4 +1119,281 @@ var result = calculateTotal(residents);
 - Array methods (reduce)
 - const/let instead of var
 
+---
+
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** Arrow functions and destructuring validation.
+
+---
+
+### Challenge 1: Convert to Arrow
+
+**Scenario:** Convert traditional function to arrow function.
+
+**Your Task:**
+Rewrite function using arrow syntax with implicit return.
+
+**Starter Code:**
+```javascript
+function double(n) {
+    return n * 2;
+}
+
+// Rewrite as arrow function
+const double = // Your code here
+```
+
+**Requirements:**
+- ✅ Use arrow function syntax
+- ✅ Use implicit return (no braces)
+
+**Test Cases:**
+```javascript
+console.assert(double(5) === 10);
+console.assert(double(0) === 0);
+console.assert(double(-3) === -6);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+
+---
+
+### Challenge 2: Destructure Object
+
+**Scenario:** Extract properties using destructuring.
+
+**Your Task:**
+Return formatted string using destructured properties.
+
+**Starter Code:**
+```javascript
+function formatResident(resident) {
+    // Destructure: name, age from resident
+    // Return "Name: [name], Age: [age]"
+    
+}
+```
+
+**Requirements:**
+- ✅ Use object destructuring
+- ✅ Format string correctly
+
+**Test Cases:**
+```javascript
+const result = formatResident({ name: "Juan", age: 25 });
+console.assert(result === "Name: Juan, Age: 25");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 3: Destructure Array
+
+**Scenario:** Swap two values using destructuring.
+
+**Your Task:**
+Return array with swapped values.
+
+**Starter Code:**
+```javascript
+function swapValues(a, b) {
+    // Use array destructuring to swap
+    // Return [b, a]
+    
+}
+```
+
+**Requirements:**
+- ✅ Use array destructuring
+- ✅ Return swapped values
+
+**Test Cases:**
+```javascript
+const [x, y] = swapValues(5, 10);
+console.assert(x === 10 && y === 5);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 4: Arrow with Array Methods
+
+**Scenario:** Filter and map using arrow functions.
+
+**Your Task:**
+Filter adults (age >= 18), return array of names.
+
+**Starter Code:**
+```javascript
+function getAdultNames(residents) {
+    // Use filter and map with arrow functions
+    
+}
+```
+
+**Requirements:**
+- ✅ Use arrow functions
+- ✅ Chain filter and map
+
+**Test Cases:**
+```javascript
+const residents = [
+    { name: "Juan", age: 25 },
+    { name: "Pedro", age: 15 },
+    { name: "Maria", age: 30 }
+];
+const names = getAdultNames(residents);
+console.assert(JSON.stringify(names) === JSON.stringify(["Juan", "Maria"]));
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+
+---
+
+### Challenge 5: Default Parameters
+
+**Scenario:** Use default parameters and destructuring.
+
+**Your Task:**
+Calculate discount with default values.
+
+**Starter Code:**
+```javascript
+function applyDiscount(price, discount = 0.1, { isSenior = false } = {}) {
+    // If isSenior, add 10% more discount
+    // Return final price
+    
+}
+```
+
+**Requirements:**
+- ✅ Use default parameters
+- ✅ Use destructuring with defaults
+
+**Test Cases:**
+```javascript
+console.assert(applyDiscount(100) === 90);  // 10% default
+console.assert(applyDiscount(100, 0.2) === 80);  // 20%
+console.assert(applyDiscount(100, 0.1, { isSenior: true }) === 80);  // 10% + 10%
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 25
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Convert Arrow | 10 | Easy | Arrow syntax |
+| Destructure Object | 15 | Easy | Object destructuring |
+| Destructure Array | 15 | Easy | Array destructuring |
+| Arrow with Arrays | 20 | Medium | Arrow + methods |
+| Default Parameters | 25 | Hard | Defaults + destructuring |
+| **Total** | **85** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**Modern JavaScript Syntax:**
+- Arrow functions: `(param) => result`
+- Implicit return: No braces for single expression
+- Object destructuring: `const { name, age } = obj`
+- Array destructuring: `const [first, second] = arr`
+
+---
+
+<details>
+<summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Convert to Arrow
+```javascript
+const double = (n) => n * 2;
+
+// Even shorter (single parameter doesn't need parentheses)
+const double = n => n * 2;
+```
+
+---
+
+### Challenge 2: Destructure Object
+```javascript
+function formatResident(resident) {
+    const { name, age } = resident;
+    return `Name: ${name}, Age: ${age}`;
+}
+
+// Destructure in parameters
+function formatResident({ name, age }) {
+    return `Name: ${name}, Age: ${age}`;
+}
+```
+
+---
+
+### Challenge 3: Destructure Array
+```javascript
+function swapValues(a, b) {
+    return [b, a];
+}
+
+// Using destructuring inside function
+function swapValues(a, b) {
+    [a, b] = [b, a];
+    return [a, b];
+}
+```
+
+---
+
+### Challenge 4: Arrow with Array Methods
+```javascript
+function getAdultNames(residents) {
+    return residents
+        .filter(resident => resident.age >= 18)
+        .map(resident => resident.name);
+}
+
+// With destructuring
+function getAdultNames(residents) {
+    return residents
+        .filter(({ age }) => age >= 18)
+        .map(({ name }) => name);
+}
+```
+
+---
+
+### Challenge 5: Default Parameters
+```javascript
+function applyDiscount(price, discount = 0.1, { isSenior = false } = {}) {
+    let totalDiscount = discount;
+    if (isSenior) {
+        totalDiscount += 0.1;
+    }
+    return price * (1 - totalDiscount);
+}
+
+// Shorter version
+function applyDiscount(price, discount = 0.1, { isSenior = false } = {}) {
+    const totalDiscount = discount + (isSenior ? 0.1 : 0);
+    return price * (1 - totalDiscount);
+}
+```
+
+---
+
+</details>
+
 Good luck! 🎉

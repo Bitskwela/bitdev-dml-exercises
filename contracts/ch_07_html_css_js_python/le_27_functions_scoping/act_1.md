@@ -1104,8 +1104,418 @@ const makePerson = (name, age) => ({
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+---
+
+### Challenge 1: Greet Resident
+
+**Scenario:** Create a personalized greeting for residents.
+
+**Your Task:**
+Write a function `greetResident(name)` that returns a greeting message.
+
+**Starter Code:**
+```javascript
+function greetResident(name) {
+    // Your code here
+    // Return: "Welcome, [name]! How can we help you today?"
+    
+}
+```
+
+**Requirements:**
+- ✅ Must accept one parameter: `name`
+- ✅ Must return a string
+- ✅ Include the name in the greeting
+- ✅ Use template literals (backticks)
+
+**Test Cases:**
+```javascript
+console.assert(greetResident("Juan") === "Welcome, Juan! How can we help you today?");
+console.assert(greetResident("Maria") === "Welcome, Maria! How can we help you today?");
+console.assert(greetResident("Pedro Garcia") === "Welcome, Pedro Garcia! How can we help you today?");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Difficulty: Easy
+- ⚠️ Tests string interpolation
+
+---
+
+### Challenge 2: Calculate Age Category
+
+**Scenario:** Categorize residents by age for service eligibility.
+
+**Your Task:**
+Write a function `getAgeCategory(age)` that returns the category.
+
+**Starter Code:**
+```javascript
+function getAgeCategory(age) {
+    // Your code here
+    // Return "Child" (0-17), "Adult" (18-59), or "Senior" (60+)
+    
+}
+```
+
+**Requirements:**
+- ✅ Child: 0-17 years
+- ✅ Adult: 18-59 years
+- ✅ Senior: 60+ years
+- ✅ Use if-else statements
+
+**Test Cases:**
+```javascript
+console.assert(getAgeCategory(10) === "Child");
+console.assert(getAgeCategory(17) === "Child");
+console.assert(getAgeCategory(18) === "Adult");
+console.assert(getAgeCategory(59) === "Adult");
+console.assert(getAgeCategory(60) === "Senior");
+console.assert(getAgeCategory(85) === "Senior");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+- ⚠️ Tests conditionals inside functions
+- ⚠️ Must handle boundary cases (17, 18, 59, 60)
+
+---
+
+### Challenge 3: Calculate Service Fee with Discount
+
+**Scenario:** Calculate fees with age-based discounts.
+
+**Your Task:**
+Write a function `calculateFee(serviceType, age)` that:
+- Clearance = ₱50, ID = ₱30, Permit = ₱500
+- Senior citizens (60+) get 20% off
+- Children (under 18) get 50% off
+
+**Starter Code:**
+```javascript
+function calculateFee(serviceType, age) {
+    // Your code here
+    // 1. Set base fee based on serviceType
+    // 2. Apply discount based on age
+    // 3. Return final fee
+    
+}
+```
+
+**Requirements:**
+- ✅ Accept two parameters
+- ✅ Return numeric value
+- ✅ Apply correct discounts
+- ✅ Handle all three service types
+
+**Test Cases:**
+```javascript
+console.assert(calculateFee("Clearance", 25) === 50);     // Adult, no discount
+console.assert(calculateFee("Clearance", 65) === 40);     // Senior, 20% off
+console.assert(calculateFee("Clearance", 10) === 25);     // Child, 50% off
+console.assert(calculateFee("ID", 30) === 30);            // Adult
+console.assert(calculateFee("ID", 70) === 24);            // Senior
+console.assert(calculateFee("Permit", 15) === 250);       // Child
+console.assert(calculateFee("Permit", 45) === 500);       // Adult
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 25
+- ⚠️ Difficulty: Medium
+- ⚠️ Tests nested logic and multiple conditions
+
+---
+
+### Challenge 4: Scope Challenge - Counter
+
+**Scenario:** Create a counter function using closures.
+
+**Your Task:**
+Write a function `createCounter()` that returns an object with `increment()`, `decrement()`, and `getValue()` methods.
+
+**Starter Code:**
+```javascript
+function createCounter() {
+    // Your code here
+    // Create a private count variable
+    // Return object with three methods
+    
+}
+```
+
+**Requirements:**
+- ✅ `count` variable must be private (not accessible outside)
+- ✅ `increment()` adds 1 to count
+- ✅ `decrement()` subtracts 1 from count
+- ✅ `getValue()` returns current count
+- ✅ Use closure to maintain state
+
+**Test Cases:**
+```javascript
+const counter = createCounter();
+console.assert(counter.getValue() === 0);
+counter.increment();
+console.assert(counter.getValue() === 1);
+counter.increment();
+counter.increment();
+console.assert(counter.getValue() === 3);
+counter.decrement();
+console.assert(counter.getValue() === 2);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 30
+- ⚠️ Difficulty: Hard
+- ⚠️ Tests closure and scope understanding
+
+---
+
+### Challenge 5: Default Parameters
+
+**Scenario:** Create resident record with optional fields.
+
+**Your Task:**
+Write a function `createResident(name, age, zone = "Unassigned")` with default parameter.
+
+**Starter Code:**
+```javascript
+function createResident(name, age, zone = "Unassigned") {
+    // Your code here
+    // Return object with name, age, and zone properties
+    
+}
+```
+
+**Requirements:**
+- ✅ Must have 3 parameters
+- ✅ `zone` has default value "Unassigned"
+- ✅ Return an object with all properties
+- ✅ Use ES6 default parameter syntax
+
+**Test Cases:**
+```javascript
+const resident1 = createResident("Juan", 25);
+console.assert(resident1.name === "Juan");
+console.assert(resident1.age === 25);
+console.assert(resident1.zone === "Unassigned");
+
+const resident2 = createResident("Maria", 30, "Zone A");
+console.assert(resident2.name === "Maria");
+console.assert(resident2.age === 30);
+console.assert(resident2.zone === "Zone A");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+- ⚠️ Tests default parameters and object creation
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|-----------------|
+| Greet Resident | 10 | Easy | Basic functions, template literals |
+| Age Category | 15 | Easy | Conditionals in functions |
+| Service Fee | 25 | Medium | Multiple parameters, nested logic |
+| Counter (Closure) | 30 | Hard | Closures, private variables |
+| Default Parameters | 15 | Easy | ES6 default params, objects |
+| **Total** | **95** | - | - |
+
+**Grading:**
+- 85-95 points: Excellent ⭐⭐⭐
+- 65-84 points: Good ⭐⭐
+- 40-64 points: Needs Practice ⭐
+- 0-39 points: Review Lesson
+
+---
+
+## 💡 Tips for Success
+
+**Function Checklist:**
+1. ✅ Does your function have a descriptive name?
+2. ✅ Are you returning a value (not just logging)?
+3. ✅ Did you test with different inputs?
+4. ✅ Are parameters named clearly?
+5. ✅ Is scope properly managed?
+
+**Common Mistakes:**
+- ❌ Forgetting to `return` (using `console.log` instead)
+- ❌ Accessing variables outside their scope
+- ❌ Not using parameters (hardcoding values)
+- ❌ Arrow function vs regular function confusion
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Greet Resident
+```javascript
+function greetResident(name) {
+    return `Welcome, ${name}! How can we help you today?`;
+}
+
+// Test
+console.log(greetResident("Juan"));  // "Welcome, Juan! How can we help you today?"
+```
+
+**Explanation:** Use template literals with `${}` to insert the name parameter.
+
+---
+
+### Challenge 2: Calculate Age Category
+```javascript
+function getAgeCategory(age) {
+    if (age < 18) {
+        return "Child";
+    } else if (age < 60) {
+        return "Adult";
+    } else {
+        return "Senior";
+    }
+}
+
+// Tests
+console.log(getAgeCategory(10));   // "Child"
+console.log(getAgeCategory(18));   // "Adult"
+console.log(getAgeCategory(60));   // "Senior"
+```
+
+**Explanation:** 
+- First check: age < 18 → "Child"
+- Second check: age < 60 → "Adult" (already know age >= 18)
+- Otherwise: "Senior" (age >= 60)
+
+---
+
+### Challenge 3: Calculate Service Fee with Discount
+```javascript
+function calculateFee(serviceType, age) {
+    // Set base fee
+    let baseFee;
+    if (serviceType === "Clearance") {
+        baseFee = 50;
+    } else if (serviceType === "ID") {
+        baseFee = 30;
+    } else if (serviceType === "Permit") {
+        baseFee = 500;
+    }
+    
+    // Apply age-based discount
+    let discount = 0;
+    if (age < 18) {
+        discount = 0.50;  // 50% off for children
+    } else if (age >= 60) {
+        discount = 0.20;  // 20% off for seniors
+    }
+    
+    return baseFee * (1 - discount);
+}
+
+// Alternative: More concise
+function calculateFee(serviceType, age) {
+    const fees = { Clearance: 50, ID: 30, Permit: 500 };
+    const baseFee = fees[serviceType];
+    
+    if (age < 18) return baseFee * 0.5;   // 50% off
+    if (age >= 60) return baseFee * 0.8;  // 20% off
+    return baseFee;
+}
+
+// Tests
+console.log(calculateFee("Clearance", 25));  // 50
+console.log(calculateFee("Clearance", 65));  // 40
+console.log(calculateFee("ID", 10));         // 15
+```
+
+**Explanation:**
+- Step 1: Determine base fee from service type
+- Step 2: Calculate discount based on age
+- Step 3: Apply discount and return
+- Alternative uses object lookup and early returns
+
+---
+
+### Challenge 4: Scope Challenge - Counter
+```javascript
+function createCounter() {
+    let count = 0;  // Private variable
+    
+    return {
+        increment: function() {
+            count++;
+        },
+        decrement: function() {
+            count--;
+        },
+        getValue: function() {
+            return count;
+        }
+    };
+}
+
+// Alternative: ES6 arrow functions
+function createCounter() {
+    let count = 0;
+    
+    return {
+        increment: () => count++,
+        decrement: () => count--,
+        getValue: () => count
+    };
+}
+
+// Test
+const counter = createCounter();
+console.log(counter.getValue());  // 0
+counter.increment();
+counter.increment();
+console.log(counter.getValue());  // 2
+counter.decrement();
+console.log(counter.getValue());  // 1
+```
+
+**Explanation:**
+- `count` is private - only accessible through returned methods
+- This is a **closure** - inner functions remember outer variables
+- Each call to `createCounter()` creates a new independent counter
+
+---
+
+### Challenge 5: Default Parameters
+```javascript
+function createResident(name, age, zone = "Unassigned") {
+    return {
+        name: name,
+        age: age,
+        zone: zone
+    };
+}
+
+// Alternative: ES6 shorthand
+function createResident(name, age, zone = "Unassigned") {
+    return { name, age, zone };
+}
+
+// Tests
+console.log(createResident("Juan", 25));
+// { name: "Juan", age: 25, zone: "Unassigned" }
+
+console.log(createResident("Maria", 30, "Zone A"));
+// { name: "Maria", age: 30, zone: "Zone A" }
+```
+
+**Explanation:**
+- `zone = "Unassigned"` sets default value
+- If `zone` not provided, uses "Unassigned"
+- Object property shorthand: `{ name }` same as `{ name: name }`
+
+---
 
 ## Functions Reference
 

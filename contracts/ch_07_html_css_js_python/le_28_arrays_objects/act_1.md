@@ -961,8 +961,278 @@ const sum = numbers.reduce((total, num) => total + num, 0);
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** Array method validation challenges.
+
+---
+
+### Challenge 1: Get Array Elements
+
+**Scenario:** Extract first and last elements.
+
+**Your Task:**
+Return object with first and last elements.
+
+**Starter Code:**
+```javascript
+function getFirstAndLast(array) {
+    // Return { first: ..., last: ... }
+    
+}
+```
+
+**Requirements:**
+- ✅ Handle empty arrays (return null)
+- ✅ Use array[0] and array[length-1]
+
+**Test Cases:**
+```javascript
+const result1 = getFirstAndLast([1, 2, 3, 4, 5]);
+console.assert(result1.first === 1 && result1.last === 5);
+
+const result2 = getFirstAndLast(["Juan"]);
+console.assert(result2.first === "Juan" && result2.last === "Juan");
+
+console.assert(getFirstAndLast([]) === null);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+
+---
+
+### Challenge 2: Double Numbers
+
+**Scenario:** Double all numbers in array.
+
+**Your Task:**
+Use map() to double each number.
+
+**Starter Code:**
+```javascript
+function doubleNumbers(numbers) {
+    // Use map() method
+    // Return new array with doubled values
+    
+}
+```
+
+**Requirements:**
+- ✅ Use map() method
+- ✅ Return new array
+
+**Test Cases:**
+```javascript
+console.assert(JSON.stringify(doubleNumbers([1,2,3])) === JSON.stringify([2,4,6]));
+console.assert(JSON.stringify(doubleNumbers([5,10])) === JSON.stringify([10,20]));
+console.assert(JSON.stringify(doubleNumbers([])) === JSON.stringify([]));
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 3: Filter Seniors
+
+**Scenario:** Filter residents 60+ years old.
+
+**Your Task:**
+Use filter() to return only seniors.
+
+**Starter Code:**
+```javascript
+function filterSeniors(residents) {
+    // residents is array of objects: { name, age }
+    // Use filter() to keep age >= 60
+    
+}
+```
+
+**Requirements:**
+- ✅ Use filter() method
+- ✅ Return array of seniors
+
+**Test Cases:**
+```javascript
+const residents = [
+    { name: "Juan", age: 25 },
+    { name: "Maria", age: 65 },
+    { name: "Pedro", age: 70 }
+];
+
+const seniors = filterSeniors(residents);
+console.assert(seniors.length === 2);
+console.assert(seniors[0].name === "Maria");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 4: Find by Name
+
+**Scenario:** Find resident by name.
+
+**Your Task:**
+Use find() to locate resident.
+
+**Starter Code:**
+```javascript
+function findByName(residents, targetName) {
+    // Use find() method
+    // Return resident object or undefined
+    
+}
+```
+
+**Requirements:**
+- ✅ Use find() method
+- ✅ Case-sensitive match
+
+**Test Cases:**
+```javascript
+const residents = [
+    { name: "Juan", age: 25 },
+    { name: "Maria", age: 30 }
+];
+
+const found = findByName(residents, "Maria");
+console.assert(found.age === 30);
+
+const notFound = findByName(residents, "Pedro");
+console.assert(notFound === undefined);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 5: Calculate Total
+
+**Scenario:** Sum all fees using reduce.
+
+**Your Task:**
+Use reduce() to calculate total.
+
+**Starter Code:**
+```javascript
+function calculateTotal(fees) {
+    // Use reduce() method
+    // Return sum of all fees
+    
+}
+```
+
+**Requirements:**
+- ✅ Use reduce() method
+- ✅ Handle empty array (return 0)
+
+**Test Cases:**
+```javascript
+console.assert(calculateTotal([50, 30, 100]) === 180);
+console.assert(calculateTotal([25, 25]) === 50);
+console.assert(calculateTotal([]) === 0);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Array Elements | 10 | Easy | Array indexing |
+| Double Numbers | 15 | Easy | map() |
+| Filter Seniors | 15 | Medium | filter() |
+| Find by Name | 15 | Medium | find() |
+| Calculate Total | 20 | Hard | reduce() |
+| **Total** | **75** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**Array Method Cheatsheet:**
+- `map()` - Transform each element
+- `filter()` - Keep elements that match
+- `find()` - Get first match
+- `reduce()` - Combine into single value
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Get Elements
+```javascript
+function getFirstAndLast(array) {
+    if (array.length === 0) return null;
+    return {
+        first: array[0],
+        last: array[array.length - 1]
+    };
+}
+```
+
+---
+
+### Challenge 2: Double Numbers
+```javascript
+function doubleNumbers(numbers) {
+    return numbers.map(num => num * 2);
+}
+
+// Verbose version
+function doubleNumbers(numbers) {
+    return numbers.map(function(num) {
+        return num * 2;
+    });
+}
+```
+
+---
+
+### Challenge 3: Filter Seniors
+```javascript
+function filterSeniors(residents) {
+    return residents.filter(resident => resident.age >= 60);
+}
+```
+
+---
+
+### Challenge 4: Find by Name
+```javascript
+function findByName(residents, targetName) {
+    return residents.find(resident => resident.name === targetName);
+}
+```
+
+---
+
+### Challenge 5: Calculate Total
+```javascript
+function calculateTotal(fees) {
+    return fees.reduce((sum, fee) => sum + fee, 0);
+}
+
+// Verbose version
+function calculateTotal(fees) {
+    return fees.reduce(function(sum, fee) {
+        return sum + fee;
+    }, 0);  // 0 is initial value
+}
+```
+
+---
 
 ## Array Methods Reference
 

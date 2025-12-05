@@ -843,8 +843,282 @@ JavaScript brings websites to life with interactivity. Let's start with variable
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** Prototype format for validation system - testable code challenges.
+
+---
+
+### Challenge 1: Variable Declaration
+
+**Scenario:** Store barangay resident information.
+
+**Your Task:**
+Create variables to store a resident's name (const), age (let), and zone (const).
+
+**Starter Code:**
+```javascript
+function createResident(name, age, zone) {
+    // Declare variables here
+    // Use const for name and zone, let for age
+    
+    
+    
+    return { residentName, residentAge, residentZone };
+}
+```
+
+**Requirements:**
+- ✅ Use `const` for name and zone
+- ✅ Use `let` for age
+- ✅ Return object with renamed properties
+
+**Test Cases:**
+```javascript
+console.assert(createResident("Juan", 25, "A").residentName === "Juan");
+console.assert(createResident("Maria", 30, "B").residentAge === 30);
+console.assert(createResident("Pedro", 65, "C").residentZone === "C");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Tests variable declaration best practices
+
+---
+
+### Challenge 2: Template Literals
+
+**Scenario:** Create a greeting message for residents.
+
+**Your Task:**
+Use template literals to create: "Hello, [name]! You are from Zone [zone]."
+
+**Starter Code:**
+```javascript
+function greetResident(name, zone) {
+    // Use template literals (backticks)
+    // Return formatted greeting string
+    
+}
+```
+
+**Requirements:**
+- ✅ Use template literals (backticks ``)
+- ✅ Include name and zone in message
+- ✅ Exact format as specified
+
+**Test Cases:**
+```javascript
+console.assert(greetResident("Juan", "A") === "Hello, Juan! You are from Zone A.");
+console.assert(greetResident("Maria", "B") === "Hello, Maria! You are from Zone B.");
+console.assert(greetResident("Pedro Garcia", "C") === "Hello, Pedro Garcia! You are from Zone C.");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Tests string interpolation
+
+---
+
+### Challenge 3: Type Conversion
+
+**Scenario:** Convert string input to number for age calculation.
+
+**Your Task:**
+Convert string to number safely, return 0 if invalid.
+
+**Starter Code:**
+```javascript
+function parseAge(ageString) {
+    // Convert to number using Number() or parseInt()
+    // Return 0 if result is NaN
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Convert string to number
+- ✅ Return 0 for invalid input (NaN)
+- ✅ Handle edge cases
+
+**Test Cases:**
+```javascript
+console.assert(parseAge("25") === 25);
+console.assert(parseAge("65") === 65);
+console.assert(parseAge("abc") === 0);
+console.assert(parseAge("") === 0);
+console.assert(parseAge("3.14") === 3);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+- ⚠️ Tests type conversion and error handling
+
+---
+
+### Challenge 4: typeof Operator
+
+**Scenario:** Validate data types before processing.
+
+**Your Task:**
+Return the type of the input value using typeof.
+
+**Starter Code:**
+```javascript
+function getType(value) {
+    // Use typeof operator
+    // Return the type as a string
+    
+}
+```
+
+**Requirements:**
+- ✅ Use typeof operator
+- ✅ Return string representation of type
+
+**Test Cases:**
+```javascript
+console.assert(getType("Juan") === "string");
+console.assert(getType(25) === "number");
+console.assert(getType(true) === "boolean");
+console.assert(getType(undefined) === "undefined");
+console.assert(getType({}) === "object");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Tests typeof operator knowledge
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Variable Declaration | 10 | Easy | const, let |
+| Template Literals | 10 | Easy | String interpolation |
+| Type Conversion | 15 | Medium | Number(), NaN handling |
+| typeof Operator | 10 | Easy | typeof |
+| **Total** | **45** | - | - |
+
+**Grading:**
+- 40-45 points: Excellent ⭐⭐⭐
+- 30-39 points: Good ⭐⭐
+- 20-29 points: Needs Practice ⭐
+- 0-19 points: Review Lesson
+
+---
+
+## 💡 Tips for Success
+
+**Before Submitting:**
+1. ✅ Test with console.log()
+2. ✅ Check for typos in variable names
+3. ✅ Use const by default, let when needed
+4. ✅ Never use var
+
+**Common Mistakes:**
+- ❌ Using var instead of const/let
+- ❌ Forgetting to return values
+- ❌ String concatenation instead of template literals
+- ❌ Not handling NaN in type conversion
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Variable Declaration
+```javascript
+function createResident(name, age, zone) {
+    const residentName = name;
+    let residentAge = age;
+    const residentZone = zone;
+    
+    return { residentName, residentAge, residentZone };
+}
+
+// Test
+console.log(createResident("Juan", 25, "A"));
+// { residentName: 'Juan', residentAge: 25, residentZone: 'A' }
+```
+
+**Explanation:**
+- Use `const` for values that won't change (name, zone)
+- Use `let` for values that might change (age)
+- Object property shorthand works when var name matches property
+
+---
+
+### Challenge 2: Template Literals
+```javascript
+function greetResident(name, zone) {
+    return `Hello, ${name}! You are from Zone ${zone}.`;
+}
+
+// Test
+console.log(greetResident("Juan", "A"));
+// "Hello, Juan! You are from Zone A."
+```
+
+**Explanation:**
+- Backticks (`) enable template literals
+- `${}` inserts variables into strings
+- Much cleaner than concatenation: "Hello, " + name + "!"
+
+---
+
+### Challenge 3: Type Conversion
+```javascript
+function parseAge(ageString) {
+    const age = parseInt(ageString);
+    return isNaN(age) ? 0 : age;
+}
+
+// Alternative using Number()
+function parseAge(ageString) {
+    const age = Number(ageString);
+    if (isNaN(age)) return 0;
+    return Math.floor(age);  // Remove decimals
+}
+
+// Tests
+console.log(parseAge("25"));     // 25
+console.log(parseAge("abc"));    // 0
+console.log(parseAge("3.14"));   // 3
+```
+
+**Explanation:**
+- `parseInt()` converts string to integer
+- `isNaN()` checks if result is "Not a Number"
+- Ternary operator: `condition ? valueIfTrue : valueIfFalse`
+- Always validate user input!
+
+---
+
+### Challenge 4: typeof Operator
+```javascript
+function getType(value) {
+    return typeof value;
+}
+
+// Tests
+console.log(getType("Juan"));    // "string"
+console.log(getType(25));        // "number"
+console.log(getType(true));      // "boolean"
+console.log(getType(undefined)); // "undefined"
+console.log(getType({}));        // "object"
+```
+
+**Explanation:**
+- `typeof` returns string representing the type
+- Note: `typeof null` returns "object" (JavaScript quirk)
+- Useful for validation and debugging
+
+---
 
 ## JavaScript Variables and Data Types Reference
 

@@ -1006,4 +1006,285 @@ Create a complete **Barangay Service Application System** that:
 - Uses async/await for all API calls
 - Displays success/error messages
 
+---
+
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** JSON and Promises validation challenges.
+
+---
+
+### Challenge 1: Parse JSON
+
+**Scenario:** Convert JSON string to object.
+
+**Your Task:**
+Parse JSON and return name property.
+
+**Starter Code:**
+```javascript
+function getName(jsonString) {
+    // Parse JSON string
+    // Return the name property
+    
+}
+```
+
+**Requirements:**
+- ✅ Use JSON.parse()
+- ✅ Return name property
+
+**Test Cases:**
+```javascript
+const json = '{"name":"Juan","age":25}';
+console.assert(getName(json) === "Juan");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+
+---
+
+### Challenge 2: Stringify Object
+
+**Scenario:** Convert object to JSON string.
+
+**Your Task:**
+Return JSON string representation.
+
+**Starter Code:**
+```javascript
+function toJSON(resident) {
+    // Convert object to JSON string
+    
+}
+```
+
+**Requirements:**
+- ✅ Use JSON.stringify()
+- ✅ Return JSON string
+
+**Test Cases:**
+```javascript
+const obj = { name: "Juan", age: 25 };
+const json = toJSON(obj);
+console.assert(json.includes('"name":"Juan"'));
+console.assert(json.includes('"age":25'));
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+
+---
+
+### Challenge 3: Promise Basics
+
+**Scenario:** Create Promise that resolves with value.
+
+**Your Task:**
+Return Promise that resolves after 0ms with value.
+
+**Starter Code:**
+```javascript
+function createPromise(value) {
+    // Return new Promise
+    // Resolve with value immediately
+    
+}
+```
+
+**Requirements:**
+- ✅ Return Promise
+- ✅ Resolve with value
+
+**Test Cases:**
+```javascript
+createPromise("Hello").then(result => {
+    console.assert(result === "Hello");
+});
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+
+---
+
+### Challenge 4: Fetch Data (Simulated)
+
+**Scenario:** Simulate API fetch with Promise.
+
+**Your Task:**
+Return Promise that resolves with mock data.
+
+**Starter Code:**
+```javascript
+function fetchResident(id) {
+    // Return Promise that resolves with:
+    // { id: id, name: "Resident " + id }
+    
+}
+```
+
+**Requirements:**
+- ✅ Return Promise
+- ✅ Resolve with object containing id and name
+
+**Test Cases:**
+```javascript
+fetchResident(1).then(resident => {
+    console.assert(resident.id === 1);
+    console.assert(resident.name === "Resident 1");
+});
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+
+---
+
+### Challenge 5: Async/Await
+
+**Scenario:** Use async/await to fetch and process data.
+
+**Your Task:**
+Create async function that fetches and returns name.
+
+**Starter Code:**
+```javascript
+async function getResidentName(fetchFunction, id) {
+    // Use await to call fetchFunction(id)
+    // Return the name property
+    // Handle errors (return "Not Found" on error)
+    
+}
+```
+
+**Requirements:**
+- ✅ Use async/await
+- ✅ Return name or "Not Found"
+- ✅ Use try/catch
+
+**Test Cases:**
+```javascript
+const mockFetch = (id) => Promise.resolve({ name: "Juan" });
+getResidentName(mockFetch, 1).then(name => {
+    console.assert(name === "Juan");
+});
+
+const failFetch = (id) => Promise.reject("Error");
+getResidentName(failFetch, 1).then(name => {
+    console.assert(name === "Not Found");
+});
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 30
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Parse JSON | 10 | Easy | JSON.parse |
+| Stringify Object | 10 | Easy | JSON.stringify |
+| Promise Basics | 15 | Medium | Promises |
+| Fetch Simulation | 20 | Medium | Promise creation |
+| Async/Await | 30 | Hard | async/await, error handling |
+| **Total** | **85** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**Async JavaScript Essentials:**
+- `JSON.parse()` - String to object
+- `JSON.stringify()` - Object to string
+- `Promise.resolve()` - Create resolved Promise
+- `async/await` - Cleaner Promise handling
+- `try/catch` - Handle async errors
+
+---
+
+<details>
+<summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Parse JSON
+```javascript
+function getName(jsonString) {
+    const obj = JSON.parse(jsonString);
+    return obj.name;
+}
+
+// Shorter version
+function getName(jsonString) {
+    return JSON.parse(jsonString).name;
+}
+```
+
+---
+
+### Challenge 2: Stringify Object
+```javascript
+function toJSON(resident) {
+    return JSON.stringify(resident);
+}
+```
+
+---
+
+### Challenge 3: Promise Basics
+```javascript
+function createPromise(value) {
+    return Promise.resolve(value);
+}
+
+// Or using Promise constructor
+function createPromise(value) {
+    return new Promise((resolve) => {
+        resolve(value);
+    });
+}
+```
+
+---
+
+### Challenge 4: Fetch Simulation
+```javascript
+function fetchResident(id) {
+    return Promise.resolve({
+        id: id,
+        name: "Resident " + id
+    });
+}
+
+// Using template literal
+function fetchResident(id) {
+    return Promise.resolve({
+        id,
+        name: `Resident ${id}`
+    });
+}
+```
+
+---
+
+### Challenge 5: Async/Await
+```javascript
+async function getResidentName(fetchFunction, id) {
+    try {
+        const resident = await fetchFunction(id);
+        return resident.name;
+    } catch (error) {
+        return "Not Found";
+    }
+}
+```
+
+---
+
+</details>
+
 Good luck! 🎉

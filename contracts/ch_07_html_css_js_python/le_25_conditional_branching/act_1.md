@@ -905,6 +905,254 @@ if (0) {
 
 ---
 
+## 🎯 Interactive Coding Challenges
+
+> **Note for Reviewers:** Prototype format for validation system.
+
+---
+
+### Challenge 1: Age Eligibility Check
+
+**Scenario:** Check if resident is eligible (18+) for barangay clearance.
+
+**Your Task:**
+Return true if age >= 18, false otherwise.
+
+**Starter Code:**
+```javascript
+function isEligible(age) {
+    // Use if statement
+    // Return boolean
+    
+}
+```
+
+**Requirements:**
+- ✅ Use if-else or return directly
+- ✅ Return boolean (true/false)
+
+**Test Cases:**
+```javascript
+console.assert(isEligible(18) === true);
+console.assert(isEligible(25) === true);
+console.assert(isEligible(17) === false);
+console.assert(isEligible(0) === false);
+console.assert(isEligible(100) === true);
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 10
+- ⚠️ Tests basic if statement
+
+---
+
+### Challenge 2: Fee Category
+
+**Scenario:** Assign fee category based on age: Child (<18), Adult (18-59), Senior (60+).
+
+**Your Task:**
+Return "Child", "Adult", or "Senior" based on age.
+
+**Starter Code:**
+```javascript
+function getFeeCategory(age) {
+    // Use if-else if-else chain
+    // Return category string
+    
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Three categories correctly assigned
+- ✅ Handle boundary cases (17, 18, 59, 60)
+
+**Test Cases:**
+```javascript
+console.assert(getFeeCategory(10) === "Child");
+console.assert(getFeeCategory(17) === "Child");
+console.assert(getFeeCategory(18) === "Adult");
+console.assert(getFeeCategory(59) === "Adult");
+console.assert(getFeeCategory(60) === "Senior");
+console.assert(getFeeCategory(85) === "Senior");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 20
+- ⚠️ Tests else-if chains and boundaries
+
+---
+
+### Challenge 3: Service Code Decoder
+
+**Scenario:** Convert service code to name using switch.
+
+**Your Task:**
+Return service name: "C" → "Clearance", "I" → "ID", "P" → "Permit", otherwise "Unknown".
+
+**Starter Code:**
+```javascript
+function getServiceName(code) {
+    // Use switch statement
+    // Handle C, I, P, and default
+    
+    
+    
+    
+}
+```
+
+**Requirements:**
+- ✅ Use switch statement
+- ✅ Include default case
+- ✅ Case-sensitive
+
+**Test Cases:**
+```javascript
+console.assert(getServiceName("C") === "Clearance");
+console.assert(getServiceName("I") === "ID");
+console.assert(getServiceName("P") === "Permit");
+console.assert(getServiceName("X") === "Unknown");
+console.assert(getServiceName("") === "Unknown");
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+- ⚠️ Tests switch statement
+
+---
+
+### Challenge 4: Multiple Conditions
+
+**Scenario:** Check if resident qualifies: must be 18+, resident, and no unpaid fees.
+
+**Your Task:**
+Return true only if ALL conditions met.
+
+**Starter Code:**
+```javascript
+function qualifiesForService(age, isResident, hasUnpaidFees) {
+    // Use && (AND) operator
+    // All conditions must be true
+    
+}
+```
+
+**Requirements:**
+- ✅ Age >= 18
+- ✅ isResident must be true
+- ✅ hasUnpaidFees must be false
+
+**Test Cases:**
+```javascript
+console.assert(qualifiesForService(25, true, false) === true);
+console.assert(qualifiesForService(17, true, false) === false);  // Too young
+console.assert(qualifiesForService(25, false, false) === false); // Not resident
+console.assert(qualifiesForService(25, true, true) === false);   // Has unpaid fees
+```
+
+**Validation Criteria:**
+- ⚠️ Points: 15
+- ⚠️ Tests logical operators
+
+---
+
+### 📊 Challenge Summary
+
+| Challenge | Points | Difficulty | Concepts Tested |
+|-----------|--------|------------|------------------|
+| Age Eligibility | 10 | Easy | if statement |
+| Fee Category | 20 | Medium | else-if chain |
+| Service Decoder | 15 | Easy | switch statement |
+| Multiple Conditions | 15 | Medium | Logical operators |
+| **Total** | **60** | - | - |
+
+---
+
+## 💡 Tips for Success
+
+**Common Mistakes:**
+- ❌ Using = instead of === for comparison
+- ❌ Wrong boundary conditions (>= vs >)
+- ❌ Forgetting break in switch
+- ❌ Not handling default/else cases
+
+---
+
+<details>
+<summary><strong>📝 Answer Key</strong></summary>
+
+## Interactive Challenge Solutions
+
+### Challenge 1: Age Eligibility
+```javascript
+function isEligible(age) {
+    return age >= 18;
+}
+
+// Alternative with if-else
+function isEligible(age) {
+    if (age >= 18) {
+        return true;
+    } else {
+        return false;
+    }
+}
+```
+
+---
+
+### Challenge 2: Fee Category
+```javascript
+function getFeeCategory(age) {
+    if (age < 18) {
+        return "Child";
+    } else if (age < 60) {
+        return "Adult";
+    } else {
+        return "Senior";
+    }
+}
+```
+
+---
+
+### Challenge 3: Service Code Decoder
+```javascript
+function getServiceName(code) {
+    switch (code) {
+        case "C":
+            return "Clearance";
+        case "I":
+            return "ID";
+        case "P":
+            return "Permit";
+        default:
+            return "Unknown";
+    }
+}
+```
+
+---
+
+### Challenge 4: Multiple Conditions
+```javascript
+function qualifiesForService(age, isResident, hasUnpaidFees) {
+    return age >= 18 && isResident && !hasUnpaidFees;
+}
+
+// Verbose version
+function qualifiesForService(age, isResident, hasUnpaidFees) {
+    if (age >= 18 && isResident && !hasUnpaidFees) {
+        return true;
+    }
+    return false;
+}
+```
+
+---
+
 <details>
 <summary><strong>📝 Answer Key</strong></summary>
 
