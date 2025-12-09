@@ -1,12 +1,27 @@
 ---
-title: "Complete HTML, CSS, JavaScript, and Flask Web Development Course"
+title: "Course 7: Complete HTML, CSS, JavaScript, and Flask Web Development Course"
 description: "A comprehensive web development course from internet fundamentals to full-stack applications. Master HTML, CSS, JavaScript, Modern JS features, APIs, and Flask backend development through Filipino barangay-themed lessons."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-16"
 
 # For SEO purposes
-tags: ["web development", "html", "css", "javascript", "flask", "full-stack", "bitskwela", "web2", "internet", "frontend", "backend", "api", "crud"]
+tags:
+  [
+    "web development",
+    "html",
+    "css",
+    "javascript",
+    "flask",
+    "full-stack",
+    "bitskwela",
+    "web2",
+    "internet",
+    "frontend",
+    "backend",
+    "api",
+    "crud",
+  ]
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
 permaname: "course-7-complete-html-css-js-flask-web-development"
@@ -21,13 +36,13 @@ In a connected barangay powered by wires and waves, digital life begins. This co
 
 This is more than theory—it's about building real applications using code, understanding how the web works from browser to server, and gaining the skills to create production-ready systems for your community.
 
-
 ---
 
 ## Course Structure: 47 Lessons Across 14 Courses
 
 ### **Course 01: Web Fundamentals (Lessons 1-5)**
-*Understanding the Digital World*
+
+_Understanding the Digital World_
 
 - L01: What is the Internet?
 - L02: How Websites Work
@@ -40,7 +55,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 02: HTML Foundations (Lessons 6-11)**
-*Building the Structure of the Web*
+
+_Building the Structure of the Web_
 
 - L06: HTML Document Structure
 - L07: Tags, Elements, and Attributes
@@ -54,7 +70,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 03: CSS Fundamentals (Lessons 12-17)**
-*Styling Your Web Pages*
+
+_Styling Your Web Pages_
 
 - L12: CSS Intro and Linking
 - L13: Selectors, Properties, and Values
@@ -68,7 +85,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 04: Responsive Design (Lessons 18-22)**
-*Building for All Devices*
+
+_Building for All Devices_
 
 - L18: Flexbox Basics
 - L19: Media Queries
@@ -81,7 +99,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 05: JavaScript Logic (Lessons 23-29)**
-*Programming Fundamentals*
+
+_Programming Fundamentals_
 
 - L23: Variables and Data Types (let, const, var)
 - L24: Operators and Expressions
@@ -96,7 +115,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 12: Modern JavaScript (Lessons 30-36)**
-*Interactive Web Applications*
+
+_Interactive Web Applications_
 
 - L30: DOM Manipulation (querySelector, textContent, classList)
 - L31: Event Handling (addEventListener, form events, event object)
@@ -111,7 +131,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 13: Full-Stack Web Apps (Lessons 37-42)**
-*Backend Development with Flask*
+
+_Backend Development with Flask_
 
 - L37: JavaScript Forms + Flask Setup
 - L38: JavaScript Fetch to Flask API
@@ -125,7 +146,8 @@ This is more than theory—it's about building real applications using code, und
 ---
 
 ### **Course 14: Advanced Web App Development (Lessons 43-47)**
-*Production-Ready Applications*
+
+_Production-Ready Applications_
 
 - L43: Authentication with JS + Flask
 - L44: Environment Variables + Deployment Config
@@ -163,12 +185,14 @@ Each lesson features:
 ## Who Is This For?
 
 **Perfect for:**
+
 - Complete beginners with zero programming experience
 - High school and college students interested in tech
 - Career shifters exploring web development
 - Anyone wanting to build real web applications
 
 **Prerequisites:**
+
 - Basic computer literacy
 - Willingness to learn and experiment
 - No prior coding experience needed!
@@ -188,16 +212,19 @@ Each lesson features:
 ## Technologies You'll Master
 
 **Frontend:**
+
 - HTML5 (semantic markup, forms, accessibility)
 - CSS3 (Flexbox, Grid, responsive design, animations)
 - JavaScript ES6+ (DOM, events, async/await, modules)
 
 **Backend:**
+
 - Python Flask (routing, templates, JSON APIs)
 - REST API principles (GET, POST, PUT, DELETE)
 - CRUD operations (Create, Read, Update, Delete)
 
 **Tools & Concepts:**
+
 - Browser DevTools
 - VS Code editor
 - Git version control basics
@@ -223,12 +250,12 @@ Lessons 43-47  → Deploy production-ready systems
 
 ## What Makes This Course Different?
 
- **Filipino context** - Every example uses barangay scenarios (services, residents, complaints)  
+**Filipino context** - Every example uses barangay scenarios (services, residents, complaints)  
  **Story-driven** - Learn through Tian's journey, not dry documentation  
  **Complete curriculum** - From "What is the internet?" to production apps  
  **Practical projects** - Build real systems, not toy examples  
  **Modern practices** - ES6+, async/await, REST APIs, responsive design  
- **Career-ready** - Skills employers actually need  
+ **Career-ready** - Skills employers actually need
 
 ---
 
@@ -244,6 +271,7 @@ Lessons 43-47  → Deploy production-ready systems
 ## After This Course
 
 You'll be able to:
+
 - ✅ Build responsive websites from scratch
 - ✅ Create interactive web applications with JavaScript
 - ✅ Develop REST APIs with Flask
@@ -265,6 +293,6 @@ It starts with one question: **"What is the internet, really?"**
 
 And it ends with you deploying a **complete production application** that serves your barangay.
 
-Let's dive in and discover together how to build the digital future of your community. 
+Let's dive in and discover together how to build the digital future of your community.
 
 **Simulan natin!** (Let's start!) 🚀
