@@ -6,7 +6,7 @@ description: "Master JavaScript conditional branching with if, else if, else, an
 date: "2025-11-16"
 
 # For SEO purposes
-tags: ["javascript", "conditionals", "if-else", "switch-statement", "control-flow", "decision-making" "bitskwela"]
+tags: ["javascript", "conditionals", "if-else", "switch-statement", "control-flow", "decision-making", "bitskwela"]
 
 # Currently supported types:
 # NormalExercise - Just a simple module.  Does not require user input.
