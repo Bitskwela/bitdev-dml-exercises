@@ -1,11 +1,11 @@
-# Solidity Course – Bitskwela x Bitdev Developer Micro Learning (DML)
+# Bitskwela x Bitdev Developer Micro Learning (DML)
 
-Welcome to Bitskwela's DML: Solidity Course! This repository contains a structured set of exercises, lessons, and mini-projects designed to take you from zero to hero in smart contract development using Solidity.
+Welcome to Bitskwela's DML Course Repository! This comprehensive collection contains structured exercises, lessons, and mini-projects designed to take you from zero to hero across multiple programming disciplines—from smart contract development to full-stack web applications.
 
 ## 📚 Repository Structure
 
 - `contracts/`  
-  Contains all Solidity contracts, organized by chapters and topics:
+  Contains all course materials organized by chapters and topics:
 
   - **`ch_01_basic_solidity/`** – Basic Solidity concepts and syntax (30 lessons)
 
@@ -15,7 +15,7 @@ Welcome to Bitskwela's DML: Solidity Course! This repository contains a structur
 
     - Token transfers, NFT minting, reentrancy fixes, multi-sig wallets, and more
 
-  - **`ch_03_mini_projects/`** – Mini-projects for hands-on learning (5 projects)
+  - **`ch_03_mini_projects/`** – Solidity mini-projects for hands-on learning (5 projects)
 
     - Liquidity protocols, staking systems, lending platforms, and tokenized stores
 
@@ -25,10 +25,23 @@ Welcome to Bitskwela's DML: Solidity Course! This repository contains a structur
 
   - **`ch_05_javascript/`** – JavaScript fundamentals (20 lessons)
 
-    - Core JavaScript concepts needed for blockchain development
+    - Core JavaScript concepts needed for blockchain and web development
 
   - **`ch_06_javascript_mini_projects/`** – JavaScript mini-projects (5 projects)
+
     - Practical JavaScript applications with Filipino context
+
+  - **`ch_07_html_css_js_python/`** – Complete Web Development (47 lessons)
+
+    - From internet fundamentals to full-stack Flask applications with HTML, CSS, JavaScript, and Python
+
+  - **`ch_08_cpp/`** – C++ from Zero to Hero (31 lessons)
+
+    - Fundamentals, OOP, memory management, STL, and complete CRUD applications
+
+  - **`ch_09_python/`** – Python Programming (30 lessons)
+
+    - Database fundamentals, data science, Flask web development, and full-stack applications
 
 - `exercises/`  
   Additional exercises and practice problems.
@@ -41,9 +54,9 @@ Welcome to Bitskwela's DML: Solidity Course! This repository contains a structur
 
 ## 🎯 Course Progression
 
-### Chapter 1: Basic Solidity (30 Lessons)
+### Course 1: Basic Solidity (30 Lessons)
 
-Start your journey with fundamental Solidity concepts:
+Start your blockchain journey with fundamental Solidity concepts:
 
 - **Lessons 1-4**: Variables, data types, and basic operations
 - **Lessons 5-8**: Control structures, mappings, and structs
@@ -52,16 +65,16 @@ Start your journey with fundamental Solidity concepts:
 - **Lessons 19-23**: Inheritance, interfaces, and libraries
 - **Lessons 24-30**: OpenZeppelin, token standards (ERC20, ERC721, ERC1155), and security
 
-### Chapter 2: Solidity Side Quests (7 Lessons)
+### Course 2: Solidity Side Quests (7 Lessons)
 
-Deepen your understanding with practical challenges:
+Deepen your understanding with practical blockchain challenges:
 
 - Token transfer mechanisms and approval systems
 - NFT minting logic and marketplace features
 - Security fixes and multi-signature wallets
 - Dynamic pricing and royalty systems
 
-### Chapter 3: Mini Projects (5 Projects)
+### Course 3: Mini Projects (5 Projects)
 
 Build complete smart contract systems:
 
@@ -71,7 +84,7 @@ Build complete smart contract systems:
 - Security and audit practices
 - Tokenized retail systems
 
-### Chapter 4: DApp Development (20 Lessons)
+### Course 4: DApp Development (20 Lessons)
 
 Learn full-stack blockchain development:
 
@@ -81,22 +94,55 @@ Learn full-stack blockchain development:
 - **Advanced Features**: Multi-network support, gas optimization
 - **Complete DApps**: NFT platforms, DeFi dashboards, DAOs
 
-### Chapter 5: JavaScript Fundamentals (20 Lessons)
+### Course 5: JavaScript Fundamentals (20 Lessons)
 
-Master JavaScript for blockchain development:
+Master JavaScript for web and blockchain development:
 
 - Core programming concepts and syntax
 - DOM manipulation and web interactions
 - Modern JavaScript features and best practices
 - Asynchronous programming and API integration
 
-### Chapter 6: JavaScript Mini Projects (5 Projects)
+### Course 6: JavaScript Mini Projects (5 Projects)
 
 Apply JavaScript skills in practical scenarios:
 
 - Administrative and tracking systems
 - Calculator and POS applications
 - Community service platforms
+
+### Course 7: Complete Web Development (47 Lessons)
+
+Full-stack web development from fundamentals to deployment:
+
+- **Lessons 1-5**: Web fundamentals and how the internet works
+- **Lessons 6-11**: HTML foundations and semantic markup
+- **Lessons 12-17**: CSS fundamentals and styling
+- **Lessons 18-22**: Responsive design with Flexbox and Grid
+- **Lessons 23-29**: JavaScript logic and programming fundamentals
+- **Lessons 30-36**: Modern JavaScript, DOM, and API integration
+- **Lessons 37-42**: Full-stack development with Flask
+- **Lessons 43-47**: Authentication, deployment, and production apps
+
+### Course 8: C++ from Zero to Hero (31 Lessons)
+
+Master systems programming with C++:
+
+- **Lessons 1-9**: Foundations and control flow → ATM Simulator project
+- **Lessons 10-13**: Functions and modularity → Grade Calculator project
+- **Lessons 14-22**: Data structures, pointers, memory → Contact Book project
+- **Lessons 23-31**: OOP, templates, STL, exceptions → Barangay CRUD System capstone
+
+### Course 9: Python Programming (30 Lessons)
+
+Data-driven development with Python:
+
+- **Lessons 1-3**: Database foundations (SQL, tables, keys)
+- **Lessons 4-12**: Python fundamentals (syntax, data structures, control flow)
+- **Lessons 13-18**: Data science with NumPy, Pandas, Matplotlib → Budget Forecaster project
+- **Lessons 19-21**: File handling and modules
+- **Lessons 22-24**: Web development with Flask and REST APIs
+- **Lessons 25-30**: Database design and integration → Resident Management System capstone
 
 ## 🚀 Getting Started
 
@@ -107,24 +153,80 @@ Apply JavaScript skills in practical scenarios:
    cd bitdev-dml-exercises
    npm install
    ```
-3. **Development**: Use Hardhat for smart contract development and testing
-4. **Learning Path**: Follow the chapters sequentially for optimal learning experience
+3. **For Solidity**: Use Hardhat for smart contract development and testing
+4. **For Python**: Use Python 3.8+ with pip for package management
+5. **For C++**: Use g++, clang++, or Visual C++ compiler
+6. **Learning Path**: Follow courses sequentially or jump to your area of interest
 
 ## 🛠️ Technology Stack
 
-- **Smart Contracts**: Solidity, OpenZeppelin
-- **Development Framework**: Hardhat
-- **Frontend**: JavaScript, HTML, CSS
-- **Testing**: Chai, Mocha
-- **Blockchain**: Ethereum and compatible networks
+**Blockchain & Smart Contracts:**
+
+- Solidity, OpenZeppelin
+- Hardhat, Ethers.js
+- Ethereum and compatible networks
+
+**Web Development:**
+
+- HTML5, CSS3, JavaScript ES6+
+- Flask (Python web framework)
+- REST API design
+
+**Programming Languages:**
+
+- JavaScript/Node.js
+- Python 3.x (NumPy, Pandas, Matplotlib)
+- C++ (STL, OOP)
+
+**Databases:**
+
+- SQLite, SQL fundamentals
+- Database design and normalization
+
+**Testing & Tools:**
+
+- Chai, Mocha
+- VS Code, Browser DevTools
+- Git version control
 
 ## 📖 Learning Approach
 
-This course uses a story-driven approach with Filipino context to make learning engaging and relatable. Each lesson includes:
+This course uses a **story-driven approach with Filipino context** to make learning engaging and relatable. Each lesson includes:
 
 - Clear learning objectives
 - Practical coding exercises
-- Real-world applications
+- Real-world barangay-themed applications
 - Progressive difficulty levels
+- Mini-projects to apply your knowledge
 
-Start with Chapter 1 and work your way through each lesson systematically. Each chapter builds upon the previous one, ensuring a solid foundation for blockchain development.
+## 🗺️ Recommended Learning Paths
+
+### 🔗 Blockchain Developer Path
+
+1. Course 5: JavaScript Fundamentals
+2. Course 1: Basic Solidity
+3. Course 2: Solidity Side Quests
+4. Course 3: Mini Projects
+5. Course 4: DApp Development
+
+### 🌐 Full-Stack Web Developer Path
+
+1. Course 7: Complete Web Development (HTML, CSS, JS, Flask)
+2. Course 9: Python Programming (Database & Data Science)
+3. Course 6: JavaScript Mini Projects
+
+### 💻 Systems Programming Path
+
+1. Course 8: C++ from Zero to Hero
+2. Course 9: Python Programming
+
+### 📊 Data & Backend Path
+
+1. Course 9: Python Programming
+2. Course 7: Complete Web Development (Flask sections)
+
+---
+
+Start with the path that matches your goals and work through each lesson systematically. Each course builds upon foundational concepts, ensuring solid understanding before advancing to complex topics.
+
+**Simulan natin!** (Let's start!) 🇵🇭✨

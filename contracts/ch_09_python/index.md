@@ -1,123 +1,291 @@
-# Python Programming - The Complete Journey
+---
+title: "Course 9: Python Programming - From Data to Deployment"
+description: "A comprehensive Python course covering database fundamentals, data science, web development with Flask, and full-stack application development through Filipino barangay-themed lessons."
 
-Welcome to the complete Python programming journey! Follow **Tian and Rhea Joy** as they build a barangay scholarship management system from scratch, learning databases, Python fundamentals, data analysis, and web development along the way.
+# This is the date the document was last updated.  Format: YYYY-MM-DD.
+date: "2025-12-09"
 
-## Course Overview
+# For SEO purposes
+tags:
+  [
+    "python",
+    "database",
+    "sql",
+    "data-science",
+    "flask",
+    "numpy",
+    "pandas",
+    "bitskwela",
+    "dml",
+    "backend",
+    "api",
+    "crud",
+    "filipino developers",
+  ]
 
-**30 Lessons** organized into 5 thematic sections:
-- **Database Fundamentals** (L1-3) - Understanding data storage
-- **Python Basics** (L4-12) - Core programming concepts  
-- **Data Analysis** (L13-18) - Statistics and modeling
-- **Web Development** (L19-24) - Flask and APIs
-- **Database Design** (L25-30) - Advanced database topics
+# Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
+permaname: "course-9-python-programming"
 
-**Total Duration**: 4-5 hours (30 lessons × 8-10 minutes each)  
-**Characters**: Tian (student), Rhea Joy (classmate), Kuya Miguel (mentor)  
-**Project**: Barangay Scholarship Management System
+# Can be the same as permaname but can be changed if needed.
+slug: "course-9-python-programming"
+---
+
+# Course 9: Python Programming - From Data to Deployment
+
+## 🐍 Prologue: The Language That Powers Everything
+
+_"In every barangay database, every government report, every data-driven decision—Python is quietly doing the heavy lifting."_
 
 ---
 
-## Chapters & Lessons
+### The Data Revolution in Your Barangay
 
-### Chapter 1: Digital Treasure Maps (Course 07 - Part 1)
-*Learn the foundation of data storage systems and why databases matter*
+Picture this: Captain Santos sits in the barangay hall, surrounded by stacks of paper applications, handwritten ledgers, and a dusty computer running Excel sheets that crash every other day. Scholarship applications pile up. Relief goods distribution is tracked on whiteboards. Resident data lives in filing cabinets that survived three typhoons.
 
-1. **[What is a Database?](ch_01_digital_treasure_maps/le_01_what_is_database/)** - Understanding data storage fundamentals
-2. **[SQL vs NoSQL](ch_01_digital_treasure_maps/le_02_sql_vs_nosql/)** - Comparing database paradigms
-3. **[Tables, Rows, Columns, and Keys](ch_01_digital_treasure_maps/le_03_tables_rows_columns_keys/)** - Database structure basics
+But across town, a young developer named **Mia** has a vision. Armed with Python, she sees a future where:
 
-### Chapter 2: Python Data Chests (Course 07 - Part 2)
-*Dive into Python's data handling capabilities*
+- **Databases** replace filing cabinets
+- **Automated reports** replace manual tallying
+- **Web applications** replace paper forms
+- **Data analysis** drives community decisions
 
-4. **[Lists, Tuples, Dictionaries](ch_02_python_data_chests/le_04_lists_tuples_dictionaries/)** - Python data structures
-5. **[Functions and Parameters in Data Tasks](ch_02_python_data_chests/le_05_functions_parameters_data_tasks/)** - Building reusable data functions
-6. **[Basic Error Handling and Debugging](ch_02_python_data_chests/le_06_error_handling_debugging/)** - Managing errors gracefully
+This is your journey too. From understanding what a database is to building complete, production-ready applications that serve real communities.
 
-### Chapter 3: Python Island Orientation (Course 08 - Part 1)
-*Explore Python's syntax and fundamentals*
+### Why Python?
 
-7. **[Syntax, Indentation, and Comments](ch_03_python_island_orientation/le_07_syntax_indentation_comments/)** - Python writing rules
-8. **[Variables, Data Types, and Operators](ch_03_python_island_orientation/le_08_variables_data_types_operators/)** - Core Python concepts
-9. **[Input and Output Basics](ch_03_python_island_orientation/le_09_input_output_basics/)** - User interaction fundamentals
+In the Philippines and around the world, Python has become the language of choice for:
 
-### Chapter 4: Slithering Through Logic (Course 08 - Part 2)
-*Develop core programming logic*
+- **Data Analysis**: Government agencies use Python to analyze census data
+- **Web Development**: Startups build their backends with Flask and Django
+- **Automation**: BPO companies automate repetitive tasks
+- **Machine Learning**: Banks predict loan defaults, hospitals analyze patient data
+- **Database Management**: From SQLite to MySQL, Python connects them all
 
-10. **[Conditionals and Control Flow](ch_04_slithering_through_logic/le_10_conditionals_control_flow/)** - Making decisions in code
-11. **[Loops (for, while)](ch_04_slithering_through_logic/le_11_loops_for_while/)** - Repeating actions efficiently
-12. **[String Formatting and Manipulation](ch_04_slithering_through_logic/le_12_string_formatting_manipulation/)** - Working with text
+Python's philosophy is simple: **readable code is better than clever code**. This makes it perfect for beginners and powerful enough for experts.
 
-### Chapter 5: Predicting the Waves (Course 09 - Part 1)
-*Build foundations in quantitative modeling*
+### Your Learning Path
 
-13. **[Intro to Quantitative Methods](ch_05_predicting_the_waves/le_13_intro_quantitative_methods/)** - Mathematical modeling basics
-14. **[Recap: NumPy, pandas, Matplotlib](ch_05_predicting_the_waves/le_14_numpy_pandas_matplotlib/)** - Essential data science libraries
-15. **[Descriptive Statistics & Probability](ch_05_predicting_the_waves/le_15_descriptive_statistics_probability/)** - Statistical foundations
-
-### Chapter 6: Surfing with Python Models (Course 09 - Part 2)
-*Hands-on with modeling and simulation*
-
-16. **[Regression and Linear Models](ch_06_surfing_with_python_models/le_16_regression_linear_models/)** - Predictive modeling
-17. **[Simulation with Data and Python](ch_06_surfing_with_python_models/le_17_simulation_data_python/)** - Building simulations
-18. **[Final Mini Project: Model the Future](ch_06_surfing_with_python_models/le_18_mini_project_model_future/)** - Capstone project
-
-### Chapter 7: Web Ferry Foundations (Course 10 - Part 1)
-*Handle real-world data using files and modules*
-
-19. **[File I/O in Python](ch_07_web_ferry_foundations/le_19_file_io_python/)** - Reading and writing files
-20. **[Working with CSV and JSON](ch_07_web_ferry_foundations/le_20_csv_json/)** - Common data formats
-21. **[Python Modules and Imports](ch_07_web_ferry_foundations/le_21_python_modules_imports/)** - Code organization
-
-### Chapter 8: Connecting the Archipelago (Course 10 - Part 2)
-*Start building Python-based web tools*
-
-22. **[Intro to Web Servers and Routing](ch_08_connecting_the_archipelago/le_22_web_servers_routing/)** - Web fundamentals
-23. **[Templates and Forms](ch_08_connecting_the_archipelago/le_23_templates_forms/)** - Dynamic web pages
-24. **[REST APIs 101](ch_08_connecting_the_archipelago/le_24_rest_apis_101/)** - Building web services
-
-### Chapter 9: Writing the Script (Course 11 - Part 1)
-*Design smarter data structures*
-
-25. **[Data Modeling and ER Diagrams](ch_09_writing_the_script/le_25_data_modeling_er_diagrams/)** - Database design principles
-26. **[Normalization: 1NF, 2NF, 3NF](ch_09_writing_the_script/le_26_normalization_1nf_2nf_3nf/)** - Optimizing database structure
-27. **[Indexing and Performance](ch_09_writing_the_script/le_27_indexing_performance/)** - Speed optimization
-
-### Chapter 10: Ancient Meets Modern (Course 11 - Part 2)
-*Bridge database design with Python applications*
-
-28. **[Python + SQLite / MySQL](ch_10_ancient_meets_modern/le_28_python_sqlite_mysql/)** - Connecting to databases
-29. **[Executing Queries via Python](ch_10_ancient_meets_modern/le_29_executing_queries_python/)** - Database operations
-30. **[Capstone: Database-Driven App with Python](ch_10_ancient_meets_modern/le_30_capstone_database_driven_app/)** - Final project
+This comprehensive course takes you through 30 lessons organized into six progressive arcs:
 
 ---
+
+## Course Structure: 30 Lessons Across 6 Arcs
+
+### 🗄️ Arc 1: Database Foundations (Lessons 1-3)
+
+_Understanding How Data is Organized_
+
+- L01: What is a Database?
+- L02: SQL vs NoSQL
+- L03: Tables, Rows, Columns, and Keys
+
+**Master:** Database concepts, storage types, relational structure, primary and foreign keys
+
+---
+
+### 🐍 Arc 2: Python Fundamentals (Lessons 4-12)
+
+_Building Your Programming Foundation_
+
+- L04: Lists, Tuples, and Dictionaries
+- L05: Functions, Parameters, and Data Tasks
+- L06: Error Handling and Debugging
+- L07: Syntax, Indentation, and Comments
+- L08: Variables, Data Types, and Operators
+- L09: Input/Output Basics
+- L10: Conditionals and Control Flow
+- L11: Loops (for/while)
+- L12: String Formatting and Manipulation
+
+**Master:** Python syntax, data structures, control flow, functions, error handling, debugging techniques
+
+---
+
+### 📊 Arc 3: Quantitative Methods & Data Science (Lessons 13-18)
+
+_Turning Data into Insights_
+
+- L13: Introduction to Quantitative Methods
+- L14: NumPy, Pandas, and Matplotlib
+- L15: Descriptive Statistics and Probability
+- L16: Regression and Linear Models
+- L17: Simulation and Data in Python
+- L18: **Mini Project - Model the Future** (Forecasting)
+
+**Master:** Data analysis, visualization, statistical modeling, regression, simulation, forecasting
+
+**🎯 Mini-Project:** Build a quarterly applicant and budget forecasting system for barangay planning
+
+---
+
+### 📁 Arc 4: File Handling & Modules (Lessons 19-21)
+
+_Working with Real-World Data_
+
+- L19: File I/O in Python
+- L20: CSV and JSON
+- L21: Python Modules and Imports
+
+**Master:** File operations, data formats, modular programming, code organization
+
+---
+
+### 🌐 Arc 5: Web Development with Flask (Lessons 22-24)
+
+_Building Web Applications_
+
+- L22: Web Servers and Flask Basics
+- L23: Templates, Forms, and POST Requests
+- L24: REST APIs 101
+
+**Master:** Web servers, routing, templates, form handling, API design, JSON responses
+
+---
+
+### 🔗 Arc 6: Database Design & Integration (Lessons 25-30)
+
+_Full-Stack Database Applications_
+
+- L25: Data Modeling and ER Diagrams
+- L26: Normalization (1NF, 2NF, 3NF)
+- L27: Indexing Strategies
+- L28: Python Database Connection
+- L29: Executing Queries from Python
+- L30: **Capstone - Database-Driven App**
+
+**Master:** Database design, optimization, normalization, indexing, Python-database integration, full CRUD operations
+
+**🎯 Capstone Project:** Build a complete Barangay Resident Management System with Flask, SQLite, and full CRUD functionality
 
 ---
 
 ## What You'll Build
 
-Throughout this course, you'll build a **complete Barangay Scholarship Management System**:
-- Database schema with normalized tables
-- Python backend with data processing
-- Statistical analysis and forecasting
-- Flask web application with REST API
-- Secure, production-ready deployment
+Throughout this course, you'll create progressively complex projects:
 
-## Lesson Structure
-
-Each lesson includes:
-- **Background Story** - Narrative introduction with Tian, Rhea Joy, and Kuya Miguel
-- **Theory & Lecture Content** - Technical concepts and code examples
-- **Closing Story** - Practical application and next lesson teaser
-- **Quiz** - Test your understanding
-- **Exercises** - Hands-on practice
-
-## Getting Started
-
-1. Start with **Lesson 1: What is a Database?**
-2. Progress sequentially through all 30 lessons
-3. Complete quizzes and exercises after each lesson
-4. Build the capstone projects in Lessons 18 and 30
-
-**Time commitment**: 4-5 hours of focused learning
+1. **Community Database** (Arc 1) - Design and create your first SQLite database for applicant tracking
+2. **Data Analysis Scripts** (Arc 2-3) - Process and analyze barangay data with Python
+3. **Budget Forecaster** (L18) - Predict future applicants and budget needs using regression and simulation
+4. **Flask API** (Arc 5) - Build RESTful endpoints for barangay services
+5. **Resident Management System** (L30) - Complete full-stack application with database, API, and web interface
 
 ---
+
+## Learning Objectives
+
+By the end of this course, you will:
+
+- ✅ Understand database fundamentals (SQL, tables, relationships)
+- ✅ Write Python code with proper syntax and structure
+- ✅ Work with Python data structures (lists, dicts, tuples)
+- ✅ Handle errors gracefully and debug effectively
+- ✅ Analyze data with NumPy and Pandas
+- ✅ Visualize data with Matplotlib
+- ✅ Apply statistical methods and regression
+- ✅ Read and write files (CSV, JSON)
+- ✅ Build web applications with Flask
+- ✅ Design normalized databases
+- ✅ Connect Python to databases
+- ✅ Execute SQL queries from Python
+- ✅ Build complete CRUD applications
+
+---
+
+## Technologies You'll Master
+
+**Python Core:**
+
+- Python 3.x syntax and idioms
+- Data structures (lists, tuples, dictionaries, sets)
+- Functions, modules, and packages
+- Error handling and debugging
+
+**Data Science Stack:**
+
+- NumPy (numerical computing)
+- Pandas (data manipulation)
+- Matplotlib (visualization)
+- SciPy (statistics)
+
+**Web Development:**
+
+- Flask (web framework)
+- Jinja2 (templates)
+- REST API design
+- JSON handling
+
+**Database:**
+
+- SQLite (development database)
+- SQL queries (SELECT, INSERT, UPDATE, DELETE)
+- Database design (ER diagrams, normalization)
+- Python DB-API (sqlite3, mysql-connector)
+
+---
+
+## Who Is This For?
+
+**Perfect for:**
+
+- Students learning programming fundamentals
+- Developers wanting to add Python to their skillset
+- Data enthusiasts exploring analytics
+- Anyone building database-driven applications
+- Career shifters entering tech
+
+**Prerequisites:**
+
+- Basic computer literacy
+- Willingness to practice and experiment
+- No prior programming experience required!
+
+---
+
+## Learning Approach
+
+Each lesson features:
+
+- **Barangay-themed examples** - Every exercise uses Filipino community context
+- **Hands-on practice** - Code exercises you run and modify
+- **Progressive complexity** - Build skills systematically
+- **Real-world scenarios** - Scholarship apps, relief goods, resident data
+- **Comprehensive quizzes** - Reinforce learning with practice questions
+
+---
+
+## Time Commitment
+
+- **30 lessons** → ~10-15 minutes each = 5-8 hours of instruction
+- Practice exercises and projects: 10-15 hours
+- **Total estimated time:** 15-23 hours to complete
+- **Recommended pace:** 3-5 lessons per week = 6-10 weeks
+
+---
+
+## After This Course
+
+You'll be able to:
+
+- ✅ Design and implement databases from scratch
+- ✅ Write Python scripts for data processing
+- ✅ Analyze data and create visualizations
+- ✅ Build forecasting models for planning
+- ✅ Develop Flask web applications
+- ✅ Create REST APIs for frontend integration
+- ✅ Connect applications to databases
+- ✅ Implement full CRUD operations
+- ✅ Continue to Django, FastAPI, or data science specialization
+
+---
+
+## Let's Begin Your Journey
+
+From understanding databases to deploying full-stack applications—30 lessons stand between you and Python mastery.
+
+It starts with a simple question: **"What is a database, really?"**
+
+And it ends with you building a **complete resident management system** that could serve a real barangay.
+
+Python awaits. Your community needs data-driven solutions.
+
+**Simulan natin ang Python journey!** (Let's start the Python journey!) 🐍🇵🇭
