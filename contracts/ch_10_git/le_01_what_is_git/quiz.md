@@ -3,64 +3,72 @@
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-What is [concept from lesson]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is Git?
 
-**Correct Answer: C**
+A) A programming language for web development
+B) A distributed version control system for tracking code changes
+C) A cloud storage service for files
+D) A text editor for coding
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Git is a distributed version control system (VCS) designed to track changes in source code and coordinate work among developers.
 
 ---
 
 ## Question 2
-When should you use [concept]?
 
-A) Option A
-B) Option B
-C) Option C
+What does "distributed" mean in a distributed version control system?
+
+A) The code is stored only on a central server
+B) Every developer has a full copy of the repository history
+C) Files are automatically shared to the cloud
+D) Only the project lead has access to the history
 
 **Correct Answer: B**
 
-**Explanation:** [Explanation]
+**Explanation:** In a distributed VCS like Git, every developer's working copy is also a repository that contains the full history of all changes, not just the latest snapshot.
 
 ---
 
 ## Question 3
-Which command [does something]?
 
-A) `git ...`
-B) `git ...`
-C) `git ...`
+Which of the following is NOT a benefit of using Git?
 
-**Correct Answer: A**
+A) Tracking changes over time
+B) Collaborating with multiple developers
+C) Automatically fixing bugs in code
+D) Reverting to previous versions
 
-**Explanation:** [Explanation]
+**Correct Answer: C**
+
+**Explanation:** Git tracks changes, enables collaboration, and allows reverting to earlier versions, but it does not automatically fix bugs—that's still the developer's job!
 
 ---
 
 ## Question 4
-True or False: [Statement about the lesson]
 
-**Correct Answer: True/False**
+True or False: Git was created by Linus Torvalds, the creator of Linux.
 
-**Explanation:** [Explanation]
+**Correct Answer: True**
+
+**Explanation:** Linus Torvalds created Git in 2005 to manage the development of the Linux kernel after the previous version control tool they used became unavailable.
 
 ---
 
 ## Question 5
-What is the purpose of [concept]?
 
-A) [Purpose]
-B) [Purpose]
-C) [Purpose]
+In the context of version control, what is a "commit"?
 
-**Correct Answer: A**
+A) A promise to write better code
+B) A snapshot of your project at a specific point in time
+C) A message sent to your team
+D) A backup stored in the cloud
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** A commit is a recorded snapshot of your project's files at a particular moment, along with a message describing what changed.
 
 ---
 

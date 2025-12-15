@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Commit Message Standards
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the recommended maximum length for a commit message subject line?
 
-**Correct Answer: [Letter]**
+A) 100 characters
+B) 50 characters
+C) 200 characters
+D) No limit
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Keeping subject lines to 50 characters or less ensures they display properly in Git tools and logs without truncation.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is Conventional Commits?
 
-**Correct Answer: [Letter]**
+A) A merge strategy
+B) A specification for writing standardized commit messages
+C) A tool for generating commits
+D) A branching model
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Conventional Commits provides a format like `type(scope): description` that standardizes commit messages and enables automated changelog generation.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which is a good example of a commit message?
 
-**Correct Answer: [Letter]**
+A) "Fixed stuff"
+B) "fix: resolve login button not responding on mobile"
+C) "asdfasdf"
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Good commit messages are descriptive, explain what was changed, and optionally use conventional format with type prefixes like `fix:` or `feat:`.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: The commit body should be separated from the subject by a blank line.
 
-**Correct Answer: [Letter]**
+**Correct Answer: True**
 
-**Explanation:** [Explanation]
+**Explanation:** Git treats the first line as the subject. A blank line separates it from the optional body, which can provide more detailed explanation.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What is the purpose of using commit message types like "feat", "fix", "docs"?
 
-**Correct Answer: [Letter]**
+A) To make messages longer
+B) To categorize changes and enable automation (changelogs, semantic versioning)
+C) To confuse team members
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Type prefixes help categorize commits and enable tools to automatically generate changelogs and determine version bumps.
 
 ---
 

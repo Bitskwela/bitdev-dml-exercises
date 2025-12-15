@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Tags and Releases
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is a Git tag?
 
-**Correct Answer: [Letter]**
+A) A label that points to a specific commit, typically used for releases
+B) A type of branch
+C) A commit message
+D) A remote repository
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** Tags are references that point to specific commits, commonly used to mark release versions like v1.0.0.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the difference between lightweight and annotated tags?
 
-**Correct Answer: [Letter]**
+A) There is no difference
+B) Lightweight is just a pointer; annotated includes metadata (tagger, date, message)
+C) Annotated tags are smaller
+D) Lightweight tags can't be pushed
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Lightweight tags are simple pointers. Annotated tags are full Git objects with tagger name, email, date, and message—recommended for releases.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which command creates an annotated tag?
 
-**Correct Answer: [Letter]**
+A) `git tag v1.0.0`
+B) `git tag -a v1.0.0 -m "Release version 1.0.0"`
+C) `git tag --light v1.0.0`
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `-a` flag creates an annotated tag, and `-m` adds a message. Without `-a`, you get a lightweight tag.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: By default, `git push` also pushes tags.
 
-**Correct Answer: [Letter]**
+**Correct Answer: False**
 
-**Explanation:** [Explanation]
+**Explanation:** Tags must be pushed explicitly with `git push origin <tagname>` or `git push --tags` to push all tags.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What is semantic versioning (SemVer)?
 
-**Correct Answer: [Letter]**
+A) A random numbering system
+B) A versioning scheme: MAJOR.MINOR.PATCH (e.g., 2.1.3)
+C) A Git command
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** SemVer uses three numbers: MAJOR (breaking changes), MINOR (new features, backward compatible), PATCH (bug fixes). Example: v1.2.3.
 
 ---
 

@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "Which command discards changes in a file and restores it to the last committed version?",
+    "choices": [
+      { "id": "a", "text": "`git undo file.txt`" },
+      { "id": "b", "text": "`git restore file.txt`" },
+      { "id": "c", "text": "`git revert file.txt`" },
+      { "id": "d", "text": "`git delete file.txt`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is the difference between `git reset` and `git revert`?",
+    "choices": [
+      { "id": "a", "text": "They are exactly the same" },
+      {
+        "id": "b",
+        "text": "`reset` rewrites history, `revert` creates a new commit that undoes changes"
+      },
+      { "id": "c", "text": "`revert` deletes commits permanently" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command unstages a file without discarding changes?",
+    "choices": [
+      { "id": "a", "text": "`git restore --staged file.txt`" },
+      { "id": "b", "text": "`git delete --staged file.txt`" },
+      { "id": "c", "text": "`git remove file.txt`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "`git reset --hard` permanently discards uncommitted changes.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of `git reset HEAD~1`?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "To move HEAD back one commit (keeping changes based on flags used)"
+      },
+      { "id": "b", "text": "To permanently delete the repository" },
+      { "id": "c", "text": "To push changes to remote" }
+    ],
+    "answer": "a",
+    "points": 1
+  }
+]

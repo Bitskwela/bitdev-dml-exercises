@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is Git Flow?",
+    "choices": [
+      { "id": "a", "text": "A command to speed up Git operations" },
+      {
+        "id": "b",
+        "text": "A branching model with specific branch types (main, develop, feature, release, hotfix)"
+      },
+      { "id": "c", "text": "A tool for visualizing commits" },
+      { "id": "d", "text": "An alternative to Git" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is GitHub Flow?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "A complex branching strategy with many branch types"
+      },
+      {
+        "id": "b",
+        "text": "A simpler workflow: branch from main, work, open PR, merge"
+      },
+      { "id": "c", "text": "A tool only available on GitHub" },
+      { "id": "d", "text": "A way to download code" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "When might you choose Git Flow over GitHub Flow?",
+    "choices": [
+      { "id": "a", "text": "When you need continuous deployment" },
+      {
+        "id": "b",
+        "text": "When you have scheduled releases and need to maintain multiple versions"
+      },
+      { "id": "c", "text": "When working solo" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Trunk-based development encourages long-lived feature branches.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of a \"develop\" branch in Git Flow?",
+    "choices": [
+      { "id": "a", "text": "To store deleted files" },
+      {
+        "id": "b",
+        "text": "To serve as the integration branch for features before release"
+      },
+      { "id": "c", "text": "To replace the main branch" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

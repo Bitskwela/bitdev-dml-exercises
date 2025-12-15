@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What are Git hooks?",
+    "choices": [
+      { "id": "a", "text": "Hardware devices for Git servers" },
+      {
+        "id": "b",
+        "text": "Scripts that run automatically at specific Git events (commit, push, etc.)"
+      },
+      { "id": "c", "text": "A way to connect to remote repositories" },
+      { "id": "d", "text": "Backup mechanisms" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Where are Git hooks stored?",
+    "choices": [
+      { "id": "a", "text": "In the remote repository" },
+      { "id": "b", "text": "In the `.git/hooks` directory" },
+      { "id": "c", "text": "In a cloud server" },
+      { "id": "d", "text": "In the package.json file" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What is a common use for the pre-commit hook?",
+    "choices": [
+      { "id": "a", "text": "To send emails after commits" },
+      { "id": "b", "text": "To run linters or tests before allowing a commit" },
+      { "id": "c", "text": "To push code automatically" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Git hooks in the .git/hooks directory are automatically shared with team members when they clone.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is Husky commonly used for?",
+    "choices": [
+      { "id": "a", "text": "Compressing Git repositories" },
+      {
+        "id": "b",
+        "text": "Managing and sharing Git hooks easily across a team"
+      },
+      { "id": "c", "text": "Creating new repositories" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

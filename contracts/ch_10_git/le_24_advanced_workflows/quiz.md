@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Advanced Workflows
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is trunk-based development?
 
-**Correct Answer: [Letter]**
+A) A workflow using many long-lived branches
+B) A workflow where developers integrate to main frequently, using short-lived branches
+C) Only working on the main branch without any branches
+D) A way to store code in tree structures
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Trunk-based development emphasizes small, frequent integrations to the main branch, with feature flags instead of long-lived feature branches.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What are feature flags used for?
 
-**Correct Answer: [Letter]**
+A) To mark commits as features
+B) To enable/disable features in code without deploying new code
+C) To create new branches automatically
+D) To flag problematic commits
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Feature flags let you deploy code with incomplete features disabled, enabling continuous deployment while controlling feature rollout.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the Git Forking workflow typically used for?
 
-**Correct Answer: [Letter]**
+A) Enterprise internal projects only
+B) Open source projects where contributors don't have write access
+C) Small personal projects
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Forking is common in open source: contributors fork the repo, make changes, and submit pull requests from their fork to the original repository.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: Monorepo and polyrepo are strategies for organizing multiple projects.
 
-**Correct Answer: [Letter]**
+**Correct Answer: True**
 
-**Explanation:** [Explanation]
+**Explanation:** Monorepo keeps all projects in one repository; polyrepo uses separate repositories. Each has trade-offs for dependency management and tooling.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What is the purpose of using Git submodules?
 
-**Correct Answer: [Letter]**
+A) To delete unused modules
+B) To include external repositories within your repository
+C) To speed up Git operations
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Submodules let you include and track external repositories as dependencies within your project, keeping them at specific versions.
 
 ---
 

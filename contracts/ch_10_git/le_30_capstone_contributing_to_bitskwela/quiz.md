@@ -1,67 +1,72 @@
-# Quiz: Capstone Contributing to Bitskwela
+# Quiz: Capstone – Contributing to Bitskwela
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-What is [concept from lesson]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the first step when preparing to contribute to the Bitskwela project?
 
-**Correct Answer: C**
+A) Start writing code immediately
+B) Fork the repository and clone your fork locally
+C) Delete the main branch
+D) Contact the CEO
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Always start by forking the project to your account, then cloning your fork so you have a local copy to work on.
 
 ---
 
 ## Question 2
-When should you use [concept]?
 
-A) Option A
-B) Option B
-C) Option C
+Before starting work on a contribution, what should you do?
+
+A) Create a new repository
+B) Read the CONTRIBUTING.md and check existing issues
+C) Delete all branches
 
 **Correct Answer: B**
 
-**Explanation:** [Explanation]
+**Explanation:** Review contribution guidelines and check if someone is already working on what you want to do. Communication prevents duplicate work.
 
 ---
 
 ## Question 3
-Which command [does something]?
 
-A) `git ...`
-B) `git ...`
-C) `git ...`
+What makes a good pull request to an open source project?
 
-**Correct Answer: A**
+A) Hundreds of unrelated changes in one PR
+B) A focused change with clear description, following project conventions
+C) No description needed
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Good PRs are focused (one issue/feature), well-documented, follow project style guides, and include any requested tests or documentation.
 
 ---
 
 ## Question 4
-True or False: [Statement about the lesson]
 
-**Correct Answer: True/False**
+True or False: After your PR is merged, you should sync your fork with upstream.
 
-**Explanation:** [Explanation]
+**Correct Answer: True**
+
+**Explanation:** After merging, sync your fork's main branch with upstream to stay current, then delete your feature branch to keep things clean.
 
 ---
 
 ## Question 5
-What is the purpose of [concept]?
 
-A) [Purpose]
-B) [Purpose]
-C) [Purpose]
+What did you learn from completing this Git course?
 
-**Correct Answer: A**
+A) Only merge commits matter
+B) Git is a powerful tool for version control and collaboration
+C) You should avoid using branches
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Congratulations! You've learned that Git enables tracking changes, branching for features, collaborating via PRs, and contributing to open source projects like Bitskwela!
 
 ---
 
-**Reflection:** What did you find most helpful in this lesson? What would you like more practice with?
+**Reflection:** What did you find most helpful in this course? How will you apply Git skills in your future projects?

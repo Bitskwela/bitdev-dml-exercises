@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Remote Repositories
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is a remote repository?
 
-**Correct Answer: [Letter]**
+A) A repository stored only on your local machine
+B) A version of your repository hosted on a server (like GitHub, GitLab)
+C) A deleted repository
+D) A repository without any commits
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Remote repositories are hosted versions of your project on servers like GitHub, GitLab, or Bitbucket, enabling collaboration.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which command adds a remote repository to your local repo?
 
-**Correct Answer: [Letter]**
+A) `git remote add origin <url>`
+B) `git connect <url>`
+C) `git link origin <url>`
+D) `git add remote <url>`
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** The `git remote add` command creates a named reference (commonly "origin") to a remote repository URL.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What does `git remote -v` display?
 
-**Correct Answer: [Letter]**
+A) The Git version
+B) A list of remote repositories with their URLs
+C) All commits in verbose mode
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `-v` (verbose) flag shows the remote names along with their fetch and push URLs.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: "origin" is a required name for your remote.
 
-**Correct Answer: [Letter]**
+**Correct Answer: False**
 
-**Explanation:** [Explanation]
+**Explanation:** "origin" is just a conventional default name. You can name remotes anything, and you can have multiple remotes with different names.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+Which command copies a remote repository to your local machine?
 
-**Correct Answer: [Letter]**
+A) `git copy <url>`
+B) `git clone <url>`
+C) `git download <url>`
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `git clone` command downloads a complete copy of a remote repository, including all history and branches.
 
 ---
 

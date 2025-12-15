@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a pull request (PR)?",
+    "choices": [
+      { "id": "a", "text": "A command to download code" },
+      {
+        "id": "b",
+        "text": "A request to merge your branch into another branch, with code review"
+      },
+      { "id": "c", "text": "A way to delete branches" },
+      { "id": "d", "text": "A backup of your repository" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Where do you create a pull request?",
+    "choices": [
+      { "id": "a", "text": "Using the `git pull-request` command" },
+      {
+        "id": "b",
+        "text": "On the Git hosting platform (GitHub, GitLab, Bitbucket)"
+      },
+      { "id": "c", "text": "In your local terminal only" },
+      { "id": "d", "text": "Through email" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What should a good pull request include?",
+    "choices": [
+      { "id": "a", "text": "Just the code changes, nothing else" },
+      {
+        "id": "b",
+        "text": "A clear title, description, and context about the changes"
+      },
+      { "id": "c", "text": "Your personal diary" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Pull requests allow team members to review and discuss code before merging.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What happens after a pull request is approved and merged?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "The feature branch is automatically deleted forever"
+      },
+      {
+        "id": "b",
+        "text": "The changes from the feature branch become part of the target branch"
+      },
+      { "id": "c", "text": "All commits are removed" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

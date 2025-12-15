@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Fetching Updates
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What does `git fetch` do?
 
-**Correct Answer: [Letter]**
+A) Downloads remote changes AND automatically merges them
+B) Downloads remote changes WITHOUT merging them
+C) Uploads your changes to the remote
+D) Deletes remote branches
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** `git fetch` downloads commits, files, and refs from a remote repository but doesn't merge them—you can review before integrating.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the difference between `git fetch` and `git pull`?
 
-**Correct Answer: [Letter]**
+A) They are the same thing
+B) `fetch` downloads without merging; `pull` downloads AND merges
+C) `fetch` only works on GitHub
+D) `pull` is faster
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** `git fetch` is safer—it lets you review remote changes before merging. `git pull` automatically merges, which can cause unexpected conflicts.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+After fetching, how do you view the fetched commits?
 
-**Correct Answer: [Letter]**
+A) `git log origin/main` or `git log FETCH_HEAD`
+B) `git show fetch`
+C) `git view remote`
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** After fetching, you can compare with `git log origin/main` to see what commits are on the remote that you don't have locally.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: `git fetch` modifies your working directory.
 
-**Correct Answer: [Letter]**
+**Correct Answer: False**
 
-**Explanation:** [Explanation]
+**Explanation:** `git fetch` only updates your remote-tracking branches. Your working directory and local branches remain unchanged until you explicitly merge or rebase.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+When is it better to use `git fetch` instead of `git pull`?
 
-**Correct Answer: [Letter]**
+A) When you want to review changes before integrating them
+B) When you're offline
+C) Never—always use pull
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** Use `git fetch` when you want to see what's changed on the remote and decide how to integrate (merge vs. rebase) or if you want to review changes first.
 
 ---
 

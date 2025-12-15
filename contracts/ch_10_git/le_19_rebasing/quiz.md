@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Rebasing
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What does `git rebase` do?
 
-**Correct Answer: [Letter]**
+A) Deletes all commits
+B) Moves or "replays" your commits onto a different base commit
+C) Creates a backup of your repository
+D) Merges two repositories together
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Rebasing takes commits from your branch and replays them on top of another branch, creating a linear history.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the difference between merge and rebase?
 
-**Correct Answer: [Letter]**
+A) They are exactly the same
+B) Merge creates a merge commit; rebase creates a linear history without merge commits
+C) Rebase only works on GitHub
+D) Merge deletes commits
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Merge preserves branch history with a merge commit. Rebase rewrites history to be linear as if you branched from the latest commit.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which command rebases your current branch onto main?
 
-**Correct Answer: [Letter]**
+A) `git rebase main`
+B) `git merge --rebase main`
+C) `git base main`
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** While on your feature branch, `git rebase main` replays your commits on top of the latest main.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: You should never rebase commits that have been pushed to a shared branch.
 
-**Correct Answer: [Letter]**
+**Correct Answer: True**
 
-**Explanation:** [Explanation]
+**Explanation:** Rebasing rewrites commit history. If others have based work on those commits, their history will conflict with yours, causing problems.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What is the main advantage of rebasing?
 
-**Correct Answer: [Letter]**
+A) It's faster than merge
+B) It creates a cleaner, linear commit history
+C) It automatically fixes bugs
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Rebasing produces a straight-line history that's easier to read and understand, without merge commits cluttering the log.
 
 ---
 

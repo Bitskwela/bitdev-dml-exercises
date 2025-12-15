@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a fast-forward merge?",
+    "choices": [
+      { "id": "a", "text": "A merge that happens very quickly" },
+      {
+        "id": "b",
+        "text": "A merge where Git simply moves the branch pointer forward because there's no divergent history"
+      },
+      { "id": "c", "text": "A merge that skips conflict resolution" },
+      { "id": "d", "text": "A merge between two remote repositories" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command merges the \"feature\" branch into your current branch?",
+    "choices": [
+      { "id": "a", "text": "`git combine feature`" },
+      { "id": "b", "text": "`git merge feature`" },
+      { "id": "c", "text": "`git join feature`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "When does a fast-forward merge occur?",
+    "choices": [
+      { "id": "a", "text": "When both branches have new commits" },
+      {
+        "id": "b",
+        "text": "When the current branch has no new commits since the branching point"
+      },
+      { "id": "c", "text": "When there are merge conflicts" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "A fast-forward merge creates a new merge commit.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of `git merge --no-ff`?",
+    "choices": [
+      { "id": "a", "text": "To prevent any merge from happening" },
+      {
+        "id": "b",
+        "text": "To force a merge commit even when fast-forward is possible"
+      },
+      { "id": "c", "text": "To merge faster" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

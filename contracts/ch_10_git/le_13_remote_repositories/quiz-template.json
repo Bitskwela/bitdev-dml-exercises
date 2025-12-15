@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a remote repository?",
+    "choices": [
+      { "id": "a", "text": "A repository stored only on your local machine" },
+      {
+        "id": "b",
+        "text": "A version of your repository hosted on a server (like GitHub, GitLab)"
+      },
+      { "id": "c", "text": "A deleted repository" },
+      { "id": "d", "text": "A repository without any commits" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command adds a remote repository to your local repo?",
+    "choices": [
+      { "id": "a", "text": "`git remote add origin <url>`" },
+      { "id": "b", "text": "`git connect <url>`" },
+      { "id": "c", "text": "`git link origin <url>`" },
+      { "id": "d", "text": "`git add remote <url>`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What does `git remote -v` display?",
+    "choices": [
+      { "id": "a", "text": "The Git version" },
+      { "id": "b", "text": "A list of remote repositories with their URLs" },
+      { "id": "c", "text": "All commits in verbose mode" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "\"origin\" is a required name for your remote.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "Which command copies a remote repository to your local machine?",
+    "choices": [
+      { "id": "a", "text": "`git copy <url>`" },
+      { "id": "b", "text": "`git clone <url>`" },
+      { "id": "c", "text": "`git download <url>`" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

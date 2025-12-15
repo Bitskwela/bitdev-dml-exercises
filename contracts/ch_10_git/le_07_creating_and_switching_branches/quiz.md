@@ -3,64 +3,69 @@
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-What is [concept from lesson]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which command creates a new branch called "feature-login"?
 
-**Correct Answer: C**
+A) `git new branch feature-login`
+B) `git branch feature-login`
+C) `git create feature-login`
+D) `git add branch feature-login`
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `git branch <name>` command creates a new branch but doesn't switch to it. It creates a new pointer at your current commit.
 
 ---
 
 ## Question 2
-When should you use [concept]?
 
-A) Option A
-B) Option B
-C) Option C
+Which command switches to an existing branch?
 
-**Correct Answer: B**
+A) `git switch <branch-name>` or `git checkout <branch-name>`
+B) `git move <branch-name>`
+C) `git go <branch-name>`
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** Both `git switch` (newer, recommended) and `git checkout` can be used to switch between branches. `git switch` was introduced to make the command clearer.
 
 ---
 
 ## Question 3
-Which command [does something]?
 
-A) `git ...`
-B) `git ...`
-C) `git ...`
+Which command creates a new branch AND switches to it immediately?
 
-**Correct Answer: A**
+A) `git branch -s new-branch`
+B) `git switch -c new-branch` or `git checkout -b new-branch`
+C) `git create-and-switch new-branch`
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `-c` flag with `git switch` or `-b` flag with `git checkout` creates a new branch and switches to it in one command.
 
 ---
 
 ## Question 4
-True or False: [Statement about the lesson]
 
-**Correct Answer: True/False**
+True or False: You must commit all changes before switching branches.
 
-**Explanation:** [Explanation]
+**Correct Answer: False**
+
+**Explanation:** You don't have to commit, but uncommitted changes will come with you to the new branch. If there are conflicts, Git will warn you. It's good practice to commit or stash changes first.
 
 ---
 
 ## Question 5
-What is the purpose of [concept]?
 
-A) [Purpose]
-B) [Purpose]
-C) [Purpose]
+What does HEAD point to in Git?
 
-**Correct Answer: A**
+A) The first commit ever made
+B) The currently checked-out branch or commit
+C) The remote repository
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** HEAD is a special pointer that indicates your current position in the repository—usually the branch you're currently on.
 
 ---
 

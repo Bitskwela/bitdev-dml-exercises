@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Collaboration Mini Project
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the first step when joining a team project on GitHub?
 
-**Correct Answer: [Letter]**
+A) Start making changes immediately
+B) Clone the repository to your local machine
+C) Delete the main branch
+D) Create a new repository
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Cloning creates a local copy of the repository where you can work on features and contribute.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What's the recommended workflow for contributing to a team project?
 
-**Correct Answer: [Letter]**
+A) Commit directly to main
+B) Create a feature branch, make changes, push, and open a PR
+C) Email your code to teammates
+D) Only the team lead can make changes
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Using feature branches with pull requests ensures code review, discussion, and controlled integration of changes.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+How do you keep your local repository in sync with the team?
 
-**Correct Answer: [Letter]**
+A) Delete and re-clone every day
+B) Regularly pull or fetch changes from the remote
+C) Ignore what others are doing
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Regular pulls/fetches keep you up-to-date with team changes and reduce merge conflicts.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: Good communication is as important as Git skills when collaborating.
 
-**Correct Answer: [Letter]**
+**Correct Answer: True**
 
-**Explanation:** [Explanation]
+**Explanation:** Technical skills matter, but clear communication about what you're working on, PR descriptions, and code review discussions are equally vital for team success.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What should you do before starting work on a new feature?
 
-**Correct Answer: [Letter]**
+A) Jump straight into coding
+B) Pull the latest changes and create a new branch from main
+C) Delete all local branches first
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Starting from an up-to-date main branch ensures your feature branch has the latest code and minimizes future conflicts.
 
 ---
 

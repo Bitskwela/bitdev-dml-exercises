@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Cherry-Picking
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What does `git cherry-pick` do?
 
-**Correct Answer: [Letter]**
+A) Deletes selected commits
+B) Applies a specific commit from one branch to another
+C) Creates a new branch automatically
+D) Merges all commits at once
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Cherry-picking copies a specific commit and applies it to your current branch, without merging the entire branch.
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which command cherry-picks a commit with hash abc123?
 
-**Correct Answer: [Letter]**
+A) `git pick abc123`
+B) `git cherry-pick abc123`
+C) `git copy abc123`
+D) `git apply abc123`
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `git cherry-pick <commit-hash>` command applies that specific commit to your current branch.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+When is cherry-picking useful?
 
-**Correct Answer: [Letter]**
+A) When you want to apply a bug fix from one branch to another without full merge
+B) When you want to delete a branch
+C) When you want to rename commits
 
-**Explanation:** [Explanation]
+**Correct Answer: A**
+
+**Explanation:** Cherry-picking is perfect for applying specific fixes or features to other branches (like backporting a hotfix to a release branch).
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: Cherry-picking creates a new commit with a different hash than the original.
 
-**Correct Answer: [Letter]**
+**Correct Answer: True**
 
-**Explanation:** [Explanation]
+**Explanation:** The cherry-picked commit is a new commit with a new hash, even though the changes are the same. This is because the parent commit is different.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What happens if there's a conflict during cherry-pick?
 
-**Correct Answer: [Letter]**
+A) The cherry-pick automatically succeeds
+B) Git pauses and asks you to resolve the conflict manually
+C) The original commit is deleted
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Like merge conflicts, you must resolve cherry-pick conflicts manually, then run `git cherry-pick --continue` to proceed.
 
 ---
 

@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "Which command creates a new branch called \"feature-login\"?",
+    "choices": [
+      { "id": "a", "text": "`git new branch feature-login`" },
+      { "id": "b", "text": "`git branch feature-login`" },
+      { "id": "c", "text": "`git create feature-login`" },
+      { "id": "d", "text": "`git add branch feature-login`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command switches to an existing branch?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "`git switch <branch-name>` or `git checkout <branch-name>`"
+      },
+      { "id": "b", "text": "`git move <branch-name>`" },
+      { "id": "c", "text": "`git go <branch-name>`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command creates a new branch AND switches to it immediately?",
+    "choices": [
+      { "id": "a", "text": "`git branch -s new-branch`" },
+      {
+        "id": "b",
+        "text": "`git switch -c new-branch` or `git checkout -b new-branch`"
+      },
+      { "id": "c", "text": "`git create-and-switch new-branch`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "You must commit all changes before switching branches.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What does HEAD point to in Git?",
+    "choices": [
+      { "id": "a", "text": "The first commit ever made" },
+      { "id": "b", "text": "The currently checked-out branch or commit" },
+      { "id": "c", "text": "The remote repository" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

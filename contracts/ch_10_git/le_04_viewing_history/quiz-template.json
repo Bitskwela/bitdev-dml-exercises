@@ -1,0 +1,61 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "Which command displays the commit history of a repository?",
+    "choices": [
+      { "id": "a", "text": "`git history`" },
+      { "id": "b", "text": "`git log`" },
+      { "id": "c", "text": "`git show-commits`" },
+      { "id": "d", "text": "`git commits`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What does `git log --oneline` do?",
+    "choices": [
+      { "id": "a", "text": "Shows only the first commit" },
+      {
+        "id": "b",
+        "text": "Displays each commit on a single line with abbreviated hash and message"
+      },
+      { "id": "c", "text": "Shows commits from the past hour only" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command shows the details of a specific commit, including the changes made?",
+    "choices": [
+      { "id": "a", "text": "`git show <commit-hash>`" },
+      { "id": "b", "text": "`git view <commit-hash>`" },
+      { "id": "c", "text": "`git details <commit-hash>`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "`git diff` shows changes between your working directory and the staging area by default.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of `git log -- file.txt`?",
+    "choices": [
+      { "id": "a", "text": "To view the commit history for a specific file" },
+      { "id": "b", "text": "To delete the file from history" },
+      { "id": "c", "text": "To create a new file" }
+    ],
+    "answer": "a",
+    "points": 1
+  }
+]

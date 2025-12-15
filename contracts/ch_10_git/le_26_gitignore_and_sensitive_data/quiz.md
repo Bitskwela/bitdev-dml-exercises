@@ -1,72 +1,72 @@
-# Quiz: Lesson
+# Quiz: Gitignore and Sensitive Data
 
 Answer the following questions to check your understanding of this lesson.
 
 ## Question 1
-[Question 1]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What is the purpose of a .gitignore file?
 
-**Correct Answer: [Letter]**
+A) To delete files from your computer
+B) To specify files and patterns that Git should not track
+C) To hide files from your file explorer
+D) To encrypt sensitive files
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** `.gitignore` tells Git which files or directories to ignore and not include in version control (like build outputs, dependencies, secrets).
 
 ---
 
 ## Question 2
-[Question 2]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+Which pattern in .gitignore ignores all .log files?
 
-**Correct Answer: [Letter]**
+A) `log.*`
+B) `*.log`
+C) `all.log`
+D) `logs/`
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** The `*.log` pattern uses wildcard `*` to match any filename ending with `.log`.
 
 ---
 
 ## Question 3
-[Question 3]?
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
+What should you do if you accidentally committed a file with sensitive data (like API keys)?
 
-**Correct Answer: [Letter]**
+A) Just delete the file and commit again
+B) Remove it from history using tools like `git filter-branch` or BFG, and rotate the exposed credentials
+C) Ignore it and hope no one notices
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Simply deleting a file doesn't remove it from history. You must rewrite history AND consider the secret compromised—rotate it immediately.
 
 ---
 
 ## Question 4
-[Question 4]?
 
-A) Option A
-B) Option B
-C) Option C
+True or False: Adding a file to .gitignore removes it from existing commits.
 
-**Correct Answer: [Letter]**
+**Correct Answer: False**
 
-**Explanation:** [Explanation]
+**Explanation:** `.gitignore` only affects untracked files. If a file was already committed, you need to remove it with `git rm --cached` and then commit.
 
 ---
 
 ## Question 5
-[Question 5]?
 
-A) Option A
-B) Option B
-C) Option C
+What is a good practice for handling environment-specific configuration?
 
-**Correct Answer: [Letter]**
+A) Commit all secrets to the repository
+B) Use .env files (ignored by Git) and .env.example templates
+C) Share passwords via email
 
-**Explanation:** [Explanation]
+**Correct Answer: B**
+
+**Explanation:** Use `.env` files for secrets (add to .gitignore), and provide a `.env.example` template with placeholder values so team members know what variables to set.
 
 ---
 
