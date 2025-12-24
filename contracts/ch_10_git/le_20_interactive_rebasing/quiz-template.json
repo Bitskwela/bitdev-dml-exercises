@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What command starts an interactive rebase for the last 3 commits?",
+    "choices": [
+      { "id": "a", "text": "`git rebase -i 3`" },
+      { "id": "b", "text": "`git rebase -i HEAD~3`" },
+      { "id": "c", "text": "`git rebase --interactive 3`" },
+      { "id": "d", "text": "`git edit-commits 3`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which action in interactive rebase allows you to edit a commit message?",
+    "choices": [
+      { "id": "a", "text": "`pick`" },
+      { "id": "b", "text": "`squash`" },
+      { "id": "c", "text": "`reword`" },
+      { "id": "d", "text": "`drop`" }
+    ],
+    "answer": "c",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What does \"squash\" do in interactive rebase?",
+    "choices": [
+      { "id": "a", "text": "Deletes the commit" },
+      { "id": "b", "text": "Combines the commit with the previous one" },
+      { "id": "c", "text": "Splits the commit into multiple commits" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Interactive rebase can reorder commits.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of the \"drop\" action in interactive rebase?",
+    "choices": [
+      { "id": "a", "text": "To save the commit for later" },
+      { "id": "b", "text": "To completely remove a commit from history" },
+      { "id": "c", "text": "To pause the rebase" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

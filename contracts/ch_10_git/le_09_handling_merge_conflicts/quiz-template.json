@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What causes a merge conflict?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "When two branches modify the same lines in a file differently"
+      },
+      { "id": "b", "text": "When you try to merge too quickly" },
+      { "id": "c", "text": "When Git runs out of memory" },
+      { "id": "d", "text": "When the internet connection is lost" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What do the conflict markers `<<<<<<<`, `=======`, and `>>>>>>>` represent?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Error messages that need to be fixed by reinstalling Git"
+      },
+      {
+        "id": "b",
+        "text": "Separators showing your changes vs. incoming changes"
+      },
+      { "id": "c", "text": "Comments that Git adds automatically" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "After resolving conflicts, what commands do you run to complete the merge?",
+    "choices": [
+      { "id": "a", "text": "`git resolve` then `git done`" },
+      { "id": "b", "text": "`git add <files>` then `git commit`" },
+      { "id": "c", "text": "`git merge --finish`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "You can abort a merge if you want to start over.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is a good practice to minimize merge conflicts?",
+    "choices": [
+      { "id": "a", "text": "Never create branches" },
+      {
+        "id": "b",
+        "text": "Pull changes frequently and communicate with your team"
+      },
+      { "id": "c", "text": "Delete all branches after each commit" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

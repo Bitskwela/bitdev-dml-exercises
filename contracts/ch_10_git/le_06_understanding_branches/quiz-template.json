@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a branch in Git?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "A copy of your repository stored on a remote server"
+      },
+      {
+        "id": "b",
+        "text": "A lightweight movable pointer to a specific commit"
+      },
+      { "id": "c", "text": "A backup file created automatically by Git" },
+      { "id": "d", "text": "A folder where deleted files are stored" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is the default branch name in most Git repositories?",
+    "choices": [
+      { "id": "a", "text": "`master` or `main`" },
+      { "id": "b", "text": "`default`" },
+      { "id": "c", "text": "`primary`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command shows all branches in your repository?",
+    "choices": [
+      { "id": "a", "text": "`git branch`" },
+      { "id": "b", "text": "`git list-branches`" },
+      { "id": "c", "text": "`git show branches`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Creating a new branch creates a complete copy of all your project files.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of using branches?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "To work on features or fixes in isolation without affecting the main codebase"
+      },
+      { "id": "b", "text": "To permanently delete old code" },
+      { "id": "c", "text": "To speed up the computer" }
+    ],
+    "answer": "a",
+    "points": 1
+  }
+]

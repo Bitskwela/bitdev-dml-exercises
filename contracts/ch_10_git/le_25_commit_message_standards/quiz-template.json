@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is the recommended maximum length for a commit message subject line?",
+    "choices": [
+      { "id": "a", "text": "100 characters" },
+      { "id": "b", "text": "50 characters" },
+      { "id": "c", "text": "200 characters" },
+      { "id": "d", "text": "No limit" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is Conventional Commits?",
+    "choices": [
+      { "id": "a", "text": "A merge strategy" },
+      {
+        "id": "b",
+        "text": "A specification for writing standardized commit messages"
+      },
+      { "id": "c", "text": "A tool for generating commits" },
+      { "id": "d", "text": "A branching model" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which is a good example of a commit message?",
+    "choices": [
+      { "id": "a", "text": "\"Fixed stuff\"" },
+      {
+        "id": "b",
+        "text": "\"fix: resolve login button not responding on mobile\""
+      },
+      { "id": "c", "text": "\"asdfasdf\"" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "The commit body should be separated from the subject by a blank line.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of using commit message types like \"feat\", \"fix\", \"docs\"?",
+    "choices": [
+      { "id": "a", "text": "To make messages longer" },
+      {
+        "id": "b",
+        "text": "To categorize changes and enable automation (changelogs, semantic versioning)"
+      },
+      { "id": "c", "text": "To confuse team members" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is trunk-based development?",
+    "choices": [
+      { "id": "a", "text": "A workflow using many long-lived branches" },
+      {
+        "id": "b",
+        "text": "A workflow where developers integrate to main frequently, using short-lived branches"
+      },
+      {
+        "id": "c",
+        "text": "Only working on the main branch without any branches"
+      },
+      { "id": "d", "text": "A way to store code in tree structures" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What are feature flags used for?",
+    "choices": [
+      { "id": "a", "text": "To mark commits as features" },
+      {
+        "id": "b",
+        "text": "To enable/disable features in code without deploying new code"
+      },
+      { "id": "c", "text": "To create new branches automatically" },
+      { "id": "d", "text": "To flag problematic commits" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What is the Git Forking workflow typically used for?",
+    "choices": [
+      { "id": "a", "text": "Enterprise internal projects only" },
+      {
+        "id": "b",
+        "text": "Open source projects where contributors don't have write access"
+      },
+      { "id": "c", "text": "Small personal projects" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Monorepo and polyrepo are strategies for organizing multiple projects.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of using Git submodules?",
+    "choices": [
+      { "id": "a", "text": "To delete unused modules" },
+      {
+        "id": "b",
+        "text": "To include external repositories within your repository"
+      },
+      { "id": "c", "text": "To speed up Git operations" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What does `git fetch` do?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Downloads remote changes AND automatically merges them"
+      },
+      { "id": "b", "text": "Downloads remote changes WITHOUT merging them" },
+      { "id": "c", "text": "Uploads your changes to the remote" },
+      { "id": "d", "text": "Deletes remote branches" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is the difference between `git fetch` and `git pull`?",
+    "choices": [
+      { "id": "a", "text": "They are the same thing" },
+      {
+        "id": "b",
+        "text": "`fetch` downloads without merging; `pull` downloads AND merges"
+      },
+      { "id": "c", "text": "`fetch` only works on GitHub" },
+      { "id": "d", "text": "`pull` is faster" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "After fetching, how do you view the fetched commits?",
+    "choices": [
+      { "id": "a", "text": "`git log origin/main` or `git log FETCH_HEAD`" },
+      { "id": "b", "text": "`git show fetch`" },
+      { "id": "c", "text": "`git view remote`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "`git fetch` modifies your working directory.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "When is it better to use `git fetch` instead of `git pull`?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "When you want to review changes before integrating them"
+      },
+      { "id": "b", "text": "When you're offline" },
+      { "id": "c", "text": "Never—always use pull" }
+    ],
+    "answer": "a",
+    "points": 1
+  }
+]

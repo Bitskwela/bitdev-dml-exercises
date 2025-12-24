@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What does `git cherry-pick` do?",
+    "choices": [
+      { "id": "a", "text": "Deletes selected commits" },
+      {
+        "id": "b",
+        "text": "Applies a specific commit from one branch to another"
+      },
+      { "id": "c", "text": "Creates a new branch automatically" },
+      { "id": "d", "text": "Merges all commits at once" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command cherry-picks a commit with hash abc123?",
+    "choices": [
+      { "id": "a", "text": "`git pick abc123`" },
+      { "id": "b", "text": "`git cherry-pick abc123`" },
+      { "id": "c", "text": "`git copy abc123`" },
+      { "id": "d", "text": "`git apply abc123`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "When is cherry-picking useful?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "When you want to apply a bug fix from one branch to another without full merge"
+      },
+      { "id": "b", "text": "When you want to delete a branch" },
+      { "id": "c", "text": "When you want to rename commits" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Cherry-picking creates a new commit with a different hash than the original.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What happens if there's a conflict during cherry-pick?",
+    "choices": [
+      { "id": "a", "text": "The cherry-pick automatically succeeds" },
+      {
+        "id": "b",
+        "text": "Git pauses and asks you to resolve the conflict manually"
+      },
+      { "id": "c", "text": "The original commit is deleted" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

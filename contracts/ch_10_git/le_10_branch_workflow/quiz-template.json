@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a Git workflow?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "A set of rules and conventions for how a team uses branches"
+      },
+      { "id": "b", "text": "A tool that automatically writes code" },
+      { "id": "c", "text": "A type of merge conflict" },
+      { "id": "d", "text": "A command to speed up Git" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "In a feature branch workflow, where should new features be developed?",
+    "choices": [
+      { "id": "a", "text": "Directly on the main branch" },
+      { "id": "b", "text": "On a separate feature branch" },
+      { "id": "c", "text": "In a different repository" },
+      { "id": "d", "text": "Without using Git" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What is the typical lifecycle of a feature branch?",
+    "choices": [
+      { "id": "a", "text": "Create → Delete → Merge" },
+      { "id": "b", "text": "Create → Work → Merge → Delete" },
+      { "id": "c", "text": "Merge → Create → Delete" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "It's good practice to keep feature branches short-lived.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of branch naming conventions?",
+    "choices": [
+      { "id": "a", "text": "To make branch names longer" },
+      {
+        "id": "b",
+        "text": "To help teams understand what each branch is for at a glance"
+      },
+      { "id": "c", "text": "To confuse new team members" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

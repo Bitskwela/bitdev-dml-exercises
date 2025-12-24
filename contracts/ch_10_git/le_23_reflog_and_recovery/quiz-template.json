@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is the Git reflog?",
+    "choices": [
+      { "id": "a", "text": "A file that stores remote URLs" },
+      {
+        "id": "b",
+        "text": "A log of all reference (HEAD, branches) updates in your local repository"
+      },
+      { "id": "c", "text": "A backup of your repository on GitHub" },
+      { "id": "d", "text": "A list of all merge conflicts" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command displays the reflog?",
+    "choices": [
+      { "id": "a", "text": "`git log --reflog`" },
+      { "id": "b", "text": "`git reflog`" },
+      { "id": "c", "text": "`git history --all`" },
+      { "id": "d", "text": "`git show-refs`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "How can you recover a commit after an accidental `git reset --hard`?",
+    "choices": [
+      { "id": "a", "text": "It's impossible to recover" },
+      {
+        "id": "b",
+        "text": "Find the commit in reflog and use `git reset` or `git checkout` to that commit"
+      },
+      { "id": "c", "text": "Reinstall Git" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "The reflog is shared with the remote repository.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of `git reflog expire`?",
+    "choices": [
+      { "id": "a", "text": "To view expired commits" },
+      { "id": "b", "text": "To clean up old reflog entries" },
+      { "id": "c", "text": "To extend reflog history" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

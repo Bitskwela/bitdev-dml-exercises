@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is the staging area in Git?",
+    "choices": [
+      { "id": "a", "text": "A folder where Git stores backup files" },
+      {
+        "id": "b",
+        "text": "An intermediate area where changes are prepared before committing"
+      },
+      { "id": "c", "text": "The remote server where code is uploaded" },
+      { "id": "d", "text": "A log file that tracks all errors" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command adds a specific file to the staging area?",
+    "choices": [
+      { "id": "a", "text": "`git commit file.txt`" },
+      { "id": "b", "text": "`git push file.txt`" },
+      { "id": "c", "text": "`git add file.txt`" },
+      { "id": "d", "text": "`git stage file.txt`" }
+    ],
+    "answer": "c",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What does `git add .` do?",
+    "choices": [
+      { "id": "a", "text": "Adds only the current file to staging" },
+      {
+        "id": "b",
+        "text": "Adds all modified and new files in the current directory and subdirectories to staging"
+      },
+      { "id": "c", "text": "Creates a new branch" },
+      { "id": "d", "text": "Deletes all files from staging" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "MCQ",
+    "question": "Which command creates a commit with a message?",
+    "choices": [
+      { "id": "a", "text": "`git save -m \"message\"`" },
+      { "id": "b", "text": "`git commit -m \"message\"`" },
+      { "id": "c", "text": "`git push -m \"message\"`" },
+      { "id": "d", "text": "`git add -m \"message\"`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "TF",
+    "question": "You can commit changes directly without staging them first.",
+    "answer": true,
+    "points": 1
+  }
+]

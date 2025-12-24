@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "Which command deletes a local branch?",
+    "choices": [
+      { "id": "a", "text": "`git remove branch-name`" },
+      { "id": "b", "text": "`git branch -d branch-name`" },
+      { "id": "c", "text": "`git delete branch-name`" },
+      { "id": "d", "text": "`git branch --remove branch-name`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What's the difference between `git branch -d` and `git branch -D`?",
+    "choices": [
+      { "id": "a", "text": "They are identical" },
+      {
+        "id": "b",
+        "text": "`-d` is safe delete (checks if merged), `-D` force deletes"
+      },
+      { "id": "c", "text": "`-D` is slower" },
+      { "id": "d", "text": "`-d` only works on remote branches" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command deletes a remote branch?",
+    "choices": [
+      { "id": "a", "text": "`git push origin --delete branch-name`" },
+      { "id": "b", "text": "`git remote delete branch-name`" },
+      { "id": "c", "text": "`git branch -d origin/branch-name`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Deleting a branch also deletes all the commits on that branch.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of cleaning up old branches?",
+    "choices": [
+      { "id": "a", "text": "To save disk space only" },
+      {
+        "id": "b",
+        "text": "To keep the repository organized and reduce confusion"
+      },
+      { "id": "c", "text": "To make Git faster" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]
