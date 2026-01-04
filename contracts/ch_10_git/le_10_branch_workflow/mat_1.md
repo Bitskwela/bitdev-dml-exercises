@@ -1,31 +1,52 @@
-# Le 10: Branch Workflow
+# Le 10: Branch Workflow – Establishing Team Standards
 
 ![Branch Workflow Diagram](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-workflow.png)
 
-## Background Story
+## Scene: The Team Establishes Rules
 
-Friday morning. Barangay Blockchain team meeting. Three developers, four regions to deploy to.
+**Friday morning, one week later. Team meeting.**
 
-"We need rules," Marco says. "Right now Maria creates feature/voting-1, feature/voting-2, feature/voting-fixes. It's chaos. Neri doesn't understand what's stable. London dev doesn't know if they can deploy."
+Maria, Marco, Sam (calling from Cebu), and Neri (from barangay hall) gather around the table—some physically, some on video.
 
-"I just create names as I go," Maria admits.
+Marco opens his terminal and runs `git branch`.
 
-"Let's use naming conventions," Marco explains. "feature/ for new work, bugfix/ for fixing bugs, release/ for releases. Everyone knows what each branch is for."
+The output is chaos:
+```
+  feature/voting-1
+  feature/voting-2
+  feature/voting-fixes
+  feature/voting-rush-job
+  feature/payment-old-approach
+  feature/payment-backup
+  main
+  (many deleted branches still listed)
+```
 
-Neri nods: "So if I see feature/voting-improvements, I know it's new work. And if I see release/1.0.0, I know that's going to production."
+"This," Marco says, "is not professional."
 
-"Exactly," Marco says. "And we protect main. No direct commits. Everything comes through merge requests. That way, Singapore always sees reviewed code before it reaches production."
+Neri looks confused. "Which branches are we actually using?"
 
-By establishing simple naming conventions and protecting key branches, the team moves faster with confidence. Parallel work becomes organized chaos instead of pure chaos.
+"Exactly," Marco says. "No one can tell. We need standards."
+
+Sam from Cebu chimes in: "In Singapore dev meetings, they have rules. feature/ for new features, bugfix/ for fixes, hotfix/ for emergencies. Everyone knows what they mean."
+
+"Let's adopt that," Marco says. "And let's protect main. No one commits directly to main. Everything comes through pull requests with code review. That way, London always sees reviewed code before it reaches production."
+
+Maria nods. "And we clean up branches after merging. Right now we have 47 branches, most of them dead."
+
+Neri makes a decision: "This is our standard going forward. feature/, bugfix/, hotfix/. Protect main. Review before merging. Clean up after."
+
+By establishing simple standards, the team moves from chaotic parallel development to organized parallel development. Work is coordinated. Intentions are clear. Global deployment becomes manageable.
 
 **Time Allotment**: 35 minutes
 
 **Topics Covered**:
-- Branch naming conventions
-- Feature branches vs other types
-- Protecting main branch
-- Pull request workflows
-- Branch policies for distributed teams
+
+- Branch naming conventions (feature/, bugfix/, hotfix/, release/, docs/)
+- Why naming matters for global teams (clear communication across time zones)
+- Protecting main branch (it must always be deployable)
+- Pull request workflows (how code gets from branches to main)
+- Branch policies for distributed teams (coordination without chaos)
 
 ---
 

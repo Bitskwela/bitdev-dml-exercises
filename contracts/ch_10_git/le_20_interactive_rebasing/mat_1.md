@@ -2,9 +2,11 @@
 
 ![Interactive Rebase](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-interactive-rebase.png)
 
-## Background Story
+## Scene: Cleaning House
 
-Maria is about to open a Pull Request for her voter analytics feature. She looks at her commit history:
+**Three days later. Maria is ready to open her Pull Request for voter analytics.**
+
+She checks her commit history one last time:
 
 ```bash
 $ git log --oneline -7
@@ -14,22 +16,29 @@ g7h8i9j typo
 k1l2m3n Add chart.js
 o4p5q6r Work on charts
 s7t8u9v Started analytics feature
-w1x2y3z Initial commit for analytics
+w1x2y3z Initial commit
 ```
 
-"This is embarrassing," Maria admits. "I have seven commits, and half of them say 'WIP' or 'fix'. I can't submit a PR with this history."
+She sighs heavily. "I can't submit this. It's seven commits. Half of them say 'WIP' or 'fix'. It tells the story of my mistakes, not my accomplishment."
 
-Marco shows her interactive rebase: "You can squash those seven commits into one or two meaningful commits. You can reorder them. You can edit commit messages. You can even split commits. Interactive rebase gives you complete control over your history."
+Marco shows her something powerful: "Interactive rebase. You can combine those seven commits into one. Or two. You can reorder them. You can rewrite commit messages. You have complete control over your history _before_ you submit to the team."
 
-Twenty minutes later, Maria's history looks like this:
+"I can erase my mistakes?"
+
+"Not erase—refactor. You keep the code. You just rewrite the story of how you got there."
+
+Thirty minutes later, Maria's history is transformed:
 
 ```bash
-$ git log --oneline -2
+$ git log --oneline -1
 a1b2c3d Add voter analytics with Chart.js visualization
-s7t8u9v Set up analytics module structure
 ```
 
-Two commits. Clear messages. Professional history. Ready for review.
+One commit. Clear message. Professional history. The story of her work—not the story of her struggling to get it right.
+
+"Now submit the PR," Marco says. "When Dev Sam and London review your code, they won't be distracted by 'WIP' and 'typo' commits. They'll see one clean feature."
+
+**This lesson teaches that history is a communication tool. Interactive rebase lets developers tell the right story about their work.**
 
 **Time Allotment**: 50 minutes
 

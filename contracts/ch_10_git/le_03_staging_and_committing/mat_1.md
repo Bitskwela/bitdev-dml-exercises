@@ -1,90 +1,168 @@
-# Le 03: Staging & Committing
+# Staging and Committing
 
-![Staging Area](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-staging.png)
+![1.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_10_git/le_03_staging_and_committing/1.0%20-%20COVER.png)
 
-## Background Story
+## Scene: Selective Commitment
 
-_Maria has three new features ready: a discount calculator, a transaction logger, and a payment confirmation email. She's made changes to five files. But she doesn't want to commit everything at once—the discount calculator is ready, but the email feature still has bugs._
+**Three days into the Barangay Blockchain project. Maria's been coding since 6 AM.**
 
-_"I can only commit the discount features?" she asks._
+She's made changes across five different files:
 
-_"Exactly," Marco explains. "With Git staging, you choose which changes to include in each commit. It's like selecting which vegetables to add to your dish."_
+- Fixed a bug in the discount calculator ✓ (tested, working)
+- Added transaction logging logic ✓ (complete, reviewed mentally)
+- Started email notification feature ✗ (has bugs, incomplete)
+- Updated database schema ✓ (ready, careful work)
+- Refactored payment processing ✗ (halfway done, needs thought)
 
-**Time Allotment**: 35 minutes
+She saves all the files. Now she looks at her working directory, feeling overwhelmed.
 
-**Topics Covered**: Staging area, commits, commit messages, snapshots, history
+She messages Marco on Slack: "Do I have to commit everything at once? Some of these are finished and working. Others aren't ready yet. If I push now, I'll deploy broken code."
 
----
+Marco replies instantly: "That's exactly what the staging area is for. You get to choose which changes go into each commit. You're not locked into 'all or nothing.'"
 
-## The Staging Area: Git's Gatekeeper
+**This moment—realizing you can be selective—is when developers begin to understand Git's true power: precision. Not all changes are equal. Some are ready, others need more work. Git lets you control exactly what gets committed.**
 
-Before every commit, Git has a **staging area** (also called the "index"). Think of it as a waiting room:
+## The Staging Area: Your Gatekeeper
 
-1. You modify files in your **working directory**
-2. You select which changes to **stage** (add to staging area)
-3. You **commit** the staged changes
+![1.1 - STAGING WORKFLOW](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_10_git/le_03_staging_and_committing/1.1.png)
 
-### Why Staging?
+### Three Spaces, Three States
 
-Real-world development is messy:
+Git divides your work into three locations:
 
-- You fix a bug in `auth.js`
-- You add a new feature in `ui.js`
-- You optimize database queries in `db.js`
-- But only the bug fix is ready to ship
+1. **Working Directory**: Your actual files on disk (where you edit code)
+2. **Staging Area**: Files you've marked for the next commit (your selection)
+3. **Repository**: Permanent snapshots stored in `.git` (immutable history)
 
-With staging, you can:
+### The Staging Area Workflow
 
-- Commit the bug fix immediately
-- Continue working on features in separate commits
-- Keep your commit history clean and logical
+```
+Modified Files (Working Directory)
+    ↓
+    └→ git add <file>  (Stage specific file)
+    └→ git add .       (Stage all changes)
+    ↓
+Staging Area (Ready for commit)
+    ↓
+    └→ git commit -m "message"
+    ↓
+Repository (Permanent history)
+```
 
-## The Commit Command
+This middle step—staging—gives you control. You can make changes to 5 files but only commit 2 of them.
+
+### Why Staging Matters
+
+Real development is messy:
+
+- Maria fixes a payment bug in one file
+- She adds a feature in another file
+- She starts a refactor in a third file
+- Only the bug fix is tested and ready
+
+Without staging, she'd have to choose: commit everything (risky—untested code) or commit nothing (loses work).
+
+With staging, she commits the bug fix alone. The other changes stay in her working directory, ready for more work.
+
+## Meaningful Commits: The Art
+
+> A **commit** is a snapshot of your project at one moment in time, with a message explaining the "why."
+
+### Good Commit Messages
+
+A good message tells the _story_ of what changed and _why_:
 
 ```bash
-git add <file>           # Stage specific file
-git add .                # Stage all changes
-git commit -m "message"  # Create a commit
-```
-
-### Commit Messages Matter
-
-A good commit message:
-
-- Starts with a verb: "Add", "Fix", "Update", "Remove"
-- Is clear and specific
-- Explains WHY, not just WHAT
-
-#### Good Messages
-
-```
 Add discount calculation to payment processor
+```
+
+Why is this better than "Fix bugs" or "Work in progress"?
+
+- **Specific**: You know exactly what changed
+- **Actionable**: Future developers understand the intent
+- **Searchable**: You can find it in history
+- **Reviewable**: Team members know what to check
+
+### The Commit Message Formula
+
+```
+<verb> <what> <why/detail>
+
+Examples:
+Add discount calculation to marketplace payment processor
 Fix null pointer exception in user authentication
-Update database schema for international payments
+Update database schema to support international transactions
+Remove deprecated payment API from legacy code
 ```
 
-#### Bad Messages
+### Real-World Example from Maria's Work
 
+**Bad**:
+
+```bash
+git commit -m "updated stuff"
+git commit -m "fix"
+git commit -m "changes"
 ```
-Fixed stuff
-Update
-Work in progress
+
+**Good**:
+
+```bash
+git commit -m "Add transaction logging for audit trail"
+git commit -m "Fix discount calculation rounding error"
+git commit -m "Update database schema for multi-currency support"
 ```
+
+The good version tells the _story_. Six months later, when there's a bug in discount logic, developers can read the message and understand the original thinking.
 
 ## The Three-Step Workflow
 
-```
-1. MODIFY (Working Directory)
-   └─→ Edit your files freely
+Every time you commit, you follow three steps:
 
-2. STAGE (Staging Area)
-   └─→ git add file.js
-   └─→ Select what goes in the commit
+### Step 1: Modify (Working Directory)
+
+You edit files freely. No Git restrictions. Just code.
+
+### Step 2: Stage (Staging Area)
+
+You decide which files go into this commit:
+
+```bash
+git add discount-calculator.py    # Add this file
+git add payment-processor.py      # Add this file
+# transaction-logger.py stays unstaged—not ready yet
+```
+
+### Step 3: Commit (Repository)
+
+You create a permanent snapshot with a message:
+
+```bash
+git commit -m "Add discount calculator to marketplace"
+```
+
+This is now permanent history. Forever in your repository.
+
+## Why Granular Commits Matter
+
+When you make small, focused commits:
+
+- **Easy to review**: Each commit is one logical change
+- **Easy to debug**: If something breaks, you know which commit caused it
+- **Easy to revert**: If a feature doesn't work out, revert that one commit
+- **Easy to understand**: History becomes a story, not a mystery
+
+---
+
+**Ready to practice staging and committing? Let's create meaningful snapshots!**
+└─→ git add file.js
+└─→ Select what goes in the commit
 
 3. COMMIT (Repository)
    └─→ git commit -m "message"
    └─→ Create permanent record
-```
+
+````
 
 ## Viewing Changes Before Committing
 
@@ -92,7 +170,7 @@ Work in progress
 git status              # See what's modified
 git diff                # See exact changes
 git diff --staged       # See staged changes
-```
+````
 
 ## The Power of Granular Commits
 

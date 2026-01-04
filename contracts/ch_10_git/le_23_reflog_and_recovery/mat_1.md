@@ -2,25 +2,55 @@
 
 ![Git Reflog](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-reflog.png)
 
-## Background Story
+## Scene: Disaster Recovery
 
-Disaster. Maria just ran `git reset --hard HEAD~5` to undo some commits. But she made a mistake—she was on the wrong branch. Five days of work just vanished.
+**Tuesday 3 PM. Maria sits in panic.**
 
-"It's gone," Maria says, staring at her screen. "All my analytics work. Gone."
+She just ran a command she wasn't entirely sure about:
 
-Dev Sam walks over. "Did you push those commits anywhere?"
+```bash
+git reset --hard HEAD~5
+```
+
+Five commits vanished. Five days of analytics work. Gone.
+
+She stares at her empty working directory. The terminal shows a clean status. No uncommitted changes. No trace of the work.
+
+"It's gone," she whispers. "Five days of work. Lost."
+
+She calls Dev Sam in Cebu, her voice shaking.
+
+"Did you push those commits?" he asks calmly.
 
 "No. They were only on my laptop."
 
-"Then they're not gone," Dev Sam smiles. "They're just hidden. Git almost never truly deletes anything. Check the reflog."
+"Then they're not lost," Dev Sam says. "Git almost never truly deletes anything. There's a safety feature called the reflog. Every time HEAD moves—every commit, checkout, reset—Git records it. Your 'deleted' commits are still there, just hidden."
+
+He guides her:
 
 ```bash
 git reflog
 ```
 
-There they are—every HEAD movement Git recorded. The "deleted" commits still exist. Maria can recover them.
+Her terminal shows a complete history of her HEAD movements:
 
-Twenty minutes later, all five days of work are restored. Maria learns an important lesson: in Git, almost nothing is truly lost. The reflog is your safety net.
+```
+a1b2c3d HEAD@{0}: reset: moving to HEAD~5
+e4f5g6h HEAD@{1}: commit: Add analytics dashboard
+i7j8k9l HEAD@{2}: commit: Add chart rendering
+```
+
+There it is. The commit before her mistake. All five days of work, recorded in Git's memory.
+
+```bash
+git reset --hard e4f5g6h
+```
+
+Within seconds, her work is restored. All five days. Intact. Untouched.
+
+Maria learned something profound: in Git, very little is truly lost. The reflog is a time machine. The safety net you didn't know you needed.
+
+**This lesson teaches resilience. Mistakes are recoverable. Git keeps a record of almost everything.**
 
 **Time Allotment**: 45 minutes
 

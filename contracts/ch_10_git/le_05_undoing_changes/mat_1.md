@@ -4,13 +4,25 @@
 
 ## Background Story
 
-Maria made a mistake. She was adding a new validation function to the Barangay Blockchain Ledger at 11 PM—excited about protecting voter privacy—and accidentally broke the permission system. She realized the mistake after committing.
+**11 PM in Manila. Maria is excited about an idea.**
 
-Now she's in a panic. "Marco, I pushed bad code! The entire voting system is inaccessible to administrators. I need to fix this right now!"
+A new voter privacy feature. She's been thinking about it all week. Tonight, she decides to implement it quickly. "Just one hour," she tells herself.
 
-Marco stays calm. "This is exactly why Git is our safety net. We have three ways to undo changes, depending on whether you've staged, committed, or already pushed. Each one is safe. Each one preserves the history so we can learn from the mistake."
+At 11:47 PM, she commits her code: "Add voter privacy protection."
 
-Maria takes a breath. She's about to learn that in Git, "mistakes" aren't disasters—they're opportunities to understand version control's most powerful feature: the ability to travel through time safely. For a global team working on critical systems deployed to multiple regions, knowing how to undo is as essential as knowing how to create commits.
+At midnight, she pushes to GitHub.
+
+At 12:15 AM, her phone buzzes. A message from Dev Sam in Cebu, who's just logging in: "Maria... something broke. The entire voting system is inaccessible. Administrators can't see the voter list. Did you change the permissions?"
+
+Maria's heart stops. She reads her own code. Her eyes widen. A simple mistake—she changed `voter_list` permission from public to private for everyone, not just the privacy-protected feature. She broke the whole system at the global level.
+
+"Marco!" she messages in panic. "I pushed bad code! Everything's down!"
+
+Marco replies immediately, but not with panic. With calm: "This is exactly why Git is our safety net. You made a mistake. Now you'll learn how to fix it without losing anything."
+
+He guides her: "We have multiple ways to undo. We can revert your commit, which creates a new commit that undoes your changes. Or we can reset to before your change. Both preserve history. Neither loses data. You're not in danger. This is recoverable."
+
+**This lesson teaches that in Git, mistakes are not disasters. They're opportunities to learn version control's most powerful feature: safe recovery.**
 
 **Time Allotment**: 45 minutes
 

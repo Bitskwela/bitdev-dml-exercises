@@ -1,30 +1,56 @@
-# Le 08: Merging Branches (Fast-Forward)
+# Le 08: Merging Branches (Fast-Forward) – Bringing It All Together
 
 ![Fast-Forward Merge](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-merge-ff.png)
 
-## Background Story
+## Scene: The First Integration
 
-It's Wednesday. Maria finished her voting protection feature on her branch. She tested it. Marco reviewed it. It's ready.
+**Wednesday afternoon, Manila. Maria's refactor is complete.**
 
-"Now what?" Maria asks. "My work is on feature/voting-protection. How does it get to main?"
+She tests thoroughly. Everything works. Permission system is secure, voting is protected, payments are isolated and safe.
 
-"We merge," Marco says simply. "You switch to main, then merge your branch into it."
+She messages Marco: "It's ready."
 
-Maria does it. The merge is fast and clean—no conflicts. This is because while Maria worked on her branch, no one else touched `main`. The merge is straightforward: just move the main pointer forward to catch up with Maria's branch.
+Marco reviews her code on GitHub (lesson 14). "Beautiful work. This is production-ready."
 
-"That's a fast-forward merge," Marco explains. "When main hasn't moved while your branch was ahead, we just move the pointer. No complexity."
+Maria asks the question every developer asks at this moment: "Now what? My work is on feature/permission-refactor. How does it get to main where it can be deployed?"
 
-Dev Sam from Cebu does the same with his payment feature. Both merges are fast-forwards. Both succeed. Both deploy to production together.
+"We merge," Marco says. "You switch to main, then merge your branch into it."
+
+Maria's hands shake slightly—this is the moment code becomes permanent, when experimental work becomes production. She types:
+
+```bash
+git switch main
+git merge feature/permission-refactor
+```
+
+Git pauses for a fraction of a second, then returns:
+```
+Fast-forward
+ 5 files changed, 217 insertions(+), 23 deletions(-)
+```
+
+Maria holds her breath.
+
+"Check your code," Marco says calmly.
+
+She runs the test suite:
+```
+All 247 tests pass.
+```
+
+The refactor is now in main. It's in production code. And it worked on the first try because the merge was clean—a "fast-forward merge," where Git simply moves the main pointer forward to catch up with her branch.
+
+"That's what safe, isolated development looks like," Marco says. "You work independently. You merge without conflicts. The team deploys together."
 
 **Time Allotment**: 30 minutes
 
 **Topics Covered**:
 
-- What merging is (combining branches)
-- Fast-forward merge (simplest case)
-- When fast-forward works
-- Why fast-forward is clean
-- Merging into production
+- What merging is (bringing isolated work back to main)
+- Fast-forward merge (the simplest, cleanest case)
+- When fast-forward works (main hasn't moved while your branch was ahead)
+- Why fast-forward is clean and safe (no complex merge logic, just pointer movement)
+- The deployment moment (integrated work going to production)
 
 ---
 

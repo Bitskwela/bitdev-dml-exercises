@@ -1,9 +1,11 @@
 ---
 title: "Viewing History"
-description: "Learn to navigate Git history using git log, git show, and git diff commands."
-date: "2025-12-14"
-tags: ["git", "version-control", "bitskwela", "lesson"]
+description: "Help Maria trace changes through the project history. Learn to read commit logs, inspect specific commits, and understand the evolution of your code."
+date: "2026-01-03"
+tags: ["git", "history", "debugging", "bitskwela", "tracking", "transparency"]
 type: "ActivityExercise"
 permaname: "viewing-history"
 slug: "viewing-history"
+narrative_arc: "Arc 1: Git Foundations"
+story_context: "Team needs to understand what happened in the code and why"
 ---

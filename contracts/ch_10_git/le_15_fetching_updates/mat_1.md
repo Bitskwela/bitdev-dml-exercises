@@ -2,21 +2,33 @@
 
 ![Git Fetch](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-fetch.png)
 
-## Background Story
+## Scene: Caution Before Integration
 
-Monday morning. Maria arrives at the Manila office with coffee in hand. She's been working on `feature/voter-registration` all weekend on her laptop—offline mode at her grandmother's house in Bulacan where WiFi is spotty.
+**Monday morning. Manila. Maria arrives with coffee in hand.**
 
-She opens her laptop, ready to push her changes. But wait.
+She's been working on `feature/voter-registration` all weekend—offline at her grandmother's house in Bulacan where WiFi signal barely exists. No internet. No GitHub updates. Completely isolated from the team.
 
-"Before you push, fetch first," Marco messages from Cebu. "Dev Sam merged a critical security update to main on Saturday. If you push without knowing about his changes, you might overwrite something important."
+Now she's back at the office, laptop connected to the company WiFi, coffee steaming.
 
-Maria hesitates. "What's the difference between fetch and pull? I usually just pull."
+She's ready to push her weekend code to GitHub.
 
-Marco explains: "Pull is aggressive—it downloads AND merges immediately. Fetch is careful—it downloads changes so you can SEE them first, without automatically merging. Think of fetch as 'show me what's new' and pull as 'download and apply everything now.'"
+But her phone buzzes. Marco, messaging from Cebu: "Before you push, fetch first. Dev Sam merged a critical security update to main on Saturday night. Something about input validation."
 
-Maria runs `git fetch`. She sees Dev Sam's security commits. She reviews them. She realizes her voter registration code touches the same files. Now she can plan her merge carefully instead of being surprised by conflicts.
+Maria hesitates. "Fetch? Pull? Aren't they the same thing?"
 
-"Fetch before you push," becomes Maria's new habit. It's saved her countless merge headaches.
+"No," Marco replies. "Pull is aggressive. Fetch is careful. Pull downloads AND merges immediately. Fetch just downloads—lets you see the changes first, without automatically applying them."
+
+Maria nods, understanding. She's been gone all weekend. The main branch has changed. If she's not careful, her voter registration code—which touches the same validation logic Dev Sam just fixed—could create a conflict.
+
+`git fetch origin`
+
+Her terminal shows new commits. Dev Sam's security work appears on her screen—the commits she didn't see all weekend because she was offline.
+
+She reviews them carefully. Her voter registration actually complements the security fixes. Perfect.
+
+Now—only now—she feels safe to continue. Her code won't overwrite something important. Her decision will be informed, not surprised.
+
+**This lesson teaches caution. Fetch before you merge. See first. Act after.**
 
 **Time Allotment**: 35 minutes
 

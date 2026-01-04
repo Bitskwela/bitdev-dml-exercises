@@ -4,13 +4,28 @@
 
 ## Background Story
 
-Maria Santos has been developing the Barangay Blockchain Ledger for two weeks. She's made 23 commits so far—adding features for village voting, transaction logging, and safety measures. Today, a bug appeared: the voting system no longer displays results correctly.
+**Two weeks in. The Barangay Blockchain has 23 commits.**
 
-"I don't remember which commit broke it," Maria says to Marco during their morning sync call from Manila. "Was it when I added the multi-vote protection? Or the permission check? We need to see what changed in each commit."
+Maria has added voting logic. Dev Sam added transaction logging. Alexis added security checks. The code works. Mostly.
 
-Marco nods. "This is where Git history becomes your greatest tool. Every commit is like a snapshot in time. We can look at exactly what changed, who changed it, and when. For our distributed team—with Dev Sam in Cebu and you here in Manila—this is our shared memory."
+Then a bug appears: the voting system no longer displays results correctly.
 
-What Maria learns today will help her debug production issues, understand code changes her teammates made, and trace exactly when features were introduced into the system. For a global team deploying the same codebase to multiple regions, viewing history is the foundation of collaboration.
+Maria calls Marco: "I don't remember which commit broke it. Was it when I added multi-vote protection? Or the permission check? We need to see what changed."
+
+Marco is calm. "Git is your time machine. Every commit is a snapshot. We can see exactly what changed, who changed it, and when. For a team spread across three countries, this shared memory—this history—is how we collaborate."
+
+He shows her `git log`. She sees 23 commits in reverse order (newest first). Each one tells a story:
+
+```
+abc123d Add voting results display
+def456e Fix permission check
+ghi789f Add multi-vote protection
+jkl012g Initialize voting module
+```
+
+"Now," Marco says, "you can see the progression. You can ask 'what did I change in that commit?' You can find exactly when the bug appeared. For a distributed team, Git history is your shared memory of what we built and why."
+
+**This lesson teaches that history isn't bureaucracy. It's how global teams learn from each other and debug production issues.**
 
 **Time Allotment**: 35 minutes
 

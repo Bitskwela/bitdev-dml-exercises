@@ -1,46 +1,89 @@
-# Le 30: Capstone - Contributing to Bitskwela
+# Le 30: Capstone – Contributing to Bitskwela
 
 ![Capstone](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-capstone.png)
 
-## Background Story
+## Scene: Full Circle
 
-Maria looks at her journey. Two months ago, she didn't know what Git was. She thought version control meant saving files as `project_v1.docx`, `project_v2_final.docx`, `project_v2_final_FINAL.docx`.
+**Friday afternoon. The Barangay Hall server room. Six months after Neri's vision began.**
 
-Now she's:
+Maria looks at her hands. She's holding a laptop—same one from Day 1, when Git meant nothing to her.
 
-- Managing branches like a pro
-- Resolving merge conflicts without panic
-- Contributing to open-source projects
-- Helping onboard new developers
-- Part of a global team spanning four time zones
+Six months ago:
 
-This capstone project brings everything together. You'll contribute to the Bitskwela learning platform—the same platform you've been learning from.
+- She saved files as `barangay-blockchain-v1.sol`, `barangay-blockchain-v1-final.sol`, `barangay-blockchain-v1-FINAL-FINAL.sol`
+- Version control was manual. Merging meant emailing Word documents.
+- She didn't know what a pull request was.
+- Her code lived on her laptop. If it crashed, the work was gone.
 
-"You've learned Git to work on the Barangay Blockchain," Marco says. "Now prove it by contributing to Bitskwela itself. Real repository. Real review. Real impact."
+Today:
 
-**Time Allotment**: 90-120 minutes
+- She manages 50+ branches across 5 repositories
+- She resolves merge conflicts in seconds, not hours
+- She's reviewed 47 pull requests from Sam, Alexis, and volunteers
+- She's the senior developer mentoring the new intern
+- Her code is deployed to 7 barangays, backed up infinitely, history tracked perfectly
 
-**Topics Covered**:
+But something remarkable happened beyond all this.
 
-- Complete contribution workflow
-- All Git skills combined
-- Real-world open source experience
-- Building your developer profile
+Three weeks ago, Alexis found a bug in the Bitskwela learning platform itself. A typo in the Git tutorial (Le 15). She created a pull request. Bitskwela accepted it. Her name is now in the contributors list of an open-source learning platform used across Southeast Asia.
+
+Last week, Sam noticed the database module in Bitskwela had a performance issue. He forked the repository, fixed it, submitted a PR. The Bitskwela team merged it. Now 50,000 learners use Sam's code every day.
+
+"This is what we learned Git for," Marco says, standing beside Maria. "Not just to manage our own code. But to contribute to projects bigger than ourselves. To collaborate globally. To be part of something."
+
+Neri enters, carrying a certificate.
+
+"Barangay Blockchain Version 2.0 just went live in all 7 barangays," Neri says. "Payment processing is working. Voting is secure. The system handles 10,000 transactions per day."
+
+She hands the certificate to Maria.
+
+"You didn't just build this. You led the team that built it. Using Git. Using open source. Using global collaboration."
+
+Neri smiles.
+
+"Now it's your turn to teach others."
 
 ---
 
-## The Challenge
+## The Final Challenge: Closing the Loop
 
-You will contribute to the Bitskwela repository. This is a real contribution to a real project.
+This capstone brings everything together in one final way.
 
-**Your Mission:**
+You've used Git to build Barangay Blockchain. You've experienced branching, merging, conflict resolution, remote collaboration, and team coordination.
 
-1. Fork the Bitskwela repository
-2. Find an issue to work on
-3. Make your contribution
-4. Submit a pull request
-5. Respond to feedback
-6. Get your code merged
+Now you'll use those same skills to contribute to **Bitskwela itself**—the platform that taught you.
+
+"You've learned Git by solving our problem," Marco says to the team. "Now we'll help other learners by solving theirs."
+
+**What You'll Do:**
+
+1. Fork the Bitskwela repository (public, open source)
+2. Find an issue or improvement to work on
+3. Create a branch and make your contribution
+4. Submit a pull request with a clear description
+5. Respond to code review feedback
+6. Get merged into the official project
+
+**Why This Matters:**
+
+- It's _real_. Not a practice exercise. Real code in a real project.
+- It's _open source_. You contribute to something public, global, shared.
+- It's _mentorship_. You help other learners understand concepts better.
+- It's _your portfolio_. Your contribution is permanent, credited, visible to other developers.
+- It's _the cycle_. You learned from Bitskwela. Now you help others learn.
+
+**Time Allotment**: 120-180 minutes (2-3 hours)  
+This is not a quick exercise. Contributions take time. That's intentional.
+
+**Topics Covered**:
+
+- Complete contribution workflow to open source
+- Forking vs cloning (the open source pattern)
+- Pulling from upstream while maintaining your fork
+- Clear pull request descriptions
+- Responding to code review
+- The ethics of open source contributions
+- Building your developer reputation
 
 ## Phase 1: Setup (15 minutes)
 

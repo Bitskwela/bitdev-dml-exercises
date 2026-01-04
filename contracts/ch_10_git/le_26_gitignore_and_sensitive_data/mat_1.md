@@ -2,19 +2,51 @@
 
 ![Gitignore](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-gitignore.png)
 
-## Background Story
+## Scene: The Password in the Repository
 
-Maria is excited. She's pushing her first major feature to the Barangay Blockchain repository. She runs `git add .` and commits everything.
+**Thursday morning. The Barangay Blockchain is about to go live.**
 
-Five minutes later, Dev Sam messages: "Maria... did you just push your `.env` file? The one with the production database password?"
+Maria is excited. Her first major feature—complete, tested, ready. She runs:
 
-Maria's blood runs cold. She checks. There it is—in the git history forever. The production password, visible to anyone who clones the repository.
+```bash
+git add .
+git commit -m "feat: add voter registration module"
+git push origin main
+```
 
-"This is why we have .gitignore," Marco explains during the emergency team meeting. "Some files should NEVER be committed. Environment files, build outputs, IDE settings, node_modules—these should be ignored from the start."
+It deploys to production. Celebration time!
 
-They rotate the compromised passwords immediately. Maria learns about `.gitignore` the hard way.
+Five minutes later, Dev Sam messages in the team Slack, his voice shaking (as text): "Maria... did you just push your `.env` file? The one with the production database password?"
 
-"Before your first commit," Marco tells the team, "set up your .gitignore. It's easier to prevent the problem than to fix it."
+Maria's celebration stops. She runs:
+
+```bash
+git log --oneline -1
+git show HEAD
+```
+
+And there it is—in the git history, visible to anyone who clones the repository:
+
+```
+DATABASE_PASSWORD=barangay_voting_2024_prod
+DATABASE_USER=admin_barangay
+```
+
+The production password. The master database credentials. Sitting in a public GitHub repository.
+
+"This is a security breach," Marco says coldly. "Anyone could fork our repository. They have production access."
+
+The team spends the next two hours:
+1. Rotating all passwords
+2. Investigating what data was exposed
+3. Notifying stakeholders
+4. Implementing emergency patches
+
+Later, Marco pulls Maria aside.
+
+"This wasn't your fault. It's our fault for not setting up .gitignore," he says. "Never, ever commit environment files. Or secrets. Or API keys. Set up .gitignore on your first commit. Make it a habit. It's easier to prevent than to fix."
+
+**This lesson teaches security. Files committed to Git are permanent. Prevent problems at the start.**
 
 **Time Allotment**: 35 minutes
 

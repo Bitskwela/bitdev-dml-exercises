@@ -2,29 +2,48 @@
 
 ![Advanced Git Workflow](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-advanced-workflow.png)
 
-## Background Story
+## Scene: Growing Pains
 
-The Barangay Blockchain has grown. What started as Maria's side project is now a production system deployed across four regions with a team of eight developers.
+**Six months later. The Barangay Blockchain is now live across four barangays.**
 
-Marco gathers the team for a workflow review: "We've outgrown our simple branching strategy. Singapore is confused about which branch to deploy. London doesn't know if a feature is tested. Cebu pushed to the wrong branch twice last week."
+What started as Maria's feature project has become production infrastructure. The team has grown to eight developers spread across Manila, Cebu, London, and Mexico City.
 
-He draws a diagram on the whiteboard:
+Marco calls a meeting on Zoom.
+
+"We have a chaos problem," he announces. "Singapore pushed to main without testing. London merged a feature that wasn't reviewed. Cebu deployed an incomplete release. We're stepping on each other."
+
+He pulls up a screenshot of their current branch structure:
 
 ```
-main ────────────────────────────────────────→
-   ↑            ↑           ↑
-release/1.0  release/1.1  release/2.0
-   ↑            ↑           ↑
-develop ─────────────────────────────────────→
+main ──────────────────────────────────
+  ↑        ↑        ↑
+feature/ feature/ hotfix/
+```
+
+"This is too simple for what we've become," Marco continues. "We need clarity. Long-running branches. Clear release channels. Different rules for different branches."
+
+He draws a new diagram:
+
+```
+main (Production) ────────────────→ v1.0, v1.1, v2.0
+   ↑                   ↑
+develop (Integration) ─────────────→
    ↑      ↑      ↑      ↑      ↑
-feature/ feature/ feature/ hotfix/ bugfix/
+   └──────┴──────┴──────┴──────┘
+  feature/ hotfix/ bugfix/
 ```
 
-"This is Gitflow," Marco explains. "It's more complex, but it handles our needs: long-running features, scheduled releases, emergency hotfixes, and multi-region deployment."
+"This is Gitflow," Marco explains. "It's more complex, but everyone knows exactly where code should go and what state it's in."
 
-Neri asks: "Will this slow us down?"
+Dev Sam asks: "Will this slow us down?"
 
-"It will slow down chaos," Marco replies. "And speed up confidence. Everyone will know exactly where code should go and what state it's in."
+"No," Marco replies. "It will speed us up. Right now we're losing time debugging which version is deployed where. Gitflow prevents that."
+
+The team studies it together. Main stays production-ready. Develop is the integration point. Features branch from develop. Releases go through a gating process. Hotfixes for production emergencies follow their own path.
+
+"Everyone deploys correctly," Neri concludes. "And we're always production-ready."
+
+**This lesson teaches that as teams grow, simple workflows break. Advanced workflows scale.**
 
 **Time Allotment**: 60 minutes
 

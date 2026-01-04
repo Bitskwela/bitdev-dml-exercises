@@ -1,29 +1,53 @@
-# Le 11: Cleaning Up Branches
+# Le 11: Cleaning Up Branches – Professional Discipline
 
 ![Branch Cleanup](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-cleanup.png)
 
-## Background Story
+## Scene: Repository Chaos Reveals a Lesson
 
-Three months later. The Barangay Blockchain has shipped 20 features. Maria runs `git branch` and scrolls... and scrolls... and scrolls.
+**Three months later. Barangay Blockchain v1.0 is about to ship.**
 
-"We have 47 branches," Maria says in horror. "feature/voting-1 through feature/voting-20, all deleted branches we forgot to clean, bugfix branches from months ago..."
+Maria gets a message: new London developer joins the team.
 
-"This is why we clean up," Marco says. "After we merge, we delete the branch. No need to keep it around."
+"I need context," the developer writes. "I'll read the Git history."
 
-New developer from London joins the call: "I'm confused. Which branches are active? Which are old?"
+Maria decides to give them an overview of branches:
+```bash
+git branch -a
+```
 
-Marco realizes: "This is a message. If we can't tell which branches are active, we're not cleaning up fast enough. Let's establish a cleanup routine."
+The output scrolls... and scrolls... and scrolls. Maria stops counting after 47 branches.
 
-By establishing simple cleanup habits, the team keeps their repository clear. New developers understand immediately what's being worked on.
+"Oh no," she mutters.
+
+The London developer messages: "Which branches should I care about? Which are active? Which are old?"
+
+Marco walks over. "This is embarrassing."
+
+"Why?" Maria asks.
+
+"Because look at these names: feature/voting-1, feature/voting-2, feature/voting-improvements, feature/voting-refactor. Some are merged. Some are duplicates. Some are from months ago."
+
+"Why is that a problem?"
+
+"Because," Marco says, "an unclear repository means unclear thinking. If we can't tell which branches are active, we're not thinking clearly about our work."
+
+He pulls up the naming conventions they established three months ago. "We're supposed to delete branches after merging. We've been lazy about it."
+
+"So... we clean up?"
+
+"We clean up," Marco confirms. "Starting today. After every merge, delete the branch. Immediately. Make it a habit. A clean repository is a sign of a professional team."
+
+**This lesson teaches that software development isn't just about code—it's about discipline and clear communication.**
 
 **Time Allotment**: 25 minutes
 
 **Topics Covered**:
-- Deleting local branches
-- Deleting remote branches
-- Understanding branch lifecycle
-- Keeping repository clean
-- Communication value of clean repositories
+
+- Deleting local branches (removing pointers after merging)
+- Deleting remote branches (cleanup on GitHub)
+- Understanding branch lifecycle (created, developed, merged, deleted)
+- Keeping repository clean (a sign of team discipline)
+- Communication value of clean repositories (new developers understand immediately)
 
 ---
 

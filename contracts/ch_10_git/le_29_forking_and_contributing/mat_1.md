@@ -2,21 +2,37 @@
 
 ![Open Source Contribution](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-opensource.png)
 
-## Background Story
+## Scene: Beyond the Barangay
 
-Maria receives an email that makes her heart race.
+**Two months later. Barangay Blockchain v1.0 has shipped successfully.**
 
-"Dear Barangay Blockchain Team, we're impressed with your voting module implementation. We'd like to invite you to contribute it to our open-source governance framework used by municipalities across Southeast Asia."
+Maria checks her email during morning coffee.
 
-She runs to Marco. "They want us to contribute to the OpenGov project! It has 500+ stars on GitHub!"
+"Dear Barangay Blockchain Team: We're impressed with your voting module implementation. We'd like to invite you to contribute it to the OpenGov Governance Framework, used by 150+ municipalities across Southeast Asia."
 
-"This is different from our internal workflow," Marco explains. "You can't push directly to their repository. You need to fork it, make changes, then submit a pull request for their maintainers to review."
+Her hands shake.
 
-Maria feels intimidated. "People from around the world will review my code?"
+She runs to find Marco, Dev Sam, and Alexis (who's visiting from Mexico City). "They want us. Our code. In an open-source project with hundreds of developers."
 
-"Yes. And you'll learn from their feedback. Open source is how developers grow beyond their local teams. Your Barangay Blockchain code could help villages in Indonesia, Thailand, Vietnam."
+Marco reads the email. "This is the moment. You've gone from 'local team shipping software' to 'contributors to a global project.'"
 
-This is Maria's opportunity to contribute to something bigger than herself.
+"But it's different, right?" Maria asks nervously. "We can't just merge. They own the repository."
+
+"Exactly," Marco confirms. "You fork. You contribute. Their maintainers review. You iterate. Then they decide whether to include your work. This is open-source development."
+
+"People from Thailand, Indonesia, Vietnam will review my code?"
+
+"Yes. And you'll learn from their feedback. You'll read code from developers in seven countries. You'll grow beyond what we can teach you locally."
+
+Alexis leans forward. "And your voting module—it's not just for your barangay anymore. It could help villages that have been struggling to conduct fair elections. Your code becomes infrastructure."
+
+Maria looks at her laptop. The same keyboard where she created her first Git commits. The same screen where she learned branches, merges, pull requests. The same place where she solved merge conflicts at 2 AM and celebrated deployment victories.
+
+Now her code is leaving that laptop. Traveling to a global project. Being reviewed by strangers. Potentially improving thousands of lives.
+
+"Let's do it," she says.
+
+**This lesson teaches that Git isn't just a tool for teams. It's a tool for the world. This is open-source contribution.**
 
 **Time Allotment**: 50 minutes
 

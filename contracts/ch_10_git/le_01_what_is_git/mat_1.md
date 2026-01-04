@@ -1,54 +1,55 @@
-# Le 01: What is Git?
+# What is Git?
 
-![Git Foundations](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-intro.png)
+![1.0 - COVER](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_10_git/le_01_what_is_git/1.0%20-%20COVER.png)
 
-## Background Story
+## Scene
 
-_The Manila Digital Collective is finally ready. After months of building their market app, crypto payment system, and DeFi tools, they're preparing to launch globally. But there's one critical problem: how do they manage code changes when developers are scattered across Manila, Cebu, Davao, and soon, the world?_
+Marco starts his day in Manila, checking emails from his distributed team. Maria, in Cebu, just sent him a voting system update. But when he opens the file, something's wrong—his changes are gone.
 
-_"If we all edit files at the same time, we'll overwrite each other's work," says Marco, the technical lead. "We need version control."_
+Hours of work on the tie-breaking logic, overwritten.
 
-_Enter Git—the distributed version control system that powers global open-source projects, tech companies, and the entire digital world._
+"We have a problem," Marco tells the team on their video call. "We can't keep editing the same files without losing work. We need a system to track changes, see who did what, and merge work safely."
 
-**Time Allotment**: 30 minutes
+That's when Neri, who mentored the team through their first blockchain project, suggests: "You need Git—the same tool that powers every major open-source project in the world."
 
-**Topics Covered**: Version control concepts, Git history, distributed systems, collaboration
-
----
+To help the team start, let's dive into the fundamentals of Git: What it is, why it matters, and how it prevents chaos like what just happened to Marco.
 
 ## What is Git?
 
-**Git** is a **distributed version control system (DVCS)** that tracks changes to files over time. Think of it as a detailed ledger for your code—recording who changed what, when they changed it, and why.
+![1.1 - GIT CONCEPTS](https://blockskwela.s3.ap-southeast-1.amazonaws.com/courses/contracts/ch_10_git/le_01_what_is_git/1.1.png)
 
-### Before Git: The Chaos
+### Version Control: The Ledger for Code
 
-Imagine the Manila Digital Collective without Git:
+> Git is a **distributed version control system (DVCS)**. Think of it as a detailed ledger where every change to your code is recorded: who made it, when they made it, and why.
 
-- Developer A saves `app.js` at 2:00 PM
-- Developer B saves `app.js` at 2:05 PM—overwriting A's changes
-- Dev C downloads the file at 2:30 PM—but which version?
-- Nobody knows the history of changes
+Just like a barangay treasurer keeps a record of every transaction—with signatures and dates—Git keeps a permanent record of every code change.
+
+#### The Problem Without Version Control
+
+Imagine the marketplace without a ledger:
+
+- Marco saves `voting-system.py` at 2:00 PM
+- Maria saves `voting-system.py` at 2:05 PM—overwriting Marco's changes
+- A third developer downloads the file at 2:30 PM—but which version?
+- Nobody knows the history
 - A bug is discovered—but nobody knows who introduced it
 - Recovery is impossible
 
-### After Git: Control & Clarity
+#### The Solution With Git
 
 With Git:
 
-- Every change is recorded with who made it and why
-- Developers work in isolated branches
-- Changes are merged safely
+- Every change is recorded with who made it and why ("Added tiebreaker logic")
+- Developers work in isolated branches—no overwrites
+- Changes are merged safely, not just replaced
 - History is preserved forever
-- Anyone can see the exact evolution of the code
-- If something breaks, we can pinpoint exactly when and why
+- If something breaks, you revert to a known good state instantly
 
-## The Story of Git
+### Git's Distributed Power
 
-**Created**: 2005 by Linus Torvalds (creator of Linux)
-**Why**: Linux kernel development was growing too fast for other version control systems
-**Impact**: Became the industry standard for software development worldwide
+> Git isn't stored on a single server. Each developer has a complete copy of the entire history. This is distributed version control—no single point of failure.
 
-### Git's Advantages Over Older Systems
+Unlike older systems (CVS, SVN) where a central server could crash and lose everything:
 
 | Feature           | CVS  | SVN    | Git       |
 | ----------------- | ---- | ------ | --------- |
@@ -58,47 +59,43 @@ With Git:
 | Collaboration     | Poor | Better | Excellent |
 | Industry standard | ❌   | ❌     | ✅        |
 
+Git gives the Manila Digital Collective the ability to work offline, merge changes safely, and maintain a complete history locally. Every developer is a backup.
+
+### A Brief History: Why Git Exists
+
+In 2005, Linus Torvalds (creator of Linux) needed a version control system that could handle thousands of developers contributing to the Linux kernel. No existing system was fast or flexible enough. So he created Git in just two weeks.
+
+Git became the industry standard because it solved real problems that teams face every day: coordination across locations, parallel development, and safe merging.
+
 ## Core Git Concepts
 
-### The Three-Level System
+### The Three Spaces
 
-1. **Working Directory**: Your actual files on your computer
-2. **Staging Area**: Files you've marked to be committed
-3. **Repository**: The permanent record of all commits
+Git organizes code into three locations:
 
-### Key Terms
+1. **Working Directory**: Your actual files on your laptop—where you edit code
+2. **Staging Area**: Files you've marked to be committed—your next snapshot
+3. **Repository (.git folder)**: The permanent record of all commits—the ledger
 
-- **Repository (Repo)**: A directory containing your project and its entire Git history
-- **Commit**: A snapshot of your code at a specific moment in time
-- **Branch**: A parallel line of development
-- **Merge**: Combining changes from different branches
+### Key Git Terms
+
+- **Repository (Repo)**: A project folder containing your code and all Git history
+- **Commit**: A snapshot of your code at a specific moment (with a message explaining why)
+- **Branch**: A parallel timeline of development—like parallel work streams
+- **Merge**: Combining changes from different branches safely
 - **Remote**: A copy of your repository on a server (like GitHub)
-- **Clone**: Creating a copy of a repository
+- **Clone**: Downloading a complete copy of a repository
 
-## Why Git Matters for Your Journey
+## Why Git Matters for Your Team
 
-As you launch your Filipino-built innovations to the world:
+As Marco and the Manila Digital Collective scale from 3 developers to 30 across multiple cities:
 
-- **Collaboration**: Work with developers in Manila, Cebu, and beyond
-- **Safety**: Never lose code again
-- **Transparency**: Track every change, every decision
-- **Professionalism**: Git is standard in every tech company, startup, and open-source project
-- **Open Source**: Contribute to global projects using Git
-
-## The Global Deployment Vision
-
-Imagine:
-
-- You build an app in Manila
-- Your classmate in Cebu adds features in a branch
-- A developer in Japan contributes improvements
-- All changes are tracked, merged safely, and deployed to servers worldwide
-- If something breaks, you roll back instantly
-
-That's Git. That's the power you're about to gain.
+- **Coordination**: Work simultaneously without stepping on each other
+- **Transparency**: Every decision is recorded—no mystery about who changed what
+- **Safety**: Never lose code again; always revert to a previous state
+- **Professionalism**: Git is standard in every tech company and open-source project
+- **Global Impact**: Contribute to projects worldwide using the same Git workflow
 
 ---
 
-**Ready to start your version control journey? Let's initialize your first repository!**
-
-**Ready for the activity? Let's get started!**
+**Ready to understand the next step? Let's configure Git and set up your identity!**

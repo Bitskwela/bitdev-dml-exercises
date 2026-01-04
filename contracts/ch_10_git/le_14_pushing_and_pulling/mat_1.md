@@ -3,21 +3,34 @@
 
 ![Push Pull Workflow](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-push-pull.png)
 
-## Background Story
+## Scene: Code Becomes Shared Across Oceans
 
-It's 6 PM in Manila. Maria has been coding all day on her `feature/voter-registration` branch. She's made five solid commits—voter validation, duplicate detection, registration events.
+**6 PM Manila. Maria stares at the clock.**
 
-"Time to go home," she thinks. But then she remembers: her code only exists on her laptop.
+She's been coding all day on her `feature/voter-registration` branch. Voter validation done. Duplicate detection done. Registration events complete. Five solid commits that represent hours of careful thinking.
 
-If her laptop crashes tonight, a full day's work vanishes. If Dev Sam in Cebu needs to continue her work tomorrow, he can't access it. If London wants to review it during their morning, they're blocked.
+Her fingers hover over the laptop keyboard.
 
-"Push it to GitHub before you leave," Marco always says. "Your local commits mean nothing until they're shared."
+"The code is on my machine," she mutters. "If I shut this down and go home, and my apartment catches fire, or my laptop gets stolen, or I spill coffee on it—three weeks of work for the team burns."
 
-Maria runs `git push origin feature/voter-registration`. Within seconds, her work is safe on GitHub—backed up, accessible to the team, ready for collaboration.
+She thinks of Dev Sam waking up in Cebu in eight hours. He's supposed to build payment integration on top of her voter registration. How? Will she email him the code? A zip file? Will he copy-paste from a share link?
 
-The next morning in Cebu, Dev Sam runs `git pull origin feature/voter-registration`. Maria's five commits appear on his machine. He continues where she left off without a single email, no USB drives, no "hey can you send me that file."
+"No," she says quietly. "There's a better way."
 
-This is the heartbeat of distributed development: push your work up, pull others' work down. Simple commands that connect developers across oceans.
+`git push origin feature/voter-registration`
+
+Within seconds, GitHub receives her commits. Her code is now on servers in multiple data centers. It's backed up. It's safe. It's accessible.
+
+**The next morning in Cebu. Dev Sam wakes up.**
+
+His first action: check his messages. Marco wrote: "Maria finished voter registration yesterday. Your vote-casting branch should build on top of it."
+
+Dev Sam pulls:
+`git pull origin feature/voter-registration`
+
+Maria's five commits appear on his machine instantly. No email. No USB drive. No file sharing service. Just Git, connecting two developers across the ocean as if they were sitting at the same desk.
+
+**This lesson teaches the second superpower: how Git makes continuous collaboration possible across time zones and continents.**
 
 **Time Allotment**: 35 minutes
 

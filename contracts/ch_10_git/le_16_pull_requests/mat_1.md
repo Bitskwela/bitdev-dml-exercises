@@ -2,23 +2,40 @@
 
 ![Pull Requests](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-pull-request.png)
 
-## Background Story
+## Scene: Code Review Across Time Zones
 
-Wednesday afternoon. Maria finishes her `feature/voter-registration` branch. 47 commits, 2,000 lines of code, three weeks of work. She's proud of it.
+**Wednesday afternoon. Manila.**
 
-"I'll just merge it to main," she says, reaching for the merge button.
+Maria stares at her screen. `feature/voter-registration` is done. 47 commits. 2,000 lines of code. Three weeks of focused work. Unit tests pass. Manual testing successful. She's tested with 1,000 simulated voters.
 
-"Wait!" Marco's voice comes through the team chat. "We don't merge directly anymore. Create a Pull Request."
+She reaches for the button to merge it directly to main.
 
-Maria frowns. "But I know my code works. I tested it."
+"Wait!" Marco's voice comes through the team chat. He's in Cebu, several time zones away. "Don't merge directly. Create a Pull Request."
 
-Marco explains: "It's not about whether YOU know it works. It's about whether the TEAM knows it works. A Pull Request lets Dev Sam review your code. London can check for security issues. I can verify it follows our patterns. And Neri can see what's changing before it goes to production."
+Maria frowns. "Why? I know it works. I tested it completely."
 
-Maria creates her first Pull Request. Within an hour, Dev Sam comments: "Line 234—this validation could be bypassed. See my suggestion." London adds: "Good work! But please add error handling for network failures." Marco approves with a note: "Clean code. Let's ship it after addressing the feedback."
+"It's not about whether you know it works," Marco responds. "It's about whether the team knows it works."
 
-Three days later, Maria's code merges—better than she wrote it, reviewed by three developers across three time zones, documented in the PR conversation for anyone who asks "why did we build it this way?"
+She thinks about it:
 
-Pull Requests aren't bureaucracy. They're how distributed teams maintain quality while moving fast.
+- **Dev Sam in Cebu** is building payment integration. He needs to know voter registration works before he commits his code.
+- **London developer** has security expertise. Could spot validation edge cases.
+- **Alexis in Mexico City** writes platform-specific code. Needs to verify compatibility.
+- **Neri** owns the system. Needs to approve what goes to production.
+
+One woman's "it works on my machine" is not the same as "the team has verified this."
+
+Maria creates her first Pull Request.
+
+Within minutes, notifications arrive:
+
+- **Dev Sam** comments on line 234: "This validation could be bypassed. See my suggestion on the diff."
+- **London developer** adds: "Great work! But network failures—what happens if the request times out? Need error handling."
+- **Marco** posts a full review: "Clean code. Excellent test coverage. Let's address Sam's suggestion, add error handling, and we're ready to merge."
+
+Three developers across three time zones, reviewing one woman's code, before it touches production.
+
+**This lesson teaches that Pull Requests are not bureaucracy. They're how distributed teams maintain quality while moving at speed. Code gets better. People learn. Decisions are documented.**
 
 **Time Allotment**: 45 minutes
 

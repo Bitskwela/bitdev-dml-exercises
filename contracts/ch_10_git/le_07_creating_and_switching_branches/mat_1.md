@@ -1,26 +1,52 @@
-# Le 07: Creating and Switching Branches
+# Le 07: Creating and Switching Branches – Your First Independent Workspace
 
 ![Branch Commands](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-branch-commands.png)
 
-## Background Story
+## Scene: Maria's First Branch
 
-It's Monday morning in Manila. Maria opens her terminal and is ready to work on voting protection. But she doesn't want to commit directly to `main` where the stable code lives. "I need my own branch," she says.
+**Monday 9 AM, Manila. Maria is ready to start her four-day refactor.**
 
-Marco helps her: "Create a branch, switch to it, and work. When you're done and tested, we'll merge back to main."
+She opens her terminal. Her hands hover over the keyboard.
 
-Dev Sam in Cebu is doing the same for payment processing. Each developer creates their own branch. Each works independently. The magic is in the commands—simple, powerful tools that let teams move fast without stepping on each other.
+"What do I do?" she asks Marco, who's in the seat next to her.
 
-What they learn today enables three developers to work simultaneously, something that would be impossible without branching.
+"Create a branch," he says. "A separate workspace, just for your refactor. The main branch stays untouched. When you're done and tested, we merge."
+
+"How?"
+
+"One command."
+
+Maria types:
+```bash
+git branch feature/permission-refactor
+```
+
+It completes instantly. Nothing visible happens. No files changed. No folders created.
+
+"That's it?" Maria asks.
+
+"That's it," Marco confirms. "You just created a pointer. Now switch to it."
+
+She types:
+```bash
+git switch feature/permission-refactor
+```
+
+She's now on her own branch. The files look identical to main because they started at the same place. But now, anything she changes is isolated to this branch.
+
+**This moment—creating and switching to a branch—is where individual developers become a coordinated team.**
+
+For the next four days, Maria can refactor without fear. Marco can work on voting display without conflicts. Sam in Cebu can start payment integration without waiting. Three developers, three branches, full parallelization.
 
 **Time Allotment**: 30 minutes
 
 **Topics Covered**:
 
-- Creating branches with `git branch`
-- Switching branches with `git checkout` and `git switch`
-- Creating and switching in one command
-- Understanding branch independence
-- Seeing how files change when switching branches
+- Creating branches with `git branch` (the foundation command)
+- Switching branches with `git switch` (move between workspaces)
+- Creating and switching in one command (the shortcut professionals use)
+- Understanding branch independence (how files change when switching)
+- Seeing branches exist independently (each with their own state)
 
 ---
 

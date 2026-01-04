@@ -2,29 +2,58 @@
 
 ![Git Stash](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-stash.png)
 
-## Background Story
+## Scene: The Pause Button
 
-Maria is deep in her voter analytics feature. Files are modified. New code is half-written. Nothing is ready to commit yet.
+**Wednesday 10 AM. Maria is deep in her voter analytics feature.**
 
-Her phone rings. It's Marco: "Emergency. Production bug. Need you to review the hotfix now."
+Her code is everywhere:
+- `voter.js` is modified (12 changes)
+- `analytics.js` is new and partially written (45 lines)
+- `charts.html` is modified (8 changes)
 
-Maria panics. "I can't switch branches! I have uncommitted changes. If I switch, I'll lose my work. But if I commit now, I'll commit broken code."
+Nothing is committed. Nothing is finished. She's in the middle of a complex refactor, and the code is tangled across three files.
 
-Marco teaches her the stash: "Stash temporarily saves your uncommitted work. You can switch branches, do the review, then come back and restore your work exactly as it was."
+Her phone rings. It's Marco: "Emergency. Production voter registration is having timeout issues. I need a code review from you. Now."
+
+Maria panics. She's on a feature branch with uncommitted changes. She _needs_ to switch to main to review the hotfix. But if she switches branches with uncommitted work, she risks losing it.
+
+"Should I commit broken code?" she asks desperately.
+
+"No," Marco says. "Stash it. Stash is Git's pause button."
 
 ```bash
 git stash
-# Work disappears (safely stored)
-
-git checkout main
-# Review the hotfix
-git checkout feature/voter-analytics
-
-git stash pop
-# Work reappears exactly as before
 ```
 
-Maria's half-written code is back. The review is done. No broken commits. Stash is the "pause button" for Git.
+Within seconds, her uncommitted changes vanish from her working directory. The files revert to their last committed state. Clean. Safe.
+
+She switches to main:
+
+```bash
+git checkout main
+```
+
+She reviews the timeout fix. It's a three-line change—obvious problem, simple solution. She approves it.
+
+Then she switches back to her feature branch:
+
+```bash
+git checkout feature/voter-analytics
+```
+
+And restores her stashed work:
+
+```bash
+git stash pop
+```
+
+Her code is back exactly as it was. The 12 changes to `voter.js`. The 45 lines in `analytics.js`. The 8 changes to `charts.html`. All intact. All waiting for her.
+
+"It's like pausing a game," Maria says.
+
+"Exactly," Marco confirms. "Stash when you need to switch context. Resume when you're ready."
+
+**This lesson teaches context switching. Stash lets developers pause their work, handle emergencies, and resume without losing anything.**
 
 **Time Allotment**: 35 minutes
 

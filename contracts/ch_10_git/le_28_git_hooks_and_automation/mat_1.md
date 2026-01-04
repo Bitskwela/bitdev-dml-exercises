@@ -2,23 +2,43 @@
 
 ![Git Hooks](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-hooks.png)
 
-## Background Story
+## Scene: Automated Quality Control
 
-The code review is brutal.
+**Thursday code review. The team is reviewing Maria's new feature.**
 
-"Maria, this commit has a typo in the code. It would have failed linting."
+Pull request: voter analytics module. 12 commits.
 
-"Dev Sam, your commit message doesn't follow our format."
+**Comment 1 from Dev Sam**: "Maria, line 234 has a typo: `voterCount` instead of `voterCound`. ESLint would have caught this."
 
-"London team, you committed debug console.log statements again."
+**Comment 2 from London**: "Your commit message says 'add analytics' but it also includes changes to the payment module. Your commit message doesn't match your code."
 
-Marco looks at the pull request. Twelve commits. Eight have issues that could have been caught automatically.
+**Comment 3 from Marco**: "I see you have `console.log('DEBUG')` in the code. This should never reach production. A linter would have warned you."
 
-"We're wasting time reviewing things a computer should catch," he sighs. "We need git hooks."
+Twelve commits. Eight comments. All of them things that could have been caught by a computer, not a human.
 
-Git hooks are scripts that run automatically at key moments—before commits, before pushes, after merges. They enforce standards before code even reaches the repository.
+Marco closes the PR and calls a meeting.
 
-"From now on," Marco announces, "no commit happens unless it passes linting. No push happens unless tests pass. The computer enforces our standards, so we humans can focus on actual code review."
+"We're wasting time reviewing things machines should catch," he says bluntly. "ESLint catches typos. Prettier formats code. Commit-msg hooks validate commit messages. Tests fail before you push. The computer enforces our standards so we can focus on actual design and logic."
+
+He introduces git hooks—scripts that run automatically at critical moments.
+
+"Before your commit is saved, the pre-commit hook runs. It checks for linting errors, missing tests, console.log statements. If anything fails, your commit is blocked. The computer says: 'Fix this before I let you commit.'"
+
+"Then commit-msg runs. Validates your message. Follows our format."
+
+"Finally, pre-push runs tests. If any test fails, your push is blocked. You can't push broken code."
+
+Maria looks at the PR review comments again. With proper hooks, that PR would have:
+1. Had the typo caught before commit
+2. Had the console.log blocked before commit
+3. Had the commit message validated before push
+4. Had tests run before push
+
+"One PR," she realizes. "Could have been perfect on first submission."
+
+"Exactly," Marco says. "The computer does its job. We do ours. Humans review strategy. Machines enforce standards."
+
+**This lesson teaches automation. Prevention is always better than detection.**
 
 **Time Allotment**: 45 minutes
 

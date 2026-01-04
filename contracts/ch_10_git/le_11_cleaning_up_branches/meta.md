@@ -1,9 +1,19 @@
 ---
 title: "Cleaning Up Branches"
-description: "Learn to delete merged branches and keep your repository organized and clean."
-date: "2025-12-14"
-tags: ["git", "version-control", "bitskwela", "lesson"]
+description: "Branches accumulate as features ship. Learn to safely delete merged branches and keep workspace organized."
+date: "2026-01-03"
+tags:
+  [
+    "git",
+    "cleanup",
+    "maintenance",
+    "bitskwela",
+    "organization",
+    "professionalism",
+  ]
 type: "ActivityExercise"
 permaname: "cleaning-up-branches"
 slug: "cleaning-up-branches"
+narrative_arc: "Arc 2: Branching & Merging"
+story_context: "Team growth and parallel development"
 ---

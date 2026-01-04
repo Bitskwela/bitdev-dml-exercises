@@ -1,34 +1,57 @@
-# Le 09: Handling Merge Conflicts
+# Le 09: Handling Merge Conflicts – When Teams Disagree
 
 ![Merge Conflict Resolution](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-conflict.png)
 
-## Background Story
+## Scene: Two Developers, One Problem
 
-Thursday. Maria and Marco decided to work on the same feature simultaneously for speed. Bad decision.
+**Thursday morning, Manila. Maria and Marco are racing.**
 
-Maria created `feature/voting-refactor` and changed how votes are counted.
-Marco created `feature/voting-display` and changed how votes are counted too.
+Neri called an emergency meeting. Voting system is experiencing occasional incorrect counts. The bug must be fixed today. Deploy tonight to all four regions.
 
-When Maria merged first, main updated. When Marco tried to merge, Git stopped: "I can't merge this. You both changed the same lines in voting.js. I don't know which version is right."
+Maria and Marco decide to work in parallel for speed. A risky move, but necessary.
 
-"This is a merge conflict," Marco says calmly. "It happens. The important thing is not to panic. Git is asking us to make a decision."
+Maria creates `feature/voting-count-fix` and modifies the vote counting logic. She uses a simple `length` approach.
 
-Maria and Marco look at both versions. They discuss. They decide to take Maria's approach but with Marco's safety check. They manually edit the file, remove the conflict markers, and complete the merge.
+Marco creates `feature/voting-validation` and modifies the same vote counting logic. He uses an iterative counting approach.
 
-"This is why we communicate," Neri observes. "Code isn't just code—it's decisions. When two decisions conflict, humans must decide."
+By 2 PM, Maria is confident. She merges to main:
+```bash
+git switch main
+git merge feature/voting-count-fix
+# Success: Fast-forward 3 commits
+```
 
-What they learn today is that merge conflicts are manageable and reveal when teams need better communication.
+Marco is confident. He merges to main:
+```bash
+git switch main  
+git merge feature/voting-validation
+# ERROR: CONFLICT in voting.js
+```
+
+Git stops. It can't automatically decide whose approach is correct. Both versions modify the same lines. Human judgment required.
+
+Marco stares at the error. His stomach drops.
+
+Maria sees him freeze. "What happened?"
+
+"Merge conflict," Marco says quietly.
+
+"That's... bad?"
+
+"Not bad. Just requires decisions."
+
+**This lesson teaches that merge conflicts aren't failures—they're decisions. And decisions require conversation.**
 
 **Time Allotment**: 40 minutes
 
 **Topics Covered**:
 
-- What causes merge conflicts
-- Conflict markers and what they mean
-- Resolving conflicts manually
-- Using merge tools
-- Aborting merges
-- Preventing conflicts through communication
+- What causes merge conflicts (two branches modifying the same location)
+- Conflict markers and what they mean (Git showing both versions)
+- Resolving conflicts manually (reading both solutions, choosing carefully)
+- Using merge tools (when visual resolution helps)
+- Aborting merges (backing out without committing)
+- Preventing conflicts through communication (why teamwork prevents merge hell)
 
 ---
 

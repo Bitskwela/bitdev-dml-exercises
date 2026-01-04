@@ -2,37 +2,37 @@
 
 ![Git Rebase](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-rebase.png)
 
-## Background Story
+## Scene: History Matters
 
-Maria has been working on `feature/voter-analytics` for three days. She's made seven commits. Meanwhile, main has moved forward—Dev Sam merged a critical security update, and London added performance improvements.
+**One week into the `feature/voter-analytics` project. Maria has been coding for three days.**
 
-When Maria looks at her git log, it's a mess:
+She has seven commits on her feature branch. But something is bothering her.
 
-```
-* a1b2c3d (feature/voter-analytics) WIP: analytics
-* c4d5e6f Fix typo
-* g7h8i9j More analytics work
-* k1l2m3n Started analytics
-| * x9y8z7w (origin/main) Performance fix (London)
-| * q6r5s4t Security update (Dev Sam)
-|/
-* base123 Previous main
-```
-
-"My feature branch started from old main," Maria realizes. "And my commits are all over the place—'WIP', 'Fix typo'—these aren't professional."
-
-Marco introduces rebasing: "Rebase lets you do two powerful things: (1) move your commits on top of the latest main, and (2) clean up your commit history before merging."
-
-After rebasing, Maria's history is clean:
+She runs `git log --oneline`:
 
 ```
-* abc123 (feature/voter-analytics) Add comprehensive voter analytics
-* x9y8z7w (origin/main) Performance fix (London)
-* q6r5s4t Security update (Dev Sam)
-* base123 Previous main
+a1b2c3d WIP
+c4d5e6f Fix typo
+g7h8i9j More analytics work
+k1l2m3n Started analytics
 ```
 
-One clean commit, based on latest main. Ready for review.
+"This is messy," she mutters. Meanwhile, on main, the team has been productive:
+
+```
+x9y8z7w (main) Performance fix (London)
+q6r5s4t Security update (Dev Sam)
+```
+
+Now Maria's analytics branch is _behind_ main. When she merges, her seven commits will be tangled with main's commits. The git log will look chaotic.
+
+Marco arrives with advice: "You need rebasing. Two reasons: (1) move your commits on top of latest main, (2) clean up your commit history before merging."
+
+He shows her the power: rebase takes her seven messy commits and replays them on top of main's latest work. Her commits stay the same code changes, but they're now based on current main. And if she cleans them up first, she can have one professional commit instead of seven "WIP" and "Fix typo" messages.
+
+"After rebasing," Marco says, "your history tells a clear story. Not 'I made a mess and fixed typos'—but 'I implemented voter analytics cleanly.'"
+
+Maria realizes: **In distributed teams, clear history matters as much as clean code.**
 
 **Time Allotment**: 50 minutes
 

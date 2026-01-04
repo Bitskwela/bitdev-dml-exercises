@@ -2,21 +2,35 @@
 
 ![Git Tags](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-tags.png)
 
-## Background Story
+## Scene: Lost in Commit History
 
-It's Thursday afternoon. Neri, the barangay stakeholder, calls an emergency meeting.
+**Thursday afternoon. Neri, the barangay chair, calls an emergency meeting.**
 
-"The voting module is broken," she says. "We need to go back to the version from last month. The one that worked perfectly during the San Juan election."
+"The new voting module is broken," she announces. "The one we deployed last month worked perfectly. During the San Juan election—flawless. Zero issues."
 
-The team looks at each other. Which version was that?
+"We need to go back to that version," she demands.
 
-Maria checks the commit history. There are 200 commits from last month. Dev Sam remembers "it was before we added the SMS feature." The London developer says "I think it was after we fixed the timezone bug."
+The team panics. Maria looks at the commit history. Two hundred commits since last month. Dev Sam vaguely remembers "it was before we added the SMS feature." The London developer thinks "maybe it was after the timezone fix?"
 
-Nobody knows which exact commit was deployed to production that day.
+Nobody—_nobody_—knows which exact commit was deployed that day.
 
-"We need tags," Marco declares. "We should have tagged every release. v1.2.0 was deployed on October 15. v1.2.1 was the hotfix on October 20. Clear. Findable. Deployable."
+"We have to find it manually," Marco says, exhausted. "Read old deployment logs. Cross-reference with calendar dates. Maybe ask Alexis in Mexico City if she remembers."
 
-Three hours later, they finally identify the commit by reading old deployment logs. They vow to tag every release from now on.
+Three hours later. Three frustrating hours of archaeological dig through emails and Slack messages. Finally: they identify the commit.
+
+They revert. The old version works. Voters are happy again.
+
+That evening, the team meets for a retrospective.
+
+"We need tags," Marco announces. "Not just commits. Not 'maybe the version from sometime in October.' We need to mark every release. v1.0.0, v1.1.0, v1.2.1—clear versions, findable instantly."
+
+Neri nods. "If production breaks, how long until we can revert?"
+
+"With tags?" Marco smiles. "Thirty seconds. `git checkout v1.2.0` and we're back to the version that worked."
+
+"That's what we implement tomorrow," Neri says.
+
+**This lesson teaches professionalism. Releases need to be findable, repeatable, and recoverable.**
 
 **Time Allotment**: 35 minutes
 

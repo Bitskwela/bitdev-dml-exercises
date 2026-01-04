@@ -1,9 +1,19 @@
 ---
 title: "Understanding Branches"
-description: "Learn what Git branches are, why they matter, and how they enable parallel development."
-date: "2025-12-14"
-tags: ["git", "version-control", "bitskwela", "lesson"]
+description: "The team grows to 6 developers. Learn how Git branches let them work in parallel without stepping on each other's code."
+date: "2026-01-03"
+tags:
+  [
+    "git",
+    "branches",
+    "parallel-work",
+    "bitskwela",
+    "collaboration",
+    "foundations",
+  ]
 type: "ActivityExercise"
 permaname: "understanding-branches"
 slug: "understanding-branches"
+narrative_arc: "Arc 2: Branching & Merging"
+story_context: "Team realizes sequential work is too slow; needs parallel development"
 ---

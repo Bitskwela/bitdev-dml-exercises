@@ -2,11 +2,13 @@
 
 ![Commit Messages](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-commit-messages.png)
 
-## Background Story
+## Scene: Crisis at 2 AM
 
-It's 2 AM in Singapore. The production server is down. A voting transaction failed, and the system is locked.
+**2 AM Singapore time. The production server is down.**
 
-The Singapore developer opens the git log to find when the problem was introduced:
+A voting transaction failed. The system is locked. Voters can't cast ballots. The barangay captain is calling. The election committee is panicked.
+
+The on-call Singapore developer opens the git log, desperate to find when the problem was introduced:
 
 ```bash
 git log --oneline -10
@@ -19,11 +21,19 @@ git log --oneline -10
 # w1x2y3z asdf
 ```
 
-"What is 'stuff'? What did 'changes' change? What was 'fix' fixing?" The developer has no idea. He has to read every commit's diff to understand what happened. An hour later, he finds the bug—introduced in "asdf."
+**What is 'stuff'? What did 'changes' change? What was 'fix' fixing?**
 
-Next day, team meeting. Marco displays the log on the screen.
+The developer has no idea. He has to read every diff manually. Line by line. Commit by commit. An hour passes. Two hours. Voting is still down.
 
-"This is why commit messages matter," he says. "When it's 2 AM and production is down, 'fix stuff' doesn't help anyone. We're implementing commit message standards today."
+Finally—three hours after the problem started—he finds the bug. It was introduced in the commit that says "asdf."
+
+Next day, the team gathers (minus the Singapore developer, who got maybe two hours of sleep).
+
+Marco displays the logs on the big screen.
+
+"This is what happens when commit messages don't matter," he says quietly. "When it's 2 AM and production is down, a commit message of 'asdf' doesn't help anyone. We're implementing commit message standards today. All of us. No exceptions."
+
+**This lesson teaches that commits are forever. Commit messages are communication from one developer to another developer in crisis.**
 
 **Time Allotment**: 40 minutes
 

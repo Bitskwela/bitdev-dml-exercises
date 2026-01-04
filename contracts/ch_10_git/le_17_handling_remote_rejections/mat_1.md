@@ -2,15 +2,19 @@
 
 ![Git Push Rejected](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-rejected.png)
 
-## Background Story
+## Scene: Divergence in Distributed Development
 
-Friday afternoon. Maria has been coding all morning. She's made five commits on her local `main` branch. Time to push.
+**Friday afternoon. Manila. Maria has been coding all morning.**
+
+Five commits on her local `main` branch. Good commits. Code review approved. Tests passing. Ready to deploy.
+
+Time to push to production.
 
 ```bash
 $ git push origin main
 ```
 
-The terminal turns red:
+Her terminal turns red:
 
 ```
 ! [rejected]        main -> main (non-fast-forward)
@@ -20,17 +24,34 @@ hint: its remote counterpart. Integrate the remote changes (e.g.
 hint: 'git pull ...') before pushing again.
 ```
 
-Maria stares at the screen. "Rejected? But I didn't do anything wrong!"
+Maria stares at the screen in disbelief. "Rejected? But my code is correct!"
 
-Dev Sam messages from Cebu: "I pushed a hotfix this morning. Your local main doesn't have my changes. Git is protecting you—if you pushed now, you'd overwrite my work."
+She messages the team Slack. Seconds later, Dev Sam responds from Cebu: "I merged a hotfix this morning—production bug in the vote counting. Your local main doesn't have my changes. Git is protecting you—if you pushed now, you'd overwrite my hotfix."
 
-Maria realizes: she and Dev Sam both started from the same point, but went different directions. Her main has commits A-B-C-D-E. Remote main has commits A-B-X-Y (Dev Sam's hotfix). They've _diverged_.
+Maria's mind races. The timeline:
 
-"This is normal," Marco reassures. "Every distributed team hits this. The solution is simple: integrate remote changes first, then push."
+- **This morning**: She started with main (commit B)
+- **This morning (later)**: Dev Sam pushed a hotfix (commits B → X, Y)
+- **She has now**: Commits B → C, D, E (her own path)
 
-Maria pulls, resolves a small conflict, and pushes successfully. The remote now has everyone's work.
+The branches diverged. Git sees this and refuses. "Push rejected" doesn't mean error. It means protection.
 
-Push rejections aren't errors—they're Git protecting the team from accidental overwrites.
+"This is normal," Marco reassures from Cebu. "Every distributed team hits this. It's actually a good sign—Git is working."
+
+Maria runs:
+```bash
+git pull origin main
+```
+
+Her commits are integrated with Dev Sam's. A small conflict appears—both touched the same validation file. They resolve it together on Slack. Maria makes the fix. Commits again. Then:
+
+```bash
+git push origin main
+```
+
+Success. The main branch now contains everyone's work. Dev Sam's hotfix. Maria's new features. The divergence is resolved.
+
+**This lesson teaches that in distributed development, divergence is inevitable. Rejections aren't failures—they're Git protecting the team from data loss. The solution is simple: pull before push. Integrate before deploying.**
 
 **Time Allotment**: 40 minutes
 

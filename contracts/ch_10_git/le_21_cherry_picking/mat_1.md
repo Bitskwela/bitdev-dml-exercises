@@ -2,24 +2,37 @@
 
 ![Git Cherry Pick](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_10/git-cherry-pick.png)
 
-## Background Story
+## Scene: Emergency in Production
 
-Friday afternoon emergency. The Barangay Blockchain is live in production. Singapore reports a critical bug: voters can vote twice under specific conditions.
+**Friday 2 PM. Singapore is on fire.**
 
-Dev Sam investigates. He finds the bug. He fixes it in his `feature/payment-refactor` branch with commit `a1b2c3d`. But that branch has 30 other commits—refactoring work that's not ready for production.
+The Barangay Blockchain is live in production serving real voters. Singapore reports a critical bug: "Users can vote twice. It's a security breach."
 
-"I can't merge my entire branch," Dev Sam says. "The refactoring will break things. I just need THIS one commit in production."
+Within minutes, the team is in a crisis meeting on Slack.
 
-Marco introduces cherry-pick: "Cherry-pick lets you copy a specific commit from one branch to another. You take just the fix, not the whole branch."
+Dev Sam investigates from his laptop in Cebu. Thirty minutes later: "Found it. It's a race condition in the voter validation. I've fixed it in my `feature/payment-refactor` branch."
+
+But here's the problem:
+
+Dev Sam has been working on payment refactoring for two weeks. His feature branch has 30 commits of work. Some are complete. Some are incomplete. Some might break other systems.
+
+"I can't merge my entire branch to production," he says. "The refactoring will destabilize everything. But I _can_ extract just this one security fix."
+
+Marco guides him: "Cherry-pick. It's like copy-paste for Git commits. You take _just the fix_ from your branch, apply it to main, and deploy. The refactoring stays untouched on your feature branch."
 
 ```bash
 git checkout main
-git cherry-pick a1b2c3d
+git cherry-pick a1b2c3d  # The security fix commit
+git push origin main
 ```
 
-Done. The fix is now on main. Production is patched. The refactoring stays in the feature branch, untouched.
+Done. The commit is on main. CI/CD deploys. Singapore tests. The security hole is closed.
 
-Cherry-pick is surgical Git—extract exactly what you need.
+Twenty minutes from "critical bug" to "production patched."
+
+Dev Sam goes back to his refactoring work on his feature branch. Untouched. Unaffected. As if nothing happened.
+
+**This lesson teaches surgical precision. Cherry-pick lets you extract exactly what you need from a branch, leaving everything else untouched.**
 
 **Time Allotment**: 40 minutes
 

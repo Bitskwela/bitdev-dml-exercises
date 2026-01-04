@@ -1,117 +1,165 @@
-# Activity: Creating Your First Repository
+# Creating Your First Repository Activity
 
-## Your Task
+## Scenario
 
-Initialize a Git repository, configure your user information, and explore the repository structure.
+Marco is setting up the marketplace repository for the team. You're helping him initialize the project structure and understand how Git's `.git` folder works. This is the foundation everything else will build on.
 
-### Question 1: Repository Initialization
-
-**Create a new directory called `my-payment-app` and initialize a Git repository inside it. Then, describe what you found in the `.git` directory. What do you think the purpose of each file/folder is?**
-
-(Provide the commands you ran and your observations)
+**Time Allotment: 25 minutes**
 
 ---
 
-### Question 2: Configuration
+## Tasks for Learners
 
-**Configure Git with your name and email (local configuration). Then use `git config` to verify that your settings were saved. Show the commands you used and the output.**
+### Task 1: Initialize Your First Repository
 
-(Your answer here - include the exact commands and their results)
+Create the marketplace project directory and turn it into a Git repository:
 
----
+```bash
+# Create and navigate to the project directory
+mkdir barangay-marketplace-system
+cd barangay-marketplace-system
 
-### Question 3: Initial Status
+# Initialize Git
+git init
+```
 
-**Create three test files in your repository:**
+**Expected Output**:
 
-- `app.py`
-- `requirements.txt`
-- `README.md`
+```
+Initialized empty Git repository in /Users/yourname/barangay-marketplace-system/.git/
+```
 
-**Then run `git status`. Explain what Git is telling you about these files. Why are they "untracked"?**
-
-(Your answer here - include the git status output and your explanation)
-
----
-
-### Question 4: Understanding .git
-
-**The `.git` folder is hidden on most systems. Why do you think Git hides this folder? What would happen if you accidentally deleted the `.git` folder?**
-
-(Your answer here - explain the design choice and consequences)
+**Why**: This creates the hidden `.git` folder—Git's filing cabinet that will store every change, every decision, every snapshot of this project.
 
 ---
 
-### Question 5: Real-World Scenario
+### Task 2: Explore the .git Directory
 
-**You're starting a new project with your team. Before writing any code, you initialize a Git repository. What are you communicating to your team by doing this? What benefits does this provide?**
+Marco asks: "Want to see what Git just created?" Let's look inside:
 
-(Your answer here - think about collaboration, history, and accountability)
+```bash
+# See all files, including hidden ones
+ls -la
 
----
+# Explore the .git directory structure
+ls -la .git/
+```
 
-### Question 6: Configuration Levels
+**Expected Output**:
 
-**Why does Git allow both global and local configuration? Give a practical example of when you'd use local configuration instead of global.**
+```
+total 24
+drwxr-xr-x    9 marco  staff   288 Jan  3 14:22 .
+drwxr-xr-x    3 marco  staff    96 Jan  3 14:22 ..
+drwxr-xr-x   13 marco  staff   416 Jan  3 14:22 .git
+-rw-r--r--    1 marco  staff     0 Jan  3 14:22 .gitkeep
 
-(Your answer here - describe a real-world scenario)
+Inside .git/:
+-rw-r--r--  HEAD
+-rw-r--r--  config
+-rw-r--r--  description
+drwxr-xr-x  hooks
+drwxr-xr-x  objects
+drwxr-xr-x  refs
+```
 
----
+**Understanding What You See**:
 
-## What You've Accomplished
+- **HEAD**: Git's bookmark—it remembers which branch you're on
+- **config**: Settings specific to this repository (can differ from global)
+- **objects/**: The heart of Git—stores every commit, every version of every file
+- **refs/**: Records all branches and tags you create
+- **hooks/**: Scripts that run automatically when Git events happen (more advanced)
 
-✓ Created your first repository
-✓ Configured Git with your identity
-✓ Explored the internal structure of Git
-✓ Understood the concept of untracked files
-
-**You're now ready to add files and make your first commit!**
-
-1. Set your global Git name (do this once):
-
-   ```bash
-   git config --global user.name "Your Name"
-   ```
-
-2. Set your global Git email:
-
-   ```bash
-   git config --global user.email "your.email@example.com"
-   ```
-
-3. Verify your configuration:
-   ```bash
-   git config --list | grep user
-   ```
-
-### Part 3: Check Repository Status
-
-1. Check the status of your new repository:
-
-   ```bash
-   git status
-   ```
-
-2. Create a test file:
-
-   ```bash
-   echo "# My First Repository" > README.md
-   ```
-
-3. Check the status again:
-   ```bash
-   git status
-   ```
-
-## Verification
-
-You'll know you've completed this correctly when:
-
-- [ ] The `.git` directory exists in your project folder
-- [ ] `git config --list` shows your name and email
-- [ ] `git status` displays "nothing to commit" or "Untracked files"
-- [ ] You created a test file that appears as "untracked" in `git status`
+**Why**: Marco explains: "This `.git` folder is what makes this a Git repository. Everything Git needs is inside here. Protect it!"
 
 ---
 
-**Check the answer file (`act_1.answer.md`) if you get stuck!**
+### Task 3: Configure This Repository
+
+Set up your identity for this specific project:
+
+```bash
+# Set local repository configuration
+git config user.name "Maria Santos"
+git config user.email "maria@barangaymarket.ph"
+
+# Verify your settings
+git config --list --local
+```
+
+**Expected Output**:
+
+```
+user.name=Maria Santos
+user.email=maria@barangaymarket.ph
+```
+
+**Why**: While your global identity (set in Lesson 1) applies everywhere, you can override it for specific projects. Some teams use different email formats for different projects.
+
+---
+
+### Task 4: Create Project Files and See Git's Response
+
+Now create files that represent the marketplace project:
+
+```bash
+# Create files for the project
+echo "# Barangay Marketplace Payment System" > README.md
+echo "*.pyc" > .gitignore
+echo "password = 'secret123'" > config.py
+echo "print('Processing marketplace payments')" > payment_processor.py
+
+# Check what Git sees
+git status
+```
+
+**Expected Output**:
+
+```
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        README.md
+        config.py
+        payment_processor.py
+
+nothing added to commit but untracked files exist (use "git add" to track)
+```
+
+**What This Tells You**:
+
+- **"No commits yet"**: This is a brand-new repository with no history
+- **"Untracked files"**: Git sees these files but hasn't been told to track them yet
+- **"nothing added to commit"**: None of these files have been staged (next lesson!)
+
+---
+
+## What the Code Does
+
+**git init**: Creates a Git repository by adding a `.git` directory. This single command transforms any folder into a Git-controlled project.
+
+**git config user.name/email**: Stores your identity in this repository's local configuration. Every commit will be signed with this name and email, creating accountability.
+
+**.git directory**: The complete history of your project lives here. It contains every commit, every branch, every decision. Deleting `.git` would erase all version control history.
+
+**git status**: Shows Git's current understanding of your project. It tells you which files are untracked (new), modified, or staged for committing. This is your constant companion throughout Git work.
+
+---
+
+## Closing
+
+Perfect! You've now set up the foundation:
+
+✓ Created a Git repository from scratch
+✓ Explored what Git actually created (the `.git` directory)
+✓ Configured your identity for this project
+✓ Understood that new files start as "untracked"
+
+The repository is ready. In the next lesson, you'll learn the **staging area**—where you decide which changes go into each commit. Marco is about to show you how to create meaningful snapshots of your work.
+
+**Next Lesson Preview**: Staging and Committing – Discover how to selectively choose which files go into each commit, write messages that explain _why_ you made changes, and understand why careful commits matter for team collaboration.

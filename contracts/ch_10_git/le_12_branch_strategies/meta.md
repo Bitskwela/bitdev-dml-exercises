@@ -1,9 +1,12 @@
 ---
 title: "Branch Strategies"
-description: "Compare Gitflow, GitHub Flow, and trunk-based development to choose the right strategy."
-date: "2025-12-14"
-tags: ["git", "version-control", "bitskwela", "lesson"]
+description: "Choose between Git Flow and GitHub Flow. Learn professional branching strategies used by tech companies worldwide."
+date: "2026-01-03"
+tags:
+  ["git", "strategy", "gitflow", "github-flow", "bitskwela", "professionalism"]
 type: "ActivityExercise"
 permaname: "branch-strategies"
 slug: "branch-strategies"
+narrative_arc: "Arc 2: Branching & Merging"
+story_context: "Team growth and parallel development"
 ---
