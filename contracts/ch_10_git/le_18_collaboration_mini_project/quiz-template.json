@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is the first step when joining a team project on GitHub?",
+    "choices": [
+      { "id": "a", "text": "Start making changes immediately" },
+      { "id": "b", "text": "Clone the repository to your local machine" },
+      { "id": "c", "text": "Delete the main branch" },
+      { "id": "d", "text": "Create a new repository" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What's the recommended workflow for contributing to a team project?",
+    "choices": [
+      { "id": "a", "text": "Commit directly to main" },
+      {
+        "id": "b",
+        "text": "Create a feature branch, make changes, push, and open a PR"
+      },
+      { "id": "c", "text": "Email your code to teammates" },
+      { "id": "d", "text": "Only the team lead can make changes" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "How do you keep your local repository in sync with the team?",
+    "choices": [
+      { "id": "a", "text": "Delete and re-clone every day" },
+      { "id": "b", "text": "Regularly pull or fetch changes from the remote" },
+      { "id": "c", "text": "Ignore what others are doing" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Good communication is as important as Git skills when collaborating.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What should you do before starting work on a new feature?",
+    "choices": [
+      { "id": "a", "text": "Jump straight into coding" },
+      {
+        "id": "b",
+        "text": "Pull the latest changes and create a new branch from main"
+      },
+      { "id": "c", "text": "Delete all local branches first" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

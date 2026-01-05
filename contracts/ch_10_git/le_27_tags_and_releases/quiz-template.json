@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a Git tag?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "A label that points to a specific commit, typically used for releases"
+      },
+      { "id": "b", "text": "A type of branch" },
+      { "id": "c", "text": "A commit message" },
+      { "id": "d", "text": "A remote repository" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is the difference between lightweight and annotated tags?",
+    "choices": [
+      { "id": "a", "text": "There is no difference" },
+      {
+        "id": "b",
+        "text": "Lightweight is just a pointer; annotated includes metadata (tagger, date, message)"
+      },
+      { "id": "c", "text": "Annotated tags are smaller" },
+      { "id": "d", "text": "Lightweight tags can't be pushed" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command creates an annotated tag?",
+    "choices": [
+      { "id": "a", "text": "`git tag v1.0.0`" },
+      { "id": "b", "text": "`git tag -a v1.0.0 -m \"Release version 1.0.0\"`" },
+      { "id": "c", "text": "`git tag --light v1.0.0`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "By default, `git push` also pushes tags.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is semantic versioning (SemVer)?",
+    "choices": [
+      { "id": "a", "text": "A random numbering system" },
+      {
+        "id": "b",
+        "text": "A versioning scheme: MAJOR.MINOR.PATCH (e.g., 2.1.3)"
+      },
+      { "id": "c", "text": "A Git command" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

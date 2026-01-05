@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What command initializes a new Git repository?",
+    "choices": [
+      { "id": "a", "text": "`git start`" },
+      { "id": "b", "text": "`git init`" },
+      { "id": "c", "text": "`git create`" },
+      { "id": "d", "text": "`git new`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is stored in the `.git` directory?",
+    "choices": [
+      { "id": "a", "text": "Your project source code" },
+      { "id": "b", "text": "Backup copies of your files" },
+      {
+        "id": "c",
+        "text": "All version control information including commits, branches, and configuration"
+      },
+      { "id": "d", "text": "Only branch information" }
+    ],
+    "answer": "c",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command sets your name for Git commits?",
+    "choices": [
+      { "id": "a", "text": "`git set-name`" },
+      { "id": "b", "text": "`git config user.name`" },
+      { "id": "c", "text": "`git name --global`" },
+      { "id": "d", "text": "`git user --name`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "MCQ",
+    "question": "What is the difference between global and local Git configuration?",
+    "choices": [
+      { "id": "a", "text": "There is no difference" },
+      {
+        "id": "b",
+        "text": "Global applies to all repositories, local applies only to the current repository"
+      },
+      { "id": "c", "text": "Local is faster than global" },
+      { "id": "d", "text": "Global is only for administrators" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What does `git status` display?",
+    "choices": [
+      { "id": "a", "text": "Only committed files" },
+      { "id": "b", "text": "Only new files" },
+      {
+        "id": "c",
+        "text": "The current branch, staged changes, unstaged changes, and untracked files"
+      },
+      { "id": "d", "text": "Files that have been deleted" }
+    ],
+    "answer": "c",
+    "points": 1
+  },
+  {
+    "id": 6,
+    "type": "TF",
+    "question": "You can have multiple repositories on your computer, each with its own `.git` directory.",
+    "answer": true,
+    "points": 1
+  }
+]

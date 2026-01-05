@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What does `git rebase` do?",
+    "choices": [
+      { "id": "a", "text": "Deletes all commits" },
+      {
+        "id": "b",
+        "text": "Moves or \"replays\" your commits onto a different base commit"
+      },
+      { "id": "c", "text": "Creates a backup of your repository" },
+      { "id": "d", "text": "Merges two repositories together" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is the difference between merge and rebase?",
+    "choices": [
+      { "id": "a", "text": "They are exactly the same" },
+      {
+        "id": "b",
+        "text": "Merge creates a merge commit; rebase creates a linear history without merge commits"
+      },
+      { "id": "c", "text": "Rebase only works on GitHub" },
+      { "id": "d", "text": "Merge deletes commits" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which command rebases your current branch onto main?",
+    "choices": [
+      { "id": "a", "text": "`git rebase main`" },
+      { "id": "b", "text": "`git merge --rebase main`" },
+      { "id": "c", "text": "`git base main`" }
+    ],
+    "answer": "a",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "You should never rebase commits that have been pushed to a shared branch.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the main advantage of rebasing?",
+    "choices": [
+      { "id": "a", "text": "It's faster than merge" },
+      { "id": "b", "text": "It creates a cleaner, linear commit history" },
+      { "id": "c", "text": "It automatically fixes bugs" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

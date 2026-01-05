@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What does `git push` do?",
+    "choices": [
+      { "id": "a", "text": "Downloads changes from the remote repository" },
+      {
+        "id": "b",
+        "text": "Uploads your local commits to the remote repository"
+      },
+      { "id": "c", "text": "Creates a new branch" },
+      { "id": "d", "text": "Deletes files from your repository" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What does `git pull` do?",
+    "choices": [
+      { "id": "a", "text": "Only downloads changes without merging" },
+      {
+        "id": "b",
+        "text": "Fetches changes from remote AND merges them into your current branch"
+      },
+      { "id": "c", "text": "Pushes your changes to remote" },
+      { "id": "d", "text": "Creates a pull request" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What does `git push -u origin main` do?",
+    "choices": [
+      { "id": "a", "text": "Deletes the main branch" },
+      {
+        "id": "b",
+        "text": "Pushes to main and sets up tracking between local and remote branches"
+      },
+      { "id": "c", "text": "Only works the first time" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "You can push to a remote branch even if your local branch is behind.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of setting an upstream branch?",
+    "choices": [
+      { "id": "a", "text": "To delete the branch faster" },
+      {
+        "id": "b",
+        "text": "To establish a tracking connection for easier push/pull operations"
+      },
+      { "id": "c", "text": "To rename the branch" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

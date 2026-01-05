@@ -15,41 +15,31 @@ permaname: "contracts-course"
 slug: "contracts-course"
 ---
 
-# Welcome to the Bitskwela Smart Contracts Course
+# Welcome to the Bitskwela Developer Micro Learning Catalog
 
-## Prologue: Your Journey from Zero to Hero Solidity Developer
+## Prologue: A Story-Driven Path from Zero to Hero
 
-Welcome, aspiring blockchain developer! You're about to embark on an exciting journey that will transform you from a complete beginner into a confident Solidity smart contract developer. This comprehensive course is designed with one goal in mind: to take you from zero knowledge to hero-level skills in building, testing, and deploying smart contracts on the Ethereum blockchain.
+This repository is more than a single Solidity bootcamp. It is a curated ecosystem of multi-language chapters built around Filipino scenarios, story arcs (with characters like Neri), and progressive exercises that range from Solidity smart contracts to web apps, data science, and systems programming. Every track couples theory with verifiable Hardhat or Python tooling so learners practice both implementation and testing.
 
-### What You'll Discover
+### What You'll Explore
 
-In this course, you'll master the art of smart contract development through:
+Each course below targets a unique skill slice while staying grounded in the same narrative universe:
 
-- **Foundational Solidity Knowledge**: Starting with the absolute basics and building up to advanced concepts
-- **Hands-on Learning**: Every lesson includes practical exercises and real-world scenarios
-- **Testing Best Practices**: Learn to write comprehensive test scripts using Hardhat and Chai
-- **Security-First Mindset**: Understand common vulnerabilities and how to protect against them
-- **Industry Standards**: Work with OpenZeppelin contracts and follow established patterns
+1. **Basic Solidity (Chapter 1)** – Core Solidity syntax, data structures, functions, events, and security fundamentals delivered through immersive storytelling.
+2. **Solidity Side Quests (Chapter 2)** – Focused challenges that reinforce token flows, reentrancy protection, and advanced on-chain logic.
+3. **Solidity Mini Projects (Chapter 3)** – Wallets, staking, lending, and retail contracts that form complete product scenarios.
+4. **DApp Development (Chapter 4)** – Full-stack experiences integrating Solidity contracts with JavaScript frontends, MetaMask, and deployment workflows.
+5. **JavaScript Fundamentals (Chapter 5)** – Language essentials for web and blockchain tooling that prepare learners for frontend and tooling layers.
+6. **JS Mini Projects (Chapter 6)** – Practice applications mirroring administrative, retail, and community scenarios.
+7. **Full-Stack Web Development (Chapter 7)** – HTML, CSS, JavaScript, and Python/Flask lessons culminating in data-driven web apps.
+8. **C++ from Zero to Hero (Chapter 8)** – Systems programming foundations, data structures, and user-facing CRUD projects.
+9. **Python Programming (Chapter 9)** – Databases, data science with NumPy/Pandas, Flask APIs, and a capstone resident management system.
+10. **Move Language (Chapter 12)** – Resource-oriented programming for Move ecosystems (Sui, Aptos) covering ownership, generics, testing, and security patterns.
 
-### Your Learning Path
+### Learning Principles
 
-This course is structured in progressive chapters that build upon each other:
+- **Story + Filipino Context**: Each lesson ties back to real-world Filipinx experiences—barangay funds, jeepney fares, palengke merchants—so abstract concepts become relatable.
+- **Hands-on Verification**: Lessons ship with Hardhat tests or Python scripts that prove student solutions behave as intended.
+- **Progressive Difficulty**: Courses sequence from syntax and fundamentals to advanced architecture, testing, and deployment.
 
-1. **Chapter 1: Basic Solidity** - Master the fundamentals through engaging story-driven lessons
-2. **Chapter 2: Solidity Side Quests** - Apply your knowledge with challenging practical exercises
-3. **Chapter 3: Mini Projects** - Build complete applications that demonstrate real-world use cases
-4. **Chapter 4: DApps** - Create full-featured decentralized applications
-
-### The Story-Driven Approach
-
-What makes this course unique is our narrative approach. You'll follow characters like Neri through various challenges and adventures, making complex concepts memorable and engaging. Each lesson tells a story while teaching you essential Solidity skills.
-
-### Testing Excellence
-
-Throughout this course, you'll learn to write robust test scripts using Hardhat and Chai. Testing isn't just an afterthought—it's an integral part of smart contract development that ensures your code is secure, reliable, and performs as expected.
-
-### Ready to Begin?
-
-Whether you're a complete programming beginner or an experienced developer new to blockchain, this course will meet you where you are and guide you to where you want to be. By the end of this journey, you'll have the skills and confidence to build professional-grade smart contracts and launch your career as a blockchain developer.
-
-Let's begin your transformation from zero to hero!
+Ready to explore? Pick a chapter based on your interest, grab the prerequisites listed below, and follow the narrative from theory to tested code.

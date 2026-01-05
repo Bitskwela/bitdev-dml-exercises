@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is a fork?",
+    "choices": [
+      { "id": "a", "text": "A tool to delete repositories" },
+      {
+        "id": "b",
+        "text": "A personal copy of someone else's repository on your GitHub account"
+      },
+      { "id": "c", "text": "A type of Git branch" },
+      { "id": "d", "text": "A merge conflict" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What is the typical workflow for contributing to an open source project?",
+    "choices": [
+      { "id": "a", "text": "Edit files directly on the main repository" },
+      {
+        "id": "b",
+        "text": "Fork → Clone → Create branch → Make changes → Push → Open PR"
+      },
+      { "id": "c", "text": "Just email the maintainers" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What is an \"upstream\" remote?",
+    "choices": [
+      { "id": "a", "text": "A remote pointing to your fork" },
+      {
+        "id": "b",
+        "text": "A remote pointing to the original repository you forked from"
+      },
+      { "id": "c", "text": "The default Git server" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "After forking, your fork automatically stays in sync with the original repository.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What should you read before contributing to an open source project?",
+    "choices": [
+      { "id": "a", "text": "Only the code" },
+      { "id": "b", "text": "CONTRIBUTING.md and any project guidelines" },
+      { "id": "c", "text": "Nothing, just submit code" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

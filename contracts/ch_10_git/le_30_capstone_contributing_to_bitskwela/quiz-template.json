@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is the first step when preparing to contribute to the Bitskwela project?",
+    "choices": [
+      { "id": "a", "text": "Start writing code immediately" },
+      { "id": "b", "text": "Fork the repository and clone your fork locally" },
+      { "id": "c", "text": "Delete the main branch" },
+      { "id": "d", "text": "Contact the CEO" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Before starting work on a contribution, what should you do?",
+    "choices": [
+      { "id": "a", "text": "Create a new repository" },
+      {
+        "id": "b",
+        "text": "Read the CONTRIBUTING.md and check existing issues"
+      },
+      { "id": "c", "text": "Delete all branches" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What makes a good pull request to an open source project?",
+    "choices": [
+      { "id": "a", "text": "Hundreds of unrelated changes in one PR" },
+      {
+        "id": "b",
+        "text": "A focused change with clear description, following project conventions"
+      },
+      { "id": "c", "text": "No description needed" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "After your PR is merged, you should sync your fork with upstream.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What did you learn from completing this Git course?",
+    "choices": [
+      { "id": "a", "text": "Only merge commits matter" },
+      {
+        "id": "b",
+        "text": "Git is a powerful tool for version control and collaboration"
+      },
+      { "id": "c", "text": "You should avoid using branches" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

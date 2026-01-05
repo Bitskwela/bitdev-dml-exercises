@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What does `git stash` do?",
+    "choices": [
+      { "id": "a", "text": "Permanently deletes uncommitted changes" },
+      {
+        "id": "b",
+        "text": "Temporarily saves uncommitted changes so you can switch branches"
+      },
+      { "id": "c", "text": "Commits your changes automatically" },
+      { "id": "d", "text": "Pushes changes to the remote" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which command shows your list of stashes?",
+    "choices": [
+      { "id": "a", "text": "`git stash show`" },
+      { "id": "b", "text": "`git stash list`" },
+      { "id": "c", "text": "`git stash all`" },
+      { "id": "d", "text": "`git list stash`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "How do you apply the most recent stash and keep it in the stash list?",
+    "choices": [
+      { "id": "a", "text": "`git stash pop`" },
+      { "id": "b", "text": "`git stash apply`" },
+      { "id": "c", "text": "`git stash restore`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "`git stash pop` applies the stash and removes it from the stash list.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of `git stash drop`?",
+    "choices": [
+      { "id": "a", "text": "To apply a stash" },
+      { "id": "b", "text": "To delete a specific stash without applying it" },
+      { "id": "c", "text": "To create a new stash" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

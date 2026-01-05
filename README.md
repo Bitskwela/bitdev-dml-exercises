@@ -1,5 +1,57 @@
 # Bitskwela x Bitdev Developer Micro Learning (DML)
 
+Welcome to Bitskwela's DML Course Repository—an ever-growing curriculum that guides learners from smart contracts through web, data, and systems programming. Every lesson leans on Filipino stories (barangays, palengke wars, jeepney fares, etc.), gradual challenges, and runnable tooling so you learn by writing and verifying real code.
+
+## 📚 Repository Structure
+
+- `contracts/` – Core chapters that teach the following paths:
+  - **`ch_01_basic_solidity/`** – Solidity fundamentals (30 lessons) covering syntax, data structures, functions, events, tokens, and security.
+  - **`ch_02_solidity_side_quests/`** – Seven focused challenges (reentrancy, approvals, royalties) reinforcing safe token flows.
+  - **`ch_03_mini_projects/`** – Five Solidity systems (staking, lending, liquidity) that bundle lessons into product stories.
+  - **`ch_04_dapps/`** – DApp lessons that connect Solidity contracts with JavaScript frontends and MetaMask flows.
+  - **`ch_05_javascript/`** and **`ch_06_javascript_mini_projects/`** – JavaScript fundamentals and mini-projects for building frontend logic and utilities.
+  - **`ch_07_html_css_js_python/`** – Full-stack web development with HTML, CSS, JavaScript, and Python/Flask apps.
+  - **`ch_08_cpp/`** – C++ lessons ranging from control flow to OOP and systems-level projects.
+  - **`ch_09_python/`** – Python programming with database foundations, NumPy/Pandas analytics, Flask APIs, and a capstone Resident Management System.
+  - **`ch_12_move_language/`** – Move language arc covering resources, generics, testing, and security for Sui/Aptos-style chains.
+- `exercises/` – Supplementary practice problems and coding drills.
+- `artifacts/`, `cache/` – Generated Hardhat compilations and validations.
+- `.github/` – Workflows and Copilot instructions, including OpenSpec prompts.
+
+## 🎯 Curriculum Highlights
+
+- **Story + Filipino Context**: Follow Neri and crew through barangay funds, palengke merchants, and jeepney fare puzzles to see abstract programming gain cultural weight.
+- **Testing-First Learning**: Every activity includes Hardhat/Chai or Python scripts so you prove solutions rather than guess.
+- **Multi-Track Progression**: Begin with Solidity basics, branch into JavaScript/Move/Python/C++ as your interest deepens, and cap off with full-stack or security-focused capstones.
+
+## 🛠️ Technologies in Play
+
+- **Solidity** and **Hardhat** for smart contract development, including OpenZeppelin libraries and testing infrastructure.
+- **JavaScript/Node.js** for frontends, tooling, and Hardhat test scripts.
+- **Python** (Flask, NumPy, Pandas, Matplotlib) for backends, APIs, and data science labs.
+- **C++** (STL, OOP, memory management) for systems programming exercises.
+- **Move Language** for resource-oriented programming on Sui/Aptos-style chains.
+- **Tools**: MetaMask, VS Code, Git, npm, chai/mocha/ethers, sqlite/MySQL for backend demos.
+
+## 🚀 Recommended Learning Paths
+
+1. **Solidity Developer**
+   - Chapters 5 → 1 → 2 → 3 → 4 → 12 (JavaScript foundation first helps handle tests and DApps).
+2. **Full-Stack Web Developer**
+   - Chapters 7 → 9 → 5 → 6, then circle back to Chapter 4 for DApp polish.
+3. **Systems & Data**
+   - Chapter 8 → 9 → 7, with optional returns to Solidity for smart contracts.
+
+## 📖 Getting Started
+
+1. Clone the repository: `git clone <repo-url>`
+2. Install node dependencies: `npm install`
+3. Use Hardhat for Solidity chapters: `npx hardhat test` or `npm test` from the lesson folder.
+4. Use Python 3.8+ (with pip) for chapters under `ch_07_html_css_js_python` and `ch_09_python`.
+5. Follow the story-driven lesson order or jump to the topic that excites you—the metadata files and index guide the next steps.
+
+**Simulan natin!** (Let’s start!) 🇵🇭✨ #Bitskwela x Bitdev Developer Micro Learning (DML)
+
 Welcome to Bitskwela's DML Course Repository! This comprehensive collection contains structured exercises, lessons, and mini-projects designed to take you from zero to hero across multiple programming disciplines—from smart contract development to full-stack web applications.
 
 ## 📚 Repository Structure

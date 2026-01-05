@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is Git?",
+    "choices": [
+      { "id": "a", "text": "A programming language for web development" },
+      {
+        "id": "b",
+        "text": "A distributed version control system for tracking code changes"
+      },
+      { "id": "c", "text": "A cloud storage service for files" },
+      { "id": "d", "text": "A text editor for coding" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What does \"distributed\" mean in a distributed version control system?",
+    "choices": [
+      { "id": "a", "text": "The code is stored only on a central server" },
+      {
+        "id": "b",
+        "text": "Every developer has a full copy of the repository history"
+      },
+      { "id": "c", "text": "Files are automatically shared to the cloud" },
+      { "id": "d", "text": "Only the project lead has access to the history" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "Which of the following is NOT a benefit of using Git?",
+    "choices": [
+      { "id": "a", "text": "Tracking changes over time" },
+      { "id": "b", "text": "Collaborating with multiple developers" },
+      { "id": "c", "text": "Automatically fixing bugs in code" },
+      { "id": "d", "text": "Reverting to previous versions" }
+    ],
+    "answer": "c",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Git was created by Linus Torvalds, the creator of Linux.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "In the context of version control, what is a \"commit\"?",
+    "choices": [
+      { "id": "a", "text": "A promise to write better code" },
+      {
+        "id": "b",
+        "text": "A snapshot of your project at a specific point in time"
+      },
+      { "id": "c", "text": "A message sent to your team" },
+      { "id": "d", "text": "A backup stored in the cloud" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "Why might Git reject your push?",
+    "choices": [
+      { "id": "a", "text": "Your internet is too slow" },
+      { "id": "b", "text": "Your local branch is behind the remote branch" },
+      { "id": "c", "text": "Git doesn't like your code" },
+      { "id": "d", "text": "The remote server is always busy" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "What should you do when your push is rejected?",
+    "choices": [
+      { "id": "a", "text": "Use `git push --force` immediately" },
+      { "id": "b", "text": "Pull or fetch and merge/rebase, then push again" },
+      { "id": "c", "text": "Delete the remote repository" },
+      { "id": "d", "text": "Create a new repository" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "When might `git push --force` be appropriate?",
+    "choices": [
+      { "id": "a", "text": "Every time you push" },
+      {
+        "id": "b",
+        "text": "When you've rebased a branch that only you are working on"
+      },
+      { "id": "c", "text": "Never, it should always be avoided" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "`git push --force-with-lease` is safer than `git push --force`.",
+    "answer": true,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is the purpose of pulling before pushing?",
+    "choices": [
+      { "id": "a", "text": "To delete your local changes" },
+      {
+        "id": "b",
+        "text": "To ensure your branch is up-to-date and can be fast-forwarded or merged properly"
+      },
+      { "id": "c", "text": "To make Git faster" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]

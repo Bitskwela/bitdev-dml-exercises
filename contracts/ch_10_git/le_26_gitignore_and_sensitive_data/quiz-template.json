@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "type": "MCQ",
+    "question": "What is the purpose of a .gitignore file?",
+    "choices": [
+      { "id": "a", "text": "To delete files from your computer" },
+      {
+        "id": "b",
+        "text": "To specify files and patterns that Git should not track"
+      },
+      { "id": "c", "text": "To hide files from your file explorer" },
+      { "id": "d", "text": "To encrypt sensitive files" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "type": "MCQ",
+    "question": "Which pattern in .gitignore ignores all .log files?",
+    "choices": [
+      { "id": "a", "text": "`log.*`" },
+      { "id": "b", "text": "`*.log`" },
+      { "id": "c", "text": "`all.log`" },
+      { "id": "d", "text": "`logs/`" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "type": "MCQ",
+    "question": "What should you do if you accidentally committed a file with sensitive data (like API keys)?",
+    "choices": [
+      { "id": "a", "text": "Just delete the file and commit again" },
+      {
+        "id": "b",
+        "text": "Remove it from history using tools like `git filter-branch` or BFG, and rotate the exposed credentials"
+      },
+      { "id": "c", "text": "Ignore it and hope no one notices" }
+    ],
+    "answer": "b",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "type": "TF",
+    "question": "Adding a file to .gitignore removes it from existing commits.",
+    "answer": false,
+    "points": 1
+  },
+  {
+    "id": 5,
+    "type": "MCQ",
+    "question": "What is a good practice for handling environment-specific configuration?",
+    "choices": [
+      { "id": "a", "text": "Commit all secrets to the repository" },
+      {
+        "id": "b",
+        "text": "Use .env files (ignored by Git) and .env.example templates"
+      },
+      { "id": "c", "text": "Share passwords via email" }
+    ],
+    "answer": "b",
+    "points": 1
+  }
+]
