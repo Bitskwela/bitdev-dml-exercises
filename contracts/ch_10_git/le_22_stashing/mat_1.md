@@ -7,6 +7,7 @@
 **Wednesday 10 AM. Maria is deep in her voter analytics feature.**
 
 Her code is everywhere:
+
 - `voter.js` is modified (12 changes)
 - `analytics.js` is new and partially written (45 lines)
 - `charts.html` is modified (8 changes)

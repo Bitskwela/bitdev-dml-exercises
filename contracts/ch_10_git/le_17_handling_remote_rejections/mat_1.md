@@ -39,6 +39,7 @@ The branches diverged. Git sees this and refuses. "Push rejected" doesn't mean e
 "This is normal," Marco reassures from Cebu. "Every distributed team hits this. It's actually a good sign—Git is working."
 
 Maria runs:
+
 ```bash
 git pull origin main
 ```

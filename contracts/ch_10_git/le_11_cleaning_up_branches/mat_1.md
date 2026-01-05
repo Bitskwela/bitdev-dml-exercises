@@ -11,6 +11,7 @@ Maria gets a message: new London developer joins the team.
 "I need context," the developer writes. "I'll read the Git history."
 
 Maria decides to give them an overview of branches:
+
 ```bash
 git branch -a
 ```
@@ -97,6 +98,7 @@ Many teams set a policy: "Delete your branch as part of the merge."
 When you merge on GitHub, there's a button: "Delete branch." Click it.
 
 Locally, add to your workflow:
+
 1. Merge branch
 2. Delete branch immediately
 3. Don't leave stale branches
@@ -104,11 +106,13 @@ Locally, add to your workflow:
 ## Why This Matters for Global Deployment
 
 **Messy repository (47 branches):**
+
 - New Singapore developer: "Which branches are active?"
 - Takes 30 minutes to figure out
 - Maybe merges from wrong branch by mistake
 
 **Clean repository (just main):**
+
 - New Singapore developer: "What should I work on?"
 - "Create feature/[your-feature] from main"
 - 30 seconds to understand

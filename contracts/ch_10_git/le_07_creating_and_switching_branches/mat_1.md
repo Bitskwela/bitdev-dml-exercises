@@ -17,6 +17,7 @@ She opens her terminal. Her hands hover over the keyboard.
 "One command."
 
 Maria types:
+
 ```bash
 git branch feature/permission-refactor
 ```
@@ -28,6 +29,7 @@ It completes instantly. Nothing visible happens. No files changed. No folders cr
 "That's it," Marco confirms. "You just created a pointer. Now switch to it."
 
 She types:
+
 ```bash
 git switch feature/permission-refactor
 ```

@@ -11,6 +11,7 @@ Maria, Marco, Sam (calling from Cebu), and Neri (from barangay hall) gather arou
 Marco opens his terminal and runs `git branch`.
 
 The output is chaos:
+
 ```
   feature/voting-1
   feature/voting-2
@@ -54,14 +55,14 @@ By establishing simple standards, the team moves from chaotic parallel developme
 
 Professional teams follow patterns:
 
-| Pattern | Use Case | Example |
-|---------|----------|---------|
-| `feature/*` | New features | `feature/voting-protection` |
-| `bugfix/*` | Bug fixes | `bugfix/validator-crash` |
-| `hotfix/*` | Production fixes | `hotfix/critical-data-loss` |
-| `release/*` | Release preparation | `release/1.0.0` |
-| `docs/*` | Documentation | `docs/api-guide` |
-| `chore/*` | Maintenance | `chore/update-dependencies` |
+| Pattern     | Use Case            | Example                     |
+| ----------- | ------------------- | --------------------------- |
+| `feature/*` | New features        | `feature/voting-protection` |
+| `bugfix/*`  | Bug fixes           | `bugfix/validator-crash`    |
+| `hotfix/*`  | Production fixes    | `hotfix/critical-data-loss` |
+| `release/*` | Release preparation | `release/1.0.0`             |
+| `docs/*`    | Documentation       | `docs/api-guide`            |
+| `chore/*`   | Maintenance         | `chore/update-dependencies` |
 
 When Neri sees `feature/voting-improvements`, she immediately understands: "This is new voting work, not production-ready yet."
 
@@ -82,6 +83,7 @@ Main branch should be stable, always deployable. Professional teams protect it:
 ```
 
 You can't commit directly to main. You must:
+
 1. Create a feature branch
 2. Push to GitHub
 3. Open a pull request
@@ -121,12 +123,14 @@ git branch -d feature/voting-improvements
 ## Why Main Protection Matters
 
 **Without protection (Maria's scenario):**
+
 1. Developer in London pushes directly to main at 9 AM London time
 2. Code breaks voting system
 3. Maria in Manila (asleep, 8 hours behind) wakes up to broken production
 4. Chaos
 
 **With protection:**
+
 1. Developer creates `feature/voting-improvements`
 2. Pushes to GitHub
 3. Marco reviews: "Your change breaks vote counting. Let's discuss."
@@ -153,12 +157,14 @@ Long-lived branches are warning signs. If a branch lasts 3 weeks, the team isn't
 Barangay Blockchain spans Manila, Cebu, Singapore, London.
 
 Without workflow discipline:
+
 - Developers work on branches with unclear purposes
 - Main is sometimes unstable
 - Deployments are unpredictable
 - Time zones make coordination harder
 
 With workflow discipline:
+
 - Feature names tell the story
 - Main is always deployment-ready
 - Deployments are predictable

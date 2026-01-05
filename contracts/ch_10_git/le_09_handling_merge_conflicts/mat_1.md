@@ -15,6 +15,7 @@ Maria creates `feature/voting-count-fix` and modifies the vote counting logic. S
 Marco creates `feature/voting-validation` and modifies the same vote counting logic. He uses an iterative counting approach.
 
 By 2 PM, Maria is confident. She merges to main:
+
 ```bash
 git switch main
 git merge feature/voting-count-fix
@@ -22,8 +23,9 @@ git merge feature/voting-count-fix
 ```
 
 Marco is confident. He merges to main:
+
 ```bash
-git switch main  
+git switch main
 git merge feature/voting-validation
 # ERROR: CONFLICT in voting.js
 ```

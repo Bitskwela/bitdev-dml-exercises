@@ -24,6 +24,7 @@ git merge feature/permission-refactor
 ```
 
 Git pauses for a fraction of a second, then returns:
+
 ```
 Fast-forward
  5 files changed, 217 insertions(+), 23 deletions(-)
@@ -34,6 +35,7 @@ Maria holds her breath.
 "Check your code," Marco says calmly.
 
 She runs the test suite:
+
 ```
 All 247 tests pass.
 ```

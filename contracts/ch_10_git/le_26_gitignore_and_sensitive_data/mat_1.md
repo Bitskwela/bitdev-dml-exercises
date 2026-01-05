@@ -37,6 +37,7 @@ The production password. The master database credentials. Sitting in a public Gi
 "This is a security breach," Marco says coldly. "Anyone could fork our repository. They have production access."
 
 The team spends the next two hours:
+
 1. Rotating all passwords
 2. Investigating what data was exposed
 3. Notifying stakeholders

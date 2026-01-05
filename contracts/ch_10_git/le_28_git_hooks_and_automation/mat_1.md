@@ -29,6 +29,7 @@ He introduces git hooks—scripts that run automatically at critical moments.
 "Finally, pre-push runs tests. If any test fails, your push is blocked. You can't push broken code."
 
 Maria looks at the PR review comments again. With proper hooks, that PR would have:
+
 1. Had the typo caught before commit
 2. Had the console.log blocked before commit
 3. Had the commit message validated before push
