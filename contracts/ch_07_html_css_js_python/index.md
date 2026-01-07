@@ -250,11 +250,11 @@ Lessons 43-47  → Deploy production-ready systems
 
 ## What Makes This Course Different?
 
-**Filipino context** - Every example uses barangay scenarios (services, residents, complaints)  
- **Story-driven** - Learn through Tian's journey, not dry documentation  
- **Complete curriculum** - From "What is the internet?" to production apps  
- **Practical projects** - Build real systems, not toy examples  
- **Modern practices** - ES6+, async/await, REST APIs, responsive design  
+**Filipino context** - Every example uses barangay scenarios (services, residents, complaints)
+ **Story-driven** - Learn through Tian's journey, not dry documentation
+ **Complete curriculum** - From "What is the internet?" to production apps
+ **Practical projects** - Build real systems, not toy examples
+ **Modern practices** - ES6+, async/await, REST APIs, responsive design
  **Career-ready** - Skills employers actually need
 
 ---
