@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+11.0+-+COVER.png)
+
 It was a humid Tuesday afternoon in Quezon City, and Odessa was hunched over her laptop in the UP Diliman campus coffee shop ☕️. She had just finished debugging a basic to-do list app using ES5 syntax—and it felt like she was speaking in old Tagalog slang. Her tech lead, Kuya Ronnie, dropped by her table with a grin.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+11.1.png)
 
 “Ods, ready to level up? Let’s learn ES6. Modern syntax, modern mindset!” he said, sliding his own laptop closer.
 
@@ -179,7 +183,6 @@ Reference:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 
 ---
-
 
 ## Closing Story
 

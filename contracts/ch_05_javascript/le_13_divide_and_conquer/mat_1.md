@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+13.0+-+COVER.png)
+
 It was mid-afternoon in Bonifacio Global City, and the startup office buzzed like a busy jeepney terminal 🚍. Odessa stared at her screen: dozens of functions—schedule checker, date formatter, email sender—all mixed in one giant `app.js`. Every change felt risky. One small tweak would break something else, and her teammates were already groaning over merge conflicts.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+13.1.png)
 
 “Odessa, we need some orden!” said Kuya Ronnie, peering over her shoulder. He tapped the file tree. “Let’s split this chaos into modules. Export your helpers, import where you need them. Clean folder structure—like organizing your books in a shelf.”
 

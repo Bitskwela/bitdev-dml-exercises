@@ -1,6 +1,10 @@
 ## Background Story
 
-It was Odess a’s first week as a summer intern at **StoreStream PH**, a small startup in Marikina that helps sari-sari store owners digitize their inventories. 🌴 The hot Metro Manila sun beat down on her as she rode the jeepney from Katipunan to Cubao. Her heart raced—this was her chance to apply what she learned in class, plus impress her new teammates.
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+10.1+-+COVER.png)
+
+It was Odessa’s first week as a summer intern at **StoreStream PH**, a small startup in Marikina that helps sari-sari store owners digitize their inventories. 🌴 The hot Metro Manila sun beat down on her as she rode the jeepney from Katipunan to Cubao. Her heart raced—this was her chance to apply what she learned in class, plus impress her new teammates.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+10.0.png)
 
 On Day 2, her mentor, Ate Marife, handed Odessa a spreadsheet of products from a sari-sari store in Pasig: items like _taho_, _kwek-kwek_, _choc-nut_, and _sachet shampoos_. But the spreadsheet was static and hard to analyze: which products were running low? Which items made the most money? Odessa needed to transform and summarize that data in seconds.
 

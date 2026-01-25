@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+1.0+-+COVER.png)
+
 It's July 22, 2025, and Odessa, a determined first-year IT student at a university in San Juan City, finds herself wandering through a bustling job fair on campus. Amongst the sea of booths and flashy banners, a small stall catches her eye—the Code Awakening: JavaScript for Beginners.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+1.1.png)
 
 Intrigued, Odessa approaches the booth where a friendly computer science professor greets her. She watches in amazement as the professor effortlessly writes a few lines of code that make the computer come alive. Odessa is captivated by the idea that she too can wield this power to create applications and tools that can make a real difference in her barangay.
 

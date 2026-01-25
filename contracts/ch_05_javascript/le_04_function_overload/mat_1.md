@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+4.0+-+COVER.png)
+
 Odessa is now knee-deep in her IT journey, facing new challenges and conquering them one by one. Her latest obstacle involves streamlining budget reports for her internship project. After spending countless hours staring at lines of repetitive code, she had an 'Aha!' moment. Why not condense these lengthy code blocks into neat little packages called functions?
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+4.1.png)
 
 As she delves into the world of functions, Odessa realizes the power they hold. Functions not only reduce errors but also make her code cleaner and more organized. It's like decluttering her room, but instead of clothes and shoes, she's tidying up her code. With functions, Odessa transitions from merely writing code to designing logic.
 

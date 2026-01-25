@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+12.0+-+COVER.png)
+
 It was a muggy Monday morning in Makati City, and Odessa found herself nursing a cup of kapeng barako at a nearby café ☕️. Her dev team at the fintech startup was growing—suddenly they had five interns scattered across Luzon, Visayas, and Mindanao, each in different time zones due to remote work! Kuya Ronnie challenged Odessa: “Ods, automate our intern schedules. We need clock-in reminders, shift calendars, and time-difference checks. You in?”
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+12.1.png)
 
 Odessa’s eyes sparkled. She opened her code editor and typed `new Date()`. She felt like Doctor Strange bending time itself. First, she printed the current timestamp:
 
@@ -165,7 +169,6 @@ Reference:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
 
 ---
-
 
 ## Closing Story
 

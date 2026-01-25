@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+16.0+-+COVER.png)
+
 It was a rainy afternoon in Gloria, Oriental Mindoro - typical monsoon day when barangay hall operations slow to a crawl. Odessa was in her home office, sipping hot kamote tea, when her cousin from the barangay association called her in a panic.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+16.1.png)
 
 “Ods, we have so many resident complaints, permit requests, and purok assignments. Every page refresh resets our form data. We need a tool that remembers our place—parang memory ng lolo’t lola natin!” 😅
 

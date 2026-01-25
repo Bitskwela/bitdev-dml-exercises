@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+19.0+-+COVER.png)
+
 It was 8 PM at a bustling co-working space in BGC when Odessa leaned back in her chair, rubbing her eyes. Around her, digital nomads were typing furiously, some using phone timers to track Pomodoro sessions, others scribbling on sticky notes. “There must be a better way,” she thought.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+19.1.png)
 
 Earlier that week, Sir Ramon, the logistics manager, complained: “Ods, our drivers can’t focus on route planning. They need quick breaks and work sprints—like Pomodoro but built into our dashboard.” That evening, Odessa sketched a simple productivity timer on a scrap of grid paper—25 minutes of focus, 5 minutes of break, repeat.
 

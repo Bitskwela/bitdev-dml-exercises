@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+18.0+-+COVER.png)
+
 It was a humid afternoon in Makati when Odessa realized her code was starting to look like scribbles on a jeepney window during rush hour—messy and hard to read. She was building an e-commerce dashboard for her logistics firm, defining products, user profiles, and inventory items. Every time she needed a new kind of object, she’d copy-paste code, change a few names, and pray nothing else broke.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+18.1.png)
 
 Her mentor, Kuya Ronnie, dropped a pull request with a comment: “Why not use **classes**? Think of them as blueprints—architectural plans for your data.” He showed her how one `class Product` could hold all product logic—constructor, methods like `applyDiscount()`, and shared defaults.
 

@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+9.0+-+COVER.png)
+
 In the midst of maintaining her organization's online bulletin board, Odessa encounters a critical issue—a broken update that crashes the site. This unexpected setback teaches Odessa a valuable lesson in debugging, a skill that every developer must master to tackle unforeseen errors effectively.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+9.1.png)
 
 Eager to restore the functionality of the bulletin board, Odessa dives into the world of debugging. She learns how to leverage the browser developer tools, specifically the console, to identify, track, and fix errors in her code. Through this experience, she discovers that errors are not indicative of failure but rather valuable feedback that can lead to growth and improvement.
 
@@ -21,7 +25,6 @@ The console in browser developer tools is a powerful tool for debugging JavaScri
 ### Error Messages
 
 Understanding and deciphering error messages is crucial in debugging. Error messages provide valuable insights into what went wrong in the code and where the issue might be located.
-
 
 ## Closing Story
 

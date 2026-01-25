@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+7.0+-+COVER.png)
+
 Odessa's journey into the world of web development takes an exciting turn as she learns to connect her JavaScript logic to a webpage. By integrating her script with the Document Object Model (DOM), Odessa can now manipulate the content live on the screen, bringing her applications to life.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+7.1.png)
 
 One of the first tasks Odessa takes on is updating her organization's online bulletin board. With the power of JavaScript and the DOM, she can ensure that the bulletin board updates automatically with new information, making the website more dynamic and engaging for users.
 
@@ -39,7 +43,6 @@ button.addEventListener("click", function () {
 ```
 
 For more information, you can visit the [Mozilla Developer Network (MDN) documentation on Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
-
 
 ## Closing Story
 

@@ -1,22 +1,24 @@
-```markdown
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+14.0+-+COVER.png)
+
 It was a humid morning in Pasay City and the logistics office was already humming with activity—vans loading packages, dispatchers talking on headsets, and the big screen showing Metro Manila traffic maps 🚚🚦. Odessa sat at her desk, now a full-time developer for a fast-growing logistics tech firm. Her boss, Ate Liway, tapped her keyboard:
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+14.1.png)
 
 “Ods, we need live traffic updates from MMDA and weather data from PAGASA. Integrate them into our routing dashboard so our drivers avoid gridlock and typhoons. You got this?”
 
 Odessa took a deep breath. Fetching data from real APIs? This felt like leveling up from simple date tricks to real-world data magic. She opened her terminal and typed:
-```
 
+```js
 npm install node-fetch
-
-````
+```
 
 Then in her editor, she wrote:
 
 ```js
 import fetch from "node-fetch";
-````
+```
 
 Her first task: call the MMDA traffic API. She sent a request:
 
@@ -30,7 +32,7 @@ She saw an array of congested roads—EDSA at yellow, Roxas Boulevard at red. Ne
 
 ```js
 const weatherRes = await fetch(
-  "https://api.pagasa.gov.ph/weather/metro-manila"
+  "https://api.pagasa.gov.ph/weather/metro-manila",
 );
 const weather = await weatherRes.json();
 console.log(weather.temperature);
@@ -128,7 +130,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/asy
 
 ---
 
-
 ## Closing Story
 
 As the dashboard sprang to life on her screen—live MMDA traffic maps and PAGASA weather updates—Odessa felt the thrill of real-time data pulsing through her code. Drivers avoided bottlenecks on EDSA, and dispatchers rerouted vans before the rain poured in. With Promises and async/await, she had made distant APIs feel as close as her own database.
@@ -136,7 +137,3 @@ As the dashboard sprang to life on her screen—live MMDA traffic maps and PAGAS
 Ate Liway pinged her on Slack with a thumbs-up emoji 👍: “This is gold, Ods! Next up: chart libraries and real-time sockets.”
 
 Odessa grinned. Fetching data was only the beginning—visualizing trends and building live maps would be her next frontier. Her code had given life to data, and now the future looked bright, one dashboard at a time. 🚀
-
-```
-
-```
