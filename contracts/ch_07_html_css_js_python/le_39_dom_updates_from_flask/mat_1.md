@@ -1,15 +1,19 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+39.0+-+COVER.png)
+
 Tian successfully connected his JavaScript frontend to his Flask backend. He could send data from forms to Flask endpoints, and Flask would respond with JSON. But there was a critical missing piece that became painfully obvious when he tested the application.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+39.1.png)
 
 He'd added a "View Applications" button that fetched all barangay clearance applications from Flask. When clicked, he saw the Flask response in the browser console:
 
 ```javascript
 [
-  {id: 1, name: 'Juan Dela Cruz', service: 'Clearance', status: 'pending'},
-  {id: 2, name: 'Maria Santos', service: 'ID', status: 'approved'},
-  {id: 3, name: 'Pedro Reyes', service: 'Permit', status: 'processing'}
-]
+  { id: 1, name: "Juan Dela Cruz", service: "Clearance", status: "pending" },
+  { id: 2, name: "Maria Santos", service: "ID", status: "approved" },
+  { id: 3, name: "Pedro Reyes", service: "Permit", status: "processing" },
+];
 ```
 
 Perfect! The data was arriving from Flask. But when he looked at the actual webpage, it was just... blank. The data existed in JavaScript memory, logged beautifully in the console, pero walang nakikita sa actual page.
@@ -37,28 +41,28 @@ Tian watched as Miguel demonstrated with their barangay data:
 
 ```javascript
 // Fetch from Flask
-const response = await fetch('/api/applications');
+const response = await fetch("/api/applications");
 const applications = await response.json();
 
 // Now what? The data is in the `applications` variable.
 // But users can't see JavaScript variables.
 // We need to CREATE HTML ELEMENTS.
 
-const container = document.getElementById('applications-list');
+const container = document.getElementById("applications-list");
 
-applications.forEach(app => {
-    // Create elements for each application
-    const card = document.createElement('div');
-    card.className = 'application-card';
-    
-    card.innerHTML = `
+applications.forEach((app) => {
+  // Create elements for each application
+  const card = document.createElement("div");
+  card.className = "application-card";
+
+  card.innerHTML = `
         <h3>${app.name}</h3>
         <p>Service: ${app.service}</p>
         <span class="status ${app.status}">${app.status}</span>
     `;
-    
-    // Add to page
-    container.appendChild(card);
+
+  // Add to page
+  container.appendChild(card);
 });
 ```
 
@@ -97,27 +101,29 @@ Miguel showed them a pattern he called "fetch-render-display":
 // PATTERN: Fetch data, render elements, display on page
 
 async function loadResidents() {
-    // 1. FETCH: Get data from Flask
-    const response = await fetch('/api/residents');
-    const residents = await response.json();
-    
-    // 2. RENDER: Create HTML elements from data
-    const residentCards = residents.map(resident => {
-        return `
+  // 1. FETCH: Get data from Flask
+  const response = await fetch("/api/residents");
+  const residents = await response.json();
+
+  // 2. RENDER: Create HTML elements from data
+  const residentCards = residents
+    .map((resident) => {
+      return `
             <div class="resident-card">
                 <h3>${resident.name}</h3>
                 <p>Age: ${resident.age}</p>
                 <p>Address: ${resident.address}</p>
             </div>
         `;
-    }).join('');
-    
-    // 3. DISPLAY: Insert into page
-    document.getElementById('residents').innerHTML = residentCards;
+    })
+    .join("");
+
+  // 3. DISPLAY: Insert into page
+  document.getElementById("residents").innerHTML = residentCards;
 }
 
 // Run when page loads
-window.addEventListener('DOMContentLoaded', loadResidents);
+window.addEventListener("DOMContentLoaded", loadResidents);
 ```
 
 Tian saw the elegance: "Fetch gets the data. Render creates the HTML. Display puts it on the page. Three clear steps."
@@ -132,17 +138,17 @@ Tian tested the pattern with their barangay applications:
 
 ```javascript
 async function loadApplications() {
-    try {
-        const response = await fetch('/api/applications');
-        const applications = await response.json();
-        
-        const container = document.getElementById('applications');
-        container.innerHTML = '';  // Clear previous content
-        
-        applications.forEach(app => {
-            const card = document.createElement('div');
-            card.className = 'application-card';
-            card.innerHTML = `
+  try {
+    const response = await fetch("/api/applications");
+    const applications = await response.json();
+
+    const container = document.getElementById("applications");
+    container.innerHTML = ""; // Clear previous content
+
+    applications.forEach((app) => {
+      const card = document.createElement("div");
+      card.className = "application-card";
+      card.innerHTML = `
                 <div class="app-header">
                     <h3>${app.name}</h3>
                     <span class="status status-${app.status}">
@@ -150,17 +156,18 @@ async function loadApplications() {
                     </span>
                 </div>
                 <p><strong>Service:</strong> ${app.service}</p>
-                <p><strong>Date:</strong> ${new Date(app.date).toLocaleDateString()}</p>
+                <p><strong>Date:</strong> ${new Date(
+                  app.date,
+                ).toLocaleDateString()}</p>
                 <button onclick="viewDetails(${app.id})">View Details</button>
             `;
-            container.appendChild(card);
-        });
-        
-    } catch (error) {
-        console.error('Error loading applications:', error);
-        document.getElementById('applications').innerHTML = 
-            '<p class="error">Failed to load applications. Please try again.</p>';
-    }
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Error loading applications:", error);
+    document.getElementById("applications").innerHTML =
+      '<p class="error">Failed to load applications. Please try again.</p>';
+  }
 }
 ```
 
@@ -175,10 +182,10 @@ Miguel gave them the final challenge: "Now make it automatic. Don't make users c
 Tian added the event listener:
 
 ```javascript
-window.addEventListener('DOMContentLoaded', async () => {
-    showLoadingSpinner();
-    await loadApplications();
-    hideLoadingSpinner();
+window.addEventListener("DOMContentLoaded", async () => {
+  showLoadingSpinner();
+  await loadApplications();
+  hideLoadingSpinner();
 });
 ```
 
@@ -199,6 +206,7 @@ When you fetch data from Flask, you get JSON. Now you need to display it on the 
 ### Basic Pattern
 
 **Flask Backend (app.py):**
+
 ```python
 from flask import Flask, jsonify
 
@@ -215,49 +223,50 @@ def get_residents():
 ```
 
 **JavaScript Frontend:**
+
 ```javascript
 // Fetch data when page loads
-window.addEventListener('DOMContentLoaded', async () => {
-    await loadResidents();
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadResidents();
 });
 
 async function loadResidents() {
-    try {
-        // Fetch from Flask
-        const response = await fetch('/api/residents');
-        const residents = await response.json();
-        
-        // Display on page
-        displayResidents(residents);
-        
-    } catch (error) {
-        console.error('Error loading residents:', error);
-    }
+  try {
+    // Fetch from Flask
+    const response = await fetch("/api/residents");
+    const residents = await response.json();
+
+    // Display on page
+    displayResidents(residents);
+  } catch (error) {
+    console.error("Error loading residents:", error);
+  }
 }
 
 function displayResidents(residents) {
-    const container = document.querySelector('#residentsContainer');
-    
-    // Clear existing content
-    container.innerHTML = '';
-    
-    // Create HTML for each resident
-    residents.forEach(resident => {
-        const card = document.createElement('div');
-        card.className = 'resident-card';
-        
-        card.innerHTML = `
+  const container = document.querySelector("#residentsContainer");
+
+  // Clear existing content
+  container.innerHTML = "";
+
+  // Create HTML for each resident
+  residents.forEach((resident) => {
+    const card = document.createElement("div");
+    card.className = "resident-card";
+
+    card.innerHTML = `
             <h3>${resident.name}</h3>
             <p>Age: ${resident.age}</p>
             <span class="badge ${resident.status}">${resident.status}</span>
         `;
-        
-        container.appendChild(card);
-    });
+
+    container.appendChild(card);
+  });
 }
 ```
 
 **HTML:**
+
 ```html
 <div id="residentsContainer"></div>
 ```
@@ -267,6 +276,7 @@ function displayResidents(residents) {
 ## Complete Barangay Announcements Example
 
 **Flask Backend:**
+
 ```python
 @app.route('/api/announcements')
 def get_announcements():
@@ -297,19 +307,20 @@ def get_announcements():
 ```
 
 **JavaScript:**
+
 ```javascript
 async function loadAnnouncements() {
-    const response = await fetch('/api/announcements');
-    const announcements = await response.json();
-    
-    const container = document.querySelector('#announcementsContainer');
-    container.innerHTML = '';
-    
-    announcements.forEach(announcement => {
-        const announcementDiv = document.createElement('div');
-        announcementDiv.className = `announcement ${announcement.category}`;
-        
-        announcementDiv.innerHTML = `
+  const response = await fetch("/api/announcements");
+  const announcements = await response.json();
+
+  const container = document.querySelector("#announcementsContainer");
+  container.innerHTML = "";
+
+  announcements.forEach((announcement) => {
+    const announcementDiv = document.createElement("div");
+    announcementDiv.className = `announcement ${announcement.category}`;
+
+    announcementDiv.innerHTML = `
             <div class="announcement-header">
                 <h3>${announcement.title}</h3>
                 <span class="category-badge ${announcement.category}">
@@ -317,68 +328,71 @@ async function loadAnnouncements() {
                 </span>
             </div>
             <p class="announcement-content">${announcement.content}</p>
-            <small class="announcement-date">${formatDate(announcement.date)}</small>
+            <small class="announcement-date">${formatDate(
+              announcement.date,
+            )}</small>
         `;
-        
-        container.appendChild(announcementDiv);
-    });
+
+    container.appendChild(announcementDiv);
+  });
 }
 
 function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-PH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-PH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 // Load on page load
-window.addEventListener('DOMContentLoaded', loadAnnouncements);
+window.addEventListener("DOMContentLoaded", loadAnnouncements);
 ```
 
 **CSS:**
+
 ```css
 .announcement {
-    background: white;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 8px;
-    border-left: 5px solid #ccc;
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  border-left: 5px solid #ccc;
 }
 
 .announcement.event {
-    border-left-color: #1a73e8;
+  border-left-color: #1a73e8;
 }
 
 .announcement.info {
-    border-left-color: #34a853;
+  border-left-color: #34a853;
 }
 
 .announcement.warning {
-    border-left-color: #dc3545;
+  border-left-color: #dc3545;
 }
 
 .category-badge {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .category-badge.event {
-    background: #e3f2fd;
-    color: #1a73e8;
+  background: #e3f2fd;
+  color: #1a73e8;
 }
 
 .category-badge.info {
-    background: #e8f5e9;
-    color: #34a853;
+  background: #e8f5e9;
+  color: #34a853;
 }
 
 .category-badge.warning {
-    background: #ffebee;
-    color: #dc3545;
+  background: #ffebee;
+  color: #dc3545;
 }
 ```
 
@@ -387,30 +401,30 @@ window.addEventListener('DOMContentLoaded', loadAnnouncements);
 ## Loading States and Error Handling
 
 **Show loading indicator:**
+
 ```javascript
 async function loadResidents() {
-    const container = document.querySelector('#residentsContainer');
-    
-    // Show loading
-    container.innerHTML = '<p class="loading">Loading residents...</p>';
-    
-    try {
-        const response = await fetch('/api/residents');
-        
-        if (!response.ok) {
-            throw new Error('Failed to load residents');
-        }
-        
-        const residents = await response.json();
-        displayResidents(residents);
-        
-    } catch (error) {
-        // Show error message
-        container.innerHTML = `
+  const container = document.querySelector("#residentsContainer");
+
+  // Show loading
+  container.innerHTML = '<p class="loading">Loading residents...</p>';
+
+  try {
+    const response = await fetch("/api/residents");
+
+    if (!response.ok) {
+      throw new Error("Failed to load residents");
+    }
+
+    const residents = await response.json();
+    displayResidents(residents);
+  } catch (error) {
+    // Show error message
+    container.innerHTML = `
             <p class="error">Error loading residents: ${error.message}</p>
             <button onclick="loadResidents()">Try Again</button>
         `;
-    }
+  }
 }
 ```
 
@@ -419,48 +433,54 @@ async function loadResidents() {
 ## Filtering and Searching Data
 
 **Filter announcements by category:**
+
 ```javascript
 let allAnnouncements = [];
 
 async function loadAnnouncements() {
-    const response = await fetch('/api/announcements');
-    allAnnouncements = await response.json();
-    displayAnnouncements(allAnnouncements);
+  const response = await fetch("/api/announcements");
+  allAnnouncements = await response.json();
+  displayAnnouncements(allAnnouncements);
 }
 
 function filterByCategory(category) {
-    if (category === 'all') {
-        displayAnnouncements(allAnnouncements);
-    } else {
-        const filtered = allAnnouncements.filter(a => a.category === category);
-        displayAnnouncements(filtered);
-    }
+  if (category === "all") {
+    displayAnnouncements(allAnnouncements);
+  } else {
+    const filtered = allAnnouncements.filter((a) => a.category === category);
+    displayAnnouncements(filtered);
+  }
 }
 
 function displayAnnouncements(announcements) {
-    const container = document.querySelector('#announcementsContainer');
-    
-    if (announcements.length === 0) {
-        container.innerHTML = '<p>No announcements found.</p>';
-        return;
-    }
-    
-    container.innerHTML = announcements.map(announcement => `
+  const container = document.querySelector("#announcementsContainer");
+
+  if (announcements.length === 0) {
+    container.innerHTML = "<p>No announcements found.</p>";
+    return;
+  }
+
+  container.innerHTML = announcements
+    .map(
+      (announcement) => `
         <div class="announcement ${announcement.category}">
             <h3>${announcement.title}</h3>
             <p>${announcement.content}</p>
         </div>
-    `).join('');
+    `,
+    )
+    .join("");
 }
 ```
 
 **HTML:**
+
 ```html
 <div class="filter-buttons">
-    <button onclick="filterByCategory('all')">All</button>
-    <button onclick="filterByCategory('event')">Events</button>
-    <button onclick="filterByCategory('info')">Info</button>
-    <button onclick="filterByCategory('warning')">Warnings</button>
+  <button onclick="filterByCategory('all')">All</button>
+  <button onclick="filterByCategory('event')">Events</button>
+  <button onclick="filterByCategory('info')">Info</button>
+  <button onclick="filterByCategory('warning')">Warnings</button>
 </div>
 
 <div id="announcementsContainer"></div>
@@ -471,6 +491,7 @@ function displayAnnouncements(announcements) {
 ## Complete Dashboard Example
 
 **Flask:**
+
 ```python
 @app.route('/api/dashboard')
 def get_dashboard_stats():
@@ -489,49 +510,57 @@ def get_dashboard_stats():
 ```
 
 **JavaScript:**
+
 ```javascript
 async function loadDashboard() {
-    const response = await fetch('/api/dashboard');
-    const data = await response.json();
-    
-    // Update statistics
-    document.querySelector('#totalResidents').textContent = data.total_residents;
-    document.querySelector('#activeComplaints').textContent = data.active_complaints;
-    document.querySelector('#pendingDocuments').textContent = data.pending_documents;
-    document.querySelector('#upcomingEvents').textContent = data.upcoming_events;
-    
-    // Display recent activities
-    const activitiesContainer = document.querySelector('#recentActivities');
-    activitiesContainer.innerHTML = data.recent_activities.map(activity => `
+  const response = await fetch("/api/dashboard");
+  const data = await response.json();
+
+  // Update statistics
+  document.querySelector("#totalResidents").textContent = data.total_residents;
+  document.querySelector("#activeComplaints").textContent =
+    data.active_complaints;
+  document.querySelector("#pendingDocuments").textContent =
+    data.pending_documents;
+  document.querySelector("#upcomingEvents").textContent = data.upcoming_events;
+
+  // Display recent activities
+  const activitiesContainer = document.querySelector("#recentActivities");
+  activitiesContainer.innerHTML = data.recent_activities
+    .map(
+      (activity) => `
         <div class="activity">
             <strong>${activity.user}</strong> ${activity.action}
             <span class="time">${activity.time}</span>
         </div>
-    `).join('');
+    `,
+    )
+    .join("");
 }
 
-window.addEventListener('DOMContentLoaded', loadDashboard);
+window.addEventListener("DOMContentLoaded", loadDashboard);
 ```
 
 **HTML:**
+
 ```html
 <div class="stats-grid">
-    <div class="stat-card">
-        <h3 id="totalResidents">0</h3>
-        <p>Total Residents</p>
-    </div>
-    <div class="stat-card">
-        <h3 id="activeComplaints">0</h3>
-        <p>Active Complaints</p>
-    </div>
-    <div class="stat-card">
-        <h3 id="pendingDocuments">0</h3>
-        <p>Pending Documents</p>
-    </div>
-    <div class="stat-card">
-        <h3 id="upcomingEvents">0</h3>
-        <p>Upcoming Events</p>
-    </div>
+  <div class="stat-card">
+    <h3 id="totalResidents">0</h3>
+    <p>Total Residents</p>
+  </div>
+  <div class="stat-card">
+    <h3 id="activeComplaints">0</h3>
+    <p>Active Complaints</p>
+  </div>
+  <div class="stat-card">
+    <h3 id="pendingDocuments">0</h3>
+    <p>Pending Documents</p>
+  </div>
+  <div class="stat-card">
+    <h3 id="upcomingEvents">0</h3>
+    <p>Upcoming Events</p>
+  </div>
 </div>
 
 <div id="recentActivities"></div>
@@ -553,19 +582,20 @@ window.addEventListener('DOMContentLoaded', loadDashboard);
 ## Summary
 
 **Pattern for displaying Flask data:**
+
 ```javascript
 // 1. Fetch data from Flask
-const response = await fetch('/api/endpoint');
+const response = await fetch("/api/endpoint");
 const data = await response.json();
 
 // 2. Clear container
-container.innerHTML = '';
+container.innerHTML = "";
 
 // 3. Loop through data and create HTML
-data.forEach(item => {
-    const element = document.createElement('div');
-    element.innerHTML = `<h3>${item.title}</h3>`;
-    container.appendChild(element);
+data.forEach((item) => {
+  const element = document.createElement("div");
+  element.innerHTML = `<h3>${item.title}</h3>`;
+  container.appendChild(element);
 });
 ```
 

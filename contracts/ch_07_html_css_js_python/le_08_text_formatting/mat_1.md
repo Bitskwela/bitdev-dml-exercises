@@ -1,23 +1,21 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+8.0+-+COVER.png)
+
 Tian opened their barangay website project, ready to add the actual content. They had the HTML structure—doctype, head, body—and they'd learned about tags, elements, and attributes. Now it was time to fill the pages with real information about the barangay.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+8.1.png)
 
 They started typing inside the `<body>` tag:
 
 ```html
 <body>
-Barangay Sto. Niño Official Website
-Welcome to our community portal. We serve 5,432 residents across 8 sitios.
-Our Services:
-Barangay Clearance - ₱50
-Barangay ID - ₱30
-Indigency Certificate - ₱20
-Certificate of Residency - ₱40
-Contact Information:
-Barangay Hall Address: 123 Main Street, Batangas City
-Contact Number: (043) 123-4567
-Email: barangay@example.com
-Office Hours: Monday to Friday, 8:00 AM - 5:00 PM
+  Barangay Sto. Niño Official Website Welcome to our community portal. We serve
+  5,432 residents across 8 sitios. Our Services: Barangay Clearance - ₱50
+  Barangay ID - ₱30 Indigency Certificate - ₱20 Certificate of Residency - ₱40
+  Contact Information: Barangay Hall Address: 123 Main Street, Batangas City
+  Contact Number: (043) 123-4567 Email: barangay@example.com Office Hours:
+  Monday to Friday, 8:00 AM - 5:00 PM
 </body>
 ```
 
@@ -39,11 +37,11 @@ That evening, they both joined a video call with Kuya Miguel and shared their sc
 
 Miguel couldn't help but smile—he'd made the same mistake when he first learned HTML.
 
-"You two have discovered a fundamental principle of HTML: formatting doesn't come from spaces and line breaks in your code. It comes from semantic tags that describe the *type* of content. HTML is a markup language—you mark up content with tags that tell the browser: 'This is a heading. This is a paragraph. This is a list. This is emphasized text.'"
+"You two have discovered a fundamental principle of HTML: formatting doesn't come from spaces and line breaks in your code. It comes from semantic tags that describe the _type_ of content. HTML is a markup language—you mark up content with tags that tell the browser: 'This is a heading. This is a paragraph. This is a list. This is emphasized text.'"
 
 "So we need specific tags for each content type?" Tian asked.
 
-"Exactly. Just like in Microsoft Word, you have formatting options—Title, Heading 1, Heading 2, Body Text, Bullet List. HTML has equivalent tags: `<h1>` through `<h6>` for headings, `<p>` for paragraphs, `<ul>` and `<ol>` for lists, `<strong>` for bold, `<em>` for italic. Each tag serves a specific purpose and creates both visual formatting *and* semantic meaning."
+"Exactly. Just like in Microsoft Word, you have formatting options—Title, Heading 1, Heading 2, Body Text, Bullet List. HTML has equivalent tags: `<h1>` through `<h6>` for headings, `<p>` for paragraphs, `<ul>` and `<ol>` for lists, `<strong>` for bold, `<em>` for italic. Each tag serves a specific purpose and creates both visual formatting _and_ semantic meaning."
 
 Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end of this lesson, your content won't be a wall of text—it'll be properly structured with hierarchical headings, readable paragraphs, organized lists, and emphasized text. You'll learn the foundation of readable web content."
 
@@ -67,6 +65,7 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ### Visual Hierarchy
 
 **Default sizes** (browser default, can be changed with CSS):
+
 - `<h1>` = 32px (2em)
 - `<h2>` = 24px (1.5em)
 - `<h3>` = 18.72px (1.17em)
@@ -94,14 +93,17 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```
 
 **❌ Common Mistakes:**
+
 ```html
 <!-- WRONG: Skipping levels -->
 <h1>Title</h1>
-<h4>Should be h2</h4>  <!-- Don't skip h2, h3 -->
+<h4>Should be h2</h4>
+<!-- Don't skip h2, h3 -->
 
 <!-- WRONG: Multiple h1 on one page -->
 <h1>First title</h1>
-<h1>Second title</h1>  <!-- Use h2 instead -->
+<h1>Second title</h1>
+<!-- Use h2 instead -->
 
 <!-- WRONG: Using headings for styling -->
 <h1>This shouldn't be h1 just because I want big text</h1>
@@ -119,7 +121,8 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 
 ```html
 <p>This is a paragraph. It automatically adds spacing above and below.</p>
-<p>This is another paragraph. Each <p> tag starts on a new line.</p>
+<p>This is another paragraph. Each</p>
+<p>tag starts on a new line.</p>
 ```
 
 ### Line Breaks vs Paragraphs
@@ -127,9 +130,9 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```html
 <!-- Line break <br> (same paragraph) -->
 <p>
-    First line<br>
-    Second line<br>
-    Third line
+  First line<br />
+  Second line<br />
+  Third line
 </p>
 
 <!-- Multiple paragraphs -->
@@ -139,6 +142,7 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```
 
 **Difference:**
+
 - `<br>` = Line break (no extra spacing)
 - `<p>` = New paragraph (extra spacing above/below)
 
@@ -149,10 +153,10 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 
 <h2>Barangay Clearance</h2>
 <p>
-    Kailangan ng barangay clearance para sa:<br>
-    - Job application<br>
-    - School enrollment<br>
-    - Loan application
+  Kailangan ng barangay clearance para sa:<br />
+  - Job application<br />
+  - School enrollment<br />
+  - Loan application
 </p>
 
 <h3>Requirements</h3>
@@ -169,14 +173,15 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```html
 <h2>Required Documents</h2>
 <ul>
-    <li>Valid ID</li>
-    <li>Barangay clearance</li>
-    <li>Birth certificate</li>
-    <li>2x2 ID photo</li>
+  <li>Valid ID</li>
+  <li>Barangay clearance</li>
+  <li>Birth certificate</li>
+  <li>2x2 ID photo</li>
 </ul>
 ```
 
 **Output:**
+
 - Valid ID
 - Barangay clearance
 - Birth certificate
@@ -187,15 +192,16 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```html
 <h2>Application Steps</h2>
 <ol>
-    <li>Fill out form</li>
-    <li>Submit requirements</li>
-    <li>Pay processing fee</li>
-    <li>Wait for approval</li>
-    <li>Claim clearance</li>
+  <li>Fill out form</li>
+  <li>Submit requirements</li>
+  <li>Pay processing fee</li>
+  <li>Wait for approval</li>
+  <li>Claim clearance</li>
 </ol>
 ```
 
 **Output:**
+
 1. Fill out form
 2. Submit requirements
 3. Pay processing fee
@@ -207,21 +213,21 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```html
 <!-- Start from different number -->
 <ol start="5">
-    <li>Fifth item</li>
-    <li>Sixth item</li>
+  <li>Fifth item</li>
+  <li>Sixth item</li>
 </ol>
 
 <!-- Reverse order -->
 <ol reversed>
-    <li>First (shows as 3)</li>
-    <li>Second (shows as 2)</li>
-    <li>Third (shows as 1)</li>
+  <li>First (shows as 3)</li>
+  <li>Second (shows as 2)</li>
+  <li>Third (shows as 1)</li>
 </ol>
 
 <!-- Different bullet type (CSS better for this) -->
 <ol type="A">
-    <li>Item A</li>
-    <li>Item B</li>
+  <li>Item A</li>
+  <li>Item B</li>
 </ol>
 <!-- type: 1 (numbers), A (uppercase), a (lowercase), I (Roman), i (roman) -->
 ```
@@ -231,27 +237,31 @@ Miguel continued, "Today, I'm teaching you text formatting in HTML. By the end o
 ```html
 <h2>Barangay Officials</h2>
 <ul>
-    <li>Barangay Captain
-        <ul>
-            <li>Maria Santos</li>
-        </ul>
-    </li>
-    <li>Kagawad Members
-        <ol>
-            <li>Juan Dela Cruz</li>
-            <li>Ana Reyes</li>
-            <li>Pedro Garcia</li>
-        </ol>
-    </li>
-    <li>SK Chairman
-        <ul>
-            <li>Carlo Mendoza</li>
-        </ul>
-    </li>
+  <li>
+    Barangay Captain
+    <ul>
+      <li>Maria Santos</li>
+    </ul>
+  </li>
+  <li>
+    Kagawad Members
+    <ol>
+      <li>Juan Dela Cruz</li>
+      <li>Ana Reyes</li>
+      <li>Pedro Garcia</li>
+    </ol>
+  </li>
+  <li>
+    SK Chairman
+    <ul>
+      <li>Carlo Mendoza</li>
+    </ul>
+  </li>
 </ul>
 ```
 
 **Output:**
+
 - Barangay Captain
   - Maria Santos
 - Kagawad Members
@@ -268,18 +278,19 @@ For **term-definition** pairs:
 ```html
 <h2>Barangay Fees</h2>
 <dl>
-    <dt>Barangay Clearance</dt>
-    <dd>₱50 - Valid for 6 months</dd>
-    
-    <dt>Cedula</dt>
-    <dd>₱5-100 - Based on income</dd>
-    
-    <dt>Business Permit</dt>
-    <dd>₱500-2000 - Based on business type</dd>
+  <dt>Barangay Clearance</dt>
+  <dd>₱50 - Valid for 6 months</dd>
+
+  <dt>Cedula</dt>
+  <dd>₱5-100 - Based on income</dd>
+
+  <dt>Business Permit</dt>
+  <dd>₱500-2000 - Based on business type</dd>
 </dl>
 ```
 
 **Tags:**
+
 - `<dl>` = Description List (wrapper)
 - `<dt>` = Term (title)
 - `<dd>` = Definition (description)
@@ -292,7 +303,7 @@ Visual separator (horizontal line):
 <h2>Section 1</h2>
 <p>Content...</p>
 
-<hr>
+<hr />
 
 <h2>Section 2</h2>
 <p>Content...</p>
@@ -319,61 +330,61 @@ Wednesday - 8:00 AM - 5:00 PM
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay Services</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Sto. Niño Services</h1>
-    
+
     <h2>1. Barangay Clearance</h2>
     <p>
-        Required for job applications, school enrollment, and other transactions.
+      Required for job applications, school enrollment, and other transactions.
     </p>
-    
+
     <h3>Requirements:</h3>
     <ul>
-        <li>Valid ID (photocopy)</li>
-        <li>Cedula (Community Tax Certificate)</li>
-        <li>₱50 processing fee</li>
+      <li>Valid ID (photocopy)</li>
+      <li>Cedula (Community Tax Certificate)</li>
+      <li>₱50 processing fee</li>
     </ul>
-    
+
     <h3>Processing Time:</h3>
     <p>Same day release if documents are complete.</p>
-    
-    <hr>
-    
+
+    <hr />
+
     <h2>2. How to Apply</h2>
     <ol>
-        <li>Visit barangay hall during office hours</li>
-        <li>Get application form at window 1</li>
-        <li>Fill out form completely</li>
-        <li>Submit form + requirements at window 2</li>
-        <li>Pay at cashier</li>
-        <li>Claim clearance (15-30 minutes)</li>
+      <li>Visit barangay hall during office hours</li>
+      <li>Get application form at window 1</li>
+      <li>Fill out form completely</li>
+      <li>Submit form + requirements at window 2</li>
+      <li>Pay at cashier</li>
+      <li>Claim clearance (15-30 minutes)</li>
     </ol>
-    
-    <hr>
-    
+
+    <hr />
+
     <h2>3. Office Hours</h2>
     <dl>
-        <dt>Monday - Friday</dt>
-        <dd>8:00 AM - 5:00 PM</dd>
-        
-        <dt>Saturday</dt>
-        <dd>8:00 AM - 12:00 PM</dd>
-        
-        <dt>Sunday</dt>
-        <dd>Closed</dd>
+      <dt>Monday - Friday</dt>
+      <dd>8:00 AM - 5:00 PM</dd>
+
+      <dt>Saturday</dt>
+      <dd>8:00 AM - 12:00 PM</dd>
+
+      <dt>Sunday</dt>
+      <dd>Closed</dd>
     </dl>
-    
+
     <h2>Contact Information</h2>
     <p>
-        Hotline: (043) 123-4567<br>
-        Email: barangay.stonino@gmail.com<br>
-        Address: Barangay Hall, Sto. Niño, Batangas City
+      Hotline: (043) 123-4567<br />
+      Email: barangay.stonino@gmail.com<br />
+      Address: Barangay Hall, Sto. Niño, Batangas City
     </p>
-</body>
+  </body>
 </html>
 ```
 
@@ -405,9 +416,7 @@ H<sub>2</sub>O and x<sup>2</sup>
 <code>console.log('hello')</code>
 
 <!-- Blockquote (indented quote) -->
-<blockquote>
-    "Education is the key to success." - Jose Rizal
-</blockquote>
+<blockquote>"Education is the key to success." - Jose Rizal</blockquote>
 ```
 
 ## Best Practices
@@ -421,18 +430,23 @@ H<sub>2</sub>O and x<sup>2</sup>
 ## Common Mistakes
 
 ### ❌ Using `<br>` for spacing
+
 ```html
 <p>Text</p>
-<br><br><br>  <!-- WRONG: Use CSS margin instead -->
+<br /><br /><br />
+<!-- WRONG: Use CSS margin instead -->
 <p>More text</p>
 ```
 
 ### ❌ Headings for styling
+
 ```html
-<h1>I just want big text</h1>  <!-- WRONG: Use CSS font-size -->
+<h1>I just want big text</h1>
+<!-- WRONG: Use CSS font-size -->
 ```
 
 ### ❌ Manual numbering
+
 ```html
 <p>1. First item</p>
 <p>2. Second item</p>

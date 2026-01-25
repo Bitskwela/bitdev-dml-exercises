@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+31.0+-+COVER.png)
+
 Kuya Miguel closed his laptop and looked at Tian with a serious expression. "You've come a long way. From 'Hello, World!' to templates and exception handling. But there's one final test—can you build a complete, professional-grade system?"
 
 Tian felt the weight of the moment. This wasn't another tutorial exercise.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+31.1.png)
 
 "Build a **full CRUD system** for barangay management," Kuya Miguel said. "Create, Read, Update, Delete—all the core operations. Use classes for organization, inheritance for code reuse, templates for flexibility, exceptions for robustness, and STL for data management. Add file persistence so data survives between runs. Implement search and filtering. Handle edge cases gracefully."
 
@@ -21,6 +25,7 @@ Tian thought about the journey—the frustration with div-by-zero errors, the co
 ## Project Requirements
 
 Build a complete barangay management system with:
+
 1. **Create**: Add residents, clearances, and dues
 2. **Read**: Display, search, and filter records
 3. **Update**: Modify resident and payment information
@@ -71,7 +76,7 @@ protected:
     string name;
     int age;
     bool active;
-    
+
 public:
     Person(int i, string n, int a) : id(i), name(n), age(a), active(true) {
         if (name.empty()) {
@@ -81,26 +86,26 @@ public:
             throw InvalidDataException("Invalid age");
         }
     }
-    
+
     virtual ~Person() {}
-    
+
     virtual void display() const {
         cout << "ID: " << id << ", Name: " << name << ", Age: " << age;
     }
-    
+
     int getId() const { return id; }
     string getName() const { return name; }
     int getAge() const { return age; }
     bool isActive() const { return active; }
-    
+
     void setName(string n) {
         if (!n.empty()) name = n;
     }
-    
+
     void setAge(int a) {
         if (a >= 0 && a <= 150) age = a;
     }
-    
+
     void deactivate() { active = false; }
     void reactivate() { active = true; }
 };
@@ -110,18 +115,18 @@ class Resident : public Person {
 private:
     string barangay;
     double balance;
-    
+
 public:
-    Resident(int i, string n, int a, string brgy) 
+    Resident(int i, string n, int a, string brgy)
         : Person(i, n, a), barangay(brgy), balance(0) {}
-    
+
     void addDues(double amount) {
         if (amount <= 0) {
             throw InvalidDataException("Amount must be positive");
         }
         balance += amount;
     }
-    
+
     void makePayment(double amount) {
         if (amount <= 0) {
             throw InvalidDataException("Amount must be positive");
@@ -131,18 +136,18 @@ public:
         }
         balance -= amount;
     }
-    
+
     void display() const override {
         Person::display();
         cout << ", Barangay: " << barangay << ", Balance: P" << balance;
         cout << ", Status: " << (active ? "Active" : "Inactive") << endl;
     }
-    
+
     string getBarangay() const { return barangay; }
     double getBalance() const { return balance; }
-    
+
     string toFileString() const {
-        return to_string(id) + "," + name + "," + to_string(age) + "," 
+        return to_string(id) + "," + name + "," + to_string(age) + ","
              + barangay + "," + to_string(balance) + "," + to_string(active);
     }
 };
@@ -156,24 +161,24 @@ private:
     double fee;
     string status;
     string date;
-    
+
 public:
-    Clearance(int i, int rId, string t, double f, string d) 
+    Clearance(int i, int rId, string t, double f, string d)
         : id(i), residentId(rId), type(t), fee(f), status("pending"), date(d) {
         if (fee < 0) {
             throw InvalidDataException("Fee cannot be negative");
         }
     }
-    
+
     void approve() { status = "approved"; }
     void reject() { status = "rejected"; }
-    
+
     void display() const {
         cout << "Clearance ID: " << id << ", Resident ID: " << residentId
-             << ", Type: " << type << ", Fee: P" << fee 
+             << ", Type: " << type << ", Fee: P" << fee
              << ", Status: " << status << ", Date: " << date << endl;
     }
-    
+
     int getId() const { return id; }
     int getResidentId() const { return residentId; }
     string getStatus() const { return status; }
@@ -188,15 +193,15 @@ private:
     map<int, int> residentIndex;
     int nextResidentId;
     int nextClearanceId;
-    
+
 public:
     BarangaySystem() : nextResidentId(1001), nextClearanceId(2001) {}
-    
+
     ~BarangaySystem() {
         for (auto r : residents) delete r;
         for (auto c : clearances) delete c;
     }
-    
+
     // CREATE
     void addResident(string name, int age, string barangay) {
         try {
@@ -210,13 +215,13 @@ public:
             nextResidentId--;  // Rollback ID
         }
     }
-    
+
     void addClearance(int residentId, string type, double fee, string date) {
         if (!findResident(residentId)) {
             cout << "Error: Resident not found\n";
             return;
         }
-        
+
         try {
             Clearance* c = new Clearance(nextClearanceId++, residentId, type, fee, date);
             clearances.push_back(c);
@@ -227,7 +232,7 @@ public:
             nextClearanceId--;
         }
     }
-    
+
     // READ
     void displayAllResidents() {
         cout << "\n===== ALL RESIDENTS =====\n";
@@ -240,7 +245,7 @@ public:
         }
         cout << "Total active residents: " << count << endl;
     }
-    
+
     Resident* findResident(int id) {
         auto it = residentIndex.find(id);
         if (it != residentIndex.end()) {
@@ -248,7 +253,7 @@ public:
         }
         return nullptr;
     }
-    
+
     void searchResident(string name) {
         cout << "\n===== SEARCH RESULTS =====\n";
         int found = 0;
@@ -262,7 +267,7 @@ public:
             cout << "No residents found\n";
         }
     }
-    
+
     void displayClearances(int residentId = -1) {
         cout << "\n===== CLEARANCES =====\n";
         for (auto c : clearances) {
@@ -271,7 +276,7 @@ public:
             }
         }
     }
-    
+
     // UPDATE
     void updateResident(int id, string newName, int newAge) {
         Resident* r = findResident(id);
@@ -279,19 +284,19 @@ public:
             cout << "Resident not found\n";
             return;
         }
-        
+
         if (!newName.empty()) r->setName(newName);
         if (newAge > 0) r->setAge(newAge);
         cout << "✓ Resident updated\n";
     }
-    
+
     void addDuesToResident(int id, double amount) {
         Resident* r = findResident(id);
         if (!r) {
             cout << "Resident not found\n";
             return;
         }
-        
+
         try {
             r->addDues(amount);
             cout << "✓ Added P" << amount << " to " << r->getName() << "'s balance\n";
@@ -300,14 +305,14 @@ public:
             cout << "Error: " << e.what() << endl;
         }
     }
-    
+
     void makePayment(int id, double amount) {
         Resident* r = findResident(id);
         if (!r) {
             cout << "Resident not found\n";
             return;
         }
-        
+
         try {
             r->makePayment(amount);
             cout << "✓ " << r->getName() << " paid P" << amount << endl;
@@ -316,7 +321,7 @@ public:
             cout << "Error: " << e.what() << endl;
         }
     }
-    
+
     void approveClearance(int clearanceId) {
         for (auto c : clearances) {
             if (c->getId() == clearanceId) {
@@ -327,7 +332,7 @@ public:
         }
         cout << "Clearance not found\n";
     }
-    
+
     // DELETE (Soft delete)
     void deleteResident(int id) {
         Resident* r = findResident(id);
@@ -335,21 +340,21 @@ public:
             cout << "Resident not found\n";
             return;
         }
-        
+
         r->deactivate();
         cout << "✓ Resident deactivated (ID: " << id << ")\n";
     }
-    
+
     // STATISTICS
     void displayStatistics() {
         cout << "\n===== STATISTICS =====\n";
         cout << "Total residents: " << residents.size() << endl;
-        
-        int active = count_if(residents.begin(), residents.end(), 
+
+        int active = count_if(residents.begin(), residents.end(),
                              [](Resident* r) { return r->isActive(); });
         cout << "Active: " << active << endl;
         cout << "Inactive: " << (residents.size() - active) << endl;
-        
+
         double totalBalance = 0;
         for (auto r : residents) {
             if (r->isActive()) {
@@ -357,18 +362,18 @@ public:
             }
         }
         cout << "Total outstanding balance: P" << totalBalance << endl;
-        
+
         cout << "Total clearances: " << clearances.size() << endl;
-        
+
         int pending = count_if(clearances.begin(), clearances.end(),
                                [](Clearance* c) { return c->getStatus() == "pending"; });
         int approved = count_if(clearances.begin(), clearances.end(),
                                 [](Clearance* c) { return c->getStatus() == "approved"; });
-        
+
         cout << "Pending clearances: " << pending << endl;
         cout << "Approved clearances: " << approved << endl;
     }
-    
+
     // FILE I/O
     void saveToFile(const string& filename) {
         ofstream file(filename);
@@ -376,12 +381,12 @@ public:
             cout << "Error opening file for writing\n";
             return;
         }
-        
+
         file << residents.size() << endl;
         for (auto r : residents) {
             file << r->toFileString() << endl;
         }
-        
+
         file.close();
         cout << "✓ Data saved to " << filename << endl;
     }
@@ -408,23 +413,23 @@ void displayMenu() {
 
 int main() {
     BarangaySystem system;
-    
+
     // Sample data
     system.addResident("Juan Dela Cruz", 30, "San Antonio");
     system.addResident("Maria Santos", 25, "San Pedro");
     system.addResident("Pedro Reyes", 45, "San Jose");
-    
+
     system.addDuesToResident(1001, 150);
     system.addDuesToResident(1002, 100);
-    
+
     system.addClearance(1001, "Residence", 50, "2024-11-17");
     system.addClearance(1002, "Business", 100, "2024-11-17");
-    
+
     int choice;
     do {
         displayMenu();
         cin >> choice;
-        
+
         try {
             switch (choice) {
                 case 1: {
@@ -480,9 +485,9 @@ int main() {
         catch (exception& e) {
             cout << "Error: " << e.what() << endl;
         }
-        
+
     } while (choice != 0);
-    
+
     return 0;
 }
 ```
@@ -494,6 +499,7 @@ int main() {
 "I built a complete system!" Tian exclaimed proudly.
 
 "Excellent work!" Kuya Miguel said. "You mastered:
+
 - **OOP**: Classes, inheritance, polymorphism
 - **Templates**: Generic programming
 - **STL**: Vector, map, algorithms
@@ -508,6 +514,7 @@ int main() {
 **Congratulations! You've completed the C++ course!** 🎉
 
 **What you've learned:**
+
 1. C++ fundamentals and syntax
 2. Control structures and functions
 3. Pointers and memory management
@@ -518,6 +525,7 @@ int main() {
 8. Building complete applications
 
 **Next steps:**
+
 - Build more projects
 - Learn C++17/C++20 features
 - Explore advanced topics (multithreading, networking)

@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+46.0+-+COVER.png)
+
 It was deployment day—the most exciting and nerve-wracking day of the entire project. Tian and Rhea Joy had spent three months building the complete barangay portal. Every feature worked flawlessly on their laptops: authentication with secure password hashing, full CRUD operations for complaints, localStorage for user preferences, environment variables for secrets, responsive design for mobile, error handling for edge cases. It was polished, tested, and ready.
 
 But it only existed on `http://localhost:5000`—only they could see it.
 
 Captain Cruz visited the computer lab where Tian was giving a final demonstration. He watched as Tian logged in, submitted a complaint, changed the status, filtered by category, switched to dark mode—everything worked beautifully.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+46.1.png)
 
 "This is impressive," Captain Cruz said. "When can residents start using it?"
 
@@ -131,6 +135,7 @@ else:
 Miguel guided them through creating a Render account, connecting their GitHub repository, and configuring the deployment:
 
 **Render Configuration:**
+
 - Build Command: `pip install -r requirements.txt`
 - Start Command: `gunicorn app:app`
 - Environment Variables: (add SECRET_KEY, DATABASE_URL, etc.)
@@ -161,6 +166,7 @@ Ms. Reyes was already sharing the URL with other barangay staff. Within minutes,
 Miguel walked them through post-deployment tasks:
 
 **Post-Deployment:**
+
 1. **Monitor logs**: Check for errors in Render dashboard
 2. **Test thoroughly**: Register, login, submit complaints, edit, delete
 3. **Mobile testing**: Try on different devices
@@ -196,6 +202,7 @@ Miguel's voice was full of pride. "You're not students anymore. You're developer
 ### Development vs Production
 
 **Development (Your Computer):**
+
 - http://localhost:5000
 - DEBUG = True
 - SQLite database
@@ -203,6 +210,7 @@ Miguel's voice was full of pride. "You're not students anymore. You're developer
 - Only you can access
 
 **Production (Server):**
+
 - https://barangay-portal.com
 - DEBUG = False
 - PostgreSQL database (usually)
@@ -214,22 +222,26 @@ Miguel's voice was full of pride. "You're not students anymore. You're developer
 **Free Options for Students:**
 
 1. **Render** (Recommended)
+
    - Free tier available
    - Easy setup
    - PostgreSQL included
    - Good for Flask apps
 
 2. **Railway**
+
    - $5 free credit/month
    - Simple deployment
    - Great DX
 
 3. **PythonAnywhere**
+
    - Free tier forever
    - Python-focused
    - Good for beginners
 
 4. **Heroku**
+
    - Used to be free (now paid)
    - Still popular
    - Good documentation
@@ -244,6 +256,7 @@ Miguel's voice was full of pride. "You're not students anymore. You're developer
 ### Step 1: Prepare Your Code
 
 **Project structure:**
+
 ```
 barangay-portal/
 ├── app.py
@@ -271,6 +284,7 @@ pip freeze > requirements.txt
 ```
 
 **requirements.txt:**
+
 ```
 Flask==3.0.0
 Flask-SQLAlchemy==3.1.1
@@ -289,6 +303,7 @@ web: gunicorn app:app
 ```
 
 **Explanation:**
+
 - `web`: Process type (required for web services)
 - `gunicorn`: Production WSGI server
 - `app:app`: `module:application` (app.py file, app variable)
@@ -348,6 +363,7 @@ if __name__ == '__main__':
 2. **New → Web Service**
 3. **Connect GitHub repository**
 4. Configure:
+
    - **Name:** barangay-portal
    - **Environment:** Python
    - **Build Command:** `pip install -r requirements.txt`
@@ -355,6 +371,7 @@ if __name__ == '__main__':
    - **Plan:** Free
 
 5. **Add Environment Variables:**
+
    ```
    SECRET_KEY=<your-secret-key>
    DATABASE_URL=<auto-filled by Render>
@@ -362,6 +379,7 @@ if __name__ == '__main__':
    ```
 
 6. **Create PostgreSQL Database:**
+
    - New → PostgreSQL
    - Link to your web service
    - DATABASE_URL will be auto-configured
@@ -443,18 +461,18 @@ frontend/
 // const API_URL = 'http://localhost:5000';
 
 // Production
-const API_URL = 'https://barangay-portal.onrender.com';
+const API_URL = "https://barangay-portal.onrender.com";
 
 async function fetchAPI(endpoint, options = {}) {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-        ...options,
-        credentials: 'include',  // Important: send cookies
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-    return response;
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    credentials: "include", // Important: send cookies
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+  return response;
 }
 ```
 
@@ -492,6 +510,7 @@ CORS(app, supports_credentials=True, origins=[
 ### Step 1: Buy Domain
 
 **Philippine Domain Registrars:**
+
 - Dot.PH - .ph domains
 - Namecheap - .com, .net
 - GoDaddy
@@ -502,11 +521,13 @@ CORS(app, supports_credentials=True, origins=[
 ### Step 2: Configure DNS
 
 **In Render Dashboard:**
+
 1. Settings → Custom Domains
 2. Add domain: `barangay-portal.ph`
 3. Copy DNS records
 
 **In Domain Registrar:**
+
 1. DNS Settings
 2. Add A record:
    ```
@@ -544,7 +565,7 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
-    
+
     # Production security
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
@@ -568,6 +589,7 @@ with app.app_context():
 ```
 
 **Run on Render:**
+
 ```bash
 # In Render Shell (Dashboard → Shell)
 python migrate.py
@@ -578,10 +600,12 @@ python migrate.py
 ### Check Logs
 
 **Render Dashboard:**
+
 - Logs tab → Real-time logs
 - Filter by date/severity
 
 **Python logging:**
+
 ```python
 import logging
 
@@ -611,6 +635,7 @@ def health():
 ### Database Backups
 
 **Render:**
+
 - Automatic daily backups (paid plan)
 - Manual backup: `pg_dump` from shell
 
@@ -627,11 +652,13 @@ psql $DATABASE_URL < backup.sql
 ### Issue 1: App Crashes on Start
 
 **Check logs:**
+
 ```
 Error: No module named 'flask'
 ```
 
 **Solution:** Missing dependencies
+
 ```bash
 pip freeze > requirements.txt
 git add requirements.txt
@@ -642,11 +669,13 @@ git push
 ### Issue 2: Database Connection Failed
 
 **Check logs:**
+
 ```
 Connection refused
 ```
 
 **Solution:** DATABASE_URL not set
+
 ```bash
 # In Render: Environment → Add Variable
 DATABASE_URL=<your-db-url>
@@ -655,9 +684,10 @@ DATABASE_URL=<your-db-url>
 ### Issue 3: Static Files Not Loading
 
 **Solution:** Correct paths
+
 ```html
 <!-- Use absolute paths -->
-<link rel="stylesheet" href="/static/css/styles.css">
+<link rel="stylesheet" href="/static/css/styles.css" />
 <script src="/static/js/main.js"></script>
 ```
 
@@ -668,6 +698,7 @@ Access to fetch at 'https://api...' from origin 'https://frontend...' has been b
 ```
 
 **Solution:**
+
 ```python
 from flask_cors import CORS
 
@@ -682,7 +713,7 @@ CORS(app, supports_credentials=True, origins=[
 
 ```html
 <!-- Use minified versions -->
-<link rel="stylesheet" href="/static/css/styles.min.css">
+<link rel="stylesheet" href="/static/css/styles.min.css" />
 <script src="/static/js/bundle.min.js"></script>
 ```
 
@@ -718,16 +749,19 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
 ## Cost Estimation (Philippine Context)
 
 **Free Tier (Students):**
+
 - Render: Free (with limitations)
 - Vercel: Free for personal projects
 - Total: ₱0/month
 
 **Basic Production:**
+
 - Render Starter: $7/month (~₱390)
 - Domain (.ph): ₱500/year
 - Total: ~₱430/month
 
 **Medium Scale:**
+
 - Render Pro: $25/month (~₱1,400)
 - Database: $7/month (~₱390)
 - Domain: ₱500/year
@@ -753,6 +787,7 @@ Before going live:
 ## Summary
 
 **Deployment Steps:**
+
 1. Prepare code (requirements.txt, Procfile)
 2. Choose platform (Render recommended)
 3. Create account and link GitHub
@@ -760,6 +795,7 @@ Before going live:
 5. Deploy and monitor
 
 **Production Best Practices:**
+
 - Use PostgreSQL (not SQLite)
 - Enable HTTPS
 - Set DEBUG=False
@@ -769,6 +805,7 @@ Before going live:
 - Use environment variables
 
 **Platforms:**
+
 - **Render:** Best for full-stack Flask apps
 - **Vercel:** Best for frontend (HTML/JS)
 - **Railway:** Good alternative

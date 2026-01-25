@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+18.0+-+COVER.png)
+
 Tian's resident tracking system had a fatal flaw. The array was hardcoded for 100 residents. When the barangay grew to 150 residents, the program couldn't handle it. Tian had to recompile with a larger array size, wasting memory if fewer residents were active.
 
 "Kuya, this is ridiculous!" Tian complained. "Real apps don't ask users 'please restart after we recompile for more users.' Facebook doesn't crash when user 1,000,001 signs up. How do programs handle unknown amounts of data?"
 
 Kuya Miguel grinned. "Welcome to one of C++'s superpowers: **dynamic memory allocation**. Instead of deciding array sizes at compile time, you allocate memory at runtime based on actual needs. Need space for 10 items? Allocate for 10. Need 10,000? Allocate for 10,000. The program adapts."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+18.1.png)
 
 "But there's a catch," Kuya Miguel warned. "With great power comes great responsibility. When the computer gives you memory, you must give it back when done—or face memory leaks, where your program slowly consumes all available RAM. This is manual memory management, and it's both powerful and dangerous."
 
@@ -15,6 +19,7 @@ Kuya Miguel grinned. "Welcome to one of C++'s superpowers: **dynamic memory allo
 ## Stack vs Heap Memory
 
 ### Stack Memory (Automatic)
+
 - Variables declared normally
 - Fixed size, determined at compile time
 - Automatically managed (created/destroyed)
@@ -26,6 +31,7 @@ int scores[100];        // Stack (fixed size)
 ```
 
 ### Heap Memory (Dynamic)
+
 - Allocated using `new`
 - Size can be determined at runtime
 - **Manually managed** (you must `delete`)
@@ -41,12 +47,14 @@ int* scores = new int[n];    // Heap (size determined at runtime)
 ## Allocating Single Variables
 
 ### Syntax
+
 ```cpp
 dataType* pointer = new dataType;
 dataType* pointer = new dataType(initialValue);
 ```
 
 ### Examples
+
 ```cpp
 int* age = new int;        // Uninitialized
 *age = 25;
@@ -77,11 +85,13 @@ delete ptr;  // Free memory
 ## Allocating Arrays
 
 ### Syntax
+
 ```cpp
 dataType* pointer = new dataType[size];
 ```
 
 ### Examples
+
 ```cpp
 int size = 5;
 int* scores = new int[size];  // Dynamic array
@@ -100,9 +110,9 @@ delete[] scores;  // Note the []
 ## `delete` vs `delete[]`
 
 | Allocation | Deallocation |
-|------------|--------------|
-| `new` | `delete` |
-| `new[]` | `delete[]` |
+| ---------- | ------------ |
+| `new`      | `delete`     |
+| `new[]`    | `delete[]`   |
 
 ```cpp
 int* single = new int(10);
@@ -127,11 +137,11 @@ int main() {
     int numResidents;
     cout << "How many residents? ";
     cin >> numResidents;
-    
+
     // Allocate dynamic arrays
     string* names = new string[numResidents];
     int* ages = new int[numResidents];
-    
+
     // Input
     cin.ignore();
     for (int i = 0; i < numResidents; i++) {
@@ -142,17 +152,17 @@ int main() {
         cin >> ages[i];
         cin.ignore();
     }
-    
+
     // Display
     cout << "\n===== RESIDENT LIST =====\n";
     for (int i = 0; i < numResidents; i++) {
         cout << names[i] << " (Age " << ages[i] << ")\n";
     }
-    
+
     // Clean up
     delete[] names;
     delete[] ages;
-    
+
     cout << "Memory freed!" << endl;
     return 0;
 }
@@ -179,6 +189,7 @@ int main() {
 ```
 
 **Fix:**
+
 ```cpp
 void noLeak() {
     int* ptr = new int(10);
@@ -200,6 +211,7 @@ cout << *ptr;  // ❌ DANGER! Accessing freed memory (undefined behavior)
 ```
 
 **Best practice:** Set to `nullptr` after deleting:
+
 ```cpp
 int* ptr = new int(10);
 delete ptr;
@@ -355,14 +367,14 @@ int main() {
     int numTransactions;
     cout << "How many transactions? ";
     cin >> numTransactions;
-    
+
     // Dynamic arrays
     double* amounts = new double[numTransactions];
     char* types = new char[numTransactions];  // 'D' = deposit, 'W' = withdrawal
-    
+
     double balance = 5000.0;
     cout << "Initial balance: P" << balance << "\n\n";
-    
+
     // Input transactions
     for (int i = 0; i < numTransactions; i++) {
         cout << "Transaction " << (i + 1) << ":\n";
@@ -370,14 +382,14 @@ int main() {
         cin >> types[i];
         cout << "Amount: P";
         cin >> amounts[i];
-        
+
         if (types[i] == 'D' || types[i] == 'd') {
             balance += amounts[i];
         } else {
             balance -= amounts[i];
         }
     }
-    
+
     // Display report
     cout << "\n===== TRANSACTION REPORT =====\n";
     for (int i = 0; i < numTransactions; i++) {
@@ -390,11 +402,11 @@ int main() {
     }
     cout << "==============================\n";
     cout << "Final balance: P" << balance << endl;
-    
+
     // Clean up
     delete[] amounts;
     delete[] types;
-    
+
     return 0;
 }
 ```
@@ -404,6 +416,7 @@ int main() {
 ## Best Practices
 
 ### 1. Always Pair `new` with `delete`
+
 ```cpp
 int* ptr = new int(10);
 // ... use ptr ...
@@ -411,12 +424,14 @@ delete ptr;
 ```
 
 ### 2. Set to `nullptr` After Deleting
+
 ```cpp
 delete ptr;
 ptr = nullptr;
 ```
 
 ### 3. Check for `nullptr` Before Using
+
 ```cpp
 if (ptr != nullptr) {
     cout << *ptr;
@@ -424,12 +439,14 @@ if (ptr != nullptr) {
 ```
 
 ### 4. Use `delete[]` for Arrays
+
 ```cpp
 int* arr = new int[5];
 delete[] arr;  // Not delete arr
 ```
 
 ### 5. Consider Smart Pointers (Modern C++)
+
 ```cpp
 std::unique_ptr<int> ptr = std::make_unique<int>(10);
 // Automatic cleanup!
@@ -440,6 +457,7 @@ std::unique_ptr<int> ptr = std::make_unique<int>(10);
 ## Common Mistakes
 
 ### Mistake 1: Forgetting to Delete
+
 ```cpp
 void process() {
     int* data = new int[1000];
@@ -449,12 +467,14 @@ void process() {
 ```
 
 ### Mistake 2: Wrong Delete Operator
+
 ```cpp
 int* arr = new int[5];
 delete arr;  // ❌ Should be delete[]
 ```
 
 ### Mistake 3: Using After Delete
+
 ```cpp
 int* ptr = new int(10);
 delete ptr;
@@ -462,6 +482,7 @@ cout << *ptr;  // ❌ Dangling pointer!
 ```
 
 ### Mistake 4: Deleting Stack Memory
+
 ```cpp
 int x = 10;
 int* ptr = &x;
@@ -469,6 +490,7 @@ delete ptr;  // ❌ CRASH! x is on stack, not heap
 ```
 
 ### Mistake 5: Memory Leak in Loop
+
 ```cpp
 for (int i = 0; i < 100; i++) {
     int* temp = new int(i);
@@ -481,12 +503,14 @@ for (int i = 0; i < 100; i++) {
 ## When to Use Dynamic Memory
 
 **Use dynamic memory when:**
+
 - ✓ Size unknown at compile time
 - ✓ Need large amounts of memory (heap is bigger than stack)
 - ✓ Creating data structures (linked lists, trees)
 - ✓ Need lifetime beyond function scope
 
 **Avoid when:**
+
 - ❌ Size is known and small (use stack/arrays)
 - ❌ Can use `std::vector` instead (safer!)
 - ❌ Adds unnecessary complexity
@@ -498,6 +522,7 @@ for (int i = 0; i < 100; i++) {
 Tian practiced with dynamic arrays. "So I can create arrays of any size at runtime!"
 
 "Exactly!" Kuya Miguel said. "But remember:
+
 - **Stack** — automatic, fast, limited
 - **Heap** — dynamic, large, manual management
 - **`new`** allocates, **`delete`** frees
@@ -510,6 +535,7 @@ Tian practiced with dynamic arrays. "So I can create arrays of any size at runti
 ---
 
 **Key Takeaways:**
+
 1. Use `new` to allocate heap memory
 2. Use `delete` (or `delete[]`) to free memory
 3. Always pair allocation with deallocation

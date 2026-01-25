@@ -1,6 +1,10 @@
 ## Background Story
 
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+9.0+-+COVER.png)
+
 The barangay website was taking shape. Tian had properly structured text—headings, paragraphs, lists—and the content was finally readable. But it still felt incomplete, static, isolated.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+9.1.png)
 
 The barangay secretary, Ms. Reyes, reviewed the draft and pointed out two critical missing elements:
 
@@ -53,13 +57,12 @@ Miguel continued, "Today we're learning both elements thoroughly. You'll create 
 ### Basic Link Syntax
 
 ```html
-<a href="destination">Link Text</a>
-     │              │
-     │              └─ Visible clickable text
-     └─────────────── URL destination
+<a href="destination">Link Text</a> │ │ │ └─ Visible clickable text
+└─────────────── URL destination
 ```
 
 **Example:**
+
 ```html
 <a href="https://google.com">Go to Google</a>
 ```
@@ -133,17 +136,25 @@ Miguel continued, "Today we're learning both elements thoroughly. You'll create 
 
 ```html
 <style>
-/* Unvisited link (default: blue) */
-a:link { color: blue; }
+  /* Unvisited link (default: blue) */
+  a:link {
+    color: blue;
+  }
 
-/* Visited link (default: purple) */
-a:visited { color: purple; }
+  /* Visited link (default: purple) */
+  a:visited {
+    color: purple;
+  }
 
-/* Mouse hover */
-a:hover { color: red; }
+  /* Mouse hover */
+  a:hover {
+    color: red;
+  }
 
-/* Active (being clicked) */
-a:active { color: yellow; }
+  /* Active (being clicked) */
+  a:active {
+    color: yellow;
+  }
 </style>
 ```
 
@@ -151,14 +162,18 @@ a:active { color: yellow; }
 
 ```html
 <nav>
-    <h2>Barangay Menu</h2>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="officials.html">Officials</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="https://facebook.com/barangaystonino" target="_blank">Facebook Page</a></li>
-    </ul>
+  <h2>Barangay Menu</h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="officials.html">Officials</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li>
+      <a href="https://facebook.com/barangaystonino" target="_blank"
+        >Facebook Page</a
+      >
+    </li>
+  </ul>
 </nav>
 ```
 
@@ -169,15 +184,14 @@ a:active { color: yellow; }
 ### Basic Image Syntax
 
 ```html
-<img src="source" alt="description">
-     │            │
-     │            └─ Alternate text (if image fails)
-     └───────────── Image file path
+<img src="source" alt="description" /> │ │ │ └─ Alternate text (if image fails)
+└───────────── Image file path
 ```
 
 **Example:**
+
 ```html
-<img src="captain.jpg" alt="Barangay Captain">
+<img src="captain.jpg" alt="Barangay Captain" />
 ```
 
 ### Image Sources
@@ -185,28 +199,28 @@ a:active { color: yellow; }
 #### 1. Local Images (Same folder)
 
 ```html
-<img src="photo.jpg" alt="Photo">
-<img src="images/logo.png" alt="Logo">
-<img src="../pictures/header.jpg" alt="Header">
+<img src="photo.jpg" alt="Photo" />
+<img src="images/logo.png" alt="Logo" />
+<img src="../pictures/header.jpg" alt="Header" />
 ```
 
 #### 2. External Images (URL)
 
 ```html
-<img src="https://example.com/image.jpg" alt="External image">
+<img src="https://example.com/image.jpg" alt="External image" />
 ```
 
 ### Image Attributes
 
 ```html
 <!-- Width and Height (pixels) -->
-<img src="photo.jpg" alt="Photo" width="300" height="200">
+<img src="photo.jpg" alt="Photo" width="300" height="200" />
 
 <!-- Width only (height auto-scales) -->
-<img src="photo.jpg" alt="Photo" width="500">
+<img src="photo.jpg" alt="Photo" width="500" />
 
 <!-- title - Tooltip on hover -->
-<img src="logo.png" alt="Logo" title="Barangay Logo">
+<img src="logo.png" alt="Logo" title="Barangay Logo" />
 ```
 
 ### Why `alt` Attribute is Critical
@@ -217,14 +231,21 @@ a:active { color: yellow; }
 4. **Slow connections:** Text appears before image loads
 
 **Good alt text:**
+
 ```html
-<img src="captain.jpg" alt="Barangay Captain Maria Santos speaking at community meeting">
+<img
+  src="captain.jpg"
+  alt="Barangay Captain Maria Santos speaking at community meeting"
+/>
 ```
 
 **Bad alt text:**
+
 ```html
-<img src="captain.jpg" alt="image">  <!-- Too generic -->
-<img src="captain.jpg" alt="">       <!-- Empty (only for decorative) -->
+<img src="captain.jpg" alt="image" />
+<!-- Too generic -->
+<img src="captain.jpg" alt="" />
+<!-- Empty (only for decorative) -->
 ```
 
 ### Image as Link
@@ -232,7 +253,7 @@ a:active { color: yellow; }
 ```html
 <!-- Clickable image -->
 <a href="homepage.html">
-    <img src="logo.png" alt="Barangay Logo - Click to go home">
+  <img src="logo.png" alt="Barangay Logo - Click to go home" />
 </a>
 ```
 
@@ -240,12 +261,13 @@ a:active { color: yellow; }
 
 ```html
 <!-- Max width 100% (scales to container) -->
-<img src="banner.jpg" alt="Banner" style="max-width: 100%; height: auto;">
+<img src="banner.jpg" alt="Banner" style="max-width: 100%; height: auto;" />
 ```
 
 ### Image Formats
 
 **Common formats:**
+
 - **JPG/JPEG** - Photos (lossy compression, smaller file size)
 - **PNG** - Graphics, logos (transparent backgrounds, lossless)
 - **GIF** - Animations, simple graphics (limited colors)
@@ -253,6 +275,7 @@ a:active { color: yellow; }
 - **WebP** - Modern format (better compression, not universally supported)
 
 **When to use:**
+
 - Photos: JPG
 - Logos with transparency: PNG
 - Animations: GIF
@@ -263,67 +286,70 @@ a:active { color: yellow; }
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay Officials</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Sto. Niño Officials</h1>
-    
+
     <!-- Navigation Links -->
     <nav>
-        <a href="index.html">Home</a> |
-        <a href="officials.html">Officials</a> |
-        <a href="services.html">Services</a> |
-        <a href="#contact">Contact</a>
+      <a href="index.html">Home</a> | <a href="officials.html">Officials</a> |
+      <a href="services.html">Services</a> |
+      <a href="#contact">Contact</a>
     </nav>
-    
-    <hr>
-    
+
+    <hr />
+
     <!-- Captain Profile with Image -->
     <h2>Barangay Captain</h2>
-    <img src="images/captain.jpg" alt="Barangay Captain Maria Santos" width="200">
+    <img
+      src="images/captain.jpg"
+      alt="Barangay Captain Maria Santos"
+      width="200"
+    />
     <p>
-        <strong>Hon. Maria Santos</strong><br>
-        Term: 2022-2025<br>
-        <a href="mailto:maria.santos@barangay.gov">Email</a> |
-        <a href="tel:+639171234567">Call: 0917-123-4567</a>
+      <strong>Hon. Maria Santos</strong><br />
+      Term: 2022-2025<br />
+      <a href="mailto:maria.santos@barangay.gov">Email</a> |
+      <a href="tel:+639171234567">Call: 0917-123-4567</a>
     </p>
-    
-    <hr>
-    
+
+    <hr />
+
     <!-- Kagawad with Images -->
     <h2>Kagawad Members</h2>
-    
+
     <div>
-        <img src="images/kagawad1.jpg" alt="Kagawad Juan Dela Cruz" width="150">
-        <p><strong>Juan Dela Cruz</strong> - Health Committee</p>
+      <img src="images/kagawad1.jpg" alt="Kagawad Juan Dela Cruz" width="150" />
+      <p><strong>Juan Dela Cruz</strong> - Health Committee</p>
     </div>
-    
+
     <div>
-        <img src="images/kagawad2.jpg" alt="Kagawad Ana Reyes" width="150">
-        <p><strong>Ana Reyes</strong> - Education Committee</p>
+      <img src="images/kagawad2.jpg" alt="Kagawad Ana Reyes" width="150" />
+      <p><strong>Ana Reyes</strong> - Education Committee</p>
     </div>
-    
-    <hr>
-    
+
+    <hr />
+
     <!-- Social Media Links -->
     <h2 id="contact">Connect With Us</h2>
     <p>
-        <a href="https://facebook.com/barangaystonino" target="_blank">
-            <img src="icons/facebook.png" alt="Facebook" width="30">
-            Facebook Page
-        </a><br>
-        
-        <a href="https://twitter.com/brgy_stonino" target="_blank">
-            <img src="icons/twitter.png" alt="Twitter" width="30">
-            Twitter
-        </a>
+      <a href="https://facebook.com/barangaystonino" target="_blank">
+        <img src="icons/facebook.png" alt="Facebook" width="30" />
+        Facebook Page </a
+      ><br />
+
+      <a href="https://twitter.com/brgy_stonino" target="_blank">
+        <img src="icons/twitter.png" alt="Twitter" width="30" />
+        Twitter
+      </a>
     </p>
-    
+
     <!-- Back to top link -->
     <p><a href="#top">Back to Top</a></p>
-</body>
+  </body>
 </html>
 ```
 
@@ -334,53 +360,66 @@ a:active { color: yellow; }
 3. **Use appropriate format** (JPG for photos, PNG for graphics)
 4. **Lazy loading** (loads images as user scrolls)
    ```html
-   <img src="photo.jpg" alt="Photo" loading="lazy">
+   <img src="photo.jpg" alt="Photo" loading="lazy" />
    ```
 
 ## Accessibility Best Practices
 
 ```html
 <!-- Decorative images (no information) -->
-<img src="decoration.png" alt="" role="presentation">
+<img src="decoration.png" alt="" role="presentation" />
 
 <!-- Informative images (describe content) -->
-<img src="chart.png" alt="Sales increased 50% from 2023 to 2024">
+<img src="chart.png" alt="Sales increased 50% from 2023 to 2024" />
 
 <!-- Functional images (like buttons) -->
 <a href="home.html">
-    <img src="home-icon.png" alt="Go to homepage">
+  <img src="home-icon.png" alt="Go to homepage" />
 </a>
 ```
 
 ## Common Mistakes
 
 ### ❌ Missing `alt` attribute
+
 ```html
-<img src="photo.jpg">  <!-- WRONG: No alt -->
+<img src="photo.jpg" />
+<!-- WRONG: No alt -->
 ```
+
 ✅ **Correct:**
+
 ```html
-<img src="photo.jpg" alt="Barangay Captain">
+<img src="photo.jpg" alt="Barangay Captain" />
 ```
 
 ### ❌ Using HTML to resize large images
+
 ```html
 <!-- WRONG: 5MB image resized to 100px -->
-<img src="huge-image.jpg" width="100">
+<img src="huge-image.jpg" width="100" />
 ```
+
 ✅ **Correct:** Resize image file first, then use.
 
 ### ❌ Broken link paths
+
 ```html
-<a href="Services.html">Services</a>  <!-- Case-sensitive on servers! -->
-<a href="services.html">Services</a>  <!-- Correct -->
+<a href="Services.html">Services</a>
+<!-- Case-sensitive on servers! -->
+<a href="services.html">Services</a>
+<!-- Correct -->
 ```
 
 ### ❌ External links without `target="_blank"`
+
 ```html
-<a href="https://facebook.com">FB</a>  <!-- Leaves your site -->
+<a href="https://facebook.com">FB</a>
+<!-- Leaves your site -->
 ```
+
 ✅ **Better:**
+
 ```html
 <a href="https://facebook.com" target="_blank">FB</a>
 ```
@@ -388,12 +427,14 @@ a:active { color: yellow; }
 ## Summary
 
 **Links (`<a>`):**
+
 - `href` = destination
 - Types: external, internal, anchor, email, tel
 - `target="_blank"` = new tab
 - `download` = force download
 
 **Images (`<img>`):**
+
 - `src` = image source
 - `alt` = description (required!)
 - `width`/`height` = dimensions
@@ -442,4 +483,4 @@ Kuya Miguel grinned. "Now you understand why Tim Berners-Lee called it the World
 
 Tian tested every link, every image. All working. The barangay portal was no longer a single static pageit was a system. Small, yes. But functional.
 
-_Next up: Tables, Forms, and Inputsstructured data!_ 
+_Next up: Tables, Forms, and Inputsstructured data!_

@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+1.0+-+COVER.png)
+
 Odessa woke up to the sound of roosters crowing and jeepneys rattling along Ortigas Avenue. Today was the first official barangay meeting since the lockdown eased in San Juan. Her Lola Angela had asked her to help digitize the barangay blotter—a thick, dusty notebook where Captain Cruz and his kagawads record all neighborhood incidents.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+1.1.png)
 
 Last night, over a steaming cup of kapeng barako, Odessa sketched a simple form on a scrap of paper. She pictured a web page where residents could type in their names, issues, and locations—no more ink smudges, no more misplaced pages. Paula, her coding buddy, jumped on a video call at 6 AM to cheer her on: “Let’s prove that even sari-sari store owners can file reports with a click!”
 
@@ -96,7 +100,7 @@ const htmlArray = logs.map(
     <h4>${entry.name}</h4>
     <p>${entry.issue} at ${entry.location}</p>
   </div>
-`
+`,
 );
 
 const combinedHTML = htmlArray.join("");

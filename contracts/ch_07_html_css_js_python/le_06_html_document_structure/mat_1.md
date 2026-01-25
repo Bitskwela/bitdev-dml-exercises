@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+6.0+-+COVER.png)
+
 For three weeks, Tian had been consuming theory like a student cramming for finals. The internet. Client-server architecture. Frontend versus backend. HTTP protocols. DNS resolution. Request-response cycles. The notebooks were filled with diagrams, flowcharts, and detailed notes about how the web worked.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+6.1.png)
 
 But they hadn't built anything yet.
 
-It was Saturday morning, and Tian woke up with a restless energy. The knowledge was there, packed into their brain like books on a shelf. But knowledge without application felt hollow, incomplete. Tian wanted to *create* something, to move from consumer to builder, from student to developer.
+It was Saturday morning, and Tian woke up with a restless energy. The knowledge was there, packed into their brain like books on a shelf. But knowledge without application felt hollow, incomplete. Tian wanted to _create_ something, to move from consumer to builder, from student to developer.
 
 They called Kuya Miguel.
 
@@ -12,7 +16,7 @@ They called Kuya Miguel.
 
 "Ready for what?" Miguel asked, his voice still groggy with sleep.
 
-"To build something. I've been learning theory for weeks. I understand how everything works. But I haven't actually *made* anything. I want to write code. Real code. Today."
+"To build something. I've been learning theory for weeks. I understand how everything works. But I haven't actually _made_ anything. I want to write code. Real code. Today."
 
 Miguel was quiet for a moment, then Tian heard him chuckle. "I was wondering when you'd say that. Theory is important—you needed that foundation. But you're right. It's time to build. Let me get some coffee and call you back in ten minutes. We're starting with HTML today."
 
@@ -34,7 +38,7 @@ Tian stared at the massive wall of code, feeling both intimidated and exhilarate
 
 Miguel closed the Facebook source code and returned to his simple example.
 
-"Today, you're going to learn the anatomy of an HTML document. Every tag, every section, every piece has a purpose. By the end of this lesson, you'll create a valid HTML page. It won't look fancy—that's CSS, which comes later. But it will be *yours*. Your first real step into web development."
+"Today, you're going to learn the anatomy of an HTML document. Every tag, every section, every piece has a purpose. By the end of this lesson, you'll create a valid HTML page. It won't look fancy—that's CSS, which comes later. But it will be _yours_. Your first real step into web development."
 
 Tian took a deep breath, fingers finally resting on the keyboard. "Okay. Let's build."
 
@@ -51,6 +55,7 @@ Tian took a deep breath, fingers finally resting on the keyboard. "Okay. Let's b
 - **Language** = Standardized syntax browsers understand
 
 **Analogy:** If a house is a website:
+
 - **HTML** = Structure (walls, rooms, doors)
 - **CSS** = Design (paint, furniture, decoration)
 - **JavaScript** = Functionality (electricity, plumbing, security)
@@ -64,15 +69,15 @@ Every HTML document follows this template:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tian's First Webpage</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Welcome to my website!</h1>
     <p>This is my first HTML page.</p>
-</body>
+  </body>
 </html>
 ```
 
@@ -106,23 +111,23 @@ Common elements inside `<head>`:
 
 ```html
 <head>
-    <!-- Character encoding: supports Filipino characters like ñ, á -->
-    <meta charset="UTF-8">
-    
-    <!-- Responsive design (mobile-friendly) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Page title (shows in browser tab) -->
-    <title>Tian's Barangay Portal</title>
-    
-    <!-- SEO: Description for Google search results -->
-    <meta name="description" content="Community portal for Barangay Sto. Niño">
-    
-    <!-- Link to CSS file -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Favicon (icon in browser tab) -->
-    <link rel="icon" href="logo.png">
+  <!-- Character encoding: supports Filipino characters like ñ, á -->
+  <meta charset="UTF-8" />
+
+  <!-- Responsive design (mobile-friendly) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Page title (shows in browser tab) -->
+  <title>Tian's Barangay Portal</title>
+
+  <!-- SEO: Description for Google search results -->
+  <meta name="description" content="Community portal for Barangay Sto. Niño" />
+
+  <!-- Link to CSS file -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Favicon (icon in browser tab) -->
+  <link rel="icon" href="logo.png" />
 </head>
 ```
 
@@ -141,10 +146,10 @@ Everything users see is inside `<body>`:
 
 ```html
 <body>
-    <h1>Welcome!</h1>
-    <p>This is a paragraph.</p>
-    <img src="photo.jpg" alt="My photo">
-    <a href="about.html">About Me</a>
+  <h1>Welcome!</h1>
+  <p>This is a paragraph.</p>
+  <img src="photo.jpg" alt="My photo" />
+  <a href="about.html">About Me</a>
 </body>
 ```
 
@@ -179,17 +184,20 @@ This shows the raw HTML code of any website!
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay Sto. Niño Portal</title>
-    <meta name="description" content="Official website of Barangay Sto. Niño, Batangas">
-</head>
-<body>
+    <meta
+      name="description"
+      content="Official website of Barangay Sto. Niño, Batangas"
+    />
+  </head>
+  <body>
     <h1>Mabuhay! Welcome to Barangay Sto. Niño</h1>
     <p>Population: 5,432 residents</p>
     <p>Barangay Captain: Hon. Maria Santos</p>
-</body>
+  </body>
 </html>
 ```
 
@@ -203,7 +211,7 @@ Comments are notes for developers (invisible to users):
 
 <!-- Header Section -->
 <header>
-    <h1>My Website</h1>
+  <h1>My Website</h1>
 </header>
 
 <!-- 
@@ -214,6 +222,7 @@ Comments are notes for developers (invisible to users):
 ```
 
 **When to use comments:**
+
 - Explain complex sections
 - Temporarily disable code (without deleting)
 - Leave notes for teammates
@@ -221,11 +230,21 @@ Comments are notes for developers (invisible to users):
 ## Indentation and Code Style
 
 **Bad (hard to read):**
+
 ```html
-<html><head><title>Title</title></head><body><h1>Hello</h1><p>Text</p></body></html>
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <p>Text</p>
+  </body>
+</html>
 ```
 
 **Good (proper indentation):**
+
 ```html
 <html>
   <head>
@@ -239,6 +258,7 @@ Comments are notes for developers (invisible to users):
 ```
 
 **Indentation rules:**
+
 - 2 spaces or 4 spaces (be consistent)
 - Child elements indented inside parent
 - Makes code readable for you and teammates
@@ -248,6 +268,7 @@ Comments are notes for developers (invisible to users):
 ### HTML Validator
 
 Check if your HTML is correct:
+
 - Website: `validator.w3.org`
 - Paste your code or enter URL
 - Shows errors and warnings
@@ -266,23 +287,32 @@ Check if your HTML is correct:
 ## Common Mistakes
 
 ### ❌ Missing DOCTYPE
+
 ```html
-<html> <!-- WRONG: No DOCTYPE -->
+<html>
+  <!-- WRONG: No DOCTYPE -->
+</html>
 ```
+
 ✅ **Correct:**
+
 ```html
 <!DOCTYPE html>
-<html>
+<html></html>
 ```
 
 ### ❌ Content Outside `<body>`
+
 ```html
 <html>
-  <h1>Title</h1> <!-- WRONG: Should be in <body> -->
+  <h1>Title</h1>
+  <!-- WRONG: Should be in <body> -->
   <body></body>
 </html>
 ```
+
 ✅ **Correct:**
+
 ```html
 <html>
   <body>
@@ -292,13 +322,21 @@ Check if your HTML is correct:
 ```
 
 ### ❌ Forgetting to Close Tags
+
 ```html
 <body>
-  <h1>Title
-  <p>Paragraph
-<!-- WRONG: Tags not closed -->
+  <h1>
+    Title
+    <p>
+      Paragraph
+      <!-- WRONG: Tags not closed -->
+    </p>
+  </h1>
+</body>
 ```
+
 ✅ **Correct:**
+
 ```html
 <body>
   <h1>Title</h1>
@@ -311,32 +349,33 @@ Check if your HTML is correct:
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Batangas National High School</title>
-    <meta name="description" content="Official website of BNHS">
-</head>
-<body>
+    <meta name="description" content="Official website of BNHS" />
+  </head>
+  <body>
     <!-- Header Section -->
     <h1>Batangas National High School</h1>
     <p>Founded: 1952</p>
-    
+
     <!-- Main Content -->
     <h2>About Us</h2>
     <p>We are a public high school serving 2,500 students in Batangas City.</p>
-    
+
     <!-- Contact Information -->
     <h2>Contact</h2>
     <p>Address: P. Burgos St., Batangas City</p>
     <p>Phone: (043) 123-4567</p>
-</body>
+  </body>
 </html>
 ```
 
 ## Summary
 
 HTML document structure:
+
 1. **`<!DOCTYPE html>`** - HTML5 declaration
 2. **`<html>`** - Root element
 3. **`<head>`** - Metadata (not visible)

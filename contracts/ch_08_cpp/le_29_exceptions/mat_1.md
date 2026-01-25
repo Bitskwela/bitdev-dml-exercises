@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+29.0+-+COVER.png)
+
 Tian's program crashed spectacularly during a demo. A user entered a string where a number was expected, and the program terminated with a cryptic error. No error message, no recovery, just instant crash.
 
 "This is unprofessional!" the barangay captain said. "Real software should handle errors gracefully, not crash."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+29.1.png)
 
 Tian was embarrassed. "Kuya, I do input validation, but I can't predict every error. Division by zero, file not found, array out of bounds, network timeout—there are so many ways things can go wrong! How do professionals build robust systems?"
 
@@ -37,7 +41,7 @@ int main() {
     catch (const char* msg) {
         cout << "Error: " << msg << endl;
     }
-    
+
     cout << "Program continues...\n";
     return 0;
 }
@@ -77,13 +81,13 @@ void processAge(int age) {
     if (age < 18) {
         throw 'M';  // Throw char (Minor)
     }
-    
+
     cout << "Age " << age << " is valid\n";
 }
 
 int main() {
     int ages[] = {25, -5, 200, 15};
-    
+
     for (int age : ages) {
         try {
             processAge(age);
@@ -98,7 +102,7 @@ int main() {
             cout << "Error: Minor (code: " << c << ")\n";
         }
     }
-    
+
     return 0;
 }
 ```
@@ -115,10 +119,10 @@ using namespace std;
 class BankAccount {
 private:
     double balance;
-    
+
 public:
     BankAccount(double bal) : balance(bal) {}
-    
+
     void withdraw(double amount) {
         if (amount < 0) {
             throw invalid_argument("Amount cannot be negative");
@@ -126,11 +130,11 @@ public:
         if (amount > balance) {
             throw runtime_error("Insufficient balance");
         }
-        
+
         balance -= amount;
         cout << "Withdrew P" << amount << ", Balance: P" << balance << endl;
     }
-    
+
     double getBalance() {
         return balance;
     }
@@ -138,7 +142,7 @@ public:
 
 int main() {
     BankAccount acc(1000);
-    
+
     try {
         acc.withdraw(500);   // OK
         acc.withdraw(-100);  // Throws invalid_argument
@@ -149,14 +153,14 @@ int main() {
     catch (runtime_error& e) {
         cout << "Runtime error: " << e.what() << endl;
     }
-    
+
     try {
         acc.withdraw(1000);  // Throws runtime_error
     }
     catch (exception& e) {  // Catches all standard exceptions
         cout << "Exception: " << e.what() << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -174,13 +178,13 @@ using namespace std;
 class InsufficientBalanceException : public exception {
 private:
     string message;
-    
+
 public:
     InsufficientBalanceException(double required, double available) {
-        message = "Insufficient balance. Required: P" + to_string(required) 
+        message = "Insufficient balance. Required: P" + to_string(required)
                 + ", Available: P" + to_string(available);
     }
-    
+
     const char* what() const noexcept override {
         return message.c_str();
     }
@@ -190,19 +194,19 @@ class BankAccount {
 private:
     string accountNumber;
     double balance;
-    
+
 public:
     BankAccount(string acc, double bal) : accountNumber(acc), balance(bal) {}
-    
+
     void withdraw(double amount) {
         if (amount > balance) {
             throw InsufficientBalanceException(amount, balance);
         }
-        
+
         balance -= amount;
         cout << "Withdrew P" << amount << endl;
     }
-    
+
     double getBalance() {
         return balance;
     }
@@ -210,7 +214,7 @@ public:
 
 int main() {
     BankAccount acc("1001", 500);
-    
+
     try {
         acc.withdraw(300);  // OK
         acc.withdraw(500);  // Throws exception
@@ -218,7 +222,7 @@ int main() {
     catch (InsufficientBalanceException& e) {
         cout << "Error: " << e.what() << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -256,10 +260,10 @@ private:
     string name;
     double balance;
     bool active;
-    
+
 public:
     DuesAccount(int i, string n) : id(i), name(n), balance(0), active(true) {}
-    
+
     void addDues(double amount) {
         if (!active) {
             throw runtime_error("Account is inactive");
@@ -267,11 +271,11 @@ public:
         if (amount <= 0) {
             throw InvalidAmountException("Dues amount must be positive");
         }
-        
+
         balance += amount;
         cout << name << ": Added P" << amount << " dues\n";
     }
-    
+
     void makePayment(double amount) {
         if (!active) {
             throw runtime_error("Account is inactive");
@@ -280,18 +284,18 @@ public:
             throw InvalidAmountException("Payment must be positive");
         }
         if (amount > balance) {
-            throw InvalidAmountException("Payment exceeds balance (P" + 
+            throw InvalidAmountException("Payment exceeds balance (P" +
                                        to_string(balance) + ")");
         }
-        
+
         balance -= amount;
         cout << name << ": Paid P" << amount << endl;
     }
-    
+
     int getId() { return id; }
     string getName() { return name; }
     double getBalance() { return balance; }
-    
+
     void deactivate() {
         active = false;
         cout << name << ": Account deactivated\n";
@@ -302,17 +306,17 @@ class DuesManager {
 private:
     DuesAccount* accounts[100];
     int count;
-    
+
 public:
     DuesManager() : count(0) {}
-    
+
     void addAccount(DuesAccount* acc) {
         if (count >= 100) {
             throw runtime_error("Account limit reached");
         }
         accounts[count++] = acc;
     }
-    
+
     DuesAccount* findAccount(int id) {
         for (int i = 0; i < count; i++) {
             if (accounts[i]->getId() == id) {
@@ -321,7 +325,7 @@ public:
         }
         throw AccountNotFoundException();
     }
-    
+
     ~DuesManager() {
         for (int i = 0; i < count; i++) {
             delete accounts[i];
@@ -331,15 +335,15 @@ public:
 
 int main() {
     DuesManager manager;
-    
+
     try {
         manager.addAccount(new DuesAccount(1001, "Juan Dela Cruz"));
         manager.addAccount(new DuesAccount(1002, "Maria Santos"));
-        
+
         DuesAccount* acc1 = manager.findAccount(1001);
         acc1->addDues(100);
         acc1->makePayment(50);
-        
+
         // Try invalid operations
         acc1->makePayment(-10);  // Will throw
     }
@@ -355,9 +359,9 @@ int main() {
     catch (...) {  // Catch all
         cout << "Unknown error occurred\n";
     }
-    
+
     cout << "Program continues safely...\n";
-    
+
     return 0;
 }
 ```
@@ -370,7 +374,7 @@ int main() {
 class FileHandler {
 private:
     FILE* file;
-    
+
 public:
     FileHandler(const char* filename) {
         file = fopen(filename, "r");
@@ -378,23 +382,23 @@ public:
             throw runtime_error("Cannot open file");
         }
     }
-    
+
     ~FileHandler() {
         if (file) {
             fclose(file);
             cout << "File closed safely\n";
         }
     }
-    
+
     // ... other methods
 };
 
 void processFile() {
     FileHandler fh("data.txt");  // RAII
-    
+
     // If exception occurs here, destructor still called!
     throw runtime_error("Processing error");
-    
+
     // File automatically closed
 }
 ```
@@ -406,6 +410,7 @@ void processFile() {
 "Exception handling makes my code robust!" Tian exclaimed.
 
 "Exactly!" Kuya Miguel said. "Remember:
+
 - **try** = code that might throw
 - **throw** = signal an error
 - **catch** = handle the error
@@ -417,6 +422,7 @@ void processFile() {
 ---
 
 **Key Takeaways:**
+
 1. Exceptions handle runtime errors gracefully
 2. try-catch-throw for error handling
 3. Standard exception classes available

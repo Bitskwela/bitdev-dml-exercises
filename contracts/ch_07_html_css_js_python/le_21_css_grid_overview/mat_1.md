@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+21.0+-+COVER.png)
+
 Tian stared at his laptop screen in the school computer lab, frustration evident on his face. He'd been trying to implement a new homepage layout for the barangay website for two hours now, and it just wasn't cooperating. The design mockup Ms. Reyes had approved looked straightforward enough—a full-width header at the top, a sidebar on the left for navigation, the main content area in the center, a secondary widget area on the right, and a footer spanning the entire bottom.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+21.1.png)
 
 Simple in theory. A nightmare in Flexbox.
 
@@ -42,9 +46,9 @@ He quickly typed out a simple grid setup:
 
 ```css
 .container {
-    display: grid;
-    grid-template-columns: 200px 1fr 300px;
-    grid-template-rows: auto 1fr auto;
+  display: grid;
+  grid-template-columns: 200px 1fr 300px;
+  grid-template-rows: auto 1fr auto;
 }
 ```
 
@@ -57,8 +61,12 @@ Tian's eyes widened. "Wait, that's IT? No wrapper divs?"
 He added a few more lines:
 
 ```css
-.header { grid-column: 1 / 4; }  /* Spans all 3 columns */
-.footer { grid-column: 1 / 4; }  /* Spans all 3 columns */
+.header {
+  grid-column: 1 / 4;
+} /* Spans all 3 columns */
+.footer {
+  grid-column: 1 / 4;
+} /* Spans all 3 columns */
 ```
 
 "Now the header and footer automatically stretch across all three columns," Miguel said. "And for your photo gallery, Grid is even more powerful. You can define a grid with auto-filling columns and let images span multiple cells based on their aspect ratio."
@@ -89,13 +97,14 @@ Tian and Rhea Joy pulled their chairs closer, ready to learn the layout system t
 
 **Flexbox vs Grid:**
 
-| Flexbox | Grid |
-|---------|------|
-| 1D (row OR column) | 2D (rows AND columns) |
-| Content-driven | Layout-driven |
+| Flexbox             | Grid                  |
+| ------------------- | --------------------- |
+| 1D (row OR column)  | 2D (rows AND columns) |
+| Content-driven      | Layout-driven         |
 | Best for components | Best for page layouts |
 
 **Visual:**
+
 ```
 Flexbox (1D):
 [→→→→→→→→]  Row
@@ -117,21 +126,23 @@ Rows AND Columns!
 ## Basic Grid Setup
 
 ### HTML
+
 ```html
 <div class="grid-container">
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 4</div>
-    <div class="item">Item 5</div>
-    <div class="item">Item 6</div>
+  <div class="item">Item 1</div>
+  <div class="item">Item 2</div>
+  <div class="item">Item 3</div>
+  <div class="item">Item 4</div>
+  <div class="item">Item 5</div>
+  <div class="item">Item 6</div>
 </div>
 ```
 
 ### CSS
+
 ```css
 .grid-container {
-    display: grid;  /* Enable Grid */
+  display: grid; /* Enable Grid */
 }
 ```
 
@@ -147,12 +158,13 @@ That's it! `display: grid` creates a grid container.
 
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: 200px 200px 200px;  /* 3 columns, 200px each */
+  display: grid;
+  grid-template-columns: 200px 200px 200px; /* 3 columns, 200px each */
 }
 ```
 
 **Result:**
+
 ```
 +-------+-------+-------+
 | 200px | 200px | 200px |
@@ -167,8 +179,8 @@ That's it! `display: grid` creates a grid container.
 
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;  /* 3 equal columns */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
 }
 ```
 
@@ -186,19 +198,21 @@ That's it! `display: grid` creates a grid container.
 
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: 200px 1fr 2fr;
-    /*                     fixed  flex flex */
+  display: grid;
+  grid-template-columns: 200px 1fr 2fr;
+  /*                     fixed  flex flex */
 }
 ```
 
 **How it works:**
+
 1. Fixed column gets 200px
 2. Remaining space divided: `1fr + 2fr = 3 parts`
 3. Column 2: 1/3 of remaining
 4. Column 3: 2/3 of remaining
 
 **Visual (1000px container):**
+
 ```
 Total: 1000px
 - Column 1: 200px (fixed)
@@ -220,17 +234,18 @@ Total: 1000px
 ```css
 /* Instead of this */
 .grid-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* Use repeat() */
 .grid-container {
-    grid-template-columns: repeat(4, 1fr);
-    /*                     repeat(count, size) */
+  grid-template-columns: repeat(4, 1fr);
+  /*                     repeat(count, size) */
 }
 ```
 
 **More examples:**
+
 ```css
 /* 3 equal columns */
 grid-template-columns: repeat(3, 1fr);
@@ -250,13 +265,14 @@ grid-template-columns: repeat(2, 200px 1fr);
 
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 100px 200px 100px;  /* 3 rows */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px 200px 100px; /* 3 rows */
 }
 ```
 
 **Result:**
+
 ```
 +-------+-------+-------+
 |  100px height         |
@@ -268,11 +284,12 @@ grid-template-columns: repeat(2, 200px 1fr);
 ```
 
 **Auto rows (default):**
+
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 150px;  /* Any extra rows are 150px */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 150px; /* Any extra rows are 150px */
 }
 ```
 
@@ -284,23 +301,24 @@ grid-template-columns: repeat(2, 200px 1fr);
 
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;  /* 20px spacing between all items */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* 20px spacing between all items */
 }
 ```
 
 **Separate row and column gaps:**
+
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 20px;     /* Vertical spacing */
-    column-gap: 30px;  /* Horizontal spacing */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px; /* Vertical spacing */
+  column-gap: 30px; /* Horizontal spacing */
 }
 
 /* Shorthand: */
-gap: 20px 30px;  /* row-gap column-gap */
+gap: 20px 30px; /* row-gap column-gap */
 ```
 
 ---
@@ -308,80 +326,83 @@ gap: 20px 30px;  /* row-gap column-gap */
 ## Barangay Services Grid Example
 
 **HTML:**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay Services</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="services-grid">
-        <div class="service">Barangay Clearance</div>
-        <div class="service">Residency Certificate</div>
-        <div class="service">Indigency Certificate</div>
-        <div class="service">Business Permit</div>
-        <div class="service">Community Tax</div>
-        <div class="service">Complaint Assistance</div>
+      <div class="service">Barangay Clearance</div>
+      <div class="service">Residency Certificate</div>
+      <div class="service">Indigency Certificate</div>
+      <div class="service">Business Permit</div>
+      <div class="service">Community Tax</div>
+      <div class="service">Complaint Assistance</div>
     </div>
-</body>
+  </body>
 </html>
 ```
 
 **CSS:**
+
 ```css
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    padding: 2rem;
-    background: #f5f5f5;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  background: #f5f5f5;
 }
 
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* 3 equal columns */
-    gap: 20px;                              /* 20px spacing */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 20px; /* 20px spacing */
 }
 
 .service {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    font-size: 1.1rem;
-    color: #1a73e8;
-    font-weight: bold;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+  color: #1a73e8;
+  font-weight: bold;
 }
 
 .service:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);  /* 2 columns on tablet */
-    }
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+  }
 }
 
 @media (max-width: 480px) {
-    .services-grid {
-        grid-template-columns: 1fr;  /* 1 column on mobile */
-    }
+  .services-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+  }
 }
 ```
 
 **Result:**
+
 - **Desktop:** 3 columns
 - **Tablet:** 2 columns
 - **Mobile:** 1 column
@@ -396,11 +417,11 @@ body {
 
 ```css
 .item1 {
-    grid-column: span 2;  /* Span 2 columns */
+  grid-column: span 2; /* Span 2 columns */
 }
 
 .item2 {
-    grid-column: 1 / 4;  /* Start at line 1, end at line 4 (spans 3 columns) */
+  grid-column: 1 / 4; /* Start at line 1, end at line 4 (spans 3 columns) */
 }
 ```
 
@@ -408,7 +429,7 @@ body {
 
 ```css
 .item3 {
-    grid-row: span 2;  /* Span 2 rows */
+  grid-row: span 2; /* Span 2 rows */
 }
 ```
 
@@ -417,56 +438,59 @@ body {
 ### Barangay Page Layout Example
 
 **HTML:**
+
 ```html
 <div class="page-layout">
-    <header class="header">Header</header>
-    <aside class="sidebar">Sidebar</aside>
-    <main class="main-content">Main Content</main>
-    <footer class="footer">Footer</footer>
+  <header class="header">Header</header>
+  <aside class="sidebar">Sidebar</aside>
+  <main class="main-content">Main Content</main>
+  <footer class="footer">Footer</footer>
 </div>
 ```
 
 **CSS:**
+
 ```css
 .page-layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;  /* Sidebar | Content */
-    grid-template-rows: 80px 1fr 60px; /* Header | Main | Footer */
-    gap: 20px;
-    height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr; /* Sidebar | Content */
+  grid-template-rows: 80px 1fr 60px; /* Header | Main | Footer */
+  gap: 20px;
+  height: 100vh;
 }
 
 .header {
-    grid-column: 1 / 3;  /* Span both columns */
-    background: #1a73e8;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 2rem;
-    font-size: 1.5rem;
+  grid-column: 1 / 3; /* Span both columns */
+  background: #1a73e8;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  font-size: 1.5rem;
 }
 
 .sidebar {
-    background: #f5f5f5;
-    padding: 1.5rem;
+  background: #f5f5f5;
+  padding: 1.5rem;
 }
 
 .main-content {
-    background: white;
-    padding: 2rem;
+  background: white;
+  padding: 2rem;
 }
 
 .footer {
-    grid-column: 1 / 3;  /* Span both columns */
-    background: #333;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  grid-column: 1 / 3; /* Span both columns */
+  background: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 ```
 
 **Visual:**
+
 ```
 +------------------+
 |     Header       |  (spans 2 columns)
@@ -486,23 +510,32 @@ body {
 **Define layout using named areas (very intuitive!).**
 
 **CSS:**
+
 ```css
 .page-layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: 80px 1fr 60px;
-    grid-template-areas:
-        "header  header"
-        "sidebar main"
-        "footer  footer";
-    gap: 20px;
-    height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 80px 1fr 60px;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  gap: 20px;
+  height: 100vh;
 }
 
-.header  { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.main-content { grid-area: main; }
-.footer  { grid-area: footer; }
+.header {
+  grid-area: header;
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.main-content {
+  grid-area: main;
+}
+.footer {
+  grid-area: footer;
+}
 ```
 
 **Visual representation in CSS matches actual layout!**
@@ -524,18 +557,20 @@ grid-template-areas:
 
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 ```
 
 **How it works:**
+
 - `auto-fit`: Creates as many columns as fit
 - `minmax(250px, 1fr)`: Each column is at least 250px, grows to fill space
 - Automatically responsive! No media queries needed.
 
 **Examples:**
+
 ```
 1200px screen:
 +-------+-------+-------+-------+
@@ -558,34 +593,36 @@ grid-template-areas:
 ### Barangay Announcements Grid
 
 **HTML:**
+
 ```html
 <div class="announcements-grid">
-    <div class="announcement">Vaccination Drive - March 15</div>
-    <div class="announcement">Barangay Assembly - March 20</div>
-    <div class="announcement">Basketball League Finals - March 25</div>
-    <div class="announcement">Clean-Up Day - March 30</div>
-    <div class="announcement">Senior Citizens' Day - April 5</div>
-    <div class="announcement">Scholarship Application Open</div>
+  <div class="announcement">Vaccination Drive - March 15</div>
+  <div class="announcement">Barangay Assembly - March 20</div>
+  <div class="announcement">Basketball League Finals - March 25</div>
+  <div class="announcement">Clean-Up Day - March 30</div>
+  <div class="announcement">Senior Citizens' Day - April 5</div>
+  <div class="announcement">Scholarship Application Open</div>
 </div>
 ```
 
 **CSS:**
+
 ```css
 .announcements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 2rem;
 }
 
 .announcement {
-    background: linear-gradient(135deg, #1a73e8, #34a853);
-    color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #1a73e8, #34a853);
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 ```
 
@@ -599,10 +636,10 @@ grid-template-areas:
 
 ```css
 .grid-container {
-    justify-items: start;    /* Left */
-    justify-items: center;   /* Center */
-    justify-items: end;      /* Right */
-    justify-items: stretch;  /* Fill width (default) */
+  justify-items: start; /* Left */
+  justify-items: center; /* Center */
+  justify-items: end; /* Right */
+  justify-items: stretch; /* Fill width (default) */
 }
 ```
 
@@ -612,10 +649,10 @@ grid-template-areas:
 
 ```css
 .grid-container {
-    align-items: start;      /* Top */
-    align-items: center;     /* Middle */
-    align-items: end;        /* Bottom */
-    align-items: stretch;    /* Fill height (default) */
+  align-items: start; /* Top */
+  align-items: center; /* Middle */
+  align-items: end; /* Bottom */
+  align-items: stretch; /* Fill height (default) */
 }
 ```
 
@@ -625,8 +662,8 @@ grid-template-areas:
 
 ```css
 .grid-container {
-    display: grid;
-    place-items: center;  /* Shorthand for justify-items + align-items */
+  display: grid;
+  place-items: center; /* Shorthand for justify-items + align-items */
 }
 ```
 
@@ -647,17 +684,18 @@ grid-template-areas:
 ✅ Components within Grid cells
 
 **Often used together:**
+
 ```css
 /* Grid for page layout */
 .page {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 }
 
 /* Flexbox for navbar within header */
 .navbar {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 ```
 
@@ -668,16 +706,18 @@ grid-template-areas:
 Tian summarized:
 
 **CSS Grid Basics:**
+
 ```css
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* 3 equal columns */
-    grid-template-rows: 100px auto;         /* Row heights */
-    gap: 20px;                              /* Spacing */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  grid-template-rows: 100px auto; /* Row heights */
+  gap: 20px; /* Spacing */
 }
 ```
 
 **Key Concepts:**
+
 - `display: grid`: Enable Grid
 - `grid-template-columns`: Define columns
 - `grid-template-rows`: Define rows
@@ -688,6 +728,7 @@ Tian summarized:
 - `auto-fit + minmax()`: Automatic responsive grid
 
 **Grid vs Flexbox:**
+
 - Grid: 2D (rows + columns), layout-driven
 - Flexbox: 1D (row or column), content-driven
 
@@ -711,4 +752,4 @@ Tian learned CSS Grid and rebuilt the entire layout. Two-column design for deskt
 
 Tian combined Grid and FlexboxGrid for overall structure, Flexbox for navigation and cards. The barangay portal looked like a modern web app now. Clean. Fast. Beautiful.
 
-_Next up: Mobile-First Designthe modern approach!_ 
+_Next up: Mobile-First Designthe modern approach!_

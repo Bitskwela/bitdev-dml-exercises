@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+11.0+-+COVER.png)
+
 Tian's barangay website was functional. It had proper structure, formatted text, navigation links, and images. The HTML was valid according to the W3C validator. Everything worked.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+11.1.png)
 
 But when Tian showed the code to Ms. Santos, their Computer Science teacher, she frowned while scrolling through the HTML.
 
@@ -35,7 +39,7 @@ Ms. Santos opened the Chrome DevTools and navigated to the Lighthouse audit tool
 
 "See these warnings? Screen readers used by visually impaired users rely on semantic landmarks to navigate. When everything is a generic `<div>`, screen readers can't distinguish between your header, navigation, main content, and footer. A blind user would have difficulty navigating your site."
 
-Tian felt a wave of guilt. They'd been so focused on making the website *look* good, they hadn't considered accessibility.
+Tian felt a wave of guilt. They'd been so focused on making the website _look_ good, they hadn't considered accessibility.
 
 Ms. Santos continued, "Also, search engines like Google use semantic HTML to better understand your content structure. When Google's crawler sees a `<header>` tag, it knows that's the site header. When it sees an `<article>` tag, it knows that's main content. When it sees a `<nav>` tag, it knows that's navigation. Generic `<div>` tags don't provide that information."
 
@@ -60,12 +64,14 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 **Semantic** = Tags with meaning
 
 **Non-semantic tags** (generic, no meaning):
+
 ```html
 <div>Content</div>
 <span>Text</span>
 ```
 
 **Semantic tags** (meaningful, descriptive):
+
 ```html
 <header>Page header</header>
 <nav>Navigation menu</nav>
@@ -88,9 +94,9 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <header>
-    <img src="logo.png" alt="Barangay Logo">
-    <h1>Barangay Sto. Niño</h1>
-    <p>Official Website</p>
+  <img src="logo.png" alt="Barangay Logo" />
+  <h1>Barangay Sto. Niño</h1>
+  <p>Official Website</p>
 </header>
 ```
 
@@ -100,11 +106,11 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
 </nav>
 ```
 
@@ -114,12 +120,13 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <main>
-    <h1>Welcome to our Website</h1>
-    <p>Main page content goes here...</p>
+  <h1>Welcome to our Website</h1>
+  <p>Main page content goes here...</p>
 </main>
 ```
 
 **Rules:**
+
 - Only **one** `<main>` per page
 - Not inside `<header>`, `<footer>`, `<nav>`, `<aside>`, or `<article>`
 
@@ -127,9 +134,9 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <article>
-    <h2>Barangay Assembly Announcement</h2>
-    <p>Published: November 15, 2025</p>
-    <p>The monthly barangay assembly will be held...</p>
+  <h2>Barangay Assembly Announcement</h2>
+  <p>Published: November 15, 2025</p>
+  <p>The monthly barangay assembly will be held...</p>
 </article>
 ```
 
@@ -139,13 +146,13 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <section>
-    <h2>Services Offered</h2>
-    <p>We provide the following services...</p>
+  <h2>Services Offered</h2>
+  <p>We provide the following services...</p>
 </section>
 
 <section>
-    <h2>Office Hours</h2>
-    <p>Monday - Friday: 8 AM - 5 PM</p>
+  <h2>Office Hours</h2>
+  <p>Monday - Friday: 8 AM - 5 PM</p>
 </section>
 ```
 
@@ -157,11 +164,11 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <aside>
-    <h3>Quick Links</h3>
-    <ul>
-        <li><a href="#">Facebook Page</a></li>
-        <li><a href="#">Hotline</a></li>
-    </ul>
+  <h3>Quick Links</h3>
+  <ul>
+    <li><a href="#">Facebook Page</a></li>
+    <li><a href="#">Hotline</a></li>
+  </ul>
 </aside>
 ```
 
@@ -171,8 +178,8 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <footer>
-    <p>&copy; 2025 Barangay Sto. Niño. All rights reserved.</p>
-    <p>Contact: (043) 123-4567</p>
+  <p>&copy; 2025 Barangay Sto. Niño. All rights reserved.</p>
+  <p>Contact: (043) 123-4567</p>
 </footer>
 ```
 
@@ -184,8 +191,8 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <figure>
-    <img src="office.jpg" alt="Barangay Hall">
-    <figcaption>Barangay Sto. Niño Hall (2024)</figcaption>
+  <img src="office.jpg" alt="Barangay Hall" />
+  <figcaption>Barangay Sto. Niño Hall (2024)</figcaption>
 </figure>
 ```
 
@@ -207,9 +214,9 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <address>
-    Barangay Hall, Sto. Niño<br>
-    Batangas City, Philippines<br>
-    Email: <a href="mailto:barangay@gov.ph">barangay@gov.ph</a>
+  Barangay Hall, Sto. Niño<br />
+  Batangas City, Philippines<br />
+  Email: <a href="mailto:barangay@gov.ph">barangay@gov.ph</a>
 </address>
 ```
 
@@ -219,28 +226,28 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <body>
-    <div id="header">
-        <div id="logo">Logo</div>
-        <div id="nav">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-        </div>
+  <div id="header">
+    <div id="logo">Logo</div>
+    <div id="nav">
+      <a href="#">Home</a>
+      <a href="#">About</a>
     </div>
-    
-    <div id="content">
-        <div class="post">
-            <h2>Title</h2>
-            <p>Content...</p>
-        </div>
+  </div>
+
+  <div id="content">
+    <div class="post">
+      <h2>Title</h2>
+      <p>Content...</p>
     </div>
-    
-    <div id="sidebar">
-        <div class="widget">Widget</div>
-    </div>
-    
-    <div id="footer">
-        <p>Copyright 2025</p>
-    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="widget">Widget</div>
+  </div>
+
+  <div id="footer">
+    <p>Copyright 2025</p>
+  </div>
 </body>
 ```
 
@@ -248,28 +255,28 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 
 ```html
 <body>
-    <header>
-        <img src="logo.png" alt="Logo">
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-        </nav>
-    </header>
-    
-    <main>
-        <article>
-            <h2>Title</h2>
-            <p>Content...</p>
-        </article>
-    </main>
-    
-    <aside>
-        <section>Widget</section>
-    </aside>
-    
-    <footer>
-        <p>Copyright 2025</p>
-    </footer>
+  <header>
+    <img src="logo.png" alt="Logo" />
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <h2>Title</h2>
+      <p>Content...</p>
+    </article>
+  </main>
+
+  <aside>
+    <section>Widget</section>
+  </aside>
+
+  <footer>
+    <p>Copyright 2025</p>
+  </footer>
 </body>
 ```
 
@@ -278,111 +285,118 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay Sto. Niño</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Page Header -->
     <header>
-        <img src="logo.png" alt="Barangay Logo" width="100">
-        <h1>Barangay Sto. Niño</h1>
-        <p>Serving the community since 1952</p>
-        
-        <!-- Main Navigation -->
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="officials.html">Officials</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+      <img src="logo.png" alt="Barangay Logo" width="100" />
+      <h1>Barangay Sto. Niño</h1>
+      <p>Serving the community since 1952</p>
+
+      <!-- Main Navigation -->
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="officials.html">Officials</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </header>
-    
+
     <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section>
-            <h2>Welcome to Barangay Sto. Niño</h2>
-            <p>Your trusted partner in community development.</p>
-            <figure>
-                <img src="barangay-hall.jpg" alt="Barangay Hall exterior">
-                <figcaption>Barangay Hall - Open Monday to Friday</figcaption>
-            </figure>
-        </section>
-        
-        <!-- Services Section -->
-        <section>
-            <h2>Our Services</h2>
-            <article>
-                <h3>Barangay Clearance</h3>
-                <p>Get your barangay clearance for employment, school, or loan applications.</p>
-                <p>Fee: ₱50 | Processing: Same day</p>
-            </article>
-            
-            <article>
-                <h3>Cedula (Community Tax Certificate)</h3>
-                <p>Required for various transactions.</p>
-                <p>Fee: ₱5-100 (based on income)</p>
-            </article>
-        </section>
-        
-        <!-- News Section -->
-        <section>
-            <h2>Latest News</h2>
-            <article>
-                <header>
-                    <h3>Monthly Barangay Assembly</h3>
-                    <p>Published: <time datetime="2025-11-10">November 10, 2025</time></p>
-                </header>
-                <p>The monthly assembly will discuss budget allocations...</p>
-                <a href="news-detail.html">Read more</a>
-            </article>
-        </section>
+      <!-- Hero Section -->
+      <section>
+        <h2>Welcome to Barangay Sto. Niño</h2>
+        <p>Your trusted partner in community development.</p>
+        <figure>
+          <img src="barangay-hall.jpg" alt="Barangay Hall exterior" />
+          <figcaption>Barangay Hall - Open Monday to Friday</figcaption>
+        </figure>
+      </section>
+
+      <!-- Services Section -->
+      <section>
+        <h2>Our Services</h2>
+        <article>
+          <h3>Barangay Clearance</h3>
+          <p>
+            Get your barangay clearance for employment, school, or loan
+            applications.
+          </p>
+          <p>Fee: ₱50 | Processing: Same day</p>
+        </article>
+
+        <article>
+          <h3>Cedula (Community Tax Certificate)</h3>
+          <p>Required for various transactions.</p>
+          <p>Fee: ₱5-100 (based on income)</p>
+        </article>
+      </section>
+
+      <!-- News Section -->
+      <section>
+        <h2>Latest News</h2>
+        <article>
+          <header>
+            <h3>Monthly Barangay Assembly</h3>
+            <p>
+              Published: <time datetime="2025-11-10">November 10, 2025</time>
+            </p>
+          </header>
+          <p>The monthly assembly will discuss budget allocations...</p>
+          <a href="news-detail.html">Read more</a>
+        </article>
+      </section>
     </main>
-    
+
     <!-- Sidebar -->
     <aside>
-        <section>
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="https://facebook.com/barangay">Facebook Page</a></li>
-                <li><a href="tel:+6343123456">Hotline: (043) 123-4567</a></li>
-            </ul>
-        </section>
-        
-        <section>
-            <h3>Office Hours</h3>
-            <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-            <p>Saturday: 8:00 AM - 12:00 PM</p>
-        </section>
+      <section>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="https://facebook.com/barangay">Facebook Page</a></li>
+          <li><a href="tel:+6343123456">Hotline: (043) 123-4567</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Office Hours</h3>
+        <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+        <p>Saturday: 8:00 AM - 12:00 PM</p>
+      </section>
     </aside>
-    
+
     <!-- Page Footer -->
     <footer>
-        <address>
-            Barangay Hall, Sto. Niño<br>
-            Batangas City, Philippines 4200<br>
-            Email: <a href="mailto:barangay.stonino@gov.ph">barangay.stonino@gov.ph</a>
-        </address>
-        
-        <p>&copy; 2025 Barangay Sto. Niño. All rights reserved.</p>
-        
-        <nav>
-            <a href="privacy.html">Privacy Policy</a> |
-            <a href="terms.html">Terms of Service</a>
-        </nav>
+      <address>
+        Barangay Hall, Sto. Niño<br />
+        Batangas City, Philippines 4200<br />
+        Email:
+        <a href="mailto:barangay.stonino@gov.ph">barangay.stonino@gov.ph</a>
+      </address>
+
+      <p>&copy; 2025 Barangay Sto. Niño. All rights reserved.</p>
+
+      <nav>
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms of Service</a>
+      </nav>
     </footer>
-</body>
+  </body>
 </html>
 ```
 
 ## When to Use `<div>` and `<span>`
 
 **Still use `<div>` and `<span>` when:**
+
 - No semantic tag fits
 - Purely for styling/layout
 - Wrapper for CSS/JavaScript hooks
@@ -390,9 +404,9 @@ Miguel nodded. "Your teacher is absolutely right. Before HTML5, we had no choice
 ```html
 <!-- Styling wrapper (no semantic meaning) -->
 <div class="container">
-    <section>
-        <h2>Content</h2>
-    </section>
+  <section>
+    <h2>Content</h2>
+  </section>
 </div>
 
 <!-- Inline styling -->
@@ -417,17 +431,20 @@ Users can jump directly to specific sections.
 ## SEO Benefits
 
 Google's search algorithm:
+
 ```html
 <!-- Better SEO -->
 <article>
-    <h1>Main Title</h1>  <!-- Google knows this is the main topic -->
-    <p>Content...</p>
+  <h1>Main Title</h1>
+  <!-- Google knows this is the main topic -->
+  <p>Content...</p>
 </article>
 
 <!-- Worse SEO -->
 <div>
-    <div class="title">Main Title</div>  <!-- Google less certain -->
-    <div>Content...</div>
+  <div class="title">Main Title</div>
+  <!-- Google less certain -->
+  <div>Content...</div>
 </div>
 ```
 
@@ -442,35 +459,44 @@ Google's search algorithm:
 ## Common Mistakes
 
 ### ❌ Using `<section>` without heading
+
 ```html
 <section>
-    <p>Content with no heading</p>  <!-- Missing h2-h6 -->
+  <p>Content with no heading</p>
+  <!-- Missing h2-h6 -->
 </section>
 ```
+
 ✅ **Correct:**
+
 ```html
 <section>
-    <h2>Section Title</h2>
-    <p>Content</p>
+  <h2>Section Title</h2>
+  <p>Content</p>
 </section>
 ```
 
 ### ❌ Multiple `<main>` tags
+
 ```html
 <main>Content 1</main>
-<main>Content 2</main>  <!-- WRONG: Only one <main> -->
+<main>Content 2</main>
+<!-- WRONG: Only one <main> -->
 ```
 
 ### ❌ `<header>`/`<footer>` inside `<main>`
+
 ```html
 <main>
-    <header>Page header</header>  <!-- WRONG: Should be outside -->
+  <header>Page header</header>
+  <!-- WRONG: Should be outside -->
 </main>
 ```
 
 ## Summary
 
 **Semantic structure:**
+
 - `<header>` = Page/section header
 - `<nav>` = Navigation
 - `<main>` = Main content (one per page)
@@ -480,6 +506,7 @@ Google's search algorithm:
 - `<footer>` = Page/section footer
 
 **Benefits:**
+
 - Better SEO (Google understands structure)
 - Accessibility (screen readers navigate landmarks)
 - Maintainability (self-documenting code)
@@ -504,4 +531,4 @@ Tian validated the HTML using the W3C validator. Zero errors. Zero warnings. Gre
 
 Tian looked at the plain black-and-white website. It worked. It was valid. It was semantic. But it was boring. Tomorrow, color. Tomorrow, style. Tomorrow, beauty.
 
-_Next up: Chapter 3Kulay at Kultura: Styling the Bayan!_ 
+_Next up: Chapter 3Kulay at Kultura: Styling the Bayan!_

@@ -1,32 +1,38 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+33.0+-+COVER.png)
+
 Tian was browsing GitHub repositories, looking at how professional developers structured their JavaScript code. He'd developed a habit of reading real-world code to learn best practices beyond tutorials. But today, he kept encountering syntax he didn't quite recognize.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+33.1.png)
 
 In one React component, he saw:
 
 ```javascript
-const UserCard = ({name, age, email}) => (
-    <div>{name}, {age} years old</div>
+const UserCard = ({ name, age, email }) => (
+  <div>
+    {name}, {age} years old
+  </div>
 );
 ```
 
 In a Vue project:
 
 ```javascript
-const filterActive = users => users.filter(u => u.isActive);
+const filterActive = (users) => users.filter((u) => u.isActive);
 ```
 
 In a Node.js API:
 
 ```javascript
-const {id, title, author} = req.body;
+const { id, title, author } = req.body;
 ```
 
 "What is this?" Tian muttered, staring at the arrow symbols (`=>`), the curly braces in function parameters, the shorthand that seemed to skip the `function` keyword entirely. He understood traditional JavaScript functions perfectly:
 
 ```javascript
 function greet(name) {
-    return 'Hello, ' + name;
+  return "Hello, " + name;
 }
 ```
 
@@ -52,14 +58,14 @@ Miguel laughed warmly. "Neither! What you're seeing is **ES6+ syntax**—modern 
 
 ```javascript
 function double(x) {
-    return x * 2;
+  return x * 2;
 }
 ```
 
 You can write:
 
 ```javascript
-const double = x => x * 2;
+const double = (x) => x * 2;
 ```
 
 Same result, half the code."
@@ -74,8 +80,8 @@ const add = (a, b) => a + b;
 
 // Explicit return (multiple statements, need braces)
 const addAndLog = (a, b) => {
-    console.log('Adding:', a, b);
-    return a + b;
+  console.log("Adding:", a, b);
+  return a + b;
 };
 ```
 
@@ -85,17 +91,17 @@ Rhea Joy was taking notes rapidly. "So it's a condensed syntax for functions. Wh
 
 ```javascript
 function greet(person) {
-    console.log('Hello, ' + person.name);
-    console.log('You are ' + person.age + ' years old');
+  console.log("Hello, " + person.name);
+  console.log("You are " + person.age + " years old");
 }
 ```
 
 You can write:
 
 ```javascript
-function greet({name, age}) {
-    console.log('Hello, ' + name);
-    console.log('You are ' + age + ' years old');
+function greet({ name, age }) {
+  console.log("Hello, " + name);
+  console.log("You are " + age + " years old");
 }
 ```
 
@@ -105,16 +111,16 @@ Tian tested it mentally with their barangay visitor objects. "So if we have:
 
 ```javascript
 const visitor = {
-    name: 'Juan Dela Cruz',
-    age: 72,
-    service: 'clearance'
+  name: "Juan Dela Cruz",
+  age: 72,
+  service: "clearance",
 };
 ```
 
 Instead of accessing `visitor.name`, `visitor.age`, `visitor.service` multiple times, we could destructure:
 
 ```javascript
-const {name, age, service} = visitor;
+const { name, age, service } = visitor;
 // Now we have name, age, service as variables
 ```
 
@@ -123,15 +129,15 @@ const {name, age, service} = visitor;
 Rhea Joy looked at the YouTube tutorial she'd watched. "The instructor was using arrow functions everywhere with array methods:
 
 ```javascript
-const activeUsers = users.filter(user => user.isActive);
-const names = users.map(user => user.name);
+const activeUsers = users.filter((user) => user.isActive);
+const names = users.map((user) => user.name);
 ```
 
 Instead of the traditional:
 
 ```javascript
-const activeUsers = users.filter(function(user) {
-    return user.isActive;
+const activeUsers = users.filter(function (user) {
+  return user.isActive;
 });
 ```
 
@@ -141,12 +147,12 @@ So much shorter!"
 
 ```javascript
 // Traditional
-const doubled = numbers.map(function(n) {
-    return n * 2;
+const doubled = numbers.map(function (n) {
+  return n * 2;
 });
 
 // Arrow function
-const doubled = numbers.map(n => n * 2);
+const doubled = numbers.map((n) => n * 2);
 ```
 
 Tian was already thinking about refactoring his barangay portal code. "Our visitor list display function could be so much cleaner with arrow functions and destructuring!"
@@ -155,13 +161,13 @@ Miguel pulled up a side-by-side comparison. "Let me show you a real before-and-a
 
 ```javascript
 function displayVisitors(visitors) {
-    for (let i = 0; i < visitors.length; i++) {
-        const visitor = visitors[i];
-        console.log('Name: ' + visitor.name);
-        console.log('Age: ' + visitor.age);
-        console.log('Service: ' + visitor.service);
-        console.log('Fee: ' + visitor.fee);
-    }
+  for (let i = 0; i < visitors.length; i++) {
+    const visitor = visitors[i];
+    console.log("Name: " + visitor.name);
+    console.log("Age: " + visitor.age);
+    console.log("Service: " + visitor.service);
+    console.log("Fee: " + visitor.fee);
+  }
 }
 ```
 
@@ -169,12 +175,12 @@ With modern syntax:
 
 ```javascript
 const displayVisitors = (visitors) => {
-    visitors.forEach(({name, age, service, fee}) => {
-        console.log(`Name: ${name}`);
-        console.log(`Age: ${age}`);
-        console.log(`Service: ${service}`);
-        console.log(`Fee: ${fee}`);
-    });
+  visitors.forEach(({ name, age, service, fee }) => {
+    console.log(`Name: ${name}`);
+    console.log(`Age: ${age}`);
+    console.log(`Service: ${service}`);
+    console.log(`Fee: ${fee}`);
+  });
 };
 ```
 
@@ -184,13 +190,14 @@ Rhea Joy noticed something new. "Wait, what are those backticks and `${}`?"
 
 ```javascript
 // Old way
-const message = 'Hello, ' + name + '! You are ' + age + ' years old.';
+const message = "Hello, " + name + "! You are " + age + " years old.";
 
 // Template literals
 const message = `Hello, ${name}! You are ${age} years old.`;
 ```
 
 Tian's mind was racing with possibilities. "So modern JavaScript gives us:
+
 - Arrow functions for cleaner function syntax
 - Destructuring to extract object/array values easily
 - Template literals for readable string interpolation
@@ -221,40 +228,44 @@ Miguel laughed. "Welcome to modern JavaScript. You're about to write code that l
 ## Arrow Functions
 
 **Traditional function:**
+
 ```javascript
 function greet(name) {
-    return 'Hello, ' + name;
+  return "Hello, " + name;
 }
 ```
 
 **Arrow function:**
+
 ```javascript
 const greet = (name) => {
-    return 'Hello, ' + name;
+  return "Hello, " + name;
 };
 ```
 
 **Even shorter (implicit return):**
+
 ```javascript
-const greet = (name) => 'Hello, ' + name;
+const greet = (name) => "Hello, " + name;
 ```
 
 **Arrow function syntax rules:**
+
 ```javascript
 // No parameters
-const sayHello = () => 'Hello!';
+const sayHello = () => "Hello!";
 
 // One parameter (parentheses optional)
-const double = x => x * 2;
-const greet = name => 'Hi, ' + name;
+const double = (x) => x * 2;
+const greet = (name) => "Hi, " + name;
 
 // Multiple parameters (parentheses required)
 const add = (a, b) => a + b;
 
 // Multiple statements (curly braces + return)
 const calculate = (a, b) => {
-    let sum = a + b;
-    return sum * 2;
+  let sum = a + b;
+  return sum * 2;
 };
 ```
 
@@ -263,25 +274,26 @@ const calculate = (a, b) => {
 ## Arrow Functions with Arrays
 
 **Perfect for array methods:**
+
 ```javascript
-let residents = ['Juan', 'Maria', 'Pedro'];
+let residents = ["Juan", "Maria", "Pedro"];
 
 // Traditional
-residents.forEach(function(name) {
-    console.log(name);
+residents.forEach(function (name) {
+  console.log(name);
 });
 
 // Arrow function
-residents.forEach(name => console.log(name));
+residents.forEach((name) => console.log(name));
 
 // Map example
 let ages = [25, 30, 35];
-let doubled = ages.map(age => age * 2);
+let doubled = ages.map((age) => age * 2);
 console.log(doubled); // [50, 60, 70]
 
 // Filter example
 let numbers = [5, 12, 8, 20, 3];
-let filtered = numbers.filter(num => num >= 10);
+let filtered = numbers.filter((num) => num >= 10);
 console.log(filtered); // [12, 20]
 ```
 
@@ -291,20 +303,20 @@ console.log(filtered); // [12, 20]
 
 ```javascript
 // Traditional
-button.addEventListener('click', function() {
-    console.log('Clicked!');
+button.addEventListener("click", function () {
+  console.log("Clicked!");
 });
 
 // Arrow function
-button.addEventListener('click', () => {
-    console.log('Clicked!');
+button.addEventListener("click", () => {
+  console.log("Clicked!");
 });
 
 // Barangay example
-document.querySelector('#submitBtn').addEventListener('click', () => {
-    let name = document.querySelector('#name').value;
-    let age = document.querySelector('#age').value;
-    console.log(`Applicant: ${name}, Age: ${age}`);
+document.querySelector("#submitBtn").addEventListener("click", () => {
+  let name = document.querySelector("#name").value;
+  let age = document.querySelector("#age").value;
+  console.log(`Applicant: ${name}, Age: ${age}`);
 });
 ```
 
@@ -315,11 +327,12 @@ document.querySelector('#submitBtn').addEventListener('click', () => {
 **Extract properties from objects:**
 
 **Without destructuring:**
+
 ```javascript
 let person = {
-    name: 'Juan Dela Cruz',
-    age: 30,
-    barangay: 'San Antonio'
+  name: "Juan Dela Cruz",
+  age: 30,
+  barangay: "San Antonio",
 };
 
 let name = person.name;
@@ -328,37 +341,40 @@ let barangay = person.barangay;
 ```
 
 **With destructuring:**
+
 ```javascript
 let person = {
-    name: 'Juan Dela Cruz',
-    age: 30,
-    barangay: 'San Antonio'
+  name: "Juan Dela Cruz",
+  age: 30,
+  barangay: "San Antonio",
 };
 
-let {name, age, barangay} = person;
+let { name, age, barangay } = person;
 
-console.log(name);     // Juan Dela Cruz
-console.log(age);      // 30
+console.log(name); // Juan Dela Cruz
+console.log(age); // 30
 console.log(barangay); // San Antonio
 ```
 
 **Rename variables:**
-```javascript
-let person = {name: 'Juan', age: 30};
 
-let {name: fullName, age: years} = person;
+```javascript
+let person = { name: "Juan", age: 30 };
+
+let { name: fullName, age: years } = person;
 
 console.log(fullName); // Juan
-console.log(years);    // 30
+console.log(years); // 30
 ```
 
 **Default values:**
+
 ```javascript
-let person = {name: 'Juan'};
+let person = { name: "Juan" };
 
-let {name, age = 25, city = 'Manila'} = person;
+let { name, age = 25, city = "Manila" } = person;
 
-console.log(age);  // 25 (default)
+console.log(age); // 25 (default)
 console.log(city); // Manila (default)
 ```
 
@@ -369,24 +385,27 @@ console.log(city); // Manila (default)
 **Extract values from arrays:**
 
 **Without destructuring:**
+
 ```javascript
-let colors = ['red', 'green', 'blue'];
+let colors = ["red", "green", "blue"];
 let first = colors[0];
 let second = colors[1];
 let third = colors[2];
 ```
 
 **With destructuring:**
+
 ```javascript
-let colors = ['red', 'green', 'blue'];
+let colors = ["red", "green", "blue"];
 let [first, second, third] = colors;
 
-console.log(first);  // red
+console.log(first); // red
 console.log(second); // green
-console.log(third);  // blue
+console.log(third); // blue
 ```
 
 **Skip elements:**
+
 ```javascript
 let numbers = [10, 20, 30, 40];
 let [first, , third] = numbers; // Skip second
@@ -396,13 +415,14 @@ console.log(third); // 30
 ```
 
 **Rest of elements:**
+
 ```javascript
 let numbers = [1, 2, 3, 4, 5];
 let [first, second, ...rest] = numbers;
 
-console.log(first);  // 1
+console.log(first); // 1
 console.log(second); // 2
-console.log(rest);   // [3, 4, 5]
+console.log(rest); // [3, 4, 5]
 ```
 
 ---
@@ -412,15 +432,17 @@ console.log(rest);   // [3, 4, 5]
 **Expand arrays and objects:**
 
 **Combine arrays:**
+
 ```javascript
-let morning = ['Juan', 'Maria'];
-let afternoon = ['Pedro', 'Ana'];
+let morning = ["Juan", "Maria"];
+let afternoon = ["Pedro", "Ana"];
 
 let allVisitors = [...morning, ...afternoon];
 console.log(allVisitors); // ['Juan', 'Maria', 'Pedro', 'Ana']
 ```
 
 **Copy array:**
+
 ```javascript
 let original = [1, 2, 3];
 let copy = [...original];
@@ -428,10 +450,11 @@ let copy = [...original];
 console.log(copy); // [1, 2, 3]
 copy.push(4);
 console.log(original); // [1, 2, 3] (unchanged)
-console.log(copy);     // [1, 2, 3, 4]
+console.log(copy); // [1, 2, 3, 4]
 ```
 
 **Spread in function calls:**
+
 ```javascript
 let numbers = [5, 12, 8, 20];
 let max = Math.max(...numbers);
@@ -440,19 +463,21 @@ console.log(max); // 20
 ```
 
 **Combine objects:**
-```javascript
-let person = {name: 'Juan', age: 30};
-let address = {city: 'Manila', barangay: 'San Antonio'};
 
-let complete = {...person, ...address};
+```javascript
+let person = { name: "Juan", age: 30 };
+let address = { city: "Manila", barangay: "San Antonio" };
+
+let complete = { ...person, ...address };
 console.log(complete);
 // {name: 'Juan', age: 30, city: 'Manila', barangay: 'San Antonio'}
 ```
 
 **Copy and override:**
+
 ```javascript
-let original = {name: 'Juan', age: 30, city: 'Manila'};
-let updated = {...original, age: 31};
+let original = { name: "Juan", age: 30, city: "Manila" };
+let updated = { ...original, age: 31 };
 
 console.log(updated);
 // {name: 'Juan', age: 31, city: 'Manila'}
@@ -465,96 +490,100 @@ console.log(updated);
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Modern JavaScript - Barangay System</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Resident Management</h1>
-    
-    <input type="text" id="name" placeholder="Name">
-    <input type="number" id="age" placeholder="Age">
-    <input type="text" id="address" placeholder="Address">
+
+    <input type="text" id="name" placeholder="Name" />
+    <input type="number" id="age" placeholder="Age" />
+    <input type="text" id="address" placeholder="Address" />
     <button id="addBtn">Add Resident</button>
-    <br><br>
-    
+    <br /><br />
+
     <button id="showAdults">Show Adults (18+)</button>
     <button id="showAll">Show All</button>
-    <br><br>
-    
+    <br /><br />
+
     <div id="output"></div>
-    
+
     <script>
-        // Resident database
-        let residents = [
-            {name: 'Juan Dela Cruz', age: 30, address: 'Block 1'},
-            {name: 'Maria Santos', age: 25, address: 'Block 2'},
-            {name: 'Pedro Reyes', age: 17, address: 'Block 3'}
-        ];
-        
-        // Add resident with destructuring
-        document.querySelector('#addBtn').addEventListener('click', () => {
-            let name = document.querySelector('#name').value;
-            let age = parseInt(document.querySelector('#age').value);
-            let address = document.querySelector('#address').value;
-            
-            if (!name || !age || !address) {
-                alert('Please fill all fields');
-                return;
-            }
-            
-            // Create new resident object
-            let newResident = {name, age, address}; // Shorthand property names
-            
-            // Add to array using spread
-            residents = [...residents, newResident];
-            
-            // Clear inputs
-            document.querySelector('#name').value = '';
-            document.querySelector('#age').value = '';
-            document.querySelector('#address').value = '';
-            
-            alert('Resident added!');
-            displayResidents(residents);
-        });
-        
-        // Show adults only
-        document.querySelector('#showAdults').addEventListener('click', () => {
-            let adults = residents.filter(({age}) => age >= 18);
-            displayResidents(adults);
-        });
-        
-        // Show all residents
-        document.querySelector('#showAll').addEventListener('click', () => {
-            displayResidents(residents);
-        });
-        
-        // Display function with destructuring
-        const displayResidents = (list) => {
-            let output = document.querySelector('#output');
-            
-            if (list.length === 0) {
-                output.innerHTML = '<p>No residents found.</p>';
-                return;
-            }
-            
-            let html = '<h3>Residents:</h3>';
-            
-            // Use destructuring in map
-            html += list.map(({name, age, address}, index) => `
+      // Resident database
+      let residents = [
+        { name: "Juan Dela Cruz", age: 30, address: "Block 1" },
+        { name: "Maria Santos", age: 25, address: "Block 2" },
+        { name: "Pedro Reyes", age: 17, address: "Block 3" },
+      ];
+
+      // Add resident with destructuring
+      document.querySelector("#addBtn").addEventListener("click", () => {
+        let name = document.querySelector("#name").value;
+        let age = parseInt(document.querySelector("#age").value);
+        let address = document.querySelector("#address").value;
+
+        if (!name || !age || !address) {
+          alert("Please fill all fields");
+          return;
+        }
+
+        // Create new resident object
+        let newResident = { name, age, address }; // Shorthand property names
+
+        // Add to array using spread
+        residents = [...residents, newResident];
+
+        // Clear inputs
+        document.querySelector("#name").value = "";
+        document.querySelector("#age").value = "";
+        document.querySelector("#address").value = "";
+
+        alert("Resident added!");
+        displayResidents(residents);
+      });
+
+      // Show adults only
+      document.querySelector("#showAdults").addEventListener("click", () => {
+        let adults = residents.filter(({ age }) => age >= 18);
+        displayResidents(adults);
+      });
+
+      // Show all residents
+      document.querySelector("#showAll").addEventListener("click", () => {
+        displayResidents(residents);
+      });
+
+      // Display function with destructuring
+      const displayResidents = (list) => {
+        let output = document.querySelector("#output");
+
+        if (list.length === 0) {
+          output.innerHTML = "<p>No residents found.</p>";
+          return;
+        }
+
+        let html = "<h3>Residents:</h3>";
+
+        // Use destructuring in map
+        html += list
+          .map(
+            ({ name, age, address }, index) => `
                 <div style="padding: 10px; background: #f0f0f0; margin: 5px 0; border-radius: 5px;">
                     <strong>${index + 1}. ${name}</strong><br>
                     Age: ${age} | Address: ${address}
                 </div>
-            `).join('');
-            
-            output.innerHTML = html;
-        };
-        
-        // Initial display
-        displayResidents(residents);
+            `,
+          )
+          .join("");
+
+        output.innerHTML = html;
+      };
+
+      // Initial display
+      displayResidents(residents);
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -563,45 +592,48 @@ console.log(updated);
 ## Practical Examples
 
 ### 1. Filtering with Arrow Functions
+
 ```javascript
 let services = [
-    {name: 'Clearance', fee: 50, available: true},
-    {name: 'Cedula', fee: 30, available: true},
-    {name: 'Business Permit', fee: 200, available: false}
+  { name: "Clearance", fee: 50, available: true },
+  { name: "Cedula", fee: 30, available: true },
+  { name: "Business Permit", fee: 200, available: false },
 ];
 
 // Get available services
-let available = services.filter(s => s.available);
+let available = services.filter((s) => s.available);
 
 // Get affordable services (< 100)
-let affordable = services.filter(s => s.fee < 100);
+let affordable = services.filter((s) => s.fee < 100);
 
 // Get service names only
-let names = services.map(s => s.name);
+let names = services.map((s) => s.name);
 ```
 
 ### 2. Destructuring in Functions
+
 ```javascript
 // Function parameter destructuring
-const displayResident = ({name, age, address}) => {
-    console.log(`Name: ${name}`);
-    console.log(`Age: ${age}`);
-    console.log(`Address: ${address}`);
+const displayResident = ({ name, age, address }) => {
+  console.log(`Name: ${name}`);
+  console.log(`Age: ${age}`);
+  console.log(`Address: ${address}`);
 };
 
-let person = {name: 'Juan', age: 30, address: 'Block 1'};
+let person = { name: "Juan", age: 30, address: "Block 1" };
 displayResident(person);
 ```
 
 ### 3. Rest Parameters
+
 ```javascript
 // Collect all arguments into array
 const calculateTotal = (...fees) => {
-    return fees.reduce((sum, fee) => sum + fee, 0);
+  return fees.reduce((sum, fee) => sum + fee, 0);
 };
 
 console.log(calculateTotal(50, 30, 20)); // 100
-console.log(calculateTotal(10, 20));     // 30
+console.log(calculateTotal(10, 20)); // 30
 ```
 
 ---
@@ -609,16 +641,18 @@ console.log(calculateTotal(10, 20));     // 30
 ## Best Practices
 
 **1. Use arrow functions for callbacks:**
+
 ```javascript
 // Good
-array.map(x => x * 2);
-button.addEventListener('click', () => doSomething());
+array.map((x) => x * 2);
+button.addEventListener("click", () => doSomething());
 ```
 
 **2. Use destructuring to simplify:**
+
 ```javascript
 // Good
-const {name, age} = person;
+const { name, age } = person;
 
 // Avoid
 const name = person.name;
@@ -626,6 +660,7 @@ const age = person.age;
 ```
 
 **3. Use spread for immutability:**
+
 ```javascript
 // Good - creates new array
 let newArray = [...oldArray, newItem];
@@ -639,25 +674,29 @@ oldArray.push(newItem);
 ## Summary
 
 **Arrow functions:**
+
 ```javascript
 const func = (param) => result;
 const add = (a, b) => a + b;
 ```
 
 **Object destructuring:**
+
 ```javascript
-let {name, age} = person;
+let { name, age } = person;
 ```
 
 **Array destructuring:**
+
 ```javascript
 let [first, second] = array;
 ```
 
 **Spread operator:**
+
 ```javascript
 let combined = [...array1, ...array2];
-let copy = {...original, newProp: value};
+let copy = { ...original, newProp: value };
 ```
 
 ---

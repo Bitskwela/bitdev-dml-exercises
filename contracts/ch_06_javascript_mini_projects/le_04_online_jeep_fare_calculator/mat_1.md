@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+4.0+-+COVER.png)
+
 The rush-hour heat in Metro Manila can turn any jeepney ride into an epic odyssey. Odessa remembers one steamy afternoon in Cubao, where the air con was broken and the driver insisted on “₱12 na po, ma’am” even though her usual ₱10 fare applied. Paula, sitting beside her, immediately quibbled over the overcharge. They ended up arguing with three passengers playing referee. By the time Odessa got off at Pasig, she was determined: enough with the guesswork—she’d build a tool to calculate exact jeepney fares by route, discounts, and add-ons.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+4.1.png)
 
 That evening, over taho and a cold sago’t gulaman, Odessa sketched **JeepFareCalc v2** on a napkin. Riders could select from popular routes—Cubao to Pasig, Trinoma to QC Hall, EDSA to Ortigas—and tick off discounts like “Student” or “Senior.” An optional “Luggage Fee” checkbox would add a flat ₱5 when commuters lugged heavy bags. Paula’s eyes sparkled: “No more driver overcharges, no more endless math!”
 
@@ -117,7 +121,6 @@ calcBtn.addEventListener("click", () => {
 ```
 
 ---
-
 
 ## Closing Story
 

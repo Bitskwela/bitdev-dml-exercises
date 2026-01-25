@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+22.0+-+COVER.png)
+
 Kuya Miguel closed his laptop and turned to Tian. "You've learned variables, control flow, functions, arrays, pointers, structs, and enums. But can you combine them into a complete, working system?"
 
 Tian felt a mix of confidence and nervousness. "I think so?"
 
 "Let's find out," Kuya Miguel said. "Build a **Contact Book System** for the barangay—add contacts, search by name, update information, delete entries, display all records. No tutorial this time. I'll provide requirements, you architect and implement the solution."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+22.1.png)
 
 This was different from the ATM project. Back then, Tian was still learning basics. Now, with structs and proper data organization, Tian was expected to build something more sophisticated—something that could scale to hundreds of contacts, with clean code organization and proper data management.
 
@@ -19,6 +23,7 @@ This was different from the ATM project. Back then, Tian was still learning basi
 ## Project Requirements
 
 Build a contact book system that can:
+
 1. Store multiple contacts
 2. Add new contacts
 3. Display all contacts
@@ -72,6 +77,7 @@ int nextId = 1;
 ## Helper Functions
 
 ### Type Conversion
+
 ```cpp
 string typeToString(ContactType type) {
     switch (type) {
@@ -102,29 +108,30 @@ ContactType stringToType(const string& str) {
 ## Core Features
 
 ### 1. Add Contact
+
 ```cpp
 void addContact() {
     if (contactCount >= MAX_CONTACTS) {
         cout << "Contact book is full!\n";
         return;
     }
-    
+
     Contact newContact;
     newContact.id = nextId++;
     newContact.active = true;
-    
+
     cin.ignore();  // Clear input buffer
-    
+
     cout << "\n===== ADD NEW CONTACT =====\n";
     cout << "Name: ";
     getline(cin, newContact.name);
-    
+
     cout << "Phone: ";
     getline(cin, newContact.phone);
-    
+
     cout << "Email: ";
     getline(cin, newContact.email);
-    
+
     cout << "\nContact Type:\n";
     cout << "1. Personal\n";
     cout << "2. Work\n";
@@ -134,22 +141,22 @@ void addContact() {
     string typeChoice;
     getline(cin, typeChoice);
     newContact.type = stringToType(typeChoice);
-    
+
     cout << "\nAddress:\n";
     cout << "Street: ";
     getline(cin, newContact.address.street);
-    
+
     cout << "Barangay: ";
     getline(cin, newContact.address.barangay);
-    
+
     cout << "City: ";
     getline(cin, newContact.address.city);
-    
+
     cout << "Zip Code: ";
     getline(cin, newContact.address.zipCode);
-    
+
     contacts[contactCount++] = newContact;
-    
+
     cout << "\n✓ Contact added successfully! (ID: " << newContact.id << ")\n";
 }
 ```
@@ -157,6 +164,7 @@ void addContact() {
 ---
 
 ### 2. Display All Contacts
+
 ```cpp
 void displayContact(const Contact& c) {
     cout << "\n================================\n";
@@ -174,7 +182,7 @@ void displayContact(const Contact& c) {
 
 void displayAllContacts() {
     cout << "\n===== ALL CONTACTS =====\n";
-    
+
     int activeCount = 0;
     for (int i = 0; i < contactCount; i++) {
         if (contacts[i].active) {
@@ -182,7 +190,7 @@ void displayAllContacts() {
             activeCount++;
         }
     }
-    
+
     if (activeCount == 0) {
         cout << "No contacts found.\n";
     } else {
@@ -194,6 +202,7 @@ void displayAllContacts() {
 ---
 
 ### 3. Search Contact
+
 ```cpp
 int findContactByName(const string& name) {
     for (int i = 0; i < contactCount; i++) {
@@ -209,9 +218,9 @@ void searchContact() {
     cout << "\nEnter name to search: ";
     string name;
     getline(cin, name);
-    
+
     int index = findContactByName(name);
-    
+
     if (index == -1) {
         cout << "Contact not found.\n";
     } else {
@@ -223,36 +232,37 @@ void searchContact() {
 ---
 
 ### 4. Update Contact
+
 ```cpp
 void updateContact() {
     cin.ignore();
     cout << "\nEnter name of contact to update: ";
     string name;
     getline(cin, name);
-    
+
     int index = findContactByName(name);
-    
+
     if (index == -1) {
         cout << "Contact not found.\n";
         return;
     }
-    
+
     cout << "\nUpdating: " << contacts[index].name << endl;
     cout << "Leave blank to keep current value\n";
-    
+
     cout << "\nNew phone (current: " << contacts[index].phone << "): ";
     string input;
     getline(cin, input);
     if (!input.empty()) {
         contacts[index].phone = input;
     }
-    
+
     cout << "New email (current: " << contacts[index].email << "): ";
     getline(cin, input);
     if (!input.empty()) {
         contacts[index].email = input;
     }
-    
+
     cout << "\n✓ Contact updated successfully!\n";
 }
 ```
@@ -260,24 +270,25 @@ void updateContact() {
 ---
 
 ### 5. Delete Contact (Soft Delete)
+
 ```cpp
 void deleteContact() {
     cin.ignore();
     cout << "\nEnter name of contact to delete: ";
     string name;
     getline(cin, name);
-    
+
     int index = findContactByName(name);
-    
+
     if (index == -1) {
         cout << "Contact not found.\n";
         return;
     }
-    
+
     cout << "Are you sure you want to delete " << contacts[index].name << "? (y/n): ";
     char confirm;
     cin >> confirm;
-    
+
     if (confirm == 'y' || confirm == 'Y') {
         contacts[index].active = false;  // Soft delete
         cout << "\n✓ Contact deleted successfully!\n";
@@ -306,11 +317,11 @@ void displayMenu() {
 
 int main() {
     int choice;
-    
+
     do {
         displayMenu();
         cin >> choice;
-        
+
         switch (choice) {
             case 1:
                 addContact();
@@ -336,9 +347,9 @@ int main() {
             default:
                 cout << "Invalid choice!\n";
         }
-        
+
     } while (choice != 0);
-    
+
     return 0;
 }
 ```
@@ -350,10 +361,10 @@ int main() {
 ```cpp
 void displayStatistics() {
     cout << "\n===== STATISTICS =====\n";
-    
+
     int activeCount = 0;
     int typeCounts[4] = {0};  // PERSONAL, WORK, FAMILY, EMERGENCY
-    
+
     for (int i = 0; i < contactCount; i++) {
         if (contacts[i].active) {
             activeCount++;
@@ -361,7 +372,7 @@ void displayStatistics() {
             typeCounts[typeIndex]++;
         }
     }
-    
+
     cout << "Total Active Contacts: " << activeCount << endl;
     cout << "\nBy Type:\n";
     cout << "  Personal: " << typeCounts[0] << endl;
@@ -446,11 +457,11 @@ void addContact() {
         cout << "Contact book is full!\n";
         return;
     }
-    
+
     Contact newContact;
     newContact.id = nextId++;
     newContact.active = true;
-    
+
     cin.ignore();
     cout << "\n===== ADD NEW CONTACT =====\n";
     cout << "Name: ";
@@ -459,12 +470,12 @@ void addContact() {
     getline(cin, newContact.phone);
     cout << "Email: ";
     getline(cin, newContact.email);
-    
+
     cout << "\nType (1=Personal, 2=Work, 3=Family, 4=Emergency): ";
     string typeChoice;
     getline(cin, typeChoice);
     newContact.type = stringToType(typeChoice);
-    
+
     cout << "Street: ";
     getline(cin, newContact.address.street);
     cout << "Barangay: ";
@@ -473,7 +484,7 @@ void addContact() {
     getline(cin, newContact.address.city);
     cout << "Zip: ";
     getline(cin, newContact.address.zipCode);
-    
+
     contacts[contactCount++] = newContact;
     cout << "\n✓ Contact added! (ID: " << newContact.id << ")\n";
 }
@@ -505,7 +516,7 @@ void searchContact() {
     cout << "\nSearch name: ";
     string name;
     getline(cin, name);
-    
+
     int index = findContactByName(name);
     if (index == -1) {
         cout << "Not found.\n";
@@ -519,18 +530,18 @@ void updateContact() {
     cout << "\nUpdate name: ";
     string name;
     getline(cin, name);
-    
+
     int index = findContactByName(name);
     if (index == -1) {
         cout << "Not found.\n";
         return;
     }
-    
+
     cout << "New phone: ";
     getline(cin, contacts[index].phone);
     cout << "New email: ";
     getline(cin, contacts[index].email);
-    
+
     cout << "\n✓ Updated!\n";
 }
 
@@ -539,17 +550,17 @@ void deleteContact() {
     cout << "\nDelete name: ";
     string name;
     getline(cin, name);
-    
+
     int index = findContactByName(name);
     if (index == -1) {
         cout << "Not found.\n";
         return;
     }
-    
+
     cout << "Delete " << contacts[index].name << "? (y/n): ";
     char confirm;
     cin >> confirm;
-    
+
     if (confirm == 'y' || confirm == 'Y') {
         contacts[index].active = false;
         cout << "\n✓ Deleted!\n";
@@ -560,14 +571,14 @@ void displayStatistics() {
     cout << "\n===== STATISTICS =====\n";
     int active = 0;
     int types[4] = {0};
-    
+
     for (int i = 0; i < contactCount; i++) {
         if (contacts[i].active) {
             active++;
             types[static_cast<int>(contacts[i].type)]++;
         }
     }
-    
+
     cout << "Active: " << active << endl;
     cout << "Personal: " << types[0] << endl;
     cout << "Work: " << types[1] << endl;
@@ -584,11 +595,11 @@ void displayMenu() {
 
 int main() {
     int choice;
-    
+
     do {
         displayMenu();
         cin >> choice;
-        
+
         switch (choice) {
             case 1: addContact(); break;
             case 2: displayAllContacts(); break;
@@ -599,9 +610,9 @@ int main() {
             case 0: cout << "Goodbye!\n"; break;
             default: cout << "Invalid!\n";
         }
-        
+
     } while (choice != 0);
-    
+
     return 0;
 }
 ```
@@ -613,6 +624,7 @@ int main() {
 "I built a complete system!" Tian exclaimed proudly.
 
 "Excellent work!" Kuya Miguel said. "You used:
+
 - **Structs** for organizing data
 - **Enums** for contact types
 - **Arrays** for storage
@@ -626,6 +638,7 @@ int main() {
 ---
 
 **Key Takeaways:**
+
 1. Combine all concepts in real projects
 2. Use enums for categories
 3. Nested structs for complex data

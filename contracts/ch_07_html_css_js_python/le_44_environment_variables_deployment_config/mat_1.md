@@ -1,5 +1,7 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+44.0+-+COVER.png)
+
 Tian was proud of the secure barangay portal they'd built—authentication, authorization, password hashing, session management. Everything was working perfectly. He wanted to show Kuya Miguel the complete codebase, so he did what every modern developer does: pushed the code to GitHub.
 
 He created a new public repository called `barangay-portal` and pushed all the files:
@@ -14,6 +16,8 @@ git push -u origin main
 
 "Done!" he texted Miguel with the GitHub link. "Check out the complete code!"
 
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+44.1.png)
+
 Within three minutes, his phone rang. Miguel's voice was urgent, almost panicked. "Tian, delete that repository RIGHT NOW. Immediately!"
 
 "What? Why? What's wrong?"
@@ -23,16 +27,19 @@ Within three minutes, his phone rang. Miguel's voice was urgent, almost panicked
 Tian's heart raced. He opened the GitHub repository and started reading through the files. His face went pale as he saw:
 
 **app.py, line 8:**
+
 ```python
 app.config['SECRET_KEY'] = 'my-super-secret-key-12345'
 ```
 
 **app.py, line 15:**
+
 ```python
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:Password123@localhost/barangay_db'
 ```
 
 **email_service.py, line 5:**
+
 ```python
 SENDGRID_API_KEY = 'SG.abc123def456ghi789jkl012mno345.pqrstuvwxyz'
 ```
@@ -56,6 +63,7 @@ Miguel, once the immediate crisis was handled, took a teaching tone. "This is on
 He shared his screen showing proper configuration:
 
 **.env file (NOT committed to Git):**
+
 ```
 SECRET_KEY=my-super-secret-key-12345
 DATABASE_URL=postgresql://admin:Password123@localhost/barangay_db
@@ -63,6 +71,7 @@ SENDGRID_API_KEY=SG.abc123def456ghi789jkl012mno345.pqrstuvwxyz
 ```
 
 **app.py (safe to commit):**
+
 ```python
 import os
 from dotenv import load_dotenv
@@ -74,6 +83,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 ```
 
 **.gitignore:**
+
 ```
 .env
 *.pyc
@@ -132,6 +142,7 @@ ADMIN_PASSWORD=change-on-first-login
 Miguel showed them advanced patterns:
 
 **Development vs Production:**
+
 ```python
 # app.py
 if os.getenv('FLASK_ENV') == 'production':
@@ -143,6 +154,7 @@ else:
 ```
 
 **Required vs Optional:**
+
 ```python
 # Crash if required secret is missing
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -200,6 +212,7 @@ Tian created a new public GitHub repository with the cleaned code, complete with
 ### Why Use Environment Variables?
 
 **WRONG (Hardcoded):**
+
 ```python
 # app.py - DON'T DO THIS!
 app.config['SECRET_KEY'] = 'my-secret-key-123'
@@ -208,12 +221,14 @@ app.config['SENDGRID_API_KEY'] = 'SG.abc123def456...'
 ```
 
 **Problems:**
+
 - Secrets visible in code
 - Can't use different values for dev/prod
 - If pushed to GitHub, secrets are exposed
 - Hard to change without editing code
 
 **CORRECT (Environment Variables):**
+
 ```python
 # app.py
 import os
@@ -224,6 +239,7 @@ app.config['SENDGRID_API_KEY'] = os.getenv('SENDGRID_API_KEY')
 ```
 
 **Benefits:**
+
 - Secrets not in code
 - Different values per environment
 - Safe to push to GitHub
@@ -331,13 +347,13 @@ class Config:
     """Base configuration"""
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    
+
     # Session config
     SESSION_COOKIE_SECURE = True  # HTTPS only
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
-    
+
     # File upload
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max upload
     UPLOAD_FOLDER = 'uploads'
@@ -355,7 +371,7 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
-    
+
     # Production security
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
@@ -386,27 +402,27 @@ import os
 def create_app(config_name=None):
     """Application factory pattern"""
     app = Flask(__name__)
-    
+
     # Determine config
     if config_name is None:
         config_name = os.getenv('FLASK_ENV', 'default')
-    
+
     # Load configuration
     app.config.from_object(config[config_name])
-    
+
     # Validate required config
     if not app.config['SECRET_KEY']:
         raise ValueError("SECRET_KEY must be set")
-    
+
     # Initialize extensions
     from models import db
     db.init_app(app)
-    
+
     # Register blueprints
     from routes import main_bp, auth_bp
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
-    
+
     return app
 
 if __name__ == '__main__':
@@ -457,14 +473,14 @@ db = SQLAlchemy()
 def init_db(app):
     """Initialize database"""
     database_url = os.getenv('DATABASE_URL')
-    
+
     # Fix for Heroku postgres URLs (they use postgres:// instead of postgresql://)
     if database_url and database_url.startswith('postgres://'):
         database_url = database_url.replace('postgres://', 'postgresql://', 1)
-    
+
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     db.init_app(app)
-    
+
     with app.app_context():
         db.create_all()
 ```
@@ -486,7 +502,7 @@ def send_email(subject, recipient, body):
         recipients=[recipient]
     )
     msg.body = body
-    
+
     try:
         mail.send(msg)
         return True
@@ -519,6 +535,7 @@ gunicorn==20.1.0
 ```
 
 Generate automatically:
+
 ```bash
 pip freeze > requirements.txt
 ```
@@ -671,7 +688,7 @@ def setup_logging(app):
             level=logging.DEBUG,
             format='%(levelname)s - %(message)s'
         )
-    
+
     app.logger.info(f"App started in {app.config['FLASK_ENV']} mode")
 ```
 
@@ -709,6 +726,7 @@ git filter-branch --force --index-filter \
 ### 4. Use Secret Management Services
 
 For enterprise:
+
 - **AWS Secrets Manager**
 - **Azure Key Vault**
 - **Google Cloud Secret Manager**
@@ -719,6 +737,7 @@ For enterprise:
 ### Compliance Requirements
 
 **Data Privacy Act (RA 10173):**
+
 - Store sensitive data securely
 - Use encryption for passwords
 - Log access to personal information
@@ -727,6 +746,7 @@ For enterprise:
 ### Cost-Effective Deployment
 
 **Free Tier Options for Filipino Students:**
+
 1. **Render** - Free web services
 2. **Railway** - Free starter plan
 3. **PythonAnywhere** - Free basic plan
@@ -750,12 +770,12 @@ class ConfigTest(unittest.TestCase):
     def test_required_env_vars(self):
         """Test that required env vars are set"""
         required = ['SECRET_KEY', 'DATABASE_URL']
-        
+
         for var in required:
             value = os.getenv(var)
             self.assertIsNotNone(value, f"{var} is not set")
             self.assertNotEqual(value, '', f"{var} is empty")
-    
+
     def test_secret_key_strength(self):
         """Test that SECRET_KEY is strong enough"""
         secret_key = os.getenv('SECRET_KEY')
@@ -765,6 +785,7 @@ class ConfigTest(unittest.TestCase):
 ## Common Mistakes
 
 ### Mistake 1: Committing `.env`
+
 ```bash
 # Check if .env is tracked
 git ls-files | grep .env
@@ -776,6 +797,7 @@ git commit -m "Remove .env from tracking"
 ```
 
 ### Mistake 2: Using Same Keys for Dev and Prod
+
 ```bash
 # Use different keys!
 # .env.development
@@ -786,6 +808,7 @@ SECRET_KEY=prod-strong-random-key-abc123xyz789
 ```
 
 ### Mistake 3: Not Validating Env Vars
+
 ```python
 # ALWAYS validate critical vars on startup
 if not os.getenv('SECRET_KEY'):
@@ -795,18 +818,21 @@ if not os.getenv('SECRET_KEY'):
 ## Summary
 
 **Environment Variables:**
+
 - Store secrets and configuration outside code
 - Different values for dev/staging/production
 - Never commit `.env` to Git
 - Use `.env.example` to show required variables
 
 **Deployment Config:**
+
 - Organize settings with config classes
 - Validate required variables on startup
 - Use strong, random secret keys
 - Enable security features in production
 
 **Security:**
+
 - Never hardcode secrets
 - Rotate keys regularly
 - Use HTTPS in production
@@ -828,7 +854,7 @@ Captain Cruz asked during their next meeting, "Tian, how do I run this if I down
 
 Tian smiled. "Just copy `.env.example` to `.env`, fill in your own values, and run. That's the beauty of environment variables—everyone can use different credentials."
 
-That night, Tian realized something important: Professional development wasn't just about writing code that worked. It was about writing code that was *secure*, *maintainable*, and *deployable*. 
+That night, Tian realized something important: Professional development wasn't just about writing code that worked. It was about writing code that was _secure_, _maintainable_, and _deployable_.
 
 The barangay portal was getting closer to real-world readiness. But there was still more to learn: client-side storage, session management, and finally—deployment to a real server where residents could actually use it.
 

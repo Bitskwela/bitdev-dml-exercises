@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+10.0+-+COVER.png)
+
 Tian opened the ATM project file and scrolled... and scrolled... and scrolled. The `main()` function was 243 lines long. Finding a specific piece of code was like searching for a needle in a haystack.
 
 "Kuya, I need to fix the withdrawal validation logic," Tian said, frustrated. "But I can't even find where it is! And when I finally found it, I realized I'm doing the same balance check in three different places. If I update one, I have to remember to update the others. This is a mess!"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+10.1.png)
 
 Kuya Miguel nodded sympathetically. "You've hit the 'spaghetti code' wall. Your program works, but it's unmaintainable. Imagine if Facebook's entire codebase was one giant file. Imagine if a hospital system's patient management was 10,000 lines in a single function."
 
@@ -38,6 +42,7 @@ returnType functionName(parameters) {
 ```
 
 **Parts:**
+
 1. **Return Type** - Data type the function returns (or `void` for none)
 2. **Function Name** - Descriptive name (verb + noun)
 3. **Parameters** - Input values (optional)
@@ -62,15 +67,16 @@ void greet() {
 
 int main() {
     cout << "Starting program..." << endl;
-    
+
     greet();  // Function call
-    
+
     cout << "Program ended." << endl;
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Starting program...
 Welcome to Barangay System!
@@ -79,6 +85,7 @@ Program ended.
 ```
 
 **Key Points:**
+
 - `void` means function returns nothing
 - `greet()` has no parameters
 - Call the function using its name with `()`
@@ -104,12 +111,13 @@ int main() {
     greetResident("Juan");
     greetResident("Maria");
     greetResident("Pedro");
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Good morning, Juan!
 How can we help you today?
@@ -120,6 +128,7 @@ How can we help you today?
 ```
 
 **Key Points:**
+
 - Parameter `string name` receives input
 - Same function, different inputs, different outputs
 - Reusable code!
@@ -138,7 +147,7 @@ using namespace std;
 void displayDue(string name, double amount, bool isPaid) {
     cout << "Resident: " << name << endl;
     cout << "Amount Due: PHP " << amount << endl;
-    
+
     if (isPaid) {
         cout << "Status: ✓ PAID" << endl;
     } else {
@@ -151,12 +160,13 @@ int main() {
     displayDue("Juan", 150.00, true);
     displayDue("Maria", 150.00, false);
     displayDue("Pedro", 200.00, true);
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Resident: Juan
 Amount Due: PHP 150
@@ -191,25 +201,27 @@ int calculateTotal(int quantity, int pricePerUnit) {
 int main() {
     int qty1 = 5;
     int price1 = 50;
-    
+
     int result = calculateTotal(qty1, price1);
-    
+
     cout << "Total: PHP " << result << endl;
-    
+
     // Can use directly in expression
     cout << "Total for 10 items: PHP " << calculateTotal(10, 50) << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Total: PHP 250
 Total for 10 items: PHP 500
 ```
 
 **Key Points:**
+
 - Function returns `int` value
 - Use `return` to send value back
 - Can store result in variable OR use directly
@@ -225,7 +237,7 @@ using namespace std;
 // Function to calculate clearance fee
 double calculateClearanceFee(int age, bool isSenior, bool isPWD) {
     double baseFee = 100.0;
-    
+
     if (isSenior || isPWD) {
         return baseFee * 0.8;  // 20% discount
     } else if (age < 18) {
@@ -240,16 +252,16 @@ void displayFeeBreakdown(string name, int age, bool isSenior, bool isPWD) {
     cout << "\n=== Barangay Clearance Fee ===" << endl;
     cout << "Applicant: " << name << endl;
     cout << "Age: " << age << endl;
-    
+
     double fee = calculateClearanceFee(age, isSenior, isPWD);
     double baseFee = 100.0;
-    
+
     cout << "Base Fee: PHP " << baseFee << endl;
-    
+
     if (fee < baseFee) {
         double discount = baseFee - fee;
         cout << "Discount: PHP " << discount << endl;
-        
+
         if (isSenior) {
             cout << "Reason: Senior Citizen (20% off)" << endl;
         } else if (isPWD) {
@@ -258,7 +270,7 @@ void displayFeeBreakdown(string name, int age, bool isSenior, bool isPWD) {
             cout << "Reason: Minor (50% off)" << endl;
         }
     }
-    
+
     cout << "Total Fee: PHP " << fee << endl;
     cout << "=============================" << endl;
 }
@@ -269,12 +281,13 @@ int main() {
     displayFeeBreakdown("Maria", 25, false, false);
     displayFeeBreakdown("Pedro", 15, false, false);
     displayFeeBreakdown("Ana", 40, false, true);
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 === Barangay Clearance Fee ===
 Applicant: Juan
@@ -344,6 +357,7 @@ void displayResult(int result) {
 ```
 
 **Why?**
+
 - C++ reads code top-to-bottom
 - If function is defined after `main()`, compiler doesn't know it exists yet
 - Forward declaration tells compiler "trust me, this function exists"
@@ -380,12 +394,13 @@ int main() {
     cout << "Square area (side=5): " << calculateArea(5.0) << endl;
     cout << "Rectangle area (4x6): " << calculateArea(4.0, 6.0) << endl;
     cout << "Circle area (r=3): " << calculateArea(3.0, true) << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Square area (side=5): 25
 Rectangle area (4x6): 24
@@ -455,15 +470,15 @@ void displayMenu() {
 // Usage - cleaner main function
 int main() {
     int choice;
-    
+
     do {
         displayMenu();
         cin >> choice;
-        
+
         // Process choice...
-        
+
     } while (choice != 3);
-    
+
     return 0;
 }
 ```
@@ -473,6 +488,7 @@ int main() {
 ## Refactoring ATM with Functions
 
 **Before (all in main):**
+
 ```cpp
 int main() {
     // 200 lines of authentication code
@@ -483,6 +499,7 @@ int main() {
 ```
 
 **After (with functions):**
+
 ```cpp
 bool authenticate();
 void checkBalance(double balance);
@@ -492,22 +509,22 @@ void displayMenu();
 
 int main() {
     double balance = 5000.0;
-    
+
     if (!authenticate()) {
         return 0;
     }
-    
+
     int choice;
     do {
         displayMenu();
         cin >> choice;
-        
+
         if (choice == 1) checkBalance(balance);
         else if (choice == 2) deposit(balance);
         else if (choice == 3) withdraw(balance);
-        
+
     } while (choice != 4);
-    
+
     return 0;
 }
 
@@ -531,12 +548,14 @@ int main() {
 ## Best Practices
 
 ✅ **DO:**
+
 - Use descriptive names (`calculateTotal`, not `ct`)
 - Keep functions short (< 50 lines ideal)
 - One function = one responsibility
 - Add comments for complex logic
 
 ❌ **DON'T:**
+
 - Make giant functions (100+ lines)
 - Use vague names (`doStuff`, `x`, `temp`)
 - Mix multiple unrelated tasks in one function

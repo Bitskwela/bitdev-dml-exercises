@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+8.0+-+COVER.png)
+
 Tian's barangay clearance system had a critical bug. It approved everyone who met ANY requirement, not ALL requirements. A non-resident with unpaid dues? Approved. A resident who never submitted documents? Approved. The barangay captain was furious.
 
 "Kuya, I used if statements to check each requirement," Tian explained, panicking. "But the system treats them as separate checks. How do I make sure someone meets ALL conditions before approval?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+8.1.png)
 
 Kuya Miguel examined the code. "Right now, your program thinks like this: 'Is the person a resident? Yes, approved!' But real verification needs compound logic: 'Is the person a resident AND has paid dues AND submitted valid ID?' All conditions must be true."
 
@@ -18,11 +22,11 @@ Kuya Miguel examined the code. "Right now, your program thinks like this: 'Is th
 
 ### The Three Main Logical Operators
 
-| Operator | Name | Symbol | Meaning |
-|----------|------|--------|---------|
-| `&&` | AND | `&&` | Both conditions must be true |
-| `||` | OR | `||` | At least one condition must be true |
-| `!` | NOT | `!` | Reverses the condition |
+| Operator | Name | Symbol | Meaning                      |
+| -------- | ---- | ------ | ---------------------------- | --- | --- | --- | ----------------------------------- |
+| `&&`     | AND  | `&&`   | Both conditions must be true |
+| `        |      | `      | OR                           | `   |     | `   | At least one condition must be true |
+| `!`      | NOT  | `!`    | Reverses the condition       |
 
 ---
 
@@ -32,12 +36,12 @@ Kuya Miguel examined the code. "Right now, your program thinks like this: 'Is th
 
 ### Truth Table for AND
 
-| Condition A | Condition B | A && B |
-|-------------|-------------|--------|
-| true | true | **true** |
-| true | false | false |
-| false | true | false |
-| false | false | false |
+| Condition A | Condition B | A && B   |
+| ----------- | ----------- | -------- |
+| true        | true        | **true** |
+| true        | false       | false    |
+| false       | true        | false    |
+| false       | false       | false    |
 
 ### Example: Voter Eligibility
 
@@ -48,17 +52,17 @@ using namespace std;
 int main() {
     int age;
     bool isRegistered;
-    
+
     cout << "Enter age: ";
     cin >> age;
     cout << "Registered voter? (1=Yes, 0=No): ";
     cin >> isRegistered;
-    
+
     if (age >= 18 && isRegistered) {
         cout << "✓ Eligible to vote!" << endl;
     } else {
         cout << "✗ Not eligible to vote." << endl;
-        
+
         if (age < 18) {
             cout << "Reason: Must be 18 or older" << endl;
         }
@@ -66,7 +70,7 @@ int main() {
             cout << "Reason: Must be registered" << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -79,7 +83,7 @@ using namespace std;
 
 int main() {
     bool hasID, hasPaidDues, noViolations;
-    
+
     cout << "=== Barangay Clearance Checker ===" << endl;
     cout << "Has valid ID? (1/0): ";
     cin >> hasID;
@@ -87,19 +91,19 @@ int main() {
     cin >> hasPaidDues;
     cout << "No violations? (1/0): ";
     cin >> noViolations;
-    
+
     if (hasID && hasPaidDues && noViolations) {
         cout << "\n✓ CLEARANCE APPROVED!" << endl;
         cout << "All requirements met." << endl;
     } else {
         cout << "\n✗ CLEARANCE DENIED!" << endl;
         cout << "Missing requirements:" << endl;
-        
+
         if (!hasID) cout << "- Valid ID" << endl;
         if (!hasPaidDues) cout << "- Payment of dues" << endl;
         if (!noViolations) cout << "- Clear violation record" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -112,12 +116,12 @@ int main() {
 
 ### Truth Table for OR
 
-| Condition A | Condition B | A || B |
-|-------------|-------------|--------|
-| true | true | **true** |
-| true | false | **true** |
-| false | true | **true** |
-| false | false | false |
+| Condition A | Condition B | A        |     | B   |
+| ----------- | ----------- | -------- | --- | --- |
+| true        | true        | **true** |
+| true        | false       | **true** |
+| false       | true        | **true** |
+| false       | false       | false    |
 
 ### Example: Emergency Contact
 
@@ -127,17 +131,17 @@ using namespace std;
 
 int main() {
     string relationship;
-    
+
     cout << "Relationship to resident: ";
     cin >> relationship;
-    
-    if (relationship == "spouse" || relationship == "parent" || 
+
+    if (relationship == "spouse" || relationship == "parent" ||
         relationship == "child" || relationship == "sibling") {
         cout << "✓ Authorized as emergency contact" << endl;
     } else {
         cout << "✗ Not authorized. Must be immediate family." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -151,16 +155,16 @@ using namespace std;
 int main() {
     int age;
     bool isPWD;
-    
+
     cout << "Enter age: ";
     cin >> age;
     cout << "Person with disability? (1/0): ";
     cin >> isPWD;
-    
+
     if (age >= 60 || isPWD) {
         cout << "\n✓ DISCOUNT QUALIFIED!" << endl;
         cout << "20% discount applied" << endl;
-        
+
         if (age >= 60) {
             cout << "Category: Senior Citizen" << endl;
         }
@@ -170,7 +174,7 @@ int main() {
     } else {
         cout << "\n✗ Regular pricing applies" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -183,10 +187,10 @@ int main() {
 
 ### Truth Table for NOT
 
-| Condition A | !A |
-|-------------|-----|
-| true | **false** |
-| false | **true** |
+| Condition A | !A        |
+| ----------- | --------- |
+| true        | **false** |
+| false       | **true**  |
 
 ### Example: Access Restriction
 
@@ -196,16 +200,16 @@ using namespace std;
 
 int main() {
     bool isBanned;
-    
+
     cout << "Is user banned? (1/0): ";
     cin >> isBanned;
-    
+
     if (!isBanned) {
         cout << "✓ Access granted" << endl;
     } else {
         cout << "✗ Access denied - Account banned" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -218,10 +222,10 @@ using namespace std;
 
 int main() {
     double balance;
-    
+
     cout << "Enter outstanding balance: PHP ";
     cin >> balance;
-    
+
     if (!(balance > 0)) {  // Same as: balance <= 0
         cout << "✓ No outstanding balance" << endl;
         cout << "Account is clear!" << endl;
@@ -229,7 +233,7 @@ int main() {
         cout << "✗ Outstanding balance: PHP " << balance << endl;
         cout << "Please settle to proceed." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -250,7 +254,7 @@ int main() {
     int age;
     double income;
     bool hasCollateral;
-    
+
     cout << "=== Barangay Loan Application ===" << endl;
     cout << "Age: ";
     cin >> age;
@@ -258,7 +262,7 @@ int main() {
     cin >> income;
     cout << "Has collateral? (1/0): ";
     cin >> hasCollateral;
-    
+
     // Complex condition:
     // Must be 21-65 years old
     // AND (income >= 15000 OR has collateral)
@@ -268,7 +272,7 @@ int main() {
     } else {
         cout << "\n✗ LOAN DENIED" << endl;
         cout << "Reasons:" << endl;
-        
+
         if (age < 21) {
             cout << "- Age must be 21 or older" << endl;
         }
@@ -279,7 +283,7 @@ int main() {
             cout << "- Need income ≥ PHP15,000 OR collateral" << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -293,6 +297,7 @@ When combining operators, precedence matters:
 3. **`||`** (OR) - Lowest precedence
 
 **Example:**
+
 ```cpp
 bool a = true, b = false, c = true;
 
@@ -313,6 +318,7 @@ bool result3 = (a && b) || c;  // false || true = true
 C++ uses **short-circuit evaluation** - it stops checking as soon as the result is determined.
 
 ### For AND (`&&`):
+
 If the first condition is false, don't check the rest (result is already false)
 
 ```cpp
@@ -325,6 +331,7 @@ if (x > 10 && x < 20) {
 ```
 
 ### For OR (`||`):
+
 If the first condition is true, don't check the rest (result is already true)
 
 ```cpp
@@ -345,18 +352,18 @@ using namespace std;
 int main() {
     int numbers[] = {10, 20, 30};
     int index;
-    
+
     cout << "Enter index (0-2): ";
     cin >> index;
-    
+
     // Check bounds BEFORE accessing array
     if (index >= 0 && index < 3 && numbers[index] > 15) {
         cout << "Number at index " << index << " is greater than 15" << endl;
     }
-    
+
     // If index is out of bounds, numbers[index] is never accessed!
     // This prevents crashes
-    
+
     return 0;
 }
 ```
@@ -401,7 +408,7 @@ int main() {
     int age;
     bool isResident;
     bool hasPaidDues;
-    
+
     cout << "=== Barangay Sports Fest Registration ===" << endl;
     cout << "Name: ";
     cin >> name;
@@ -411,23 +418,23 @@ int main() {
     cin >> isResident;
     cout << "Paid annual dues? (1/0): ";
     cin >> hasPaidDues;
-    
+
     cout << "\n=== Registration Result ===" << endl;
-    
+
     // Eligibility rules:
     // 1. Must be resident OR pay guest fee
     // 2. Age must be 7-60
     // 3. If resident, must have paid dues
-    
+
     bool ageOK = (age >= 7 && age <= 60);
     bool residencyOK = isResident || !isResident;  // Guest allowed
     bool paymentOK = !isResident || hasPaidDues;   // Non-residents don't need dues
-    
+
     if (ageOK && paymentOK) {
         cout << "✓ REGISTRATION APPROVED!" << endl;
         cout << "Participant: " << name << endl;
         cout << "Category: ";
-        
+
         if (age < 18) {
             cout << "Youth Division" << endl;
         } else if (age <= 40) {
@@ -435,13 +442,13 @@ int main() {
         } else {
             cout << "Senior Division" << endl;
         }
-        
+
         if (!isResident) {
             cout << "Note: Guest fee PHP 200 applies" << endl;
         }
     } else {
         cout << "✗ REGISTRATION DENIED" << endl;
-        
+
         if (!ageOK) {
             cout << "- Age must be between 7-60 years old" << endl;
         }
@@ -449,7 +456,7 @@ int main() {
             cout << "- Residents must pay annual dues first" << endl;
         }
     }
-    
+
     return 0;
 }
 ```

@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+28.0+-+COVER.png)
+
 Tian needed a `max()` function to find the maximum of two values. First for integers, then doubles, then strings. Each time, Tian wrote nearly identical code with only the type changed.
 
 "This is ridiculous!" Tian complained, looking at three nearly identical functions. "The logic is identical—compare two values and return the larger one. Why do I need separate functions for each type?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+28.1.png)
 
 Kuya Miguel grinned. "Welcome to the problem that **templates** solve. You're writing the same algorithm multiple times just because types differ. Templates let you write generic code—the algorithm once, works for any type."
 
@@ -38,7 +42,7 @@ int main() {
     cout << max(10, 20) << endl;        // int
     cout << max(3.14, 2.71) << endl;    // double
     cout << max('a', 'z') << endl;      // char
-    
+
     return 0;
 }
 ```
@@ -64,11 +68,11 @@ int main() {
     int x = 10, y = 20;
     swap(x, y);
     cout << x << ", " << y << endl;  // 20, 10
-    
+
     string s1 = "Juan", s2 = "Maria";
     swap(s1, s2);
     cout << s1 << ", " << s2 << endl;  // Maria, Juan
-    
+
     return 0;
 }
 ```
@@ -87,7 +91,7 @@ int main() {
     display(10, 3.14);           // int, double
     display("Age:", 25);         // const char*, int
     display(true, "active");     // bool, const char*
-    
+
     return 0;
 }
 ```
@@ -101,14 +105,14 @@ template <typename T>
 class Box {
 private:
     T value;
-    
+
 public:
     Box(T v) : value(v) {}
-    
+
     T getValue() {
         return value;
     }
-    
+
     void setValue(T v) {
         value = v;
     }
@@ -117,13 +121,13 @@ public:
 int main() {
     Box<int> intBox(42);
     cout << intBox.getValue() << endl;  // 42
-    
+
     Box<string> strBox("Hello");
     cout << strBox.getValue() << endl;  // Hello
-    
+
     Box<double> dblBox(3.14);
     cout << dblBox.getValue() << endl;  // 3.14
-    
+
     return 0;
 }
 ```
@@ -141,33 +145,33 @@ class Array {
 private:
     T* data;
     int size;
-    
+
 public:
     Array(int s) : size(s) {
         data = new T[size];
     }
-    
+
     ~Array() {
         delete[] data;
     }
-    
+
     void set(int index, T value) {
         if (index >= 0 && index < size) {
             data[index] = value;
         }
     }
-    
+
     T get(int index) {
         if (index >= 0 && index < size) {
             return data[index];
         }
         return T();  // Default value
     }
-    
+
     int getSize() {
         return size;
     }
-    
+
     void display() {
         for (int i = 0; i < size; i++) {
             cout << data[i] << " ";
@@ -182,13 +186,13 @@ int main() {
         intArr.set(i, i * 10);
     }
     intArr.display();  // 0 10 20 30 40
-    
+
     Array<string> strArr(3);
     strArr.set(0, "Juan");
     strArr.set(1, "Maria");
     strArr.set(2, "Pedro");
     strArr.display();  // Juan Maria Pedro
-    
+
     return 0;
 }
 ```
@@ -219,10 +223,10 @@ public:
 int main() {
     Printer<int> intPrinter;
     intPrinter.print(42);  // Value: 42
-    
+
     Printer<bool> boolPrinter;
     boolPrinter.print(true);  // Boolean: true
-    
+
     return 0;
 }
 ```
@@ -242,16 +246,16 @@ private:
     T* items;
     int capacity;
     int count;
-    
+
 public:
     Storage(int cap) : capacity(cap), count(0) {
         items = new T[capacity];
     }
-    
+
     ~Storage() {
         delete[] items;
     }
-    
+
     bool add(T item) {
         if (count < capacity) {
             items[count++] = item;
@@ -259,7 +263,7 @@ public:
         }
         return false;
     }
-    
+
     T* find(T item) {
         for (int i = 0; i < count; i++) {
             if (items[i] == item) {
@@ -268,13 +272,13 @@ public:
         }
         return nullptr;
     }
-    
+
     void displayAll() {
         for (int i = 0; i < count; i++) {
             cout << items[i] << endl;
         }
     }
-    
+
     int getCount() {
         return count;
     }
@@ -283,11 +287,11 @@ public:
 struct Resident {
     int id;
     string name;
-    
+
     bool operator==(const Resident& other) const {
         return id == other.id;
     }
-    
+
     friend ostream& operator<<(ostream& os, const Resident& r) {
         os << "ID: " << r.id << ", Name: " << r.name;
         return os;
@@ -301,15 +305,15 @@ int main() {
     ids.add(1002);
     ids.add(1003);
     cout << "IDs stored: " << ids.getCount() << endl;
-    
+
     // Store residents
     Storage<Resident> residents(50);
     residents.add({1001, "Juan Dela Cruz"});
     residents.add({1002, "Maria Santos"});
-    
+
     cout << "\nResidents:\n";
     residents.displayAll();
-    
+
     return 0;
 }
 ```
@@ -323,21 +327,21 @@ template <typename T, int SIZE>
 class FixedArray {
 private:
     T data[SIZE];
-    
+
 public:
     void set(int index, T value) {
         if (index >= 0 && index < SIZE) {
             data[index] = value;
         }
     }
-    
+
     T get(int index) {
         if (index >= 0 && index < SIZE) {
             return data[index];
         }
         return T();
     }
-    
+
     int size() {
         return SIZE;
     }
@@ -346,10 +350,10 @@ public:
 int main() {
     FixedArray<int, 5> arr1;
     FixedArray<string, 3> arr2;
-    
+
     cout << arr1.size() << endl;  // 5
     cout << arr2.size() << endl;  // 3
-    
+
     return 0;
 }
 ```
@@ -361,6 +365,7 @@ int main() {
 "Templates eliminate code duplication!" Tian exclaimed.
 
 "Exactly!" Kuya Miguel said. "Remember:
+
 - **template <typename T>** = generic type
 - **Function templates** = generic functions
 - **Class templates** = generic classes
@@ -372,6 +377,7 @@ int main() {
 ---
 
 **Key Takeaways:**
+
 1. Templates enable generic programming
 2. Write once, use for any type
 3. Function and class templates

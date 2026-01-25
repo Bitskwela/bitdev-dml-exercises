@@ -1,27 +1,27 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+7.0+-+COVER.png)
+
 Tian's first HTML file sat complete on their screen—a valid document with `<!DOCTYPE html>`, proper `<html>`, `<head>`, and `<body>` structure. It was technically correct. But inside the `<body>` tag was just one line:
 
 ```html
 <body>
-Welcome to Barangay Sto. Niño
+  Welcome to Barangay Sto. Niño
 </body>
 ```
 
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+7.1.png)
+
 Plain text. No formatting. No structure within the content itself. When Tian opened it in the browser, all the text appeared in a single line with default browser styling.
 
-Tian wanted to add more—a heading, paragraphs explaining barangay services, maybe a list of contact information. But they didn't know *how* to tell the browser "this is a heading" or "this is a paragraph" or "this should be bold."
+Tian wanted to add more—a heading, paragraphs explaining barangay services, maybe a list of contact information. But they didn't know _how_ to tell the browser "this is a heading" or "this is a paragraph" or "this should be bold."
 
 They tried adding line breaks in the code:
 
 ```html
 <body>
-Barangay Sto. Niño
-
-Our Services:
-Barangay Clearance
-Barangay ID
-Indigency Certificate
+  Barangay Sto. Niño Our Services: Barangay Clearance Barangay ID Indigency
+  Certificate
 </body>
 ```
 
@@ -39,7 +39,7 @@ Miguel smiled. "You need HTML tags—specific instructions that wrap your conten
 
 "Can you give examples?"
 
-"Of course. A `<p>` tag creates a paragraph. An `<h1>` tag creates a top-level heading. A `<strong>` tag makes text bold and important. An `<img>` tag displays an image. An `<a>` tag creates a link. There are dozens of tags, each with its own semantic meaning—not just how it looks, but what it *represents*."
+"Of course. A `<p>` tag creates a paragraph. An `<h1>` tag creates a top-level heading. A `<strong>` tag makes text bold and important. An `<img>` tag displays an image. An `<a>` tag creates a link. There are dozens of tags, each with its own semantic meaning—not just how it looks, but what it _represents_."
 
 Miguel continued, "What you need to understand is the anatomy of tags: opening tags, closing tags, self-closing tags, and attributes that modify behavior. Once you master tags, you can structure any type of content—articles, portfolios, forms, entire web applications."
 
@@ -52,15 +52,14 @@ Miguel continued, "What you need to understand is the anatomy of tags: opening t
 **HTML Tag** = Instruction wrapped in angle brackets `< >`
 
 **Anatomy of a tag:**
+
 ```html
-<tagname>Content goes here</tagname>
-  │         │                 │
-  │         │                 └─ Closing tag
-  │         └─────────────────── Content
-  └───────────────────────────── Opening tag
+<tagname>Content goes here</tagname> │ │ │ │ │ └─ Closing tag │
+└─────────────────── Content └───────────────────────────── Opening tag
 ```
 
 **Example:**
+
 ```html
 <p>This is a paragraph.</p>
 <h1>This is a heading.</h1>
@@ -70,6 +69,7 @@ Miguel continued, "What you need to understand is the anatomy of tags: opening t
 ### Opening and Closing Tags
 
 **Most tags** have opening and closing pairs:
+
 ```html
 <p>Paragraph text</p>
 <h1>Heading text</h1>
@@ -77,12 +77,13 @@ Miguel continued, "What you need to understand is the anatomy of tags: opening t
 ```
 
 **Self-closing tags** (no content inside):
+
 ```html
-<img src="photo.jpg" alt="Photo">
-<br>
-<hr>
-<input type="text">
-<meta charset="UTF-8">
+<img src="photo.jpg" alt="Photo" />
+<br />
+<hr />
+<input type="text" />
+<meta charset="UTF-8" />
 ```
 
 ## Elements vs Tags
@@ -92,14 +93,12 @@ Miguel continued, "What you need to understand is the anatomy of tags: opening t
 
 ```html
 <p>This is a paragraph element.</p>
-│  │                           │
-│  └─ Content                  └─ Closing tag
-└──── Opening tag
-
-└──────── Complete ELEMENT ─────────┘
+│ │ │ │ └─ Content └─ Closing tag └──── Opening tag └──────── Complete ELEMENT
+─────────┘
 ```
 
 **Terminology:**
+
 - "Use a `<p>` **tag** to create a paragraph."
 - "This `<p>` **element** contains text."
 
@@ -120,10 +119,10 @@ Miguel continued, "What you need to understand is the anatomy of tags: opening t
 <p>This is a paragraph of text.</p>
 
 <!-- Line break (self-closing) -->
-<p>First line<br>Second line</p>
+<p>First line<br />Second line</p>
 
 <!-- Horizontal rule (self-closing) -->
-<hr>
+<hr />
 
 <!-- Preformatted text (preserves spaces/line breaks) -->
 <pre>
@@ -158,17 +157,14 @@ Code or
 <mark>Highlighted text</mark>
 
 <!-- Subscript and Superscript -->
-H<sub>2</sub>O (water)
-E=mc<sup>2</sup> (Einstein)
+H<sub>2</sub>O (water) E=mc<sup>2</sup> (Einstein)
 ```
 
 ### Container Tags
 
 ```html
 <!-- Generic block container -->
-<div>
-  Content grouped together
-</div>
+<div>Content grouped together</div>
 
 <!-- Generic inline container -->
 <span>Inline text</span>
@@ -179,29 +175,26 @@ E=mc<sup>2</sup> (Einstein)
 **Attributes** = Extra information added to tags
 
 **Syntax:**
+
 ```html
-<tagname attribute="value">Content</tagname>
-          │          │
-          │          └─ Value (in quotes)
-          └──────────── Attribute name
+<tagname attribute="value">Content</tagname> │ │ │ └─ Value (in quotes)
+└──────────── Attribute name
 ```
 
 **Examples:**
+
 ```html
-<img src="photo.jpg" alt="My photo">
-     │              │
-     │              └─ alt attribute (alternate text)
-     └──────────────── src attribute (image source)
+<img src="photo.jpg" alt="My photo" />
+│ │ │ └─ alt attribute (alternate text) └──────────────── src attribute (image
+source)
 
 <a href="https://google.com" target="_blank">Google</a>
-   │                        │
-   │                        └─ target attribute
-   └───────────────────────── href attribute (link destination)
+│ │ │ └─ target attribute └───────────────────────── href attribute (link
+destination)
 
 <p id="intro" class="highlight">Text</p>
-   │         │
-   │         └─ class attribute (CSS styling)
-   └─────────── id attribute (unique identifier)
+│ │ │ └─ class attribute (CSS styling) └─────────── id attribute (unique
+identifier)
 ```
 
 ### Common Attributes
@@ -233,13 +226,13 @@ E=mc<sup>2</sup> (Einstein)
 
 ```html
 <!-- <img> attributes -->
-<img src="photo.jpg" alt="Description" width="300" height="200">
+<img src="photo.jpg" alt="Description" width="300" height="200" />
 
 <!-- <a> attributes -->
 <a href="page.html" target="_blank" title="Opens in new tab">Link</a>
 
 <!-- <input> attributes -->
-<input type="text" placeholder="Enter name" required maxlength="50">
+<input type="text" placeholder="Enter name" required maxlength="50" />
 ```
 
 ## Nesting Elements
@@ -247,6 +240,7 @@ E=mc<sup>2</sup> (Einstein)
 **Nesting** = Placing elements inside other elements
 
 **Correct nesting:**
+
 ```html
 <div>
   <h1>Title</h1>
@@ -255,14 +249,18 @@ E=mc<sup>2</sup> (Einstein)
 ```
 
 **WRONG nesting (overlapping tags):**
+
 ```html
 <p>This is <strong>bold and italic</em></strong></p>
 <!-- WRONG: <em> closes before <strong> -->
 ```
 
 **CORRECT:**
+
 ```html
-<p>This is <strong><em>bold and italic</em></strong></p>
+<p>
+  This is <strong><em>bold and italic</em></strong>
+</p>
 ```
 
 **Rule:** Last opened, first closed (like nested boxes).
@@ -272,38 +270,38 @@ E=mc<sup>2</sup> (Einstein)
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay Officials</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Main heading -->
     <h1>Barangay Sto. Niño Officials</h1>
-    
+
     <!-- Captain info -->
     <h2>Barangay Captain</h2>
     <p>
-        <strong>Hon. Maria Santos</strong><br>
-        Term: <em>2022-2025</em><br>
-        Contact: <a href="tel:+639171234567">0917-123-4567</a>
+      <strong>Hon. Maria Santos</strong><br />
+      Term: <em>2022-2025</em><br />
+      Contact: <a href="tel:+639171234567">0917-123-4567</a>
     </p>
-    
-    <hr>
-    
+
+    <hr />
+
     <!-- Kagawad list -->
     <h2>Kagawad Members</h2>
     <p>
-        1. <span class="kagawad">Juan Dela Cruz</span> - Health Committee<br>
-        2. <span class="kagawad">Ana Reyes</span> - Education Committee<br>
-        3. <span class="kagawad">Pedro Garcia</span> - Peace and Order
+      1. <span class="kagawad">Juan Dela Cruz</span> - Health Committee<br />
+      2. <span class="kagawad">Ana Reyes</span> - Education Committee<br />
+      3. <span class="kagawad">Pedro Garcia</span> - Peace and Order
     </p>
-    
+
     <!-- Office hours -->
     <h3>Office Hours</h3>
     <p title="Monday to Friday">
-        <mark>8:00 AM - 5:00 PM</mark> (Weekdays only)
+      <mark>8:00 AM - 5:00 PM</mark> (Weekdays only)
     </p>
-</body>
+  </body>
 </html>
 ```
 
@@ -340,8 +338,8 @@ E=mc<sup>2</sup> (Einstein)
 
 ```html
 <p>
-    This is a paragraph (block) with <strong>bold text</strong> (inline)
-    and a <a href="#">link</a> (inline) inside.
+  This is a paragraph (block) with <strong>bold text</strong> (inline) and a
+  <a href="#">link</a> (inline) inside.
 </p>
 ```
 
@@ -350,19 +348,25 @@ E=mc<sup>2</sup> (Einstein)
 ### Semantic Tags (meaningful)
 
 ```html
-<article>Article content</article>  <!-- Clearly means "article" -->
-<nav>Navigation menu</nav>          <!-- Clearly means "navigation" -->
-<header>Page header</header>        <!-- Clearly means "header" -->
+<article>Article content</article>
+<!-- Clearly means "article" -->
+<nav>Navigation menu</nav>
+<!-- Clearly means "navigation" -->
+<header>Page header</header>
+<!-- Clearly means "header" -->
 ```
 
 ### Non-Semantic Tags (generic)
 
 ```html
-<div>Generic container</div>        <!-- No specific meaning -->
-<span>Generic inline</span>         <!-- No specific meaning -->
+<div>Generic container</div>
+<!-- No specific meaning -->
+<span>Generic inline</span>
+<!-- No specific meaning -->
 ```
 
 **Why semantic matters:**
+
 - **SEO:** Google understands content better
 - **Accessibility:** Screen readers for blind users
 - **Maintainability:** Easier for developers to read
@@ -370,31 +374,43 @@ E=mc<sup>2</sup> (Einstein)
 ## Common Mistakes
 
 ### ❌ Forgetting Closing Tags
+
 ```html
-<p>Paragraph 1
-<p>Paragraph 2
-<!-- WRONG: Missing </p> -->
+<p>Paragraph 1</p>
+<p>
+  Paragraph 2
+  <!-- WRONG: Missing </p> -->
+</p>
 ```
+
 ✅ **Correct:**
+
 ```html
 <p>Paragraph 1</p>
 <p>Paragraph 2</p>
 ```
 
 ### ❌ Attribute Quotes
+
 ```html
-<img src=photo.jpg>  <!-- WRONG: No quotes -->
+<img src="photo.jpg" />
+<!-- WRONG: No quotes -->
 ```
+
 ✅ **Correct:**
+
 ```html
-<img src="photo.jpg">
+<img src="photo.jpg" />
 ```
 
 ### ❌ Wrong Nesting
+
 ```html
 <p><div>Text</div></p>  <!-- WRONG: Block inside inline parent -->
 ```
+
 ✅ **Correct:**
+
 ```html
 <div><p>Text</p></div>
 ```

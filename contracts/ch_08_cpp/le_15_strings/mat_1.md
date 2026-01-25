@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+15.0+-+COVER.png)
+
 Tian tried to store resident names using integer arrays and hit a wall. Numbers couldn't represent text. Storing each character as a separate variable was ridiculous. How could programs handle text data?
 
 "Kuya, I can store ages, balances, and counts easily," Tian said, frustrated, "but the moment I need to store a name, address, or message, I'm stuck. Every real application needs to work with text—usernames, messages, file names, error messages. How do I handle text in C++?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+15.1.png)
 
 Kuya Miguel nodded. "You've hit a fundamental question: how does a computer, which only understands numbers, represent text? The answer is **strings**—sequences of characters encoded as numbers, with tools to manipulate them as text."
 
@@ -24,11 +28,13 @@ char name[6] = {'J', 'u', 'a', 'n', '\0'};
 ```
 
 **Simpler syntax:**
+
 ```cpp
 char name[] = "Juan";  // Automatically adds '\0'
 ```
 
 **The null terminator `'\0'`:**
+
 - Marks the end of the string
 - Has ASCII value 0
 - Automatically added when using `"quotes"`
@@ -54,6 +60,7 @@ string address = "123 Maharlika St.";
 ```
 
 **Advantages:**
+
 - No need to manage null terminators
 - Dynamic size (grows/shrinks automatically)
 - Many built-in functions
@@ -64,6 +71,7 @@ string address = "123 Maharlika St.";
 ## Declaring and Initializing Strings
 
 ### C-Style Strings
+
 ```cpp
 char name1[20] = "Juan";           // Fixed size 20
 char name2[] = "Maria";            // Size determined automatically
@@ -72,6 +80,7 @@ strcpy(name3, "Pedro");            // Assign later (requires <cstring>)
 ```
 
 ### C++ Strings
+
 ```cpp
 string name1 = "Juan";             // Direct assignment
 string name2("Maria");             // Constructor syntax
@@ -86,6 +95,7 @@ name3 = "Pedro";                   // Assign later (no special function needed)
 ### C++ Strings
 
 **Single word:**
+
 ```cpp
 string name;
 cout << "Enter name: ";
@@ -94,6 +104,7 @@ cout << "Hello, " << name;
 ```
 
 **Full line (with spaces):**
+
 ```cpp
 string address;
 cout << "Enter address: ";
@@ -118,6 +129,7 @@ cin.getline(name, 50);  // Reads up to 49 chars + '\0'
 ## String Length
 
 ### C++ Strings
+
 ```cpp
 string name = "Juan Dela Cruz";
 cout << name.length();  // 14
@@ -126,6 +138,7 @@ cout << name.size();    // 14 (same as length())
 ```
 
 ### C-Style Strings
+
 ```cpp
 #include <cstring>
 
@@ -138,6 +151,7 @@ cout << strlen(name);  // 4 (does not count '\0')
 ## Accessing Characters
 
 ### C++ Strings
+
 ```cpp
 string name = "Juan";
 cout << name[0];  // 'J'
@@ -148,6 +162,7 @@ cout << name;     // "Ruan"
 ```
 
 ### Using `.at()` (Safer)
+
 ```cpp
 string name = "Juan";
 cout << name.at(0);  // 'J'
@@ -159,6 +174,7 @@ cout << name.at(0);  // 'J'
 ## String Concatenation
 
 ### C++ Strings
+
 ```cpp
 string first = "Juan";
 string last = "Dela Cruz";
@@ -171,6 +187,7 @@ first += " Pedro";  // "Juan Pedro"
 ```
 
 ### C-Style Strings
+
 ```cpp
 #include <cstring>
 
@@ -189,6 +206,7 @@ cout << full;            // "Juan Dela Cruz"
 ## String Comparison
 
 ### C++ Strings
+
 ```cpp
 string password = "secret";
 string input;
@@ -204,6 +222,7 @@ if (input == password) {
 ```
 
 **Comparison operators work naturally:**
+
 ```cpp
 string a = "apple";
 string b = "banana";
@@ -214,6 +233,7 @@ if (a < b) {  // Lexicographic comparison
 ```
 
 ### C-Style Strings
+
 ```cpp
 #include <cstring>
 
@@ -230,6 +250,7 @@ if (strcmp(password, input) == 0) {  // Returns 0 if equal
 ```
 
 **`strcmp()` returns:**
+
 - `0` if strings are equal
 - Negative if first < second
 - Positive if first > second
@@ -239,12 +260,14 @@ if (strcmp(password, input) == 0) {  // Returns 0 if equal
 ## Common String Functions (C++ `string`)
 
 ### `.length()` / `.size()`
+
 ```cpp
 string text = "Hello";
 cout << text.length();  // 5
 ```
 
 ### `.substr(start, length)`
+
 ```cpp
 string text = "Barangay Clearance";
 cout << text.substr(0, 8);  // "Barangay"
@@ -252,6 +275,7 @@ cout << text.substr(9, 9);  // "Clearance"
 ```
 
 ### `.find(substring)`
+
 ```cpp
 string text = "Juan Dela Cruz";
 int pos = text.find("Dela");
@@ -263,6 +287,7 @@ if (pos != string::npos) {
 ```
 
 ### `.replace(start, length, newString)`
+
 ```cpp
 string text = "Hello World";
 text.replace(6, 5, "C++");
@@ -270,6 +295,7 @@ cout << text;  // "Hello C++"
 ```
 
 ### `.insert(position, substring)`
+
 ```cpp
 string text = "Juan Cruz";
 text.insert(5, "Dela ");
@@ -277,6 +303,7 @@ cout << text;  // "Juan Dela Cruz"
 ```
 
 ### `.erase(start, length)`
+
 ```cpp
 string text = "Juan Pedro Cruz";
 text.erase(5, 6);  // Remove "Pedro "
@@ -284,6 +311,7 @@ cout << text;      // "Juan Cruz"
 ```
 
 ### `.clear()`
+
 ```cpp
 string text = "Hello";
 text.clear();
@@ -322,39 +350,40 @@ using namespace std;
 string formatName(string name) {
     // Convert to lowercase first
     transform(name.begin(), name.end(), name.begin(), ::tolower);
-    
+
     // Capitalize first letter
     if (!name.empty()) {
         name[0] = toupper(name[0]);
     }
-    
+
     // Capitalize after spaces
     for (int i = 1; i < name.length(); i++) {
         if (name[i - 1] == ' ') {
             name[i] = toupper(name[i]);
         }
     }
-    
+
     return name;
 }
 
 int main() {
     string name;
-    
+
     cout << "Enter resident name: ";
     getline(cin, name);
-    
+
     string formatted = formatName(name);
-    
+
     cout << "\n===== BARANGAY CLEARANCE =====\n";
     cout << "Name: " << formatted << endl;
     cout << "==============================\n";
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 Enter resident name: jUaN dElA cRuZ
 
@@ -368,6 +397,7 @@ Name: Juan Dela Cruz
 ## String Arrays
 
 ### Array of C++ Strings
+
 ```cpp
 const int SIZE = 3;
 string names[SIZE] = {"Juan", "Maria", "Pedro"};
@@ -378,6 +408,7 @@ for (int i = 0; i < SIZE; i++) {
 ```
 
 ### Input Multiple Strings
+
 ```cpp
 const int NUM_RESIDENTS = 3;
 string residents[NUM_RESIDENTS];
@@ -450,26 +481,26 @@ bool isStrongPassword(string password) {
     if (password.length() < 8) {
         return false;  // Too short
     }
-    
+
     bool hasUpper = false;
     bool hasLower = false;
     bool hasDigit = false;
-    
+
     for (int i = 0; i < password.length(); i++) {
         if (isupper(password[i])) hasUpper = true;
         if (islower(password[i])) hasLower = true;
         if (isdigit(password[i])) hasDigit = true;
     }
-    
+
     return hasUpper && hasLower && hasDigit;
 }
 
 int main() {
     string password;
-    
+
     cout << "Create a password: ";
     cin >> password;
-    
+
     if (isStrongPassword(password)) {
         cout << "Strong password! ✓" << endl;
     } else {
@@ -479,7 +510,7 @@ int main() {
         cout << "- At least one lowercase letter\n";
         cout << "- At least one digit\n";
     }
-    
+
     return 0;
 }
 ```
@@ -489,6 +520,7 @@ int main() {
 ## Common Mistakes
 
 ### Mistake 1: Using `cin` for Strings with Spaces
+
 ```cpp
 string name;
 cin >> name;  // Only reads "Juan" from "Juan Dela Cruz"
@@ -498,6 +530,7 @@ getline(cin, name);  // Reads full line
 ```
 
 ### Mistake 2: Forgetting `cin.ignore()`
+
 ```cpp
 int age;
 string name;
@@ -512,6 +545,7 @@ getline(cin, name);
 ```
 
 ### Mistake 3: C-String Buffer Overflow
+
 ```cpp
 char name[5];
 strcpy(name, "Juan Dela Cruz");  // ❌ DISASTER! Overflows buffer
@@ -521,6 +555,7 @@ string name = "Juan Dela Cruz";
 ```
 
 ### Mistake 4: Comparing C-Strings with `==`
+
 ```cpp
 char password[] = "secret";
 char input[20];
@@ -541,16 +576,19 @@ if (strcmp(input, password) == 0) {
 ## Best Practices
 
 1. **Prefer C++ `string` over C-strings**
+
 ```cpp
 string name = "Juan";  // ✓ Safe, dynamic, easy
 ```
 
 2. **Use `getline()` for input with spaces**
+
 ```cpp
 getline(cin, address);  // ✓ Reads entire line
 ```
 
 3. **Clear input buffer after `cin >>`**
+
 ```cpp
 cin >> age;
 cin.ignore();
@@ -558,6 +596,7 @@ getline(cin, name);
 ```
 
 4. **Use `.at()` for bounds-checked access**
+
 ```cpp
 char ch = name.at(0);  // ✓ Throws exception if out of bounds
 ```
@@ -569,6 +608,7 @@ char ch = name.at(0);  // ✓ Throws exception if out of bounds
 Tian typed various string operations. "Strings are just like arrays, but smarter!"
 
 "Perfect analogy!" Kuya Miguel said. "Remember:
+
 - **C++ `string`** — modern, safe, easy (use this!)
 - **C-strings** — old-school, manual memory management
 - Use `getline()` for input with spaces
@@ -580,6 +620,7 @@ Tian typed various string operations. "Strings are just like arrays, but smarter
 ---
 
 **Key Takeaways:**
+
 1. Prefer C++ `string` over C-strings
 2. Use `getline()` for full-line input
 3. Remember to `cin.ignore()` to clear buffer

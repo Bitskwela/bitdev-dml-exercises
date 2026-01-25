@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+11.0+-+COVER.png)
+
 Tian created a function to update a resident's balance, but when the function finished, the balance hadn't changed. The original variable stayed the same no matter what the function did.
 
 "Kuya, this is frustrating!" Tian exclaimed. "I passed the balance to my `deductFee()` function, subtracted 500, but when I print the balance in main, it's still the same! The function did nothing!"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+11.1.png)
 
 Kuya Miguel examined the code. "Ah, you're passing by value. The function got a photocopy of your data, modified the copy, then threw it away. The original stayed untouched."
 
@@ -33,16 +37,17 @@ void tryToChange(int number) {
 
 int main() {
     int original = 50;
-    
+
     cout << "Before: " << original << endl;
     tryToChange(original);
     cout << "After: " << original << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Before: 50
 Inside function: 100
@@ -68,16 +73,17 @@ void actuallyChange(int& number) {  // Note the &
 
 int main() {
     int original = 50;
-    
+
     cout << "Before: " << original << endl;
     actuallyChange(original);
     cout << "After: " << original << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Before: 50
 Inside function: 100
@@ -91,6 +97,7 @@ After: 100
 ## Visual Comparison
 
 ### Pass by Value (Copy)
+
 ```
 main():          function():
 ┌────────┐       ┌────────┐
@@ -103,13 +110,14 @@ main():          function():
 ```
 
 ### Pass by Reference (Alias)
+
 ```
 main():          function():
-┌────────┐       
+┌────────┐
 │ x = 10 │  <--> │  ref  │  ← Points to same location!
 └────────┘       └───────┘
                  ref = 20
-┌────────┐       
+┌────────┐
 │ x = 20 │  <--> │  ref  │  ← Original changed!
 └────────┘       └───────┘
 ```
@@ -119,6 +127,7 @@ main():          function():
 ## When to Use Each?
 
 ### Use Pass by Value When:
+
 - You don't want to modify the original
 - Working with small data (int, double, bool, char)
 - Function just needs to read the value
@@ -130,6 +139,7 @@ double calculateTax(double price) {  // Pass by value
 ```
 
 ### Use Pass by Reference When:
+
 - You need to modify the original
 - Working with large data (arrays, objects, strings)
 - You want to return multiple values
@@ -177,20 +187,21 @@ void displayBalance(double balance) {
 
 int main() {
     double residentBalance = 5000.0;
-    
+
     displayBalance(residentBalance);
-    
+
     deposit(residentBalance, 2000);
     displayBalance(residentBalance);
-    
+
     withdraw(residentBalance, 1500);
     displayBalance(residentBalance);
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Current Balance: PHP 5000
 ✓ Deposited: PHP 2000
@@ -228,13 +239,13 @@ void calculateStats(int numbers[], int size, int& min, int& max, double& avg) {
     min = numbers[0];
     max = numbers[0];
     int sum = 0;
-    
+
     for (int i = 0; i < size; i++) {
         if (numbers[i] < min) min = numbers[i];
         if (numbers[i] > max) max = numbers[i];
         sum += numbers[i];
     }
-    
+
     avg = sum / (double)size;
 }
 
@@ -242,18 +253,19 @@ int main() {
     int scores[] = {85, 92, 78, 95, 88};
     int minimum, maximum;
     double average;
-    
+
     calculateStats(scores, 5, minimum, maximum, average);
-    
+
     cout << "Minimum: " << minimum << endl;
     cout << "Maximum: " << maximum << endl;
     cout << "Average: " << average << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Minimum: 78
 Maximum: 95
@@ -296,25 +308,27 @@ using namespace std;
 // Last parameters can have default values
 void printReceipt(string item, double price, int quantity = 1) {
     double total = price * quantity;
-    cout << item << ": PHP " << price << " x " << quantity 
+    cout << item << ": PHP " << price << " x " << quantity
          << " = PHP " << total << endl;
 }
 
 int main() {
     printReceipt("Barangay ID", 50.0, 2);   // Uses 2
     printReceipt("Clearance", 100.0);       // Uses default 1
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Barangay ID: PHP 50 x 2 = PHP 100
 Clearance: PHP 100 x 1 = PHP 100
 ```
 
 **Rules:**
+
 - Default parameters must be rightmost
 - `void func(int a = 1, int b)` ❌ Wrong
 - `void func(int a, int b = 1)` ✓ Correct
@@ -338,26 +352,27 @@ void doubleValues(int arr[], int size) {
 
 int main() {
     int numbers[] = {1, 2, 3, 4, 5};
-    
+
     cout << "Before: ";
     for (int i = 0; i < 5; i++) {
         cout << numbers[i] << " ";
     }
     cout << endl;
-    
+
     doubleValues(numbers, 5);
-    
+
     cout << "After: ";
     for (int i = 0; i < 5; i++) {
         cout << numbers[i] << " ";
     }
     cout << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Before: 1 2 3 4 5
 After: 2 4 6 8 10
@@ -375,7 +390,7 @@ using namespace std;
 // Calculate clearance fee (pass by value - read only)
 double calculateFee(int age, bool isSenior) {
     double baseFee = 100.0;
-    
+
     if (isSenior || age >= 60) {
         return baseFee * 0.8;  // 20% discount
     } else if (age < 18) {
@@ -417,16 +432,16 @@ int main() {
     string residentName;
     int residentAge;
     bool isSenior;
-    
+
     cout << "=== Barangay Clearance System ===" << endl;
     cout << "Account Balance: PHP " << accountBalance << endl;
-    
+
     cin.ignore();  // Clear input buffer
     getResidentInfo(residentName, residentAge, isSenior);
-    
+
     double fee = calculateFee(residentAge, isSenior);
     cout << "\nClearance Fee: PHP " << fee << endl;
-    
+
     if (processPayment(accountBalance, fee)) {
         cout << "✓ Payment successful!" << endl;
         displayReceipt(residentName, fee, accountBalance);
@@ -434,12 +449,13 @@ int main() {
         cout << "✗ Insufficient balance!" << endl;
         cout << "Need PHP " << (fee - accountBalance) << " more" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 === Barangay Clearance System ===
 Account Balance: PHP 1000

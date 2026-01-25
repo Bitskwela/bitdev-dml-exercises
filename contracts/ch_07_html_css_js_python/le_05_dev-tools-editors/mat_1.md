@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+5.0+-+COVER.png)
+
 Tian sat at their desk, staring at a blank Notepad window. They'd just learned about HTML structure, document anatomy, tags, and elements. The knowledge was there, organized in their notebooks. But now came the moment of truth: actually writing code.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+5.1.png)
 
 They typed the opening tag: `<html>`
 
@@ -66,17 +70,20 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 **Why not use Notepad or Word?**
 
 **Notepad:**
+
 - No syntax highlighting (all black text)
 - No auto-completion
 - No error detection
 - No file explorer
 
 **Microsoft Word:**
+
 - Adds formatting (bold, italics) that's not compatible with code
 - Saves as .docx, not plain text
 - Not designed for programming
 
 **Code Editors:**
+
 - Syntax highlighting (colors for different code parts)
 - Auto-completion (IntelliSense)
 - Error detection (squiggly lines under mistakes)
@@ -90,6 +97,7 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 #### 1. Visual Studio Code (VS Code) [STAR] RECOMMENDED
 
 **Pros:**
+
 - FREE at open-source
 - Lightning fast
 - Thousands of extensions
@@ -100,6 +108,7 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 - Most popular (used by millions)
 
 **Cons:**
+
 - Can be overwhelming for absolute beginners (so many features)
 - Eats RAM when there are many extensions
 
@@ -112,11 +121,13 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 #### 2. Sublime Text
 
 **Pros:**
+
 - Super fast and lightweight
 - Clean, minimal interface
 - Multi-cursor editing
 
 **Cons:**
+
 - Paid license ($99) pero may unlimited free trial
 - Fewer extensions than VS Code
 - Less active development
@@ -128,11 +139,13 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 #### 3. Atom
 
 **Pros:**
+
 - Free and open-source
 - GitHub integration (made by GitHub)
 - Customizable
 
 **Cons:**
+
 - SLOW (especially on older computers)
 - High memory usage
 - Development slowed down (GitHub focused on VS Code)
@@ -144,11 +157,13 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 #### 4. Notepad++
 
 **Pros:**
+
 - Super lightweight
 - Fast startup
 - Windows classic
 
 **Cons:**
+
 - Windows only
 - Basic features compared to VS Code
 - Limited extensions
@@ -160,6 +175,7 @@ A **text editor** (or **code editor**) is specialized software for writing and e
 ### Our Choice: VS Code
 
 For this course, we'll use **VS Code** because:
+
 - It's free
 - It's powerful
 - It's industry standard
@@ -177,6 +193,7 @@ For this course, we'll use **VS Code** because:
 **Step 3:** Run the installer (.exe file)
 
 **Step 4:** Follow installation wizard:
+
 - Accept license agreement
 - Choose installation location (default is fine)
 - **IMPORTANT:** Check these options:
@@ -195,6 +212,7 @@ For this course, we'll use **VS Code** because:
 When you first open VS Code, you'll see:
 
 **1. Activity Bar (Left side):**
+
 - Explorer (file browser)
 - Search (find in files)
 - Source Control (Git)
@@ -202,21 +220,25 @@ When you first open VS Code, you'll see:
 - Extensions
 
 **2. Side Bar (Next to Activity Bar):**
+
 - Shows content based on Activity Bar selection
 - Usually shows your project files
 
 **3. Editor Area (Center):**
+
 - Where you write code
 - Can have multiple tabs open
 - Split screen available
 
 **4. Panel (Bottom):**
+
 - Terminal
 - Output
 - Problems (errors/warnings)
 - Debug Console
 
 **5. Status Bar (Very bottom):**
+
 - Shows file info (language, encoding, line number)
 - Git branch
 - Errors/warnings count
@@ -228,6 +250,7 @@ When you first open VS Code, you'll see:
 Extensions add superpowers to VS Code!
 
 **How to install extensions:**
+
 1. Click Extensions icon (left sidebar) or press `Ctrl+Shift+X`
 2. Search for extension name
 3. Click Install
@@ -237,26 +260,31 @@ Extensions add superpowers to VS Code!
 #### Must-Have Extensions:
 
 **1. Live Server**
+
 - **What it does:** Launches local server, auto-reloads browser on save
 - **Why:** No need to manually refresh browser
 - **Install:** Search "Live Server" by Ritwick Dey
 
 **2. Prettier - Code Formatter**
+
 - **What it does:** Auto-formats your code beautifully
 - **Why:** Consistent formatting, saves time
 - **Install:** Search "Prettier"
 
 **3. Auto Rename Tag**
+
 - **What it does:** When you rename opening tag, closing tag auto-updates
 - **Why:** Prevents mismatch errors
 - **Install:** Search "Auto Rename Tag"
 
 **4. HTML CSS Support**
+
 - **What it does:** Better IntelliSense for HTML/CSS
 - **Why:** Faster coding with suggestions
 - **Install:** Search "HTML CSS Support"
 
 **5. Path Intellisense**
+
 - **What it does:** Auto-completes file paths
 - **Why:** No more typos in file links
 - **Install:** Search "Path Intellisense"
@@ -266,22 +294,27 @@ Extensions add superpowers to VS Code!
 #### Nice-to-Have Extensions:
 
 **6. Material Icon Theme**
+
 - Beautiful file icons
 - Makes files easier to identify
 
 **7. Bracket Pair Colorizer 2** (or built-in now in VS Code)
+
 - Colors matching brackets
 - Easier to see code structure
 
 **8. ESLint** (for JavaScript)
+
 - Detects errors and bad practices
 - Industry standard for JS
 
 **9. GitLens** (for Git)
+
 - Supercharged Git capabilities
 - See who edited what, when
 
 **10. indent-rainbow**
+
 - Colorizes indentation
 - Easier to read nested code
 
@@ -292,25 +325,30 @@ Extensions add superpowers to VS Code!
 Let's customize VS Code for better experience!
 
 **Open Settings:**
+
 - `Ctrl + ,` (comma) or File → Preferences → Settings
 
 **Recommended settings:**
 
 1. **Auto Save:**
+
    - Search "auto save"
    - Change to "afterDelay"
    - Never lose work again!
 
 2. **Font Size:**
+
    - Search "font size"
    - Default is 14, try 16 or 18 pag malayo ka sa screen
 
 3. **Word Wrap:**
+
    - Search "word wrap"
    - Change to "on"
    - Long lines will wrap instead of horizontal scroll
 
 4. **Format On Save:**
+
    - Search "format on save"
    - Check it!
    - Auto-formats code every save (needs Prettier installed)
@@ -325,20 +363,20 @@ Let's customize VS Code for better experience!
 
 What you should memorize:
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl + S` | Save file |
-| `Ctrl + O` | Open file |
-| `Ctrl + N` | New file |
-| `Ctrl + W` | Close tab |
+| Shortcut           | Action                                |
+| ------------------ | ------------------------------------- |
+| `Ctrl + S`         | Save file                             |
+| `Ctrl + O`         | Open file                             |
+| `Ctrl + N`         | New file                              |
+| `Ctrl + W`         | Close tab                             |
 | `Ctrl + Shift + P` | Command Palette (access all features) |
-| `Ctrl + /` | Toggle comment |
-| `Ctrl + F` | Find in file |
-| `Ctrl + H` | Find and replace |
-| `Alt + Up/Down` | Move line up/down |
-| `Ctrl + D` | Select next occurrence |
-| `Ctrl + Shift + K` | Delete line |
-| `Ctrl + \`` | Toggle terminal |
+| `Ctrl + /`         | Toggle comment                        |
+| `Ctrl + F`         | Find in file                          |
+| `Ctrl + H`         | Find and replace                      |
+| `Alt + Up/Down`    | Move line up/down                     |
+| `Ctrl + D`         | Select next occurrence                |
+| `Ctrl + Shift + K` | Delete line                           |
+| `Ctrl + \``        | Toggle terminal                       |
 
 **Pro tip:** Print this and keep it visible while you're coding!
 
@@ -357,6 +395,7 @@ What you should memorize:
 ### Elements Tab (In-Depth)
 
 **What it shows:**
+
 - Live DOM tree (not the source code!)
 - Applied styles
 - Layout (box model)
@@ -364,22 +403,26 @@ What you should memorize:
 **Common uses:**
 
 1. **Inspect HTML structure:**
+
    - Click element selector tool
    - Hover over page elements
    - See HTML in Elements tab
 
 2. **Edit HTML live:**
+
    - Right-click element → Edit as HTML
    - Make changes
    - See instant results
 
 3. **Modify CSS:**
+
    - Click element
    - See Styles panel on right
    - Edit, add, or remove styles
    - Changes reflect immediately
 
 4. **Check Box Model:**
+
    - Select element
    - Scroll down in Styles panel
    - See visual box model diagram
@@ -394,6 +437,7 @@ What you should memorize:
 ### Console Tab (In-Depth)
 
 **What it's for:**
+
 - Run JavaScript commands
 - See errors, warnings, logs
 - Test code snippets
@@ -402,34 +446,39 @@ What you should memorize:
 **Common uses:**
 
 1. **Basic calculations:**
+
 ```javascript
-2 + 2  // 4
-10 * 5  // 50
+2 + 2; // 4
+10 * 5; // 50
 ```
 
 2. **Test JavaScript:**
+
 ```javascript
-alert('Hello!');
-document.title = 'I changed this!';
+alert("Hello!");
+document.title = "I changed this!";
 ```
 
 3. **Log messages (from your code):**
+
 ```javascript
-console.log('Debug message');
-console.error('Error message');
-console.warn('Warning message');
+console.log("Debug message");
+console.error("Error message");
+console.warn("Warning message");
 ```
 
 4. **Inspect variables:**
+
 ```javascript
-let user = { name: 'Tian', age: 16 };
+let user = { name: "Tian", age: 16 };
 console.log(user);
 ```
 
 5. **Access DOM elements:**
+
 ```javascript
-let heading = document.querySelector('h1');
-heading.style.color = 'red';
+let heading = document.querySelector("h1");
+heading.style.color = "red";
 ```
 
 **Pro tip:** Console is your best debugging friend!
@@ -439,6 +488,7 @@ heading.style.color = 'red';
 ### Network Tab (In-Depth)
 
 **What it shows:**
+
 - Every request the page makes
 - Response status, size, timing
 - Request/response headers
@@ -447,16 +497,19 @@ heading.style.color = 'red';
 **Common uses:**
 
 1. **Check load performance:**
+
    - See which files are slow
    - Identify bottlenecks
    - Total size transferred
 
 2. **Debug API calls:**
+
    - See request data sent
    - See response data received
    - Check status codes (200, 404, 500)
 
 3. **Inspect images:**
+
    - See image file sizes
    - Check if images are optimized
 
@@ -465,6 +518,7 @@ heading.style.color = 'red';
    - See WebSocket connections
 
 **Columns explained:**
+
 - **Name:** File name
 - **Status:** HTTP status code (200 = OK, 404 = Not Found)
 - **Type:** File type (document, stylesheet, script, image)
@@ -478,6 +532,7 @@ heading.style.color = 'red';
 ### Application Tab
 
 **What it shows:**
+
 - Storage (cookies, localStorage, sessionStorage)
 - Cache
 - Service Workers
@@ -486,10 +541,12 @@ heading.style.color = 'red';
 **Common uses:**
 
 1. **View cookies:**
+
    - See all cookies stored by website
    - Useful for debugging login issues
 
 2. **Clear storage:**
+
    - Delete cookies, cache, localStorage
    - Fixes weird issues sometimes
 
@@ -502,17 +559,20 @@ heading.style.color = 'red';
 ### Performance Tab
 
 **What it's for:**
+
 - Record and analyze page performance
 - Find slow parts of your site
 - Optimize rendering
 
 **Basic usage:**
+
 1. Click Record (circle icon)
 2. Interact with page (scroll, click)
 3. Stop recording
 4. Analyze timeline
 
 **Look for:**
+
 - Long tasks (red triangles)
 - Reflow/repaint operations
 - JavaScript execution time
@@ -523,6 +583,7 @@ heading.style.color = 'red';
 ### Sources Tab
 
 **What it shows:**
+
 - All files (HTML, CSS, JS) loaded by page
 - Allows setting breakpoints
 - Step-through debugging
@@ -530,10 +591,12 @@ heading.style.color = 'red';
 **Common uses:**
 
 1. **View source files:**
+
    - See actual code of any file
    - Minified or prettified
 
 2. **Debug JavaScript:**
+
    - Set breakpoints (click line number)
    - Pause execution
    - Inspect variable values
@@ -551,17 +614,20 @@ Pag walang laptop or limited storage, may alternatives!
 ### 1. CodePen (codepen.io)
 
 **Best for:**
+
 - Quick HTML/CSS/JS experiments
 - Sharing code snippets
 - Learning from others' code
 
 **Pros:**
+
 - No setup needed
 - Live preview
 - Share via link
 - Free
 
 **Cons:**
+
 - Only for frontend (no backend)
 - Can't create full projects with multiple pages
 
@@ -570,17 +636,20 @@ Pag walang laptop or limited storage, may alternatives!
 ### 2. Replit (replit.com)
 
 **Best for:**
+
 - Full projects (frontend + backend)
 - Collaboration (pair programming)
 - Learning multiple languages
 
 **Pros:**
+
 - Supports many languages
 - Has terminal
 - Can run servers
 - Collaborative
 
 **Cons:**
+
 - Free tier has limitations
 - Can be slow sometimes
 
@@ -589,6 +658,7 @@ Pag walang laptop or limited storage, may alternatives!
 ### 3. JSFiddle (jsfiddle.net)
 
 **Best for:**
+
 - Quick prototypes
 - Testing code
 
@@ -599,15 +669,18 @@ Pag walang laptop or limited storage, may alternatives!
 ### 4. StackBlitz (stackblitz.com)
 
 **Best for:**
+
 - Full framework projects (React, Vue, Angular)
 - Runs VS Code in browser!
 
 **Pros:**
+
 - Most powerful online IDE
 - Real VS Code experience
 - NPM packages supported
 
 **Cons:**
+
 - Requires good internet
 - Can be slow on weak devices
 
@@ -620,6 +693,7 @@ Pag walang laptop or limited storage, may alternatives!
 **Step 1:** Open VS Code
 
 **Step 2:** Create project folder:
+
 ```
 my-website/
   - index.html
@@ -668,18 +742,23 @@ my-website/
 ## Common Beginner Mistakes
 
 ### [WRONG] Mistake 1: Not saving files
+
 **Solution:** Enable Auto Save in VS Code settings
 
 ### [WRONG] Mistake 2: Opening HTML file directly (file:///)
+
 **Solution:** Use Live Server extension. Direct opening may cause issues with some features.
 
 ### [WRONG] Mistake 3: Editing code in DevTools thinking it saves
+
 **Solution:** DevTools is TEMPORARY. Always edit in VS Code (your actual files).
 
 ### [WRONG] Mistake 4: Ignoring Console errors
+
 **Solution:** Red errors in Console? Fix them! They're there for a reason.
 
 ### [WRONG] Mistake 5: Not using Prettier/formatter
+
 **Solution:** Consistent formatting makes code readable. Install Prettier!
 
 ---
@@ -687,12 +766,14 @@ my-website/
 ## Summary
 
 **Text Editor: VS Code**
+
 - Free, powerful, industry standard
 - Install essential extensions (Live Server, Prettier, etc.)
 - Learn keyboard shortcuts
 - Customize for comfort
 
 **Browser DevTools:**
+
 - Elements: Inspect/edit HTML/CSS
 - Console: Run JavaScript, see errors
 - Network: Analyze requests
@@ -700,12 +781,14 @@ my-website/
 - Always keep open during development!
 
 **Workflow:**
+
 - Write code in VS Code
 - Preview with Live Server
 - Debug with DevTools
 - Repeat until perfect!
 
 **Online alternatives:**
+
 - CodePen (quick experiments)
 - Replit (full projects)
 - StackBlitz (advanced projects)
@@ -733,8 +816,10 @@ Outside, the neighborhood slept. Inside, a new developer was born.
 Tian typed the first line:
 
 ``html
+
 <!DOCTYPE html>
-``   
+
+``
 
 And just like that, the journey began.
 

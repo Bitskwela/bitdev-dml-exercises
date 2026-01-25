@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+20.0+-+COVER.png)
+
 After learning media queries, Tian and Rhea Joy had refactored their barangay website to be responsive. They'd added breakpoints for mobile, tablet, and desktop. The layout adapted properly—single column on mobile, multiple columns on desktop.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+20.1.png)
 
 But there were still problems. Subtle, frustrating problems.
 
@@ -8,9 +12,15 @@ On mobile, they'd set:
 
 ```css
 @media (max-width: 768px) {
-    h1 { font-size: 24px; }
-    p { font-size: 14px; }
-    .container { padding: 15px; }
+  h1 {
+    font-size: 24px;
+  }
+  p {
+    font-size: 14px;
+  }
+  .container {
+    padding: 15px;
+  }
 }
 ```
 
@@ -18,9 +28,15 @@ On desktop:
 
 ```css
 @media (min-width: 769px) {
-    h1 { font-size: 36px; }
-    p { font-size: 16px; }
-    .container { padding: 30px; }
+  h1 {
+    font-size: 36px;
+  }
+  p {
+    font-size: 16px;
+  }
+  .container {
+    padding: 30px;
+  }
 }
 ```
 
@@ -34,7 +50,7 @@ Rhea Joy encountered a related problem with her hero section—the large banner 
 
 ```css
 .hero {
-    height: 800px;  /* Looks good on desktop */
+  height: 800px; /* Looks good on desktop */
 }
 ```
 
@@ -79,9 +95,10 @@ Miguel pulled up a comparison chart on his screen.
 - `cm`, `mm`, `in`: Physical units (rarely used on web)
 
 **Example:**
+
 ```css
 h1 {
-    font-size: 32px;  /* Always 32 pixels */
+  font-size: 32px; /* Always 32 pixels */
 }
 ```
 
@@ -93,15 +110,15 @@ h1 {
 
 **Size changes based on context (parent, root, viewport).**
 
-| Unit | Name | Relative To |
-|------|------|-------------|
-| `%` | Percentage | Parent element |
-| `em` | Em | Parent element's font size |
-| `rem` | Root em | Root (`html`) font size |
-| `vw` | Viewport width | 1% of viewport width |
-| `vh` | Viewport height | 1% of viewport height |
-| `vmin` | Viewport minimum | Smaller of vw or vh |
-| `vmax` | Viewport maximum | Larger of vw or vh |
+| Unit   | Name             | Relative To                |
+| ------ | ---------------- | -------------------------- |
+| `%`    | Percentage       | Parent element             |
+| `em`   | Em               | Parent element's font size |
+| `rem`  | Root em          | Root (`html`) font size    |
+| `vw`   | Viewport width   | 1% of viewport width       |
+| `vh`   | Viewport height  | 1% of viewport height      |
+| `vmin` | Viewport minimum | Smaller of vw or vh        |
+| `vmax` | Viewport maximum | Larger of vw or vh         |
 
 ---
 
@@ -111,11 +128,11 @@ h1 {
 
 ```css
 .parent {
-    width: 1000px;
+  width: 1000px;
 }
 
 .child {
-    width: 50%;  /* 50% of 1000px = 500px */
+  width: 50%; /* 50% of 1000px = 500px */
 }
 ```
 
@@ -123,23 +140,23 @@ h1 {
 
 ```html
 <div class="container">
-    <div class="sidebar">Sidebar</div>
-    <div class="main-content">Content</div>
+  <div class="sidebar">Sidebar</div>
+  <div class="main-content">Content</div>
 </div>
 ```
 
 ```css
 .container {
-    display: flex;
-    width: 100%;  /* 100% of screen width */
+  display: flex;
+  width: 100%; /* 100% of screen width */
 }
 
 .sidebar {
-    width: 25%;   /* 25% of container */
+  width: 25%; /* 25% of container */
 }
 
 .main-content {
-    width: 75%;   /* 75% of container */
+  width: 75%; /* 75% of container */
 }
 ```
 
@@ -152,16 +169,16 @@ h1 {
 ```css
 /* Parent */
 .card {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 /* Child */
 .card-title {
-    font-size: 150%;  /* 150% of 16px = 24px */
+  font-size: 150%; /* 150% of 16px = 24px */
 }
 
 .card-subtitle {
-    font-size: 87.5%; /* 87.5% of 16px = 14px */
+  font-size: 87.5%; /* 87.5% of 16px = 14px */
 }
 ```
 
@@ -172,26 +189,24 @@ h1 {
 **Relative to parent element's font size.**
 
 **Base concept:**
+
 ```css
-parent-font-size: 16px
-1em = 16px
-2em = 32px
-0.5em = 8px
+parent-font-size: 16px 1em = 16px 2em = 32px 0.5em = 8px;
 ```
 
 ### Font-Size Example
 
 ```css
 body {
-    font-size: 16px;  /* Base */
+  font-size: 16px; /* Base */
 }
 
 .section {
-    font-size: 1.25em;  /* 1.25 × 16px = 20px */
+  font-size: 1.25em; /* 1.25 × 16px = 20px */
 }
 
 .section p {
-    font-size: 0.9em;   /* 0.9 × 20px = 18px (parent is 20px!) */
+  font-size: 0.9em; /* 0.9 × 20px = 18px (parent is 20px!) */
 }
 ```
 
@@ -203,9 +218,9 @@ body {
 
 ```css
 h1 {
-    font-size: 2em;      /* 32px (if parent is 16px) */
-    margin-bottom: 0.5em; /* 0.5 × 32px = 16px */
-    padding: 0.25em;      /* 0.25 × 32px = 8px */
+  font-size: 2em; /* 32px (if parent is 16px) */
+  margin-bottom: 0.5em; /* 0.5 × 32px = 16px */
+  padding: 0.25em; /* 0.25 × 32px = 8px */
 }
 ```
 
@@ -222,19 +237,19 @@ h1 {
 ```css
 /* Root (default) */
 html {
-    font-size: 16px;  /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 h1 {
-    font-size: 2rem;   /* 2 × 16px = 32px */
+  font-size: 2rem; /* 2 × 16px = 32px */
 }
 
 p {
-    font-size: 1rem;   /* 1 × 16px = 16px */
+  font-size: 1rem; /* 1 × 16px = 16px */
 }
 
 .small {
-    font-size: 0.875rem; /* 0.875 × 16px = 14px */
+  font-size: 0.875rem; /* 0.875 × 16px = 14px */
 }
 ```
 
@@ -251,47 +266,47 @@ p {
 ```css
 /* Set root font size */
 html {
-    font-size: 16px;  /* Base: 1rem = 16px */
+  font-size: 16px; /* Base: 1rem = 16px */
 }
 
 /* Typography */
 h1 {
-    font-size: 2.5rem;   /* 40px */
-    margin-bottom: 1rem; /* 16px */
+  font-size: 2.5rem; /* 40px */
+  margin-bottom: 1rem; /* 16px */
 }
 
 h2 {
-    font-size: 2rem;     /* 32px */
-    margin-bottom: 0.75rem; /* 12px */
+  font-size: 2rem; /* 32px */
+  margin-bottom: 0.75rem; /* 12px */
 }
 
 p {
-    font-size: 1rem;     /* 16px */
-    line-height: 1.5;    /* 24px (1.5 × 16px) */
-    margin-bottom: 1rem; /* 16px */
+  font-size: 1rem; /* 16px */
+  line-height: 1.5; /* 24px (1.5 × 16px) */
+  margin-bottom: 1rem; /* 16px */
 }
 
 .small-text {
-    font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem; /* 14px */
 }
 
 /* Spacing */
 .section {
-    padding: 3rem 1.5rem; /* 48px 24px */
+  padding: 3rem 1.5rem; /* 48px 24px */
 }
 
 .button {
-    padding: 0.75rem 1.5rem; /* 12px 24px */
-    font-size: 1rem;
-    border-radius: 0.5rem;   /* 8px */
+  padding: 0.75rem 1.5rem; /* 12px 24px */
+  font-size: 1rem;
+  border-radius: 0.5rem; /* 8px */
 }
 
 /* Responsive: Adjust root size */
 @media (max-width: 768px) {
-    html {
-        font-size: 14px;  /* 1rem now = 14px */
-    }
-    /* All rem-based sizes scale down automatically! */
+  html {
+    font-size: 14px; /* 1rem now = 14px */
+  }
+  /* All rem-based sizes scale down automatically! */
 }
 ```
 
@@ -310,15 +325,16 @@ p {
 /* On 360px screen: 1vw = 3.6px */
 
 .hero {
-    width: 100vw;        /* Full viewport width */
-    font-size: 5vw;      /* Scales with screen width */
+  width: 100vw; /* Full viewport width */
+  font-size: 5vw; /* Scales with screen width */
 }
 ```
 
 **Example:**
+
 ```css
 .hero-title {
-    font-size: 10vw;  /* 10% of viewport width */
+  font-size: 10vw; /* 10% of viewport width */
 }
 
 /* On 1920px screen: 10vw = 192px */
@@ -334,30 +350,31 @@ p {
 ```css
 /* Full-screen hero section */
 .hero {
-    height: 100vh;  /* Always full screen height */
+  height: 100vh; /* Always full screen height */
 }
 
 /* Half-screen section */
 .section {
-    min-height: 50vh;  /* At least half screen */
+  min-height: 50vh; /* At least half screen */
 }
 ```
 
 **Barangay example:**
+
 ```css
 /* Full-screen welcome banner */
 .welcome-banner {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url('barangay-bg.jpg');
-    background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("barangay-bg.jpg");
+  background-size: cover;
 }
 
 .welcome-banner h1 {
-    font-size: 8vh;   /* 8% of viewport height */
-    color: white;
+  font-size: 8vh; /* 8% of viewport height */
+  color: white;
 }
 ```
 
@@ -371,12 +388,13 @@ p {
 ```css
 /* Ensures element never too large on any orientation */
 .square {
-    width: 50vmin;  /* 50% of smaller dimension */
-    height: 50vmin;
+  width: 50vmin; /* 50% of smaller dimension */
+  height: 50vmin;
 }
 ```
 
 **Example:**
+
 - Landscape 1920×1080: `1vmin = 10.8px` (height is smaller)
 - Portrait 1080×1920: `1vmin = 10.8px` (width is smaller)
 
@@ -389,16 +407,24 @@ p {
 ```css
 /* Use REM for font sizes (consistent, accessible) */
 html {
-    font-size: 16px;  /* Base */
+  font-size: 16px; /* Base */
 }
 
-h1 { font-size: 2.5rem; }   /* 40px */
-h2 { font-size: 2rem; }     /* 32px */
-p { font-size: 1rem; }      /* 16px */
+h1 {
+  font-size: 2.5rem;
+} /* 40px */
+h2 {
+  font-size: 2rem;
+} /* 32px */
+p {
+  font-size: 1rem;
+} /* 16px */
 
 /* Responsive root size */
 @media (max-width: 768px) {
-    html { font-size: 14px; }  /* Scale everything down */
+  html {
+    font-size: 14px;
+  } /* Scale everything down */
 }
 ```
 
@@ -409,13 +435,13 @@ p { font-size: 1rem; }      /* 16px */
 ```css
 /* Use % or vw for flexible widths */
 .container {
-    width: 90%;          /* 90% of parent */
-    max-width: 1200px;   /* But never exceed 1200px */
-    margin: 0 auto;      /* Center */
+  width: 90%; /* 90% of parent */
+  max-width: 1200px; /* But never exceed 1200px */
+  margin: 0 auto; /* Center */
 }
 
 .full-width {
-    width: 100vw;        /* Full viewport */
+  width: 100vw; /* Full viewport */
 }
 ```
 
@@ -426,13 +452,13 @@ p { font-size: 1rem; }      /* 16px */
 ```css
 /* Use REM for consistent, scalable spacing */
 .section {
-    padding: 3rem 1.5rem;      /* Scales with root font-size */
-    margin-bottom: 2rem;
+  padding: 3rem 1.5rem; /* Scales with root font-size */
+  margin-bottom: 2rem;
 }
 
 .button {
-    padding: 0.75rem 1.5rem;
-    margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
 }
 ```
 
@@ -443,13 +469,13 @@ p { font-size: 1rem; }      /* 16px */
 ```css
 /* Full-screen sections: VH */
 .hero {
-    height: 100vh;
+  height: 100vh;
 }
 
 /* Flexible height: auto or min-height */
 .content {
-    min-height: 50vh;  /* At least half screen */
-    height: auto;      /* Expand as needed */
+  min-height: 50vh; /* At least half screen */
+  height: auto; /* Expand as needed */
 }
 ```
 
@@ -460,123 +486,123 @@ p { font-size: 1rem; }      /* 16px */
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay San Miguel</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <section class="hero">
-        <h1>Barangay San Miguel</h1>
-        <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
+      <h1>Barangay San Miguel</h1>
+      <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
     </section>
 
     <section class="services">
-        <div class="service-card">
-            <h3>Barangay Clearance</h3>
-            <p>Processing: 3-5 days</p>
-        </div>
-        <div class="service-card">
-            <h3>Residency Certificate</h3>
-            <p>Processing: Same day</p>
-        </div>
+      <div class="service-card">
+        <h3>Barangay Clearance</h3>
+        <p>Processing: 3-5 days</p>
+      </div>
+      <div class="service-card">
+        <h3>Residency Certificate</h3>
+        <p>Processing: Same day</p>
+      </div>
     </section>
-</body>
+  </body>
 </html>
 ```
 
 ```css
 /* ========== ROOT SIZING ========== */
 html {
-    font-size: 16px;  /* 1rem = 16px */
+  font-size: 16px; /* 1rem = 16px */
 }
 
 /* Mobile: Smaller base */
 @media (max-width: 768px) {
-    html {
-        font-size: 14px;  /* All rem values scale down */
-    }
+  html {
+    font-size: 14px; /* All rem values scale down */
+  }
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
 }
 
 /* ========== HERO SECTION ========== */
 .hero {
-    height: 100vh;              /* Full viewport height */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #1a73e8, #34a853);
-    color: white;
-    padding: 2rem;              /* rem-based spacing */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a73e8, #34a853);
+  color: white;
+  padding: 2rem; /* rem-based spacing */
 }
 
 .hero h1 {
-    font-size: 5vw;             /* Viewport-based (scales) */
-    min-font-size: 2rem;        /* But at least 32px */
-    max-font-size: 4rem;        /* Max 64px */
-    margin-bottom: 1rem;
+  font-size: 5vw; /* Viewport-based (scales) */
+  min-font-size: 2rem; /* But at least 32px */
+  max-font-size: 4rem; /* Max 64px */
+  margin-bottom: 1rem;
 }
 
 .hero p {
-    font-size: 1.5rem;          /* 24px on desktop, 21px on mobile */
+  font-size: 1.5rem; /* 24px on desktop, 21px on mobile */
 }
 
 /* ========== SERVICES SECTION ========== */
 .services {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;                  /* rem-based gap */
-    padding: 3rem 5%;           /* Mix: rem + % */
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem; /* rem-based gap */
+  padding: 3rem 5%; /* Mix: rem + % */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .service-card {
-    flex: 1 1 calc(33.333% - 2rem);  /* Flexible with calc */
-    min-width: 250px;                /* Minimum size */
-    background: white;
-    padding: 2rem;                   /* rem-based */
-    border-radius: 0.5rem;           /* 8px rounded corners */
-    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);  /* rem-based shadow */
+  flex: 1 1 calc(33.333% - 2rem); /* Flexible with calc */
+  min-width: 250px; /* Minimum size */
+  background: white;
+  padding: 2rem; /* rem-based */
+  border-radius: 0.5rem; /* 8px rounded corners */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* rem-based shadow */
 }
 
 .service-card h3 {
-    font-size: 1.5rem;          /* 24px on desktop */
-    color: #1a73e8;
-    margin-bottom: 0.75rem;
+  font-size: 1.5rem; /* 24px on desktop */
+  color: #1a73e8;
+  margin-bottom: 0.75rem;
 }
 
 .service-card p {
-    font-size: 1rem;            /* 16px on desktop */
-    color: #666;
+  font-size: 1rem; /* 16px on desktop */
+  color: #666;
 }
 
 /* ========== MOBILE ADJUSTMENTS ========== */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 8vw;         /* Larger vw for better mobile visibility */
-    }
-    
-    .services {
-        flex-direction: column;
-        padding: 2rem 1rem;     /* Less padding */
-    }
-    
-    .service-card {
-        width: 100%;            /* Full width on mobile */
-    }
+  .hero h1 {
+    font-size: 8vw; /* Larger vw for better mobile visibility */
+  }
+
+  .services {
+    flex-direction: column;
+    padding: 2rem 1rem; /* Less padding */
+  }
+
+  .service-card {
+    width: 100%; /* Full width on mobile */
+  }
 }
 ```
 
@@ -591,32 +617,35 @@ font-size: clamp(min, preferred, max);
 ```
 
 **Example:**
+
 ```css
 h1 {
-    font-size: clamp(1.5rem, 5vw, 4rem);
-    /*         ↓       ↓    ↓
+  font-size: clamp(1.5rem, 5vw, 4rem);
+  /*         ↓       ↓    ↓
                min     pref max
     */
 }
 ```
 
 **How it works:**
+
 - **Min:** Never smaller than `1.5rem` (24px)
 - **Preferred:** `5vw` (scales with viewport)
 - **Max:** Never larger than `4rem` (64px)
 
 **Barangay example:**
+
 ```css
 .hero h1 {
-    font-size: clamp(2rem, 5vw, 5rem);
-    /* Mobile: 2rem (32px)
+  font-size: clamp(2rem, 5vw, 5rem);
+  /* Mobile: 2rem (32px)
        Scales with viewport
        Desktop max: 5rem (80px) */
 }
 
 .section {
-    padding: clamp(1rem, 5%, 3rem);
-    /* Small: 1rem padding
+  padding: clamp(1rem, 5%, 3rem);
+  /* Small: 1rem padding
        Scales with width
        Large: 3rem padding */
 }
@@ -628,46 +657,51 @@ h1 {
 
 **Assuming default root font-size: 16px**
 
-| Pixels | REM | EM (if parent is 16px) | % (if parent is 16px) |
-|--------|-----|------------------------|------------------------|
-| 8px | 0.5rem | 0.5em | 50% |
-| 12px | 0.75rem | 0.75em | 75% |
-| 14px | 0.875rem | 0.875em | 87.5% |
-| 16px | 1rem | 1em | 100% |
-| 20px | 1.25rem | 1.25em | 125% |
-| 24px | 1.5rem | 1.5em | 150% |
-| 32px | 2rem | 2em | 200% |
-| 40px | 2.5rem | 2.5em | 250% |
-| 48px | 3rem | 3em | 300% |
+| Pixels | REM      | EM (if parent is 16px) | % (if parent is 16px) |
+| ------ | -------- | ---------------------- | --------------------- |
+| 8px    | 0.5rem   | 0.5em                  | 50%                   |
+| 12px   | 0.75rem  | 0.75em                 | 75%                   |
+| 14px   | 0.875rem | 0.875em                | 87.5%                 |
+| 16px   | 1rem     | 1em                    | 100%                  |
+| 20px   | 1.25rem  | 1.25em                 | 125%                  |
+| 24px   | 1.5rem   | 1.5em                  | 150%                  |
+| 32px   | 2rem     | 2em                    | 200%                  |
+| 40px   | 2.5rem   | 2.5em                  | 250%                  |
+| 48px   | 3rem     | 3em                    | 300%                  |
 
 ---
 
 ## Quick Reference
 
 **Font Sizes:** Use `rem`
+
 ```css
-font-size: 1rem;  /* Consistent, accessible */
+font-size: 1rem; /* Consistent, accessible */
 ```
 
 **Widths:** Use `%` or `vw`
+
 ```css
-width: 90%;       /* Relative to parent */
-width: 100vw;     /* Full viewport */
+width: 90%; /* Relative to parent */
+width: 100vw; /* Full viewport */
 ```
 
 **Heights:** Use `vh` for full-screen, `auto` otherwise
+
 ```css
-height: 100vh;    /* Full screen */
-height: auto;     /* Content-based */
+height: 100vh; /* Full screen */
+height: auto; /* Content-based */
 ```
 
 **Spacing:** Use `rem`
+
 ```css
-padding: 2rem;    /* Scales with root */
+padding: 2rem; /* Scales with root */
 margin: 1rem;
 ```
 
 **Modern Responsive:** Use `clamp()`
+
 ```css
 font-size: clamp(1rem, 3vw, 2rem);
 ```
@@ -679,6 +713,7 @@ font-size: clamp(1rem, 3vw, 2rem);
 Tian summarized:
 
 **Responsive Units:**
+
 - `%`: Relative to parent
 - `em`: Relative to parent font-size (compounds)
 - `rem`: Relative to root font-size (recommended)
@@ -687,6 +722,7 @@ Tian summarized:
 - `clamp()`: Min, preferred, max
 
 **Best Practices:**
+
 - Typography: `rem`
 - Widths: `%` or `vw`
 - Heights: `vh` for full-screen
@@ -707,7 +743,7 @@ In the next lesson, you'll learn **CSS Grid**—a powerful 2D layout system for 
 
 ## Closing Story
 
-Tian replaced fixed pixel values with relative units. Font sizes in 
+Tian replaced fixed pixel values with relative units. Font sizes in
 em. Widths in %. Heights in h. The page became fluid. Flexible. Truly responsive.
 
 "This is the secret," Kuya Miguel revealed. "Stop thinking in pixels. Think in proportions. Let the content adapt, not force it."

@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+45.0+-+COVER.png)
+
 The secure barangay portal had been live for two weeks. Residents were using it regularly, submitting complaints and checking statuses. But Tian started receiving consistent feedback that revealed a user experience problem.
 
 Maria Santos, a frequent user, complained: "Every single time I refresh the page, I have to log in again. I was looking at my complaint details, accidentally hit F5, and suddenly I'm at the login screen. Ang hassle!"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+45.1.png)
 
 Pedro Reyes echoed: "I set the text size to large because my eyes aren't great, pero when I come back the next day, it's back to default. The site doesn't remember my preferences."
 
@@ -72,15 +76,15 @@ if (data.success) {
 Then when the page loads, we check localStorage:
 
 ```javascript
-window.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-        // User is logged in, show dashboard
-        loadDashboard();
-    } else {
-        // No token, show login page
-        showLogin();
-    }
+window.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    // User is logged in, show dashboard
+    loadDashboard();
+  } else {
+    // No token, show login page
+    showLogin();
+  }
 });
 ```
 
@@ -90,18 +94,20 @@ Miguel applauded. "Exactly! And you can extend this to every preference:"
 
 ```javascript
 // Save theme preference
-document.getElementById('themeToggle').addEventListener('click', () => {
-    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.body.classList.toggle('dark');
-    localStorage.setItem('theme', newTheme);
+document.getElementById("themeToggle").addEventListener("click", () => {
+  const currentTheme = document.body.classList.contains("dark")
+    ? "dark"
+    : "light";
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme", newTheme);
 });
 
 // Load theme preference on page load
-const savedTheme = localStorage.getItem('theme') || 'light';
-if (savedTheme === 'dark') {
-    document.body.classList.add('dark');
+const savedTheme = localStorage.getItem("theme") || "light";
+if (savedTheme === "dark") {
+  document.body.classList.add("dark");
 }
 ```
 
@@ -111,30 +117,30 @@ Miguel showed them the form autosave pattern:
 
 ```javascript
 // Auto-save form draft to sessionStorage
-const complaintForm = document.getElementById('complaintForm');
-complaintForm.addEventListener('input', () => {
-    const formData = {
-        name: document.getElementById('name').value,
-        category: document.getElementById('category').value,
-        description: document.getElementById('description').value
-    };
-    sessionStorage.setItem('complaintDraft', JSON.stringify(formData));
+const complaintForm = document.getElementById("complaintForm");
+complaintForm.addEventListener("input", () => {
+  const formData = {
+    name: document.getElementById("name").value,
+    category: document.getElementById("category").value,
+    description: document.getElementById("description").value,
+  };
+  sessionStorage.setItem("complaintDraft", JSON.stringify(formData));
 });
 
 // Restore draft on page load
-const draft = sessionStorage.getItem('complaintDraft');
+const draft = sessionStorage.getItem("complaintDraft");
 if (draft) {
-    const data = JSON.parse(draft);
-    document.getElementById('name').value = data.name;
-    document.getElementById('category').value = data.category;
-    document.getElementById('description').value = data.description;
-    
-    // Ask user if they want to restore draft
-    if (confirm('Found unsaved complaint. Restore it?')) {
-        // Keep the data
-    } else {
-        sessionStorage.removeItem('complaintDraft');
-    }
+  const data = JSON.parse(draft);
+  document.getElementById("name").value = data.name;
+  document.getElementById("category").value = data.category;
+  document.getElementById("description").value = data.description;
+
+  // Ask user if they want to restore draft
+  if (confirm("Found unsaved complaint. Restore it?")) {
+    // Keep the data
+  } else {
+    sessionStorage.removeItem("complaintDraft");
+  }
 }
 ```
 
@@ -143,39 +149,41 @@ if (draft) {
 Miguel demonstrated more patterns:
 
 **Remember logged-in status across tabs:**
+
 ```javascript
 // Tab 1: User logs in
-localStorage.setItem('authToken', token);
+localStorage.setItem("authToken", token);
 
 // Tab 2: Listen for storage changes
-window.addEventListener('storage', (e) => {
-    if (e.key === 'authToken') {
-        if (e.newValue) {
-            // User logged in on another tab, update this tab
-            loadDashboard();
-        } else {
-            // User logged out on another tab, update this tab
-            showLogin();
-        }
+window.addEventListener("storage", (e) => {
+  if (e.key === "authToken") {
+    if (e.newValue) {
+      // User logged in on another tab, update this tab
+      loadDashboard();
+    } else {
+      // User logged out on another tab, update this tab
+      showLogin();
     }
+  }
 });
 ```
 
 **Cache API responses:**
+
 ```javascript
 // Fetch complaint categories
-const cached = localStorage.getItem('categories');
+const cached = localStorage.getItem("categories");
 if (cached) {
-    // Use cached data
-    displayCategories(JSON.parse(cached));
+  // Use cached data
+  displayCategories(JSON.parse(cached));
 } else {
-    // Fetch from API
-    const response = await fetch('/api/categories');
-    const categories = await response.json();
-    
-    // Cache for next time
-    localStorage.setItem('categories', JSON.stringify(categories));
-    displayCategories(categories);
+  // Fetch from API
+  const response = await fetch("/api/categories");
+  const categories = await response.json();
+
+  // Cache for next time
+  localStorage.setItem("categories", JSON.stringify(categories));
+  displayCategories(categories);
 }
 ```
 
@@ -186,6 +194,7 @@ Miguel gave important security warnings: "**Never store sensitive data in localS
 Rhea Joy created a comprehensive storage plan for the barangay portal:
 
 **localStorage (persistent):**
+
 - authToken (for staying logged in)
 - username (for displaying welcome message)
 - theme (light/dark preference)
@@ -194,6 +203,7 @@ Rhea Joy created a comprehensive storage plan for the barangay portal:
 - cachedCategories (complaint categories list)
 
 **sessionStorage (temporary):**
+
 - complaintDraft (form autosave)
 - searchQuery (current search term)
 - filterStatus (current filter)
@@ -224,12 +234,12 @@ Miguel smiled through the video call. "You've learned that great applications ar
 
 ### Comparison
 
-| Feature | localStorage | sessionStorage | Cookies | IndexedDB |
-|---------|-------------|----------------|---------|-----------|
-| **Capacity** | ~5-10MB | ~5-10MB | ~4KB | ~50MB+ |
-| **Persistence** | Until cleared | Until tab closed | Has expiration | Until cleared |
-| **Accessibility** | Same origin | Same tab only | Server + Client | Same origin |
-| **Use Case** | User preferences | Temporary data | Authentication | Large datasets |
+| Feature           | localStorage     | sessionStorage   | Cookies         | IndexedDB      |
+| ----------------- | ---------------- | ---------------- | --------------- | -------------- |
+| **Capacity**      | ~5-10MB          | ~5-10MB          | ~4KB            | ~50MB+         |
+| **Persistence**   | Until cleared    | Until tab closed | Has expiration  | Until cleared  |
+| **Accessibility** | Same origin      | Same tab only    | Server + Client | Same origin    |
+| **Use Case**      | User preferences | Temporary data   | Authentication  | Large datasets |
 
 For this lesson, we focus on **localStorage** and **sessionStorage**.
 
@@ -243,23 +253,23 @@ For this lesson, we focus on **localStorage** and **sessionStorage**.
 
 ```javascript
 // Store data
-localStorage.setItem('username', 'tian');
-localStorage.setItem('theme', 'dark');
-localStorage.setItem('fontSize', '16');
+localStorage.setItem("username", "tian");
+localStorage.setItem("theme", "dark");
+localStorage.setItem("fontSize", "16");
 
 // Retrieve data
-const username = localStorage.getItem('username');  // "tian"
-const theme = localStorage.getItem('theme');        // "dark"
+const username = localStorage.getItem("username"); // "tian"
+const theme = localStorage.getItem("theme"); // "dark"
 
 // Remove specific item
-localStorage.removeItem('theme');
+localStorage.removeItem("theme");
 
 // Clear all localStorage
 localStorage.clear();
 
 // Check if key exists
-if (localStorage.getItem('username')) {
-    console.log('Username is set');
+if (localStorage.getItem("username")) {
+  console.log("Username is set");
 }
 
 // Get number of items
@@ -276,24 +286,24 @@ localStorage only stores **strings**. For objects, use JSON:
 ```javascript
 // Store object
 const user = {
-    id: 123,
-    username: 'tian',
-    email: 'tian@barangay.ph',
-    preferences: {
-        theme: 'dark',
-        notifications: true
-    }
+  id: 123,
+  username: "tian",
+  email: "tian@barangay.ph",
+  preferences: {
+    theme: "dark",
+    notifications: true,
+  },
 };
 
-localStorage.setItem('user', JSON.stringify(user));
+localStorage.setItem("user", JSON.stringify(user));
 
 // Retrieve object
-const storedUser = JSON.parse(localStorage.getItem('user'));
-console.log(storedUser.username);  // "tian"
-console.log(storedUser.preferences.theme);  // "dark"
+const storedUser = JSON.parse(localStorage.getItem("user"));
+console.log(storedUser.username); // "tian"
+console.log(storedUser.preferences.theme); // "dark"
 
 // Handle null values
-const user = JSON.parse(localStorage.getItem('user') || '{}');
+const user = JSON.parse(localStorage.getItem("user") || "{}");
 ```
 
 ## sessionStorage Basics
@@ -306,15 +316,16 @@ const user = JSON.parse(localStorage.getItem('user') || '{}');
 
 ```javascript
 // Exact same API as localStorage
-sessionStorage.setItem('tempData', 'value');
-const data = sessionStorage.getItem('tempData');
-sessionStorage.removeItem('tempData');
+sessionStorage.setItem("tempData", "value");
+const data = sessionStorage.getItem("tempData");
+sessionStorage.removeItem("tempData");
 sessionStorage.clear();
 ```
 
 ### When to Use Each
 
 **Use localStorage for:**
+
 - User preferences (theme, language, font size)
 - Shopping cart items
 - Form draft data (auto-save)
@@ -322,6 +333,7 @@ sessionStorage.clear();
 - Non-sensitive user settings
 
 **Use sessionStorage for:**
+
 - Multi-step form data
 - Temporary filters/search queries
 - Current page state
@@ -329,6 +341,7 @@ sessionStorage.clear();
 - Non-persistent UI state
 
 **Don't store in localStorage/sessionStorage:**
+
 - Passwords or auth tokens (use httpOnly cookies)
 - Personal/sensitive data (PII)
 - Credit card info
@@ -340,42 +353,42 @@ sessionStorage.clear();
 // theme.js
 
 // Load saved theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(savedTheme);
+document.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  applyTheme(savedTheme);
 });
 
 // Theme toggle button
-document.getElementById('theme-toggle').addEventListener('click', () => {
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    localStorage.setItem('theme', newTheme);
-    applyTheme(newTheme);
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  const currentTheme = localStorage.getItem("theme") || "light";
+  const newTheme = currentTheme === "light" ? "dark" : "light";
+
+  localStorage.setItem("theme", newTheme);
+  applyTheme(newTheme);
 });
 
 function applyTheme(theme) {
-    if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('theme-toggle').textContent = 'Light Mode';
-    } else {
-        document.body.classList.remove('dark-mode');
-        document.getElementById('theme-toggle').textContent = 'Dark Mode';
-    }
+  if (theme === "dark") {
+    document.body.classList.add("dark-mode");
+    document.getElementById("theme-toggle").textContent = "Light Mode";
+  } else {
+    document.body.classList.remove("dark-mode");
+    document.getElementById("theme-toggle").textContent = "Dark Mode";
+  }
 }
 ```
 
 ```css
 /* styles.css */
 body {
-    background-color: white;
-    color: black;
-    transition: all 0.3s ease;
+  background-color: white;
+  color: black;
+  transition: all 0.3s ease;
 }
 
 body.dark-mode {
-    background-color: #1a1a1a;
-    color: #ffffff;
+  background-color: #1a1a1a;
+  color: #ffffff;
 }
 ```
 
@@ -384,69 +397,69 @@ body.dark-mode {
 ```html
 <!-- complaint-form.html -->
 <form id="complaint-form">
-    <input type="text" id="name" placeholder="Your Name">
-    <textarea id="description" placeholder="Describe the issue"></textarea>
-    <input type="text" id="location" placeholder="Location">
-    <button type="submit">Submit</button>
-    <button type="button" id="clear-draft">Clear Draft</button>
+  <input type="text" id="name" placeholder="Your Name" />
+  <textarea id="description" placeholder="Describe the issue"></textarea>
+  <input type="text" id="location" placeholder="Location" />
+  <button type="submit">Submit</button>
+  <button type="button" id="clear-draft">Clear Draft</button>
 </form>
 <p id="autosave-status"></p>
 
 <script>
-// Auto-save form data as user types
-const form = document.getElementById('complaint-form');
-const fields = ['name', 'description', 'location'];
+  // Auto-save form data as user types
+  const form = document.getElementById("complaint-form");
+  const fields = ["name", "description", "location"];
 
-// Load saved draft on page load
-window.addEventListener('DOMContentLoaded', () => {
-    fields.forEach(field => {
-        const savedValue = localStorage.getItem(`draft_${field}`);
-        if (savedValue) {
-            document.getElementById(field).value = savedValue;
-            showStatus('Draft restored');
-        }
+  // Load saved draft on page load
+  window.addEventListener("DOMContentLoaded", () => {
+    fields.forEach((field) => {
+      const savedValue = localStorage.getItem(`draft_${field}`);
+      if (savedValue) {
+        document.getElementById(field).value = savedValue;
+        showStatus("Draft restored");
+      }
     });
-});
+  });
 
-// Save on input
-fields.forEach(field => {
+  // Save on input
+  fields.forEach((field) => {
     const element = document.getElementById(field);
-    element.addEventListener('input', (e) => {
-        localStorage.setItem(`draft_${field}`, e.target.value);
-        showStatus('Draft saved');
+    element.addEventListener("input", (e) => {
+      localStorage.setItem(`draft_${field}`, e.target.value);
+      showStatus("Draft saved");
     });
-});
+  });
 
-// Clear draft button
-document.getElementById('clear-draft').addEventListener('click', () => {
-    fields.forEach(field => {
-        localStorage.removeItem(`draft_${field}`);
-        document.getElementById(field).value = '';
+  // Clear draft button
+  document.getElementById("clear-draft").addEventListener("click", () => {
+    fields.forEach((field) => {
+      localStorage.removeItem(`draft_${field}`);
+      document.getElementById(field).value = "";
     });
-    showStatus('Draft cleared');
-});
+    showStatus("Draft cleared");
+  });
 
-// Clear draft on successful submit
-form.addEventListener('submit', async (e) => {
+  // Clear draft on successful submit
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
+
     // Submit form data...
     const response = await submitComplaint();
-    
-    if (response.ok) {
-        // Clear draft on success
-        fields.forEach(field => localStorage.removeItem(`draft_${field}`));
-        form.reset();
-        showStatus('Submitted successfully!');
-    }
-});
 
-function showStatus(message) {
-    const status = document.getElementById('autosave-status');
+    if (response.ok) {
+      // Clear draft on success
+      fields.forEach((field) => localStorage.removeItem(`draft_${field}`));
+      form.reset();
+      showStatus("Submitted successfully!");
+    }
+  });
+
+  function showStatus(message) {
+    const status = document.getElementById("autosave-status");
     status.textContent = message;
     status.style.opacity = 1;
-    setTimeout(() => status.style.opacity = 0, 2000);
-}
+    setTimeout(() => (status.style.opacity = 0), 2000);
+  }
 </script>
 ```
 
@@ -461,12 +474,12 @@ from flask import session
 @app.route('/login', methods=['POST'])
 def login():
     # ... verify credentials ...
-    
+
     # Store in Flask session (server-side)
     session['user_id'] = user.id
     session['username'] = user.username
     session['role'] = user.role  # 'admin' or 'resident'
-    
+
     return jsonify({
         'user': {
             'id': user.id,
@@ -481,46 +494,46 @@ def login():
 ```javascript
 // After successful login
 async function login(username, password) {
-    const response = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',  // Important: send cookies
-        body: JSON.stringify({ username, password })
-    });
-    
-    if (response.ok) {
-        const data = await response.json();
-        
-        // Store non-sensitive data in localStorage
-        localStorage.setItem('username', data.user.username);
-        localStorage.setItem('role', data.user.role);
-        
-        // Redirect to dashboard
-        window.location.href = '/dashboard.html';
-    }
+  const response = await fetch("/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include", // Important: send cookies
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+
+    // Store non-sensitive data in localStorage
+    localStorage.setItem("username", data.user.username);
+    localStorage.setItem("role", data.user.role);
+
+    // Redirect to dashboard
+    window.location.href = "/dashboard.html";
+  }
 }
 
 // Check auth on protected pages
 async function checkAuth() {
-    // First, check if user data exists in localStorage
-    const username = localStorage.getItem('username');
-    
-    if (!username) {
-        window.location.href = '/login.html';
-        return;
-    }
-    
-    // Verify with server (Flask session)
-    const response = await fetch('/me', {
-        credentials: 'include'
-    });
-    
-    if (!response.ok) {
-        // Session expired - clear localStorage
-        localStorage.removeItem('username');
-        localStorage.removeItem('role');
-        window.location.href = '/login.html';
-    }
+  // First, check if user data exists in localStorage
+  const username = localStorage.getItem("username");
+
+  if (!username) {
+    window.location.href = "/login.html";
+    return;
+  }
+
+  // Verify with server (Flask session)
+  const response = await fetch("/me", {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    // Session expired - clear localStorage
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    window.location.href = "/login.html";
+  }
 }
 ```
 
@@ -530,80 +543,80 @@ async function checkAuth() {
 // preferences.js
 
 class UserPreferences {
-    constructor() {
-        this.defaults = {
-            theme: 'light',
-            language: 'en',
-            fontSize: 16,
-            notifications: true,
-            autoSave: true
-        };
+  constructor() {
+    this.defaults = {
+      theme: "light",
+      language: "en",
+      fontSize: 16,
+      notifications: true,
+      autoSave: true,
+    };
+  }
+
+  // Get preference with fallback to default
+  get(key) {
+    const stored = localStorage.getItem(`pref_${key}`);
+    if (stored !== null) {
+      // Parse boolean values
+      if (stored === "true") return true;
+      if (stored === "false") return false;
+      // Parse numbers
+      if (!isNaN(stored)) return parseFloat(stored);
+      return stored;
     }
-    
-    // Get preference with fallback to default
-    get(key) {
-        const stored = localStorage.getItem(`pref_${key}`);
-        if (stored !== null) {
-            // Parse boolean values
-            if (stored === 'true') return true;
-            if (stored === 'false') return false;
-            // Parse numbers
-            if (!isNaN(stored)) return parseFloat(stored);
-            return stored;
-        }
-        return this.defaults[key];
+    return this.defaults[key];
+  }
+
+  // Set preference
+  set(key, value) {
+    localStorage.setItem(`pref_${key}`, value.toString());
+    this.apply(key, value);
+  }
+
+  // Apply preference to UI
+  apply(key, value) {
+    switch (key) {
+      case "theme":
+        document.body.classList.toggle("dark-mode", value === "dark");
+        break;
+      case "fontSize":
+        document.documentElement.style.fontSize = `${value}px`;
+        break;
+      case "language":
+        // Load appropriate language file
+        this.loadLanguage(value);
+        break;
     }
-    
-    // Set preference
-    set(key, value) {
-        localStorage.setItem(`pref_${key}`, value.toString());
-        this.apply(key, value);
-    }
-    
-    // Apply preference to UI
-    apply(key, value) {
-        switch(key) {
-            case 'theme':
-                document.body.classList.toggle('dark-mode', value === 'dark');
-                break;
-            case 'fontSize':
-                document.documentElement.style.fontSize = `${value}px`;
-                break;
-            case 'language':
-                // Load appropriate language file
-                this.loadLanguage(value);
-                break;
-        }
-    }
-    
-    // Load all preferences
-    loadAll() {
-        Object.keys(this.defaults).forEach(key => {
-            const value = this.get(key);
-            this.apply(key, value);
-        });
-    }
-    
-    // Reset to defaults
-    reset() {
-        Object.keys(this.defaults).forEach(key => {
-            localStorage.removeItem(`pref_${key}`);
-        });
-        this.loadAll();
-    }
+  }
+
+  // Load all preferences
+  loadAll() {
+    Object.keys(this.defaults).forEach((key) => {
+      const value = this.get(key);
+      this.apply(key, value);
+    });
+  }
+
+  // Reset to defaults
+  reset() {
+    Object.keys(this.defaults).forEach((key) => {
+      localStorage.removeItem(`pref_${key}`);
+    });
+    this.loadAll();
+  }
 }
 
 // Usage
 const prefs = new UserPreferences();
-prefs.loadAll();  // Load on page load
+prefs.loadAll(); // Load on page load
 
 // Settings page
-document.getElementById('theme-select').addEventListener('change', (e) => {
-    prefs.set('theme', e.target.value);
+document.getElementById("theme-select").addEventListener("change", (e) => {
+  prefs.set("theme", e.target.value);
 });
 
-document.getElementById('font-size').addEventListener('input', (e) => {
-    prefs.set('fontSize', e.target.value);
+document.getElementById("font-size").addEventListener("input", (e) => {
+  prefs.set("fontSize", e.target.value);
 });
 ```
 
@@ -613,16 +626,16 @@ Listen for storage changes across tabs:
 
 ```javascript
 // Listen for storage changes in other tabs
-window.addEventListener('storage', (e) => {
-    if (e.key === 'theme') {
-        console.log('Theme changed in another tab:', e.newValue);
-        applyTheme(e.newValue);
-    }
-    
-    if (e.key === null) {
-        console.log('localStorage was cleared in another tab');
-        location.reload();
-    }
+window.addEventListener("storage", (e) => {
+  if (e.key === "theme") {
+    console.log("Theme changed in another tab:", e.newValue);
+    applyTheme(e.newValue);
+  }
+
+  if (e.key === null) {
+    console.log("localStorage was cleared in another tab");
+    location.reload();
+  }
 });
 ```
 
@@ -632,13 +645,13 @@ window.addEventListener('storage', (e) => {
 
 ```javascript
 // NEVER store sensitive data in localStorage
-localStorage.setItem('password', 'mypassword');  // DON'T!
-localStorage.setItem('creditCard', '1234-5678');  // DON'T!
-localStorage.setItem('authToken', 'Bearer abc123');  // DON'T!
+localStorage.setItem("password", "mypassword"); // DON'T!
+localStorage.setItem("creditCard", "1234-5678"); // DON'T!
+localStorage.setItem("authToken", "Bearer abc123"); // DON'T!
 
 // OK to store
-localStorage.setItem('theme', 'dark');  // OK
-localStorage.setItem('lastVisited', new Date().toISOString());  // OK
+localStorage.setItem("theme", "dark"); // OK
+localStorage.setItem("lastVisited", new Date().toISOString()); // OK
 ```
 
 ### XSS Protection
@@ -646,13 +659,13 @@ localStorage.setItem('lastVisited', new Date().toISOString());  // OK
 ```javascript
 // Sanitize user input before storing
 function sanitize(input) {
-    const div = document.createElement('div');
-    div.textContent = input;
-    return div.innerHTML;
+  const div = document.createElement("div");
+  div.textContent = input;
+  return div.innerHTML;
 }
 
-const userInput = document.getElementById('bio').value;
-localStorage.setItem('bio', sanitize(userInput));
+const userInput = document.getElementById("bio").value;
+localStorage.setItem("bio", sanitize(userInput));
 ```
 
 ## Debugging localStorage
@@ -660,11 +673,13 @@ localStorage.setItem('bio', sanitize(userInput));
 ### View in DevTools
 
 **Chrome/Edge:**
+
 1. F12 → Application tab
 2. Storage → Local Storage
 3. Select your domain
 
 **Firefox:**
+
 1. F12 → Storage tab
 2. Local Storage
 
@@ -673,8 +688,8 @@ localStorage.setItem('bio', sanitize(userInput));
 ```javascript
 // View all localStorage
 for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    console.log(key, localStorage.getItem(key));
+  const key = localStorage.key(i);
+  console.log(key, localStorage.getItem(key));
 }
 
 // Or as object
@@ -691,12 +706,12 @@ console.log(`localStorage size: ${(size / 1024).toFixed(2)} KB`);
 
 ```javascript
 // Avoid key collisions
-localStorage.setItem('barangay_theme', 'dark');
-localStorage.setItem('barangay_username', 'tian');
+localStorage.setItem("barangay_theme", "dark");
+localStorage.setItem("barangay_username", "tian");
 
 // Or use prefix function
 function setItem(key, value) {
-    localStorage.setItem(`barangay_${key}`, value);
+  localStorage.setItem(`barangay_${key}`, value);
 }
 ```
 
@@ -704,17 +719,17 @@ function setItem(key, value) {
 
 ```javascript
 function safeSetItem(key, value) {
-    try {
-        localStorage.setItem(key, value);
-        return true;
-    } catch (e) {
-        if (e.name === 'QuotaExceededError') {
-            console.error('localStorage quota exceeded');
-            // Clear old data or show error to user
-            return false;
-        }
-        throw e;
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (e) {
+    if (e.name === "QuotaExceededError") {
+      console.error("localStorage quota exceeded");
+      // Clear old data or show error to user
+      return false;
     }
+    throw e;
+  }
 }
 ```
 
@@ -722,13 +737,13 @@ function safeSetItem(key, value) {
 
 ```javascript
 function getObject(key, fallback = {}) {
-    try {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) : fallback;
-    } catch (e) {
-        console.error('Failed to parse localStorage item:', e);
-        return fallback;
-    }
+  try {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : fallback;
+  } catch (e) {
+    console.error("Failed to parse localStorage item:", e);
+    return fallback;
+  }
 }
 ```
 
@@ -739,19 +754,19 @@ function getObject(key, fallback = {}) {
 ```javascript
 // Store user's language preference
 const languages = {
-    'en': 'English',
-    'tl': 'Tagalog',
-    'ceb': 'Cebuano',
-    'ilo': 'Ilocano'
+  en: "English",
+  tl: "Tagalog",
+  ceb: "Cebuano",
+  ilo: "Ilocano",
 };
 
 function setLanguage(code) {
-    localStorage.setItem('language', code);
-    loadTranslations(code);
+  localStorage.setItem("language", code);
+  loadTranslations(code);
 }
 
 // Load on page load
-const savedLang = localStorage.getItem('language') || 'tl';
+const savedLang = localStorage.getItem("language") || "tl";
 setLanguage(savedLang);
 ```
 
@@ -759,16 +774,16 @@ setLanguage(savedLang);
 
 ```javascript
 function addRecentSearch(query) {
-    const recent = JSON.parse(localStorage.getItem('recentSearches') || '[]');
-    
-    // Add to front, remove duplicates
-    const updated = [query, ...recent.filter(q => q !== query)].slice(0, 10);
-    
-    localStorage.setItem('recentSearches', JSON.stringify(updated));
+  const recent = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+
+  // Add to front, remove duplicates
+  const updated = [query, ...recent.filter((q) => q !== query)].slice(0, 10);
+
+  localStorage.setItem("recentSearches", JSON.stringify(updated));
 }
 
 function getRecentSearches() {
-    return JSON.parse(localStorage.getItem('recentSearches') || '[]');
+  return JSON.parse(localStorage.getItem("recentSearches") || "[]");
 }
 ```
 
@@ -777,35 +792,38 @@ function getRecentSearches() {
 ```javascript
 // Check if localStorage is available
 function isLocalStorageAvailable() {
-    try {
-        const test = '__localStorage_test__';
-        localStorage.setItem(test, test);
-        localStorage.removeItem(test);
-        return true;
-    } catch (e) {
-        return false;
-    }
+  try {
+    const test = "__localStorage_test__";
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 if (!isLocalStorageAvailable()) {
-    console.warn('localStorage not available. Using fallback.');
-    // Use in-memory storage or cookies as fallback
+  console.warn("localStorage not available. Using fallback.");
+  // Use in-memory storage or cookies as fallback
 }
 ```
 
 ## Summary
 
 **localStorage:**
+
 - Persists until manually cleared
 - ~5-10MB capacity
 - Use for user preferences, drafts, non-sensitive data
 
 **sessionStorage:**
+
 - Persists until tab closed
 - Same API as localStorage
 - Use for temporary data within a session
 
 **Best Practices:**
+
 - Never store sensitive data
 - Namespace your keys
 - Handle quota exceeded errors
@@ -813,6 +831,7 @@ if (!isLocalStorageAvailable()) {
 - Combine with server-side sessions for security
 
 **Use Cases:**
+
 - Theme preferences
 - Form auto-save
 - Recent searches

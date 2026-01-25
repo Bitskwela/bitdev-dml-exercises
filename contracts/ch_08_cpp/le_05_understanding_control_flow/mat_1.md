@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+5.0+-+COVER.png)
+
 Tian stared at the screen in disbelief. The calculator displayed: `Result: inf`. The culprit? A user had divided by zero, and the program blindly executed the calculation without checking.
 
 "Kuya Miguel, my calculator just broke!" Tian exclaimed, frustrated. "I spent hours building this, and one wrong input crashes everything. How do real programs handle this?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+5.1.png)
 
 Kuya Miguel walked over calmly. "Right now, your program is like a jeepney driver who never looks at the road—just drives straight no matter what. Pedestrian crossing? Keep going. Red light? Keep going. Flooding ahead? Drive right into it."
 
@@ -73,16 +77,17 @@ using namespace std;
 
 int main() {
     int age = 18;
-    
+
     if (age >= 18) {
         cout << "You can vote in Philippine elections!" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 You can vote in Philippine elections!
 ```
@@ -96,19 +101,20 @@ using namespace std;
 int main() {
     double fare = 13.0;
     double payment = 10.0;
-    
+
     if (payment < fare) {
         cout << "Kulang bayad mo, pare!" << endl;
         cout << "Fare: " << fare << " pesos" << endl;
         cout << "Payment: " << payment << " pesos" << endl;
         cout << "Short: " << (fare - payment) << " pesos" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Kulang bayad mo, pare!
 Fare: 13 pesos
@@ -120,14 +126,14 @@ Short: 3 pesos
 
 To make decisions, we need to compare values. C++ provides several comparison operators:
 
-| Operator | Meaning | Example | Result |
-|----------|---------|---------|--------|
-| `==` | Equal to | `5 == 5` | true |
-| `!=` | Not equal to | `5 != 3` | true |
-| `>` | Greater than | `10 > 5` | true |
-| `<` | Less than | `3 < 8` | true |
-| `>=` | Greater than or equal to | `5 >= 5` | true |
-| `<=` | Less than or equal to | `4 <= 9` | true |
+| Operator | Meaning                  | Example  | Result |
+| -------- | ------------------------ | -------- | ------ |
+| `==`     | Equal to                 | `5 == 5` | true   |
+| `!=`     | Not equal to             | `5 != 3` | true   |
+| `>`      | Greater than             | `10 > 5` | true   |
+| `<`      | Less than                | `3 < 8`  | true   |
+| `>=`     | Greater than or equal to | `5 >= 5` | true   |
+| `<=`     | Less than or equal to    | `4 <= 9` | true   |
 
 **Important Note:** Don't confuse `=` (assignment) with `==` (comparison)!
 
@@ -142,11 +148,11 @@ if (x == 5) {     // Comparison: check if x equals 5
 
 Sometimes we need to combine multiple conditions:
 
-| Operator | Meaning | Example | Description |
-|----------|---------|---------|-------------|
-| `&&` | AND | `(a > 5) && (b < 10)` | Both must be true |
-| `\|\|` | OR | `(a > 5) \|\| (b < 10)` | At least one must be true |
-| `!` | NOT | `!(a > 5)` | Reverses the condition |
+| Operator | Meaning | Example                 | Description               |
+| -------- | ------- | ----------------------- | ------------------------- |
+| `&&`     | AND     | `(a > 5) && (b < 10)`   | Both must be true         |
+| `\|\|`   | OR      | `(a > 5) \|\| (b < 10)` | At least one must be true |
+| `!`      | NOT     | `!(a > 5)`              | Reverses the condition    |
 
 ### Example: PWD and Senior Citizen Discount
 
@@ -157,29 +163,30 @@ using namespace std;
 int main() {
     int age;
     bool isPWD;
-    
+
     cout << "Enter your age: ";
     cin >> age;
     cout << "Are you a PWD? (1 for Yes, 0 for No): ";
     cin >> isPWD;
-    
+
     double price = 100.0;
-    
+
     // Senior citizens (60+) or PWD get 20% discount
     if (age >= 60 || isPWD) {
         double discount = price * 0.20;
         double finalPrice = price - discount;
-        
+
         cout << "\nOriginal Price: " << price << " pesos" << endl;
         cout << "Discount (20%): " << discount << " pesos" << endl;
         cout << "Final Price: " << finalPrice << " pesos" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Output:**
+
 ```
 Enter your age: 65
 Are you a PWD? (1 for Yes, 0 for No): 0
@@ -224,21 +231,22 @@ using namespace std;
 
 int main() {
     double grade;
-    
+
     cout << "Enter your grade: ";
     cin >> grade;
-    
+
     if (grade >= 75.0) {
         cout << "Congratulations! You passed!" << endl;
     } else {
         cout << "Sorry, you failed. Better luck next time." << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: 80
 Output: Congratulations! You passed!
@@ -255,16 +263,16 @@ using namespace std;
 
 int main() {
     int number;
-    
+
     cout << "Enter a number: ";
     cin >> number;
-    
+
     if (number % 2 == 0) {
         cout << number << " is an even number." << endl;
     } else {
         cout << number << " is an odd number." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -319,12 +327,12 @@ using namespace std;
 
 int main() {
     double grade;
-    
+
     cout << "Enter your numerical grade: ";
     cin >> grade;
-    
+
     cout << "Letter Grade: ";
-    
+
     if (grade >= 97.5) {
         cout << "1.00 (Excellent!)" << endl;
     } else if (grade >= 94.5) {
@@ -346,12 +354,13 @@ int main() {
     } else {
         cout << "5.00 (Failed)" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: 98
 Output: Letter Grade: 1.00 (Excellent!)
@@ -373,13 +382,13 @@ using namespace std;
 int main() {
     double distance;
     double fare;
-    
+
     cout << "Enter distance traveled (in km): ";
     cin >> distance;
-    
+
     // Base fare: 40 pesos for first 5 km
     // Additional: 13.50 per km after 5 km
-    
+
     if (distance <= 0) {
         cout << "Invalid distance!" << endl;
     } else if (distance <= 5.0) {
@@ -387,17 +396,18 @@ int main() {
     } else {
         fare = 40.0 + ((distance - 5.0) * 13.50);
     }
-    
+
     if (distance > 0) {
         cout << fixed << setprecision(2);
         cout << "Total Fare: " << fare << " pesos" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: 3
 Output: Total Fare: 40.00 pesos
@@ -429,15 +439,15 @@ using namespace std;
 int main() {
     double gpa;
     int familyIncome;
-    
+
     cout << "Enter your GPA (1.00 - 5.00): ";
     cin >> gpa;
     cout << "Enter family monthly income (in pesos): ";
     cin >> familyIncome;
-    
+
     if (gpa <= 1.75) {
         cout << "\nYou meet the academic requirement!" << endl;
-        
+
         if (familyIncome <= 20000) {
             cout << "You qualify for FULL SCHOLARSHIP!" << endl;
             cout << "Coverage: Tuition + Books + Allowance" << endl;
@@ -453,15 +463,16 @@ int main() {
         cout << "Required GPA: 1.75 or better" << endl;
         cout << "Your GPA: " << gpa << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: GPA = 1.50, Income = 15000
-Output: 
+Output:
 You meet the academic requirement!
 You qualify for FULL SCHOLARSHIP!
 Coverage: Tuition + Books + Allowance
@@ -483,12 +494,12 @@ int main() {
     int age;
     bool isWeekend;
     double price;
-    
+
     cout << "Enter your age: ";
     cin >> age;
     cout << "Is it weekend? (1 for Yes, 0 for No): ";
     cin >> isWeekend;
-    
+
     if (age < 3) {
         price = 0;
         cout << "Free admission for toddlers!" << endl;
@@ -512,10 +523,10 @@ int main() {
                 price = 200;
             }
         }
-        
+
         cout << "Ticket Price: " << price << " pesos" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -538,7 +549,7 @@ using namespace std;
 
 int main() {
     int a = 10, b = 20;
-    
+
     // Using if-else
     int max1;
     if (a > b) {
@@ -546,17 +557,18 @@ int main() {
     } else {
         max1 = b;
     }
-    
+
     // Using ternary operator (much shorter!)
     int max2 = (a > b) ? a : b;
-    
+
     cout << "Maximum value: " << max2 << endl;
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Maximum value: 20
 ```
@@ -570,25 +582,26 @@ using namespace std;
 int main() {
     double balance = 500.0;
     double amount;
-    
+
     cout << "Current Balance: " << balance << " pesos" << endl;
     cout << "Enter amount to send: ";
     cin >> amount;
-    
+
     string status = (amount <= balance) ? "Success" : "Insufficient Funds";
-    
+
     cout << "Transaction Status: " << status << endl;
-    
+
     if (amount <= balance) {
         balance -= amount;
         cout << "New Balance: " << balance << " pesos" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: 300
 Output:
@@ -607,11 +620,13 @@ Transaction Status: Insufficient Funds
 ### When to Use Ternary Operator
 
 **Good Use Cases:**
+
 - Simple assignments based on a condition
 - Return values based on a condition
 - Short, clear conditions
 
 **Avoid Using For:**
+
 - Complex conditions
 - Multiple statements
 - Nested ternary operators (hard to read)
@@ -674,7 +689,7 @@ using namespace std;
 
 int main() {
     int choice;
-    
+
     cout << "=== Sari-Sari Store Menu ===" << endl;
     cout << "1. Rice" << endl;
     cout << "2. Noodles" << endl;
@@ -683,7 +698,7 @@ int main() {
     cout << "5. Exit" << endl;
     cout << "Enter your choice: ";
     cin >> choice;
-    
+
     switch (choice) {
         case 1:
             cout << "Rice section - 50 pesos per kilo" << endl;
@@ -703,12 +718,13 @@ int main() {
         default:
             cout << "Invalid choice! Please select 1-5." << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: 2
 Output: Noodles section - Lucky Me, Payless, Pancit Canton
@@ -725,10 +741,10 @@ using namespace std;
 
 int main() {
     int day;
-    
+
     cout << "Enter day number (1-7): ";
     cin >> day;
-    
+
     switch (day) {
         case 1:
             cout << "Monday - Simula ng week, kaya mo yan!" << endl;
@@ -754,7 +770,7 @@ int main() {
         default:
             cout << "Invalid day! Enter 1-7 only." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -769,10 +785,10 @@ using namespace std;
 
 int main() {
     int month;
-    
+
     cout << "Enter month number (1-12): ";
     cin >> month;
-    
+
     switch (month) {
         case 12:
         case 1:
@@ -795,12 +811,13 @@ int main() {
         default:
             cout << "Invalid month!" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Sample Outputs:**
+
 ```
 Input: 7
 Output: Rainy Season (Tag-ulan)
@@ -817,15 +834,15 @@ using namespace std;
 
 int main() {
     char grade;
-    
+
     cout << "Enter your letter grade (A, B, C, D, F): ";
     cin >> grade;
-    
+
     // Convert to uppercase in case user enters lowercase
     if (grade >= 'a' && grade <= 'z') {
         grade = grade - 32; // Convert to uppercase
     }
-    
+
     switch (grade) {
         case 'A':
             cout << "Excellent! Outstanding performance!" << endl;
@@ -850,7 +867,7 @@ int main() {
         default:
             cout << "Invalid grade! Use A, B, C, D, or F." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -860,6 +877,7 @@ int main() {
 Choosing the right control structure is important for writing clear, maintainable code.
 
 ### Use if Statement When:
+
 - You have a single condition to check
 - The condition is complex (uses multiple logical operators)
 - You're checking ranges of values
@@ -871,6 +889,7 @@ if (age >= 18 && age <= 65 && hasValidID) {
 ```
 
 ### Use if-else When:
+
 - You have two possible paths (binary decision)
 - One condition, two outcomes
 
@@ -883,6 +902,7 @@ if (grade >= 75) {
 ```
 
 ### Use else-if Ladder When:
+
 - You have multiple conditions to check in sequence
 - Conditions are mutually exclusive
 - Checking ranges of values
@@ -898,6 +918,7 @@ if (score >= 90) {
 ```
 
 ### Use Ternary Operator When:
+
 - You have a simple if-else for assignment
 - The expression is short and readable
 - You want concise code
@@ -907,6 +928,7 @@ int max = (a > b) ? a : b;
 ```
 
 ### Use switch Statement When:
+
 - You're comparing one variable against multiple constant values
 - You have many discrete cases (more than 3-4)
 - The variable is an integer or character
@@ -922,13 +944,13 @@ switch (dayOfWeek) {
 
 ### Comparison Table
 
-| Structure | Best For | Example Use Case |
-|-----------|----------|------------------|
-| `if` | Single condition | Check if age >= 18 |
-| `if-else` | Binary choice | Pass or fail |
-| `else-if` | Multiple ranges | Grade brackets |
-| Ternary | Simple assignment | max = (a > b) ? a : b |
-| `switch` | Multiple discrete values | Menu selection |
+| Structure | Best For                 | Example Use Case      |
+| --------- | ------------------------ | --------------------- |
+| `if`      | Single condition         | Check if age >= 18    |
+| `if-else` | Binary choice            | Pass or fail          |
+| `else-if` | Multiple ranges          | Grade brackets        |
+| Ternary   | Simple assignment        | max = (a > b) ? a : b |
+| `switch`  | Multiple discrete values | Menu selection        |
 
 ## Practical Examples
 
@@ -941,11 +963,11 @@ using namespace std;
 
 int main() {
     double annualIncome, tax;
-    
+
     cout << "=== Philippine Income Tax Calculator ===" << endl;
     cout << "Enter annual income (in pesos): ";
     cin >> annualIncome;
-    
+
     if (annualIncome <= 250000) {
         tax = 0;
         cout << "\nYou are EXEMPT from income tax!" << endl;
@@ -960,12 +982,12 @@ int main() {
     } else {
         tax = 2202500 + (annualIncome - 8000000) * 0.35;
     }
-    
+
     cout << fixed << setprecision(2);
     cout << "\nAnnual Income: " << annualIncome << " pesos" << endl;
     cout << "Income Tax: " << tax << " pesos" << endl;
     cout << "Net Income: " << (annualIncome - tax) << " pesos" << endl;
-    
+
     return 0;
 }
 ```
@@ -979,7 +1001,7 @@ using namespace std;
 int main() {
     int age;
     bool isFilipino, isRegistered;
-    
+
     cout << "=== Philippine Voting Eligibility Checker ===" << endl;
     cout << "Enter your age: ";
     cin >> age;
@@ -987,9 +1009,9 @@ int main() {
     cin >> isFilipino;
     cout << "Are you registered as a voter? (1-Yes, 0-No): ";
     cin >> isRegistered;
-    
+
     cout << "\n--- Results ---" << endl;
-    
+
     if (!isFilipino) {
         cout << "Sorry, you must be a Filipino citizen to vote." << endl;
     } else if (age < 18) {
@@ -1002,7 +1024,7 @@ int main() {
         cout << "Congratulations! You are eligible to vote!" << endl;
         cout << "Make your voice heard in the next elections!" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -1018,7 +1040,7 @@ int main() {
     double distance, fare;
     int age;
     bool isPWD, isStudent;
-    
+
     cout << "=== Jeepney Fare Calculator ===" << endl;
     cout << "Enter distance (km): ";
     cin >> distance;
@@ -1028,18 +1050,18 @@ int main() {
     cin >> isPWD;
     cout << "Are you a student? (1-Yes, 0-No): ";
     cin >> isStudent;
-    
+
     // Base fare calculation
     if (distance <= 4) {
         fare = 12.0;
     } else {
         fare = 12.0 + ((distance - 4) * 1.80);
     }
-    
+
     // Apply discounts
     double discount = 0;
     string discountType = "None";
-    
+
     if (isPWD || age >= 60) {
         discount = fare * 0.20; // 20% discount for PWD/Senior
         discountType = (isPWD) ? "PWD" : "Senior Citizen";
@@ -1047,9 +1069,9 @@ int main() {
         discount = fare * 0.10; // 10% discount for students
         discountType = "Student";
     }
-    
+
     double finalFare = fare - discount;
-    
+
     cout << fixed << setprecision(2);
     cout << "\n--- Fare Details ---" << endl;
     cout << "Distance: " << distance << " km" << endl;
@@ -1057,7 +1079,7 @@ int main() {
     cout << "Discount Type: " << discountType << endl;
     cout << "Discount Amount: " << discount << " pesos" << endl;
     cout << "Final Fare: " << finalFare << " pesos" << endl;
-    
+
     return 0;
 }
 ```
@@ -1072,7 +1094,7 @@ using namespace std;
 int main() {
     int mainChoice, drinkChoice, addOns;
     double total = 0;
-    
+
     cout << "=== Tindahan ni Aling Nena ===" << endl;
     cout << "\n--- Main Dish ---" << endl;
     cout << "1. Adobo - 80 pesos" << endl;
@@ -1081,7 +1103,7 @@ int main() {
     cout << "4. Bicol Express - 85 pesos" << endl;
     cout << "Enter choice: ";
     cin >> mainChoice;
-    
+
     switch (mainChoice) {
         case 1:
             cout << "You ordered: Adobo" << endl;
@@ -1103,7 +1125,7 @@ int main() {
             cout << "Invalid choice! No main dish selected." << endl;
             return 1;
     }
-    
+
     cout << "\n--- Drinks ---" << endl;
     cout << "1. Coke - 25 pesos" << endl;
     cout << "2. Pineapple Juice - 30 pesos" << endl;
@@ -1111,7 +1133,7 @@ int main() {
     cout << "4. No drink - 0 pesos" << endl;
     cout << "Enter choice: ";
     cin >> drinkChoice;
-    
+
     switch (drinkChoice) {
         case 1:
             cout << "You ordered: Coke" << endl;
@@ -1131,23 +1153,23 @@ int main() {
         default:
             cout << "Invalid choice! No drink selected." << endl;
     }
-    
+
     cout << "\n--- Add Extra Rice? ---" << endl;
     cout << "1. Yes (+15 pesos)" << endl;
     cout << "2. No" << endl;
     cout << "Enter choice: ";
     cin >> addOns;
-    
+
     if (addOns == 1) {
         cout << "Extra rice added!" << endl;
         total += 15;
     }
-    
+
     cout << fixed << setprecision(2);
     cout << "\n=== ORDER SUMMARY ===" << endl;
     cout << "Total Amount: " << total << " pesos" << endl;
     cout << "Salamat sa pag-order!" << endl;
-    
+
     return 0;
 }
 ```
@@ -1307,6 +1329,7 @@ Tian nodded enthusiastically. "This is powerful! Now I can make my calculator ch
 ### Practice Makes Perfect
 
 "Now go practice!" Kuya Miguel encouraged. "Try making:
+
 - A grade calculator for all your subjects
 - A simple ATM menu system
 - A discount calculator for your family's sari-sari store

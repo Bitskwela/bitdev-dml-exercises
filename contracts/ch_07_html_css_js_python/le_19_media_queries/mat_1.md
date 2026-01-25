@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+19.0+-+COVER.png)
+
 The barangay website launch was scheduled for Friday. Tian and Rhea Joy had spent weeks perfecting every detail. On Tian's laptop (1920x1080 screen), the site looked professional—clean layouts, readable text, properly spaced elements, a three-column grid of service cards.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+19.1.png)
 
 On Wednesday, Ms. Reyes came to review the final version. She opened the site on her phone to test mobile access. Her face immediately showed concern.
 
@@ -37,9 +41,9 @@ Tian opened the DevTools on a responsive website and saw CSS they didn't recogni
 
 ```css
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 ```
 
@@ -68,24 +72,26 @@ Miguel looked at their site on his phone and immediately understood the problem.
 **Media queries** are CSS rules that apply styles **only when certain conditions are met**, like screen width, height, or orientation.
 
 **Syntax:**
+
 ```css
 @media (condition) {
-    /* CSS rules that apply when condition is true */
+  /* CSS rules that apply when condition is true */
 }
 ```
 
 **Example:**
+
 ```css
 /* Default: Desktop styles */
 .container {
-    width: 1200px;
+  width: 1200px;
 }
 
 /* Smaller screens: Tablet */
 @media (max-width: 768px) {
-    .container {
-        width: 100%;  /* Full width on tablets */
-    }
+  .container {
+    width: 100%; /* Full width on tablets */
+  }
 }
 ```
 
@@ -99,7 +105,7 @@ Applies styles when screen is **smaller than or equal to** specified width.
 
 ```css
 @media (max-width: 768px) {
-    /* Styles for screens 768px or smaller */
+  /* Styles for screens 768px or smaller */
 }
 ```
 
@@ -113,7 +119,7 @@ Applies styles when screen is **larger than or equal to** specified width.
 
 ```css
 @media (min-width: 768px) {
-    /* Styles for screens 768px or larger */
+  /* Styles for screens 768px or larger */
 }
 ```
 
@@ -126,12 +132,12 @@ Applies styles when screen is **larger than or equal to** specified width.
 ```css
 /* Between two sizes */
 @media (min-width: 768px) and (max-width: 1024px) {
-    /* Styles for tablets only (768px - 1024px) */
+  /* Styles for tablets only (768px - 1024px) */
 }
 
 /* Multiple conditions with OR */
 @media (max-width: 768px), (orientation: portrait) {
-    /* Styles for small screens OR portrait orientation */
+  /* Styles for small screens OR portrait orientation */
 }
 ```
 
@@ -143,31 +149,40 @@ Applies styles when screen is **larger than or equal to** specified width.
 
 ```css
 /* Extra small devices (phones, portrait) */
-@media (max-width: 575px) { }
+@media (max-width: 575px) {
+}
 
 /* Small devices (phones, landscape / small tablets) */
-@media (min-width: 576px) and (max-width: 767px) { }
+@media (min-width: 576px) and (max-width: 767px) {
+}
 
 /* Medium devices (tablets) */
-@media (min-width: 768px) and (max-width: 991px) { }
+@media (min-width: 768px) and (max-width: 991px) {
+}
 
 /* Large devices (desktops) */
-@media (min-width: 992px) and (max-width: 1199px) { }
+@media (min-width: 992px) and (max-width: 1199px) {
+}
 
 /* Extra large devices (large desktops) */
-@media (min-width: 1200px) { }
+@media (min-width: 1200px) {
+}
 ```
 
 **Simplified common breakpoints:**
+
 ```css
 /* Mobile */
-@media (max-width: 767px) { }
+@media (max-width: 767px) {
+}
 
 /* Tablet */
-@media (min-width: 768px) and (max-width: 1023px) { }
+@media (min-width: 768px) and (max-width: 1023px) {
+}
 
 /* Desktop */
-@media (min-width: 1024px) { }
+@media (min-width: 1024px) {
+}
 ```
 
 ---
@@ -175,230 +190,232 @@ Applies styles when screen is **larger than or equal to** specified width.
 ## Filipino Barangay Website Example
 
 **HTML:**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay San Miguel</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header class="header">
-        <h1>Barangay San Miguel</h1>
-        <nav class="nav">
-            <a href="#">Home</a>
-            <a href="#">Services</a>
-            <a href="#">Announcements</a>
-            <a href="#">Contact</a>
-        </nav>
+      <h1>Barangay San Miguel</h1>
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Announcements</a>
+        <a href="#">Contact</a>
+      </nav>
     </header>
 
     <main class="container">
-        <section class="hero">
-            <h2>Welcome to Our Community</h2>
-            <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
-        </section>
+      <section class="hero">
+        <h2>Welcome to Our Community</h2>
+        <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
+      </section>
 
-        <section class="services">
-            <div class="service-card">
-                <h3>Barangay Clearance</h3>
-                <p>Processing: 3-5 days</p>
-            </div>
-            <div class="service-card">
-                <h3>Residency Certificate</h3>
-                <p>Processing: Same day</p>
-            </div>
-            <div class="service-card">
-                <h3>Indigency Certificate</h3>
-                <p>Processing: 1-2 days</p>
-            </div>
-        </section>
+      <section class="services">
+        <div class="service-card">
+          <h3>Barangay Clearance</h3>
+          <p>Processing: 3-5 days</p>
+        </div>
+        <div class="service-card">
+          <h3>Residency Certificate</h3>
+          <p>Processing: Same day</p>
+        </div>
+        <div class="service-card">
+          <h3>Indigency Certificate</h3>
+          <p>Processing: 1-2 days</p>
+        </div>
+      </section>
     </main>
-</body>
+  </body>
 </html>
 ```
 
 **CSS with Media Queries:**
+
 ```css
 /* ========== BASE / DESKTOP STYLES ========== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
 }
 
 /* Header - Desktop */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background: #1a73e8;
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #1a73e8;
+  color: white;
 }
 
 .header h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .nav {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
 }
 
 /* Hero Section - Desktop */
 .hero {
-    text-align: center;
-    padding: 100px 20px;
-    background: linear-gradient(135deg, #1a73e8, #34a853);
-    color: white;
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #1a73e8, #34a853);
+  color: white;
 }
 
 .hero h2 {
-    font-size: 3rem;
-    margin-bottom: 15px;
+  font-size: 3rem;
+  margin-bottom: 15px;
 }
 
 .hero p {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 /* Services - Desktop */
 .services {
-    display: flex;
-    gap: 30px;
-    padding: 60px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  gap: 30px;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .service-card {
-    flex: 1;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    text-align: center;
+  flex: 1;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
-    color: #1a73e8;
-    margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #1a73e8;
+  margin-bottom: 10px;
 }
 
 /* ========== TABLET (768px - 1023px) ========== */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .header h1 {
-        font-size: 1.5rem;  /* Smaller heading */
-    }
-    
-    .nav {
-        gap: 10px;  /* Less space between links */
-    }
-    
-    .nav a {
-        padding: 8px 12px;  /* Smaller padding */
-        font-size: 0.9rem;
-    }
-    
-    .hero h2 {
-        font-size: 2rem;  /* Smaller hero text */
-    }
-    
-    .hero p {
-        font-size: 1.2rem;
-    }
-    
-    .services {
-        gap: 20px;  /* Less gap between cards */
-    }
+  .header h1 {
+    font-size: 1.5rem; /* Smaller heading */
+  }
+
+  .nav {
+    gap: 10px; /* Less space between links */
+  }
+
+  .nav a {
+    padding: 8px 12px; /* Smaller padding */
+    font-size: 0.9rem;
+  }
+
+  .hero h2 {
+    font-size: 2rem; /* Smaller hero text */
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .services {
+    gap: 20px; /* Less gap between cards */
+  }
 }
 
 /* ========== MOBILE (max 767px) ========== */
 @media (max-width: 767px) {
-    /* Header - Stack vertically */
-    .header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-    }
-    
-    .header h1 {
-        font-size: 1.3rem;
-    }
-    
-    /* Navigation - Stack vertically */
-    .nav {
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        width: 100%;
-    }
-    
-    .nav a {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-        font-size: 0.9rem;
-    }
-    
-    /* Hero - Smaller */
-    .hero {
-        padding: 60px 20px;
-    }
-    
-    .hero h2 {
-        font-size: 1.8rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
-    
-    /* Services - Stack vertically */
-    .services {
-        flex-direction: column;
-        padding: 30px 15px;
-    }
-    
-    .service-card {
-        width: 100%;
-        margin-bottom: 15px;
-    }
+  /* Header - Stack vertically */
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 1.3rem;
+  }
+
+  /* Navigation - Stack vertically */
+  .nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .nav a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Hero - Smaller */
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Services - Stack vertically */
+  .services {
+    flex-direction: column;
+    padding: 30px 15px;
+  }
+
+  .service-card {
+    width: 100%;
+    margin-bottom: 15px;
+  }
 }
 
 /* ========== EXTRA SMALL MOBILE (max 480px) ========== */
 @media (max-width: 480px) {
-    .header h1 {
-        font-size: 1.1rem;
-    }
-    
-    .hero h2 {
-        font-size: 1.5rem;
-    }
-    
-    .service-card {
-        padding: 20px;
-    }
-    
-    .service-card h3 {
-        font-size: 1.2rem;
-    }
+  .header h1 {
+    font-size: 1.1rem;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .service-card {
+    padding: 20px;
+  }
+
+  .service-card h3 {
+    font-size: 1.2rem;
+  }
 }
 ```
 
@@ -409,10 +426,14 @@ body {
 ### Screen Width/Height
 
 ```css
-@media (max-width: 768px) { }      /* Maximum width */
-@media (min-width: 768px) { }      /* Minimum width */
-@media (max-height: 600px) { }     /* Maximum height */
-@media (min-height: 800px) { }     /* Minimum height */
+@media (max-width: 768px) {
+} /* Maximum width */
+@media (min-width: 768px) {
+} /* Minimum width */
+@media (max-height: 600px) {
+} /* Maximum height */
+@media (min-height: 800px) {
+} /* Minimum height */
 ```
 
 ---
@@ -422,34 +443,35 @@ body {
 ```css
 /* Portrait (height > width) */
 @media (orientation: portrait) {
-    /* Styles for vertical screens */
+  /* Styles for vertical screens */
 }
 
 /* Landscape (width > height) */
 @media (orientation: landscape) {
-    /* Styles for horizontal screens */
+  /* Styles for horizontal screens */
 }
 ```
 
 **Example:**
+
 ```css
 /* Show different message based on orientation */
 .portrait-message {
-    display: none;
+  display: none;
 }
 
 .landscape-message {
-    display: block;
+  display: block;
 }
 
 @media (orientation: portrait) {
-    .portrait-message {
-        display: block;
-    }
-    
-    .landscape-message {
-        display: none;
-    }
+  .portrait-message {
+    display: block;
+  }
+
+  .landscape-message {
+    display: none;
+  }
 }
 ```
 
@@ -459,12 +481,11 @@ body {
 
 ```css
 /* High-resolution displays (Retina, etc.) */
-@media (-webkit-min-device-pixel-ratio: 2),
-       (min-resolution: 192dpi) {
-    /* Use higher quality images */
-    .logo {
-        background-image: url('logo@2x.png');
-    }
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Use higher quality images */
+  .logo {
+    background-image: url("logo@2x.png");
+  }
 }
 ```
 
@@ -475,21 +496,21 @@ body {
 ```css
 /* Light mode (default) */
 body {
-    background: white;
-    color: black;
+  background: white;
+  color: black;
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
-    body {
-        background: #1a1a1a;
-        color: white;
-    }
-    
-    .card {
-        background: #2a2a2a;
-        border-color: #444;
-    }
+  body {
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .card {
+    background: #2a2a2a;
+    border-color: #444;
+  }
 }
 ```
 
@@ -504,26 +525,27 @@ Start with mobile styles, add complexity for larger screens.
 ```css
 /* Base: Mobile styles (no media query needed) */
 .nav {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 /* Tablet and up */
 @media (min-width: 768px) {
-    .nav {
-        flex-direction: row;
-    }
+  .nav {
+    flex-direction: row;
+  }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
-    .nav {
-        gap: 30px;
-        font-size: 1.1rem;
-    }
+  .nav {
+    gap: 30px;
+    font-size: 1.1rem;
+  }
 }
 ```
 
 **Why mobile-first?**
+
 - Simpler mobile styles as base
 - Progressive enhancement
 - Better performance on mobile
@@ -537,14 +559,26 @@ Base breakpoints on content, not specific devices.
 
 ```css
 /* Don't do this */
-@media (max-width: 375px) { /* iPhone 8 */ }
-@media (max-width: 414px) { /* iPhone Plus */ }
-@media (max-width: 768px) { /* iPad */ }
+@media (max-width: 375px) {
+  /* iPhone 8 */
+}
+@media (max-width: 414px) {
+  /* iPhone Plus */
+}
+@media (max-width: 768px) {
+  /* iPad */
+}
 
 /* Do this instead */
-@media (max-width: 767px) { /* Small screens */ }
-@media (min-width: 768px) { /* Medium+ screens */ }
-@media (min-width: 1024px) { /* Large screens */ }
+@media (max-width: 767px) {
+  /* Small screens */
+}
+@media (min-width: 768px) {
+  /* Medium+ screens */
+}
+@media (min-width: 1024px) {
+  /* Large screens */
+}
 ```
 
 ---
@@ -552,12 +586,14 @@ Base breakpoints on content, not specific devices.
 ### 3. Test on Real Devices
 
 **Chrome DevTools:**
+
 1. Open DevTools (F12)
 2. Click "Toggle device toolbar" (Ctrl+Shift+M)
 3. Select device or custom size
 4. Test different screen sizes
 
 **Real devices:**
+
 - Test on actual phones/tablets
 - Check touch interactions
 - Verify readability
@@ -567,11 +603,13 @@ Base breakpoints on content, not specific devices.
 ### 4. Don't Forget the Viewport Meta Tag
 
 **ALWAYS include in `<head>`:**
+
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 ```
 
 **What it does:**
+
 - `width=device-width`: Match screen width
 - `initial-scale=1.0`: No zoom by default
 - Without this, mobile browsers may display desktop version!
@@ -584,14 +622,14 @@ Base breakpoints on content, not specific devices.
 
 ```css
 .container {
-    display: flex;
-    flex-direction: column;  /* Mobile: stacked */
+  display: flex;
+  flex-direction: column; /* Mobile: stacked */
 }
 
 @media (min-width: 768px) {
-    .container {
-        flex-direction: row;  /* Desktop: side by side */
-    }
+  .container {
+    flex-direction: row; /* Desktop: side by side */
+  }
 }
 ```
 
@@ -602,21 +640,21 @@ Base breakpoints on content, not specific devices.
 ```css
 /* Hide mobile menu on desktop */
 .mobile-menu {
-    display: block;
+  display: block;
 }
 
 .desktop-menu {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 768px) {
-    .mobile-menu {
-        display: none;
-    }
-    
-    .desktop-menu {
-        display: flex;
-    }
+  .mobile-menu {
+    display: none;
+  }
+
+  .desktop-menu {
+    display: flex;
+  }
 }
 ```
 
@@ -626,19 +664,19 @@ Base breakpoints on content, not specific devices.
 
 ```css
 img {
-    max-width: 100%;   /* Never exceed container width */
-    height: auto;      /* Maintain aspect ratio */
+  max-width: 100%; /* Never exceed container width */
+  height: auto; /* Maintain aspect ratio */
 }
 
 /* Different images for different screens */
 .hero {
-    background-image: url('hero-mobile.jpg');
+  background-image: url("hero-mobile.jpg");
 }
 
 @media (min-width: 768px) {
-    .hero {
-        background-image: url('hero-desktop.jpg');
-    }
+  .hero {
+    background-image: url("hero-desktop.jpg");
+  }
 }
 ```
 
@@ -649,24 +687,28 @@ img {
 Tian summarized:
 
 **Media Query Syntax:**
+
 ```css
 @media (condition) {
-    /* CSS rules */
+  /* CSS rules */
 }
 ```
 
 **Common Conditions:**
+
 - `max-width`: Smaller than or equal
 - `min-width`: Larger than or equal
 - `orientation`: Portrait or landscape
 - `prefers-color-scheme`: Dark or light mode
 
 **Standard Breakpoints:**
+
 - Mobile: `max-width: 767px`
 - Tablet: `min-width: 768px` and `max-width: 1023px`
 - Desktop: `min-width: 1024px`
 
 **Best Practices:**
+
 - Mobile-first approach
 - Always include viewport meta tag
 - Test on real devices

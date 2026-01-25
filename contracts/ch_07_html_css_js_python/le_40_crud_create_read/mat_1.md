@@ -1,8 +1,13 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+40.0+-+COVER.png)
+
 Tian had successfully built the frontend-backend bridge: his JavaScript could fetch data from Flask, and Flask could send JSON responses back. He'd displayed dynamic lists of applications fetched from Flask, with beautiful cards rendering automatically. But there was one massive limitation he discovered when he tested the system with fresh eyes.
 
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+40.1.png)
+
 He filled out a barangay clearance application form with his own test data:
+
 - Name: Tian Rodriguez
 - Age: 16
 - Service: Barangay Clearance
@@ -84,15 +89,16 @@ And the READ flow:
 Tian studied the code Miguel provided:
 
 **Flask CREATE endpoint:**
+
 ```python
 @app.route('/api/applications', methods=['POST'])
 def create_application():
     data = request.get_json()
-    
+
     # Validate
     if not data.get('name'):
         return jsonify({'error': 'Name required'}), 400
-    
+
     # INSERT into database
     conn = sqlite3.connect('barangay.db')
     cursor = conn.cursor()
@@ -103,11 +109,12 @@ def create_application():
     conn.commit()
     new_id = cursor.lastrowid
     conn.close()
-    
+
     return jsonify({'message': 'Created!', 'id': new_id}), 201
 ```
 
 **Flask READ endpoint:**
+
 ```python
 @app.route('/api/applications', methods=['GET'])
 def get_applications():
@@ -117,7 +124,7 @@ def get_applications():
     cursor.execute('SELECT * FROM applications')
     rows = cursor.fetchall()
     conn.close()
-    
+
     # Convert to JSON format
     applications = []
     for row in rows:
@@ -128,7 +135,7 @@ def get_applications():
             'purpose': row[3],
             'status': row[4]
         })
-    
+
     return jsonify(applications)
 ```
 
@@ -158,27 +165,27 @@ Rhea Joy started writing the frontend JavaScript:
 ```javascript
 // CREATE: Submit new application
 async function submitApplication(formData) {
-    const response = await fetch('/api/applications', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData)
-    });
-    
-    const result = await response.json();
-    
-    if (response.ok) {
-        alert('Application submitted successfully!');
-        loadApplications();  // Refresh list
-    } else {
-        alert('Error: ' + result.error);
-    }
+  const response = await fetch("/api/applications", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    alert("Application submitted successfully!");
+    loadApplications(); // Refresh list
+  } else {
+    alert("Error: " + result.error);
+  }
 }
 
 // READ: Load all applications
 async function loadApplications() {
-    const response = await fetch('/api/applications');
-    const applications = await response.json();
-    displayApplications(applications);
+  const response = await fetch("/api/applications");
+  const applications = await response.json();
+  displayApplications(applications);
 }
 ```
 
@@ -201,6 +208,7 @@ Miguel smiled through the video call. "You've graduated from temporary experimen
 ## CRUD Operations Overview
 
 **CRUD** stands for:
+
 - **C**reate - Add new records
 - **R**ead - Retrieve existing records
 - **U**pdate - Modify existing records
@@ -215,6 +223,7 @@ Today: **CREATE and READ**
 ### Flask Backend - CREATE Endpoint
 
 **app.py:**
+
 ```python
 from flask import Flask, request, jsonify
 from datetime import datetime
@@ -228,17 +237,17 @@ next_id = 1
 @app.route('/api/applications', methods=['POST'])
 def create_application():
     global next_id
-    
+
     # Get JSON data from request
     data = request.get_json()
-    
+
     # Validate required fields
     if not data.get('name'):
         return jsonify({'error': 'Name is required'}), 400
-    
+
     if not data.get('service'):
         return jsonify({'error': 'Service is required'}), 400
-    
+
     # Create new application
     application = {
         'id': next_id,
@@ -248,11 +257,11 @@ def create_application():
         'status': 'pending',
         'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-    
+
     # Save to storage
     applications.append(application)
     next_id += 1
-    
+
     # Return success response
     return jsonify({
         'message': 'Application created successfully',
@@ -261,6 +270,7 @@ def create_application():
 ```
 
 **Key Points:**
+
 - `methods=['POST']` - Only accept POST requests
 - `request.get_json()` - Get JSON data from request body
 - Validate input before saving
@@ -271,35 +281,35 @@ def create_application():
 ### JavaScript Frontend - CREATE Function
 
 **script.js:**
+
 ```javascript
 async function createApplication(applicationData) {
-    try {
-        const response = await fetch('/api/applications', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(applicationData)
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to create application');
-        }
-        
-        const result = await response.json();
-        return result;
-        
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
+  try {
+    const response = await fetch("/api/applications", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(applicationData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create application");
     }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
 }
 
 // Usage
 const newApplication = {
-    name: 'Juan Dela Cruz',
-    age: 30,
-    service: 'Barangay Clearance'
+  name: "Juan Dela Cruz",
+  age: 30,
+  service: "Barangay Clearance",
 };
 
 const result = await createApplication(newApplication);
@@ -311,104 +321,108 @@ console.log(result.message); // "Application created successfully"
 ## Complete Form Example - CREATE
 
 **HTML (index.html):**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay Application Form</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Barangay Service Application</h1>
-        
-        <!-- Application Form -->
-        <form id="applicationForm">
-            <div class="form-group">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="age">Age:</label>
-                <input type="number" id="age" min="1" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="service">Service:</label>
-                <select id="service" required>
-                    <option value="">Select Service</option>
-                    <option value="Barangay Clearance">Barangay Clearance</option>
-                    <option value="Certificate of Residency">Certificate of Residency</option>
-                    <option value="Certificate of Indigency">Certificate of Indigency</option>
-                    <option value="Business Permit">Business Permit</option>
-                </select>
-            </div>
-            
-            <button type="submit">Submit Application</button>
-        </form>
-        
-        <div id="message"></div>
-        
-        <!-- Applications List -->
-        <h2>All Applications</h2>
-        <div id="applicationsList"></div>
+      <h1>Barangay Service Application</h1>
+
+      <!-- Application Form -->
+      <form id="applicationForm">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input type="number" id="age" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="service">Service:</label>
+          <select id="service" required>
+            <option value="">Select Service</option>
+            <option value="Barangay Clearance">Barangay Clearance</option>
+            <option value="Certificate of Residency">
+              Certificate of Residency
+            </option>
+            <option value="Certificate of Indigency">
+              Certificate of Indigency
+            </option>
+            <option value="Business Permit">Business Permit</option>
+          </select>
+        </div>
+
+        <button type="submit">Submit Application</button>
+      </form>
+
+      <div id="message"></div>
+
+      <!-- Applications List -->
+      <h2>All Applications</h2>
+      <div id="applicationsList"></div>
     </div>
-    
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
 ```
 
 **JavaScript (script.js):**
+
 ```javascript
-const form = document.querySelector('#applicationForm');
-const message = document.querySelector('#message');
+const form = document.querySelector("#applicationForm");
+const message = document.querySelector("#message");
 
 // Handle form submission
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const applicationData = {
-        name: document.querySelector('#name').value,
-        age: parseInt(document.querySelector('#age').value),
-        service: document.querySelector('#service').value
-    };
-    
-    try {
-        // Create application
-        const response = await fetch('/api/applications', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(applicationData)
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok) {
-            // Show success message
-            message.innerHTML = `<p class="success">${result.message}</p>`;
-            
-            // Clear form
-            form.reset();
-            
-            // Reload applications list
-            loadApplications();
-            
-        } else {
-            // Show error message
-            message.innerHTML = `<p class="error">${result.error}</p>`;
-        }
-        
-    } catch (error) {
-        message.innerHTML = `<p class="error">Network error: ${error.message}</p>`;
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Get form data
+  const applicationData = {
+    name: document.querySelector("#name").value,
+    age: parseInt(document.querySelector("#age").value),
+    service: document.querySelector("#service").value,
+  };
+
+  try {
+    // Create application
+    const response = await fetch("/api/applications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(applicationData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      // Show success message
+      message.innerHTML = `<p class="success">${result.message}</p>`;
+
+      // Clear form
+      form.reset();
+
+      // Reload applications list
+      loadApplications();
+    } else {
+      // Show error message
+      message.innerHTML = `<p class="error">${result.error}</p>`;
     }
+  } catch (error) {
+    message.innerHTML = `<p class="error">Network error: ${error.message}</p>`;
+  }
 });
 
 // Load applications on page load
-window.addEventListener('DOMContentLoaded', loadApplications);
+window.addEventListener("DOMContentLoaded", loadApplications);
 ```
 
 ---
@@ -418,6 +432,7 @@ window.addEventListener('DOMContentLoaded', loadApplications);
 ### Flask Backend - READ Endpoints
 
 **Read All Applications:**
+
 ```python
 @app.route('/api/applications', methods=['GET'])
 def get_all_applications():
@@ -425,12 +440,13 @@ def get_all_applications():
 ```
 
 **Read One Application by ID:**
+
 ```python
 @app.route('/api/applications/<int:app_id>', methods=['GET'])
 def get_application(app_id):
     # Find application by ID
     application = next((app for app in applications if app['id'] == app_id), None)
-    
+
     if application:
         return jsonify(application)
     else:
@@ -442,28 +458,30 @@ def get_application(app_id):
 ### JavaScript Frontend - READ Functions
 
 **Read All:**
+
 ```javascript
 async function loadApplications() {
-    try {
-        const response = await fetch('/api/applications');
-        const applications = await response.json();
-        
-        displayApplications(applications);
-        
-    } catch (error) {
-        console.error('Error loading applications:', error);
-    }
+  try {
+    const response = await fetch("/api/applications");
+    const applications = await response.json();
+
+    displayApplications(applications);
+  } catch (error) {
+    console.error("Error loading applications:", error);
+  }
 }
 
 function displayApplications(applications) {
-    const container = document.querySelector('#applicationsList');
-    
-    if (applications.length === 0) {
-        container.innerHTML = '<p>No applications yet.</p>';
-        return;
-    }
-    
-    container.innerHTML = applications.map(app => `
+  const container = document.querySelector("#applicationsList");
+
+  if (applications.length === 0) {
+    container.innerHTML = "<p>No applications yet.</p>";
+    return;
+  }
+
+  container.innerHTML = applications
+    .map(
+      (app) => `
         <div class="application-card">
             <h3>${app.name}</h3>
             <p><strong>Age:</strong> ${app.age}</p>
@@ -471,27 +489,29 @@ function displayApplications(applications) {
             <p><strong>Status:</strong> <span class="badge ${app.status}">${app.status}</span></p>
             <p><small>Applied on: ${app.date}</small></p>
         </div>
-    `).join('');
+    `,
+    )
+    .join("");
 }
 ```
 
 **Read One by ID:**
+
 ```javascript
 async function getApplicationById(id) {
-    try {
-        const response = await fetch(`/api/applications/${id}`);
-        
-        if (!response.ok) {
-            throw new Error('Application not found');
-        }
-        
-        const application = await response.json();
-        return application;
-        
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
+  try {
+    const response = await fetch(`/api/applications/${id}`);
+
+    if (!response.ok) {
+      throw new Error("Application not found");
     }
+
+    const application = await response.json();
+    return application;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
 }
 
 // Usage
@@ -504,28 +524,29 @@ console.log(app.name); // "Juan Dela Cruz"
 ## Complete Example with Validation
 
 **Flask with Better Validation:**
+
 ```python
 @app.route('/api/applications', methods=['POST'])
 def create_application():
     global next_id
-    
+
     data = request.get_json()
-    
+
     # Validation
     errors = []
-    
+
     if not data.get('name') or len(data.get('name', '').strip()) == 0:
         errors.append('Name is required')
-    
+
     if not data.get('age') or data.get('age') < 1:
         errors.append('Valid age is required')
-    
+
     if not data.get('service'):
         errors.append('Service is required')
-    
+
     if errors:
         return jsonify({'errors': errors}), 400
-    
+
     # Create application
     application = {
         'id': next_id,
@@ -535,10 +556,10 @@ def create_application():
         'status': 'pending',
         'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-    
+
     applications.append(application)
     next_id += 1
-    
+
     return jsonify({
         'message': 'Application created successfully',
         'application': application
@@ -546,42 +567,44 @@ def create_application():
 ```
 
 **JavaScript with Error Display:**
+
 ```javascript
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const applicationData = {
-        name: document.querySelector('#name').value.trim(),
-        age: parseInt(document.querySelector('#age').value),
-        service: document.querySelector('#service').value
-    };
-    
-    try {
-        const response = await fetch('/api/applications', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(applicationData)
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok) {
-            message.innerHTML = `<p class="success">${result.message}</p>`;
-            form.reset();
-            loadApplications();
-        } else {
-            // Display validation errors
-            if (result.errors) {
-                const errorList = result.errors.map(err => `<li>${err}</li>`).join('');
-                message.innerHTML = `<div class="error"><ul>${errorList}</ul></div>`;
-            } else {
-                message.innerHTML = `<p class="error">${result.error}</p>`;
-            }
-        }
-        
-    } catch (error) {
-        message.innerHTML = `<p class="error">Network error: ${error.message}</p>`;
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const applicationData = {
+    name: document.querySelector("#name").value.trim(),
+    age: parseInt(document.querySelector("#age").value),
+    service: document.querySelector("#service").value,
+  };
+
+  try {
+    const response = await fetch("/api/applications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(applicationData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      message.innerHTML = `<p class="success">${result.message}</p>`;
+      form.reset();
+      loadApplications();
+    } else {
+      // Display validation errors
+      if (result.errors) {
+        const errorList = result.errors
+          .map((err) => `<li>${err}</li>`)
+          .join("");
+        message.innerHTML = `<div class="error"><ul>${errorList}</ul></div>`;
+      } else {
+        message.innerHTML = `<p class="error">${result.error}</p>`;
+      }
     }
+  } catch (error) {
+    message.innerHTML = `<p class="error">Network error: ${error.message}</p>`;
+  }
 });
 ```
 
@@ -590,29 +613,31 @@ form.addEventListener('submit', async (e) => {
 ## Search and Filter
 
 **Flask - Search by Name:**
+
 ```python
 @app.route('/api/applications/search', methods=['GET'])
 def search_applications():
     query = request.args.get('q', '').lower()
-    
+
     if not query:
         return jsonify(applications)
-    
+
     results = [app for app in applications if query in app['name'].lower()]
     return jsonify(results)
 ```
 
 **JavaScript - Search Feature:**
-```javascript
-const searchInput = document.querySelector('#search');
 
-searchInput.addEventListener('input', async (e) => {
-    const query = e.target.value;
-    
-    const response = await fetch(`/api/applications/search?q=${query}`);
-    const results = await response.json();
-    
-    displayApplications(results);
+```javascript
+const searchInput = document.querySelector("#search");
+
+searchInput.addEventListener("input", async (e) => {
+  const query = e.target.value;
+
+  const response = await fetch(`/api/applications/search?q=${query}`);
+  const results = await response.json();
+
+  displayApplications(results);
 });
 ```
 
@@ -621,38 +646,41 @@ searchInput.addEventListener('input', async (e) => {
 ## Filter by Status
 
 **Flask - Filter Endpoint:**
+
 ```python
 @app.route('/api/applications/filter', methods=['GET'])
 def filter_applications():
     status = request.args.get('status')
-    
+
     if not status:
         return jsonify(applications)
-    
+
     filtered = [app for app in applications if app['status'] == status]
     return jsonify(filtered)
 ```
 
 **JavaScript - Filter Buttons:**
+
 ```javascript
 function filterByStatus(status) {
-    if (status === 'all') {
-        loadApplications();
-    } else {
-        fetch(`/api/applications/filter?status=${status}`)
-            .then(response => response.json())
-            .then(applications => displayApplications(applications));
-    }
+  if (status === "all") {
+    loadApplications();
+  } else {
+    fetch(`/api/applications/filter?status=${status}`)
+      .then((response) => response.json())
+      .then((applications) => displayApplications(applications));
+  }
 }
 ```
 
 **HTML:**
+
 ```html
 <div class="filter-buttons">
-    <button onclick="filterByStatus('all')">All</button>
-    <button onclick="filterByStatus('pending')">Pending</button>
-    <button onclick="filterByStatus('approved')">Approved</button>
-    <button onclick="filterByStatus('rejected')">Rejected</button>
+  <button onclick="filterByStatus('all')">All</button>
+  <button onclick="filterByStatus('pending')">Pending</button>
+  <button onclick="filterByStatus('approved')">Approved</button>
+  <button onclick="filterByStatus('rejected')">Rejected</button>
 </div>
 ```
 
@@ -661,114 +689,117 @@ function filterByStatus(status) {
 ## CSS Styling
 
 **style.css:**
+
 ```css
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-h1, h2 {
-    color: #333;
-    margin-bottom: 20px;
+h1,
+h2 {
+  color: #333;
+  margin-bottom: 20px;
 }
 
 /* Form Styles */
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 button {
-    background: #1a73e8;
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+  background: #1a73e8;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 button:hover {
-    background: #1557b0;
+  background: #1557b0;
 }
 
 /* Message Styles */
 .success {
-    background: #d4edda;
-    color: #155724;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 20px 0;
+  background: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
 }
 
 .error {
-    background: #f8d7da;
-    color: #721c24;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 20px 0;
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
 }
 
 /* Application Card Styles */
 .application-card {
-    background: white;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .application-card h3 {
-    color: #1a73e8;
-    margin-bottom: 10px;
+  color: #1a73e8;
+  margin-bottom: 10px;
 }
 
 .badge {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .badge.pending {
-    background: #fff3cd;
-    color: #856404;
+  background: #fff3cd;
+  color: #856404;
 }
 
 .badge.approved {
-    background: #d4edda;
-    color: #155724;
+  background: #d4edda;
+  color: #155724;
 }
 
 .badge.rejected {
-    background: #f8d7da;
-    color: #721c24;
+  background: #f8d7da;
+  color: #721c24;
 }
 ```
 
@@ -788,19 +819,21 @@ button:hover {
 ## Summary
 
 **CREATE Pattern:**
+
 ```javascript
 // Send POST request with data
-const response = await fetch('/api/resource', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
+const response = await fetch("/api/resource", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
 });
 ```
 
 **READ Pattern:**
+
 ```javascript
 // Send GET request
-const response = await fetch('/api/resource');
+const response = await fetch("/api/resource");
 const data = await response.json();
 ```
 

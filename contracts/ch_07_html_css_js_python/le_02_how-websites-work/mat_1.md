@@ -1,12 +1,16 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+2.0+-+COVER.png)
+
 Three days had passed since Tian's first lesson with Kuya Miguel. The internet no longer seemed like magic—it was infrastructure, protocols, routers, ISPs, and packets of data traveling at the speed of light. Tian had filled seven pages of notes and could now explain to classmates why their Netflix sometimes buffered during peak hours (ISP congestion) and why gaming ping mattered (latency in data roundtrips).
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+2.1.png)
 
 But understanding the infrastructure wasn't enough. A new question had taken root in Tian's mind, and it consumed their thoughts during classes, jeepney rides home, and even during dinner.
 
 It was Saturday morning. Tian was sitting at the local internet cafe—"Cyber Zone," a small shop with twelve computers crammed into a room that smelled like instant noodles and energy drinks. The cafe was popular with students and gamers, offering ₱15 per hour of internet access. Tian had saved enough from their weekly allowance for two hours of research time.
 
-Facebook was open on the screen. Tian stared at it, not at the content, but at the *process*. They opened Chrome's DevTools (a trick Kuya Miguel had taught them), clicked the Network tab, and refreshed the page.
+Facebook was open on the screen. Tian stared at it, not at the content, but at the _process_. They opened Chrome's DevTools (a trick Kuya Miguel had taught them), clicked the Network tab, and refreshed the page.
 
 A waterfall of activity flooded the screen. Hundreds of requests. HTML files. CSS files. JavaScript. Images. JSON data. Status codes: 200, 304, 101. Timing information: 42ms, 156ms, 12ms. Everything was happening so fast, yet DevTools captured every single transaction.
 
@@ -50,6 +54,7 @@ The **client-server model** is the foundation of how the web works. It's a two-w
 - **Server** = A powerful computer somewhere that stores website files
 
 **Simple analogy:** Think of it like ordering food at a restaurant:
+
 - **You (Client)** = Customer who makes requests
 - **Waiter** = The Internet (delivers your request)
 - **Kitchen (Server)** = Prepares what you ordered
@@ -77,6 +82,7 @@ Let's break down what happens when you type `www.facebook.com` and press Enter:
 ### Step 1: URL Parsing
 
 **URL (Uniform Resource Locator)** structure:
+
 ```
 https://www.facebook.com/profile/user123
 │      │   │            │    │
@@ -96,6 +102,7 @@ Your browser reads and understands each part.
 **DNS (Domain Name System)** = The phonebook of the Internet
 
 **What happens:**
+
 1. Browser checks if it already knows Facebook's IP (cache)
 2. If not, it asks your DNS server (usually your ISP's DNS)
 3. DNS server looks up "facebook.com" → finds IP address `157.240.2.35`
@@ -126,6 +133,7 @@ Now the connection is established and secure.
 Your browser sends an **HTTP Request** to the server.
 
 **Example HTTP Request:**
+
 ```
 GET /index.html HTTP/1.1
 Host: www.facebook.com
@@ -135,6 +143,7 @@ Accept-Language: en-US, tl
 ```
 
 **Key parts:**
+
 - **GET** = Request method (I want to GET/retrieve something)
 - **/index.html** = What file I want
 - **Host** = Which website
@@ -142,6 +151,7 @@ Accept-Language: en-US, tl
 - **Accept** = What types of files I can handle
 
 **Other request methods:**
+
 - **POST** = Send data to server (like submitting a form)
 - **PUT** = Update existing data
 - **DELETE** = Remove data
@@ -166,6 +176,7 @@ For complex dynamic websites (like Facebook): Can take longer (100-500ms)
 The server sends back an **HTTP Response**.
 
 **Example HTTP Response:**
+
 ```
 HTTP/1.1 200 OK
 Content-Type: text/html
@@ -186,12 +197,14 @@ Date: Wed, 13 Nov 2024 10:30:00 GMT
 ```
 
 **Key parts:**
+
 - **200 OK** = Success! (status code)
 - **Content-Type** = What type of data (HTML, JSON, image, etc.)
 - **Content-Length** = How big is the response
 - **Body** = The actual HTML content
 
 **HTTP Status Codes:**
+
 - **200** = Success
 - **301/302** = Redirect (moved to another URL)
 - **400** = Bad request (client error)
@@ -234,6 +247,7 @@ In the Philippines with typical home internet: 2-5 seconds average
 **Definition:** Websites where content doesn't change unless manually updated by a developer.
 
 **Characteristics:**
+
 - Same content for everyone
 - No database needed
 - Fast loading
@@ -242,17 +256,20 @@ In the Philippines with typical home internet: 2-5 seconds average
 **Example:** Company "About Us" page, portfolios, documentation sites
 
 **How it works:**
+
 ```
 Client → Request → Server → Returns pre-made HTML file → Client displays
 ```
 
 **Advantages:**
+
 - Very fast
 - Cheap hosting
 - Secure (fewer attack vectors)
 - Simple to deploy
 
 **Disadvantages:**
+
 - Can't personalize content
 - No user accounts or interactions
 - Must manually update content
@@ -262,6 +279,7 @@ Client → Request → Server → Returns pre-made HTML file → Client displays
 **Definition:** Websites where content changes based on user, time, data, or interactions.
 
 **Characteristics:**
+
 - Different content for different users
 - Uses a database
 - Server-side processing
@@ -270,17 +288,20 @@ Client → Request → Server → Returns pre-made HTML file → Client displays
 **Examples:** Facebook, YouTube, Shopee, Gmail, online banking
 
 **How it works:**
+
 ```
 Client → Request → Server → Queries Database → Generates HTML → Returns to Client
 ```
 
 **Advantages:**
+
 - Personalized experiences
 - User accounts and authentication
 - Real-time updates
 - Interactive features
 
 **Disadvantages:**
+
 - Slower (more processing)
 - More expensive hosting
 - More complex to build
@@ -361,6 +382,7 @@ Perfect for learning and personal projects!
 Your website's address on the internet (e.g., `facebook.com`, `google.com`)
 
 **Structure:**
+
 ```
 www.example.com.ph
 │   │       │   │
@@ -384,15 +406,18 @@ www.example.com.ph
 ### Registering a Domain in the Philippines
 
 **Philippine domain (.ph):**
+
 - Register through **Dot.PH** (official .ph registry)
 - Price: ₱500-2,000/year
 - Requires Philippine presence (business or individual)
 
 **International domains (.com, .net, etc.):**
+
 - Registrars: GoDaddy, Namecheap, Google Domains
 - Price: ₱500-1,500/year
 
 **Free domain options (for students):**
+
 - Use subdomain: `yourname.github.io` (GitHub Pages)
 - Use subdomain: `yoursite.netlify.app` (Netlify)
 - Register free .tk, .ml, .ga domains (Freenom) — but not recommended for professional use
@@ -422,6 +447,7 @@ www.example.com.ph
 **SSL Certificate** = Digital certificate that proves website identity and enables HTTPS
 
 **Where to get:**
+
 - Free: Let's Encrypt (most popular)
 - Paid: DigiCert, Sectigo, GoDaddy (₱2,000-20,000/year)
 
@@ -434,14 +460,17 @@ www.example.com.ph
 **Challenge:** Philippines ranks low in global internet speed rankings
 
 **Average speed (2024):**
+
 - Mobile: 25-35 Mbps
 - Fixed broadband: 40-60 Mbps
 
 Compare to:
+
 - Singapore: 200+ Mbps
 - South Korea: 150+ Mbps
 
 **Why websites sometimes load slow:**
+
 1. Server location (US/Europe servers vs local PH servers)
 2. Submarine cable capacity
 3. Last-mile infrastructure
@@ -454,11 +483,13 @@ Compare to:
 **Solution:** **CDN (Content Delivery Network)**
 
 **How it works:**
+
 - CDN stores copies of website files on servers worldwide
 - When you access Facebook, you connect to nearest server (likely in Singapore or Hong Kong)
 - Much faster!
 
 **Popular CDNs:**
+
 - Cloudflare (used by millions of sites)
 - Amazon CloudFront
 - Google Cloud CDN
@@ -469,12 +500,14 @@ Compare to:
 ### Local Philippine Hosting
 
 **Advantages of PH-based hosting:**
+
 - Faster for Filipino visitors
 - Lower latency
 - Sometimes cheaper than international
 - Localized support (Tagalog customer service)
 
 **Examples:**
+
 - ServerFreak Philippines
 - Web.com.ph
 - Hosting.ph
@@ -483,26 +516,33 @@ Compare to:
 ## Common Student Misconceptions
 
 ### WRONG: "The website lives in my computer"
+
 **CORRECT:** The website lives on a server. Your browser just displays a copy.
 
 ### WRONG: "Closing the browser deletes the website"
+
 **CORRECT:** The website stays on the server. Closing browser just closes your view of it.
 
 ### WRONG: "My website will work without hosting"
+
 **CORRECT:** You need a server (hosting) for others to access your site on the internet. You can view HTML files locally (file:///), but no one else can access them.
 
 ### WRONG: "Domain and hosting are the same"
+
 **CORRECT:**
+
 - **Domain** = Your address (like street address)
 - **Hosting** = Your land and building (where files are stored)
 - You need BOTH for a public website
 
 ### WRONG: "HTTP and HTTPS are the same"
+
 **CORRECT:** HTTPS is encrypted and secure. HTTP is not. Always use HTTPS, especially for sites with user login or payment.
 
 ## Summary
 
 **How Websites Work:**
+
 1. You type URL → Browser sends request
 2. DNS converts domain to IP address
 3. Browser establishes TCP connection
@@ -511,6 +551,7 @@ Compare to:
 6. Browser renders HTML/CSS/JS into webpage
 
 **Key Concepts:**
+
 - **Client-Server Model** — Two-way communication
 - **Static vs Dynamic** — Pre-made vs generated content
 - **Web Hosting** — Where website files are stored
@@ -519,6 +560,7 @@ Compare to:
 - **Status Codes** — 200 (success), 404 (not found), 500 (server error)
 
 **Philippines Context:**
+
 - Average load time: 2-5 seconds
 - Use local hosting when possible
 - CDNs improve performance significantly
@@ -540,4 +582,4 @@ Tian's eyes lit up. "I want to build a website for our barangay. Something simpl
 
 As the sun set over Batangas, Tian felt a surge of determination. The web wasn't just for consuming anymoreit was something Tian could create. Tomorrow, the building begins.
 
-_Next up: Frontend vs Backendchoosing your path!_ 
+_Next up: Frontend vs Backendchoosing your path!_

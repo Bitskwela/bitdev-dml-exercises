@@ -1,8 +1,11 @@
 ## Background Story
 
-Tian stared at the browser console, watching their JavaScript code execute perfectly. Variables declared. Functions defined. Loops running. Conditional logic working flawlessly. Every `console.log()` statement printed exactly what they expected.
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+30.0+-+COVER.png)
 
+Tian stared at the browser console, watching their JavaScript code execute perfectly. Variables declared. Functions defined. Loops running. Conditional logic working flawlessly. Every `console.log()` statement printed exactly what they expected.
 But the webpage itself? Completely unchanged. Still the same static HTML, displaying the same text, showing the same content. It was as if the JavaScript existed in a parallel dimension, running invisibly in the background while the visible page remained frozen in time.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+30.1.png)
 
 "This is so frustrating!" Tian said, slamming their hands on the desk.
 
@@ -19,7 +22,7 @@ But the result never appeared on the page.
 Tian opened Facebook in another tab, opened DevTools, and switched to the Console. They typed:
 
 ```javascript
-document.querySelector('h1').textContent = 'HACKED!';
+document.querySelector("h1").textContent = "HACKED!";
 ```
 
 They pressed Enter. The Facebook logo at the top of the page instantly changed to the text "HACKED!" Tian's eyes widened.
@@ -31,8 +34,8 @@ Rhea Joy leaned in, equally shocked. "You just changed Facebook's page with Java
 Tian frantically typed more commands:
 
 ```javascript
-document.body.style.backgroundColor = 'pink';
-document.querySelectorAll('p').forEach(p => p.style.color = 'red');
+document.body.style.backgroundColor = "pink";
+document.querySelectorAll("p").forEach((p) => (p.style.color = "red"));
 ```
 
 The entire Facebook page transformed—pink background, all paragraphs turned red. It was temporary (refreshing would restore everything), but the power was undeniable.
@@ -62,20 +65,22 @@ Miguel laughed. "Did you use `document.querySelector` in the console?"
 **DOM (Document Object Model)** is a programming interface for HTML documents. It represents the page as a tree of objects that JavaScript can manipulate.
 
 **HTML:**
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>My Page</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Hello World</h1>
     <p>Welcome</p>
-</body>
+  </body>
 </html>
 ```
 
 **DOM Tree:**
+
 ```
 document
   └── html
@@ -91,29 +96,32 @@ document
 ## Selecting Elements
 
 ### querySelector()
+
 **Select first matching element:**
 
 ```javascript
 // Select by tag
-let heading = document.querySelector('h1');
+let heading = document.querySelector("h1");
 
 // Select by class
-let box = document.querySelector('.box');
+let box = document.querySelector(".box");
 
 // Select by ID
-let header = document.querySelector('#header');
+let header = document.querySelector("#header");
 ```
 
 ### querySelectorAll()
+
 **Select all matching elements:**
 
 ```javascript
 // Returns NodeList (array-like)
-let allParagraphs = document.querySelectorAll('p');
-let allBoxes = document.querySelectorAll('.box');
+let allParagraphs = document.querySelectorAll("p");
+let allBoxes = document.querySelectorAll(".box");
 ```
 
 **Example:**
+
 ```html
 <h1>Barangay Services</h1>
 <p class="service">Clearance</p>
@@ -121,11 +129,11 @@ let allBoxes = document.querySelectorAll('.box');
 <p class="service">Indigency</p>
 
 <script>
-let heading = document.querySelector('h1');
-let allServices = document.querySelectorAll('.service');
+  let heading = document.querySelector("h1");
+  let allServices = document.querySelectorAll(".service");
 
-console.log(heading);           // <h1>...</h1>
-console.log(allServices.length); // 3
+  console.log(heading); // <h1>...</h1>
+  console.log(allServices.length); // 3
 </script>
 ```
 
@@ -134,43 +142,46 @@ console.log(allServices.length); // 3
 ## Reading and Changing Text
 
 ### textContent
+
 **Get or set text (ignores HTML):**
 
 ```html
 <h1 id="title">Hello</h1>
 
 <script>
-let title = document.querySelector('#title');
+  let title = document.querySelector("#title");
 
-// Read text
-console.log(title.textContent);  // "Hello"
+  // Read text
+  console.log(title.textContent); // "Hello"
 
-// Change text
-title.textContent = "Welcome to Barangay";
+  // Change text
+  title.textContent = "Welcome to Barangay";
 </script>
 ```
 
 ### innerHTML
+
 **Get or set HTML (interprets HTML tags):**
 
 ```html
 <div id="content"></div>
 
 <script>
-let content = document.querySelector('#content');
+  let content = document.querySelector("#content");
 
-// Set HTML
-content.innerHTML = '<h2>Services</h2><p>Clearance: ₱50</p>';
+  // Set HTML
+  content.innerHTML = "<h2>Services</h2><p>Clearance: ₱50</p>";
 </script>
 ```
 
 **Barangay announcement:**
+
 ```html
 <div id="announcement"></div>
 
 <script>
-let announcement = document.querySelector('#announcement');
-announcement.innerHTML = `
+  let announcement = document.querySelector("#announcement");
+  announcement.innerHTML = `
     <h3>Office Hours</h3>
     <p>Monday-Friday: 8 AM - 5 PM</p>
     <p>Saturday: 8 AM - 12 PM</p>
@@ -186,28 +197,29 @@ announcement.innerHTML = `
 ### getAttribute() and setAttribute()
 
 ```html
-<img id="logo" src="old.png" alt="Logo">
+<img id="logo" src="old.png" alt="Logo" />
 
 <script>
-let logo = document.querySelector('#logo');
+  let logo = document.querySelector("#logo");
 
-// Get attribute
-console.log(logo.getAttribute('src'));  // "old.png"
+  // Get attribute
+  console.log(logo.getAttribute("src")); // "old.png"
 
-// Set attribute
-logo.setAttribute('src', 'new.png');
-logo.setAttribute('alt', 'New Logo');
+  // Set attribute
+  logo.setAttribute("src", "new.png");
+  logo.setAttribute("alt", "New Logo");
 </script>
 ```
 
 **Barangay ID card:**
+
 ```html
-<img id="idPhoto" src="" alt="Resident Photo">
+<img id="idPhoto" src="" alt="Resident Photo" />
 
 <script>
-let idPhoto = document.querySelector('#idPhoto');
-idPhoto.setAttribute('src', 'resident-juan.jpg');
-idPhoto.setAttribute('alt', 'Juan Dela Cruz');
+  let idPhoto = document.querySelector("#idPhoto");
+  idPhoto.setAttribute("src", "resident-juan.jpg");
+  idPhoto.setAttribute("alt", "Juan Dela Cruz");
 </script>
 ```
 
@@ -221,37 +233,39 @@ idPhoto.setAttribute('alt', 'Juan Dela Cruz');
 <div id="box">Hello</div>
 
 <script>
-let box = document.querySelector('#box');
+  let box = document.querySelector("#box");
 
-box.style.color = 'white';
-box.style.backgroundColor = 'blue';  // Use camelCase!
-box.style.padding = '20px';
-box.style.fontSize = '24px';
+  box.style.color = "white";
+  box.style.backgroundColor = "blue"; // Use camelCase!
+  box.style.padding = "20px";
+  box.style.fontSize = "24px";
 </script>
 ```
 
 **Important:** CSS properties use camelCase in JavaScript:
+
 - `background-color` → `backgroundColor`
 - `font-size` → `fontSize`
 - `border-radius` → `borderRadius`
 
 **Barangay status indicator:**
+
 ```html
 <div id="status">Office Status</div>
 
 <script>
-let status = document.querySelector('#status');
+  let status = document.querySelector("#status");
 
-// Office open
-status.textContent = 'OPEN';
-status.style.backgroundColor = 'green';
-status.style.color = 'white';
-status.style.padding = '10px';
-status.style.textAlign = 'center';
+  // Office open
+  status.textContent = "OPEN";
+  status.style.backgroundColor = "green";
+  status.style.color = "white";
+  status.style.padding = "10px";
+  status.style.textAlign = "center";
 
-// Office closed
-// status.textContent = 'CLOSED';
-// status.style.backgroundColor = 'red';
+  // Office closed
+  // status.textContent = 'CLOSED';
+  // status.style.backgroundColor = 'red';
 </script>
 ```
 
@@ -265,70 +279,70 @@ status.style.textAlign = 'center';
 <div id="box" class="container">Content</div>
 
 <script>
-let box = document.querySelector('#box');
+  let box = document.querySelector("#box");
 
-// Add class
-box.classList.add('active');
+  // Add class
+  box.classList.add("active");
 
-// Remove class
-box.classList.remove('container');
+  // Remove class
+  box.classList.remove("container");
 
-// Toggle class (add if absent, remove if present)
-box.classList.toggle('highlight');
+  // Toggle class (add if absent, remove if present)
+  box.classList.toggle("highlight");
 
-// Check if has class
-if (box.classList.contains('active')) {
-    console.log('Box is active');
-}
+  // Check if has class
+  if (box.classList.contains("active")) {
+    console.log("Box is active");
+  }
 </script>
 ```
 
 **CSS:**
+
 ```css
 .highlight {
-    background-color: yellow;
-    border: 2px solid orange;
+  background-color: yellow;
+  border: 2px solid orange;
 }
 
 .active {
-    font-weight: bold;
-    color: blue;
+  font-weight: bold;
+  color: blue;
 }
 ```
 
 **Barangay service status:**
+
 ```html
 <style>
-.service-box {
+  .service-box {
     padding: 15px;
     margin: 10px;
     border: 1px solid #ccc;
-}
+  }
 
-.available {
+  .available {
     background-color: #d4edda;
     border-color: #28a745;
-}
+  }
 
-.unavailable {
+  .unavailable {
     background-color: #f8d7da;
     border-color: #dc3545;
-}
+  }
 </style>
 
-<div id="clearanceService" class="service-box">
-    Barangay Clearance
-</div>
+<div id="clearanceService" class="service-box">Barangay Clearance</div>
 
 <script>
-let service = document.querySelector('#clearanceService');
+  let service = document.querySelector("#clearanceService");
 
-// Mark as available
-service.classList.add('available');
+  // Mark as available
+  service.classList.add("available");
 
-// Later, mark as unavailable
-// service.classList.remove('available');
-// service.classList.add('unavailable');
+  // Later, mark as unavailable
+  // service.classList.remove('available');
+  // service.classList.add('unavailable');
 </script>
 ```
 
@@ -342,41 +356,43 @@ service.classList.add('available');
 <div id="container"></div>
 
 <script>
-let container = document.querySelector('#container');
+  let container = document.querySelector("#container");
 
-// Create new element
-let paragraph = document.createElement('p');
-paragraph.textContent = 'This is new text';
+  // Create new element
+  let paragraph = document.createElement("p");
+  paragraph.textContent = "This is new text";
 
-// Add to page
-container.appendChild(paragraph);
+  // Add to page
+  container.appendChild(paragraph);
 </script>
 ```
 
 **Creating multiple elements:**
+
 ```html
 <ul id="serviceList"></ul>
 
 <script>
-let list = document.querySelector('#serviceList');
+  let list = document.querySelector("#serviceList");
 
-let services = ['Clearance', 'Residency', 'Indigency', 'Permit'];
+  let services = ["Clearance", "Residency", "Indigency", "Permit"];
 
-for (let service of services) {
-    let listItem = document.createElement('li');
+  for (let service of services) {
+    let listItem = document.createElement("li");
     listItem.textContent = service;
     list.appendChild(listItem);
-}
+  }
 </script>
 ```
 
 **Result:**
+
 ```html
 <ul id="serviceList">
-    <li>Clearance</li>
-    <li>Residency</li>
-    <li>Indigency</li>
-    <li>Permit</li>
+  <li>Clearance</li>
+  <li>Residency</li>
+  <li>Indigency</li>
+  <li>Permit</li>
 </ul>
 ```
 
@@ -390,8 +406,8 @@ for (let service of services) {
 <div id="warning">This will be removed</div>
 
 <script>
-let warning = document.querySelector('#warning');
-warning.remove();
+  let warning = document.querySelector("#warning");
+  warning.remove();
 </script>
 ```
 
@@ -399,15 +415,15 @@ warning.remove();
 
 ```html
 <ul id="list">
-    <li id="item1">Item 1</li>
-    <li id="item2">Item 2</li>
+  <li id="item1">Item 1</li>
+  <li id="item2">Item 2</li>
 </ul>
 
 <script>
-let list = document.querySelector('#list');
-let item = document.querySelector('#item1');
+  let list = document.querySelector("#list");
+  let item = document.querySelector("#item1");
 
-list.removeChild(item);
+  list.removeChild(item);
 </script>
 ```
 
@@ -418,190 +434,220 @@ list.removeChild(item);
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        
-        .header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 5px;
-        }
-        
-        .stats {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .stat-box {
-            flex: 1;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        
-        .stat-box.visitors {
-            background-color: #d4edda;
-            border: 2px solid #28a745;
-        }
-        
-        .stat-box.revenue {
-            background-color: #fff3cd;
-            border: 2px solid #ffc107;
-        }
-        
-        .stat-box.pending {
-            background-color: #f8d7da;
-            border: 2px solid #dc3545;
-        }
-        
-        .stat-number {
-            font-size: 36px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        #visitorList {
-            list-style: none;
-            padding: 0;
-        }
-        
-        #visitorList li {
-            background-color: #f8f9fa;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border-left: 4px solid #007bff;
-        }
-        
-        .visitor-name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .visitor-details {
-            color: #666;
-            font-size: 14px;
-            margin-top: 5px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      .header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+      .stats {
+        display: flex;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .stat-box {
+        flex: 1;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .stat-box.visitors {
+        background-color: #d4edda;
+        border: 2px solid #28a745;
+      }
+
+      .stat-box.revenue {
+        background-color: #fff3cd;
+        border: 2px solid #ffc107;
+      }
+
+      .stat-box.pending {
+        background-color: #f8d7da;
+        border: 2px solid #dc3545;
+      }
+
+      .stat-number {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+
+      .stat-label {
+        color: #666;
+        font-size: 14px;
+      }
+
+      #visitorList {
+        list-style: none;
+        padding: 0;
+      }
+
+      #visitorList li {
+        background-color: #f8f9fa;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+      }
+
+      .visitor-name {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .visitor-details {
+        color: #666;
+        font-size: 14px;
+        margin-top: 5px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <div class="header">
-        <h1 id="barangayName">Loading...</h1>
-        <p id="dateTime">Loading...</p>
+      <h1 id="barangayName">Loading...</h1>
+      <p id="dateTime">Loading...</p>
     </div>
-    
+
     <!-- Statistics -->
     <div class="stats">
-        <div class="stat-box visitors">
-            <div class="stat-number" id="visitorCount">0</div>
-            <div class="stat-label">Total Visitors</div>
-        </div>
-        <div class="stat-box revenue">
-            <div class="stat-number" id="totalRevenue">₱0</div>
-            <div class="stat-label">Total Revenue</div>
-        </div>
-        <div class="stat-box pending">
-            <div class="stat-number" id="pendingCount">0</div>
-            <div class="stat-label">Pending Services</div>
-        </div>
+      <div class="stat-box visitors">
+        <div class="stat-number" id="visitorCount">0</div>
+        <div class="stat-label">Total Visitors</div>
+      </div>
+      <div class="stat-box revenue">
+        <div class="stat-number" id="totalRevenue">₱0</div>
+        <div class="stat-label">Total Revenue</div>
+      </div>
+      <div class="stat-box pending">
+        <div class="stat-number" id="pendingCount">0</div>
+        <div class="stat-label">Pending Services</div>
+      </div>
     </div>
-    
+
     <!-- Visitor List -->
     <h2>Today's Visitors</h2>
     <ul id="visitorList"></ul>
-    
+
     <script>
-        // Data
-        const visitors = [
-            { name: "Juan Dela Cruz", age: 25, service: "Clearance", fee: 50, status: "completed" },
-            { name: "Maria Santos", age: 65, service: "Residency", fee: 24, status: "completed" },
-            { name: "Pedro Reyes", age: 30, service: "Indigency", fee: 16, status: "pending" },
-            { name: "Rosa Garcia", age: 70, service: "Clearance", fee: 40, status: "pending" }
-        ];
-        
-        // Update header
-        document.querySelector('#barangayName').textContent = 'San Juan Barangay Hall';
-        document.querySelector('#dateTime').textContent = new Date().toLocaleDateString('en-PH', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+      // Data
+      const visitors = [
+        {
+          name: "Juan Dela Cruz",
+          age: 25,
+          service: "Clearance",
+          fee: 50,
+          status: "completed",
+        },
+        {
+          name: "Maria Santos",
+          age: 65,
+          service: "Residency",
+          fee: 24,
+          status: "completed",
+        },
+        {
+          name: "Pedro Reyes",
+          age: 30,
+          service: "Indigency",
+          fee: 16,
+          status: "pending",
+        },
+        {
+          name: "Rosa Garcia",
+          age: 70,
+          service: "Clearance",
+          fee: 40,
+          status: "pending",
+        },
+      ];
+
+      // Update header
+      document.querySelector("#barangayName").textContent =
+        "San Juan Barangay Hall";
+      document.querySelector("#dateTime").textContent =
+        new Date().toLocaleDateString("en-PH", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         });
-        
-        // Calculate statistics
-        let totalRevenue = 0;
-        let pendingCount = 0;
-        
-        for (let visitor of visitors) {
-            totalRevenue += visitor.fee;
-            if (visitor.status === 'pending') {
-                pendingCount++;
-            }
+
+      // Calculate statistics
+      let totalRevenue = 0;
+      let pendingCount = 0;
+
+      for (let visitor of visitors) {
+        totalRevenue += visitor.fee;
+        if (visitor.status === "pending") {
+          pendingCount++;
         }
-        
-        // Update statistics
-        document.querySelector('#visitorCount').textContent = visitors.length;
-        document.querySelector('#totalRevenue').textContent = '₱' + totalRevenue;
-        document.querySelector('#pendingCount').textContent = pendingCount;
-        
-        // Display visitor list
-        const visitorList = document.querySelector('#visitorList');
-        
-        for (let visitor of visitors) {
-            // Create list item
-            let listItem = document.createElement('li');
-            
-            // Add visitor name
-            let nameDiv = document.createElement('div');
-            nameDiv.className = 'visitor-name';
-            nameDiv.textContent = visitor.name;
-            
-            // Add visitor details
-            let detailsDiv = document.createElement('div');
-            detailsDiv.className = 'visitor-details';
-            
-            let discount = "";
-            if (visitor.age >= 60) {
-                discount = " (Senior discount applied)";
-            }
-            
-            detailsDiv.textContent = `Age: ${visitor.age} | Service: ${visitor.service} | Fee: ₱${visitor.fee}${discount} | Status: ${visitor.status.toUpperCase()}`;
-            
-            // Add status indicator color
-            if (visitor.status === 'completed') {
-                listItem.style.borderLeftColor = '#28a745';  // Green
-            } else {
-                listItem.style.borderLeftColor = '#ffc107';  // Yellow
-            }
-            
-            // Append to list item
-            listItem.appendChild(nameDiv);
-            listItem.appendChild(detailsDiv);
-            
-            // Append to list
-            visitorList.appendChild(listItem);
+      }
+
+      // Update statistics
+      document.querySelector("#visitorCount").textContent = visitors.length;
+      document.querySelector("#totalRevenue").textContent = "₱" + totalRevenue;
+      document.querySelector("#pendingCount").textContent = pendingCount;
+
+      // Display visitor list
+      const visitorList = document.querySelector("#visitorList");
+
+      for (let visitor of visitors) {
+        // Create list item
+        let listItem = document.createElement("li");
+
+        // Add visitor name
+        let nameDiv = document.createElement("div");
+        nameDiv.className = "visitor-name";
+        nameDiv.textContent = visitor.name;
+
+        // Add visitor details
+        let detailsDiv = document.createElement("div");
+        detailsDiv.className = "visitor-details";
+
+        let discount = "";
+        if (visitor.age >= 60) {
+          discount = " (Senior discount applied)";
         }
+
+        detailsDiv.textContent = `Age: ${visitor.age} | Service: ${
+          visitor.service
+        } | Fee: ₱${
+          visitor.fee
+        }${discount} | Status: ${visitor.status.toUpperCase()}`;
+
+        // Add status indicator color
+        if (visitor.status === "completed") {
+          listItem.style.borderLeftColor = "#28a745"; // Green
+        } else {
+          listItem.style.borderLeftColor = "#ffc107"; // Yellow
+        }
+
+        // Append to list item
+        listItem.appendChild(nameDiv);
+        listItem.appendChild(detailsDiv);
+
+        // Append to list
+        visitorList.appendChild(listItem);
+      }
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -610,36 +656,39 @@ list.removeChild(item);
 ## Best Practices
 
 ### 1. Cache DOM selections
+
 ```javascript
 // Bad - queries every time
 for (let i = 0; i < 100; i++) {
-    document.querySelector('#box').textContent = i;
+  document.querySelector("#box").textContent = i;
 }
 
 // Good - query once
-let box = document.querySelector('#box');
+let box = document.querySelector("#box");
 for (let i = 0; i < 100; i++) {
-    box.textContent = i;
+  box.textContent = i;
 }
 ```
 
 ### 2. Use textContent for plain text
+
 ```javascript
 // Use textContent for security (prevents XSS)
 element.textContent = userInput;
 
 // Only use innerHTML when you need HTML
-element.innerHTML = '<strong>Bold text</strong>';
+element.innerHTML = "<strong>Bold text</strong>";
 ```
 
 ### 3. Use classList over direct className
+
 ```javascript
 // Bad
-element.className = 'box active';
+element.className = "box active";
 
 // Good
-element.classList.add('box');
-element.classList.add('active');
+element.classList.add("box");
+element.classList.add("active");
 ```
 
 ---
@@ -649,24 +698,27 @@ element.classList.add('active');
 Tian reviewed DOM manipulation:
 
 **Selecting:**
+
 ```javascript
-document.querySelector('#id')      // Select by ID
-document.querySelector('.class')   // Select by class
-document.querySelectorAll('.class') // Select all
+document.querySelector("#id"); // Select by ID
+document.querySelector(".class"); // Select by class
+document.querySelectorAll(".class"); // Select all
 ```
 
 **Changing:**
+
 ```javascript
-element.textContent = 'text'       // Change text
-element.innerHTML = '<h1>HTML</h1>' // Change HTML
-element.style.color = 'red'        // Change style
-element.classList.add('class')     // Add class
+element.textContent = "text"; // Change text
+element.innerHTML = "<h1>HTML</h1>"; // Change HTML
+element.style.color = "red"; // Change style
+element.classList.add("class"); // Add class
 ```
 
 **Creating:**
+
 ```javascript
-let el = document.createElement('div')
-element.appendChild(el)
+let el = document.createElement("div");
+element.appendChild(el);
 ```
 
 Rhea Joy smiled. "Now we can make our pages interactive!"

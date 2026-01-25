@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+10.0+-+COVER.png)
+
 The barangay website project was progressing well. Tian and Rhea Joy had built beautiful pages with semantic HTML and polished CSS. But two critical features were missing: displaying structured data and collecting user input.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+10.1.png)
 
 The barangay captain had requested two specific functionalities:
 
@@ -49,18 +53,22 @@ Miguel continued, "Tables have been part of HTML since the beginning—though pe
 
 ```html
 <table>
-    <tr>  <!-- Table Row -->
-        <th>Header 1</th>  <!-- Table Header -->
-        <th>Header 2</th>
-    </tr>
-    <tr>
-        <td>Data 1</td>  <!-- Table Data -->
-        <td>Data 2</td>
-    </tr>
+  <tr>
+    <!-- Table Row -->
+    <th>Header 1</th>
+    <!-- Table Header -->
+    <th>Header 2</th>
+  </tr>
+  <tr>
+    <td>Data 1</td>
+    <!-- Table Data -->
+    <td>Data 2</td>
+  </tr>
 </table>
 ```
 
 **Tags:**
+
 - `<table>` = Wrapper for entire table
 - `<tr>` = Table Row
 - `<th>` = Table Header (bold, centered by default)
@@ -70,26 +78,26 @@ Miguel continued, "Tables have been part of HTML since the beginning—though pe
 
 ```html
 <table border="1">
-    <tr>
-        <th>Sitio</th>
-        <th>Population</th>
-        <th>Households</th>
-    </tr>
-    <tr>
-        <td>Sitio 1</td>
-        <td>542</td>
-        <td>98</td>
-    </tr>
-    <tr>
-        <td>Sitio 2</td>
-        <td>687</td>
-        <td>125</td>
-    </tr>
-    <tr>
-        <td>Sitio 3</td>
-        <td>411</td>
-        <td>76</td>
-    </tr>
+  <tr>
+    <th>Sitio</th>
+    <th>Population</th>
+    <th>Households</th>
+  </tr>
+  <tr>
+    <td>Sitio 1</td>
+    <td>542</td>
+    <td>98</td>
+  </tr>
+  <tr>
+    <td>Sitio 2</td>
+    <td>687</td>
+    <td>125</td>
+  </tr>
+  <tr>
+    <td>Sitio 3</td>
+    <td>411</td>
+    <td>76</td>
+  </tr>
 </table>
 ```
 
@@ -97,30 +105,33 @@ Miguel continued, "Tables have been part of HTML since the beginning—though pe
 
 ```html
 <table>
-    <thead>  <!-- Table Head (header rows) -->
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-        </tr>
-    </thead>
-    
-    <tbody>  <!-- Table Body (data rows) -->
-        <tr>
-            <td>Maria Santos</td>
-            <td>Captain</td>
-        </tr>
-        <tr>
-            <td>Juan Dela Cruz</td>
-            <td>Kagawad</td>
-        </tr>
-    </tbody>
-    
-    <tfoot>  <!-- Table Footer (summary rows) -->
-        <tr>
-            <td>Total Officials:</td>
-            <td>8</td>
-        </tr>
-    </tfoot>
+  <thead>
+    <!-- Table Head (header rows) -->
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Table Body (data rows) -->
+    <tr>
+      <td>Maria Santos</td>
+      <td>Captain</td>
+    </tr>
+    <tr>
+      <td>Juan Dela Cruz</td>
+      <td>Kagawad</td>
+    </tr>
+  </tbody>
+
+  <tfoot>
+    <!-- Table Footer (summary rows) -->
+    <tr>
+      <td>Total Officials:</td>
+      <td>8</td>
+    </tr>
+  </tfoot>
 </table>
 ```
 
@@ -129,16 +140,16 @@ Miguel continued, "Tables have been part of HTML since the beginning—though pe
 ```html
 <!-- Colspan (merge columns) -->
 <tr>
-    <td colspan="2">Spans 2 columns</td>
+  <td colspan="2">Spans 2 columns</td>
 </tr>
 
 <!-- Rowspan (merge rows) -->
 <tr>
-    <td rowspan="2">Spans 2 rows</td>
-    <td>Data</td>
+  <td rowspan="2">Spans 2 rows</td>
+  <td>Data</td>
 </tr>
 <tr>
-    <td>Data</td>
+  <td>Data</td>
 </tr>
 ```
 
@@ -146,37 +157,38 @@ Miguel continued, "Tables have been part of HTML since the beginning—though pe
 
 ```html
 <style>
-table {
+  table {
     width: 100%;
     border-collapse: collapse;
-}
-th, td {
+  }
+  th,
+  td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-}
-th {
-    background-color: #4CAF50;
+  }
+  th {
+    background-color: #4caf50;
     color: white;
-}
-tr:nth-child(even) {
+  }
+  tr:nth-child(even) {
     background-color: #f2f2f2;
-}
+  }
 </style>
 
 <table>
-    <tr>
-        <th>Service</th>
-        <th>Fee</th>
-    </tr>
-    <tr>
-        <td>Barangay Clearance</td>
-        <td>₱50</td>
-    </tr>
-    <tr>
-        <td>Cedula</td>
-        <td>₱5-100</td>
-    </tr>
+  <tr>
+    <th>Service</th>
+    <th>Fee</th>
+  </tr>
+  <tr>
+    <td>Barangay Clearance</td>
+    <td>₱50</td>
+  </tr>
+  <tr>
+    <td>Cedula</td>
+    <td>₱5-100</td>
+  </tr>
 </table>
 ```
 
@@ -188,12 +200,13 @@ tr:nth-child(even) {
 
 ```html
 <form action="submit.php" method="POST">
-    <!-- Form inputs go here -->
-    <button type="submit">Submit</button>
+  <!-- Form inputs go here -->
+  <button type="submit">Submit</button>
 </form>
 ```
 
 **Attributes:**
+
 - `action` = URL where form data is sent
 - `method` = How data is sent (GET or POST)
   - **GET:** Data in URL (visible, for searches)
@@ -205,10 +218,17 @@ tr:nth-child(even) {
 
 ```html
 <label for="name">Name:</label>
-<input type="text" id="name" name="name" placeholder="Enter your name" required>
+<input
+  type="text"
+  id="name"
+  name="name"
+  placeholder="Enter your name"
+  required
+/>
 ```
 
 **Attributes:**
+
 - `type="text"` = Single-line text
 - `id` = Links to label (accessibility)
 - `name` = Field name sent to server
@@ -219,7 +239,7 @@ tr:nth-child(even) {
 
 ```html
 <label for="email">Email:</label>
-<input type="email" id="email" name="email" required>
+<input type="email" id="email" name="email" required />
 ```
 
 Automatically validates email format.
@@ -228,7 +248,7 @@ Automatically validates email format.
 
 ```html
 <label for="password">Password:</label>
-<input type="password" id="password" name="password" required minlength="8">
+<input type="password" id="password" name="password" required minlength="8" />
 ```
 
 Hides characters while typing.
@@ -237,27 +257,27 @@ Hides characters while typing.
 
 ```html
 <label for="age">Age:</label>
-<input type="number" id="age" name="age" min="18" max="100" required>
+<input type="number" id="age" name="age" min="18" max="100" required />
 ```
 
 #### Date Input
 
 ```html
 <label for="birthdate">Birthdate:</label>
-<input type="date" id="birthdate" name="birthdate" required>
+<input type="date" id="birthdate" name="birthdate" required />
 ```
 
 #### Radio Buttons (choose one)
 
 ```html
 <p>Gender:</p>
-<input type="radio" id="male" name="gender" value="male">
-<label for="male">Male</label><br>
+<input type="radio" id="male" name="gender" value="male" />
+<label for="male">Male</label><br />
 
-<input type="radio" id="female" name="gender" value="female">
-<label for="female">Female</label><br>
+<input type="radio" id="female" name="gender" value="female" />
+<label for="female">Female</label><br />
 
-<input type="radio" id="other" name="gender" value="other">
+<input type="radio" id="other" name="gender" value="other" />
 <label for="other">Prefer not to say</label>
 ```
 
@@ -267,13 +287,13 @@ Hides characters while typing.
 
 ```html
 <p>Services needed:</p>
-<input type="checkbox" id="clearance" name="services" value="clearance">
-<label for="clearance">Barangay Clearance</label><br>
+<input type="checkbox" id="clearance" name="services" value="clearance" />
+<label for="clearance">Barangay Clearance</label><br />
 
-<input type="checkbox" id="cedula" name="services" value="cedula">
-<label for="cedula">Cedula</label><br>
+<input type="checkbox" id="cedula" name="services" value="cedula" />
+<label for="cedula">Cedula</label><br />
 
-<input type="checkbox" id="permit" name="services" value="permit">
+<input type="checkbox" id="permit" name="services" value="permit" />
 <label for="permit">Business Permit</label>
 ```
 
@@ -282,10 +302,10 @@ Hides characters while typing.
 ```html
 <label for="barangay">Barangay:</label>
 <select id="barangay" name="barangay" required>
-    <option value="">-- Choose Barangay --</option>
-    <option value="stonino">Sto. Niño</option>
-    <option value="sanjose">San Jose</option>
-    <option value="poblacion">Poblacion</option>
+  <option value="">-- Choose Barangay --</option>
+  <option value="stonino">Sto. Niño</option>
+  <option value="sanjose">San Jose</option>
+  <option value="poblacion">Poblacion</option>
 </select>
 ```
 
@@ -293,14 +313,20 @@ Hides characters while typing.
 
 ```html
 <label for="message">Message:</label>
-<textarea id="message" name="message" rows="5" cols="40" placeholder="Enter your message"></textarea>
+<textarea
+  id="message"
+  name="message"
+  rows="5"
+  cols="40"
+  placeholder="Enter your message"
+></textarea>
 ```
 
 #### File Upload
 
 ```html
 <label for="document">Upload ID:</label>
-<input type="file" id="document" name="document" accept=".pdf,.jpg,.png">
+<input type="file" id="document" name="document" accept=".pdf,.jpg,.png" />
 ```
 
 ### Submit and Reset Buttons
@@ -313,8 +339,7 @@ Hides characters while typing.
 Or:
 
 ```html
-<input type="submit" value="Submit">
-<input type="reset" value="Clear">
+<input type="submit" value="Submit" /> <input type="reset" value="Clear" />
 ```
 
 ## Complete Form Example: Barangay Clearance Application
@@ -322,81 +347,107 @@ Or:
 ```html
 <!DOCTYPE html>
 <html lang="en-PH">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay Clearance Application</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Clearance Application Form</h1>
-    
+
     <form action="submit.php" method="POST">
-        <!-- Personal Information -->
-        <fieldset>
-            <legend>Personal Information</legend>
-            
-            <label for="fullname">Full Name:</label><br>
-            <input type="text" id="fullname" name="fullname" required><br><br>
-            
-            <label for="birthdate">Birthdate:</label><br>
-            <input type="date" id="birthdate" name="birthdate" required><br><br>
-            
-            <label for="age">Age:</label><br>
-            <input type="number" id="age" name="age" min="0" max="120" required><br><br>
-            
-            <p>Gender:</p>
-            <input type="radio" id="male" name="gender" value="male" required>
-            <label for="male">Male</label>
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">Female</label><br><br>
-            
-            <label for="address">Address:</label><br>
-            <textarea id="address" name="address" rows="3" required></textarea><br><br>
-        </fieldset>
-        
-        <!-- Contact Information -->
-        <fieldset>
-            <legend>Contact Information</legend>
-            
-            <label for="phone">Phone Number:</label><br>
-            <input type="tel" id="phone" name="phone" placeholder="0917-123-4567" required><br><br>
-            
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email"><br><br>
-        </fieldset>
-        
-        <!-- Purpose -->
-        <fieldset>
-            <legend>Purpose of Clearance</legend>
-            
-            <label for="purpose">Select Purpose:</label><br>
-            <select id="purpose" name="purpose" required>
-                <option value="">-- Choose Purpose --</option>
-                <option value="employment">Employment</option>
-                <option value="school">School Enrollment</option>
-                <option value="loan">Loan Application</option>
-                <option value="other">Other</option>
-            </select><br><br>
-            
-            <label for="details">Additional Details:</label><br>
-            <textarea id="details" name="details" rows="4"></textarea><br><br>
-        </fieldset>
-        
-        <!-- Document Upload -->
-        <fieldset>
-            <legend>Required Documents</legend>
-            
-            <label for="validid">Upload Valid ID:</label><br>
-            <input type="file" id="validid" name="validid" accept=".jpg,.png,.pdf" required><br><br>
-            
-            <input type="checkbox" id="terms" name="terms" required>
-            <label for="terms">I agree to the terms and conditions</label><br><br>
-        </fieldset>
-        
-        <!-- Submit -->
-        <button type="submit">Submit Application</button>
-        <button type="reset">Clear Form</button>
+      <!-- Personal Information -->
+      <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="fullname">Full Name:</label><br />
+        <input type="text" id="fullname" name="fullname" required /><br /><br />
+
+        <label for="birthdate">Birthdate:</label><br />
+        <input
+          type="date"
+          id="birthdate"
+          name="birthdate"
+          required
+        /><br /><br />
+
+        <label for="age">Age:</label><br />
+        <input
+          type="number"
+          id="age"
+          name="age"
+          min="0"
+          max="120"
+          required
+        /><br /><br />
+
+        <p>Gender:</p>
+        <input type="radio" id="male" name="gender" value="male" required />
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" />
+        <label for="female">Female</label><br /><br />
+
+        <label for="address">Address:</label><br />
+        <textarea id="address" name="address" rows="3" required></textarea
+        ><br /><br />
+      </fieldset>
+
+      <!-- Contact Information -->
+      <fieldset>
+        <legend>Contact Information</legend>
+
+        <label for="phone">Phone Number:</label><br />
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="0917-123-4567"
+          required
+        /><br /><br />
+
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="email" /><br /><br />
+      </fieldset>
+
+      <!-- Purpose -->
+      <fieldset>
+        <legend>Purpose of Clearance</legend>
+
+        <label for="purpose">Select Purpose:</label><br />
+        <select id="purpose" name="purpose" required>
+          <option value="">-- Choose Purpose --</option>
+          <option value="employment">Employment</option>
+          <option value="school">School Enrollment</option>
+          <option value="loan">Loan Application</option>
+          <option value="other">Other</option></select
+        ><br /><br />
+
+        <label for="details">Additional Details:</label><br />
+        <textarea id="details" name="details" rows="4"></textarea><br /><br />
+      </fieldset>
+
+      <!-- Document Upload -->
+      <fieldset>
+        <legend>Required Documents</legend>
+
+        <label for="validid">Upload Valid ID:</label><br />
+        <input
+          type="file"
+          id="validid"
+          name="validid"
+          accept=".jpg,.png,.pdf"
+          required
+        /><br /><br />
+
+        <input type="checkbox" id="terms" name="terms" required />
+        <label for="terms">I agree to the terms and conditions</label
+        ><br /><br />
+      </fieldset>
+
+      <!-- Submit -->
+      <button type="submit">Submit Application</button>
+      <button type="reset">Clear Form</button>
     </form>
-</body>
+  </body>
 </html>
 ```
 
@@ -404,22 +455,22 @@ Or:
 
 ```html
 <!-- Required field -->
-<input type="text" required>
+<input type="text" required />
 
 <!-- Minimum/Maximum length -->
-<input type="text" minlength="5" maxlength="20">
+<input type="text" minlength="5" maxlength="20" />
 
 <!-- Number range -->
-<input type="number" min="18" max="65">
+<input type="number" min="18" max="65" />
 
 <!-- Pattern (regex) -->
-<input type="text" pattern="[0-9]{4}" title="Enter 4-digit code">
+<input type="text" pattern="[0-9]{4}" title="Enter 4-digit code" />
 
 <!-- Email validation (automatic) -->
-<input type="email">
+<input type="email" />
 
 <!-- URL validation (automatic) -->
-<input type="url">
+<input type="url" />
 ```
 
 ## Fieldset and Legend
@@ -429,8 +480,8 @@ Or:
 
 ```html
 <fieldset>
-    <legend>Personal Information</legend>
-    <!-- Form fields here -->
+  <legend>Personal Information</legend>
+  <!-- Form fields here -->
 </fieldset>
 ```
 
@@ -439,54 +490,69 @@ Or:
 ```html
 <!-- Always use labels -->
 <label for="username">Username:</label>
-<input type="text" id="username" name="username">
+<input type="text" id="username" name="username" />
 
 <!-- Placeholder is NOT a substitute for label -->
 <!-- WRONG: -->
-<input type="text" placeholder="Username">  <!-- No label! -->
+<input type="text" placeholder="Username" />
+<!-- No label! -->
 
 <!-- CORRECT: -->
 <label for="username">Username:</label>
-<input type="text" id="username" placeholder="Enter username">
+<input type="text" id="username" placeholder="Enter username" />
 ```
 
 ## Common Mistakes
 
 ### ❌ Missing `name` attribute
+
 ```html
-<input type="text" id="fullname">  <!-- No name, won't submit -->
+<input type="text" id="fullname" />
+<!-- No name, won't submit -->
 ```
+
 ✅ **Correct:**
+
 ```html
-<input type="text" id="fullname" name="fullname">
+<input type="text" id="fullname" name="fullname" />
 ```
 
 ### ❌ Labels not linked to inputs
+
 ```html
-<label>Name:</label>
-<input type="text" id="name">  <!-- Label doesn't link -->
+<label>Name:</label> <input type="text" id="name" />
+<!-- Label doesn't link -->
 ```
+
 ✅ **Correct:**
+
 ```html
-<label for="name">Name:</label>
-<input type="text" id="name" name="name">
+<label for="name">Name:</label> <input type="text" id="name" name="name" />
 ```
 
 ### ❌ Using tables for layout
+
 ```html
 <!-- WRONG: Tables for page layout -->
-<table><tr><td>Header</td></tr></table>
+<table>
+  <tr>
+    <td>Header</td>
+  </tr>
+</table>
 ```
+
 ✅ **Correct:** Use tables only for tabular data, not layout.
 
 ## Summary
 
 **Tables:**
+
 - `<table>`, `<tr>` (row), `<th>` (header), `<td>` (data)
 - Sections: `<thead>`, `<tbody>`, `<tfoot>`
 - Merge: `colspan`, `rowspan`
 
 **Forms:**
+
 - `<form action method>`
 - Inputs: text, email, password, number, date, radio, checkbox, select, textarea, file
 - Attributes: `required`, `placeholder`, `min`, `max`, `minlength`, `maxlength`
@@ -505,4 +571,4 @@ Tian built a contact form: name, email, message, submit button. It didn't send d
 
 Tian typed into the form fields, clicked submit. Nothing happened. But that was okay. The structure was ready. The foundation was set. When the time came to add backend logic, this form would be waiting.
 
-_Next up: Semantic HTMLmeaningful structure!_ 
+_Next up: Semantic HTMLmeaningful structure!_

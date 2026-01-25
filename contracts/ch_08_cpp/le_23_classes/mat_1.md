@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+23.0+-+COVER.png)
+
 After finishing the Contact Book project, Tian showed it to Kuya Miguel. "It works! But I'm still just using structs with separate functions. You mentioned **classes** before. What's the difference?"
 
 Kuya Miguel smiled. "Structs group data. Classes group data AND behavior together. Right now, your `displayContact()` function lives separately from your Contact struct. With classes, the data and the functions that operate on that data become one unit."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+23.1.png)
 
 "Think about a real-world object—a smartphone," Kuya Miguel explained. "It has data: battery level, storage capacity, phone number. It also has behaviors: make calls, send messages, take photos. You don't access the battery directly or manually connect circuits to send a message. The phone exposes buttons and methods while hiding the complex internal workings."
 
@@ -24,7 +28,7 @@ public:
     // Data (attributes/properties)
     string name;
     int age;
-    
+
     // Behavior (methods/functions)
     void introduce() {
         cout << "Hi, I'm " << name << ", " << age << " years old.\n";
@@ -42,17 +46,18 @@ int main() {
     resident1.name = "Juan Dela Cruz";
     resident1.age = 30;
     resident1.introduce();  // Call method
-    
+
     Resident resident2;
     resident2.name = "Maria Santos";
     resident2.age = 25;
     resident2.introduce();
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Hi, I'm Juan Dela Cruz, 30 years old.
 Hi, I'm Maria Santos, 25 years old.
@@ -79,6 +84,7 @@ class Person {
 ```
 
 **Convention:**
+
 - Use **struct** for simple data containers
 - Use **class** for objects with behavior and data hiding
 
@@ -92,14 +98,14 @@ Control who can access class members:
 class BankAccount {
 private:
     double balance;  // Only accessible inside the class
-    
+
 public:
     string accountNumber;  // Accessible from anywhere
-    
+
     void deposit(double amount) {
         balance += amount;  // Can access private member
     }
-    
+
     double getBalance() {
         return balance;  // Can return private data
     }
@@ -108,12 +114,12 @@ public:
 int main() {
     BankAccount account;
     account.accountNumber = "1001";
-    
+
     // account.balance = 10000;  // ❌ Error! balance is private
-    
+
     account.deposit(5000);  // ✓ OK! Public method
     cout << account.getBalance();  // ✓ OK! Get balance through public method
-    
+
     return 0;
 }
 ```
@@ -127,24 +133,24 @@ class Resident {
 private:
     int id;           // Hidden from outside
     double balance;   // Hidden from outside
-    
+
 public:
     string name;      // Accessible
-    
+
     void setId(int newId) {
         id = newId;
     }
-    
+
     int getId() {
         return id;
     }
-    
+
     void addBalance(double amount) {
         if (amount > 0) {
             balance += amount;
         }
     }
-    
+
     double getBalance() {
         return balance;
     }
@@ -156,11 +162,12 @@ public:
 ## Methods Inside vs Outside Class
 
 ### Method Inside Class
+
 ```cpp
 class Resident {
 public:
     string name;
-    
+
     void introduce() {  // Defined inside
         cout << "I'm " << name << endl;
     }
@@ -168,6 +175,7 @@ public:
 ```
 
 ### Method Outside Class
+
 ```cpp
 class Resident {
 public:
@@ -197,7 +205,7 @@ private:
     string type;
     double fee;
     string status;  // "pending", "approved", "rejected"
-    
+
 public:
     // Set data
     void setDetails(int _id, string _name, string _type, double _fee) {
@@ -207,27 +215,27 @@ public:
         fee = _fee;
         status = "pending";
     }
-    
+
     // Get data
     int getId() {
         return id;
     }
-    
+
     string getStatus() {
         return status;
     }
-    
+
     // Actions
     void approve() {
         status = "approved";
         cout << "Clearance #" << id << " approved!\n";
     }
-    
+
     void reject(string reason) {
         status = "rejected";
         cout << "Clearance #" << id << " rejected: " << reason << endl;
     }
-    
+
     void display() {
         cout << "\n===== CLEARANCE #" << id << " =====\n";
         cout << "Resident: " << residentName << endl;
@@ -242,17 +250,17 @@ int main() {
     Clearance c1;
     c1.setDetails(1001, "Juan Dela Cruz", "Residence", 50.0);
     c1.display();
-    
+
     c1.approve();
     c1.display();
-    
+
     Clearance c2;
     c2.setDetails(1002, "Maria Santos", "Business", 100.0);
     c2.display();
-    
+
     c2.reject("Missing documents");
     c2.display();
-    
+
     return 0;
 }
 ```
@@ -266,7 +274,7 @@ class Resident {
 public:
     string name;
     int age;
-    
+
     void display() {
         cout << name << " (" << age << " years old)\n";
     }
@@ -274,20 +282,20 @@ public:
 
 int main() {
     Resident residents[3];
-    
+
     residents[0].name = "Juan";
     residents[0].age = 30;
-    
+
     residents[1].name = "Maria";
     residents[1].age = 25;
-    
+
     residents[2].name = "Pedro";
     residents[2].age = 35;
-    
+
     for (int i = 0; i < 3; i++) {
         residents[i].display();
     }
-    
+
     return 0;
 }
 ```
@@ -302,7 +310,7 @@ int main() {
 class BankAccount {
 private:
     double balance;
-    
+
 public:
     // Setter with validation
     void setBalance(double amount) {
@@ -312,7 +320,7 @@ public:
             cout << "Invalid amount!\n";
         }
     }
-    
+
     // Getter (read-only access)
     double getBalance() {
         return balance;
@@ -321,13 +329,13 @@ public:
 
 int main() {
     BankAccount account;
-    
+
     account.setBalance(5000);  // ✓ Valid
     cout << account.getBalance() << endl;  // 5000
-    
+
     account.setBalance(-1000);  // ❌ Rejected by validation
     cout << account.getBalance() << endl;  // Still 5000
-    
+
     return 0;
 }
 ```
@@ -343,16 +351,16 @@ class Resident {
 private:
     string name;
     int age;
-    
+
 public:
     void setName(string name) {
         this->name = name;  // this->name (class member) = name (parameter)
     }
-    
+
     void setAge(int age) {
         this->age = age;
     }
-    
+
     void display() {
         cout << this->name << " is " << this->age << " years old\n";
     }
@@ -370,7 +378,7 @@ private:
     string residentName;
     double balance;
     double totalPaid;
-    
+
 public:
     void initialize(int id, string name) {
         residentId = id;
@@ -378,23 +386,23 @@ public:
         balance = 0;
         totalPaid = 0;
     }
-    
+
     void addDues(double amount) {
         balance += amount;
         cout << "Added P" << amount << " to " << residentName << "'s dues\n";
     }
-    
+
     void makePayment(double amount) {
         if (amount > balance) {
             cout << "Payment exceeds balance!\n";
             return;
         }
-        
+
         balance -= amount;
         totalPaid += amount;
         cout << residentName << " paid P" << amount << endl;
     }
-    
+
     void displayAccount() {
         cout << "\n===== ACCOUNT: " << residentName << " =====\n";
         cout << "ID: " << residentId << endl;
@@ -402,7 +410,7 @@ public:
         cout << "Total Paid: P" << totalPaid << endl;
         cout << "===================================\n";
     }
-    
+
     double getBalance() {
         return balance;
     }
@@ -410,25 +418,25 @@ public:
 
 int main() {
     DuesAccount accounts[3];
-    
+
     accounts[0].initialize(1001, "Juan Dela Cruz");
     accounts[1].initialize(1002, "Maria Santos");
     accounts[2].initialize(1003, "Pedro Reyes");
-    
+
     // Add monthly dues
     for (int i = 0; i < 3; i++) {
         accounts[i].addDues(50.0);
     }
-    
+
     // Display all
     for (int i = 0; i < 3; i++) {
         accounts[i].displayAccount();
     }
-    
+
     // Maria makes payment
     accounts[1].makePayment(50.0);
     accounts[1].displayAccount();
-    
+
     return 0;
 }
 ```
@@ -450,6 +458,7 @@ int main() {
 "Now I understand!" Tian exclaimed. "Classes let me create my own data types with built-in behavior!"
 
 "Exactly!" Kuya Miguel said. "Remember:
+
 - **Class** = Blueprint
 - **Object** = Instance of a class
 - **Private** = Hidden data
@@ -462,6 +471,7 @@ int main() {
 ---
 
 **Key Takeaways:**
+
 1. Classes bundle data and behavior
 2. Private hides implementation details
 3. Public provides interface

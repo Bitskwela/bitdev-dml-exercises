@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+18.0+-+COVER.png)
+
 Tian slammed their fist on the desk, startling Rhea Joy who was sitting next to them in the computer lab.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+18.1.png)
 
 "What's wrong?" Rhea Joy asked.
 
@@ -22,14 +26,14 @@ Rhea Joy nodded sympathetically. She was experiencing similar frustrations with 
 
 ```css
 .container {
-    position: relative;
+  position: relative;
 }
 
 .centered-item {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 ```
 
@@ -47,9 +51,9 @@ Ms. Santos quickly typed a simple example:
 
 ```css
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 ```
 
@@ -72,6 +76,7 @@ Miguel chuckled. "I wanted you to understand the old way first, so you'd appreci
 **Flexbox** (Flexible Box Layout) is a CSS layout mode designed for **one-dimensional layouts**—either in a row or a column.
 
 It makes it easy to:
+
 - Align items horizontally and vertically
 - Distribute space between items
 - Reorder items visually
@@ -82,7 +87,7 @@ It makes it easy to:
 
 ```css
 .container {
-    display: flex;  /* Makes this a flex container */
+  display: flex; /* Makes this a flex container */
 }
 ```
 
@@ -94,23 +99,26 @@ To use flexbox, set `display: flex;` on the parent element.
 
 ```css
 .container {
-    display: flex;  /* Children become flex items */
+  display: flex; /* Children become flex items */
 }
 ```
 
 **HTML:**
+
 ```html
 <div class="container">
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
+  <div class="item">Item 1</div>
+  <div class="item">Item 2</div>
+  <div class="item">Item 3</div>
 </div>
 ```
 
 **Without Flexbox:**
+
 - Items stack vertically (default block behavior)
 
 **With Flexbox:**
+
 - Items line up horizontally in a row (default flex behavior)
 
 ---
@@ -121,41 +129,43 @@ Controls the main axis direction (row or column).
 
 ```css
 .container {
-    display: flex;
-    flex-direction: row;         /* Default: left to right */
-    flex-direction: row-reverse; /* Right to left */
-    flex-direction: column;      /* Top to bottom */
-    flex-direction: column-reverse; /* Bottom to top */
+  display: flex;
+  flex-direction: row; /* Default: left to right */
+  flex-direction: row-reverse; /* Right to left */
+  flex-direction: column; /* Top to bottom */
+  flex-direction: column-reverse; /* Bottom to top */
 }
 ```
 
 **Examples:**
+
 ```css
 /* Horizontal layout (default) */
 .nav {
-    display: flex;
-    flex-direction: row;  /* Items side by side */
+  display: flex;
+  flex-direction: row; /* Items side by side */
 }
 
 /* Vertical layout */
 .sidebar {
-    display: flex;
-    flex-direction: column;  /* Items stacked */
+  display: flex;
+  flex-direction: column; /* Items stacked */
 }
 ```
 
 **Filipino Barangay Example:**
+
 ```css
 /* Horizontal navigation */
 .nav {
-    display: flex;
-    flex-direction: row;  /* Links side by side */
+  display: flex;
+  flex-direction: row; /* Links side by side */
 }
 
 /* Vertical menu */
 .menu {
-    display: flex;
-    flex-direction: column;  /* Links stacked */
+  display: flex;
+  flex-direction: column; /* Links stacked */
 }
 ```
 
@@ -167,13 +177,13 @@ Controls alignment along the **main axis** (horizontal for row, vertical for col
 
 ```css
 .container {
-    display: flex;
-    justify-content: flex-start;    /* Default: start of container */
-    justify-content: flex-end;      /* End of container */
-    justify-content: center;        /* Center */
-    justify-content: space-between; /* Space between items */
-    justify-content: space-around;  /* Space around items */
-    justify-content: space-evenly;  /* Equal space everywhere */
+  display: flex;
+  justify-content: flex-start; /* Default: start of container */
+  justify-content: flex-end; /* End of container */
+  justify-content: center; /* Center */
+  justify-content: space-between; /* Space between items */
+  justify-content: space-around; /* Space around items */
+  justify-content: space-evenly; /* Equal space everywhere */
 }
 ```
 
@@ -189,17 +199,18 @@ space-evenly:  ....[1]....[2]....[3]....
 ```
 
 **Filipino Barangay Example:**
+
 ```css
 /* Center navigation links */
 .nav {
-    display: flex;
-    justify-content: center;  /* Links centered */
+  display: flex;
+  justify-content: center; /* Links centered */
 }
 
 /* Space between header and buttons */
 .header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 /* <div class="header">
      <h1>Barangay</h1>  <--- Left
@@ -215,12 +226,12 @@ Controls alignment along the **cross axis** (vertical for row, horizontal for co
 
 ```css
 .container {
-    display: flex;
-    align-items: stretch;      /* Default: stretch to fill */
-    align-items: flex-start;   /* Top (for row) */
-    align-items: flex-end;     /* Bottom (for row) */
-    align-items: center;       /* Middle (for row) */
-    align-items: baseline;     /* Align text baselines */
+  display: flex;
+  align-items: stretch; /* Default: stretch to fill */
+  align-items: flex-start; /* Top (for row) */
+  align-items: flex-end; /* Bottom (for row) */
+  align-items: center; /* Middle (for row) */
+  align-items: baseline; /* Align text baselines */
 }
 ```
 
@@ -228,24 +239,25 @@ Controls alignment along the **cross axis** (vertical for row, horizontal for co
 
 ```
 flex-start:   [1][2][3]  <-- All at top
-              
 
-center:       
+
+center:
               [1][2][3]  <-- All centered vertically
-              
 
-flex-end:     
-              
+
+flex-end:
+
               [1][2][3]  <-- All at bottom
 ```
 
 **Filipino Barangay Example:**
+
 ```css
 /* Vertically center logo and title */
 .header {
-    display: flex;
-    align-items: center;  /* Vertical center */
-    height: 80px;
+  display: flex;
+  align-items: center; /* Vertical center */
+  height: 80px;
 }
 /* <div class="header">
      <img src="logo.png"> <--- Centered
@@ -261,38 +273,40 @@ The easiest way to center content:
 
 ```css
 .container {
-    display: flex;
-    justify-content: center;  /* Horizontal center */
-    align-items: center;      /* Vertical center */
-    height: 100vh;            /* Full viewport height */
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */
+  height: 100vh; /* Full viewport height */
 }
 ```
 
 **Perfect for:**
+
 - Centering modals
 - Hero sections
 - Loading spinners
 - Login forms
 
 **Filipino Example:**
+
 ```css
 /* Centered hero section */
 .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 400px;
-    background: linear-gradient(to right, #1a73e8, #34a853);
-    color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  background: linear-gradient(to right, #1a73e8, #34a853);
+  color: white;
 }
 ```
 
 ```html
 <div class="hero">
-    <div>
-        <h1>Barangay San Miguel</h1>
-        <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
-    </div>
+  <div>
+    <h1>Barangay San Miguel</h1>
+    <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
+  </div>
 </div>
 ```
 
@@ -302,27 +316,28 @@ The easiest way to center content:
 
 ```css
 .container {
-    display: flex;
-    gap: 20px;  /* Space between items */
+  display: flex;
+  gap: 20px; /* Space between items */
 }
 ```
 
 This is **much easier** than adding margins to each item!
 
 **Example:**
+
 ```css
 /* Old way: margins on items */
 .item {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 .item:last-child {
-    margin-right: 0;  /* Remove margin from last item */
+  margin-right: 0; /* Remove margin from last item */
 }
 
 /* Flexbox way: gap on container */
 .container {
-    display: flex;
-    gap: 20px;  /* Automatic spacing! */
+  display: flex;
+  gap: 20px; /* Automatic spacing! */
 }
 ```
 
@@ -334,25 +349,26 @@ By default, flex items try to fit on one line. Use `flex-wrap` to allow wrapping
 
 ```css
 .container {
-    display: flex;
-    flex-wrap: nowrap;     /* Default: single line */
-    flex-wrap: wrap;       /* Wrap to multiple lines */
-    flex-wrap: wrap-reverse; /* Wrap in reverse */
+  display: flex;
+  flex-wrap: nowrap; /* Default: single line */
+  flex-wrap: wrap; /* Wrap to multiple lines */
+  flex-wrap: wrap-reverse; /* Wrap in reverse */
 }
 ```
 
 **Example:**
+
 ```css
 /* Card grid that wraps on small screens */
 .card-grid {
-    display: flex;
-    flex-wrap: wrap;  /* Cards wrap to next line */
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Cards wrap to next line */
+  gap: 20px;
 }
 
 .card {
-    width: 300px;
-    height: 200px;
+  width: 300px;
+  height: 200px;
 }
 ```
 
@@ -366,25 +382,26 @@ Controls how much a flex item grows to fill available space.
 
 ```css
 .item {
-    flex-grow: 0;  /* Default: don't grow */
-    flex-grow: 1;  /* Grow to fill space */
-    flex-grow: 2;  /* Grow twice as much as flex-grow: 1 */
+  flex-grow: 0; /* Default: don't grow */
+  flex-grow: 1; /* Grow to fill space */
+  flex-grow: 2; /* Grow twice as much as flex-grow: 1 */
 }
 ```
 
 **Example:**
+
 ```css
 .container {
-    display: flex;
+  display: flex;
 }
 
 .sidebar {
-    width: 200px;
-    flex-grow: 0;  /* Fixed width */
+  width: 200px;
+  flex-grow: 0; /* Fixed width */
 }
 
 .main-content {
-    flex-grow: 1;  /* Takes remaining space */
+  flex-grow: 1; /* Takes remaining space */
 }
 ```
 
@@ -396,8 +413,8 @@ Controls how much a flex item shrinks when space is limited.
 
 ```css
 .item {
-    flex-shrink: 1;  /* Default: can shrink */
-    flex-shrink: 0;  /* Don't shrink */
+  flex-shrink: 1; /* Default: can shrink */
+  flex-shrink: 0; /* Don't shrink */
 }
 ```
 
@@ -409,12 +426,12 @@ Override `align-items` for individual items.
 
 ```css
 .container {
-    display: flex;
-    align-items: center;  /* All items centered */
+  display: flex;
+  align-items: center; /* All items centered */
 }
 
 .special-item {
-    align-self: flex-start;  /* This item at top */
+  align-self: flex-start; /* This item at top */
 }
 ```
 
@@ -423,248 +440,250 @@ Override `align-items` for individual items.
 ## Complete Barangay Website Example
 
 **HTML:**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barangay San Miguel</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <!-- Flexbox header -->
     <header class="header">
-        <div class="logo">
-            <img src="logo.png" alt="Logo">
-            <h1>Barangay San Miguel</h1>
-        </div>
-        <nav class="nav">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#announcements">Announcements</a>
-            <a href="#contact">Contact</a>
-        </nav>
+      <div class="logo">
+        <img src="logo.png" alt="Logo" />
+        <h1>Barangay San Miguel</h1>
+      </div>
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#announcements">Announcements</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </header>
 
     <!-- Flexbox hero section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Welcome to Our Community</h2>
-            <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
-            <button class="btn">Learn More</button>
-        </div>
+      <div class="hero-content">
+        <h2>Welcome to Our Community</h2>
+        <p>Pagkakaisa, Paglilingkod, Pag-unlad</p>
+        <button class="btn">Learn More</button>
+      </div>
     </section>
 
     <!-- Flexbox service cards -->
     <section class="services">
-        <h2>Our Services</h2>
-        <div class="card-container">
-            <div class="card">
-                <h3>Barangay Clearance</h3>
-                <p>Processing: 3-5 days</p>
-            </div>
-            <div class="card">
-                <h3>Residency Certificate</h3>
-                <p>Processing: Same day</p>
-            </div>
-            <div class="card">
-                <h3>Indigency Certificate</h3>
-                <p>Processing: 1-2 days</p>
-            </div>
+      <h2>Our Services</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Barangay Clearance</h3>
+          <p>Processing: 3-5 days</p>
         </div>
+        <div class="card">
+          <h3>Residency Certificate</h3>
+          <p>Processing: Same day</p>
+        </div>
+        <div class="card">
+          <h3>Indigency Certificate</h3>
+          <p>Processing: 1-2 days</p>
+        </div>
+      </div>
     </section>
 
     <!-- Flexbox footer -->
     <footer class="footer">
-        <p>&copy; 2025 Barangay San Miguel</p>
-        <div class="social">
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-        </div>
+      <p>&copy; 2025 Barangay San Miguel</p>
+      <div class="social">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+      </div>
     </footer>
-</body>
+  </body>
 </html>
 ```
 
 **CSS:**
+
 ```css
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
 }
 
 /* Flexbox Header */
 .header {
-    display: flex;
-    justify-content: space-between;  /* Logo left, nav right */
-    align-items: center;             /* Vertically centered */
-    padding: 20px 40px;
-    background: #1a73e8;
-    color: white;
+  display: flex;
+  justify-content: space-between; /* Logo left, nav right */
+  align-items: center; /* Vertically centered */
+  padding: 20px 40px;
+  background: #1a73e8;
+  color: white;
 }
 
 .logo {
-    display: flex;
-    align-items: center;  /* Vertically center logo and text */
-    gap: 15px;
+  display: flex;
+  align-items: center; /* Vertically center logo and text */
+  gap: 15px;
 }
 
 .logo img {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .logo h1 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 /* Flexbox Navigation */
 .nav {
-    display: flex;
-    gap: 20px;  /* Space between links */
+  display: flex;
+  gap: 20px; /* Space between links */
 }
 
 .nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: background 0.3s;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  transition: background 0.3s;
 }
 
 .nav a:hover {
-    background: rgba(255,255,255,0.2);
-    border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
 }
 
 /* Flexbox Hero Section */
 .hero {
-    display: flex;
-    justify-content: center;  /* Horizontal center */
-    align-items: center;      /* Vertical center */
-    height: 400px;
-    background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
-    color: white;
-    text-align: center;
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */
+  height: 400px;
+  background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
+  color: white;
+  text-align: center;
 }
 
 .hero-content h2 {
-    font-size: 3rem;
-    margin-bottom: 15px;
+  font-size: 3rem;
+  margin-bottom: 15px;
 }
 
 .hero-content p {
-    font-size: 1.3rem;
-    margin-bottom: 25px;
-    font-style: italic;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  font-style: italic;
 }
 
 .btn {
-    padding: 12px 30px;
-    background: white;
-    color: #1a73e8;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: transform 0.2s;
+  padding: 12px 30px;
+  background: white;
+  color: #1a73e8;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .btn:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Services Section */
 .services {
-    padding: 60px 20px;
-    background: #f5f5f5;
+  padding: 60px 20px;
+  background: #f5f5f5;
 }
 
 .services h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 40px;
-    color: #333;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333;
 }
 
 /* Flexbox Card Container */
 .card-container {
-    display: flex;
-    justify-content: center;  /* Center cards */
-    gap: 30px;                /* Space between cards */
-    flex-wrap: wrap;          /* Wrap on small screens */
+  display: flex;
+  justify-content: center; /* Center cards */
+  gap: 30px; /* Space between cards */
+  flex-wrap: wrap; /* Wrap on small screens */
 }
 
 .card {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    width: 280px;
-    text-align: center;
-    transition: transform 0.3s;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  text-align: center;
+  transition: transform 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-10px);
+  transform: translateY(-10px);
 }
 
 .card h3 {
-    color: #1a73e8;
-    margin-bottom: 10px;
+  color: #1a73e8;
+  margin-bottom: 10px;
 }
 
 .card p {
-    color: #666;
+  color: #666;
 }
 
 /* Flexbox Footer */
 .footer {
-    display: flex;
-    justify-content: space-between;  /* Text left, links right */
-    align-items: center;             /* Vertically centered */
-    padding: 30px 40px;
-    background: #333;
-    color: white;
+  display: flex;
+  justify-content: space-between; /* Text left, links right */
+  align-items: center; /* Vertically centered */
+  padding: 30px 40px;
+  background: #333;
+  color: white;
 }
 
 .social {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .social a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .social a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Responsive: Stack on small screens */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;  /* Stack vertically */
-        gap: 15px;
-    }
-    
-    .nav {
-        flex-direction: column;  /* Stack links */
-        align-items: center;
-    }
-    
-    .footer {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
+  .header {
+    flex-direction: column; /* Stack vertically */
+    gap: 15px;
+  }
+
+  .nav {
+    flex-direction: column; /* Stack links */
+    align-items: center;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
 }
 ```
 
@@ -676,30 +695,31 @@ body {
 
 ```css
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.header, .footer {
-    background: #333;
-    color: white;
-    padding: 20px;
+.header,
+.footer {
+  background: #333;
+  color: white;
+  padding: 20px;
 }
 
 .main {
-    display: flex;
-    flex: 1;  /* Grow to fill space */
+  display: flex;
+  flex: 1; /* Grow to fill space */
 }
 
 .sidebar {
-    width: 250px;
-    background: #f5f5f5;
+  width: 250px;
+  background: #f5f5f5;
 }
 
 .content {
-    flex: 1;  /* Takes remaining space */
-    padding: 20px;
+  flex: 1; /* Takes remaining space */
+  padding: 20px;
 }
 ```
 
@@ -709,13 +729,13 @@ body {
 
 ```css
 .container {
-    display: flex;  /* Children automatically equal height */
+  display: flex; /* Children automatically equal height */
 }
 
 .column {
-    flex: 1;       /* Equal width */
-    padding: 20px;
-    background: white;
+  flex: 1; /* Equal width */
+  padding: 20px;
+  background: white;
 }
 ```
 
@@ -725,19 +745,19 @@ body {
 
 ```css
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .content {
-    flex: 1;  /* Push footer to bottom */
+  flex: 1; /* Push footer to bottom */
 }
 
 .footer {
-    background: #333;
-    color: white;
-    padding: 20px;
+  background: #333;
+  color: white;
+  padding: 20px;
 }
 ```
 
@@ -746,6 +766,7 @@ body {
 ## Best Practices
 
 1. **Use flexbox for one-dimensional layouts** (row or column)
+
    - Navigation bars
    - Card layouts
    - Header/footer alignment
@@ -759,18 +780,19 @@ body {
 5. **Use `flex-wrap: wrap`** for responsive card grids
 
 6. **Mobile-first approach:**
+
    ```css
    /* Mobile: column */
    .container {
-       display: flex;
-       flex-direction: column;
+     display: flex;
+     flex-direction: column;
    }
-   
+
    /* Desktop: row */
    @media (min-width: 768px) {
-       .container {
-           flex-direction: row;
-       }
+     .container {
+       flex-direction: row;
+     }
    }
    ```
 
@@ -778,13 +800,13 @@ body {
 
 ## Flexbox vs. Other Methods
 
-| Layout Method | Best For |
-|--------------|----------|
-| **Flexbox** | One-dimensional layouts (rows or columns) |
-| **CSS Grid** | Two-dimensional layouts (rows AND columns) |
-| **Float** | Legacy layouts (avoid in new projects) |
-| **inline-block** | Simple side-by-side (flexbox is better) |
-| **Positioning** | Overlays, badges, fixed elements |
+| Layout Method    | Best For                                   |
+| ---------------- | ------------------------------------------ |
+| **Flexbox**      | One-dimensional layouts (rows or columns)  |
+| **CSS Grid**     | Two-dimensional layouts (rows AND columns) |
+| **Float**        | Legacy layouts (avoid in new projects)     |
+| **inline-block** | Simple side-by-side (flexbox is better)    |
+| **Positioning**  | Overlays, badges, fixed elements           |
 
 ---
 
@@ -793,6 +815,7 @@ body {
 Tian summarized:
 
 **Flexbox Container Properties:**
+
 - `display: flex` - Enable flexbox
 - `flex-direction` - Row or column
 - `justify-content` - Main axis alignment
@@ -801,6 +824,7 @@ Tian summarized:
 - `flex-wrap` - Wrap to multiple lines
 
 **Common Patterns:**
+
 - Centering: `justify-content: center; align-items: center;`
 - Space between: `justify-content: space-between;`
 - Equal spacing: `gap: 20px;`
