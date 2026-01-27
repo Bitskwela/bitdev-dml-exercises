@@ -2,184 +2,37 @@
 
 ![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+6.0+-+COVER.png)
 
-For three weeks, Tian had been consuming theory like a student cramming for finals. The internet. Client-server architecture. Frontend versus backend. HTTP protocols. DNS resolution. Request-response cycles. The notebooks were filled with diagrams, flowcharts, and detailed notes about how the web worked.
+Tian exhaled slowly, their reflection staring back from the glossy, pitch-black screen of their laptop. For three weeks, they had lived in the world of theory—client-server handshakes, DNS propagation, and the invisible architecture of the internet. Their notebook was a fortress of diagrams. 
 
-![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+6.1.png)
+But a fortress without a gate is just a pile of stone. 
 
-But they hadn't built anything yet.
+"I'm tired of reading about the engine, Kuya," Tian said, the video call window flickering on the side. "I want to turn the key. I want to build."
 
-It was Saturday morning, and Tian woke up with a restless energy. The knowledge was there, packed into their brain like books on a shelf. But knowledge without application felt hollow, incomplete. Tian wanted to _create_ something, to move from consumer to builder, from student to developer.
+Miguel, leaning back in his chair with a steaming mug of Batangas coffee, smiled. "Every elite engineer reaches this moment, Tian. The point where the theory gets heavy and the hunger to create becomes too loud to ignore. You’re ready to move from a spectator to an architect. And an architect starts with a blueprint."
 
-They called Kuya Miguel.
+"HTML?" Tian asked.
 
-"Kuya, I'm ready."
+"Not just HTML. **The Architecture of the Document.**" Miguel leaned forward. "Most people think HTML is just typing tags. But an Elite Dev knows that if your foundation—your document structure—is weak, your site will fail on mobile, rank poorly on Google, and break for users with disabilities. Today, we aren't just 'making a page.' We are building the **Solid Skeleton** of your future applications."
 
-"Ready for what?" Miguel asked, his voice still groggy with sleep.
+Miguel opened a blank file. "Think of his like building a *Bahay na Bato*. Before the stained glass and the narra floors, you need the massive stone foundation and the hardwood frame. If that frame is crooked, nothing else will ever be straight."
 
-"To build something. I've been learning theory for weeks. I understand how everything works. But I haven't actually _made_ anything. I want to write code. Real code. Today."
+Tian’s fingers rested on the keys. The intimidation was gone, replaced by a cold, focused precision. 
 
-Miguel was quiet for a moment, then Tian heard him chuckle. "I was wondering when you'd say that. Theory is important—you needed that foundation. But you're right. It's time to build. Let me get some coffee and call you back in ten minutes. We're starting with HTML today."
-
-Fifteen minutes later, Tian was sitting at their desk, VS Code installed and open (Miguel had walked them through the installation earlier that week), a blank screen waiting to be filled. The video call connected.
-
-"Alright," Miguel said, his screen now showing a simple HTML file. "Today we're going to build your first webpage from scratch. Not a fancy one—just the structure. Think of it like building a bahay kubo. Before you add walls, roofing, windows, and paint, you need the foundation and frame. That's what HTML is."
-
-"HTML," Tian repeated, fingers hovering over the keyboard. "HyperText Markup Language, right? You mentioned it before."
-
-"Exactly. It's not a programming language—there's no logic, no calculations, no decisions. It's a **markup language**. It structures and organizes content. Every website you've ever visited—Facebook, YouTube, Shopee, Google—they all start with HTML. The structure is the same."
-
-Miguel pulled up Facebook in his browser, right-clicked, and selected "View Page Source." The screen flooded with code—thousands of lines of HTML, mixed with CSS and JavaScript.
-
-"See this?" Miguel said. "All of this started with the same basic HTML structure you're about to learn. `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`. Those are the bones. Everything else is built on top."
-
-Tian stared at the massive wall of code, feeling both intimidated and exhilarated. "That's... a lot."
-
-"Don't let it scare you. Facebook is complex because it's been built by thousands of engineers over nearly two decades. But the foundation? The document structure? It's the same as what you're about to write. That's the beauty of HTML—it's universal, standardized, and surprisingly simple once you understand the rules."
-
-Miguel closed the Facebook source code and returned to his simple example.
-
-"Today, you're going to learn the anatomy of an HTML document. Every tag, every section, every piece has a purpose. By the end of this lesson, you'll create a valid HTML page. It won't look fancy—that's CSS, which comes later. But it will be _yours_. Your first real step into web development."
-
-Tian took a deep breath, fingers finally resting on the keyboard. "Okay. Let's build."
+"Every professional site—whether it's Facebook, a crypto exchange, or a local barangay portal—starts with exactly the same sequence," Miguel said. "Let’s write the blueprint that defines the modern web."
 
 ---
 
 ## Theory & Lecture Content
 
-## What is HTML?
+## HTML: The Architecture of the Web
 
-**HTML (HyperText Markup Language)** is the skeleton of every webpage. It defines the structure and content:
+**HTML (HyperText Markup Language)** is the non-negotiable skeleton of every webpage. 
 
-- **HyperText** = Links connecting pages
-- **Markup** = Tags that describe content
-- **Language** = Standardized syntax browsers understand
+- **Elite Insight:** HTML is not a programming language—it’s a **structural language**. It doesn't "do" things; it "is" things. It tells the browser exactly what every piece of data is.
 
-**Analogy:** If a house is a website:
+### The "Anatomy" of a Professional Document
 
-- **HTML** = Structure (walls, rooms, doors)
-- **CSS** = Design (paint, furniture, decoration)
-- **JavaScript** = Functionality (electricity, plumbing, security)
-
-## Anatomy of an HTML Document
-
-### The Basic Structure
-
-Every HTML document follows this template:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tian's First Webpage</title>
-  </head>
-  <body>
-    <h1>Welcome to my website!</h1>
-    <p>This is my first HTML page.</p>
-  </body>
-</html>
-```
-
-### Breaking It Down
-
-#### 1. `<!DOCTYPE html>`
-
-**Purpose:** Tells the browser "This is an HTML5 document."
-
-- **Always** the first line
-- Not case-sensitive (but convention: uppercase)
-- No closing tag needed
-
-**Why needed?** Without it, browsers enter "quirks mode" (outdated rendering).
-
-#### 2. `<html lang="en">`
-
-**Purpose:** Root element wrapping entire document.
-
-- `lang="en"` = Language attribute (English)
-- For Philippines, you might use `lang="en-PH"` or `lang="tl"` (Tagalog)
-- Helps screen readers and search engines
-
-**Closing tag:** `</html>` at the end of document.
-
-#### 3. `<head>` Section
-
-**Purpose:** Contains metadata (information **about** the page, not shown on page).
-
-Common elements inside `<head>`:
-
-```html
-<head>
-  <!-- Character encoding: supports Filipino characters like ñ, á -->
-  <meta charset="UTF-8" />
-
-  <!-- Responsive design (mobile-friendly) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Page title (shows in browser tab) -->
-  <title>Tian's Barangay Portal</title>
-
-  <!-- SEO: Description for Google search results -->
-  <meta name="description" content="Community portal for Barangay Sto. Niño" />
-
-  <!-- Link to CSS file -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Favicon (icon in browser tab) -->
-  <link rel="icon" href="logo.png" />
-</head>
-```
-
-**Key `<meta>` tags:**
-
-- `charset="UTF-8"`: Supports international characters (including ñ, é, ü)
-- `viewport`: Essential for mobile responsiveness
-- `description`: What Google shows in search results
-- `keywords`: (Deprecated but still used) SEO keywords
-
-#### 4. `<body>` Section
-
-**Purpose:** Contains all visible content (text, images, videos, links).
-
-Everything users see is inside `<body>`:
-
-```html
-<body>
-  <h1>Welcome!</h1>
-  <p>This is a paragraph.</p>
-  <img src="photo.jpg" alt="My photo" />
-  <a href="about.html">About Me</a>
-</body>
-```
-
-## Creating Your First HTML File
-
-### Step 1: Create the File
-
-1. Open **VS Code** (or any text editor)
-2. Create new file: `index.html`
-3. Type the basic HTML template
-4. Save file
-
-**Why `index.html`?** Default filename for homepage. When you visit `www.example.com`, the browser automatically loads `index.html`.
-
-### Step 2: Open in Browser
-
-- **Windows:** Right-click file → Open with → Chrome/Edge/Firefox
-- **Or:** Drag file into browser window
-- **VS Code:** Install "Live Server" extension → Right-click → Open with Live Server
-
-### Step 3: View Source Code
-
-- **Chrome/Edge:** Press `Ctrl+U` (Windows) or `Cmd+Option+U` (Mac)
-- **Or:** Right-click page → View Page Source
-
-This shows the raw HTML code of any website!
-
-## Common HTML Document Patterns
-
-### Filipino Context Example
+Elite developers never skip the "boilerplate." Every line in a standard HTML5 template serves a specific, technical purpose.
 
 ```html
 <!DOCTYPE html>
@@ -187,216 +40,87 @@ This shows the raw HTML code of any website!
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Barangay Sto. Niño Portal</title>
-    <meta
-      name="description"
-      content="Official website of Barangay Sto. Niño, Batangas"
-    />
+    <title>Barangay Sto. Niño | Official Portal</title>
   </head>
   <body>
-    <h1>Mabuhay! Welcome to Barangay Sto. Niño</h1>
-    <p>Population: 5,432 residents</p>
-    <p>Barangay Captain: Hon. Maria Santos</p>
+    <!-- Content goes here -->
   </body>
 </html>
 ```
 
-## HTML Comments
+---
 
-Comments are notes for developers (invisible to users):
+## The "Elite" Breakdown: Why Every Line Matters
 
+### 1. The Declaration: `<!DOCTYPE html>`
+This isn't a tag; it's a **declaration**. It tells the browser: "Stop guessing. This is a modern HTML5 document." 
+- **The Risk:** Without this, browsers enter "Quirks Mode," rendering your page like it's 1995. Elite devs never let a browser guess.
+
+### 2. The Root: `<html lang="en-PH">`
+This element wraps everything. The `lang` attribute is critical.
+- **Elite Tip:** In the Philippines, we often use `en-PH` or `tl`. This helps search engines (SEO) know who the site is for and helps screen readers for the blind pronounce your text correctly.
+
+### 3. The Brain: The `<head>` Section
+Everything inside the `<head>` is **invisible** to the user but **essential** for the machine.
+- **The Engine Room:** This is where you put instructions for Google (SEO), instructions for the browser (CSS links), and metadata.
+
+#### Essential Head Elements:
+- **`<meta charset="UTF-8">`**: This is non-negotiable. It allows the browser to display almost every character in existence—including the **"ñ"** in *Sto. Niño* or *Parañaque*. 
+- **`<meta name="viewport" ...>`**: The Mobile-First rule. This line tells the browser: "Scale this page to fit the user's screen width." Without this, your site looks like tiny ants on a smartphone.
+- **`<title>`**: The first thing a user sees in their browser tab and the most important factor for Google search rankings.
+
+### 4. The Heart: The `<body>` Section
+This is where the magic happens. Every header, image, and paragraph the user sees lives here. 
+
+---
+
+## Clean Code: The Mark of a Master
+
+An "Elite Dev" is judged by their **indentation**. 
+- Pro code should look like a "waterfall." 
+- Every time you put a tag inside another tag, you indent (usually 2 spaces).
+- **Consistency is King.** If your code is messy, your logic is usually messy too.
+
+**Bad (Junior):**
 ```html
-<!-- This is a comment -->
-<!-- Comments help you remember what code does -->
-
-<!-- Header Section -->
-<header>
-  <h1>My Website</h1>
-</header>
-
-<!-- 
-    Multi-line comment
-    You can write multiple lines
-    Very useful for documentation
--->
+<html><head><title>My Site</title></head><body><h1>Hi</h1></body></html>
 ```
 
-**When to use comments:**
-
-- Explain complex sections
-- Temporarily disable code (without deleting)
-- Leave notes for teammates
-
-## Indentation and Code Style
-
-**Bad (hard to read):**
-
+**Elite (Professional):**
 ```html
 <html>
   <head>
-    <title>Title</title>
+    <title>My Site</title>
   </head>
   <body>
-    <h1>Hello</h1>
-    <p>Text</p>
+    <h1>Hi</h1>
   </body>
 </html>
 ```
 
-**Good (proper indentation):**
+---
 
-```html
-<html>
-  <head>
-    <title>Title</title>
-  </head>
-  <body>
-    <h1>Hello</h1>
-    <p>Text</p>
-  </body>
-</html>
-```
+## Summary for the Aspiring Architect
 
-**Indentation rules:**
+1. **`<!DOCTYPE html>`** - Establish authority.
+2. **`<html>`** - The universal container.
+3. **`<head>`** - The machine's instructions.
+4. **`<body>`** - The user's experience.
 
-- 2 spaces or 4 spaces (be consistent)
-- Child elements indented inside parent
-- Makes code readable for you and teammates
+You are no longer just writing text. You are creating a structured environment that millions of devices can interpret. 
 
-## Validation and Best Practices
-
-### HTML Validator
-
-Check if your HTML is correct:
-
-- Website: `validator.w3.org`
-- Paste your code or enter URL
-- Shows errors and warnings
-
-### Best Practices
-
-1. **Always include `<!DOCTYPE html>`**
-2. **Use `lang` attribute** in `<html>`
-3. **Include `charset` and `viewport`** meta tags
-4. **Meaningful `<title>`** (max 60 characters for SEO)
-5. **Proper indentation** (2 or 4 spaces)
-6. **Close all tags** (except self-closing like `<meta>`)
-7. **Use lowercase** for tag names (convention)
-8. **Add comments** for complex sections
-
-## Common Mistakes
-
-### ❌ Missing DOCTYPE
-
-```html
-<html>
-  <!-- WRONG: No DOCTYPE -->
-</html>
-```
-
-✅ **Correct:**
-
-```html
-<!DOCTYPE html>
-<html></html>
-```
-
-### ❌ Content Outside `<body>`
-
-```html
-<html>
-  <h1>Title</h1>
-  <!-- WRONG: Should be in <body> -->
-  <body></body>
-</html>
-```
-
-✅ **Correct:**
-
-```html
-<html>
-  <body>
-    <h1>Title</h1>
-  </body>
-</html>
-```
-
-### ❌ Forgetting to Close Tags
-
-```html
-<body>
-  <h1>
-    Title
-    <p>
-      Paragraph
-      <!-- WRONG: Tags not closed -->
-    </p>
-  </h1>
-</body>
-```
-
-✅ **Correct:**
-
-```html
-<body>
-  <h1>Title</h1>
-  <p>Paragraph</p>
-</body>
-```
-
-## Real-World Example: School Website
-
-```html
-<!DOCTYPE html>
-<html lang="en-PH">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Batangas National High School</title>
-    <meta name="description" content="Official website of BNHS" />
-  </head>
-  <body>
-    <!-- Header Section -->
-    <h1>Batangas National High School</h1>
-    <p>Founded: 1952</p>
-
-    <!-- Main Content -->
-    <h2>About Us</h2>
-    <p>We are a public high school serving 2,500 students in Batangas City.</p>
-
-    <!-- Contact Information -->
-    <h2>Contact</h2>
-    <p>Address: P. Burgos St., Batangas City</p>
-    <p>Phone: (043) 123-4567</p>
-  </body>
-</html>
-```
-
-## Summary
-
-HTML document structure:
-
-1. **`<!DOCTYPE html>`** - HTML5 declaration
-2. **`<html>`** - Root element
-3. **`<head>`** - Metadata (not visible)
-4. **`<body>`** - Visible content
-
-Every webpage follows this template. Master this foundation, and you're ready to build content!
-
-**Next lesson:** Tags, Elements, and Attributes—the building blocks of HTML.
+**Next Lesson:** We build the walls—Tags, Elements, and Attributes.
 
 ---
 
 ## Closing Story
 
-Tian saved index.html and double-clicked it. The browser opened. There it wasa blank page with a simple heading: "Welcome to Barangay Sto. Ni�o." Nothing fancy. No colors. No images. Just pure HTML structure.
+Tian hit `Ctrl+S` and refreshed. The browser tab changed from a file path to: **Barangay Sto. Niño | Official Portal**. 
 
-But Tian felt an overwhelming sense of pride. This wasn't someone else's code copied from the internet. This was Tian's creation. From scratch. Every tag, every attribute, every lineintentional and understood.
+The page was empty, but it wasn't "blank." It was a valid, structured, mobile-ready foundation. 
 
-"It's not much," Tian said to Kuya Miguel over video call.
+"It’s invisible," Tian whispered, looking at the source code. "All that effort for a page that looks empty."
 
-"It's everything," Miguel replied. "You just wrote valid HTML5. You understand document structure. You're no longer just a user of the webyou're a builder of it."
+"Exactly," Miguel replied. "The best architecture is the kind you don't notice because it works perfectly. You’ve just built a professional-grade skeleton. Most 'coders' skip this and wonder why their sites break. You? You’re starting like an engineer."
 
-Tian looked at the simple page and smiled. Tomorrow, colors. Next week, interactivity. But today? Today was about foundation. And the foundation was solid.
-
-_Next up: Tags, Elements, and Attributesthe building blocks!_
+Tian smiled. The foundation was set.

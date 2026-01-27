@@ -12,11 +12,12 @@ The text appeared in plain black against white. No highlighting. No indication w
 
 Tian continued typing, carefully referencing their notes:
 
-```
+```html
 <html>
-<head>
-<title>My First Webpage</title>
-</head>
+  <head>
+    <title>My First Webpage</title>
+  </head>
+</html>
 ```
 
 Wait. Was it `<title>` or `<Title>`? Was HTML case-sensitive? Tian couldn't remember. They checked their notes. Lowercase. Okay.
@@ -815,11 +816,9 @@ Outside, the neighborhood slept. Inside, a new developer was born.
 
 Tian typed the first line:
 
-``html
-
+```html
 <!DOCTYPE html>
-
-``
+```
 
 And just like that, the journey began.
 
