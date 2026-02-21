@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+8.0+-+COVER.png)
+
 As Odessa's reputation for crafting interactive web experiences grows, her classmates turn to her for a special project—a feedback form for their class activities. This task pushes Odessa to work with user input, forms, and real-time validation, an essential part of building user-friendly software.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+8.1.png)
 
 Creating an online feedback form requires Odessa to capture user input effectively and ensure that the data submitted is valid. Through this project, she experiences firsthand the importance of creating a seamless user experience and handling user interactions gracefully.
 
@@ -25,7 +29,6 @@ The `submit` event is triggered when a form is submitted, either by clicking a s
 ### .value Property
 
 The `.value` property of an input element allows us to access the current value entered by the user. This value can be read or updated using JavaScript.
-
 
 ## Closing Story
 

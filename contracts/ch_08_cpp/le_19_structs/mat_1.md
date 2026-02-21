@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+19.0+-+COVER.png)
+
 Tian's resident management system was a nightmare. Tracking 100 residents required three parallel arrays: `names[100]`, `ages[100]`, and `dues[100]`. Adding a new resident meant updating three arrays. If indices got misaligned, resident data became corrupted.
 
 "This is insane!" Tian exclaimed, debugging an error where resident 42's data appeared under resident 41's name. "If I add phone numbers and addresses, I'll need five more arrays! How do real databases manage thousands of fields per record?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+19.1.png)
 
 Kuya Miguel laughed. "They don't use parallel arrays. They use **structs**—custom data types that bundle related information into a single package. Instead of three separate arrays, you create one array of Resident objects, where each Resident contains name, age, and dues together. It's impossible for data to get misaligned."
 
@@ -39,6 +43,7 @@ struct StructName {
 ```
 
 **Example:**
+
 ```cpp
 struct Point {
     int x;
@@ -67,7 +72,7 @@ struct Resident {
 int main() {
     Resident r1;  // Create a resident
     Resident r2, r3;  // Create multiple residents
-    
+
     return 0;
 }
 ```
@@ -87,15 +92,15 @@ struct Resident {
 
 int main() {
     Resident person;
-    
+
     person.name = "Juan Dela Cruz";
     person.age = 30;
     person.balance = 1000.0;
-    
+
     cout << "Name: " << person.name << endl;
     cout << "Age: " << person.age << endl;
     cout << "Balance: P" << person.balance << endl;
-    
+
     return 0;
 }
 ```
@@ -105,6 +110,7 @@ int main() {
 ## Initializing Structs
 
 ### Method 1: Member-by-Member
+
 ```cpp
 Resident person;
 person.name = "Juan";
@@ -113,11 +119,13 @@ person.balance = 1000.0;
 ```
 
 ### Method 2: Initializer List (C++11+)
+
 ```cpp
 Resident person = {"Juan Dela Cruz", 30, 1000.0};
 ```
 
 ### Method 3: Designated Initializers (C++20)
+
 ```cpp
 Resident person = {
     .name = "Juan Dela Cruz",
@@ -148,6 +156,7 @@ for (int i = 0; i < SIZE; i++) {
 ## Structs as Function Parameters
 
 ### Pass by Value (Copy)
+
 ```cpp
 void displayResident(Resident r) {
     cout << "Name: " << r.name << endl;
@@ -157,6 +166,7 @@ void displayResident(Resident r) {
 ```
 
 ### Pass by Reference (Modify Original)
+
 ```cpp
 void deposit(Resident& r, double amount) {
     r.balance += amount;
@@ -164,6 +174,7 @@ void deposit(Resident& r, double amount) {
 ```
 
 ### Pass by Const Reference (Efficient, Read-Only)
+
 ```cpp
 void display(const Resident& r) {
     cout << r.name << ": P" << r.balance << endl;
@@ -235,11 +246,11 @@ void displayClearance(const Clearance& c) {
 int main() {
     const int MAX_CLEARANCES = 3;
     Clearance clearances[MAX_CLEARANCES];
-    
+
     for (int i = 0; i < MAX_CLEARANCES; i++) {
         string name, purpose;
         int age;
-        
+
         cout << "\nClearance " << (i + 1) << ":\n";
         cout << "Name: ";
         cin.ignore();
@@ -249,22 +260,22 @@ int main() {
         cout << "Purpose: ";
         cin.ignore();
         getline(cin, purpose);
-        
+
         clearances[i] = issueClearance(i + 1001, name, age, purpose);
     }
-    
+
     cout << "\n===== CLEARANCES ISSUED =====\n";
     for (int i = 0; i < MAX_CLEARANCES; i++) {
         displayClearance(clearances[i]);
     }
-    
+
     double totalRevenue = 0;
     for (int i = 0; i < MAX_CLEARANCES; i++) {
         totalRevenue += clearances[i].fee;
     }
-    
+
     cout << "\nTotal Revenue: P" << totalRevenue << endl;
-    
+
     return 0;
 }
 ```
@@ -273,13 +284,14 @@ int main() {
 
 ## Structs vs Arrays
 
-| Feature | Array | Struct |
-|---------|-------|--------|
-| **Data types** | Same type only | Different types |
-| **Access** | Index (`arr[0]`) | Member name (`.name`) |
-| **Purpose** | Collection of same items | Group related attributes |
+| Feature        | Array                    | Struct                   |
+| -------------- | ------------------------ | ------------------------ |
+| **Data types** | Same type only           | Different types          |
+| **Access**     | Index (`arr[0]`)         | Member name (`.name`)    |
+| **Purpose**    | Collection of same items | Group related attributes |
 
 **Example:**
+
 ```cpp
 // Array: Same type
 int ages[3] = {25, 30, 28};
@@ -318,9 +330,9 @@ int main() {
     person.address.street = "123 Maharlika St.";
     person.address.barangay = "San Antonio";
     person.address.city = "Iloilo City";
-    
+
     cout << person.name << " lives at " << person.address.street << endl;
-    
+
     return 0;
 }
 ```
@@ -359,6 +371,7 @@ delete ptr;
 ```
 
 **Array of structs:**
+
 ```cpp
 int n = 5;
 Resident* residents = new Resident[n];
@@ -385,6 +398,7 @@ Resident r2 = {"Juan", 30, 1000.0};
 ```
 
 **You must compare member-by-member:**
+
 ```cpp
 if (r1.name == r2.name && r1.age == r2.age && r1.balance == r2.balance) {
     cout << "Equal!" << endl;
@@ -392,10 +406,11 @@ if (r1.name == r2.name && r1.age == r2.age && r1.balance == r2.balance) {
 ```
 
 **Or create a function:**
+
 ```cpp
 bool areEqual(const Resident& r1, const Resident& r2) {
-    return r1.name == r2.name && 
-           r1.age == r2.age && 
+    return r1.name == r2.name &&
+           r1.age == r2.age &&
            r1.balance == r2.balance;
 }
 ```
@@ -405,6 +420,7 @@ bool areEqual(const Resident& r1, const Resident& r2) {
 ## Best Practices
 
 ### 1. Use Meaningful Names
+
 ```cpp
 struct Resident {  // ✓ Clear
     string name;
@@ -413,6 +429,7 @@ struct Resident {  // ✓ Clear
 ```
 
 ### 2. Use Const Reference for Read-Only
+
 ```cpp
 void display(const Resident& r) {  // ✓ Efficient, safe
     cout << r.name;
@@ -420,11 +437,13 @@ void display(const Resident& r) {  // ✓ Efficient, safe
 ```
 
 ### 3. Initialize Structs
+
 ```cpp
 Resident person = {"Juan", 30, 1000.0};  // ✓ Initialized
 ```
 
 ### 4. Group Related Data
+
 ```cpp
 // ❌ BAD: Separate arrays
 string names[10];
@@ -440,6 +459,7 @@ Resident residents[10];
 ## Common Mistakes
 
 ### Mistake 1: Forgetting Semicolon
+
 ```cpp
 struct Resident {
     string name;
@@ -453,6 +473,7 @@ struct Resident {
 ```
 
 ### Mistake 2: Wrong Access Operator
+
 ```cpp
 Resident person;
 Resident* ptr = &person;
@@ -462,6 +483,7 @@ cout << ptr->name;  // ✓ CORRECT (-> for pointers)
 ```
 
 ### Mistake 3: Uninitialized Members
+
 ```cpp
 Resident person;  // Members have garbage values!
 cout << person.age;  // Unpredictable
@@ -477,6 +499,7 @@ Resident person = {"Juan", 30, 1000.0};
 Tian organized data into structs. "This is so much cleaner than ten arrays!"
 
 "Exactly!" Kuya Miguel said. "Structs let you:
+
 - **Group related data** together
 - **Create custom types** for your domain
 - **Pass complex data** to functions easily
@@ -487,6 +510,7 @@ Tian organized data into structs. "This is so much cleaner than ten arrays!"
 ---
 
 **Key Takeaways:**
+
 1. Structs group related variables of different types
 2. Access members with `.` (dot operator)
 3. Pass by const reference for efficiency

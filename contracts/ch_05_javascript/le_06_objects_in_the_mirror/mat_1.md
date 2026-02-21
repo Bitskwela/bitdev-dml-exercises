@@ -1,7 +1,10 @@
-````markdown
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+6.0+-+COVER.png)
+
 It was a warm Thursday afternoon in Quezon City, and Odessa was sipping her iced coffee from Jollibee while studying in the campus garden. 🌳☕ As an IT student at UP Diliman, she’d been collecting her classmates’ grades in Excel sheets for her “Database Fundamentals” class. Every time she opened that spreadsheet, she felt the numbers were just floating—detached from real meaning.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+6.1.png)
 
 One evening, while riding the MRT home, an idea struck her: “What if I treat each record as an object in JavaScript?” Suddenly, her mind painted a vivid street scene: jeepneys filled with students, tricycles zooming by, and every passenger carrying their own “object” of data—name, age, course, year. She imagined mapping those passengers into objects, each with nested details like contact info and grades. 🚍👩‍💻
 
@@ -15,7 +18,6 @@ const passenger = {
   year: 2,
 };
 ```
-````
 
 She saw data transform into relationships: `passenger.name` was no longer a cell in Excel, but a property she could access and manipulate. This shift opened her eyes to the power of objects.
 
@@ -117,8 +119,6 @@ console.log(project.tasks.develop.status);
 - Use `Object.freeze()` for read-only configs.
 - Validate that keys exist: `if (obj && obj.subObj) {...}` to prevent runtime errors.
 
----
-
 ## Closing Story
 
 Odessa hit **CTRL+S** with a big smile. She tested the internal tool, saw her objects connect seamlessly, and even impressed the org president during their Monday briefing. 🎉 Her simple console-based dashboard listed projects, members, and tasks—all powered by her object models.
@@ -128,7 +128,3 @@ That evening, as she toasted a **halo-halo** with friends in Cubao, she realized
 Stay tuned for Lesson 7: **“Array of Sunshine”**! 🌞
 
 Good luck, future full-stack dev! 🚀
-
-```
-
-```

@@ -1,5 +1,7 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+14.0+-+COVER.png)
+
 The barangay secretary dropped a bombshell: "We need to track monthly dues for 500 residents. Can you update your system?"
 
 Tian opened the code and stared in horror. The current system used individual variables:
@@ -12,6 +14,8 @@ int resident3_dues = 0;
 ```
 
 Creating 500 variables manually was insane. Processing them would require 500 separate if statements. Calculating totals would need 500 additions written out individually.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+14.1.png)
 
 "Kuya, there has to be a better way," Tian pleaded. "How do real systems handle thousands or millions of records? Facebook doesn't create a separate variable for each user. Games don't declare individual variables for each enemy."
 
@@ -28,6 +32,7 @@ Kuya Miguel grinned. "Welcome to **arrays**—the solution to managing collectio
 An **array** is a collection of elements of the **same type**, stored in **contiguous memory locations**.
 
 Think of it like:
+
 - A **filing cabinet** with numbered drawers
 - A **row of houses** on the same street
 - A **list** with indexed positions
@@ -48,11 +53,13 @@ int ages[50];  // Can store 50 ages
 ## Declaring Arrays
 
 **Syntax:**
+
 ```cpp
 dataType arrayName[size];
 ```
 
 **Examples:**
+
 ```cpp
 int scores[5];           // 5 integers
 double prices[10];       // 10 doubles
@@ -60,6 +67,7 @@ char grades[20];         // 20 characters
 ```
 
 **With initialization:**
+
 ```cpp
 int numbers[5] = {10, 20, 30, 40, 50};
 double fees[3] = {50.0, 100.0, 150.0};
@@ -82,6 +90,7 @@ cout << ages[4];  // 40 (last element)
 ```
 
 **Visual representation:**
+
 ```
 Index:  [0]  [1]  [2]  [3]  [4]
 Value:   25   30   28   35   40
@@ -137,6 +146,7 @@ for (int i = 0; i < 5; i++) {
 ```
 
 **Output:**
+
 ```
 Age[0] = 25
 Age[1] = 30
@@ -157,6 +167,7 @@ for (int i = 0; i < size; i++) {
 ```
 
 **Explanation:**
+
 - `sizeof(numbers)` — total bytes of the entire array
 - `sizeof(numbers[0])` — bytes of one element
 - Division gives the number of elements
@@ -187,23 +198,27 @@ for (int i = 0; i < SIZE; i++) {
 ## Array Initialization
 
 ### Full Initialization
+
 ```cpp
 int numbers[5] = {10, 20, 30, 40, 50};  // All elements specified
 ```
 
 ### Partial Initialization
+
 ```cpp
 int numbers[5] = {10, 20};  // First 2 specified, rest are 0
 // Result: {10, 20, 0, 0, 0}
 ```
 
 ### Zero Initialization
+
 ```cpp
 int numbers[5] = {0};  // All elements set to 0
 // Result: {0, 0, 0, 0, 0}
 ```
 
 ### Omit Size (Automatic)
+
 ```cpp
 int numbers[] = {10, 20, 30, 40, 50};  // Size automatically 5
 ```
@@ -220,7 +235,7 @@ int main() {
     const int NUM_RESIDENTS = 5;
     string names[NUM_RESIDENTS];
     double dues[NUM_RESIDENTS];
-    
+
     // Input
     cout << "Enter resident information:\n";
     for (int i = 0; i < NUM_RESIDENTS; i++) {
@@ -230,13 +245,13 @@ int main() {
         cout << "Monthly dues: P";
         cin >> dues[i];
     }
-    
+
     // Calculate total
     double total = 0;
     for (int i = 0; i < NUM_RESIDENTS; i++) {
         total += dues[i];
     }
-    
+
     // Display report
     cout << "\n===== BARANGAY DUES REPORT =====\n";
     for (int i = 0; i < NUM_RESIDENTS; i++) {
@@ -245,12 +260,13 @@ int main() {
     cout << "================================\n";
     cout << "Total collected: P" << total << endl;
     cout << "Average dues: P" << (total / NUM_RESIDENTS) << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 Enter resident information:
 
@@ -397,16 +413,16 @@ void addBonus(int scores[], int size, int bonus) {
 
 int main() {
     int scores[3] = {80, 85, 90};
-    
+
     cout << "Before: ";
     for (int i = 0; i < 3; i++) cout << scores[i] << " ";
-    
+
     addBonus(scores, 3, 5);  // Add 5 points bonus
-    
+
     cout << "\nAfter: ";
     for (int i = 0; i < 3; i++) cout << scores[i] << " ";
     // Output: 85 90 95
-    
+
     return 0;
 }
 ```
@@ -450,6 +466,7 @@ for (int i = 0; i < SIZE; i++) {
 ```
 
 **Output:**
+
 ```
 Juan (Age 25): P500
 Maria (Age 30): P750
@@ -461,6 +478,7 @@ Pedro (Age 28): P1000
 ## Common Array Patterns
 
 ### 1. Accumulator (Sum)
+
 ```cpp
 int sum = 0;
 for (int i = 0; i < size; i++) {
@@ -469,6 +487,7 @@ for (int i = 0; i < size; i++) {
 ```
 
 ### 2. Counter (Count specific values)
+
 ```cpp
 int count = 0;
 for (int i = 0; i < size; i++) {
@@ -479,6 +498,7 @@ for (int i = 0; i < size; i++) {
 ```
 
 ### 3. Max/Min Finder
+
 ```cpp
 int max = arr[0];
 for (int i = 1; i < size; i++) {
@@ -489,6 +509,7 @@ for (int i = 1; i < size; i++) {
 ```
 
 ### 4. Search
+
 ```cpp
 int index = -1;
 for (int i = 0; i < size; i++) {
@@ -504,12 +525,14 @@ for (int i = 0; i < size; i++) {
 ## Best Practices
 
 1. **Use constants for size:**
+
 ```cpp
 const int SIZE = 10;
 int numbers[SIZE];  // ✓ Clear and maintainable
 ```
 
 2. **Always check bounds:**
+
 ```cpp
 for (int i = 0; i < SIZE; i++) {  // ✓ Safe
     cout << numbers[i];
@@ -517,11 +540,13 @@ for (int i = 0; i < SIZE; i++) {  // ✓ Safe
 ```
 
 3. **Initialize arrays:**
+
 ```cpp
 int numbers[5] = {0};  // ✓ All elements start at 0
 ```
 
 4. **Pass size to functions:**
+
 ```cpp
 void process(int arr[], int size) {  // ✓ Function knows array size
     for (int i = 0; i < size; i++) {
@@ -535,6 +560,7 @@ void process(int arr[], int size) {  // ✓ Function knows array size
 ## Common Mistakes
 
 ### Mistake 1: Uninitialized Arrays
+
 ```cpp
 int numbers[5];  // Contains garbage values!
 cout << numbers[0];  // ❌ Unpredictable
@@ -544,6 +570,7 @@ int numbers[5] = {0};  // Initialize to 0
 ```
 
 ### Mistake 2: Off-by-One Error
+
 ```cpp
 int arr[5];
 for (int i = 0; i <= 5; i++) {  // ❌ i=5 is out of bounds!
@@ -557,6 +584,7 @@ for (int i = 0; i < 5; i++) {
 ```
 
 ### Mistake 3: Forgetting Size in Functions
+
 ```cpp
 void display(int arr[]) {  // ❌ Function doesn't know size
     // How many elements to display?
@@ -577,6 +605,7 @@ void display(int arr[], int size) {
 Tian practiced creating arrays. "So instead of 50 separate variables, I use one array!"
 
 "Exactly!" Kuya Miguel nodded. "Arrays are your first weapon for managing **collections of data**. Remember:
+
 - Arrays store **multiple values** of the **same type**
 - Use **zero-based indexing** (0 to size-1)
 - Always **check bounds** to avoid crashes
@@ -588,6 +617,7 @@ Tian practiced creating arrays. "So instead of 50 separate variables, I use one 
 ---
 
 **Key Takeaways:**
+
 1. Arrays store multiple values of the same type
 2. Indexing starts at 0
 3. Use loops to process arrays

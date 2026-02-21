@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+1.0+-+COVER.png)
+
 The bell rang for recess at Batangas National High School, and the entire campus erupted in excitement. Students poured out of classrooms, but instead of heading to the canteen like usual, they rushed toward the newly renovated computer lab. Today was special—after months of waiting, the school finally had internet access.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+1.1.png)
 
 Tian, a Grade 10 student with an insatiable curiosity about technology, managed to secure one of the thirty computers. Fingers trembling with anticipation, Tian typed "facebook.com" into the browser. Within seconds, the familiar blue interface loaded. Friends' posts appeared one after another. Photos from yesterday's basketball game. Status updates about upcoming exams. Messages from classmates.
 
-But as Tian scrolled through the feed, a thought emerged that wouldn't go away: *How is this even possible?*
+But as Tian scrolled through the feed, a thought emerged that wouldn't go away: _How is this even possible?_
 
 "Facebook's servers are in America," Tian muttered, staring at the screen. "That's literally across the Pacific Ocean. How can I see Rhea Joy's post that she uploaded just three seconds ago? How does my click turn into... this?" Tian gestured at the screen, where new comments were appearing in real-time.
 
@@ -55,10 +59,12 @@ Think of an **IP Address** as the home address of your device on the Internet. J
 Example of an IP address: `192.168.1.1` or `142.250.185.46`
 
 If you want to see the IP address of your device now:
+
 - You can Google "What is my IP"
 - Or type in your browser: `whatismyipaddress.com`
 
 **Fun fact:** There are two types of IP addresses:
+
 - **IPv4** - the old one, like `192.168.1.1` (almost running out of available addresses!)
 - **IPv6** - the new one, much longer like `2001:0db8:85a3:0000:0000:8a2e:0370:7334` (for future needs)
 
@@ -73,6 +79,7 @@ In your home, your WiFi router connects all your devices (phone, laptop, TV, PS4
 ### 3. ISP (Internet Service Provider) - Who Provides Internet Access
 
 The **ISP** is the company that gives you access to the internet. In the Philippines, the common ISPs are:
+
 - **PLDT** / Smart
 - **Globe** / TM
 - **Converge**
@@ -100,27 +107,33 @@ Let's say you post a selfie on Instagram. Here's what happens:
 3. **Your ISP** → Sends it through their network cables/fiber optics
 4. **Internet Backbone** → Super fast cables na nag-connect ng ISPs worldwide (may mga cables under the ocean!)
 5. **Instagram's ISP** → Receives your data
-5. **Instagram's Server** → Saves your photo in their database
-6. **Reverse path** → When someone views your post, the process happens in reverse
+6. **Instagram's Server** → Saves your photo in their database
+7. **Reverse path** → When someone views your post, the process happens in reverse
 
 All of this happens in **milliseconds** — faster than the blink of an eye!
 
 ## Common Student Misconceptions
 
 ### WRONG: "The Internet and the Web are the same thing"
+
 CORRECT: They are different!
+
 - **Internet** = the infrastructure, the physical network
 - **World Wide Web (WWW)** = the service that runs on the Internet (websites, links, browsers)
 
 It's like this: Internet is the road system, Web is the vehicles that run on the roads. There are other services on the Internet aside from the Web — email, gaming, video calls, file transfers.
 
 ### WRONG: "WiFi means Internet"
+
 CORRECT: WiFi is just wireless connection to your router
+
 - You can have WiFi but no Internet (like if the bill isn't paid!)
 - WiFi is simply the wireless technology to connect your device to the router
 
 ### WRONG: "Internet is faster when WiFi signal is stronger"
+
 CORRECT: Internet speed depends on your ISP plan
+
 - Even if your WiFi has full bars, if your plan is only 10 Mbps, it's really only 10 Mbps
 - WiFi signal is affected by distance and walls, but speed depends on your actual internet plan
 
@@ -145,6 +158,7 @@ CORRECT: Internet speed depends on your ISP plan
 ## Summary
 
 The Internet is:
+
 - Global network of billions of devices
 - Needs infrastructure: routers, ISPs, cables
 - Uses protocols (like TCP/IP) so everyone can understand each other

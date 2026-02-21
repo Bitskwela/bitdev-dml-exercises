@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+3.0+-+COVER.png)
+
 Two weeks into their web development journey, Tian felt both enlightened and overwhelmed. They understood how the internet worked, how browsers communicated with servers, how requests and responses flowed through networks. The theory was clear. But a crucial question remained unanswered, and it was starting to cause anxiety.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+3.1.png)
 
 It was Monday afternoon. Tian and their classmate Rhea Joy were sitting under the large mango tree in the school courtyard, the unofficial spot where students gathered to work on projects away from the crowded classrooms. Rhea Joy was sketching a design for their upcoming group project—a simple website for their barangay's scholarship application system.
 
@@ -12,13 +16,13 @@ Her sketch was beautiful. Clean layouts, intuitive navigation, carefully chosen 
 
 Tian stared at Rhea Joy's design, then at their own notebook filled with diagrams of TCP/IP handshakes, HTTP status codes, and DNS resolution flows. Two completely different skill sets. Two completely different interests.
 
-"Wait," Tian said slowly, a realization forming. "When we build this website... do I need to do both? The beautiful design part *and* the server, database, logic part? Because honestly, I'm more interested in how data flows and how systems work. The visual design part kind of stresses me out. But you're the opposite—you love design but the backend technical stuff doesn't excite you."
+"Wait," Tian said slowly, a realization forming. "When we build this website... do I need to do both? The beautiful design part _and_ the server, database, logic part? Because honestly, I'm more interested in how data flows and how systems work. The visual design part kind of stresses me out. But you're the opposite—you love design but the backend technical stuff doesn't excite you."
 
 Rhea Joy nodded enthusiastically. "Exactly! I want to make things look good and work smoothly for users. You want to build the engine that powers it all. So... can we specialize? Or does a web developer have to do everything?"
 
 That evening, the question weighed on Tian's mind. They called Kuya Miguel, explaining the dilemma.
 
-"Kuya, when you build websites for clients, do you do everything? The design, the layout, the colors, *and* the server, database, and business logic? Because Rhea Joy and I realized we're interested in completely different parts of web development. Is that okay, or do we need to be good at everything?"
+"Kuya, when you build websites for clients, do you do everything? The design, the layout, the colors, _and_ the server, database, and business logic? Because Rhea Joy and I realized we're interested in completely different parts of web development. Is that okay, or do we need to be good at everything?"
 
 Miguel laughed—not mockingly, but with recognition. "Tian, you just asked one of the most important questions in web development. And the answer will probably shape your entire career path."
 
@@ -43,6 +47,7 @@ Tian felt a weight lift off their shoulders. "So I don't have to be good at ever
 **Frontend** (or **Client-side**) refers to everything the user sees and interacts with directly in the browser.
 
 **Simple analogy:** Think of a restaurant:
+
 - **Frontend** = The dining area, the menu, the waiter, the presentation of food
 - Everything the customer (user) sees and experiences
 
@@ -51,31 +56,37 @@ Tian felt a weight lift off their shoulders. "So I don't have to be good at ever
 Frontend consists of three main technologies:
 
 #### 1. HTML (HyperText Markup Language)
+
 **Purpose:** Structure and content
 
 **What it does:**
+
 - Defines the elements on the page (headings, paragraphs, images, links, buttons)
 - Creates the skeleton/structure of the website
 
 **Example:**
+
 ```html
 <h1>Welcome to My Website</h1>
 <p>This is a paragraph of text.</p>
 <button>Click Me</button>
-<img src="logo.png" alt="Logo">
+<img src="logo.png" alt="Logo" />
 ```
 
 **Analogy:** HTML is like the frame and walls of a house — it defines what exists and where.
 
 #### 2. CSS (Cascading Style Sheets)
+
 **Purpose:** Styling and visual appearance
 
 **What it does:**
+
 - Controls colors, fonts, spacing, layout
 - Makes the website beautiful and visually appealing
 - Handles responsive design (how it looks on different devices)
 
 **Example:**
+
 ```css
 h1 {
   color: blue;
@@ -93,9 +104,11 @@ button {
 **Analogy:** CSS is like the paint, furniture, and decorations — it makes the house beautiful.
 
 #### 3. JavaScript
+
 **Purpose:** Interactivity and dynamic behavior
 
 **What it does:**
+
 - Responds to user actions (clicks, scrolls, typing)
 - Updates content without reloading the page
 - Validates forms
@@ -103,10 +116,11 @@ button {
 - Handles complex interactions
 
 **Example:**
+
 ```javascript
-button.addEventListener('click', function() {
-  alert('Button was clicked!');
-  document.querySelector('h1').style.color = 'red';
+button.addEventListener("click", function () {
+  alert("Button was clicked!");
+  document.querySelector("h1").style.color = "red";
 });
 ```
 
@@ -115,6 +129,7 @@ button.addEventListener('click', function() {
 ### Frontend Developer Responsibilities
 
 A frontend developer:
+
 - ✅ Designs the user interface (UI)
 - ✅ Implements visual designs (from designers/wireframes)
 - ✅ Ensures responsive design (works on mobile, tablet, desktop)
@@ -128,22 +143,26 @@ A frontend developer:
 ### Frontend Frameworks and Tools
 
 **Popular frameworks:**
+
 - **React** (by Facebook/Meta) — Most popular, component-based
 - **Vue.js** — Beginner-friendly, progressive framework
 - **Angular** (by Google) — Full-featured, enterprise-level
 - **Svelte** — New, fast, compile-time framework
 
 **CSS frameworks:**
+
 - **Tailwind CSS** — Utility-first, highly customizable
 - **Bootstrap** — Pre-built components, responsive grid
 - **Material UI** — Google's Material Design system
 
 **Build tools:**
+
 - **Vite** — Fast modern build tool
 - **Webpack** — Module bundler
 - **npm/yarn** — Package managers
 
 **Other tools:**
+
 - **Figma/Adobe XD** — Design tools
 - **Chrome DevTools** — Debugging and testing
 - **Git/GitHub** — Version control
@@ -155,6 +174,7 @@ A frontend developer:
 **Backend** (or **Server-side**) refers to everything that happens behind the scenes on the server.
 
 **Restaurant analogy continued:**
+
 - **Backend** = The kitchen, the storage, the inventory system, the recipes
 - Everything the customer doesn't see but is essential
 
@@ -163,15 +183,18 @@ A frontend developer:
 Backend consists of several key parts:
 
 #### 1. Server
+
 **Purpose:** Computer that receives requests and sends responses
 
 **What it does:**
+
 - Listens for incoming HTTP requests
 - Routes requests to appropriate handlers
 - Processes business logic
 - Returns responses to clients
 
 **Popular server technologies:**
+
 - **Node.js** (JavaScript on server)
 - **PHP** (widely used, powers WordPress)
 - **Python** (Django, Flask frameworks)
@@ -181,9 +204,11 @@ Backend consists of several key parts:
 - **C#/.NET** (Microsoft stack)
 
 #### 2. Database
+
 **Purpose:** Stores and manages data persistently
 
 **What it does:**
+
 - Stores user accounts, posts, products, etc.
 - Handles queries (search, filter, sort)
 - Maintains data integrity
@@ -192,27 +217,32 @@ Backend consists of several key parts:
 **Types of databases:**
 
 **SQL (Relational) Databases:**
+
 - **MySQL** — Most popular, open-source
 - **PostgreSQL** — Advanced features, highly reliable
 - **SQLite** — Lightweight, embedded
 - **Microsoft SQL Server** — Enterprise, Windows-focused
 
 **NoSQL (Non-relational) Databases:**
+
 - **MongoDB** — Document-based, flexible schema
 - **Redis** — In-memory, super fast (caching)
 - **Firebase** — Google's real-time database
 - **Cassandra** — Distributed, high scalability
 
 #### 3. APIs (Application Programming Interfaces)
+
 **Purpose:** Allow frontend and backend to communicate
 
 **What it does:**
+
 - Defines how frontend can request data
 - Provides endpoints (URLs) for specific actions
 - Handles authentication and permissions
 - Returns data in structured format (usually JSON)
 
 **Example API endpoint:**
+
 ```
 GET /api/users/123
 → Returns user data for user ID 123
@@ -228,27 +258,32 @@ DELETE /api/posts/789
 ```
 
 **API types:**
+
 - **REST API** — Most common, uses HTTP methods
 - **GraphQL** — Flexible query language (by Facebook)
 - **WebSocket** — Real-time, bidirectional communication
 - **gRPC** — High-performance (by Google)
 
 #### 4. Authentication & Authorization
+
 **Purpose:** Security — who can access what
 
 **Authentication:** Verifying identity (login)
 **Authorization:** Determining permissions (access control)
 
 **Common methods:**
+
 - **Session-based** — Server stores session
 - **Token-based (JWT)** — Client stores token
 - **OAuth** — Third-party login (Google, Facebook)
 - **API Keys** — For application access
 
 #### 5. Business Logic
+
 **Purpose:** The rules and operations of your application
 
 **Examples:**
+
 - Calculate shipping cost based on weight and destination
 - Apply discount codes to cart
 - Check if username is already taken
@@ -259,6 +294,7 @@ DELETE /api/posts/789
 ### Backend Developer Responsibilities
 
 A backend developer:
+
 - ✅ Designs database schemas
 - ✅ Writes APIs for frontend to consume
 - ✅ Implements authentication/authorization
@@ -275,24 +311,29 @@ A backend developer:
 ### Backend Frameworks and Tools
 
 **Node.js frameworks:**
+
 - **Express.js** — Minimal, flexible
 - **NestJS** — TypeScript, structured
 - **Fastify** — Fast, low overhead
 
 **Python frameworks:**
+
 - **Django** — Full-featured, "batteries included"
 - **Flask** — Lightweight, flexible
 
 **PHP frameworks:**
+
 - **Laravel** — Modern, elegant syntax
 - **Symfony** — Enterprise, robust
 
 **Database tools:**
+
 - **Prisma** — Modern ORM (Object-Relational Mapping)
 - **Sequelize** — ORM for Node.js
 - **SQLAlchemy** — Python ORM
 
 **Other tools:**
+
 - **Postman** — API testing
 - **Docker** — Containerization
 - **Redis** — Caching
@@ -300,16 +341,16 @@ A backend developer:
 
 ## Frontend vs Backend: Side-by-Side Comparison
 
-| Aspect | Frontend | Backend |
-|--------|----------|---------|
-| **Location** | Runs in browser (client) | Runs on server |
-| **Languages** | HTML, CSS, JavaScript | Node.js, Python, PHP, Java, etc. |
-| **Visible to User** | ✅ Yes — user sees and interacts | ❌ No — hidden from user |
-| **Main Focus** | User experience, design, visuals | Logic, data, security |
-| **Performance** | Limited by user's device | Depends on server power |
-| **Security** | Low security (code visible) | High security (code hidden) |
-| **Storage** | Limited (cookies, localStorage) | Database (unlimited) |
-| **Examples** | Buttons, forms, animations | User authentication, data processing |
+| Aspect              | Frontend                         | Backend                              |
+| ------------------- | -------------------------------- | ------------------------------------ |
+| **Location**        | Runs in browser (client)         | Runs on server                       |
+| **Languages**       | HTML, CSS, JavaScript            | Node.js, Python, PHP, Java, etc.     |
+| **Visible to User** | ✅ Yes — user sees and interacts | ❌ No — hidden from user             |
+| **Main Focus**      | User experience, design, visuals | Logic, data, security                |
+| **Performance**     | Limited by user's device         | Depends on server power              |
+| **Security**        | Low security (code visible)      | High security (code hidden)          |
+| **Storage**         | Limited (cookies, localStorage)  | Database (unlimited)                 |
+| **Examples**        | Buttons, forms, animations       | User authentication, data processing |
 
 ## Fullstack Development
 
@@ -322,6 +363,7 @@ A **Fullstack Developer** is someone who can work on both frontend AND backend.
 ### Fullstack Developer Skills
 
 Must know:
+
 - ✅ HTML, CSS, JavaScript
 - ✅ At least one frontend framework (React, Vue, etc.)
 - ✅ At least one backend language (Node.js, Python, etc.)
@@ -333,29 +375,34 @@ Must know:
 ### Popular Fullstack Combinations
 
 **MERN Stack:**
+
 - **M**ongoDB (database)
 - **E**xpress.js (backend framework)
 - **R**eact (frontend framework)
 - **N**ode.js (backend runtime)
 
 **MEAN Stack:**
+
 - **M**ongoDB
 - **E**xpress.js
 - **A**ngular (frontend framework)
 - **N**ode.js
 
 **LAMP Stack:**
+
 - **L**inux (operating system)
 - **A**pache (web server)
 - **M**ySQL (database)
 - **P**HP (backend language)
 
 **Django Stack:**
+
 - **Django** (Python backend framework)
 - **PostgreSQL** (database)
 - **React** or **Vue** (frontend)
 
 **Jamstack:**
+
 - **J**avaScript (frontend)
 - **A**PIs (backend services)
 - **M**arkup (static HTML)
@@ -363,12 +410,14 @@ Must know:
 ### Should You Specialize or Go Fullstack?
 
 **Advantages of specializing (Frontend OR Backend):**
+
 - ✅ Become expert in one area
 - ✅ Less overwhelming for beginners
 - ✅ Clear career path
 - ✅ Potentially higher salary (as expert)
 
 **Advantages of fullstack:**
+
 - ✅ Understand the complete picture
 - ✅ More job opportunities (especially startups)
 - ✅ Can build complete projects alone
@@ -376,6 +425,7 @@ Must know:
 - ✅ Better understanding of how everything connects
 
 **Recommendation for students:**
+
 1. **Start with Frontend** — easier to see results, more visual
 2. **Learn basics of backend** — understand how data works
 3. **Choose based on interest:**
@@ -388,6 +438,7 @@ Must know:
 ### Example 1: Facebook
 
 **Frontend (What you see):**
+
 - News feed with posts
 - Like/comment/share buttons
 - Profile pictures
@@ -396,6 +447,7 @@ Must know:
 - Notification bell
 
 **Backend (Behind the scenes):**
+
 - Stores billions of user accounts
 - Manages friend connections
 - Handles post creation and storage
@@ -405,6 +457,7 @@ Must know:
 - Analyzes data for recommendations
 
 **Communication:**
+
 ```
 Frontend: "User clicked Like button on post 12345"
       ↓ (API call)
@@ -416,6 +469,7 @@ Frontend: Updates UI to show liked (heart turns red)
 ### Example 2: Shopee/Lazada
 
 **Frontend:**
+
 - Product listings with images
 - Search bar and filters
 - Shopping cart
@@ -424,6 +478,7 @@ Frontend: Updates UI to show liked (heart turns red)
 - Seller chat
 
 **Backend:**
+
 - Product database (millions of items)
 - User accounts and order history
 - Payment processing
@@ -435,6 +490,7 @@ Frontend: Updates UI to show liked (heart turns red)
 ### Example 3: GCash
 
 **Frontend:**
+
 - Send money form
 - Transaction history list
 - QR code scanner
@@ -442,6 +498,7 @@ Frontend: Updates UI to show liked (heart turns red)
 - Bills payment interface
 
 **Backend:**
+
 - User authentication (security)
 - Transaction processing
 - Bank integration
@@ -455,24 +512,28 @@ Frontend: Updates UI to show liked (heart turns red)
 ### Job Market in Philippines (2024-2025)
 
 **Frontend Developers:**
+
 - **Average Salary:** ₱25,000 - ₱60,000/month (Junior to Mid)
 - **Senior:** ₱70,000 - ₱120,000/month
 - **High Demand:** React developers, Vue developers
 - **Companies:** BPO companies, startups, agencies
 
 **Backend Developers:**
+
 - **Average Salary:** ₱30,000 - ₱70,000/month (Junior to Mid)
 - **Senior:** ₱80,000 - ₱150,000/month
 - **High Demand:** Node.js, Python, PHP developers
 - **Companies:** Fintech, enterprise, SaaS companies
 
 **Fullstack Developers:**
+
 - **Average Salary:** ₱35,000 - ₱80,000/month (Junior to Mid)
 - **Senior:** ₱90,000 - ₱180,000/month
 - **Highest Demand:** Especially in startups
 - **Companies:** Startups, SMEs, remote international companies
 
 **Freelancing (International clients):**
+
 - Frontend: $15-50/hour ($1,200-4,000/month)
 - Backend: $20-60/hour ($1,600-4,800/month)
 - Fullstack: $25-80/hour ($2,000-6,400/month)
@@ -482,18 +543,21 @@ Frontend: Updates UI to show liked (heart turns red)
 ### Popular Technologies in PH
 
 **Frontend:**
+
 1. React (most jobs)
 2. Vue.js (growing)
 3. Angular (enterprise companies)
 4. jQuery (legacy projects)
 
 **Backend:**
+
 1. PHP/Laravel (most common)
 2. Node.js/Express (growing fast)
 3. Python/Django (data science companies)
 4. Java/Spring (banks, large corporations)
 
 **Databases:**
+
 1. MySQL (most used)
 2. PostgreSQL (growing)
 3. MongoDB (modern startups)
@@ -502,18 +566,23 @@ Frontend: Updates UI to show liked (heart turns red)
 ## Common Student Misconceptions
 
 ### WRONG: "Frontend is easier than backend"
+
 **CORRECT:** Both have complexities. Frontend requires design sense and dealing with multiple browsers/devices. Backend requires logic, security knowledge, and database skills. Different, not easier/harder.
 
 ### WRONG: "Backend is more important than frontend"
+
 **CORRECT:** BOTH are equally important. Bad frontend = users leave. Bad backend = app doesn't work. You need both!
 
 ### WRONG: "I need to choose one and stick with it forever"
+
 **CORRECT:** Many developers start with one and learn the other later. Career paths are flexible. You can transition between frontend, backend, and fullstack.
 
 ### WRONG: "JavaScript is only for frontend"
+
 **CORRECT:** JavaScript can be used for BOTH frontend (in browser) and backend (Node.js on server). This is why MERN/MEAN stacks are popular — same language throughout!
 
 ### WRONG: "Fullstack means expert in everything"
+
 **CORRECT:** Fullstack means competent in both frontend and backend, but you might still be stronger in one area. It's about breadth of knowledge and ability to build complete applications.
 
 ## How Frontend and Backend Communicate
@@ -521,50 +590,52 @@ Frontend: Updates UI to show liked (heart turns red)
 ### The Flow
 
 1. **User action on frontend:**
+
    ```javascript
    // User clicks "Login" button
-   button.addEventListener('click', async () => {
-     const username = document.getElementById('username').value;
-     const password = document.getElementById('password').value;
-     
+   button.addEventListener("click", async () => {
+     const username = document.getElementById("username").value;
+     const password = document.getElementById("password").value;
+
      // Frontend makes API call to backend
-     const response = await fetch('https://api.example.com/login', {
-       method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ username, password })
+     const response = await fetch("https://api.example.com/login", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({ username, password }),
      });
-     
+
      const data = await response.json();
-     
+
      if (data.success) {
        // Login successful
-       alert('Welcome back!');
+       alert("Welcome back!");
      } else {
        // Login failed
-       alert('Invalid credentials');
+       alert("Invalid credentials");
      }
    });
    ```
 
 2. **Backend receives and processes:**
+
    ```javascript
    // Backend API endpoint (Node.js/Express example)
-   app.post('/login', async (req, res) => {
+   app.post("/login", async (req, res) => {
      const { username, password } = req.body;
-     
+
      // Query database
      const user = await database.findUser(username);
-     
+
      // Check password
      if (user && user.password === hashPassword(password)) {
        // Create session token
        const token = generateToken(user.id);
-       
+
        // Send success response
        res.json({ success: true, token: token });
      } else {
        // Send error response
-       res.json({ success: false, message: 'Invalid credentials' });
+       res.json({ success: false, message: "Invalid credentials" });
      }
    });
    ```
@@ -576,6 +647,7 @@ Frontend: Updates UI to show liked (heart turns red)
 **JSON (JavaScript Object Notation)** is the standard format for sending data between frontend and backend.
 
 **Example:**
+
 ```json
 {
   "user": {
@@ -601,6 +673,7 @@ Frontend: Updates UI to show liked (heart turns red)
 ```
 
 JSON is:
+
 - Human-readable
 - Language-independent (works with any programming language)
 - Lightweight (small file size)
@@ -627,6 +700,7 @@ JSON is:
 ## Summary
 
 **Frontend:**
+
 - Runs in browser (client-side)
 - HTML, CSS, JavaScript
 - User interface and experience
@@ -634,6 +708,7 @@ JSON is:
 - Frameworks: React, Vue, Angular
 
 **Backend:**
+
 - Runs on server (server-side)
 - Node.js, Python, PHP, Java, etc.
 - Data, logic, security
@@ -641,6 +716,7 @@ JSON is:
 - Frameworks: Express, Django, Laravel
 
 **Fullstack:**
+
 - Both frontend and backend
 - Complete application development
 - Popular stacks: MERN, MEAN, LAMP
@@ -665,4 +741,4 @@ That night, Tian sketched a simple wireframe for the barangay website. Just boxe
 
 The journey from consumer to creator had begun.
 
-_Next up: How Browsers Interpret HTML, CSS, JS!_ 
+_Next up: How Browsers Interpret HTML, CSS, JS!_

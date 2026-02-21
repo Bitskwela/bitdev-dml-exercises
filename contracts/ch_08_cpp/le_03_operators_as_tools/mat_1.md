@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+3.0+-+COVER.png)
+
 Tian was building a barangay dues calculator. Residents owed 500 pesos monthly, but some paid partial amounts, others had penalties, and some had discounts.
 
 "I have all these numbers stored in variables," Tian said, staring at the screen, "but they're just sitting there! How do I actually calculate who owes what?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+3.1.png)
 
 Kuya Miguel laughed. "You've got the ingredients but no cooking tools! In programming, **operators** are your mathematical and logical tools. Think of them as the jeepney driver's skills—knowing when to add speed, when to subtract by braking, when to multiply distance by time, or when to divide the fare among passengers."
 
@@ -19,6 +23,7 @@ Kuya Miguel laughed. "You've got the ingredients but no cooking tools! In progra
 **Analogy:** Operators are like mathematical symbols (+, -, ×, ÷) but more powerful. They help you build **expressions** - combinations of values and operations that produce a result.
 
 **Simple expression:**
+
 ```cpp
 int result = 5 + 3;  // + is the operator, 5 and 3 are operands
 ```
@@ -37,13 +42,13 @@ Let's explore each type!
 
 ### Basic Arithmetic
 
-| Operator | Name | Example | Result |
-|----------|------|---------|--------|
-| `+` | Addition | `5 + 3` | `8` |
-| `-` | Subtraction | `10 - 4` | `6` |
-| `*` | Multiplication | `7 * 3` | `21` |
-| `/` | Division | `20 / 4` | `5` |
-| `%` | Modulo (Remainder) | `10 % 3` | `1` |
+| Operator | Name               | Example  | Result |
+| -------- | ------------------ | -------- | ------ |
+| `+`      | Addition           | `5 + 3`  | `8`    |
+| `-`      | Subtraction        | `10 - 4` | `6`    |
+| `*`      | Multiplication     | `7 * 3`  | `21`   |
+| `/`      | Division           | `20 / 4` | `5`    |
+| `%`      | Modulo (Remainder) | `10 % 3` | `1`    |
 
 ### Addition (`+`)
 
@@ -58,6 +63,7 @@ double total = price1 + price2;  // 55.50
 ```
 
 **String concatenation** (joining strings):
+
 ```cpp
 string firstName = "Tian";
 string lastName = "Reyes";
@@ -110,12 +116,14 @@ double result3 = num / denom;  // 3.33333...
 ```
 
 **Common mistake:**
+
 ```cpp
 int average = (80 + 90 + 85) / 3;  // 85 (integer division)
 double averageCorrect = (80 + 90 + 85) / 3.0;  // 85.0 (decimal)
 ```
 
 **Philippine example:**
+
 ```cpp
 // Splitting bill among friends
 double totalBill = 1500.00;
@@ -140,6 +148,7 @@ int rem = x % y;  // 0 (20 is perfectly divisible by 5)
 **Use cases:**
 
 **Check if number is even or odd:**
+
 ```cpp
 int number = 7;
 if (number % 2 == 0) {
@@ -150,12 +159,14 @@ if (number % 2 == 0) {
 ```
 
 **Cycle through values (like clock):**
+
 ```cpp
 int hour = 25;
 int validHour = hour % 24;  // 1 (wraps around after 24)
 ```
 
 **Distribute items:**
+
 ```cpp
 int candies = 17;
 int children = 5;
@@ -169,14 +180,14 @@ cout << leftover << " candies left over." << endl;
 
 **Purpose:** Compare two values, returns `true` or `false`
 
-| Operator | Meaning | Example | Result |
-|----------|---------|---------|--------|
-| `==` | Equal to | `5 == 5` | `true` |
-| `!=` | Not equal to | `5 != 3` | `true` |
-| `>` | Greater than | `10 > 5` | `true` |
-| `<` | Less than | `3 < 8` | `true` |
-| `>=` | Greater than or equal | `5 >= 5` | `true` |
-| `<=` | Less than or equal | `4 <= 3` | `false` |
+| Operator | Meaning               | Example  | Result  |
+| -------- | --------------------- | -------- | ------- |
+| `==`     | Equal to              | `5 == 5` | `true`  |
+| `!=`     | Not equal to          | `5 != 3` | `true`  |
+| `>`      | Greater than          | `10 > 5` | `true`  |
+| `<`      | Less than             | `3 < 8`  | `true`  |
+| `>=`     | Greater than or equal | `5 >= 5` | `true`  |
+| `<=`     | Less than or equal    | `4 <= 3` | `false` |
 
 ### Equal to (`==`)
 
@@ -233,17 +244,18 @@ bool isPassed = (grade >= PASSING_GRADE);  // true
 
 **Purpose:** Combine multiple conditions
 
-| Operator | Name | Example | Result |
-|----------|------|---------|--------|
-| `&&` | AND | `true && true` | `true` |
-| `\|\|` | OR | `true \|\| false` | `true` |
-| `!` | NOT | `!true` | `false` |
+| Operator | Name | Example           | Result  |
+| -------- | ---- | ----------------- | ------- |
+| `&&`     | AND  | `true && true`    | `true`  |
+| `\|\|`   | OR   | `true \|\| false` | `true`  |
+| `!`      | NOT  | `!true`           | `false` |
 
 ### AND Operator (`&&`)
 
 **Rule:** BOTH conditions must be true
 
 **Truth table:**
+
 ```
 A     B     A && B
 true  true  true    ✓ (only this is true)
@@ -253,6 +265,7 @@ false false false
 ```
 
 **Examples:**
+
 ```cpp
 int age = 20;
 bool hasID = true;
@@ -268,6 +281,7 @@ bool getsAward = (score >= 80) && (attendance >= 85);  // true
 ```
 
 **Philippine example:**
+
 ```cpp
 // Can apply for scholarship?
 int gpa = 90;
@@ -282,6 +296,7 @@ cout << "Scholarship qualified: " << (qualifies ? "Yes" : "No") << endl;
 **Rule:** AT LEAST ONE condition must be true
 
 **Truth table:**
+
 ```
 A     B     A || B
 true  true  true
@@ -291,6 +306,7 @@ false false false   (only all false → false)
 ```
 
 **Examples:**
+
 ```cpp
 bool hasWifi = false;
 bool hasMobileData = true;
@@ -306,6 +322,7 @@ bool passedAny = (mathGrade >= 75) || (scienceGrade >= 75);  // true
 ```
 
 **Philippine example:**
+
 ```cpp
 // Can pay tuition? (GCash OR Cash OR Bank transfer)
 bool hasGCash = true;
@@ -328,6 +345,7 @@ bool offline = !hasInternet;  // false
 ```
 
 **Examples:**
+
 ```cpp
 bool isLoggedIn = false;
 if (!isLoggedIn) {
@@ -345,6 +363,7 @@ if (!hasSubmitted) {
 ### Combining Logical Operators
 
 **Complex conditions:**
+
 ```cpp
 int age = 17;
 bool hasParentConsent = true;
@@ -356,6 +375,7 @@ bool canRegister = ((age >= 18) || (age < 18 && hasParentConsent)) && hasID;
 ```
 
 **Philippine example - PWD/Senior discount:**
+
 ```cpp
 int age = 65;
 bool isPWD = false;
@@ -380,15 +400,16 @@ x = 20;      // Reassign x to 20
 
 Shortcuts for common operations:
 
-| Operator | Example | Equivalent to |
-|----------|---------|---------------|
-| `+=` | `x += 5` | `x = x + 5` |
-| `-=` | `x -= 3` | `x = x - 3` |
-| `*=` | `x *= 2` | `x = x * 2` |
-| `/=` | `x /= 4` | `x = x / 4` |
-| `%=` | `x %= 3` | `x = x % 3` |
+| Operator | Example  | Equivalent to |
+| -------- | -------- | ------------- |
+| `+=`     | `x += 5` | `x = x + 5`   |
+| `-=`     | `x -= 3` | `x = x - 3`   |
+| `*=`     | `x *= 2` | `x = x * 2`   |
+| `/=`     | `x /= 4` | `x = x / 4`   |
+| `%=`     | `x %= 3` | `x = x % 3`   |
 
 **Examples:**
+
 ```cpp
 int score = 100;
 score += 10;  // score = 110
@@ -402,6 +423,7 @@ balance -= 200.00;  // Withdrawal: 1300.00
 ```
 
 **Philippine example:**
+
 ```cpp
 double gcashBalance = 5000.00;
 gcashBalance += 1000.00;  // Received payment: 6000.00
@@ -413,14 +435,15 @@ cout << "GCash Balance: ₱" << gcashBalance << endl;
 
 **Purpose:** Increase or decrease value by 1
 
-| Operator | Name | Example | Result |
-|----------|------|---------|--------|
-| `++` | Increment | `x++` | `x = x + 1` |
-| `--` | Decrement | `x--` | `x = x - 1` |
+| Operator | Name      | Example | Result      |
+| -------- | --------- | ------- | ----------- |
+| `++`     | Increment | `x++`   | `x = x + 1` |
+| `--`     | Decrement | `x--`   | `x = x - 1` |
 
 ### Post-increment (`x++`)
 
 **Use value first, THEN increment:**
+
 ```cpp
 int x = 5;
 int y = x++;  // y = 5, then x becomes 6
@@ -431,6 +454,7 @@ cout << "x: " << x << ", y: " << y << endl;
 ### Pre-increment (`++x`)
 
 **Increment first, THEN use value:**
+
 ```cpp
 int x = 5;
 int y = ++x;  // x becomes 6, then y = 6
@@ -439,10 +463,12 @@ cout << "x: " << x << ", y: " << y << endl;
 ```
 
 **When to use which?**
+
 - **Standalone:** `x++;` or `++x;` (no difference)
 - **In expression:** Matters! (rare for beginners)
 
 **Common usage:**
+
 ```cpp
 int count = 0;
 count++;  // Increment counter (most common)
@@ -471,6 +497,7 @@ for (int i = 0; i < 10; i++) {  // i++ increments after each loop
 9. **Assignment** `=`, `+=`, `-=`, etc.
 
 **Examples:**
+
 ```cpp
 int result = 5 + 3 * 2;  // 11 (not 16, because * before +)
 int result2 = (5 + 3) * 2;  // 16 (parentheses first)
@@ -481,6 +508,7 @@ int x = 10 + 5 * 2;  // 20 (not 30)
 ```
 
 **Best practice:** Use parentheses to make it clear!
+
 ```cpp
 int average = (score1 + score2 + score3) / 3;  // Clear!
 ```
@@ -498,18 +526,18 @@ int main() {
     int quiz1 = 85;
     int quiz2 = 92;
     int exam = 88;
-    
+
     // Calculate average
     double average = (quiz1 + quiz2 + exam) / 3.0;
-    
+
     // Check if passed (>= 75)
     const double PASSING_GRADE = 75.0;
     bool passed = (average >= PASSING_GRADE);
-    
+
     // Display results
     cout << "Average: " << average << endl;
     cout << "Status: " << (passed ? "PASSED" : "FAILED") << endl;
-    
+
     return 0;
 }
 ```
@@ -524,17 +552,17 @@ int main() {
     double price = 1500.00;
     int age = 65;
     bool isPWD = false;
-    
+
     // Senior (60+) or PWD gets 20% discount
     bool getsDiscount = (age >= 60) || isPWD;
     double discountRate = getsDiscount ? 0.20 : 0.00;
     double discount = price * discountRate;
     double finalPrice = price - discount;
-    
+
     cout << "Original Price: ₱" << price << endl;
     cout << "Discount: ₱" << discount << endl;
     cout << "Final Price: ₱" << finalPrice << endl;
-    
+
     return 0;
 }
 ```
@@ -547,26 +575,26 @@ using namespace std;
 
 int main() {
     double balance = 5000.00;
-    
+
     cout << "Initial Balance: ₱" << balance << endl;
-    
+
     // Deposit
     balance += 1500.00;
     cout << "After deposit: ₱" << balance << endl;
-    
+
     // Pay bills
     balance -= 800.00;
     cout << "After paying bills: ₱" << balance << endl;
-    
+
     // Send money to friend
     balance -= 500.00;
     cout << "After sending money: ₱" << balance << endl;
-    
+
     // Check if balance is sufficient
     double minimumBalance = 100.00;
     bool isSufficient = (balance >= minimumBalance);
     cout << "Balance OK: " << (isSufficient ? "Yes" : "Low balance!") << endl;
-    
+
     return 0;
 }
 ```
@@ -576,11 +604,13 @@ int main() {
 ### Mistake 1: Integer Division
 
 **Wrong:**
+
 ```cpp
 int average = (80 + 90 + 100) / 3;  // 90 (should be 90.0)
 ```
 
 **Correct:**
+
 ```cpp
 double average = (80 + 90 + 100) / 3.0;  // 90.0
 ```
@@ -588,6 +618,7 @@ double average = (80 + 90 + 100) / 3.0;  // 90.0
 ### Mistake 2: Assignment vs Comparison
 
 **Wrong:**
+
 ```cpp
 if (x = 5) {  // WRONG! This assigns 5 to x
     cout << "x is 5";
@@ -595,6 +626,7 @@ if (x = 5) {  // WRONG! This assigns 5 to x
 ```
 
 **Correct:**
+
 ```cpp
 if (x == 5) {  // Correct comparison
     cout << "x is 5";
@@ -604,11 +636,13 @@ if (x == 5) {  // Correct comparison
 ### Mistake 3: Logical Operator Confusion
 
 **Wrong:**
+
 ```cpp
 if (age >= 18 && <= 65) {  // SYNTAX ERROR
 ```
 
 **Correct:**
+
 ```cpp
 if (age >= 18 && age <= 65) {  // Must specify variable twice
 ```
@@ -618,18 +652,23 @@ if (age >= 18 && age <= 65) {  // Must specify variable twice
 **Key Takeaways:**
 
 1. **Arithmetic operators:** `+`, `-`, `*`, `/`, `%`
+
    - Watch out for integer division!
 
 2. **Comparison operators:** `==`, `!=`, `>`, `<`, `>=`, `<=`
+
    - Returns true or false
 
 3. **Logical operators:** `&&` (AND), `||` (OR), `!` (NOT)
+
    - Combine multiple conditions
 
 4. **Assignment operators:** `=`, `+=`, `-=`, `*=`, `/=`, `%=`
+
    - Shortcuts for common operations
 
 5. **Increment/Decrement:** `++`, `--`
+
    - Change value by 1
 
 6. **Operator precedence** matters - use parentheses for clarity!

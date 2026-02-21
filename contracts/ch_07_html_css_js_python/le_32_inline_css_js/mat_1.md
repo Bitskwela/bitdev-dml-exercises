@@ -1,11 +1,15 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+32.0+-+COVER.png)
+
 The barangay office had a new requirement: visual status indicators. When an application was submitted, a status box should change color based on the application state:
 
 - Pending: Yellow background
 - Approved: Green background  
 - Rejected: Red background
 - Under Review: Blue background
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+32.1.png)
 
 Tian could change the text content using `textContent`, but they didn't know how to change CSS styles dynamically. They tried modifying the HTML directly:
 

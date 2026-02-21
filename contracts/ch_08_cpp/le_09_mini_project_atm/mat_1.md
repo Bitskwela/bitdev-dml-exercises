@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+9.0+-+COVER.png)
+
 Tian had been learning C++ concepts for weeks—variables, operators, conditions, loops, logical operators. Each lesson made sense individually, but Tian felt overwhelmed. "Kuya, I understand each piece, but how do they all fit together in a real program?"
 
 Kuya Miguel smiled knowingly. "You're experiencing what every developer faces: tutorial hell. You can follow lessons, but can you build something real? Let's find out. Today, we're building an **ATM Simulator** from scratch—no tutorial, no step-by-step guide. Just you, your knowledge, and a problem to solve."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+9.1.png)
 
 Tian's eyes widened with a mix of excitement and nervousness.
 
@@ -17,6 +21,7 @@ Tian's eyes widened with a mix of excitement and nervousness.
 ## Project Overview
 
 **ATM Simulator Features:**
+
 1. PIN authentication (3 attempts max)
 2. Check balance
 3. Deposit money
@@ -25,6 +30,7 @@ Tian's eyes widened with a mix of excitement and nervousness.
 6. Exit system
 
 **Skills Applied:**
+
 - `while` loops for menu system
 - `if/else` for validation
 - Logical operators (`&&`, `||`)
@@ -44,32 +50,32 @@ int main() {
     // Account data
     int correctPIN = 1234;
     double balance = 5000.00;
-    
+
     // Transaction history (last 10 transactions)
     string transactions[10];
     int transactionCount = 0;
-    
+
     // Authentication
     int enteredPIN;
     int attempts = 0;
     bool authenticated = false;
-    
+
     cout << "========================================" << endl;
     cout << "   BARANGAY COOPERATIVE BANK ATM" << endl;
     cout << "========================================" << endl;
-    
+
     // PIN Authentication Loop
     while (attempts < 3 && !authenticated) {
         cout << "\nEnter your PIN: ";
         cin >> enteredPIN;
-        
+
         if (enteredPIN == correctPIN) {
             authenticated = true;
             cout << "✓ Authentication successful!" << endl;
         } else {
             attempts++;
             cout << "✗ Incorrect PIN. ";
-            
+
             if (attempts < 3) {
                 cout << "Attempts remaining: " << (3 - attempts) << endl;
             } else {
@@ -78,11 +84,11 @@ int main() {
             }
         }
     }
-    
+
     // Main Menu Loop
     int choice;
     bool exitATM = false;
-    
+
     while (!exitATM) {
         cout << "\n========================================" << endl;
         cout << "             MAIN MENU" << endl;
@@ -95,27 +101,27 @@ int main() {
         cout << "========================================" << endl;
         cout << "Enter choice (1-5): ";
         cin >> choice;
-        
+
         // Process choice
         if (choice == 1) {
             // CHECK BALANCE
             cout << "\n--- Current Balance ---" << endl;
             cout << "PHP " << balance << endl;
-            
+
             // Add to transaction history
             if (transactionCount < 10) {
                 transactions[transactionCount] = "Balance Inquiry";
                 transactionCount++;
             }
-            
+
         } else if (choice == 2) {
             // DEPOSIT MONEY
             double depositAmount;
-            
+
             cout << "\n--- Deposit Money ---" << endl;
             cout << "Enter amount to deposit: PHP ";
             cin >> depositAmount;
-            
+
             // Validation
             if (depositAmount <= 0) {
                 cout << "✗ Invalid amount. Must be greater than 0." << endl;
@@ -125,23 +131,23 @@ int main() {
                 balance += depositAmount;
                 cout << "✓ Deposit successful!" << endl;
                 cout << "New balance: PHP " << balance << endl;
-                
+
                 // Add to transaction history
                 if (transactionCount < 10) {
                     transactions[transactionCount] = "Deposit: PHP " + to_string(depositAmount);
                     transactionCount++;
                 }
             }
-            
+
         } else if (choice == 3) {
             // WITHDRAW MONEY
             double withdrawAmount;
-            
+
             cout << "\n--- Withdraw Money ---" << endl;
             cout << "Current balance: PHP " << balance << endl;
             cout << "Enter amount to withdraw: PHP ";
             cin >> withdrawAmount;
-            
+
             // Validation with compound conditions
             if (withdrawAmount <= 0) {
                 cout << "✗ Invalid amount. Must be greater than 0." << endl;
@@ -157,39 +163,39 @@ int main() {
                     cout << "\n⚠ Large withdrawal detected." << endl;
                     cout << "Re-enter PIN to confirm: ";
                     cin >> confirmPIN;
-                    
+
                     if (confirmPIN != correctPIN) {
                         cout << "✗ Incorrect PIN. Transaction cancelled." << endl;
                         continue;  // Skip withdrawal
                     }
                 }
-                
+
                 balance -= withdrawAmount;
                 cout << "✓ Withdrawal successful!" << endl;
                 cout << "Amount withdrawn: PHP " << withdrawAmount << endl;
                 cout << "New balance: PHP " << balance << endl;
-                
+
                 // Add to transaction history
                 if (transactionCount < 10) {
                     transactions[transactionCount] = "Withdrawal: PHP " + to_string(withdrawAmount);
                     transactionCount++;
                 }
             }
-            
+
         } else if (choice == 4) {
             // VIEW TRANSACTION HISTORY
             cout << "\n--- Transaction History ---" << endl;
-            
+
             if (transactionCount == 0) {
                 cout << "No transactions yet." << endl;
             } else {
                 cout << "Last " << transactionCount << " transaction(s):" << endl;
-                
+
                 for (int i = 0; i < transactionCount; i++) {
                     cout << (i + 1) << ". " << transactions[i] << endl;
                 }
             }
-            
+
         } else if (choice == 5) {
             // EXIT
             cout << "\n========================================" << endl;
@@ -197,13 +203,13 @@ int main() {
             cout << "       Have a great day!" << endl;
             cout << "========================================" << endl;
             exitATM = true;
-            
+
         } else {
             // INVALID CHOICE
             cout << "\n✗ Invalid choice. Please enter 1-5." << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -222,6 +228,7 @@ while (attempts < 3 && !authenticated) {
 ```
 
 **Logic:**
+
 - Loop continues while attempts < 3 AND user is not authenticated
 - If 3 wrong attempts, card is blocked
 - Uses compound condition with `&&`
@@ -235,6 +242,7 @@ while (!exitATM) {
 ```
 
 **Logic:**
+
 - Loop continues until user chooses to exit
 - Uses boolean flag `exitATM` to control loop
 
@@ -251,6 +259,7 @@ if (depositAmount <= 0) {
 ```
 
 **Multiple conditions check:**
+
 - Amount must be positive
 - Amount must be within limits
 - Uses `if-else if-else` chain
@@ -281,6 +290,7 @@ if (withdrawAmount >= 10000) {
 ```
 
 **Security feature:**
+
 - Large withdrawals require re-entering PIN
 - Uses nested `if` statements
 - Uses `continue` to skip rest of iteration
@@ -407,18 +417,18 @@ Enter choice (1-5): 5
 
 ## Key Programming Concepts Used
 
-| Concept | Where Used |
-|---------|------------|
-| **while loops** | Menu system, authentication |
-| **if-else chains** | Input validation, menu options |
-| **Logical operators** | Authentication (`&&`, `!`) |
-| **Compound conditions** | Withdrawal validation |
-| **Arrays** | Transaction history |
-| **for loops** | Display transaction history |
-| **break** | Exit menu loop |
-| **continue** | Skip invalid transactions |
-| **Boolean flags** | `authenticated`, `exitATM` |
-| **Input validation** | Check amounts, limits |
+| Concept                 | Where Used                     |
+| ----------------------- | ------------------------------ |
+| **while loops**         | Menu system, authentication    |
+| **if-else chains**      | Input validation, menu options |
+| **Logical operators**   | Authentication (`&&`, `!`)     |
+| **Compound conditions** | Withdrawal validation          |
+| **Arrays**              | Transaction history            |
+| **for loops**           | Display transaction history    |
+| **break**               | Exit menu loop                 |
+| **continue**            | Skip invalid transactions      |
+| **Boolean flags**       | `authenticated`, `exitATM`     |
+| **Input validation**    | Check amounts, limits          |
 
 ---
 
@@ -429,13 +439,13 @@ Enter choice (1-5): 5
 ✅ Implemented security features (PIN, attempts)  
 ✅ Validated user input effectively  
 ✅ Managed transaction history with arrays  
-✅ Created a professional menu-driven program  
+✅ Created a professional menu-driven program
 
 ---
 
 ## What's Next?
 
-Congratulations on completing **Chapter 2: Logic in Motion**! 
+Congratulations on completing **Chapter 2: Logic in Motion**!
 
 In **Chapter 3: Foundations of Structure**, you'll learn about **functions** - how to break down your code into reusable, modular pieces. Imagine building this ATM system with separate functions for authentication, withdrawal, deposit, etc. Much cleaner!
 

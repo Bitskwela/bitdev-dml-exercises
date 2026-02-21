@@ -23,7 +23,7 @@ export default function WalletConnector() {
   // Task 3: Implement conditional rendering
   return (
     <div>
-      {window.ethereum ? (
+      {hasWallet ? (
         account ? (
           <p>Connected: {account}</p>
         ) : (

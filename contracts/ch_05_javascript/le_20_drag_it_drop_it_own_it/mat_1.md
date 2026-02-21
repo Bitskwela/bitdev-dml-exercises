@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+20.0+-+COVER.png)
+
 It was a busy Monday morning at a co-working space in Bonifacio Global City. Odessa was sipping her kapeng barako ☕️ while watching freelancers shuffle sticky notes on whiteboards. One group had a Kanban board drawn on a roll of kraft paper—“To Do,” “In Progress,” “Done.” But every time someone moved a note, they had to peel and re-stick it, leaving glue marks like EDSA traffic jams.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+20.1.png)
 
 Odessa thought, “What if I make this digital, drag-and-drop style, like Trello?” 🚀 She imagined tasks you could grab with a mouse, drag from column to column, and drop with a satisfying animation. This feature would delight clients and speed up workflows—perfect for her logistics startup’s internal tool.
 

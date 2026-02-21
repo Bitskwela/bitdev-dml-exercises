@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+17.0+-+COVER.png)
+
 Tian's function to update resident data used pointers, but the code was messy—asterisks everywhere, null checks scattered around, and constant dereferencing made it hard to read.
 
 "Kuya, pointers work, but this code looks complicated," Tian said, showing the screen full of `*ptr`, `&variable`, and null checks. "Is there a cleaner way?"
 
 Kuya Miguel nodded. "When you just need to pass large data efficiently or modify parameters, use **references**. When you need the full flexibility of pointing to different things or handling null cases, use pointers. Let me show you the difference."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+17.1.png)
 
 "Think of it like directions," Kuya Miguel explained. "A reference is like saying 'the house'—there's only one house, and you're always talking about that specific house. A pointer is like an address—you can write it down, change it to point to a different house, or leave it blank. References are safer and cleaner when you know exactly what you're referring to. Pointers are more flexible but require more careful handling."
 
@@ -53,15 +57,15 @@ cout << balance;     // 2000
 
 ## Key Differences
 
-| Feature | Reference | Pointer |
-|---------|-----------|---------|
-| **Syntax** | `int& ref = var;` | `int* ptr = &var;` |
-| **Access** | Direct: `ref` | Dereference: `*ptr` |
-| **Null value** | Cannot be null | Can be `nullptr` |
-| **Reassignment** | Cannot rebind | Can point to different addresses |
+| Feature            | Reference           | Pointer                                |
+| ------------------ | ------------------- | -------------------------------------- |
+| **Syntax**         | `int& ref = var;`   | `int* ptr = &var;`                     |
+| **Access**         | Direct: `ref`       | Dereference: `*ptr`                    |
+| **Null value**     | Cannot be null      | Can be `nullptr`                       |
+| **Reassignment**   | Cannot rebind       | Can point to different addresses       |
 | **Initialization** | Must be initialized | Can be declared without initialization |
-| **Arithmetic** | Not allowed | Allowed (`ptr++`) |
-| **Usage** | Cleaner syntax | More flexible |
+| **Arithmetic**     | Not allowed         | Allowed (`ptr++`)                      |
+| **Usage**          | Cleaner syntax      | More flexible                          |
 
 ---
 
@@ -104,6 +108,7 @@ cout << ref;   // 20 (still refers to x)
 ```
 
 **With pointers (can reassign):**
+
 ```cpp
 int x = 10;
 int y = 20;
@@ -133,6 +138,7 @@ int main() {
 ```
 
 **No need for:**
+
 - `&` when calling (cleaner than pointers)
 - `*` when using inside function (cleaner syntax)
 
@@ -153,6 +159,7 @@ void displayResident(const string& name, const string& address) {
 ```
 
 **Benefits:**
+
 - Avoids copying large objects (efficient)
 - Can modify original (if not `const`)
 - Clean syntax
@@ -293,28 +300,29 @@ int main() {
         {"Maria Santos", 25, 1500.0},
         {"Pedro Reyes", 35, 2000.0}
     };
-    
+
     // Search for resident
     string searchName = "Maria Santos";
     Resident* found = findResident(residents, 3, searchName);
-    
+
     if (found != nullptr) {
         cout << "Found resident:\n";
         display(*found);  // Dereference pointer to pass as reference
-        
+
         deposit(*found, 500);
-        
+
         cout << "\nAfter deposit:\n";
         display(*found);
     } else {
         cout << searchName << " not found!" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Found resident:
 Name: Maria Santos
@@ -360,7 +368,7 @@ void addBonus(int& score, int bonus) {
 ```cpp
 int* findMax(int arr[], int size) {
     if (size == 0) return nullptr;  // Empty array
-    
+
     int* maxPtr = &arr[0];
     for (int i = 1; i < size; i++) {
         if (arr[i] > *maxPtr) {
@@ -374,6 +382,7 @@ int* findMax(int arr[], int size) {
 ### Pattern 4: Swapping Two Variables
 
 **Using references:**
+
 ```cpp
 void swap(int& a, int& b) {
     int temp = a;
@@ -386,6 +395,7 @@ swap(x, y);  // Clean call
 ```
 
 **Using pointers:**
+
 ```cpp
 void swap(int* a, int* b) {
     int temp = *a;
@@ -404,12 +414,14 @@ swap(&x, &y);  // Need &
 ## Quick Decision Guide
 
 **Use References when:**
+
 - ✓ Parameter must always be valid (non-null)
 - ✓ You want clean syntax
 - ✓ No need to reassign to different object
 - ✓ Modifying or reading large objects
 
 **Use Pointers when:**
+
 - ✓ Need to represent "no value" (nullptr)
 - ✓ Need to reassign to different addresses
 - ✓ Dynamic memory allocation
@@ -458,6 +470,7 @@ int& ref = age;   // ✓ CORRECT
 ## Best Practices
 
 1. **Prefer references for function parameters**
+
 ```cpp
 void process(const string& name) {  // ✓ Clean and safe
     // ...
@@ -465,6 +478,7 @@ void process(const string& name) {  // ✓ Clean and safe
 ```
 
 2. **Use pointers when null is meaningful**
+
 ```cpp
 int* findElement(int arr[], int size, int target) {
     // Can return nullptr if not found
@@ -472,6 +486,7 @@ int* findElement(int arr[], int size, int target) {
 ```
 
 3. **Use const references for read-only access**
+
 ```cpp
 void display(const Resident& r) {  // ✓ Efficient, safe
     cout << r.name;
@@ -479,6 +494,7 @@ void display(const Resident& r) {  // ✓ Efficient, safe
 ```
 
 4. **Initialize pointers to nullptr**
+
 ```cpp
 int* ptr = nullptr;  // ✓ Safe
 ```
@@ -490,6 +506,7 @@ int* ptr = nullptr;  // ✓ Safe
 Tian reviewed the comparison table. "So references are like pointers, but simpler and safer!"
 
 "Exactly!" Kuya Miguel nodded. "Remember:
+
 - **References** — cleaner syntax, always valid, can't be null
 - **Pointers** — more flexible, can be null, can be reassigned
 - **Use references** for parameters and read-only access
@@ -500,6 +517,7 @@ Tian reviewed the comparison table. "So references are like pointers, but simple
 ---
 
 **Key Takeaways:**
+
 1. References are aliases, pointers store addresses
 2. References cannot be null or rebound
 3. Use references for clean function parameters

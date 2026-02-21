@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+4.0+-+COVER.png)
+
 Tian had just finished building their fourth practice HTML page when they noticed something strange. They'd written what looked like perfectly valid HTML—proper structure, semantic tags, no obvious errors in VS Code. But when they opened it in Chrome, the layout was completely broken. Text overlapped. Images appeared in weird positions. Some CSS styles applied, others didn't.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+4.1.png)
 
 "Why is this happening?" Tian muttered, refreshing the page multiple times as if that would magically fix the layout.
 
@@ -30,11 +34,11 @@ Tian's jaw dropped. "All of that happens every time?"
 
 "So when my layout breaks, it's not always my fault?"
 
-"Sometimes it's your code. Sometimes it's browser quirks. Sometimes it's the order things load. But here's the thing—understanding *how* browsers work makes you a better developer. You stop guessing and start knowing. You understand why certain CSS properties are slow. Why JavaScript placement matters. How to optimize load times. Why some animations are smooth and others janky."
+"Sometimes it's your code. Sometimes it's browser quirks. Sometimes it's the order things load. But here's the thing—understanding _how_ browsers work makes you a better developer. You stop guessing and start knowing. You understand why certain CSS properties are slow. Why JavaScript placement matters. How to optimize load times. Why some animations are smooth and others janky."
 
 Miguel pulled up another tab showing the critical rendering path—a flowchart of DOM construction, CSSOM construction, render tree, layout, and paint.
 
-"Today, I'm going to take you through the entire rendering pipeline. You'll learn exactly what happens from the moment the browser receives HTML to the moment pixels appear on screen. The magic becomes science. And once you understand the science, you can write code that works *with* the browser instead of fighting against it."
+"Today, I'm going to take you through the entire rendering pipeline. You'll learn exactly what happens from the moment the browser receives HTML to the moment pixels appear on screen. The magic becomes science. And once you understand the science, you can write code that works _with_ the browser instead of fighting against it."
 
 Tian grabbed their notebook, pen ready. The broken webpage from earlier was still open in another tab—no longer a source of frustration, but a case study waiting to be understood.
 
@@ -51,6 +55,7 @@ Tian grabbed their notebook, pen ready. The broken webpage from earlier was stil
 A **browser** (web browser) is a software application that retrieves, interprets, and displays web content.
 
 **Popular browsers:**
+
 - **Google Chrome** (most popular worldwide)
 - **Mozilla Firefox**
 - **Microsoft Edge** (previously Internet Explorer)
@@ -59,6 +64,7 @@ A **browser** (web browser) is a software application that retrieves, interprets
 - **Brave** (privacy-focused)
 
 **In the Philippines:**
+
 - Chrome dominates (70-80% market share)
 - Edge is growing (pre-installed on Windows)
 - Firefox and others (smaller share)
@@ -83,6 +89,7 @@ When a webpage loads, there are 7 major steps the browser takes. This is the **C
 **What happens:**
 
 Browser receives HTML from server:
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -99,6 +106,7 @@ Browser receives HTML from server:
 Browser **parses** (reads and understands) this HTML and builds the **DOM (Document Object Model)** — a tree structure representing all elements.
 
 **DOM Tree visualization:**
+
 ```
 Document
 └─ html
@@ -120,6 +128,7 @@ Document
 **What happens:**
 
 Browser encounters CSS (inline, internal, or external):
+
 ```css
 h1 {
   color: blue;
@@ -133,6 +142,7 @@ p {
 Browser builds the **CSSOM (CSS Object Model)** — a tree structure of style rules.
 
 **CSSOM Tree:**
+
 ```
 CSS Rules
 ├─ h1
@@ -157,6 +167,7 @@ That's why CSS is called a "render-blocking" resource.
 Browser combines DOM at CSSOM to create the **Render Tree** — only includes elements na makikita on screen (excludes hidden elements like `<script>`, `display:none`, etc.)
 
 **Render Tree:**
+
 ```
 Render Tree
 ├─ h1 (blue, 32px): "Hello World"
@@ -176,12 +187,14 @@ Render Tree
 Browser calculates the **exact position and size** of each element.
 
 **Calculations:**
+
 - Where exactly should this `<h1>` be positioned? (x, y coordinates)
 - How wide? (depends on screen width, parent container)
 - How tall? (depends on content, font-size, padding)
 - How does it affect elements below it? (layout flow)
 
 **Example calculation:**
+
 ```
 h1:
 - Position: (10px, 10px)
@@ -209,6 +222,7 @@ This is called **Layout** or **Reflow**.
 Browser actually draws the pixels! Converts boxes into actual visual output.
 
 **Painting order:**
+
 1. Background colors
 2. Background images
 3. Borders
@@ -218,6 +232,7 @@ Browser actually draws the pixels! Converts boxes into actual visual output.
 7. Overlays
 
 **Example:**
+
 ```
 Paint h1:
 - Fill rectangle (10px, 10px, 500px, 40px) with white background
@@ -240,6 +255,7 @@ This creates **layers** of visual content.
 Browser combines all layers into the final image you see on screen.
 
 **Why layers?**
+
 - Efficiency: When there's animation, the browser can move layers without repainting everything
 - Example: Fixed navigation bar is a separate layer
 - CSS transforms, opacity, filters create new layers
@@ -256,16 +272,18 @@ Modern browsers use your GPU (graphics card) for compositing — that's why anim
 **What happens:**
 
 Browser executes JavaScript code, which can:
+
 - Modify the DOM (add/remove elements)
 - Change styles dynamically
 - Respond to user interactions (clicks, scrolls)
 - Make AJAX requests for more data
 
 **Example:**
+
 ```javascript
 // When button is clicked
-button.addEventListener('click', function() {
-  document.querySelector('h1').style.color = 'red';
+button.addEventListener("click", function () {
+  document.querySelector("h1").style.color = "red";
   // This triggers Reflow and Repaint!
 });
 ```
@@ -303,6 +321,7 @@ When your internet is slow: **10-30 seconds**
 ### Google Chrome
 
 **Pros:**
+
 - Fastest rendering (V8 JavaScript engine)
 - Best developer tools
 - Most extensions available
@@ -310,6 +329,7 @@ When your internet is slow: **10-30 seconds**
 - Regular updates
 
 **Cons:**
+
 - RAM hog (uses lots of memory)
 - Battery drain on laptops
 - Google tracking (privacy concerns)
@@ -323,6 +343,7 @@ When your internet is slow: **10-30 seconds**
 ### Mozilla Firefox
 
 **Pros:**
+
 - Privacy-focused (no Google tracking)
 - Open-source
 - Good performance
@@ -330,6 +351,7 @@ When your internet is slow: **10-30 seconds**
 - Customizable
 
 **Cons:**
+
 - Slightly slower than Chrome
 - Fewer extensions
 - Some sites optimized for Chrome might have issues
@@ -343,6 +365,7 @@ When your internet is slow: **10-30 seconds**
 ### Microsoft Edge
 
 **Pros:**
+
 - Built on Chromium (same engine as Chrome)
 - Better memory management than Chrome
 - Pre-installed on Windows
@@ -350,6 +373,7 @@ When your internet is slow: **10-30 seconds**
 - Smooth Microsoft 365 integration
 
 **Cons:**
+
 - Microsoft tracking
 - Aggressive default prompts
 - Still building extension library
@@ -363,11 +387,13 @@ When your internet is slow: **10-30 seconds**
 ### Safari (Apple)
 
 **Pros:**
+
 - Best for Mac/iPhone battery life
 - Excellent performance on Apple devices
 - Privacy features
 
 **Cons:**
+
 - Only available on Apple devices
 - Limited extension support
 - Sometimes behind on web standards
@@ -383,6 +409,7 @@ When your internet is slow: **10-30 seconds**
 **Recommendation:** Use **Chrome** as primary, test on **Firefox** and **Edge**.
 
 **Why Chrome?**
+
 - Most users worldwide use Chrome
 - Best DevTools (inspect element, console, network tab)
 - Industry standard for web development
@@ -401,46 +428,54 @@ But ALWAYS test your websites on multiple browsers! Some users have Firefox, Edg
 ### Key Tabs in DevTools
 
 #### 1. Elements Tab
+
 - View and edit HTML/CSS live
 - See the DOM tree
 - Inspect any element on the page
 - Modify styles in real-time
 
 **Try this:**
+
 1. Open Facebook.com
 2. Right-click on any post → Inspect
 3. Change text content — only you will see it! (doesn't affect the actual site)
 
 #### 2. Console Tab
+
 - Run JavaScript commands
 - See error messages
 - Log outputs from your code
 - Interact with the page programmatically
 
 **Try this:**
+
 ```javascript
 console.log("Hello from Console!");
 alert("This is JavaScript!");
-document.body.style.backgroundColor = 'lightblue';
+document.body.style.backgroundColor = "lightblue";
 ```
 
 #### 3. Network Tab
+
 - See ALL requests the page makes
 - Check file sizes, load times
 - Debug slow loading issues
 - View request/response headers
 
 **Try this:**
+
 1. Open Network tab
 2. Refresh any webpage
 3. Watch all requests flood in! (50-200+)
 
 #### 4. Sources Tab
+
 - View all files (HTML, CSS, JS)
 - Set breakpoints for debugging
 - Step through JavaScript code
 
 #### 5. Performance Tab
+
 - Analyze rendering performance
 - Find bottlenecks
 - Optimize slow pages
@@ -448,6 +483,7 @@ document.body.style.backgroundColor = 'lightblue';
 ### DevTools for Students
 
 As a beginner, focus on:
+
 1. **Elements** — Understand HTML/CSS structure
 2. **Console** — Practice JavaScript, see errors
 3. **Network** — Understand how websites load
@@ -459,12 +495,14 @@ Advanced tabs (Performance, Memory, etc.) — learn these later!
 ### Issue 1: Slow Loading
 
 **Causes:**
+
 - Slow internet (common in the PH)
 - Large unoptimized images
 - Too many requests
 - Server far away (US server vs local PH server)
 
 **Solutions:**
+
 - Optimize images (compress, resize)
 - Use CDN (Content Delivery Networks)
 - Minimize CSS/JS files
@@ -485,6 +523,7 @@ Advanced tabs (Performance, Memory, etc.) — learn these later!
 **Why:** Different browsers have slightly different rendering engines
 
 **Solution:**
+
 - Test on multiple browsers
 - Use standard web features (avoid experimental)
 - Use CSS prefixes for compatibility
@@ -494,6 +533,7 @@ Advanced tabs (Performance, Memory, etc.) — learn these later!
 ### Synchronous vs Asynchronous Loading
 
 **Blocking (bad):**
+
 ```html
 <head>
   <script src="large-script.js"></script>
@@ -502,6 +542,7 @@ Advanced tabs (Performance, Memory, etc.) — learn these later!
 ```
 
 **Non-blocking (good):**
+
 ```html
 <body>
   <!-- Content loads first -->
@@ -518,6 +559,7 @@ or
 ```
 
 **Defer vs Async:**
+
 - **defer:** Downloads in background, executes after HTML parsing
 - **async:** Downloads and executes immediately (can block rendering)
 
@@ -538,6 +580,7 @@ or
 ## Summary
 
 **Browser Rendering Pipeline:**
+
 1. Parse HTML → DOM
 2. Parse CSS → CSSOM
 3. Combine → Render Tree
@@ -549,6 +592,7 @@ or
 **Total time:** 200ms - 3 seconds (average)
 
 **Browser recommendations:**
+
 - **Primary:** Chrome (best DevTools)
 - **Testing:** Firefox, Edge, Safari
 - **Development:** Always use DevTools!
@@ -573,4 +617,4 @@ Kuya Miguel chuckled. "Maybe. Or maybe you'll build something simpler but more m
 
 Tian smiled. He was right. The goal wasn't to replicate Facebook. The goal was to solve real problems for real people. And now, armed with knowledge of how browsers work, Tian had the tools to do exactly that.
 
-_Next up: Developer Tools and Editorsyour coding workspace!_ 
+_Next up: Developer Tools and Editorsyour coding workspace!_

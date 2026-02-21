@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+5.0+-+COVER.png)
+
 Odessa's journey into the world of programming continues as she dives into building her own grade tracker. Being an IT student in the Philippines, Odessa often has to keep track of her quiz scores and assignments. To make this task easier, she decides to create a simple application that can help her calculate her average scores.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+5.1.png)
 
 She starts by understanding the concept of arrays. An array is like a list that can hold multiple values in a single variable. In Odessa's case, she plans to store her quiz scores in an array so that she can perform calculations on them efficiently.
 
@@ -44,7 +48,6 @@ console.log("Average Score:", average);
 ```
 
 For more information, you can visit the [Mozilla Developer Network (MDN) documentation on Arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
-
 
 ## Closing Story
 

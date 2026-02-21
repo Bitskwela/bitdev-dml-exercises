@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+34.0+-+COVER.png)
+
 Tian scrolled through his `barangay-portal.js` file, and the scroll bar on the right side of VS Code told the story—this file had grown massive. What started as a simple 200-line project had ballooned to over 800 lines as he and Rhea Joy kept adding features: visitor management, service calculations, report generation, search functionality, data validation, UI updates, event handlers, utility functions, configuration objects.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+34.1.png)
 
 Everything was in one giant file.
 
@@ -75,9 +79,9 @@ They have dozens of small, focused files instead of one giant file. How do they 
 Tian had wondered the same thing. He'd seen `import` statements at the top of many modern JavaScript files:
 
 ```javascript
-import { calculateFee } from './utils/calculations.js';
-import { validateVisitor } from './utils/validators.js';
-import { displayList } from './components/VisitorList.js';
+import { calculateFee } from "./utils/calculations.js";
+import { validateVisitor } from "./utils/validators.js";
+import { displayList } from "./components/VisitorList.js";
 ```
 
 But he didn't fully understand the mechanism. "I know we can link multiple JavaScript files in HTML with multiple `<script>` tags, pero that causes problems with load order and global namespace pollution. This `import` thing seems cleaner."
@@ -96,8 +100,8 @@ export const add = (a, b) => a + b;
 export const subtract = (a, b) => a - b;
 
 // main.js
-import { add, subtract } from './calculator.js';
-console.log(add(5, 3));  // 8
+import { add, subtract } from "./calculator.js";
+console.log(add(5, 3)); // 8
 ```
 
 "Each file is a **module**. You use `export` to make functions, objects, or variables available to other files. You use `import` to bring them into the files that need them. Clean, explicit, no global namespace pollution."
@@ -150,6 +154,7 @@ Rhea Joy was already planning the refactoring. "So our workflow would be: create
 He opened a demo project and live-coded the transformation:
 
 **Before: barangay-portal.js (800 lines)**
+
 ```javascript
 // Everything in one file
 const CONFIG = {...};
@@ -218,6 +223,7 @@ Miguel smiled. "Now you're thinking like professional developers. Modular code i
 ## Why Modules?
 
 **Problems with one big file:**
+
 - Hard to find code
 - Name conflicts
 - Difficult to test
@@ -225,6 +231,7 @@ Miguel smiled. "Now you're thinking like professional developers. Modular code i
 - Hard to collaborate
 
 **Solution: ES6 Modules**
+
 - Split code into separate files
 - Each file is a module
 - Explicit imports/exports
@@ -247,7 +254,7 @@ const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 
-export {add, subtract, multiply};
+export { add, subtract, multiply };
 ```
 
 **Default export (one per file):**
@@ -255,8 +262,8 @@ export {add, subtract, multiply};
 ```javascript
 // calculator.js
 const calculator = {
-    add: (a, b) => a + b,
-    subtract: (a, b) => a - b
+  add: (a, b) => a + b,
+  subtract: (a, b) => a - b,
 };
 
 export default calculator;
@@ -270,9 +277,9 @@ export default calculator;
 
 ```javascript
 // main.js
-import {add, subtract} from './math.js';
+import { add, subtract } from "./math.js";
 
-console.log(add(5, 3));      // 8
+console.log(add(5, 3)); // 8
 console.log(subtract(10, 4)); // 6
 ```
 
@@ -280,7 +287,7 @@ console.log(subtract(10, 4)); // 6
 
 ```javascript
 // main.js
-import calculator from './calculator.js';
+import calculator from "./calculator.js";
 
 console.log(calculator.add(5, 3)); // 8
 ```
@@ -288,16 +295,16 @@ console.log(calculator.add(5, 3)); // 8
 **Import everything:**
 
 ```javascript
-import * as math from './math.js';
+import * as math from "./math.js";
 
-console.log(math.add(5, 3));      // 8
+console.log(math.add(5, 3)); // 8
 console.log(math.multiply(4, 2)); // 8
 ```
 
 **Rename imports:**
 
 ```javascript
-import {add as sum, subtract as diff} from './math.js';
+import { add as sum, subtract as diff } from "./math.js";
 
 console.log(sum(5, 3)); // 8
 console.log(diff(10, 4)); // 6
@@ -308,6 +315,7 @@ console.log(diff(10, 4)); // 6
 ## Barangay Example: Organized Modules
 
 **Project structure:**
+
 ```
 barangay-system/
 ├── index.html
@@ -325,18 +333,18 @@ barangay-system/
 ```javascript
 // services.js
 export const services = [
-    {id: 1, name: 'Barangay Clearance', baseFee: 50, available: true},
-    {id: 2, name: 'Barangay ID', baseFee: 30, available: true},
-    {id: 3, name: 'Certificate of Residency', baseFee: 40, available: true},
-    {id: 4, name: 'Business Permit', baseFee: 200, available: false}
+  { id: 1, name: "Barangay Clearance", baseFee: 50, available: true },
+  { id: 2, name: "Barangay ID", baseFee: 30, available: true },
+  { id: 3, name: "Certificate of Residency", baseFee: 40, available: true },
+  { id: 4, name: "Business Permit", baseFee: 200, available: false },
 ];
 
 export const getServiceById = (id) => {
-    return services.find(service => service.id === id);
+  return services.find((service) => service.id === id);
 };
 
 export const getAvailableServices = () => {
-    return services.filter(service => service.available);
+  return services.filter((service) => service.available);
 };
 ```
 
@@ -347,21 +355,21 @@ export const getAvailableServices = () => {
 ```javascript
 // fees.js
 export const calculateFee = (baseFee, isSenior, isPWD) => {
-    let discount = 0;
-    
-    if (isSenior) discount += 0.20;  // 20% senior discount
-    if (isPWD) discount += 0.10;     // 10% PWD discount
-    
-    let finalFee = baseFee * (1 - discount);
-    return Math.max(finalFee, 0); // Never negative
+  let discount = 0;
+
+  if (isSenior) discount += 0.2; // 20% senior discount
+  if (isPWD) discount += 0.1; // 10% PWD discount
+
+  let finalFee = baseFee * (1 - discount);
+  return Math.max(finalFee, 0); // Never negative
 };
 
 export const calculateTotal = (items) => {
-    return items.reduce((sum, item) => sum + item.fee, 0);
+  return items.reduce((sum, item) => sum + item.fee, 0);
 };
 
 export const formatCurrency = (amount) => {
-    return '₱' + amount.toFixed(2);
+  return "₱" + amount.toFixed(2);
 };
 ```
 
@@ -371,34 +379,40 @@ export const formatCurrency = (amount) => {
 
 ```javascript
 // display.js
-import {formatCurrency} from './fees.js';
+import { formatCurrency } from "./fees.js";
 
 export const displayServices = (services, containerId) => {
-    let container = document.querySelector(containerId);
-    
-    let html = services.map(service => `
+  let container = document.querySelector(containerId);
+
+  let html = services
+    .map(
+      (service) => `
         <div class="service-card">
             <h3>${service.name}</h3>
             <p>Fee: ${formatCurrency(service.baseFee)}</p>
-            <p>Status: ${service.available ? '✅ Available' : '❌ Unavailable'}</p>
+            <p>Status: ${
+              service.available ? "✅ Available" : "❌ Unavailable"
+            }</p>
         </div>
-    `).join('');
-    
-    container.innerHTML = html;
+    `,
+    )
+    .join("");
+
+  container.innerHTML = html;
 };
 
 export const displayTotal = (total, elementId) => {
-    let element = document.querySelector(elementId);
-    element.textContent = `Total: ${formatCurrency(total)}`;
+  let element = document.querySelector(elementId);
+  element.textContent = `Total: ${formatCurrency(total)}`;
 };
 
-export const showMessage = (message, type = 'info') => {
-    let messageDiv = document.createElement('div');
-    messageDiv.className = `message message-${type}`;
-    messageDiv.textContent = message;
-    document.body.appendChild(messageDiv);
-    
-    setTimeout(() => messageDiv.remove(), 3000);
+export const showMessage = (message, type = "info") => {
+  let messageDiv = document.createElement("div");
+  messageDiv.className = `message message-${type}`;
+  messageDiv.textContent = message;
+  document.body.appendChild(messageDiv);
+
+  setTimeout(() => messageDiv.remove(), 3000);
 };
 ```
 
@@ -408,38 +422,41 @@ export const showMessage = (message, type = 'info') => {
 
 ```javascript
 // main.js
-import {services, getAvailableServices, getServiceById} from './services.js';
-import {calculateFee, calculateTotal, formatCurrency} from './fees.js';
-import {displayServices, displayTotal, showMessage} from './display.js';
+import { services, getAvailableServices, getServiceById } from "./services.js";
+import { calculateFee, calculateTotal, formatCurrency } from "./fees.js";
+import { displayServices, displayTotal, showMessage } from "./display.js";
 
 // Display available services on load
-document.addEventListener('DOMContentLoaded', () => {
-    let availableServices = getAvailableServices();
-    displayServices(availableServices, '#serviceList');
+document.addEventListener("DOMContentLoaded", () => {
+  let availableServices = getAvailableServices();
+  displayServices(availableServices, "#serviceList");
 });
 
 // Handle service request
-document.querySelector('#requestBtn').addEventListener('click', () => {
-    let serviceId = parseInt(document.querySelector('#serviceSelect').value);
-    let isSenior = document.querySelector('#seniorCheck').checked;
-    let isPWD = document.querySelector('#pwdCheck').checked;
-    
-    let service = getServiceById(serviceId);
-    
-    if (!service) {
-        showMessage('Service not found!', 'error');
-        return;
-    }
-    
-    if (!service.available) {
-        showMessage('Service currently unavailable!', 'warning');
-        return;
-    }
-    
-    let finalFee = calculateFee(service.baseFee, isSenior, isPWD);
-    
-    showMessage(`Fee for ${service.name}: ${formatCurrency(finalFee)}`, 'success');
-    displayTotal(finalFee, '#totalDisplay');
+document.querySelector("#requestBtn").addEventListener("click", () => {
+  let serviceId = parseInt(document.querySelector("#serviceSelect").value);
+  let isSenior = document.querySelector("#seniorCheck").checked;
+  let isPWD = document.querySelector("#pwdCheck").checked;
+
+  let service = getServiceById(serviceId);
+
+  if (!service) {
+    showMessage("Service not found!", "error");
+    return;
+  }
+
+  if (!service.available) {
+    showMessage("Service currently unavailable!", "warning");
+    return;
+  }
+
+  let finalFee = calculateFee(service.baseFee, isSenior, isPWD);
+
+  showMessage(
+    `Fee for ${service.name}: ${formatCurrency(finalFee)}`,
+    "success",
+  );
+  displayTotal(finalFee, "#totalDisplay");
 });
 ```
 
@@ -450,65 +467,74 @@ document.querySelector('#requestBtn').addEventListener('click', () => {
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Modular Barangay System</title>
     <style>
-        .service-card {
-            padding: 15px;
-            margin: 10px 0;
-            background: #f0f0f0;
-            border-radius: 5px;
-        }
-        .message {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        .message-success { background: #d4edda; color: #155724; }
-        .message-error { background: #f8d7da; color: #721c24; }
-        .message-warning { background: #fff3cd; color: #856404; }
+      .service-card {
+        padding: 15px;
+        margin: 10px 0;
+        background: #f0f0f0;
+        border-radius: 5px;
+      }
+      .message {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .message-success {
+        background: #d4edda;
+        color: #155724;
+      }
+      .message-error {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .message-warning {
+        background: #fff3cd;
+        color: #856404;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Service Request</h1>
-    
+
     <div id="serviceList"></div>
-    
-    <br>
-    
+
+    <br />
+
     <select id="serviceSelect">
-        <option value="1">Barangay Clearance</option>
-        <option value="2">Barangay ID</option>
-        <option value="3">Certificate of Residency</option>
-        <option value="4">Business Permit</option>
+      <option value="1">Barangay Clearance</option>
+      <option value="2">Barangay ID</option>
+      <option value="3">Certificate of Residency</option>
+      <option value="4">Business Permit</option>
     </select>
-    
-    <br><br>
-    
+
+    <br /><br />
+
     <label>
-        <input type="checkbox" id="seniorCheck">
-        Senior Citizen (20% discount)
+      <input type="checkbox" id="seniorCheck" />
+      Senior Citizen (20% discount)
     </label>
-    
-    <br>
-    
+
+    <br />
+
     <label>
-        <input type="checkbox" id="pwdCheck">
-        PWD (10% discount)
+      <input type="checkbox" id="pwdCheck" />
+      PWD (10% discount)
     </label>
-    
-    <br><br>
-    
+
+    <br /><br />
+
     <button id="requestBtn">Calculate Fee</button>
-    
-    <br><br>
-    
+
+    <br /><br />
+
     <h2 id="totalDisplay">Total: ₱0.00</h2>
-    
+
     <!-- IMPORTANT: Add type="module" -->
     <script type="module" src="js/main.js"></script>
-</body>
+  </body>
 </html>
 ```
 
@@ -519,6 +545,7 @@ document.querySelector('#requestBtn').addEventListener('click', () => {
 ## Module Best Practices
 
 ### 1. One responsibility per module
+
 ```javascript
 // Good
 // fees.js - only fee calculations
@@ -530,33 +557,38 @@ document.querySelector('#requestBtn').addEventListener('click', () => {
 ```
 
 ### 2. Clear naming
+
 ```javascript
 // Good
-import {calculateFee} from './fees.js';
-import {displayServices} from './display.js';
+import { calculateFee } from "./fees.js";
+import { displayServices } from "./display.js";
 
 // Bad
-import {calc} from './utils.js';
-import {show} from './helpers.js';
+import { calc } from "./utils.js";
+import { show } from "./helpers.js";
 ```
 
 ### 3. Keep modules small and focused
+
 ```javascript
 // Good - specific modules
-import {validateName, validateAge} from './validation.js';
+import { validateName, validateAge } from "./validation.js";
 
 // Bad - huge module
-import {validate} from './everything.js';
+import { validate } from "./everything.js";
 ```
 
 ### 4. Use default export for main functionality
+
 ```javascript
 // api.js
 export default class BarangayAPI {
-    // Main class
+  // Main class
 }
 
-export const formatData = () => { /* helper */ };
+export const formatData = () => {
+  /* helper */
+};
 ```
 
 ---
@@ -564,43 +596,46 @@ export const formatData = () => { /* helper */ };
 ## Common Module Patterns
 
 ### 1. Constants Module
+
 ```javascript
 // constants.js
-export const API_URL = 'https://api.barangay.gov.ph';
+export const API_URL = "https://api.barangay.gov.ph";
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-export const ALLOWED_TYPES = ['image/jpeg', 'image/png'];
+export const ALLOWED_TYPES = ["image/jpeg", "image/png"];
 
 export const SERVICES = {
-    CLEARANCE: 1,
-    ID: 2,
-    CERTIFICATE: 3
+  CLEARANCE: 1,
+  ID: 2,
+  CERTIFICATE: 3,
 };
 ```
 
 ### 2. Utilities Module
+
 ```javascript
 // utils.js
 export const capitalize = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 export const formatDate = (date) => {
-    return date.toLocaleDateString('en-PH');
+  return date.toLocaleDateString("en-PH");
 };
 
 export const generateId = () => {
-    return 'APP-' + Date.now();
+  return "APP-" + Date.now();
 };
 ```
 
 ### 3. Config Module
+
 ```javascript
 // config.js
 const config = {
-    barangayName: 'San Antonio',
-    officeHours: '8:00 AM - 5:00 PM',
-    contactNumber: '(02) 123-4567',
-    address: 'Main Street, San Antonio'
+  barangayName: "San Antonio",
+  officeHours: "8:00 AM - 5:00 PM",
+  contactNumber: "(02) 123-4567",
+  address: "Main Street, San Antonio",
 };
 
 export default config;
@@ -618,16 +653,20 @@ export default config;
 **Solutions:**
 
 ### 1. Use Live Server (VS Code extension)
+
 - Install "Live Server" extension
 - Right-click HTML file → "Open with Live Server"
 
 ### 2. Use Python HTTP Server
+
 ```bash
 python -m http.server 8000
 ```
+
 Then visit `http://localhost:8000`
 
 ### 3. Use Node.js http-server
+
 ```bash
 npx http-server
 ```
@@ -641,24 +680,28 @@ npx http-server
 ## Summary
 
 **Export:**
+
 ```javascript
-export const func = () => {};          // Named export
-export default obj;                     // Default export
+export const func = () => {}; // Named export
+export default obj; // Default export
 ```
 
 **Import:**
+
 ```javascript
-import {func} from './module.js';       // Named import
-import obj from './module.js';          // Default import
-import * as name from './module.js';    // Import all
+import { func } from "./module.js"; // Named import
+import obj from "./module.js"; // Default import
+import * as name from "./module.js"; // Import all
 ```
 
 **HTML:**
+
 ```html
 <script type="module" src="main.js"></script>
 ```
 
 **Benefits:**
+
 - Organized code
 - Reusable functions
 - Easy testing

@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+17.0+-+COVER.png)
+
 It was a cool evening in Quezon City when Odessa closed her laptop—only to remember she’d set her code editor to light mode by mistake. “Ay, sayang! I liked dark mode,” she sighed. The next morning, she found her teammates also toggling between light and dark themes every time they refreshed the page. Preferences were lost, scores in the intern coding game disappeared, and even the “welcome back” greeting forgot their names.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+17.1.png)
 
 Her manager, Ate Liza, laughed and said, “Ods, make this app remember! Parang memory ng lolo natin—dapat di ka nakakalimot.” Odessa realized she needed a way to keep settings and small data across browser sessions. That’s when she discovered `localStorage`.
 

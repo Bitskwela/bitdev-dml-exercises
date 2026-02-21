@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+3.0+-+COVER.png)
+
 When Typhoon Dante tore through Luzon, the streets of Marikina and nearby barangays felt its fury. Fallen trees blocked roads, floodwaters swept away supplies, and neighbors rallied to help one another. Odessa and Paula didn’t hesitate—they volunteered at the barangay hall’s relief operations. Inside, a whiteboard listed incoming rice sacks, canned goods, water bottles, and medicines. But the marker kept running out of ink, entries disappeared, and volunteers often duplicated counts. Chaos reigned from dawn to dusk.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+3.1.png)
 
 On the third day, while drinking tsokolate at a sari-sari store turned makeshift pantry, Odessa whispered to Paula, “We can fix this with code.” Paula’s eyes lit up. Under the dim hall lights, Odessa sketched a simple tracker: an input for item name, a number field for quantity, and buttons to add or reset. The data would persist in the browser’s **localStorage**, so even when the power flickered or the page reloaded, no donation count would vanish.
 

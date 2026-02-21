@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+42.0+-+COVER.png)
+
 Tian and Rhea Joy sat in the barangay hall's small conference room, surrounded by stacks of paper complaint forms. Ms. Reyes, the barangay secretary, sighed as she flipped through the disorganized pile.
 
 "We receive about 20-30 complaints per week," she explained, holding up faded carbon copy forms. "Noise complaints, stray animals, broken streetlights, drainage issues, boundary disputes. We write everything on these paper forms, file them in these folders," she gestured to overflowing filing cabinets, "and try to track their status using sticky notes."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+42.1.png)
 
 She pulled out a complaint form from three months ago. "Look at this one—broken streetlight on Rizal Street. The resident submitted it in September. We assigned it to the maintenance team, but we lost track of it. The resident called twice asking for updates. We had to dig through hundreds of forms to find it. It's still unresolved."
 
@@ -118,6 +122,7 @@ Rhea Joy opened VS Code. "Barangay Complaint System. Full-stack. Production-read
 ## Project Overview
 
 **Features:**
+
 1. **Submit Complaints** - Form with name, category, description
 2. **View All Complaints** - Dynamic list with live updates
 3. **Update Status** - Mark complaints as resolved
@@ -126,6 +131,7 @@ Rhea Joy opened VS Code. "Barangay Complaint System. Full-stack. Production-read
 6. **Error Handling** - Graceful failures with user feedback
 
 **Tech Stack:**
+
 - **Backend:** Python Flask (REST API)
 - **Frontend:** HTML, CSS, JavaScript (ES6+)
 - **Data:** In-memory storage (ready for database)
@@ -161,10 +167,10 @@ def create_complaint():
     Returns: Created complaint object
     """
     global next_id
-    
+
     try:
         data = request.get_json()
-        
+
         # Validate required fields
         if not data.get('name'):
             return jsonify({'error': 'Name is required'}), 400
@@ -172,7 +178,7 @@ def create_complaint():
             return jsonify({'error': 'Category is required'}), 400
         if not data.get('description'):
             return jsonify({'error': 'Description is required'}), 400
-        
+
         # Create complaint record
         complaint = {
             'id': next_id,
@@ -182,12 +188,12 @@ def create_complaint():
             'status': 'pending',
             'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
-        
+
         complaints.append(complaint)
         next_id += 1
-        
+
         return jsonify(complaint), 201
-        
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -208,7 +214,7 @@ def get_complaint(complaint_id):
     Returns: Single complaint or 404
     """
     complaint = next((c for c in complaints if c['id'] == complaint_id), None)
-    
+
     if complaint:
         return jsonify(complaint)
     else:
@@ -223,16 +229,16 @@ def update_complaint(complaint_id):
     Returns: Updated complaint or 404
     """
     complaint = next((c for c in complaints if c['id'] == complaint_id), None)
-    
+
     if not complaint:
         return jsonify({'error': 'Complaint not found'}), 404
-    
+
     data = request.get_json()
-    
+
     # Update status
     if 'status' in data:
         complaint['status'] = data['status']
-    
+
     return jsonify(complaint)
 
 # DELETE - Remove complaint
@@ -243,14 +249,14 @@ def delete_complaint(complaint_id):
     Returns: Success message or 404
     """
     global complaints
-    
+
     complaint = next((c for c in complaints if c['id'] == complaint_id), None)
-    
+
     if not complaint:
         return jsonify({'error': 'Complaint not found'}), 404
-    
+
     complaints = [c for c in complaints if c['id'] != complaint_id]
-    
+
     return jsonify({'message': 'Complaint deleted successfully'})
 
 if __name__ == '__main__':
@@ -262,6 +268,7 @@ if __name__ == '__main__':
 ### Frontend HTML (templates/index.html)
 
 See Lesson 38 mat_38.md for the complete HTML implementation including:
+
 - Form structure with validation
 - Dynamic complaints display grid
 - Status indicators and action buttons
@@ -269,6 +276,7 @@ See Lesson 38 mat_38.md for the complete HTML implementation including:
 - Complete JavaScript integration
 
 **Key sections:**
+
 1. **Form Section** - Submit new complaints
 2. **Display Section** - Show all complaints in cards
 3. **Styling** - Professional responsive design
@@ -283,110 +291,114 @@ See Lesson 38 mat_38.md for the complete HTML implementation including:
 let complaints = [];
 
 // DOM Elements
-const form = document.querySelector('#complaintForm');
-const nameInput = document.querySelector('#name');
-const categorySelect = document.querySelector('#category');
-const descriptionTextarea = document.querySelector('#description');
-const messageDiv = document.querySelector('#message');
-const complaintsContainer = document.querySelector('#complaintsList');
+const form = document.querySelector("#complaintForm");
+const nameInput = document.querySelector("#name");
+const categorySelect = document.querySelector("#category");
+const descriptionTextarea = document.querySelector("#description");
+const messageDiv = document.querySelector("#message");
+const complaintsContainer = document.querySelector("#complaintsList");
 
 // Initialize app
-document.addEventListener('DOMContentLoaded', () => {
-    loadComplaints();
-    setupEventListeners();
+document.addEventListener("DOMContentLoaded", () => {
+  loadComplaints();
+  setupEventListeners();
 });
 
 // Setup event listeners
 function setupEventListeners() {
-    form.addEventListener('submit', handleSubmit);
+  form.addEventListener("submit", handleSubmit);
 }
 
 // Handle form submission
 async function handleSubmit(e) {
-    e.preventDefault();
-    
-    // Collect form data
-    const complaintData = {
-        name: nameInput.value.trim(),
-        category: categorySelect.value,
-        description: descriptionTextarea.value.trim()
-    };
-    
-    // Validate
-    if (!complaintData.name || !complaintData.category || !complaintData.description) {
-        showMessage('Please fill all fields', 'error');
-        return;
+  e.preventDefault();
+
+  // Collect form data
+  const complaintData = {
+    name: nameInput.value.trim(),
+    category: categorySelect.value,
+    description: descriptionTextarea.value.trim(),
+  };
+
+  // Validate
+  if (
+    !complaintData.name ||
+    !complaintData.category ||
+    !complaintData.description
+  ) {
+    showMessage("Please fill all fields", "error");
+    return;
+  }
+
+  try {
+    // Send to backend
+    const response = await fetch("/api/complaints", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(complaintData),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || "Failed to submit complaint");
     }
-    
-    try {
-        // Send to backend
-        const response = await fetch('/api/complaints', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(complaintData)
-        });
-        
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || 'Failed to submit complaint');
-        }
-        
-        const result = await response.json();
-        
-        // Success
-        showMessage('Complaint submitted successfully!', 'success');
-        form.reset();
-        
-        // Reload complaints
-        await loadComplaints();
-        
-    } catch (error) {
-        showMessage('Error: ' + error.message, 'error');
-    }
+
+    const result = await response.json();
+
+    // Success
+    showMessage("Complaint submitted successfully!", "success");
+    form.reset();
+
+    // Reload complaints
+    await loadComplaints();
+  } catch (error) {
+    showMessage("Error: " + error.message, "error");
+  }
 }
 
 // Load all complaints
 async function loadComplaints() {
-    try {
-        const response = await fetch('/api/complaints');
-        
-        if (!response.ok) {
-            throw new Error('Failed to load complaints');
-        }
-        
-        complaints = await response.json();
-        displayComplaints();
-        
-    } catch (error) {
-        complaintsContainer.innerHTML = `
+  try {
+    const response = await fetch("/api/complaints");
+
+    if (!response.ok) {
+      throw new Error("Failed to load complaints");
+    }
+
+    complaints = await response.json();
+    displayComplaints();
+  } catch (error) {
+    complaintsContainer.innerHTML = `
             <div class="error">
                 <p>Error loading complaints: ${error.message}</p>
                 <button onclick="loadComplaints()">Retry</button>
             </div>
         `;
-    }
+  }
 }
 
 // Display complaints in UI
 function displayComplaints() {
-    if (complaints.length === 0) {
-        complaintsContainer.innerHTML = `
+  if (complaints.length === 0) {
+    complaintsContainer.innerHTML = `
             <div class="empty-state">
                 <p>No complaints submitted yet.</p>
                 <p>Be the first to submit a complaint!</p>
             </div>
         `;
-        return;
-    }
-    
-    // Sort by date (newest first)
-    const sorted = [...complaints].sort((a, b) => 
-        new Date(b.date) - new Date(a.date)
-    );
-    
-    complaintsContainer.innerHTML = sorted.map(complaint => `
+    return;
+  }
+
+  // Sort by date (newest first)
+  const sorted = [...complaints].sort(
+    (a, b) => new Date(b.date) - new Date(a.date),
+  );
+
+  complaintsContainer.innerHTML = sorted
+    .map(
+      (complaint) => `
         <div class="complaint-card" data-id="${complaint.id}">
             <div class="complaint-header">
                 <h3>Complaint #${complaint.id}</h3>
@@ -397,133 +409,146 @@ function displayComplaints() {
             
             <div class="complaint-body">
                 <p><strong>Name:</strong> ${complaint.name}</p>
-                <p><strong>Category:</strong> ${getCategoryLabel(complaint.category)}</p>
+                <p><strong>Category:</strong> ${getCategoryLabel(
+                  complaint.category,
+                )}</p>
                 <p><strong>Description:</strong> ${complaint.description}</p>
-                <p class="date"><strong>Submitted:</strong> ${formatDate(complaint.date)}</p>
+                <p class="date"><strong>Submitted:</strong> ${formatDate(
+                  complaint.date,
+                )}</p>
             </div>
             
             <div class="complaint-actions">
-                ${complaint.status === 'pending' ? `
+                ${
+                  complaint.status === "pending"
+                    ? `
                     <button class="btn btn-resolve" onclick="resolveComplaint(${complaint.id})">
                         Mark Resolved
                     </button>
-                ` : `
+                `
+                    : `
                     <button class="btn btn-reopen" onclick="reopenComplaint(${complaint.id})">
                         Reopen
                     </button>
-                `}
-                <button class="btn btn-delete" onclick="deleteComplaint(${complaint.id})">
+                `
+                }
+                <button class="btn btn-delete" onclick="deleteComplaint(${
+                  complaint.id
+                })">
                     Delete
                 </button>
             </div>
         </div>
-    `).join('');
+    `,
+    )
+    .join("");
 }
 
 // Resolve complaint
 async function resolveComplaint(id) {
-    try {
-        const response = await fetch(`/api/complaints/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({status: 'resolved'})
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to resolve complaint');
-        }
-        
-        showMessage('Complaint marked as resolved', 'success');
-        await loadComplaints();
-        
-    } catch (error) {
-        showMessage('Error: ' + error.message, 'error');
+  try {
+    const response = await fetch(`/api/complaints/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: "resolved" }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to resolve complaint");
     }
+
+    showMessage("Complaint marked as resolved", "success");
+    await loadComplaints();
+  } catch (error) {
+    showMessage("Error: " + error.message, "error");
+  }
 }
 
 // Reopen complaint
 async function reopenComplaint(id) {
-    try {
-        const response = await fetch(`/api/complaints/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({status: 'pending'})
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to reopen complaint');
-        }
-        
-        showMessage('Complaint reopened', 'success');
-        await loadComplaints();
-        
-    } catch (error) {
-        showMessage('Error: ' + error.message, 'error');
+  try {
+    const response = await fetch(`/api/complaints/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: "pending" }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to reopen complaint");
     }
+
+    showMessage("Complaint reopened", "success");
+    await loadComplaints();
+  } catch (error) {
+    showMessage("Error: " + error.message, "error");
+  }
 }
 
 // Delete complaint
 async function deleteComplaint(id) {
-    // Confirm deletion
-    if (!confirm('Are you sure you want to delete this complaint? This action cannot be undone.')) {
-        return;
+  // Confirm deletion
+  if (
+    !confirm(
+      "Are you sure you want to delete this complaint? This action cannot be undone.",
+    )
+  ) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/complaints/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete complaint");
     }
-    
-    try {
-        const response = await fetch(`/api/complaints/${id}`, {
-            method: 'DELETE'
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to delete complaint');
-        }
-        
-        showMessage('Complaint deleted successfully', 'success');
-        await loadComplaints();
-        
-    } catch (error) {
-        showMessage('Error: ' + error.message, 'error');
-    }
+
+    showMessage("Complaint deleted successfully", "success");
+    await loadComplaints();
+  } catch (error) {
+    showMessage("Error: " + error.message, "error");
+  }
 }
 
 // Helper: Show message
 function showMessage(text, type) {
-    messageDiv.className = `message message-${type}`;
-    messageDiv.textContent = text;
-    messageDiv.style.display = 'block';
-    
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-        messageDiv.style.display = 'none';
-    }, 5000);
+  messageDiv.className = `message message-${type}`;
+  messageDiv.textContent = text;
+  messageDiv.style.display = "block";
+
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    messageDiv.style.display = "none";
+  }, 5000);
 }
 
 // Helper: Get category label
 function getCategoryLabel(category) {
-    const labels = {
-        'noise': 'Noise Complaint',
-        'garbage': 'Garbage/Sanitation',
-        'infrastructure': 'Infrastructure',
-        'security': 'Security/Safety',
-        'other': 'Other'
-    };
-    return labels[category] || category;
+  const labels = {
+    noise: "Noise Complaint",
+    garbage: "Garbage/Sanitation",
+    infrastructure: "Infrastructure",
+    security: "Security/Safety",
+    other: "Other",
+  };
+  return labels[category] || category;
 }
 
 // Helper: Format date
 function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 ```
 
@@ -532,6 +557,7 @@ function formatDate(dateString) {
 ## Project Features Breakdown
 
 ### 1. Form Validation
+
 ```javascript
 // Client-side validation
 if (!name || !category || !description) {
@@ -545,34 +571,37 @@ if not data.get('name'):
 ```
 
 ### 2. Error Handling
+
 ```javascript
 try {
-    const response = await fetch(url, options);
-    if (!response.ok) {
-        throw new Error('Request failed');
-    }
-    // Success
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error("Request failed");
+  }
+  // Success
 } catch (error) {
-    showMessage('Error: ' + error.message, 'error');
+  showMessage("Error: " + error.message, "error");
 }
 ```
 
 ### 3. Loading States
+
 ```javascript
 async function loadComplaints() {
-    showLoading(true);
-    try {
-        // Fetch data
-    } finally {
-        showLoading(false);
-    }
+  showLoading(true);
+  try {
+    // Fetch data
+  } finally {
+    showLoading(false);
+  }
 }
 ```
 
 ### 4. Confirmation Dialogs
+
 ```javascript
-if (!confirm('Delete this complaint?')) {
-    return; // User cancelled
+if (!confirm("Delete this complaint?")) {
+  return; // User cancelled
 }
 ```
 
@@ -581,21 +610,25 @@ if (!confirm('Delete this complaint?')) {
 ## Running the Project
 
 **1. Install dependencies:**
+
 ```bash
 pip install flask
 ```
 
 **2. Run Flask server:**
+
 ```bash
 python app.py
 ```
 
 **3. Open browser:**
+
 ```
 http://localhost:5000
 ```
 
 **4. Test all features:**
+
 - Submit complaints
 - View complaints
 - Resolve/reopen
@@ -606,6 +639,7 @@ http://localhost:5000
 ## Extending the Project
 
 **1. Add Database (SQLite):**
+
 ```python
 import sqlite3
 
@@ -625,6 +659,7 @@ cursor.execute('''
 ```
 
 **2. Add Authentication:**
+
 ```python
 from flask_login import LoginManager, login_required
 
@@ -636,6 +671,7 @@ def create_complaint():
 ```
 
 **3. Add Email Notifications:**
+
 ```python
 from flask_mail import Mail, Message
 
@@ -645,6 +681,7 @@ def notify_admin(complaint):
 ```
 
 **4. Deploy to Production:**
+
 ```bash
 # Heroku
 heroku create barangay-complaints
@@ -662,6 +699,7 @@ railway up
 You've completed the **Full Web Development Curriculum**!
 
 **What you've mastered:**
+
 - HTML structure and semantics
 - CSS styling and responsive design
 - JavaScript programming (ES6+)
@@ -673,6 +711,7 @@ You've completed the **Full Web Development Curriculum**!
 - Complete full-stack applications
 
 **You're now ready to:**
+
 - Build production-ready web applications
 - Work as a full-stack developer
 - Continue learning advanced topics (databases, authentication, deployment)
@@ -683,6 +722,7 @@ You've completed the **Full Web Development Curriculum**!
 ## Final Challenge
 
 Enhance your Barangay Complaint System with:
+
 1. User authentication (login/register)
 2. SQLite database integration
 3. File upload for evidence

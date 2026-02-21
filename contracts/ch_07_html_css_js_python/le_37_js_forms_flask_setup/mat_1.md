@@ -1,5 +1,7 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+37.0+-+COVER.png)
+
 The barangay clearance application system was beautiful. Tian and Rhea Joy had spent weeks perfecting every detail:
 
 - Clean, responsive HTML structure
@@ -7,6 +9,8 @@ The barangay clearance application system was beautiful. Tian and Rhea Joy had s
 - Interactive JavaScript with form validation
 - DOM manipulation that updated the UI dynamically
 - Event handlers that responded to every user action
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+37.1.png)
 
 Residents could fill out the form, select document types, enter personal information, and click "Submit Application." The form validation checked everything—required fields, proper email format, valid phone numbers, age requirements.
 
@@ -57,6 +61,7 @@ Tian and Rhea Joy looked at each other, equal parts nervous and excited. This wa
 **Flask** is a lightweight Python web framework for building web applications and APIs.
 
 **Features:**
+
 - Write server-side code in Python
 - Handle HTTP requests (GET, POST, PUT, DELETE)
 - Connect to databases
@@ -80,6 +85,7 @@ pip install flask-cors  # For cross-origin requests
 ## Basic Flask App
 
 **app.py:**
+
 ```python
 from flask import Flask, render_template, request, jsonify
 
@@ -101,6 +107,7 @@ if __name__ == '__main__':
 ```
 
 **Run the server:**
+
 ```bash
 python app.py
 ```
@@ -167,83 +174,83 @@ if __name__ == '__main__':
 ### Frontend (HTML + JavaScript)
 
 **templates/index.html:**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay Application Form</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Clearance Application</h1>
-    
+
     <form id="applicationForm">
-        <label>
-            Full Name:
-            <input type="text" name="name" required>
-        </label>
-        <br><br>
-        
-        <label>
-            Age:
-            <input type="number" name="age" required>
-        </label>
-        <br><br>
-        
-        <label>
-            Service:
-            <select name="service">
-                <option value="clearance">Barangay Clearance</option>
-                <option value="id">Barangay ID</option>
-                <option value="certificate">Certificate of Residency</option>
-            </select>
-        </label>
-        <br><br>
-        
-        <button type="submit">Submit Application</button>
+      <label>
+        Full Name:
+        <input type="text" name="name" required />
+      </label>
+      <br /><br />
+
+      <label>
+        Age:
+        <input type="number" name="age" required />
+      </label>
+      <br /><br />
+
+      <label>
+        Service:
+        <select name="service">
+          <option value="clearance">Barangay Clearance</option>
+          <option value="id">Barangay ID</option>
+          <option value="certificate">Certificate of Residency</option>
+        </select>
+      </label>
+      <br /><br />
+
+      <button type="submit">Submit Application</button>
     </form>
-    
+
     <div id="message"></div>
-    
+
     <script>
-        const form = document.querySelector('#applicationForm');
-        const message = document.querySelector('#message');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: form.name.value,
-                age: parseInt(form.age.value),
-                service: form.service.value
-            };
-            
-            try {
-                // Send to Flask backend
-                const response = await fetch('/api/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                
-                if (response.ok) {
-                    message.innerHTML = `<p style="color: green;">${result.message}</p>`;
-                    form.reset();
-                } else {
-                    message.innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
-                }
-                
-            } catch (error) {
-                message.innerHTML = `<p style="color: red;">Network error: ${error.message}</p>`;
-            }
-        });
+      const form = document.querySelector("#applicationForm");
+      const message = document.querySelector("#message");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Get form data
+        const formData = {
+          name: form.name.value,
+          age: parseInt(form.age.value),
+          service: form.service.value,
+        };
+
+        try {
+          // Send to Flask backend
+          const response = await fetch("/api/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            message.innerHTML = `<p style="color: green;">${result.message}</p>`;
+            form.reset();
+          } else {
+            message.innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
+          }
+        } catch (error) {
+          message.innerHTML = `<p style="color: red;">Network error: ${error.message}</p>`;
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -252,6 +259,7 @@ if __name__ == '__main__':
 ### Backend (Flask)
 
 **app.py:**
+
 ```python
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
@@ -270,17 +278,17 @@ def submit_application():
     try:
         # Get JSON data from request
         data = request.get_json()
-        
+
         # Validate data
         if not data.get('name'):
             return jsonify({'error': 'Name is required'}), 400
-        
+
         if not data.get('age') or data['age'] < 1:
             return jsonify({'error': 'Valid age is required'}), 400
-        
+
         if not data.get('service'):
             return jsonify({'error': 'Service is required'}), 400
-        
+
         # Create application record
         application = {
             'id': len(applications) + 1,
@@ -290,16 +298,16 @@ def submit_application():
             'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'status': 'pending'
         }
-        
+
         # Save to storage
         applications.append(application)
-        
+
         # Return success response
         return jsonify({
             'message': 'Application submitted successfully!',
             'application_id': application['id']
         }), 201
-        
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -312,7 +320,7 @@ def get_applications():
 @app.route('/api/applications/<int:app_id>', methods=['GET'])
 def get_application(app_id):
     application = next((app for app in applications if app['id'] == app_id), None)
-    
+
     if application:
         return jsonify(application)
     else:
@@ -336,26 +344,27 @@ def services():
         {'name': 'Barangay ID', 'fee': 30},
         {'name': 'Certificate of Residency', 'fee': 40}
     ]
-    
+
     return render_template('services.html', services=barangay_services)
 ```
 
 **templates/services.html:**
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Barangay Services</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Available Services</h1>
-    
+
     <ul>
-    {% for service in services %}
-        <li>{{ service.name }} - ₱{{ service.fee }}</li>
-    {% endfor %}
+      {% for service in services %}
+      <li>{{ service.name }} - ₱{{ service.fee }}</li>
+      {% endfor %}
     </ul>
-</body>
+  </body>
 </html>
 ```
 
@@ -364,6 +373,7 @@ def services():
 ## Complete Barangay System Example
 
 **app.py:**
+
 ```python
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
@@ -393,7 +403,7 @@ def get_services():
 @app.route('/api/applications', methods=['POST'])
 def create_application():
     data = request.get_json()
-    
+
     application = {
         'id': len(applications) + 1,
         'name': data['name'],
@@ -402,9 +412,9 @@ def create_application():
         'date': datetime.now().isoformat(),
         'status': 'pending'
     }
-    
+
     applications.append(application)
-    
+
     return jsonify({
         'message': 'Application submitted!',
         'application': application
@@ -419,7 +429,7 @@ def get_applications():
 @app.route('/api/applications/<int:app_id>', methods=['GET'])
 def get_application(app_id):
     app = next((a for a in applications if a['id'] == app_id), None)
-    
+
     if app:
         return jsonify(app)
     else:
@@ -430,99 +440,121 @@ if __name__ == '__main__':
 ```
 
 **templates/index.html:**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Barangay System</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Barangay Service Application</h1>
-    
+
     <div>
-        <h2>Available Services</h2>
-        <div id="servicesList"></div>
+      <h2>Available Services</h2>
+      <div id="servicesList"></div>
     </div>
-    
-    <br>
-    
+
+    <br />
+
     <div>
-        <h2>Apply for Service</h2>
-        <form id="appForm">
-            <input type="text" id="name" placeholder="Full Name" required><br><br>
-            <input type="number" id="age" placeholder="Age" required><br><br>
-            <select id="service" required>
-                <option value="">Select Service</option>
-            </select><br><br>
-            <button type="submit">Submit Application</button>
-        </form>
-        <div id="message"></div>
+      <h2>Apply for Service</h2>
+      <form id="appForm">
+        <input
+          type="text"
+          id="name"
+          placeholder="Full Name"
+          required
+        /><br /><br />
+        <input type="number" id="age" placeholder="Age" required /><br /><br />
+        <select id="service" required>
+          <option value="">Select Service</option></select
+        ><br /><br />
+        <button type="submit">Submit Application</button>
+      </form>
+      <div id="message"></div>
     </div>
-    
-    <br>
-    
+
+    <br />
+
     <div>
-        <h2>All Applications</h2>
-        <button id="loadApps">Load Applications</button>
-        <div id="appsList"></div>
+      <h2>All Applications</h2>
+      <button id="loadApps">Load Applications</button>
+      <div id="appsList"></div>
     </div>
-    
+
     <script>
-        // Load services
-        async function loadServices() {
-            const response = await fetch('/api/services');
-            const services = await response.json();
-            
-            const list = document.querySelector('#servicesList');
-            list.innerHTML = services.map(s => 
-                `<div>${s.name} - ₱${s.fee} (${s.available ? 'Available' : 'Unavailable'})</div>`
-            ).join('');
-            
-            const select = document.querySelector('#service');
-            select.innerHTML = '<option value="">Select Service</option>' +
-                services.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-        }
-        
-        // Submit application
-        document.querySelector('#appForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const data = {
-                name: document.querySelector('#name').value,
-                age: parseInt(document.querySelector('#age').value),
-                service_id: parseInt(document.querySelector('#service').value)
-            };
-            
-            const response = await fetch('/api/applications', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            
-            const result = await response.json();
-            
-            document.querySelector('#message').innerHTML = 
-                `<p style="color: green;">${result.message}</p>`;
-            
-            e.target.reset();
+      // Load services
+      async function loadServices() {
+        const response = await fetch("/api/services");
+        const services = await response.json();
+
+        const list = document.querySelector("#servicesList");
+        list.innerHTML = services
+          .map(
+            (s) =>
+              `<div>${s.name} - ₱${s.fee} (${
+                s.available ? "Available" : "Unavailable"
+              })</div>`,
+          )
+          .join("");
+
+        const select = document.querySelector("#service");
+        select.innerHTML =
+          '<option value="">Select Service</option>' +
+          services
+            .map((s) => `<option value="${s.id}">${s.name}</option>`)
+            .join("");
+      }
+
+      // Submit application
+      document
+        .querySelector("#appForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {
+            name: document.querySelector("#name").value,
+            age: parseInt(document.querySelector("#age").value),
+            service_id: parseInt(document.querySelector("#service").value),
+          };
+
+          const response = await fetch("/api/applications", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          document.querySelector(
+            "#message",
+          ).innerHTML = `<p style="color: green;">${result.message}</p>`;
+
+          e.target.reset();
         });
-        
-        // Load applications
-        document.querySelector('#loadApps').addEventListener('click', async () => {
-            const response = await fetch('/api/applications');
-            const apps = await response.json();
-            
-            const list = document.querySelector('#appsList');
-            list.innerHTML = apps.map(app => 
-                `<div>ID: ${app.id} | ${app.name} (Age ${app.age}) - Service ID: ${app.service_id} - Status: ${app.status}</div>`
-            ).join('');
+
+      // Load applications
+      document
+        .querySelector("#loadApps")
+        .addEventListener("click", async () => {
+          const response = await fetch("/api/applications");
+          const apps = await response.json();
+
+          const list = document.querySelector("#appsList");
+          list.innerHTML = apps
+            .map(
+              (app) =>
+                `<div>ID: ${app.id} | ${app.name} (Age ${app.age}) - Service ID: ${app.service_id} - Status: ${app.status}</div>`,
+            )
+            .join("");
         });
-        
-        // Initial load
-        loadServices();
+
+      // Initial load
+      loadServices();
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -531,6 +563,7 @@ if __name__ == '__main__':
 ## Summary
 
 **Flask basics:**
+
 ```python
 from flask import Flask, render_template, request, jsonify
 
@@ -549,11 +582,12 @@ app.run(debug=True)
 ```
 
 **JavaScript fetch to Flask:**
+
 ```javascript
-const response = await fetch('/api/submit', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
+const response = await fetch("/api/submit", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
 });
 
 const result = await response.json();

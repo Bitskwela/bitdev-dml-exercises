@@ -1,5 +1,7 @@
 # Lesson 2 Activities: How Websites Work
 
+**(Do this on your own computer)**
+
 ## Understanding Client-Server Architecture
 
 Now that you understand the internet infrastructure, let's explore how websites actually load and communicate. These activities reveal the request-response cycle in action!
@@ -11,6 +13,7 @@ Now that you understand the internet infrastructure, let's explore how websites 
 **Goal:** See the actual HTTP communication using browser DevTools.
 
 **Instructions:**
+
 1. Open Chrome/Edge browser
 2. Visit any website (e.g., `facebook.com`)
 3. Press `F12` to open DevTools
@@ -20,6 +23,7 @@ Now that you understand the internet infrastructure, let's explore how websites 
 7. Examine **Headers**, **Response**, **Timing** tabs
 
 **Questions to Answer:**
+
 1. What is the **Request Method**? (GET, POST, etc.)
 2. What is the **Status Code**? (200, 301, 404, etc.)
 3. How long did the request take? (Check **Timing**)
@@ -38,26 +42,27 @@ Take a screenshot showing the Network tab with all requests visible.
 **Instructions:**
 Test these URLs and record the status code:
 
-1. `https://www.google.com` → Status: ____
-2. `https://www.google.com/404pagenotfound` → Status: ____
-3. `https://github.com/nonexistentrepo12345` → Status: ____
-4. `http://httpstat.us/500` (intentional server error) → Status: ____
-5. `http://httpstat.us/301` (redirect) → Status: ____
+1. `https://www.google.com` → Status: \_\_\_\_
+2. `https://www.google.com/404pagenotfound` → Status: \_\_\_\_
+3. `https://github.com/nonexistentrepo12345` → Status: \_\_\_\_
+4. `http://httpstat.us/500` (intentional server error) → Status: \_\_\_\_
+5. `http://httpstat.us/301` (redirect) → Status: \_\_\_\_
 
 **Match Status Codes to Meanings:**
 
 | Status Code | Meaning | When It Happens |
-|-------------|---------|-----------------|
-| 200 | | |
-| 301 | | |
-| 404 | | |
-| 500 | | |
-| 503 | | |
+| ----------- | ------- | --------------- |
+| 200         |         |                 |
+| 301         |         |                 |
+| 404         |         |                 |
+| 500         |         |                 |
+| 503         |         |                 |
 
 **Real-World Scenarios:**
-- You visit a deleted Facebook post → Status: ____
-- You try accessing admin panel without login → Status: ____
-- Website server crashes → Status: ____
+
+- You visit a deleted Facebook post → Status: \_\_\_\_
+- You try accessing admin panel without login → Status: \_\_\_\_
+- Website server crashes → Status: \_\_\_\_
 
 ---
 
@@ -70,13 +75,14 @@ Use online tool: `https://www.whatsmydns.net/dns-lookup` or Command Prompt
 
 Test these domains and record DNS lookup time:
 
-1. `google.com` → IP: ____ | Time: ____ ms
-2. `facebook.com` → IP: ____ | Time: ____ ms
-3. `deped.gov.ph` → IP: ____ | Time: ____ ms
-4. `youtube.com` → IP: ____ | Time: ____ ms
-5. Your school website (if applicable) → IP: ____ | Time: ____ ms
+1. `google.com` → IP: \_**\_ | Time: \_\_** ms
+2. `facebook.com` → IP: \_**\_ | Time: \_\_** ms
+3. `deped.gov.ph` → IP: \_**\_ | Time: \_\_** ms
+4. `youtube.com` → IP: \_**\_ | Time: \_\_** ms
+5. Your school website (if applicable) → IP: \_**\_ | Time: \_\_** ms
 
 **Questions:**
+
 1. Which website resolved fastest?
 2. Which was slowest?
 3. Why do some DNS lookups take longer?
@@ -93,17 +99,18 @@ Run `nslookup` twice on the same domain. Is the second lookup faster? Why?
 
 **Classify these websites:**
 
-| Website | Static or Dynamic? | Evidence |
-|---------|-------------------|----------|
-| Personal blog (no login) | | |
-| Facebook | | |
-| Wikipedia | | |
-| Company "About Us" page | | |
-| Gmail | | |
-| Online shopping (Shopee) | | |
-| Government info page | | |
+| Website                  | Static or Dynamic? | Evidence |
+| ------------------------ | ------------------ | -------- |
+| Personal blog (no login) |                    |          |
+| Facebook                 |                    |          |
+| Wikipedia                |                    |          |
+| Company "About Us" page  |                    |          |
+| Gmail                    |                    |          |
+| Online shopping (Shopee) |                    |          |
+| Government info page     |                    |          |
 
 **Evidence Checklist:**
+
 - [ ] Has user accounts/login?
 - [ ] Content changes per user?
 - [ ] Has database?
@@ -111,6 +118,7 @@ Run `nslookup` twice on the same domain. Is the second lookup faster? Why?
 - [ ] User-generated content?
 
 **Questions:**
+
 1. Which type is easier to build?
 2. Which type costs more to host?
 3. Give 3 examples of static websites.
@@ -126,12 +134,13 @@ Run `nslookup` twice on the same domain. Is the second lookup faster? Why?
 Find 3 Philippine web hosting providers and compare:
 
 | Provider | Shared Hosting Price | Features | Free Trial? |
-|----------|---------------------|----------|-------------|
-| | ₱____/month | | |
-| | ₱____/month | | |
-| | ₱____/month | | |
+| -------- | -------------------- | -------- | ----------- |
+|          | ₱\_\_\_\_/month      |          |             |
+|          | ₱\_\_\_\_/month      |          |             |
+|          | ₱\_\_\_\_/month      |          |             |
 
 **Questions:**
+
 1. What is the cheapest hosting option you found?
 2. What's included in basic hosting (storage, bandwidth, etc.)?
 3. What's the difference between shared hosting and VPS?
@@ -139,9 +148,10 @@ Find 3 Philippine web hosting providers and compare:
 
 **Free Hosting Options (for students):**
 List 3 free hosting platforms suitable for learning:
-1. __________ → Best for: __________
-2. __________ → Best for: __________
-3. __________ → Best for: __________
+
+1. \***\*\_\_\*\*** → Best for: \***\*\_\_\*\***
+2. \***\*\_\_\*\*** → Best for: \***\*\_\_\*\***
+3. \***\*\_\_\*\*** → Best for: \***\*\_\_\*\***
 
 ---
 
@@ -154,14 +164,15 @@ List 3 free hosting platforms suitable for learning:
 Visit domain registrars (e.g., GoDaddy, Namecheap, Dot.PH) and check prices:
 
 | Domain Extension | Price per Year | Best For |
-|-----------------|----------------|----------|
-| .com | ₱____ | |
-| .ph | ₱____ | |
-| .com.ph | ₱____ | |
-| .net | ₱____ | |
-| .org | ₱____ | |
+| ---------------- | -------------- | -------- |
+| .com             | ₱\_\_\_\_      |          |
+| .ph              | ₱\_\_\_\_      |          |
+| .com.ph          | ₱\_\_\_\_      |          |
+| .net             | ₱\_\_\_\_      |          |
+| .org             | ₱\_\_\_\_      |          |
 
 **Questions:**
+
 1. Which domain extension is most popular globally?
 2. Which is most popular in the Philippines?
 3. Can anyone register a `.gov.ph` domain? Why or why not?
@@ -169,8 +180,9 @@ Visit domain registrars (e.g., GoDaddy, Namecheap, Dot.PH) and check prices:
 
 **Activity:**
 Check if your name is available as a domain:
-- `yourname.com` → Available? ____
-- `yourname.ph` → Available? ____
+
+- `yourname.com` → Available? \_\_\_\_
+- `yourname.ph` → Available? \_\_\_\_
 
 ---
 
@@ -184,6 +196,7 @@ Create a flowchart or step-by-step list showing the complete journey:
 **Starting Point:** User types `facebook.com` and presses Enter
 
 **Your Documentation Should Include:**
+
 1. URL parsing
 2. DNS lookup
 3. TCP connection
@@ -193,11 +206,13 @@ Create a flowchart or step-by-step list showing the complete journey:
 7. Browser rendering
 
 **For Each Step, Include:**
+
 - What happens
 - How long it typically takes (approximate)
 - What could go wrong
 
 **Example Format:**
+
 ```
 Step 1: User types facebook.com
 ↓
@@ -216,6 +231,7 @@ Step 3: ...
 ## Activity 1: Expected Results
 
 **Typical HTTP Request:**
+
 - Request Method: `GET` (retrieving data)
 - Status Code: `200 OK` (success)
 - Time: 100-500ms (depends on connection)
@@ -229,20 +245,22 @@ First request: HTML document → Triggers additional requests for CSS/JS/images 
 
 **Status Code Meanings:**
 
-| Status Code | Meaning | When It Happens |
-|-------------|---------|-----------------|
-| 200 | OK - Success | Page loaded successfully |
-| 301 | Moved Permanently | Page redirected to new URL |
-| 404 | Not Found | Page doesn't exist |
-| 500 | Server Error | Server crashed/error |
-| 503 | Service Unavailable | Server down/maintenance |
+| Status Code | Meaning             | When It Happens            |
+| ----------- | ------------------- | -------------------------- |
+| 200         | OK - Success        | Page loaded successfully   |
+| 301         | Moved Permanently   | Page redirected to new URL |
+| 404         | Not Found           | Page doesn't exist         |
+| 500         | Server Error        | Server crashed/error       |
+| 503         | Service Unavailable | Server down/maintenance    |
 
 **Real-World Scenarios:**
+
 - Deleted Facebook post → **404 Not Found**
 - Admin panel without login → **401 Unauthorized** or **403 Forbidden**
 - Website server crashes → **500 Internal Server Error**
 
 **Additional Codes:**
+
 - 302: Temporary Redirect
 - 400: Bad Request (client error)
 - 429: Too Many Requests (rate limiting)
@@ -250,12 +268,14 @@ First request: HTML document → Triggers additional requests for CSS/JS/images 
 ## Activity 3: DNS Lookup Results
 
 **Typical Results (from Philippines):**
+
 - `google.com` → `142.250.x.x` | ~20-50ms
 - `facebook.com` → `157.240.x.x` | ~30-60ms
 - `deped.gov.ph` → Varies | ~50-150ms
 - `youtube.com` → `142.250.x.x` (Google-owned) | ~20-50ms
 
 **Why Some Are Slower:**
+
 - Server location (farther = slower)
 - DNS server load
 - Network routing complexity
@@ -266,17 +286,18 @@ Second lookup is nearly instant (~1ms) because browser/OS cached the IP address.
 
 ## Activity 4: Static vs Dynamic Classification
 
-| Website | Type | Evidence |
-|---------|------|----------|
-| Personal blog | Static | No login, same content for everyone |
-| Facebook | Dynamic | User accounts, personalized feed, database |
-| Wikipedia | Dynamic | User edits, database of articles |
-| Company "About Us" | Static | Fixed information, no personalization |
-| Gmail | Dynamic | Personal email accounts, real-time updates |
-| Shopee | Dynamic | Shopping cart, user accounts, inventory |
-| Government info page | Usually Static | Informational content only |
+| Website              | Type           | Evidence                                   |
+| -------------------- | -------------- | ------------------------------------------ |
+| Personal blog        | Static         | No login, same content for everyone        |
+| Facebook             | Dynamic        | User accounts, personalized feed, database |
+| Wikipedia            | Dynamic        | User edits, database of articles           |
+| Company "About Us"   | Static         | Fixed information, no personalization      |
+| Gmail                | Dynamic        | Personal email accounts, real-time updates |
+| Shopee               | Dynamic        | Shopping cart, user accounts, inventory    |
+| Government info page | Usually Static | Informational content only                 |
 
 **Key Indicators:**
+
 - **Static:** Same HTML served to everyone, no database needed
 - **Dynamic:** Content generated based on user/data, requires database
 
@@ -285,11 +306,13 @@ Second lookup is nearly instant (~1ms) because browser/OS cached the IP address.
 **Typical Pricing (2024):**
 
 **Shared Hosting:**
+
 - Hosting.ph: ₱100-300/month
 - Web.com.ph: ₱150-400/month
 - ServerFreak PH: ₱200-500/month
 
 **Features Included:**
+
 - 1-10 GB storage
 - Unlimited or limited bandwidth
 - Email accounts
@@ -297,6 +320,7 @@ Second lookup is nearly instant (~1ms) because browser/OS cached the IP address.
 - cPanel control panel
 
 **Free Options for Students:**
+
 1. **GitHub Pages** → Static websites, free SSL, custom domain support
 2. **Netlify** → Modern web apps, free tier generous, CI/CD
 3. **Vercel** → Frontend frameworks, free for personal projects
@@ -306,6 +330,7 @@ Second lookup is nearly instant (~1ms) because browser/OS cached the IP address.
 ## Activity 6: Domain Pricing (2024 Philippine Context)
 
 **Typical Prices:**
+
 - `.com` → ₱600-800/year
 - `.ph` → ₱800-2,000/year
 - `.com.ph` → ₱800-1,500/year
@@ -313,11 +338,13 @@ Second lookup is nearly instant (~1ms) because browser/OS cached the IP address.
 - `.org` → ₱700-900/year
 
 **Domain Rules:**
+
 - `.gov.ph` → Government only (requires proof)
 - `.edu.ph` → Educational institutions only
 - Anyone can register `.com`, `.net`, `.org`, `.ph`
 
 **If Name Taken:**
+
 - Try different extension (`.ph` instead of `.com`)
 - Add prefix/suffix (`myname.com`, `theofficialname.com`)
 - Use domain marketplace (buy from current owner, expensive)
@@ -385,15 +412,15 @@ TOTAL TIME: 500ms - 3000ms (typical)
 
 **What Could Go Wrong:**
 
-| Step | Potential Issue | Result |
-|------|----------------|--------|
-| DNS Lookup | DNS server down | Cannot resolve domain |
-| TCP Connection | Network congestion | Timeout error |
-| TLS Handshake | Invalid SSL certificate | "Not Secure" warning |
-| HTTP Request | Server down | 503 Service Unavailable |
-| Server Processing | Database error | 500 Internal Server Error |
-| Response | Large file size | Slow loading |
-| Rendering | Heavy JavaScript | Page freezes/lag |
+| Step              | Potential Issue         | Result                    |
+| ----------------- | ----------------------- | ------------------------- |
+| DNS Lookup        | DNS server down         | Cannot resolve domain     |
+| TCP Connection    | Network congestion      | Timeout error             |
+| TLS Handshake     | Invalid SSL certificate | "Not Secure" warning      |
+| HTTP Request      | Server down             | 503 Service Unavailable   |
+| Server Processing | Database error          | 500 Internal Server Error |
+| Response          | Large file size         | Slow loading              |
+| Rendering         | Heavy JavaScript        | Page freezes/lag          |
 
 </details>
 

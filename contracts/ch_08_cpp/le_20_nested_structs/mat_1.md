@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+20.0+-+COVER.png)
+
 Tian's Resident struct worked great for basic info, but now the barangay needed full addresses: street, house number, barangay, city, and postal code. Should each become a separate field in Resident?
 
 "That'll make the struct huge," Tian thought aloud. "And what if I need addresses for other things, like businesses? Do I duplicate all those fields?"
 
 Kuya Miguel saw the dilemma. "This is where **nested structs** shine. An address is its own concept, so create an Address struct. Then, a Resident has an Address. A Business has an Address. You're building with modular components."
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+20.1.png)
 
 "Real-world data is hierarchical," Kuya Miguel explained. "A university has departments, each department has professors, each professor has students. A car has an engine, the engine has parts, parts have specifications. You model this with nested structs—complex structures built from simple, reusable components."
 
@@ -120,9 +124,9 @@ int main() {
         {"09171234567", "juan@example.com"},
         1000.0
     };
-    
+
     displayResident(resident);
-    
+
     return 0;
 }
 ```
@@ -134,14 +138,14 @@ int main() {
 ```cpp
 const int MAX_RESIDENTS = 3;
 Resident residents[MAX_RESIDENTS] = {
-    {1001, "Juan Dela Cruz", 30, 
+    {1001, "Juan Dela Cruz", 30,
      {"123 Main St", "San Antonio", "Iloilo City"},
      {"09171234567", "juan@example.com"}, 1000.0},
-    
+
     {1002, "Maria Santos", 25,
      {"456 Rizal Ave", "San Pedro", "Iloilo City"},
      {"09187654321", "maria@example.com"}, 1500.0},
-    
+
     {1003, "Pedro Reyes", 35,
      {"789 Luna St", "San Jose", "Iloilo City"},
      {"09199876543", "pedro@example.com"}, 2000.0}
@@ -201,10 +205,10 @@ int main() {
         "Juan",
         {"123 Main", "Brgy A", {"Iloilo City", {"Philippines", "PH"}}}
     };
-    
+
     cout << r.name << " lives in " << r.address.city.name << ", ";
     cout << r.address.city.country.name << endl;
-    
+
     return 0;
 }
 ```
@@ -260,6 +264,7 @@ Resident person = {"Juan", 30, {"Main St", "Brgy A", "City"}};
 ```
 
 **C++11 alternative:** `using`
+
 ```cpp
 using Address = struct {
     string street;
@@ -273,6 +278,7 @@ using Address = struct {
 ## Best Practices
 
 ### 1. Keep Nesting Reasonable
+
 ```cpp
 // ✓ GOOD: 2-3 levels
 struct Resident {
@@ -296,6 +302,7 @@ struct A {
 ```
 
 ### 2. Reuse Struct Definitions
+
 ```cpp
 struct Address {
     string street;
@@ -310,6 +317,7 @@ struct Resident {
 ```
 
 ### 3. Use Const References
+
 ```cpp
 void display(const Resident& r) {  // Efficient
     cout << r.address.street;
@@ -321,6 +329,7 @@ void display(const Resident& r) {  // Efficient
 ## Common Patterns
 
 ### Pattern 1: Database Record
+
 ```cpp
 struct Employee {
     int id;
@@ -333,6 +342,7 @@ struct Employee {
 ```
 
 ### Pattern 2: Linked Data
+
 ```cpp
 struct Transaction {
     int id;
@@ -344,6 +354,7 @@ struct Transaction {
 ```
 
 ### Pattern 3: Hierarchical Data
+
 ```cpp
 struct Department {
     string name;
@@ -360,6 +371,7 @@ struct Department {
 "Now I can model real-world data!" Tian exclaimed.
 
 "Exactly!" Kuya Miguel said. "Nested structs let you:
+
 - **Build complex types** from simple ones
 - **Model real-world relationships** (person has address)
 - **Organize data hierarchically**
@@ -370,6 +382,7 @@ struct Department {
 ---
 
 **Key Takeaways:**
+
 1. Structs can contain other structs
 2. Access nested members with chained dots
 3. Keep nesting levels reasonable (2-3 max)

@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+15.0+-+COVER.png)
+
 It was 7 AM in Pasig City, and Odessa was already sipping her extra-strong barako coffee at the office ☕️. As the logistics startup grew, live delivery updates poured in every second: “Pack #123 picked up,” “Pack #456 delivered,” “Pack #789 delayed”—all in one big `<div id="updates"></div>`. Every time a van moved, she had to refresh the page. It felt like watching EDSA traffic through a cracked windshield—chaotic and frustrating.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_5/C5+15.1.png)
 
 Her lead, Kuya Ronnie, winked: “Ods, stop hard-coding HTML. Learn to build DOM elements on the fly with `createElement`, `appendChild`, and `removeChild`. Your page will update itself—no reload needed!”
 

@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+25.0+-+COVER.png)
+
 Tian proudly showed the new BankAccount class to Kuya Miguel. "Look! Users can directly access the balance: `account.balance = 1000000`. Instant millionaire!"
+
+![IMAGE](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+25.1.png)
 
 Kuya Miguel's face went serious. "That's a critical security flaw. You've exposed internal data with no validation. Users can set negative balances, exceed limits, or corrupt data. Real bank software would never allow direct access to account balances."
 
@@ -24,18 +28,18 @@ private:
     // Hidden implementation
     double balance;
     string accountNumber;
-    
+
 public:
     // Public interface
-    BankAccount(string accNum, double initialBalance) 
+    BankAccount(string accNum, double initialBalance)
         : accountNumber(accNum), balance(initialBalance) {}
-    
+
     void deposit(double amount) {
         if (amount > 0) {
             balance += amount;
         }
     }
-    
+
     bool withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
@@ -43,7 +47,7 @@ public:
         }
         return false;
     }
-    
+
     double getBalance() const {
         return balance;
     }
@@ -51,6 +55,7 @@ public:
 ```
 
 **Benefits:**
+
 - ✓ Data protection
 - ✓ Validation logic
 - ✓ Can change implementation without breaking code
@@ -64,10 +69,10 @@ public:
 class Example {
 private:
     int privateVar;      // Only accessible inside this class
-    
+
 protected:
     int protectedVar;    // Accessible in this class + derived classes
-    
+
 public:
     int publicVar;       // Accessible everywhere
 };
@@ -83,34 +88,34 @@ private:
     string name;
     int age;
     double balance;
-    
+
 public:
     // Getters (read-only access)
     string getName() const {
         return name;
     }
-    
+
     int getAge() const {
         return age;
     }
-    
+
     double getBalance() const {
         return balance;
     }
-    
+
     // Setters (controlled write access)
     void setName(const string& n) {
         if (!n.empty()) {
             name = n;
         }
     }
-    
+
     void setAge(int a) {
         if (a >= 0 && a <= 150) {  // Validation!
             age = a;
         }
     }
-    
+
     void addBalance(double amount) {
         if (amount > 0) {
             balance += amount;
@@ -131,21 +136,21 @@ private:
     int id;
     string status;
     double fee;
-    
+
 public:
     // Const functions - promise not to modify object
     int getId() const {
         return id;
     }
-    
+
     string getStatus() const {
         return status;
     }
-    
+
     double getFee() const {
         return fee;
     }
-    
+
     // Non-const - modifies object
     void approve() {
         status = "approved";
@@ -172,21 +177,21 @@ class ResidentList {
 private:
     Resident residents[100];
     int count;
-    
+
 public:
     void addResident(const Resident& r) {
         if (count < 100) {
             residents[count++] = r;
         }
     }
-    
+
     Resident* getResident(int index) {
         if (index >= 0 && index < count) {
             return &residents[index];
         }
         return nullptr;
     }
-    
+
     int getCount() const {
         return count;
     }
@@ -210,85 +215,85 @@ private:
     double balance;
     double totalPaid;
     bool active;
-    
+
     // Private helper method
     void log(const string& message) {
         cout << "[LOG] " << residentName << ": " << message << endl;
     }
-    
+
 public:
     // Constructor
-    DuesAccount(int id, const string& name) 
+    DuesAccount(int id, const string& name)
         : residentId(id), residentName(name), balance(0), totalPaid(0), active(true) {
         log("Account created");
     }
-    
+
     // Public interface
     void addMonthlyDues(double amount) {
         if (!active) {
             cout << "Account inactive!\n";
             return;
         }
-        
+
         if (amount > 0) {
             balance += amount;
             log("Dues added: P" + to_string(amount));
         }
     }
-    
+
     bool makePayment(double amount) {
         if (!active) {
             cout << "Account inactive!\n";
             return false;
         }
-        
+
         if (amount <= 0) {
             cout << "Invalid amount!\n";
             return false;
         }
-        
+
         if (amount > balance) {
             cout << "Payment exceeds balance!\n";
             return false;
         }
-        
+
         balance -= amount;
         totalPaid += amount;
         log("Payment made: P" + to_string(amount));
         return true;
     }
-    
+
     void deactivate() {
         active = false;
         log("Account deactivated");
     }
-    
+
     void reactivate() {
         active = true;
         log("Account reactivated");
     }
-    
+
     // Getters (const)
     int getId() const {
         return residentId;
     }
-    
+
     string getName() const {
         return residentName;
     }
-    
+
     double getBalance() const {
         return balance;
     }
-    
+
     double getTotalPaid() const {
         return totalPaid;
     }
-    
+
     bool isActive() const {
         return active;
     }
-    
+
     void displaySummary() const {
         cout << "\n===== ACCOUNT SUMMARY =====\n";
         cout << "ID: " << residentId << endl;
@@ -302,19 +307,19 @@ public:
 
 int main() {
     DuesAccount account(1001, "Juan Dela Cruz");
-    
+
     account.addMonthlyDues(50.0);
     account.addMonthlyDues(50.0);
     account.addMonthlyDues(50.0);
-    
+
     account.displaySummary();
-    
+
     account.makePayment(100.0);
     account.displaySummary();
-    
+
     account.deactivate();
     account.makePayment(50.0);  // Should fail
-    
+
     return 0;
 }
 ```
@@ -331,7 +336,7 @@ private:
     string clearanceType;
     double fee;
     string status;
-    
+
 public:
     // Validated setters
     void setResidentName(const string& name) {
@@ -341,7 +346,7 @@ public:
             cout << "Name too short!\n";
         }
     }
-    
+
     void setClearanceType(const string& type) {
         if (type == "Residence" || type == "Business" || type == "Travel") {
             clearanceType = type;
@@ -349,7 +354,7 @@ public:
             cout << "Invalid clearance type!\n";
         }
     }
-    
+
     void setFee(double f) {
         if (f >= 0 && f <= 1000) {
             fee = f;
@@ -370,10 +375,10 @@ Sometimes you need to break encapsulation (use sparingly):
 class BankAccount {
 private:
     double balance;
-    
+
 public:
     BankAccount(double bal) : balance(bal) {}
-    
+
     // Friend function can access private members
     friend void auditAccount(const BankAccount& acc);
 };
@@ -390,6 +395,7 @@ void auditAccount(const BankAccount& acc) {
 "Encapsulation protects my data!" Tian exclaimed.
 
 "Yes!" Kuya Miguel said. "Remember:
+
 - **Hide implementation details**
 - **Expose only necessary interface**
 - **Validate in setters**
@@ -401,6 +407,7 @@ void auditAccount(const BankAccount& acc) {
 ---
 
 **Key Takeaways:**
+
 1. Encapsulation = data hiding + controlled access
 2. Private data, public methods
 3. Validate in setters

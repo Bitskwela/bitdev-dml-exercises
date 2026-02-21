@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+21.0+-+COVER.png)
+
 Tian stared at the bug report: "Clearance type 4 crashes the system." Looking at the code, Tian saw clearance types defined as integers: 0 = Residence, 1 = Business, 2 = Travel. Somewhere, someone passed 4, and the program had no idea what to do.
 
 "This is a nightmare to maintain!" Tian complained. "What does `status = 2` mean? Is that Travel or something else? And there's nothing stopping someone from passing invalid numbers like 99 or -5!"
 
 Kuya Miguel nodded. "You're using **magic numbers**—a classic code smell. When you see `if (clearanceType == 1)` six months from now, will you remember what 1 means? What if someone new joins the team?"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+21.1.png)
 
 "This is where **enums** save the day," Kuya Miguel explained. "Instead of cryptic numbers, you define meaningful names: `RESIDENCE`, `BUSINESS`, `TRAVEL`. The code becomes self-documenting. Instead of `if (clearanceType == 1)`, you write `if (clearanceType == BUSINESS)`. Instantly readable. Plus, the compiler enforces type safety—you can't accidentally pass a random integer."
 
@@ -93,11 +97,11 @@ int main() {
     c1.type = RESIDENCE;  // Clear and readable!
     c1.fee = 50.0;
     c1.date = "2024-11-17";
-    
+
     if (c1.type == RESIDENCE) {
         cout << "Residence clearance for " << c1.residentName << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -201,13 +205,13 @@ enum class TrafficLight {
 int main() {
     Color c = Color::RED;            // Must use Color::
     TrafficLight t = TrafficLight::RED;  // Must use TrafficLight::
-    
+
     // if (c == t)  // ❌ Error! Different types
-    
+
     if (c == Color::RED) {
         cout << "Color is red\n";
     }
-    
+
     return 0;
 }
 ```
@@ -366,14 +370,14 @@ int main() {
         {1002, "Maria Santos", DuesType::ANNUAL, PaymentStatus::PENDING, "2024-12-31"},
         {1003, "Pedro Reyes", DuesType::QUARTERLY, PaymentStatus::OVERDUE, "2024-10-31"}
     };
-    
+
     cout << "BARANGAY DUES SUMMARY\n";
     cout << "=====================\n";
-    
+
     for (int i = 0; i < 3; i++) {
         displayRecord(records[i]);
     }
-    
+
     // Count by status
     int paid = 0, pending = 0, overdue = 0;
     for (int i = 0; i < 3; i++) {
@@ -389,12 +393,12 @@ int main() {
                 break;
         }
     }
-    
+
     cout << "\nSTATISTICS\n";
     cout << "Paid: " << paid << endl;
     cout << "Pending: " << pending << endl;
     cout << "Overdue: " << overdue << endl;
-    
+
     return 0;
 }
 ```
@@ -404,6 +408,7 @@ int main() {
 ## Common Patterns
 
 ### Pattern 1: State Management
+
 ```cpp
 enum class GameState {
     MENU,
@@ -416,6 +421,7 @@ GameState currentState = GameState::MENU;
 ```
 
 ### Pattern 2: Error Codes
+
 ```cpp
 enum class ErrorCode {
     SUCCESS = 0,
@@ -426,6 +432,7 @@ enum class ErrorCode {
 ```
 
 ### Pattern 3: Options/Flags
+
 ```cpp
 enum class Permission {
     READ = 1,
@@ -441,6 +448,7 @@ enum class Permission {
 "Now my code is so much clearer!" Tian exclaimed.
 
 "Yes!" Kuya Miguel said. "Enums give you:
+
 - **Readable code** (RESIDENCE instead of 1)
 - **Type safety** (can't mix enum types)
 - **Easy maintenance** (change values in one place)
@@ -451,6 +459,7 @@ enum class Permission {
 ---
 
 **Key Takeaways:**
+
 1. Enums create named constants
 2. Default values start at 0
 3. Use `enum class` for better type safety

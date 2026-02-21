@@ -105,3 +105,42 @@ return (
 
 - Conditional early return:
   The pattern `if (!file) return <p>...</p>` is a guard clause that handles the edge case before the main logic. This prevents `URL.createObjectURL(undefined)` which would throw an error.
+
+---
+
+## Complete Solution
+
+```js
+import React from "react";
+
+export default function NFTPreview({ title, description, file }) {
+  if (!file) {
+    return <p>Please upload an image to preview your NFT.</p>;
+  }
+
+  const imageUrl = URL.createObjectURL(file);
+
+  const metadata = {
+    name: title || "Untitled",
+    description: description || "",
+    image: imageUrl,
+  };
+
+  return (
+    <div style={{ border: "1px solid #ccc", padding: 16 }}>
+      <h4>Image Preview</h4>
+      <img
+        src={imageUrl}
+        alt="NFT preview"
+        style={{ maxWidth: "100%", maxHeight: 200 }}
+      />
+      <h4>{metadata.name}</h4>
+      <p>{metadata.description}</p>
+      <h5>Metadata JSON:</h5>
+      <pre style={{ background: "#f9f9f9", padding: 8 }}>
+        {JSON.stringify(metadata, null, 2)}
+      </pre>
+    </div>
+  );
+}
+```

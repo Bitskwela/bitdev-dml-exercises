@@ -1,10 +1,14 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+4.0+-+COVER.png)
+
 Tian proudly showed Kuya Miguel the barangay dues calculator. It worked perfectly—for exactly one resident named "Juan" who owed exactly 500 pesos.
 
 "But we have 200 residents with different names and amounts," Kuya Miguel pointed out. "Are you going to write 200 different programs?"
 
 Tian's face fell. The calculator was useless if it only worked for hardcoded values.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+4.1.png)
 
 "This is the difference between a toy program and a real tool," Kuya Miguel explained. "Real programs need to interact with users—ask questions, receive answers, and display results. Think about every app you use: the game asks for your username, the calculator waits for numbers, the ATM asks for your PIN. They all use **input and output**."
 
@@ -22,6 +26,7 @@ Before diving into code, let's understand what input and output mean:
 **Input** - Receiving information from the user (new skill: using `cin`)
 
 Think of it like texting:
+
 - When you send a message (output), you're showing information
 - When you wait for a reply (input), you're receiving information
 
@@ -42,6 +47,7 @@ int main() {
 ```
 
 Output:
+
 ```
 Hello, Manila!
 ```
@@ -52,13 +58,14 @@ Hello, Manila!
 int main() {
     int age = 21;
     string city = "Cebu";
-    
+
     cout << "I am " << age << " years old and I live in " << city << ".";
     return 0;
 }
 ```
 
 Output:
+
 ```
 I am 21 years old and I live in Cebu.
 ```
@@ -75,6 +82,7 @@ int main() {
 ```
 
 Output:
+
 ```
 First line
 Second line
@@ -100,17 +108,18 @@ using namespace std;
 
 int main() {
     int age;
-    
+
     cout << "Enter your age: ";
     cin >> age;
-    
+
     cout << "You are " << age << " years old." << endl;
-    
+
     return 0;
 }
 ```
 
 **How it works:**
+
 1. We declare a variable `age`
 2. We prompt the user with `cout`
 3. We use `cin >>` to read input into the variable
@@ -118,6 +127,7 @@ int main() {
 5. The value is stored in `age`
 
 **Sample Run:**
+
 ```
 Enter your age: 21
 You are 21 years old.
@@ -128,18 +138,19 @@ You are 21 years old.
 ```cpp
 int main() {
     int item1, item2, item3;
-    
+
     cout << "Enter prices of 3 items: ";
     cin >> item1 >> item2 >> item3;
-    
+
     int total = item1 + item2 + item3;
     cout << "Total: " << total << " pesos" << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 Enter prices of 3 items: 50 75 120
 Total: 245 pesos
@@ -155,33 +166,34 @@ int main() {
     int quantity;
     cout << "Enter quantity: ";
     cin >> quantity;
-    
+
     // Double (for decimal numbers)
     double price;
     cout << "Enter price: ";
     cin >> price;
-    
+
     // Character
     char rating;
     cout << "Enter rating (A-F): ";
     cin >> rating;
-    
+
     // Boolean (0 for false, any non-zero for true)
     bool isPaid;
     cout << "Payment received? (1=yes, 0=no): ";
     cin >> isPaid;
-    
+
     cout << "\nOrder Summary:" << endl;
     cout << "Quantity: " << quantity << endl;
     cout << "Price: " << price << endl;
     cout << "Rating: " << rating << endl;
     cout << "Paid: " << (isPaid ? "Yes" : "No") << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 Enter quantity: 5
 Enter price: 89.50
@@ -204,17 +216,18 @@ Tian showed this code:
 ```cpp
 int main() {
     string name;
-    
+
     cout << "Enter your full name: ";
     cin >> name;
-    
+
     cout << "Hello, " << name << "!" << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 Enter your full name: Maria Santos
 Hello, Maria!
@@ -235,23 +248,25 @@ using namespace std;
 
 int main() {
     string fullName;
-    
+
     cout << "Enter your full name: ";
     getline(cin, fullName);
-    
+
     cout << "Hello, " << fullName << "!" << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 Enter your full name: Maria Santos
 Hello, Maria Santos!
 ```
 
 **Syntax:** `getline(cin, variableName)`
+
 - First parameter: input stream (cin)
 - Second parameter: string variable to store the input
 
@@ -263,24 +278,25 @@ Hello, Maria Santos!
 int main() {
     int age;
     string name;
-    
+
     cout << "Enter your age: ";
     cin >> age;
-    
+
     cout << "Enter your name: ";
     getline(cin, name);
-    
+
     cout << "Name: " << name << endl;
     cout << "Age: " << age << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run (Problematic):**
+
 ```
 Enter your age: 21
-Enter your name: Name: 
+Enter your name: Name:
 Age: 21
 ```
 
@@ -304,22 +320,23 @@ getline(cin, name) reads: \n (empty line!)
 int main() {
     int age;
     string name;
-    
+
     cout << "Enter your age: ";
     cin >> age;
     cin.ignore();  // Ignore the leftover newline
-    
+
     cout << "Enter your name: ";
     getline(cin, name);
-    
+
     cout << "Name: " << name << endl;
     cout << "Age: " << age << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run (Fixed):**
+
 ```
 Enter your age: 21
 Enter your name: Maria Santos
@@ -330,6 +347,7 @@ Age: 21
 **Best Practice:** Always use `cin.ignore()` after `cin >>` and before `getline()`.
 
 You can also specify how much to ignore:
+
 ```cpp
 cin.ignore(1000, '\n');  // Ignore up to 1000 characters or until newline
 ```
@@ -342,14 +360,15 @@ cin.ignore(1000, '\n');  // Ignore up to 1000 characters or until newline
 int main() {
     double price = 99.5;
     double total = price * 3;
-    
+
     cout << "Total: " << total << " pesos" << endl;
-    
+
     return 0;
 }
 ```
 
 Output:
+
 ```
 Total: 298.5 pesos
 ```
@@ -366,20 +385,22 @@ using namespace std;
 int main() {
     double price = 99.5;
     double total = price * 3;
-    
+
     cout << fixed << setprecision(2);
     cout << "Total: " << total << " pesos" << endl;
-    
+
     return 0;
 }
 ```
 
 Output:
+
 ```
 Total: 298.50 pesos
 ```
 
 **Manipulators:**
+
 - `fixed` - Use fixed-point notation (not scientific)
 - `setprecision(n)` - Show n decimal places
 
@@ -394,9 +415,9 @@ int main() {
     double price1 = 1250.5;
     double price2 = 89.99;
     double price3 = 5.0;
-    
+
     cout << fixed << setprecision(2);
-    
+
     cout << "Receipt" << endl;
     cout << "==================" << endl;
     cout << "Item 1: " << setw(10) << price1 << endl;
@@ -404,12 +425,13 @@ int main() {
     cout << "Item 3: " << setw(10) << price3 << endl;
     cout << "==================" << endl;
     cout << "Total:  " << setw(10) << price1 + price2 + price3 << endl;
-    
+
     return 0;
 }
 ```
 
 Output:
+
 ```
 Receipt
 ==================
@@ -430,8 +452,9 @@ cout << "Item 1: " << setw(10) << price1 << endl;
 ```
 
 Output:
+
 ```
-Item 1: 1250.50   
+Item 1: 1250.50
 ```
 
 ## Practical Example 1: GCash Transfer
@@ -446,23 +469,23 @@ int main() {
     string recipientName;
     double amount;
     string message;
-    
+
     cout << "=== GCash Transfer ===" << endl;
     cout << endl;
-    
+
     // Get recipient name
     cout << "Recipient name: ";
     getline(cin, recipientName);
-    
+
     // Get amount
     cout << "Amount to send: ";
     cin >> amount;
     cin.ignore();  // Important!
-    
+
     // Get message
     cout << "Message (optional): ";
     getline(cin, message);
-    
+
     // Display confirmation
     cout << endl;
     cout << "=== Transfer Summary ===" << endl;
@@ -472,12 +495,13 @@ int main() {
     cout << "Message: " << (message.empty() ? "None" : message) << endl;
     cout << "Fee: PHP 0.00" << endl;
     cout << "Total: PHP " << amount << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 === GCash Transfer ===
 
@@ -504,30 +528,30 @@ using namespace std;
 int main() {
     string studentName;
     double quiz1, quiz2, midterm, finalExam;
-    
+
     cout << "=== Grade Calculator ===" << endl;
     cout << endl;
-    
+
     cout << "Student name: ";
     getline(cin, studentName);
-    
+
     cout << "Quiz 1 (0-100): ";
     cin >> quiz1;
-    
+
     cout << "Quiz 2 (0-100): ";
     cin >> quiz2;
-    
+
     cout << "Midterm (0-100): ";
     cin >> midterm;
-    
+
     cout << "Final Exam (0-100): ";
     cin >> finalExam;
-    
+
     // Calculate weighted average
     // Quizzes: 20% each, Midterm: 30%, Final: 30%
-    double average = (quiz1 * 0.20) + (quiz2 * 0.20) + 
+    double average = (quiz1 * 0.20) + (quiz2 * 0.20) +
                      (midterm * 0.30) + (finalExam * 0.30);
-    
+
     // Determine grade
     char grade;
     if (average >= 90) grade = 'A';
@@ -535,7 +559,7 @@ int main() {
     else if (average >= 70) grade = 'C';
     else if (average >= 60) grade = 'D';
     else grade = 'F';
-    
+
     // Display results
     cout << endl;
     cout << "=== Grade Report ===" << endl;
@@ -548,12 +572,13 @@ int main() {
     cout << "-------------------" << endl;
     cout << "Average:    " << average << endl;
     cout << "Grade:      " << grade << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 === Grade Calculator ===
 
@@ -586,10 +611,10 @@ int main() {
     string item1Name, item2Name, item3Name;
     double item1Price, item2Price, item3Price;
     int item1Qty, item2Qty, item3Qty;
-    
+
     cout << "=== Sari-Sari Store ===" << endl;
     cout << endl;
-    
+
     // Item 1
     cout << "Item 1 name: ";
     getline(cin, item1Name);
@@ -598,7 +623,7 @@ int main() {
     cout << "Quantity: ";
     cin >> item1Qty;
     cin.ignore();
-    
+
     // Item 2
     cout << "\nItem 2 name: ";
     getline(cin, item2Name);
@@ -607,7 +632,7 @@ int main() {
     cout << "Quantity: ";
     cin >> item2Qty;
     cin.ignore();
-    
+
     // Item 3
     cout << "\nItem 3 name: ";
     getline(cin, item3Name);
@@ -615,13 +640,13 @@ int main() {
     cin >> item3Price;
     cout << "Quantity: ";
     cin >> item3Qty;
-    
+
     // Calculate totals
     double item1Total = item1Price * item1Qty;
     double item2Total = item2Price * item2Qty;
     double item3Total = item3Price * item3Qty;
     double grandTotal = item1Total + item2Total + item3Total;
-    
+
     // Display receipt
     cout << endl;
     cout << "========================================" << endl;
@@ -629,37 +654,38 @@ int main() {
     cout << "========================================" << endl;
     cout << fixed << setprecision(2);
     cout << left;
-    
-    cout << setw(20) << "Item" 
-         << setw(8) << "Price" 
-         << setw(5) << "Qty" 
+
+    cout << setw(20) << "Item"
+         << setw(8) << "Price"
+         << setw(5) << "Qty"
          << setw(10) << "Total" << endl;
     cout << "----------------------------------------" << endl;
-    
-    cout << setw(20) << item1Name 
-         << setw(8) << item1Price 
-         << setw(5) << item1Qty 
+
+    cout << setw(20) << item1Name
+         << setw(8) << item1Price
+         << setw(5) << item1Qty
          << setw(10) << item1Total << endl;
-         
-    cout << setw(20) << item2Name 
-         << setw(8) << item2Price 
-         << setw(5) << item2Qty 
+
+    cout << setw(20) << item2Name
+         << setw(8) << item2Price
+         << setw(5) << item2Qty
          << setw(10) << item2Total << endl;
-         
-    cout << setw(20) << item3Name 
-         << setw(8) << item3Price 
-         << setw(5) << item3Qty 
+
+    cout << setw(20) << item3Name
+         << setw(8) << item3Price
+         << setw(5) << item3Qty
          << setw(10) << item3Total << endl;
-    
+
     cout << "========================================" << endl;
     cout << setw(33) << "GRAND TOTAL: " << grandTotal << endl;
     cout << "========================================" << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 === Sari-Sari Store ===
 
@@ -676,13 +702,13 @@ Price: 55
 Quantity: 1
 
 ========================================
-              RECEIPT                   
+              RECEIPT
 ========================================
-Item                Price   Qty  Total     
+Item                Price   Qty  Total
 ----------------------------------------
-Lucky Me            15.50   3    46.50     
-Coke 1L             45.00   2    90.00     
-Bread               55.00   1    55.00     
+Lucky Me            15.50   3    46.50
+Coke 1L             45.00   2    90.00
+Bread               55.00   1    55.00
 ========================================
                  GRAND TOTAL: 191.50
 ========================================
@@ -701,6 +727,7 @@ cin >> age;
 If user enters "twenty" instead of 20, the program will fail or behave unexpectedly.
 
 **What happens:**
+
 - `cin` fails to convert "twenty" to an integer
 - The variable contains garbage or zero
 - The input remains in the buffer
@@ -724,6 +751,7 @@ cin >> age;
 ```
 
 **Better approach** (we'll learn more about this later):
+
 ```cpp
 int age;
 cout << "Enter your age (1-150): ";
@@ -783,6 +811,7 @@ number = 5;  // What is 'number'?
 ```
 
 **Fix:** Always declare with data type:
+
 ```cpp
 int number = 5;
 ```
@@ -790,10 +819,12 @@ int number = 5;
 ### 5. Mixing Up << and >>
 
 Remember the direction:
+
 - `cout <<` - Data flows OUT to screen
 - `cin >>` - Data flows IN from keyboard
 
 Think of the arrows pointing where data goes:
+
 ```cpp
 cout << data;  // Data goes to cout (screen)
 cin >> data;   // Data comes from cin (keyboard) into variable
@@ -808,6 +839,7 @@ cout << "Price: " << price << endl;  // Shows 99.5, not 99.50
 ```
 
 **Fix:**
+
 ```cpp
 cout << fixed << setprecision(2);
 cout << "Price: " << price << endl;  // Shows 99.50
@@ -821,6 +853,7 @@ cout << Enter your name: ;  // Error!
 ```
 
 **Fix:**
+
 ```cpp
 cout << "Enter your name: ";
 ```
@@ -887,21 +920,25 @@ cin >> choice;
 Today you learned how to make your programs interactive:
 
 **Input:**
+
 - Use `cin >>` for simple input (numbers, single words)
 - Use `getline(cin, var)` for strings with spaces
 - Always use `cin.ignore()` between `cin >>` and `getline()`
 
 **Output:**
+
 - Use `cout <<` to display information
 - Chain multiple items with `<<`
 - Use `endl` or `\n` for new lines
 
 **Formatting:**
+
 - `fixed` and `setprecision(n)` for decimal places
 - `setw(n)` for field width
 - `left` and `right` for alignment
 
 **Best Practices:**
+
 - Always prompt users clearly
 - Format money with 2 decimal places
 - Validate input when necessary
@@ -914,6 +951,7 @@ Today you learned how to make your programs interactive:
 ## Next Lesson Preview
 
 In Lesson 5, you'll learn:
+
 - If statements and conditions
 - If-else chains
 - Switch statements

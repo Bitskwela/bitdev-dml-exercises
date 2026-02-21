@@ -77,7 +77,7 @@ Update the component's return statement to handle three states:
 ```js
 return (
   <div>
-    {window.ethereum ? (
+    {hasWallet ? (
       account ? (
         <p>Connected: {account}</p>
       ) : (
@@ -88,6 +88,50 @@ return (
     )}
   </div>
 );
+```
+
+---
+
+## Complete Solution
+
+```js
+import { useState } from "react";
+
+export default function WalletConnector() {
+  const [account, setAccount] = useState(null);
+
+  // Task 1: Detect MetaMask installation
+  const hasWallet = Boolean(window.ethereum);
+
+  // Task 2: Implement wallet connection logic
+  const connectWallet = async () => {
+    if (!window.ethereum) return alert("Please install MetaMask!");
+
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error("User rejected wallet connection", error);
+    }
+  };
+
+  // Task 3: Implement conditional rendering
+  return (
+    <div>
+      {hasWallet ? (
+        account ? (
+          <p>Connected: {account}</p>
+        ) : (
+          <button onClick={connectWallet}>Connect MetaMask 🦊</button>
+        )
+      ) : (
+        <p>Please install MetaMask to continue.</p>
+      )}
+    </div>
+  );
+}
 ```
 
 ---
@@ -106,4 +150,4 @@ return (
   An async function that initiates the wallet connection process. It first validates that MetaMask is installed by checking `window.ethereum`. Then it calls the `eth_requestAccounts` method which triggers a MetaMask popup asking the user for permission to connect. If approved, it stores the first account address in state. The try-catch block gracefully handles scenarios where the user rejects the connection request. This function demonstrates proper error handling, which is essential in Web3 development since users can reject transactions or connections at any time.
 
 - **Conditional Rendering Logic**:
-  The component uses nested ternary operators to handle three distinct UI states. First, it checks if MetaMask is installed (`window.ethereum`). If not installed, it prompts the user to install MetaMask. If installed, it checks whether an account is connected. When connected, it displays the wallet address; otherwise, it shows a connect button. This pattern ensures users always see relevant information based on their current wallet state.
+  The component uses nested ternary operators to handle three distinct UI states. First, it checks if MetaMask is installed (`hasWallet`). If not installed, it prompts the user to install MetaMask. If installed, it checks whether an account is connected. When connected, it displays the wallet address; otherwise, it shows a connect button. This pattern ensures users always see relevant information based on their current wallet state.

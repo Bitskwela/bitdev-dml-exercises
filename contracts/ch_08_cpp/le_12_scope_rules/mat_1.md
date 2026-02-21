@@ -1,8 +1,12 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+12.0+-+COVER.png)
+
 Tian's refactored ATM code had a mysterious bug. Sometimes the `balance` variable showed the correct amount, sometimes it was zero, and sometimes it caused errors. Tian had declared `balance` in multiple places and lost track of which one was being used.
 
 "Kuya, my program is possessed!" Tian joked, but the frustration was real. "Variables appear and disappear randomly. I declare `int counter` in one function, try to use it in another, and get errors. But sometimes variables with the same name don't conflict. I'm completely confused!"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+12.1.png)
 
 Kuya Miguel sat down seriously. "This is **scope**—one of the most important concepts in programming, and one that causes countless bugs when misunderstood. You're not alone; even experienced developers mess this up."
 
@@ -39,18 +43,19 @@ Variables declared **inside a function or block** have **local scope**:
 void processClearance() {
     int applicantAge = 25;      // Local variable
     string purpose = "Work";    // Local variable
-    
+
     if (applicantAge >= 18) {
         int processingTime = 30;  // Local to this if-block
         cout << "Processing for " << processingTime << " minutes\n";
     }
-    
+
     // cout << processingTime;  // ❌ ERROR: processingTime no longer exists here
     cout << applicantAge;        // ✓ OK: still in function scope
 }
 ```
 
 **Key Points:**
+
 - Local variables exist **only** in their block `{ }`
 - They're created when execution reaches them
 - They're destroyed when the block ends
@@ -85,6 +90,7 @@ int main() {
 ```
 
 **Characteristics of Global Variables:**
+
 - Accessible from **any function** in the file
 - Exist for the **entire program** duration
 - Created when program starts
@@ -127,10 +133,10 @@ int residents = 100;  // Global
 
 void updateCount() {
     int residents = 50;  // Local
-    
+
     cout << residents << endl;    // 50 (local)
     cout << ::residents << endl;  // 100 (global, using ::)
-    
+
     ::residents = 150;  // Modify global
 }
 ```
@@ -144,15 +150,15 @@ Variables can have scope within **any block** `{ }`:
 ```cpp
 int main() {
     int x = 10;
-    
+
     {  // New block
         int y = 20;
         cout << x << ", " << y << endl;  // ✓ Both accessible
     }
-    
+
     // cout << y;  // ❌ ERROR: y no longer exists
     cout << x;     // ✓ OK
-    
+
     return 0;
 }
 ```
@@ -190,6 +196,7 @@ int main() {
 ```
 
 **Without `static`:**
+
 ```cpp
 void countVisitors() {
     int visitorCount = 0;  // Reset to 0 every call
@@ -206,6 +213,7 @@ int main() {
 ```
 
 **Key Points:**
+
 - `static` variables are initialized **only once**
 - They retain their value between function calls
 - Still have local scope (can't be accessed outside function)
@@ -218,11 +226,11 @@ int main() {
 **Scope** = Where can I access it?  
 **Lifetime** = How long does it exist?
 
-| Variable Type | Scope | Lifetime |
-|---------------|-------|----------|
-| Local | Inside block `{ }` | Block execution |
-| Global | Entire file | Entire program |
-| Static Local | Inside function | Entire program |
+| Variable Type | Scope              | Lifetime        |
+| ------------- | ------------------ | --------------- |
+| Local         | Inside block `{ }` | Block execution |
+| Global        | Entire file        | Entire program  |
+| Static Local  | Inside function    | Entire program  |
 
 **Example:**
 
@@ -232,10 +240,10 @@ int globalCounter = 0;  // Scope: entire file, Lifetime: entire program
 void processTransaction() {
     static int transactionID = 1000;  // Scope: this function, Lifetime: entire program
     int amount = 500;                  // Scope: this function, Lifetime: function call
-    
+
     transactionID++;
     amount += 100;
-    
+
     cout << "Transaction #" << transactionID << ", Amount: " << amount << endl;
 }
 
@@ -259,19 +267,19 @@ int totalClearances = 0;  // Global: tracks total clearances issued
 void issueClearance(string residentName, int age) {
     // Local variables
     int processingFee = 50;
-    
+
     if (age >= 60) {
         int discount = 20;  // Block scope
         processingFee -= discount;
         cout << "Senior citizen discount applied!\n";
     }
     // discount doesn't exist here
-    
+
     static int clearanceNumber = 1000;  // Static: persists between calls
     clearanceNumber++;
-    
+
     totalClearances++;  // Modify global
-    
+
     cout << "===========================\n";
     cout << "BARANGAY CLEARANCE\n";
     cout << "Clearance #" << clearanceNumber << endl;
@@ -283,18 +291,19 @@ void issueClearance(string residentName, int age) {
 
 int main() {
     cout << "Clearances issued today: " << totalClearances << "\n\n";
-    
+
     issueClearance("Juan Dela Cruz", 30);
     issueClearance("Maria Santos", 65);
     issueClearance("Pedro Reyes", 28);
-    
+
     cout << "Final count: " << totalClearances << " clearances\n";
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Clearances issued today: 0
 
@@ -327,6 +336,7 @@ Final count: 3 clearances
 ```
 
 **Analysis:**
+
 - `totalClearances` (global): accessible everywhere, tracks all clearances
 - `clearanceNumber` (static): keeps incrementing across calls
 - `processingFee` (local): created fresh each call
@@ -337,6 +347,7 @@ Final count: 3 clearances
 ## Best Practices
 
 ### 1. **Prefer Local Variables**
+
 ```cpp
 // ✓ GOOD: Local scope
 void calculateFee() {
@@ -352,6 +363,7 @@ void calculateFee() {
 ```
 
 ### 2. **Use Global Variables Sparingly**
+
 Globals make code harder to debug because any function can change them.
 
 ```cpp
@@ -369,12 +381,14 @@ void withdraw(int amount) {
 ```
 
 ### 3. **Use `const` for Global Constants**
+
 ```cpp
 const double PI = 3.14159;        // ✓ Safe global constant
 const int MAX_RESIDENTS = 500;    // ✓ Safe global constant
 ```
 
 ### 4. **Avoid Shadowing**
+
 ```cpp
 // ❌ CONFUSING
 int fee = 100;  // Global
@@ -394,6 +408,7 @@ void process() {
 ```
 
 ### 5. **Use Static for Persistent Counters**
+
 ```cpp
 void generateID() {
     static int nextID = 1000;  // ✓ Good use of static
@@ -406,6 +421,7 @@ void generateID() {
 ## Common Mistakes
 
 ### Mistake 1: Accessing Out-of-Scope Variables
+
 ```cpp
 void process() {
     int temp = 10;
@@ -418,6 +434,7 @@ int main() {
 ```
 
 ### Mistake 2: Forgetting Static Initialization
+
 ```cpp
 void count() {
     static int counter;  // Initialized to 0 automatically
@@ -431,6 +448,7 @@ void countBetter() {
 ```
 
 ### Mistake 3: Modifying Global Without Realizing
+
 ```cpp
 int total = 0;
 
@@ -444,6 +462,7 @@ void display() {
 ```
 
 **Better:** Pass values explicitly:
+
 ```cpp
 int addValue(int total, int x) {
     return total + x;  // ✓ No side effects
@@ -504,11 +523,11 @@ int globalVar = 100;  // Accessible everywhere
 void function1() {
     // LOCAL SCOPE
     int localVar = 50;  // Only in this function
-    
+
     // STATIC LOCAL
     static int counter = 0;  // Persists between calls
     counter++;
-    
+
     if (localVar > 0) {
         // BLOCK SCOPE
         int blockVar = 10;  // Only in this if-block
@@ -529,6 +548,7 @@ void function2() {
 Tian stretched. "So scope is like knowing which office a document belongs to!"
 
 "Exactly!" Kuya Miguel nodded. "Remember:
+
 - **Local scope** — variables live in their function/block
 - **Global scope** — accessible everywhere (use sparingly!)
 - **Static** — keeps value between calls
@@ -540,6 +560,7 @@ Tian stretched. "So scope is like knowing which office a document belongs to!"
 ---
 
 **Key Takeaways:**
+
 1. Scope determines **where** you can access a variable
 2. Lifetime determines **how long** a variable exists
 3. Local variables are preferred over global

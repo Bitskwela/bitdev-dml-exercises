@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+2.0+-+COVER.png)
+
 Every afternoon, Odessa visits Paula’s neighborhood sari-sari store in Quezon City. The narrow aisle is crammed with canned goods, sticks of chichirya, bottles of Yakult, and stacks of instant noodles. Paula’s Tita Baby often buys corned beef, two Yakults, and five piattos—sometimes on utang (credit)—and Paula scribbles everything in a worn notebook. By closing time, the “utang list” is a tangled mess of crossed-out items and forgotten totals.
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+2.1.png)
 
 One rainy Tuesday, Odessa arrives with her laptop under an umbrella. “Let’s bring some order to this chaos,” she says. Over cups of sweet salabat, she sketches a mini point-of-sale app—**SariPOS**—so that whenever Tita Baby adds items, the app instantly shows the cart contents and computes the total. There’s even a “Clear Cart” button for fresh starts.
 

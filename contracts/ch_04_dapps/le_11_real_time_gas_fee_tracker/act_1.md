@@ -53,7 +53,7 @@ Instantiate a `JsonRpcProvider` using the RPC URL from environment variables. Th
 
 ```js
 const provider = new ethers.providers.JsonRpcProvider(
-  process.env.REACT_APP_RPC_URL
+  process.env.REACT_APP_RPC_URL,
 );
 ```
 
@@ -67,7 +67,7 @@ Create a contract instance using `ethers.Contract` with the deployed contract ad
 const contract = new ethers.Contract(
   process.env.REACT_APP_GAS_TRACKER_ADDRESS,
   ABI,
-  provider
+  provider,
 );
 ```
 
@@ -103,3 +103,46 @@ setBase(fee);
 
 - `base.toString()`:
   Converts the `BigNumber` to a string for display. `BigNumber` is used because JavaScript cannot safely handle the large integers common in Ethereum.
+
+---
+
+## Complete Solution
+
+```js
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+
+const ABI = ["function getBaseFee() view returns (uint256)"];
+
+export default function GasStats() {
+  const [base, setBase] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchBaseFee() {
+      try {
+        // Task 1: Create provider
+        const provider = new ethers.providers.JsonRpcProvider(
+          process.env.REACT_APP_RPC_URL,
+        );
+        // Task 2: Create contract
+        const contract = new ethers.Contract(
+          process.env.REACT_APP_GAS_TRACKER_ADDRESS,
+          ABI,
+          provider,
+        );
+        // Task 3: Fetch base fee
+        const fee = await contract.getBaseFee();
+        setBase(fee);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+    fetchBaseFee();
+  }, []);
+
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (base === null) return <p>Loading base fee…</p>;
+  return <p>Current Base Fee: {base.toString()} wei</p>;
+}
+```

@@ -1,6 +1,10 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+5.0+-+COVER.png)
+
 Every afternoon, Odessa and Paula could hear worried chatter at the barangay hall’s waiting area. Kuya Renzo, the tricycle driver, had just lost his side gig as a courier. Ate Marites, the single mom, wanted to earn from home but didn’t know where to start. Even the teen who sold fishballs outside Señora Cruz’s sari-sari store asked for “online job tips.”
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_6/C6+5.1.png)
 
 Seeing her neighbors struggle, Odessa felt a calling: “Let’s help them find work with code.” Over cups of tsokolate at a talipapa stall, she and Paula sketched **HanapBuhay.js**—a simple job board that would list freelance gigs like transcription, graphic design, data entry, and tutoring. Residents could filter by skills (e.g., “Writing,” “Design,” “Admin”) using checkboxes and search by keywords. It would use a mocked JSON array on the frontend, but the UI would feel 100% real.
 
@@ -76,7 +80,7 @@ export function renderJobs(jobArray) {
         <p>${job.description}</p>
         <small>Skills: ${job.skills.join(", ")}</small>
       </li>
-    `
+    `,
     )
     .join("");
 }
@@ -108,13 +112,13 @@ export function filterJobs(jobs, selectedSkills, keyword) {
   return jobs
     .filter((job) =>
       // match all selected skills
-      selectedSkills.every((skill) => job.skills.includes(skill))
+      selectedSkills.every((skill) => job.skills.includes(skill)),
     )
     .filter(
       (job) =>
         // keyword match in title or description
         job.title.toLowerCase().includes(keyword) ||
-        job.description.toLowerCase().includes(keyword)
+        job.description.toLowerCase().includes(keyword),
     );
 }
 ```
@@ -127,7 +131,7 @@ let searchTerm = "";
 
 filterContainer.addEventListener("change", () => {
   activeSkills = Array.from(
-    filterContainer.querySelectorAll("input:checked")
+    filterContainer.querySelectorAll("input:checked"),
   ).map((cb) => cb.value);
   updateRender();
 });

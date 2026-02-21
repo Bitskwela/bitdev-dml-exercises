@@ -1,397 +1,157 @@
-# Lesson 5 Activities: Dev Tools & Editors
+# Lesson 5 Activities: The Elite Developer's Toolkit
 
-## Mastering Your Development Environment
+## Mastering Your Professional Environment
 
-Professional developers rely on powerful tools. These activities help you set up and master VS Code and Browser DevTools!
+In the world of software engineering, your tools are an extension of your mind. An "Elite Coder" doesn't just use their editor; they master it to minimize friction between thought and code. These activities will transition you from a casual user to a high-performance developer.
 
 ---
 
-## Activity 1: Install and Configure VS Code
+## Activity 1: VS Code Orchestration
 
-**Goal:** Set up your professional coding environment.
+**Goal:** Transform VS Code from a text editor into a customized Command Center.
+
+**Elite Insight:** Pros don't click menus. We look for "flow." VS Code is preferred because of its incredible ecosystem and lightweight performance.
 
 **Instructions:**
-1. Download VS Code from `code.visualstudio.com`
-2. Install on your computer
-3. Open VS Code
-4. Explore the interface: File Explorer, Editor, Terminal, Extensions
 
-**Configure:**
-- Set theme (File → Preferences → Color Theme)
-- Set font size (File → Preferences → Settings → search "font size")
-- Enable Auto Save (File → Auto Save)
+1. **Source Control Integration:** Ensure you have VS Code installed from `code.visualstudio.com`.
+2. **The Visual Layer:** Open the **Command Palette** (`Ctrl+Shift+P`) and type "Color Theme". Choose a theme that minimizes eye strain (e.g., _Dark+_ or _Monokai_).
+3. **Typography for Readability:** Go to Settings (`Ctrl+,`), search for **Font Ligatures**. If your font supports it, enable it. It turns symbols like `=>` into beautiful single characters.
+4. **Zero-Loss Workflow:** Search for **Auto Save** and set it to `onFocusChange` or `afterDelay`. Never lose code to a crash again.
 
-**Questions:**
-1. What theme did you choose?
-2. What's the default font size?
-3. Where is the integrated terminal? (View → Terminal)
+**The "Elite" Challenge:**
 
----
-
-## Activity 2: Essential Extensions Setup
-
-**Goal:** Install must-have VS Code extensions.
-
-**Install these extensions** (Ctrl+Shift+X):
-
-| Extension | Purpose | Required? |
-|-----------|---------|-----------|
-| Live Server | Preview HTML in browser | ✅ Yes |
-| Prettier | Code formatting | ✅ Yes |
-| HTML CSS Support | Autocomplete | ✅ Yes |
-| Auto Rename Tag | Rename paired tags | ⭐ Recommended |
-| Path Intellisense | File path autocomplete | ⭐ Recommended |
-| Indent Rainbow | Visual indentation | Optional |
-
-**Test Live Server:**
-1. Create `test.html`
-2. Right-click → "Open with Live Server"
-3. Browser should open automatically
+- Find your `settings.json` file (via Command Palette: "Open User Settings (JSON)").
+- Take a look at how VS Code stores your preferences in code. This is how pros sync their setups across machines.
 
 **Questions:**
-1. How many extensions did you install?
-2. Does Live Server work?
-3. What port does Live Server use? (usually 5500)
+
+1. How does `Auto Save` change your testing loop?
+2. Why is a high-contrast theme often preferred for long coding sessions?
 
 ---
 
-## Activity 3: Keyboard Shortcuts Mastery
+## Activity 2: Building the Power-User Ecosystem
 
-**Goal:** Learn essential shortcuts for faster coding.
+**Goal:** Curate a set of extensions that automate the "boring stuff."
 
-**Practice these shortcuts:**
+**Elite Insight:** Every extension you install consumes memory. Elite coders only install what provides high ROI (Return on Investment) for productivity.
 
-| Action | Windows/Linux | What it does |
-|--------|---------------|--------------|
-| Command Palette | Ctrl+Shift+P | Access all commands |
-| Quick Open | Ctrl+P | Open files quickly |
-| Toggle Terminal | Ctrl+` | Show/hide terminal |
-| Multi-cursor | Alt+Click | Edit multiple lines |
-| Duplicate Line | Shift+Alt+↓ | Copy line down |
-| Delete Line | Ctrl+Shift+K | Remove line |
-| Find | Ctrl+F | Search in file |
-| Replace | Ctrl+H | Find and replace |
-| Comment | Ctrl+/ | Toggle comment |
+**The "Must-Haves" List:**
 
-**Challenge:**
-Create a file with 5 lines of text. Use shortcuts to:
-- Duplicate line 2
-- Delete line 4
-- Add multi-cursor to lines 1, 3, 5
-- Comment all lines
+| Extension                     | The "Elite" Why                                                        |
+| :---------------------------- | :--------------------------------------------------------------------- |
+| **Live Server**               | Real-time feedback loop. See changes instantly.                        |
+| **Prettier**                  | Opinionated formatting. Stop arguing about spaces; let the tool do it. |
+| **ESLint**                    | Catch bugs before you even run your code (JavaScript's best friend).   |
+| **Solidity** (by Juan Blanco) | Essential for your journey into Smart Contracts.                       |
+| **Auto Rename Tag**           | Keeps your HTML structure sane automatically.                          |
+| **Error Lens**                | Highlights errors directly in the line of code. Pure speed.            |
+
+**Pro Tip:** Once Prettier is installed, search for "Format on Save" in settings and enable it. Your code will snap into perfect alignment every time you save.
 
 ---
 
-## Activity 4: Chrome DevTools Exploration
+## Activity 3: The "No-Mouse" Challenge
 
-**Goal:** Master the browser's developer tools.
+**Goal:** Achieve 2x speed by keeping your hands on the keyboard.
+
+**Elite Insight:** Moving your hand to the mouse is a context switch that breaks your focus (and takes ~2 seconds). Over a day, these seconds add up to hours.
+
+**Master These "Power Moves":**
+
+| Command                    | Shortcut       | Elite Use Case                                   |
+| :------------------------- | :------------- | :----------------------------------------------- |
+| **The Command Palette**    | `Ctrl+Shift+P` | Your "search engine" for every VS Code feature.  |
+| **Go to File**             | `Ctrl+P`       | Jump between files without touching the sidebar. |
+| **Multi-Cursor**           | `Alt + Click`  | Editing 10 lines at once for bulk changes.       |
+| **Select Next Occurrence** | `Ctrl+D`       | Rename a variable locally across multiple lines. |
+| **Toggle Terminal**        | `Ctrl + \``    | Quickly check your logs or run scripts.          |
+| **Move Line Up/Down**      | `Alt + ↑/↓`    | Reorganizing code logic without Copy/Paste.      |
+
+**Challenge:** Open a new file, type `console.log("Elite")` 5 times using only `Shift+Alt+↓`. Then use `Ctrl+D` to change the word "Elite" to "Master" in all 5 lines at once.
+
+---
+
+## Activity 4: Chrome DevTools - The Web's X-Ray Machine
+
+**Goal:** Peek behind the curtain of any website on the internet.
+
+**Elite Insight:** The browser is not just for viewing; it's a powerful debugger. Professionals "debug in the browser" to see exactly how the DOM and CSS interact.
+
+**The "Infiltrator" Tasks:**
+
+1. **Inspect Element:** Right-click the "Google" logo on `google.com` and select **Inspect**.
+2. **Real-time Mutation:** In the **Elements** tab, find the text for a button and change it to "Hacked!".
+3. **The Box Model:** Look at the "Computed" sub-tab in the Styles pane. See the Margin, Border, and Padding. This is the "soul" of CSS.
+4. **Console Mastery:** Press `Esc` to show the console while in the Elements tab. Type `document.body.style.filter = "invert(1)"`. Welcome to the dark side.
+
+---
+
+## Activity 5: Network & Performance (Thinking like an Architect)
+
+**Goal:** Understand how data travels across the wire.
+
+**Elite Insight:** A site that looks good but is slow is a fail. Pros use the **Network** tab to see what's slowing down the user experience.
 
 **Instructions:**
-1. Open any website in Chrome
-2. Press F12 (or right-click → Inspect)
-3. Explore each tab
 
-**DevTools Tabs:**
-
-| Tab | Purpose | Try This |
-|-----|---------|----------|
-| **Elements** | Inspect HTML/CSS | Change a heading's text |
-| **Console** | Run JavaScript | Type: `console.log("Hello!")` |
-| **Network** | Monitor requests | Refresh page, see all files |
-| **Sources** | Debug JavaScript | View source files |
-| **Application** | Storage, cookies | Check localStorage |
-| **Performance** | Analyze speed | Record page load |
-| **Lighthouse** | Audit site | Run performance test |
-
-**Tasks:**
-1. Find the `<body>` tag in Elements tab
-2. Edit text directly in Elements (temporary)
-3. Run JavaScript in Console: `alert("Test")`
-4. Check Network tab — how many requests?
+1. Open the **Network** tab in DevTools.
+2. Refresh the page (F5).
+3. Look at the "Waterfall" and the number of requests.
+4. **Elite Move:** Change the "Throttling" dropdown from "No throttling" to "Slow 3G". Notice how frustratingly slow the web is for users with bad connections. This is why we optimize code.
 
 ---
 
-## Activity 5: Live HTML/CSS Editing
+## Activity 6: Emmet - Writing Code at the Speed of Thought
 
-**Goal:** Edit websites in real-time using DevTools.
+**Goal:** Use "shorthand" to generate complex HTML structures in seconds.
 
-**Instructions:**
-1. Visit any website (e.g., `google.com`)
-2. Open DevTools (F12)
-3. Elements tab → Find any heading
-4. Double-click the text → Edit it
-5. Styles panel → Change colors/fonts
+**Example:** Instead of typing `<div>` tags manually, type `div.container>ul>li.item*5` and hit **Tab**.
 
-**Experiments:**
-- Change Google logo text
-- Make all text red
-- Hide images (`display: none`)
-- Change background color
+**Practice these Elite snippets:**
 
-**Questions:**
-1. Are changes permanent? (No — refresh restores)
-2. Can you edit CSS the same way? (Yes, in Styles panel)
-3. What happens if you delete the `<body>` tag?
+- `header>nav>ul>li*3>a` (Complete navigation structure)
+- `.card>h2+p+button.btn-primary` (A UI component)
+- `section#hero>h1{Welcome to the Future}` (Section with ID and text)
 
 ---
 
-## Activity 6: Emmet Abbreviations
+## Activity 7: Professional Project Architecture
 
-**Goal:** Write HTML faster with Emmet shortcuts.
+**Goal:** Structure your work for scalability.
 
-**Emmet in VS Code** (built-in):
+**Elite Insight:** Messy folders lead to messy minds. Pros follow standard conventions so any developer can join the project and feel at home.
 
-Type this, then press **Tab**:
+**The "Standard" Setup:**
 
-```
-div.container>h1{Hello}+p{Text}
-```
-
-Expands to:
-```html
-<div class="container">
-    <h1>Hello</h1>
-    <p>Text</p>
-</div>
+```text
+my-elite-project/
+├── .vscode/          # Shared editor settings
+├── assets/           # Images, fonts, icons
+├── css/             # Stylesheets (often main.css)
+├── js/              # Game/App logic
+├── index.html       # The entry point
+└── README.md        # The "Manual" for your code
 ```
 
-**Practice:**
-
-| Type | Press Tab | Result |
-|------|-----------|--------|
-| `!` | Tab | Full HTML template |
-| `ul>li*5` | Tab | `<ul>` with 5 `<li>` items |
-| `div.box` | Tab | `<div class="box">` |
-| `a[href="#"]` | Tab | `<a href="#">` |
-| `img:z` | Tab | `<img>` with all attributes |
-
-**Challenge:**
-Use Emmet to create:
-- Navigation with 4 links
-- List with 10 items
-- Form with 3 text inputs
+**Final Task:** Initialize this structure for a new project named `elite-profile`. Add a `README.md` that explains what the project does. This is the mark of a developer who cares about their craft.
 
 ---
 
-## Activity 7: Project Workspace Setup
+## Final Boss Challenge: The "Instant Professional" 🏆
 
-**Goal:** Organize a real project structure.
+To prove you've mastered the toolkit, perform this sequence as fast as possible:
 
-**Create this folder structure:**
-```
-barangay-website/
-├── index.html
-├── about.html
-├── contact.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── images/
-│   └── logo.png
-└── README.md
-```
-
-**In VS Code:**
-1. File → Open Folder → Create/select `barangay-website`
-2. Use Explorer panel to create folders
-3. Create files inside each folder
-4. Install Live Server and test
-
-**Questions:**
-1. Can you see the folder tree in VS Code?
-2. Does Live Server hot-reload when you save?
-3. Can you open terminal in VS Code? (Ctrl+`)
+1. **Setup:** Create a new folder named `master-project`.
+2. **Blitz Build:** Open it in VS Code. Use **Emmet** to create a boilerplate (`!`) and then a `header + main + footer` structure in one line of code.
+3. **Multi-Cursor Magic:** Add a class called `elite-mode` to all three tags at once.
+4. **Logic Check:** Write a script tag and use `console.log` to print "System Active".
+5. **Live Verification:** Launch with **Live Server**.
+6. **The X-Ray:** Open **DevTools**, find your `header`, and change its background color to `gold` directly in the browser.
 
 ---
 
-<details>
-<summary><strong>📝 Answer Key</strong></summary>
-
-## Activity 1: VS Code Setup
-
-**Download:** https://code.visualstudio.com/
-**Install:** Follow installer prompts
-**Interface:**
-- Left sidebar: File Explorer (Ctrl+Shift+E)
-- Main area: Editor
-- Bottom: Terminal (Ctrl+`)
-- Far left: Activity Bar (icons)
-
-**Recommended settings:**
-```json
-{
-  "editor.fontSize": 14,
-  "editor.tabSize": 2,
-  "files.autoSave": "afterDelay",
-  "editor.wordWrap": "on",
-  "editor.minimap.enabled": true
-}
-```
-
-## Activity 2: Essential Extensions
-
-**Installation:**
-1. Click Extensions icon (or Ctrl+Shift+X)
-2. Search extension name
-3. Click Install
-
-**Live Server test:**
-- Creates local server (default port 5500)
-- Auto-refreshes on save
-- Right-click HTML → "Open with Live Server"
-- URL: http://localhost:5500 or http://127.0.0.1:5500
-
-**Extension IDs (for reference):**
-- Live Server: `ritwickdey.LiveServer`
-- Prettier: `esbenp.prettier-vscode`
-- Auto Rename Tag: `formulahendry.auto-rename-tag`
-
-## Activity 3: Keyboard Shortcuts
-
-**Multi-cursor example:**
-```html
-<p>Line 1</p>
-<p>Line 2</p>
-<p>Line 3</p>
-```
-Hold Alt, click before "Line" on each line → Type "Hello " → All lines get "Hello " prefix
-
-**Duplicate line:** Put cursor on line, press Shift+Alt+↓ (copies line below)
-
-**Pro tips:**
-- Ctrl+D: Select next occurrence of word
-- Ctrl+Shift+L: Select all occurrences
-- Alt+↑/↓: Move line up/down
-- Ctrl+Enter: Insert line below (without breaking current)
-
-## Activity 4: DevTools Exploration
-
-**Elements Tab:**
-- View DOM tree
-- Edit HTML directly (temporary)
-- Styles panel shows applied CSS
-- Computed tab shows final values
-
-**Console Tab:**
-- JavaScript REPL (Read-Eval-Print Loop)
-- View errors/warnings
-- Test code snippets
-- Access `document` object
-
-**Network Tab:**
-- Shows all HTTP requests
-- Filter by type (XHR, JS, CSS, Img)
-- Check response time
-- View headers/response body
-
-**Typical requests on simple page:** 10-50 files (HTML, CSS, JS, images, fonts)
-
-## Activity 5: Live Editing
-
-**Changes are temporary:**
-- Stored in browser memory only
-- Refresh page = changes lost
-- Great for testing before editing actual files
-
-**Common experiments:**
-```javascript
-// Console experiments
-document.body.style.backgroundColor = 'pink';
-document.querySelector('h1').textContent = 'HACKED!';
-document.querySelectorAll('img').forEach(img => img.style.display = 'none');
-```
-
-**Editing CSS:**
-- Elements tab → Styles panel
-- Click any value to edit
-- Add new properties with +
-- Toggle checkbox to enable/disable
-
-## Activity 6: Emmet Examples
-
-**Common shortcuts:**
-
-```
-! → Full HTML5 template
-ul>li*3 → <ul> with 3 <li>
-nav>ul>li*4>a → Navigation structure
-.container>h1+p → div.container with h1 and p
-form>input:text*3+button:s → Form with 3 inputs and submit button
-table>tr*3>td*4 → 3x4 table
-```
-
-**Advanced:**
-```
-div.container>header+main>section*3>h2+p+button
-```
-Generates:
-```html
-<div class="container">
-    <header></header>
-    <main>
-        <section>
-            <h2></h2>
-            <p></p>
-            <button></button>
-        </section>
-        <section>
-            <h2></h2>
-            <p></p>
-            <button></button>
-        </section>
-        <section>
-            <h2></h2>
-            <p></p>
-            <button></button>
-        </section>
-    </main>
-</div>
-```
-
-## Activity 7: Project Structure
-
-**Best practices:**
-- Organize by file type (css/, js/, images/)
-- Use lowercase, hyphens for file names
-- Keep HTML in root
-- README.md explains project
-
-**VS Code Workspace:**
-- File → Open Folder (not individual files)
-- See entire project tree
-- Quick file switching (Ctrl+P)
-- Integrated Git
-
-**Live Server features:**
-- Hot reload (auto-refresh on save)
-- Works with any HTML file
-- Right-click file or click "Go Live" in status bar
-- Stop with "Port: 5500" click
-
-**Philippine Context:**
-Typical barangay website structure:
-```
-barangay-stonino/
-├── index.html (homepage)
-├── officials.html
-├── services.html
-├── news.html
-├── contact.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── main.js
-└── images/
-    ├── logo.png
-    ├── captain.jpg
-    └── hall.jpg
-```
-
-</details>
-
----
-
-**Excellent! You're now set up like a professional developer!** VS Code configured, extensions installed, DevTools mastered, and project structure organized.
-
-**Next:** HTML document structure!
+**Status: TOOLKIT INITIALIZED.**
+You have the tools. You have the shortcuts. You have the mindset.
+**Next Step:** Mastering the Anatomy of the Web (HTML).

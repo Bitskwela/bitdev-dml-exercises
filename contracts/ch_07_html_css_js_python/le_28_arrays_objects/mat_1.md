@@ -1,5 +1,7 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+28.0+-+COVER.png)
+
 The barangay office wanted a feature: display a list of all residents who had applied for clearances in the past month. The data set contained 47 residents.
 
 Tian started implementing it the only way they knew:
@@ -20,11 +22,14 @@ console.log(resident3);
 After writing out 10 variables and 10 console.log statements, Tian stopped. This approach was absurd. Declaring 47 individual variables? Manually logging each one? What if they needed to search for a specific resident? Loop through them? Sort alphabetically?
 
 The problems were obvious:
+
 - 47 separate variables cluttering the code
 - No way to loop through all residents
 - No way to add/remove residents dynamically
 - No way to search or sort efficiently
 - No logical grouping or organization
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_7/C7+28.1.png)
 
 Meanwhile, Rhea Joy faced a different but related problem. She needed to store detailed information about a single resident applying for a barangay clearance:
 
@@ -63,19 +68,21 @@ It was Tuesday evening. They were both frustrated, staring at their messy variab
 They searched online and discovered two fundamental JavaScript data structures:
 
 **Arrays**: Ordered lists of values, accessed by index
+
 ```javascript
 let residents = ["Juan", "Maria", "Pedro", "Ana"];
-console.log(residents[0]);  // "Juan"
+console.log(residents[0]); // "Juan"
 ```
 
 **Objects**: Collections of key-value pairs, representing structured data
+
 ```javascript
 let applicant = {
-    name: "Juan Dela Cruz",
-    age: 34,
-    email: "juan@example.com"
+  name: "Juan Dela Cruz",
+  age: 34,
+  email: "juan@example.com",
 };
-console.log(applicant.name);  // "Juan Dela Cruz"
+console.log(applicant.name); // "Juan Dela Cruz"
 ```
 
 Tian's eyes lit up. "Arrays! That's how I store lists of residents. One variable containing all 47 names."
@@ -101,11 +108,13 @@ Miguel smiled. "Arrays and objects are the fundamental data structures of JavaSc
 **Arrays** store multiple values in a single variable, accessed by index (position).
 
 **Syntax:**
+
 ```javascript
 let arrayName = [value1, value2, value3];
 ```
 
 **Examples:**
+
 ```javascript
 let numbers = [1, 2, 3, 4, 5];
 let names = ["Juan", "Maria", "Pedro"];
@@ -113,15 +122,17 @@ let mixed = [25, "Juan", true, 50.5];
 ```
 
 **Accessing elements (zero-indexed):**
+
 ```javascript
 let visitors = ["Juan", "Maria", "Pedro"];
 
-console.log(visitors[0]);  // Output: Juan
-console.log(visitors[1]);  // Output: Maria
-console.log(visitors[2]);  // Output: Pedro
+console.log(visitors[0]); // Output: Juan
+console.log(visitors[1]); // Output: Maria
+console.log(visitors[2]); // Output: Pedro
 ```
 
 **Barangay services:**
+
 ```javascript
 let services = ["Clearance", "Residency", "Indigency", "Business Permit"];
 
@@ -137,42 +148,48 @@ console.log("4. " + services[3]);
 ## Array Properties and Methods
 
 ### length property
+
 ```javascript
 let visitors = ["Juan", "Maria", "Pedro"];
-console.log(visitors.length);  // Output: 3
+console.log(visitors.length); // Output: 3
 ```
 
 ### push() - Add to end
+
 ```javascript
 let queue = ["Juan", "Maria"];
 queue.push("Pedro");
-console.log(queue);  // ["Juan", "Maria", "Pedro"]
+console.log(queue); // ["Juan", "Maria", "Pedro"]
 ```
 
 ### pop() - Remove from end
+
 ```javascript
 let queue = ["Juan", "Maria", "Pedro"];
 let last = queue.pop();
-console.log(last);   // "Pedro"
-console.log(queue);  // ["Juan", "Maria"]
+console.log(last); // "Pedro"
+console.log(queue); // ["Juan", "Maria"]
 ```
 
 ### unshift() - Add to beginning
+
 ```javascript
 let queue = ["Maria", "Pedro"];
 queue.unshift("Juan");
-console.log(queue);  // ["Juan", "Maria", "Pedro"]
+console.log(queue); // ["Juan", "Maria", "Pedro"]
 ```
 
 ### shift() - Remove from beginning
+
 ```javascript
 let queue = ["Juan", "Maria", "Pedro"];
 let first = queue.shift();
-console.log(first);  // "Juan"
-console.log(queue);  // ["Maria", "Pedro"]
+console.log(first); // "Juan"
+console.log(queue); // ["Maria", "Pedro"]
 ```
 
 **Barangay queue system:**
+
 ```javascript
 let serviceQueue = [];
 
@@ -185,7 +202,7 @@ console.log("Queue:", serviceQueue);
 
 // Serve first visitor
 let currentVisitor = serviceQueue.shift();
-console.log("Now serving:", currentVisitor);  // Juan
+console.log("Now serving:", currentVisitor); // Juan
 console.log("Remaining:", serviceQueue);
 // ["Maria", "Pedro"]
 ```
@@ -195,38 +212,42 @@ console.log("Remaining:", serviceQueue);
 ## More Array Methods
 
 ### indexOf() - Find position
+
 ```javascript
 let visitors = ["Juan", "Maria", "Pedro", "Rosa"];
-console.log(visitors.indexOf("Pedro"));  // 2
-console.log(visitors.indexOf("Jose"));   // -1 (not found)
+console.log(visitors.indexOf("Pedro")); // 2
+console.log(visitors.indexOf("Jose")); // -1 (not found)
 ```
 
 ### includes() - Check if exists
+
 ```javascript
 let services = ["Clearance", "Residency", "Indigency"];
-console.log(services.includes("Clearance"));  // true
-console.log(services.includes("Permit"));     // false
+console.log(services.includes("Clearance")); // true
+console.log(services.includes("Permit")); // false
 ```
 
 ### slice() - Extract portion
+
 ```javascript
 let numbers = [1, 2, 3, 4, 5];
 let portion = numbers.slice(1, 4);
-console.log(portion);  // [2, 3, 4]
-console.log(numbers);  // [1, 2, 3, 4, 5] (original unchanged)
+console.log(portion); // [2, 3, 4]
+console.log(numbers); // [1, 2, 3, 4, 5] (original unchanged)
 ```
 
 ### splice() - Add/remove elements
+
 ```javascript
 let visitors = ["Juan", "Maria", "Pedro"];
 
 // Remove 1 element at index 1
 visitors.splice(1, 1);
-console.log(visitors);  // ["Juan", "Pedro"]
+console.log(visitors); // ["Juan", "Pedro"]
 
 // Add elements at index 1
 visitors.splice(1, 0, "Rosa", "Jose");
-console.log(visitors);  // ["Juan", "Rosa", "Jose", "Pedro"]
+console.log(visitors); // ["Juan", "Rosa", "Jose", "Pedro"]
 ```
 
 ---
@@ -234,33 +255,36 @@ console.log(visitors);  // ["Juan", "Rosa", "Jose", "Pedro"]
 ## Looping Through Arrays
 
 ### for loop
+
 ```javascript
 let services = ["Clearance", "Residency", "Indigency"];
 
 for (let i = 0; i < services.length; i++) {
-    console.log((i + 1) + ". " + services[i]);
+  console.log(i + 1 + ". " + services[i]);
 }
 ```
 
 ### for...of loop (modern)
+
 ```javascript
 let services = ["Clearance", "Residency", "Indigency"];
 
 for (let service of services) {
-    console.log("Service: " + service);
+  console.log("Service: " + service);
 }
 ```
 
 **Barangay fee calculation:**
+
 ```javascript
 let fees = [50, 30, 20, 100, 50];
 let total = 0;
 
 for (let fee of fees) {
-    total += fee;
+  total += fee;
 }
 
-console.log("Total revenue: ₱" + total);  // ₱250
+console.log("Total revenue: ₱" + total); // ₱250
 ```
 
 ---
@@ -270,41 +294,45 @@ console.log("Total revenue: ₱" + total);  // ₱250
 **Objects** store data as key-value pairs, representing real-world entities.
 
 **Syntax:**
+
 ```javascript
 let objectName = {
-    key1: value1,
-    key2: value2,
-    key3: value3
+  key1: value1,
+  key2: value2,
+  key3: value3,
 };
 ```
 
 **Example:**
+
 ```javascript
 let person = {
-    name: "Juan Dela Cruz",
-    age: 25,
-    city: "Batangas"
+  name: "Juan Dela Cruz",
+  age: 25,
+  city: "Batangas",
 };
 ```
 
 **Accessing properties:**
+
 ```javascript
 // Dot notation
-console.log(person.name);  // Juan Dela Cruz
-console.log(person.age);   // 25
+console.log(person.name); // Juan Dela Cruz
+console.log(person.age); // 25
 
 // Bracket notation
-console.log(person["name"]);  // Juan Dela Cruz
-console.log(person["age"]);   // 25
+console.log(person["name"]); // Juan Dela Cruz
+console.log(person["age"]); // 25
 ```
 
 **Barangay visitor:**
+
 ```javascript
 let visitor = {
-    name: "Juan Dela Cruz",
-    age: 25,
-    service: "Clearance",
-    isPWD: false
+  name: "Juan Dela Cruz",
+  age: 25,
+  service: "Clearance",
+  isPWD: false,
 };
 
 console.log("=== Visitor Information ===");
@@ -319,20 +347,22 @@ console.log("PWD: " + visitor.isPWD);
 ## Modifying Objects
 
 ### Update properties
+
 ```javascript
 let visitor = {
-    name: "Juan",
-    age: 25
+  name: "Juan",
+  age: 25,
 };
 
 visitor.age = 26;
-console.log(visitor.age);  // 26
+console.log(visitor.age); // 26
 ```
 
 ### Add new properties
+
 ```javascript
 let visitor = {
-    name: "Juan"
+  name: "Juan",
 };
 
 visitor.age = 25;
@@ -342,11 +372,12 @@ console.log(visitor);
 ```
 
 ### Delete properties
+
 ```javascript
 let visitor = {
-    name: "Juan",
-    age: 25,
-    temp: "delete me"
+  name: "Juan",
+  age: 25,
+  temp: "delete me",
 };
 
 delete visitor.temp;
@@ -362,39 +393,40 @@ console.log(visitor);
 
 ```javascript
 let calculator = {
-    add: function(a, b) {
-        return a + b;
-    },
-    subtract: function(a, b) {
-        return a - b;
-    }
+  add: function (a, b) {
+    return a + b;
+  },
+  subtract: function (a, b) {
+    return a - b;
+  },
 };
 
-console.log(calculator.add(5, 3));       // 8
+console.log(calculator.add(5, 3)); // 8
 console.log(calculator.subtract(10, 4)); // 6
 ```
 
 **Barangay fee calculator object:**
+
 ```javascript
 let feeCalculator = {
-    baseFee: 50,
-    seniorDiscount: 0.20,
-    
-    calculateFee: function(age) {
-        if (age >= 60) {
-            return this.baseFee * (1 - this.seniorDiscount);
-        }
-        return this.baseFee;
-    },
-    
-    displayFee: function(age) {
-        let fee = this.calculateFee(age);
-        console.log("Age: " + age + " → Fee: ₱" + fee);
+  baseFee: 50,
+  seniorDiscount: 0.2,
+
+  calculateFee: function (age) {
+    if (age >= 60) {
+      return this.baseFee * (1 - this.seniorDiscount);
     }
+    return this.baseFee;
+  },
+
+  displayFee: function (age) {
+    let fee = this.calculateFee(age);
+    console.log("Age: " + age + " → Fee: ₱" + fee);
+  },
 };
 
-feeCalculator.displayFee(25);  // Age: 25 → Fee: ₱50
-feeCalculator.displayFee(65);  // Age: 65 → Fee: ₱40
+feeCalculator.displayFee(25); // Age: 25 → Fee: ₱50
+feeCalculator.displayFee(65); // Age: 65 → Fee: ₱40
 ```
 
 **Note:** `this` refers to the current object.
@@ -407,28 +439,29 @@ feeCalculator.displayFee(65);  // Age: 65 → Fee: ₱40
 
 ```javascript
 let visitors = [
-    { name: "Juan Dela Cruz", age: 25, service: "Clearance" },
-    { name: "Maria Santos", age: 65, service: "Residency" },
-    { name: "Pedro Reyes", age: 30, service: "Indigency" }
+  { name: "Juan Dela Cruz", age: 25, service: "Clearance" },
+  { name: "Maria Santos", age: 65, service: "Residency" },
+  { name: "Pedro Reyes", age: 30, service: "Indigency" },
 ];
 
 // Access specific visitor
-console.log(visitors[0].name);  // Juan Dela Cruz
-console.log(visitors[1].age);   // 65
+console.log(visitors[0].name); // Juan Dela Cruz
+console.log(visitors[1].age); // 65
 
 // Loop through all visitors
 for (let visitor of visitors) {
-    console.log(visitor.name + " - " + visitor.service);
+  console.log(visitor.name + " - " + visitor.service);
 }
 ```
 
 **Complete barangay system:**
+
 ```javascript
 let dailyVisitors = [
-    { name: "Juan Dela Cruz", age: 25, service: "Clearance", fee: 50 },
-    { name: "Maria Santos", age: 65, service: "Residency", fee: 30 },
-    { name: "Pedro Reyes", age: 30, service: "Indigency", fee: 20 },
-    { name: "Rosa Garcia", age: 70, service: "Clearance", fee: 50 }
+  { name: "Juan Dela Cruz", age: 25, service: "Clearance", fee: 50 },
+  { name: "Maria Santos", age: 65, service: "Residency", fee: 30 },
+  { name: "Pedro Reyes", age: 30, service: "Indigency", fee: 20 },
+  { name: "Rosa Garcia", age: 70, service: "Clearance", fee: 50 },
 ];
 
 console.log("=== BARANGAY SERVICE REPORT ===\n");
@@ -437,24 +470,24 @@ let totalRevenue = 0;
 let seniorCount = 0;
 
 for (let i = 0; i < dailyVisitors.length; i++) {
-    let visitor = dailyVisitors[i];
-    let finalFee = visitor.fee;
-    
-    console.log("Visitor #" + (i + 1));
-    console.log("Name: " + visitor.name);
-    console.log("Age: " + visitor.age);
-    console.log("Service: " + visitor.service);
-    
-    // Apply senior discount
-    if (visitor.age >= 60) {
-        finalFee = visitor.fee * 0.8;
-        seniorCount++;
-        console.log("🎉 Senior Discount Applied");
-    }
-    
-    console.log("Fee: ₱" + finalFee);
-    totalRevenue += finalFee;
-    console.log("---");
+  let visitor = dailyVisitors[i];
+  let finalFee = visitor.fee;
+
+  console.log("Visitor #" + (i + 1));
+  console.log("Name: " + visitor.name);
+  console.log("Age: " + visitor.age);
+  console.log("Service: " + visitor.service);
+
+  // Apply senior discount
+  if (visitor.age >= 60) {
+    finalFee = visitor.fee * 0.8;
+    seniorCount++;
+    console.log("🎉 Senior Discount Applied");
+  }
+
+  console.log("Fee: ₱" + finalFee);
+  totalRevenue += finalFee;
+  console.log("---");
 }
 
 console.log("\n=== SUMMARY ===");
@@ -471,22 +504,22 @@ console.log("Total Revenue: ₱" + totalRevenue);
 
 ```javascript
 let visitor = {
-    name: "Juan Dela Cruz",
-    age: 25,
-    address: {
-        street: "123 Main St",
-        barangay: "San Juan",
-        city: "Batangas"
-    },
-    contact: {
-        phone: "0912-345-6789",
-        email: "juan@example.com"
-    }
+  name: "Juan Dela Cruz",
+  age: 25,
+  address: {
+    street: "123 Main St",
+    barangay: "San Juan",
+    city: "Batangas",
+  },
+  contact: {
+    phone: "0912-345-6789",
+    email: "juan@example.com",
+  },
 };
 
-console.log(visitor.name);                  // Juan Dela Cruz
-console.log(visitor.address.barangay);      // San Juan
-console.log(visitor.contact.phone);         // 0912-345-6789
+console.log(visitor.name); // Juan Dela Cruz
+console.log(visitor.address.barangay); // San Juan
+console.log(visitor.contact.phone); // 0912-345-6789
 ```
 
 ---
@@ -498,8 +531,8 @@ console.log(visitor.contact.phone);         // 0912-345-6789
 ```javascript
 // JavaScript object
 let visitor = {
-    name: "Juan",
-    age: 25
+  name: "Juan",
+  age: 25,
 };
 
 // Convert to JSON string
@@ -509,10 +542,11 @@ console.log(jsonString);
 
 // Convert back to object
 let parsed = JSON.parse(jsonString);
-console.log(parsed.name);  // Juan
+console.log(parsed.name); // Juan
 ```
 
 **Used for:**
+
 - Storing data
 - Sending data to servers
 - Receiving data from APIs
@@ -524,10 +558,10 @@ console.log(parsed.name);  // Juan
 ```javascript
 // Service configuration
 const SERVICES = {
-    clearance: { name: "Barangay Clearance", fee: 50 },
-    residency: { name: "Residency Certificate", fee: 30 },
-    indigency: { name: "Indigency Certificate", fee: 20 },
-    permit: { name: "Business Permit", fee: 100 }
+  clearance: { name: "Barangay Clearance", fee: 50 },
+  residency: { name: "Residency Certificate", fee: 30 },
+  indigency: { name: "Indigency Certificate", fee: 20 },
+  permit: { name: "Business Permit", fee: 100 },
 };
 
 // Visitor database
@@ -535,73 +569,75 @@ let visitors = [];
 
 // Function: Add visitor
 function addVisitor(name, age, serviceType, isPWD) {
-    let visitor = {
-        id: visitors.length + 1,
-        name: name,
-        age: age,
-        serviceType: serviceType,
-        isPWD: isPWD,
-        timestamp: new Date().toLocaleString()
-    };
-    
-    visitors.push(visitor);
-    console.log("✅ Visitor added: " + name);
+  let visitor = {
+    id: visitors.length + 1,
+    name: name,
+    age: age,
+    serviceType: serviceType,
+    isPWD: isPWD,
+    timestamp: new Date().toLocaleString(),
+  };
+
+  visitors.push(visitor);
+  console.log("✅ Visitor added: " + name);
 }
 
 // Function: Calculate fee with discounts
 function calculateFee(visitor) {
-    let service = SERVICES[visitor.serviceType];
-    let baseFee = service.fee;
-    let finalFee = baseFee;
-    let discountReason = "";
-    
-    if (visitor.age >= 60) {
-        finalFee = baseFee * 0.8;
-        discountReason = "Senior (20% off)";
-    } else if (visitor.isPWD) {
-        finalFee = baseFee * 0.8;
-        discountReason = "PWD (20% off)";
-    }
-    
-    return {
-        serviceName: service.name,
-        baseFee: baseFee,
-        finalFee: finalFee,
-        discount: baseFee - finalFee,
-        discountReason: discountReason
-    };
+  let service = SERVICES[visitor.serviceType];
+  let baseFee = service.fee;
+  let finalFee = baseFee;
+  let discountReason = "";
+
+  if (visitor.age >= 60) {
+    finalFee = baseFee * 0.8;
+    discountReason = "Senior (20% off)";
+  } else if (visitor.isPWD) {
+    finalFee = baseFee * 0.8;
+    discountReason = "PWD (20% off)";
+  }
+
+  return {
+    serviceName: service.name,
+    baseFee: baseFee,
+    finalFee: finalFee,
+    discount: baseFee - finalFee,
+    discountReason: discountReason,
+  };
 }
 
 // Function: Display visitor summary
 function displaySummary() {
-    console.log("\n=== BARANGAY SERVICE SUMMARY ===\n");
-    
-    let totalRevenue = 0;
-    
-    for (let visitor of visitors) {
-        let feeInfo = calculateFee(visitor);
-        
-        console.log("ID: " + visitor.id);
-        console.log("Name: " + visitor.name);
-        console.log("Age: " + visitor.age);
-        console.log("Service: " + feeInfo.serviceName);
-        console.log("Base Fee: ₱" + feeInfo.baseFee);
-        
-        if (feeInfo.discount > 0) {
-            console.log("Discount: -₱" + feeInfo.discount + " (" + feeInfo.discountReason + ")");
-        }
-        
-        console.log("Final Fee: ₱" + feeInfo.finalFee);
-        console.log("Time: " + visitor.timestamp);
-        console.log("---");
-        
-        totalRevenue += feeInfo.finalFee;
+  console.log("\n=== BARANGAY SERVICE SUMMARY ===\n");
+
+  let totalRevenue = 0;
+
+  for (let visitor of visitors) {
+    let feeInfo = calculateFee(visitor);
+
+    console.log("ID: " + visitor.id);
+    console.log("Name: " + visitor.name);
+    console.log("Age: " + visitor.age);
+    console.log("Service: " + feeInfo.serviceName);
+    console.log("Base Fee: ₱" + feeInfo.baseFee);
+
+    if (feeInfo.discount > 0) {
+      console.log(
+        "Discount: -₱" + feeInfo.discount + " (" + feeInfo.discountReason + ")",
+      );
     }
-    
-    console.log("\n=== TOTALS ===");
-    console.log("Total Visitors: " + visitors.length);
-    console.log("Total Revenue: ₱" + totalRevenue);
-    console.log("Average Fee: ₱" + (totalRevenue / visitors.length).toFixed(2));
+
+    console.log("Final Fee: ₱" + feeInfo.finalFee);
+    console.log("Time: " + visitor.timestamp);
+    console.log("---");
+
+    totalRevenue += feeInfo.finalFee;
+  }
+
+  console.log("\n=== TOTALS ===");
+  console.log("Total Visitors: " + visitors.length);
+  console.log("Total Revenue: ₱" + totalRevenue);
+  console.log("Average Fee: ₱" + (totalRevenue / visitors.length).toFixed(2));
 }
 
 // Test the system
@@ -618,6 +654,7 @@ displaySummary();
 ## Best Practices
 
 ### 1. Use descriptive property names
+
 ```javascript
 // Bad
 let v = { n: "Juan", a: 25 };
@@ -627,23 +664,25 @@ let visitor = { name: "Juan", age: 25 };
 ```
 
 ### 2. Use arrays for lists, objects for structured data
+
 ```javascript
 // Good - list of names
 let names = ["Juan", "Maria", "Pedro"];
 
 // Good - structured information
 let visitor = {
-    name: "Juan",
-    age: 25,
-    service: "Clearance"
+  name: "Juan",
+  age: 25,
+  service: "Clearance",
 };
 ```
 
 ### 3. Combine arrays and objects for complex data
+
 ```javascript
 let visitors = [
-    { name: "Juan", age: 25 },
-    { name: "Maria", age: 30 }
+  { name: "Juan", age: 25 },
+  { name: "Maria", age: 30 },
 ];
 ```
 
@@ -654,28 +693,31 @@ let visitors = [
 Tian reviewed data structures:
 
 **Arrays (lists):**
+
 ```javascript
 let array = [value1, value2, value3];
-array[0]  // Access by index
-array.push(value)  // Add to end
-array.length  // Get size
+array[0]; // Access by index
+array.push(value); // Add to end
+array.length; // Get size
 ```
 
 **Objects (structured data):**
+
 ```javascript
 let object = {
-    key1: value1,
-    key2: value2
+  key1: value1,
+  key2: value2,
 };
-object.key1  // Access property
-object["key1"]  // Alternative access
+object.key1; // Access property
+object["key1"]; // Alternative access
 ```
 
 **Arrays of Objects:**
+
 ```javascript
 let data = [
-    { name: "Juan", age: 25 },
-    { name: "Maria", age: 30 }
+  { name: "Juan", age: 25 },
+  { name: "Maria", age: 30 },
 ];
 ```
 

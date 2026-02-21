@@ -1,5 +1,7 @@
 ## Background Story
 
+![Cover Image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+6.0+-+COVER.png)
+
 Tian stared at the code in horror. The barangay secretary needed a program to send reminder messages to 200 residents about unpaid dues. Tian had started writing:
 
 ```cpp
@@ -10,6 +12,8 @@ cout << "Reminder to Resident 3" << endl;
 ```
 
 After typing 20 lines, Tian's fingers were tired and the pattern was mind-numbing. "There has to be a better way!"
+
+![image](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_8/C8+6.1.png)
 
 Kuya Miguel looked at the screen and laughed. "You've just discovered why **loops** are one of the most important concepts in programming! Imagine if Facebook engineers had to write separate code for each of their 3 billion users. Or if game developers wrote individual code for each enemy spawn."
 
@@ -26,6 +30,7 @@ Kuya Miguel looked at the screen and laughed. "You've just discovered why **loop
 ### Why Use Loops?
 
 **Without loops:**
+
 ```cpp
 cout << "Resident ID: 1" << endl;
 cout << "Resident ID: 2" << endl;
@@ -34,6 +39,7 @@ cout << "Resident ID: 3" << endl;
 ```
 
 **With loops:**
+
 ```cpp
 for (int i = 1; i <= 100; i++) {
     cout << "Resident ID: " << i << endl;
@@ -49,6 +55,7 @@ Much cleaner and more maintainable!
 ### 1. For Loop - "Do This Exactly N Times"
 
 **Syntax:**
+
 ```cpp
 for (initialization; condition; update) {
     // code to repeat
@@ -56,6 +63,7 @@ for (initialization; condition; update) {
 ```
 
 **Example: Print numbers 1 to 10**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -70,17 +78,20 @@ int main() {
 ```
 
 **Output:**
+
 ```
 1 2 3 4 5 6 7 8 9 10
 ```
 
 **How it works:**
+
 1. **Initialization:** `int i = 1` - Start at 1
 2. **Condition:** `i <= 10` - Continue while i is 10 or less
 3. **Update:** `i++` - Increment i by 1 after each iteration
 4. **Body:** `cout << i << " ";` - Execute this each time
 
 **Barangay Example: Calculate Total Monthly Fees**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -89,18 +100,19 @@ int main() {
     int totalFees = 0;
     int numResidents = 5;
     int monthlyFee = 150;
-    
+
     for (int i = 1; i <= numResidents; i++) {
         totalFees += monthlyFee;
         cout << "Resident " << i << " paid: PHP " << monthlyFee << endl;
     }
-    
+
     cout << "Total collected: PHP " << totalFees << endl;
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Resident 1 paid: PHP 150
 Resident 2 paid: PHP 150
@@ -115,6 +127,7 @@ Total collected: PHP 750
 ### 2. While Loop - "Do This While Condition is True"
 
 **Syntax:**
+
 ```cpp
 while (condition) {
     // code to repeat
@@ -124,6 +137,7 @@ while (condition) {
 **Use when:** You don't know in advance how many times to loop
 
 **Example: Password Entry System**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -132,29 +146,31 @@ using namespace std;
 int main() {
     string password;
     string correctPassword = "barangay2025";
-    
+
     cout << "=== Barangay System Login ===" << endl;
-    
+
     while (password != correctPassword) {
         cout << "Enter password: ";
         cin >> password;
-        
+
         if (password != correctPassword) {
             cout << "Incorrect! Try again." << endl;
         }
     }
-    
+
     cout << "Access granted! Welcome." << endl;
     return 0;
 }
 ```
 
 **How it works:**
+
 1. Check condition `password != correctPassword`
 2. If true, execute the body
 3. Repeat until condition becomes false
 
 **Barangay Example: Queue Management**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -162,21 +178,22 @@ using namespace std;
 int main() {
     int queueNumber = 1;
     int totalInQueue = 5;
-    
+
     cout << "=== Barangay Clearance Queue ===" << endl;
-    
+
     while (queueNumber <= totalInQueue) {
         cout << "Now serving: Queue #" << queueNumber << endl;
         cout << "Processing..." << endl;
         queueNumber++;
     }
-    
+
     cout << "All residents served!" << endl;
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 === Barangay Clearance Queue ===
 Now serving: Queue #1
@@ -197,6 +214,7 @@ All residents served!
 ### 3. Do-While Loop - "Do This First, Then Check Condition"
 
 **Syntax:**
+
 ```cpp
 do {
     // code to repeat
@@ -206,13 +224,14 @@ do {
 **Key difference:** The body executes **at least once**, even if condition is false
 
 **Example: Menu System**
+
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
     int choice;
-    
+
     do {
         cout << "\n=== Barangay Service Menu ===" << endl;
         cout << "1. Request Clearance" << endl;
@@ -221,7 +240,7 @@ int main() {
         cout << "4. Exit" << endl;
         cout << "Enter choice: ";
         cin >> choice;
-        
+
         if (choice == 1) {
             cout << "Clearance form opened." << endl;
         } else if (choice == 2) {
@@ -233,14 +252,15 @@ int main() {
         } else {
             cout << "Invalid choice. Try again." << endl;
         }
-        
+
     } while (choice != 4);
-    
+
     return 0;
 }
 ```
 
 **Why use do-while here?**
+
 - Menu must display at least once
 - User sees options before making a decision
 - Perfect for menu-driven programs
@@ -249,25 +269,28 @@ int main() {
 
 ## Comparing the Three Loops
 
-| Loop Type | When to Use | Condition Check |
-|-----------|-------------|-----------------|
-| **for** | Known number of iterations | Beginning |
-| **while** | Unknown iterations, check first | Beginning |
-| **do-while** | Unknown iterations, execute first | End |
+| Loop Type    | When to Use                       | Condition Check |
+| ------------ | --------------------------------- | --------------- |
+| **for**      | Known number of iterations        | Beginning       |
+| **while**    | Unknown iterations, check first   | Beginning       |
+| **do-while** | Unknown iterations, execute first | End             |
 
 **Visual Flow:**
 
 **For Loop:**
+
 ```
 Initialize → Check Condition → Execute Body → Update → Repeat
 ```
 
 **While Loop:**
+
 ```
 Check Condition → Execute Body → Check Condition → Repeat
 ```
 
 **Do-While Loop:**
+
 ```
 Execute Body → Check Condition → Repeat
 ```
@@ -296,12 +319,14 @@ int main() {
 ```
 
 **Output:**
+
 ```
 1 2 3 4 Breaking at i = 5
 Loop ended.
 ```
 
 **Barangay Use Case: Search for Resident**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -311,7 +336,7 @@ int main() {
     string residents[] = {"Juan", "Maria", "Pedro", "Ana", "Luis"};
     string target = "Pedro";
     bool found = false;
-    
+
     for (int i = 0; i < 5; i++) {
         if (residents[i] == target) {
             cout << "Found " << target << " at position " << i << endl;
@@ -319,11 +344,11 @@ int main() {
             break;  // No need to continue searching
         }
     }
-    
+
     if (!found) {
         cout << target << " not found in records." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -349,32 +374,35 @@ int main() {
 ```
 
 **Output:**
+
 ```
 1 3 5 7 9
 ```
 
 **Barangay Use Case: Process Only Paid Residents**
+
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
     bool paid[] = {true, false, true, true, false};
-    
+
     cout << "Processing residents who paid dues:" << endl;
-    
+
     for (int i = 0; i < 5; i++) {
         if (!paid[i]) {
             continue;  // Skip unpaid residents
         }
         cout << "Resident " << (i + 1) << " - Status: PAID ✓" << endl;
     }
-    
+
     return 0;
 }
 ```
 
 **Output:**
+
 ```
 Processing residents who paid dues:
 Resident 1 - Status: PAID ✓
@@ -394,11 +422,11 @@ using namespace std;
 
 int main() {
     cout << "Barangay meeting starts in:" << endl;
-    
+
     for (int i = 10; i >= 1; i--) {
         cout << i << "... ";
     }
-    
+
     cout << "\nMeeting has started!" << endl;
     return 0;
 }
@@ -412,11 +440,11 @@ using namespace std;
 
 int main() {
     int sum = 0;
-    
+
     for (int i = 1; i <= 10; i++) {
         sum += i;
     }
-    
+
     cout << "Sum of 1 to 10: " << sum << endl;
     return 0;
 }
@@ -430,16 +458,16 @@ using namespace std;
 
 int main() {
     int age;
-    
+
     do {
         cout << "Enter your age (1-120): ";
         cin >> age;
-        
+
         if (age < 1 || age > 120) {
             cout << "Invalid age. Try again." << endl;
         }
     } while (age < 1 || age > 120);
-    
+
     cout << "Age recorded: " << age << endl;
     return 0;
 }
@@ -458,31 +486,32 @@ int main() {
     int totalResidents = 5;
     int presentCount = 0;
     string response;
-    
+
     cout << "=== Barangay Assembly Attendance ===" << endl;
-    
+
     for (int i = 1; i <= totalResidents; i++) {
         cout << "Is Resident " << i << " present? (yes/no): ";
         cin >> response;
-        
+
         if (response == "yes") {
             presentCount++;
         }
     }
-    
+
     cout << "\n=== Attendance Summary ===" << endl;
     cout << "Total Residents: " << totalResidents << endl;
     cout << "Present: " << presentCount << endl;
     cout << "Absent: " << (totalResidents - presentCount) << endl;
-    
+
     double percentage = (presentCount * 100.0) / totalResidents;
     cout << "Attendance Rate: " << percentage << "%" << endl;
-    
+
     return 0;
 }
 ```
 
 **Sample Run:**
+
 ```
 === Barangay Assembly Attendance ===
 Is Resident 1 present? (yes/no): yes
@@ -514,6 +543,7 @@ while (i <= 10) {
 ```
 
 **Fix:**
+
 ```cpp
 // ✅ CORRECT
 int i = 1;
@@ -533,6 +563,7 @@ for (int i = 1; i < 10; i++) {
 ```
 
 **Fix:**
+
 ```cpp
 // ✅ CORRECT - Prints 1 to 10
 for (int i = 1; i <= 10; i++) {
@@ -551,6 +582,7 @@ for (int i = 1; i <= 10; i++);  // <- Extra semicolon!
 ```
 
 **Fix:**
+
 ```cpp
 // ✅ CORRECT - No semicolon after for statement
 for (int i = 1; i <= 10; i++) {
