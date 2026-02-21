@@ -1,4 +1,8 @@
 // utils/mathUtils.js
+// ES6 MODULES: Organize code into reusable files
+// 'export' makes functions/variables available to other files
+
+// NAMED EXPORT: Export specific functions by name
 export function add(a, b) {
   return a + b;
 }
@@ -6,6 +10,11 @@ export function add(a, b) {
 export function multiply(a, b) {
   return a * b;
 }
+
+// These can be imported individually:
+// import { add, multiply } from './mathUtils.js';
+// Or all at once:
+// import * as math from './mathUtils.js';
 
 // calculator.js
 import { add, multiply } from "./utils/mathUtils.js";
