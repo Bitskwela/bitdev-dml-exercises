@@ -51,6 +51,47 @@ console.log(`Age: ${age}`); // Output: Age: 20
 console.log(`School ID: ${schoolID}`); // Output: School ID: ABC123
 ```
 
+### Common Beginner Mistakes ⚠️
+
+**1. Trying to reassign a `const` variable**
+
+```js
+const studentID = "ABC123";
+studentID = "XYZ789"; // ❌ Error: Assignment to constant variable
+```
+
+Use `let` if you need to change the value later, or `const` if it should stay the same.
+
+**2. Using `var` instead of `let` or `const`**
+
+```js
+var age = 20; // ❌ Old way - can cause weird scope issues
+let age = 20; // ✅ Modern way - block-scoped, more predictable
+```
+
+Always use `let` or `const` in modern JavaScript (2015+). The `var` keyword has confusing behavior that can lead to bugs.
+
+**3. Forgetting quotes around strings**
+
+```js
+let name = Odessa; // ❌ Error: Odessa is not defined
+let name = "Odessa"; // ✅ Correct
+```
+
+**4. Mixing up template literals and regular strings**
+
+```js
+let message = "Hi, I'm ${name}"; // ❌ Won't interpolate with regular quotes
+let message = `Hi, I'm ${name}`; // ✅ Use backticks for template literals
+```
+
+**5. Forgetting `console.log()` parentheses**
+
+```js
+console.log age; // ❌ Syntax error
+console.log(age); // ✅ Correct
+```
+
 Now, let's practice what we've learned through some exercises.
 
 ## Closing Story
