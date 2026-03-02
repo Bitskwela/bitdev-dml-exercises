@@ -1,122 +1,56 @@
-﻿# Lesson 29 Activities: Exception Handling
+﻿# C++ Activity: Exception Handling
 
-## The Crashing Demo
+Protect your program from crashing by handling runtime errors gracefully.
 
-Tian's program crashed during a demo. User entered a string where a number was expected. **No error message, no recovery, just instant crash.**
-
-"Real software handles errors gracefully, not crash!" the barangay captain said.
-
-**Exception handling = safety nets.** Detect problems, throw exceptions, handle them gracefully. Invalid input? Catch it, show error, let user retry. File missing? Catch it, create file. This separates amateur code from professional software!
-
----
-
-## Task 1: Basic Try-Catch
-
-**Context:** Catch and handle exceptions.
-
-**Starter Code:**
 ```cpp
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 
-int divide(int a, int b) {
-    if (b == 0) {
-        throw "Division by zero!";  // Throw exception
-    }
-    return a / b;
-}
+// Your code here: Create a function 'divideResidents' that throws an exception if divisor is 0
 
 int main() {
+    int totalFund = 10000;
+    int divisor;
+
+    cout << "Enter number of residents to split the fund among: ";
+    cin >> divisor;
+
+    // Your code here: Use a try-catch block to call the function and handle the error
+
+    return 0;
+}
+```
+
+**Time Allotment: 20 minutes**
+
+## Tasks for students
+
+Topics Covered: `try`, `throw`, `catch`, `std::runtime_error`.
+
+1.  **Implement Function**: Create a function `double divideFund(int fund, int residents)` that returns `fund / residents`.
+2.  **Throw Exception**: Inside the function, check if `residents` is 0. If it is, `throw runtime_error("Error: Cannot divide by zero residents.");`.
+3.  **Try Block**: In `main()`, place the function call inside a `try` block.
+4.  **Catch Block**: Add a `catch (const runtime_error& e)` block that prints the error message using `e.what()`.
+5.  **Test**: Run the program twice: once with a valid number (e.g., 5) and once with 0 to see the error handling in action.  
+     for (int age : ages) {
     try {
-        cout << divide(10, 2) << endl;  // OK: 5
-        cout << divide(10, 0) << endl;  // Throws exception
-        cout << "This won't execute" << endl;
+    processAge(age);
     }
-    catch (const char* msg) {
-        cout << "Error: " << msg << endl;
+    catch (int e) {
+    cout << "Error: Negative age" << endl;
     }
-    
-    cout << "Program continues..." << endl;
-    return 0;
-}
-```
-
-# Tasks for Learners
-
-- Implement basic try-catch exception handling for division by zero errors.
-
-  ```cpp
-  #include <iostream>
-  using namespace std;
-
-  int divide(int a, int b) {
-      if (b == 0) {
-          throw "Division by zero!";
-      }
-      return a / b;
-  }
-
-  int main() {
-      try {
-          cout << divide(10, 2) << endl;
-          cout << divide(10, 0) << endl;
-          cout << "This won't execute" << endl;
-      }
-      catch (const char* msg) {
-          cout << "Error: " << msg << endl;
-      }
-      
-      cout << "Program continues..." << endl;
-      return 0;
-  }
-  ```
-
----
-
-## Task 2: Multiple Catch Blocks
-
-**Context:** Handle different exception types.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-void processAge(int age) {
-    if (age < 0) {
-        throw -1;  // Throw int
+    catch (const char\* msg) {
+    cout << "Error: " << msg << endl;
     }
-    if (age > 150) {
-        throw "Age too high!";  // Throw string
+    catch (char c) {
+    cout << "Error: Minor (not allowed)" << endl;
     }
-    if (age < 18) {
-        throw 'M';  // Throw char (Minor)
     }
-    
-    cout << "Age " << age << " is valid" << endl;
-}
+        return 0;
+    }
 
-int main() {
-    int ages[] = {25, -5, 200, 15};
-    
-    for (int age : ages) {
-        try {
-            processAge(age);
-        }
-        catch (int e) {
-            cout << "Error: Negative age" << endl;
-        }
-        catch (const char* msg) {
-            cout << "Error: " << msg << endl;
-        }
-        catch (char c) {
-            cout << "Error: Minor (not allowed)" << endl;
-        }
-    }
-    
-    return 0;
-}
-```
+````
 
 # Tasks for Learners
 
@@ -136,13 +70,13 @@ int main() {
       if (age < 18) {
           throw 'M';
       }
-      
+
       cout << "Age " << age << " is valid" << endl;
   }
 
   int main() {
       int ages[] = {25, -5, 200, 15};
-      
+
       for (int age : ages) {
           try {
               processAge(age);
@@ -157,10 +91,10 @@ int main() {
               cout << "Error: Minor (not allowed)" << endl;
           }
       }
-      
+
       return 0;
   }
-  ```
+````
 
 ---
 
@@ -169,6 +103,7 @@ int main() {
 **Context:** Use C++ standard exception types.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <stdexcept>
@@ -177,10 +112,10 @@ using namespace std;
 class BankAccount {
 private:
     double balance;
-    
+
 public:
     BankAccount(double bal) : balance(bal) {}
-    
+
     void withdraw(double amount) {
         if (amount < 0) {
             throw invalid_argument("Amount cannot be negative");
@@ -188,11 +123,11 @@ public:
         if (amount > balance) {
             throw runtime_error("Insufficient balance");
         }
-        
+
         balance -= amount;
         cout << "Withdrew P" << amount << ", Balance: P" << balance << endl;
     }
-    
+
     double getBalance() {
         return balance;
     }
@@ -200,7 +135,7 @@ public:
 
 int main() {
     BankAccount acc(1000);
-    
+
     try {
         acc.withdraw(500);   // OK
         acc.withdraw(-100);  // Throws invalid_argument
@@ -211,14 +146,14 @@ int main() {
     catch (runtime_error& e) {
         cout << "Runtime error: " << e.what() << endl;
     }
-    
+
     try {
         acc.withdraw(800);  // Throws runtime_error
     }
     catch (exception& e) {  // Catches all standard exceptions
         cout << "Exception: " << e.what() << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -235,10 +170,10 @@ int main() {
   class BankAccount {
   private:
       double balance;
-      
+
   public:
       BankAccount(double bal) : balance(bal) {}
-      
+
       void withdraw(double amount) {
           if (amount < 0) {
               throw invalid_argument("Amount cannot be negative");
@@ -246,11 +181,11 @@ int main() {
           if (amount > balance) {
               throw runtime_error("Insufficient balance");
           }
-          
+
           balance -= amount;
           cout << "Withdrew P" << amount << ", Balance: P" << balance << endl;
       }
-      
+
       double getBalance() {
           return balance;
       }
@@ -258,7 +193,7 @@ int main() {
 
   int main() {
       BankAccount acc(1000);
-      
+
       try {
           acc.withdraw(500);
           acc.withdraw(-100);
@@ -269,14 +204,14 @@ int main() {
       catch (runtime_error& e) {
           cout << "Runtime error: " << e.what() << endl;
       }
-      
+
       try {
           acc.withdraw(800);
       }
       catch (exception& e) {
           cout << "Exception: " << e.what() << endl;
       }
-      
+
       return 0;
   }
   ```
@@ -288,6 +223,7 @@ int main() {
 **Context:** Create your own exception types.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -297,13 +233,13 @@ using namespace std;
 class InsufficientFundsException : public exception {
 private:
     string message;
-    
+
 public:
     InsufficientFundsException(double amount, double balance) {
-        message = "Insufficient funds: tried to withdraw P" + to_string(amount) 
+        message = "Insufficient funds: tried to withdraw P" + to_string(amount)
                 + " but only P" + to_string(balance) + " available";
     }
-    
+
     const char* what() const noexcept override {
         return message.c_str();
     }
@@ -312,10 +248,10 @@ public:
 class BankAccount {
 private:
     double balance;
-    
+
 public:
     BankAccount(double bal) : balance(bal) {}
-    
+
     void withdraw(double amount) {
         if (amount > balance) {
             throw InsufficientFundsException(amount, balance);
@@ -323,13 +259,13 @@ public:
         balance -= amount;
         cout << "Withdrew P" << amount << endl;
     }
-    
+
     double getBalance() { return balance; }
 };
 
 int main() {
     BankAccount acc(1000);
-    
+
     try {
         acc.withdraw(500);
         acc.withdraw(800);
@@ -338,7 +274,7 @@ int main() {
         cout << "Error: " << e.what() << endl;
         cout << "Current balance: P" << acc.getBalance() << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -356,13 +292,13 @@ int main() {
   class InsufficientFundsException : public exception {
   private:
       string message;
-      
+
   public:
       InsufficientFundsException(double amount, double balance) {
-          message = "Insufficient funds: tried to withdraw P" + to_string(amount) 
+          message = "Insufficient funds: tried to withdraw P" + to_string(amount)
                   + " but only P" + to_string(balance) + " available";
       }
-      
+
       const char* what() const noexcept override {
           return message.c_str();
       }
@@ -371,10 +307,10 @@ int main() {
   class BankAccount {
   private:
       double balance;
-      
+
   public:
       BankAccount(double bal) : balance(bal) {}
-      
+
       void withdraw(double amount) {
           if (amount > balance) {
               throw InsufficientFundsException(amount, balance);
@@ -382,13 +318,13 @@ int main() {
           balance -= amount;
           cout << "Withdrew P" << amount << endl;
       }
-      
+
       double getBalance() { return balance; }
   };
 
   int main() {
       BankAccount acc(1000);
-      
+
       try {
           acc.withdraw(500);
           acc.withdraw(800);
@@ -397,7 +333,7 @@ int main() {
           cout << "Error: " << e.what() << endl;
           cout << "Current balance: P" << acc.getBalance() << endl;
       }
-      
+
       return 0;
   }
   ```
@@ -409,6 +345,7 @@ int main() {
 **Context:** Handle invalid user input.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -419,17 +356,17 @@ int getPositiveInteger(const string& prompt) {
     cout << prompt;
     int value;
     cin >> value;
-    
+
     if (cin.fail()) {
         cin.clear();
         cin.ignore(10000, '\n');
         throw invalid_argument("Invalid input: not a number");
     }
-    
+
     if (value <= 0) {
         throw out_of_range("Value must be positive");
     }
-    
+
     return value;
 }
 
@@ -447,7 +384,7 @@ int main() {
             cout << "Error: " << e.what() << ". Try again." << endl;
         }
     }
-    
+
     cout << "Input successful!" << endl;
     return 0;
 }
@@ -467,17 +404,17 @@ int main() {
       cout << prompt;
       int value;
       cin >> value;
-      
+
       if (cin.fail()) {
           cin.clear();
           cin.ignore(10000, '\n');
           throw invalid_argument("Invalid input: not a number");
       }
-      
+
       if (value <= 0) {
           throw out_of_range("Value must be positive");
       }
-      
+
       return value;
   }
 
@@ -495,7 +432,7 @@ int main() {
               cout << "Error: " << e.what() << ". Try again." << endl;
           }
       }
-      
+
       cout << "Input successful!" << endl;
       return 0;
   }
@@ -508,6 +445,7 @@ int main() {
 **Context:** Resources cleaned up even when exceptions occur.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -515,16 +453,16 @@ using namespace std;
 class Resource {
 private:
     string name;
-    
+
 public:
     Resource(string n) : name(n) {
         cout << "[" << name << "] Acquired" << endl;
     }
-    
+
     ~Resource() {
         cout << "[" << name << "] Released" << endl;
     }
-    
+
     void use() {
         cout << "[" << name << "] Using..." << endl;
     }
@@ -533,12 +471,12 @@ public:
 void riskyOperation() {
     Resource r1("Database");
     Resource r2("File");
-    
+
     r1.use();
     r2.use();
-    
+
     throw runtime_error("Something went wrong!");
-    
+
     // Resources still cleaned up by destructors!
 }
 
@@ -549,7 +487,7 @@ int main() {
     catch (exception& e) {
         cout << "Caught: " << e.what() << endl;
     }
-    
+
     cout << "Resources were cleaned up automatically!" << endl;
     return 0;
 }
@@ -568,16 +506,16 @@ int main() {
   class Resource {
   private:
       string name;
-      
+
   public:
       Resource(string n) : name(n) {
           cout << "[" << name << "] Acquired" << endl;
       }
-      
+
       ~Resource() {
           cout << "[" << name << "] Released" << endl;
       }
-      
+
       void use() {
           cout << "[" << name << "] Using..." << endl;
       }
@@ -586,10 +524,10 @@ int main() {
   void riskyOperation() {
       Resource r1("Database");
       Resource r2("File");
-      
+
       r1.use();
       r2.use();
-      
+
       throw runtime_error("Something went wrong!");
   }
 
@@ -600,7 +538,7 @@ int main() {
       catch (exception& e) {
           cout << "Caught: " << e.what() << endl;
       }
-      
+
       cout << "Resources were cleaned up automatically!" << endl;
       return 0;
   }
@@ -614,6 +552,7 @@ int main() {
 <summary><strong>📝 Exception Handling Summary</strong></summary>
 
 **Syntax:**
+
 ```cpp
 try {
     // Code that might throw
@@ -625,6 +564,7 @@ catch (ExceptionType& e) {
 ```
 
 **Standard Exceptions:**
+
 - `exception` - Base class
 - `runtime_error` - Runtime problems
 - `invalid_argument` - Invalid parameters
@@ -632,6 +572,7 @@ catch (ExceptionType& e) {
 - `logic_error` - Logic errors
 
 **Custom Exceptions:**
+
 ```cpp
 class MyException : public exception {
 public:
@@ -642,6 +583,7 @@ public:
 ```
 
 **Best Practices:**
+
 1. Use standard exceptions when possible
 2. Catch by reference
 3. Use RAII for resource management
@@ -649,6 +591,7 @@ public:
 5. Provide meaningful error messages
 
 **Benefits:**
+
 - Graceful error handling
 - Separation of error handling from logic
 - Automatic cleanup (RAII)

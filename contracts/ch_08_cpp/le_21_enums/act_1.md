@@ -1,198 +1,61 @@
-﻿# Lesson 21 Activities: Enums
+﻿# C++ Activity: Enums
 
-## The Magic Number Nightmare
+Simplify code and improve readability by replacing "magic numbers" with enums.
 
-Bug report: **"Clearance type 4 crashes the system."** Tian found the code: `if (clearanceType == 1)` scattered everywhere. What does `1` mean? Business? Travel? Six months from now, will anyone remember?
-
-**Magic numbers are a code smell.** Using `0, 1, 2, 3` for types is cryptic and error-prone. Someone can pass `99` or `-5` and the program has no idea what to do.
-
-**Enums save the day!** Define meaningful names: `RESIDENCE, BUSINESS, TRAVEL`. Code becomes self-documenting. Instead of `if (clearanceType == 1)`, write `if (clearanceType == BUSINESS)`. Instantly readable. Plus, type safety—you can't accidentally pass a random integer!
-
----
-
-## Task 1: Basic Enum Declaration
-
-**Context:** Replace magic numbers with readable enum names.
-
-**Starter Code:**
 ```cpp
 #include <iostream>
 using namespace std;
 
-enum ClearanceType {
-    RESIDENCE,   // 0
-    BUSINESS,    // 1
-    TRAVEL,      // 2
-    EMPLOYMENT   // 3
-};
+// Your code here: Create an enum 'BarangayPosition' with CAPTAIN, KAGAWAD, SECRETARY, TREASURER
 
 int main() {
-    ClearanceType type = RESIDENCE;
-    
-    if (type == RESIDENCE) {
-        cout << "Residence clearance selected" << endl;
-    }
-    
-    cout << "Type value: " << type << endl;  // Prints: 0
-    
+    // Your code here: Create a variable of type BarangayPosition
+
+    // Your code here: Assign a value (e.g., SECRETARY) to the variable
+
+    // Your code here: Use a switch statement to print a description based on the position
+
     return 0;
 }
 ```
 
-# Tasks for Learners
+**Time Allotment: 15 minutes**
 
-- Create an enum for barangay positions: CAPTAIN, KAGAWAD, SK_CHAIR, SECRETARY, TREASURER.
+## Tasks for students
 
-  ```cpp
-  #include <iostream>
-  using namespace std;
+Topics Covered: `enum` definition, Type Safety, Switch-case with Enums.
 
-  enum BarangayPosition {
-      CAPTAIN,
-      KAGAWAD,
-      SK_CHAIR,
-      SECRETARY,
-      TREASURER
-  };
-
-  int main() {
-      BarangayPosition position = CAPTAIN;
-      
-      if (position == CAPTAIN) {
-          cout << "Barangay Captain" << endl;
-      }
-      
-      cout << "Position value: " << position << endl;  // Prints: 0
-      
-      position = KAGAWAD;
-      cout << "Position value: " << position << endl;  // Prints: 1
-      
-      position = TREASURER;
-      cout << "Position value: " << position << endl;  // Prints: 4
-      
-      return 0;
-  }
-  ```
-
----
-
-## Task 2: Enums with Custom Values
-
-**Context:** Assign specific values for fees or codes.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-enum ClearanceFee {
-    RESIDENCE = 50,
-    BUSINESS = 100,
-    TRAVEL = 150,
-    EMPLOYMENT = 75
-};
+1. **Define the Enum**: Create an `enum` named `BarangayPosition` containing the values: `CAPTAIN`, `KAGAWAD`, `SECRETARY`, and `TREASURER`.
+2. **Declare Variable**: In `main`, declare a variable of type `BarangayPosition`.
+3. **Assign Value**: Set the variable to one of the enum constants (e.g., `SECRETARY`).
+4. **Switch Statement**: Use a `switch` statement on your enum variable to print a unique message for each position (e.g., "The Secretary handles records"). cout << "Business Clearance - P100" << endl;
+   cout << "Required: Business Permit" << endl;
+   break;
+   case TRAVEL:
+   cout << "Travel Clearance - P150" << endl;
+   cout << "Required: Valid ID + Destination" << endl;
+   break;
+   case EMPLOYMENT:
+   cout << "Employment Clearance - P75" << endl;
+   cout << "Required: Valid ID + Employment Letter" << endl;
+   break;
+   default:
+   cout << "Unknown clearance type" << endl;
+   }
+   }
 
 int main() {
-    ClearanceFee fee = BUSINESS;
-    
-    cout << "Business clearance fee: P" << fee << endl;  // P100
-    
-    double total = RESIDENCE + TRAVEL;  // 50 + 150
-    cout << "Total for two clearances: P" << total << endl;
-    
+displayClearanceInfo(RESIDENCE);
+cout << endl;
+displayClearanceInfo(BUSINESS);
+cout << endl;
+displayClearanceInfo(TRAVEL);
+
     return 0;
-}
-```
 
-# Tasks for Learners
-
-- Use the enum with custom values to calculate fees for different clearance types.
-
-  ```cpp
-  #include <iostream>
-  using namespace std;
-
-  enum ClearanceFee {
-      RESIDENCE = 50,
-      BUSINESS = 100,
-      TRAVEL = 150,
-      EMPLOYMENT = 75
-  };
-
-  int main() {
-      ClearanceFee fee = BUSINESS;
-      
-      cout << "Business clearance fee: P" << fee << endl;  // P100
-      
-      double total = RESIDENCE + TRAVEL;  // 50 + 150
-      cout << "Total for two clearances: P" << total << endl;  // P200
-      
-      // Calculate multiple fees
-      double allFees = RESIDENCE + BUSINESS + TRAVEL + EMPLOYMENT;
-      cout << "Total of all clearance types: P" << allFees << endl;  // P375
-      
-      // Apply discount
-      double seniorDiscount = 0.20;
-      double discountedBusiness = BUSINESS * (1 - seniorDiscount);
-      cout << "Business clearance with senior discount: P" << discountedBusiness << endl;  // P80
-      
-      return 0;
-  }
-  ```
-
----
-
-## Task 3: Switch Statements with Enums
-
-**Context:** Enums work perfectly with switch statements.
-
-**Challenge:** Display clearance information based on type.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-using namespace std;
-
-enum ClearanceType {
-    RESIDENCE,
-    BUSINESS,
-    TRAVEL,
-    EMPLOYMENT
-};
-
-void displayClearanceInfo(ClearanceType type) {
-    switch (type) {
-        case RESIDENCE:
-            cout << "Residence Clearance - P50" << endl;
-            cout << "Required: Valid ID" << endl;
-            break;
-        case BUSINESS:
-            cout << "Business Clearance - P100" << endl;
-            cout << "Required: Business Permit" << endl;
-            break;
-        case TRAVEL:
-            cout << "Travel Clearance - P150" << endl;
-            cout << "Required: Valid ID + Destination" << endl;
-            break;
-        case EMPLOYMENT:
-            cout << "Employment Clearance - P75" << endl;
-            cout << "Required: Valid ID + Employment Letter" << endl;
-            break;
-        default:
-            cout << "Unknown clearance type" << endl;
-    }
 }
 
-int main() {
-    displayClearanceInfo(RESIDENCE);
-    cout << endl;
-    displayClearanceInfo(BUSINESS);
-    cout << endl;
-    displayClearanceInfo(TRAVEL);
-    
-    return 0;
-}
-```
+````
 
 # Tasks for Learners
 
@@ -234,7 +97,7 @@ int main() {
 
   int main() {
       cout << "=== CLEARANCE INFORMATION ==="  << endl << endl;
-      
+
       displayClearanceInfo(RESIDENCE);
       cout << endl;
       displayClearanceInfo(BUSINESS);
@@ -242,10 +105,10 @@ int main() {
       displayClearanceInfo(TRAVEL);
       cout << endl;
       displayClearanceInfo(EMPLOYMENT);
-      
+
       return 0;
   }
-  ```
+````
 
 ---
 
@@ -254,6 +117,7 @@ int main() {
 **Context:** Combine enums with structs for organized data.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -287,18 +151,18 @@ string typeToString(ClearanceType type) {
 int main() {
     Clearance c1 = {1001, "Juan Dela Cruz", RESIDENCE, 50.0, "2024-12-04"};
     Clearance c2 = {1002, "Maria Santos", BUSINESS, 100.0, "2024-12-04"};
-    
+
     cout << "Clearance #" << c1.id << endl;
     cout << "Name: " << c1.residentName << endl;
     cout << "Type: " << typeToString(c1.type) << endl;
     cout << "Fee: P" << c1.fee << endl;
     cout << endl;
-    
+
     cout << "Clearance #" << c2.id << endl;
     cout << "Name: " << c2.residentName << endl;
     cout << "Type: " << typeToString(c2.type) << endl;
     cout << "Fee: P" << c2.fee << endl;
-    
+
     return 0;
 }
 ```
@@ -353,20 +217,20 @@ int main() {
           {1003, "Pedro Garcia", TRAVEL, 150.0, "2024-12-05"},
           {1004, "Ana Reyes", EMPLOYMENT, 75.0, "2024-12-05"}
       };
-      
+
       cout << "=== BARANGAY CLEARANCES ===" << endl << endl;
-      
+
       for (int i = 0; i < 4; i++) {
           displayClearance(clearances[i]);
       }
-      
+
       // Calculate total fees
       double totalFees = 0;
       for (int i = 0; i < 4; i++) {
           totalFees += clearances[i].fee;
       }
       cout << "Total Fees Collected: P" << totalFees << endl;
-      
+
       return 0;
   }
   ```
@@ -380,6 +244,7 @@ int main() {
 **Challenge:** Build payment tracker with status transitions.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -426,12 +291,12 @@ int main() {
         {104, "Ana Reyes", 200.0, OVERDUE},
         {105, "Jose Mendoza", 350.0, CANCELLED}
     };
-    
+
     cout << "=== PAYMENT TRACKER ===" << endl;
     for (int i = 0; i < 5; i++) {
         displayPayment(payments[i]);
     }
-    
+
     // Count by status
     int pendingCount = 0, paidCount = 0, overdueCount = 0;
     for (int i = 0; i < 5; i++) {
@@ -439,12 +304,12 @@ int main() {
         if (payments[i].status == PAID) paidCount++;
         if (payments[i].status == OVERDUE) overdueCount++;
     }
-    
+
     cout << "Summary:" << endl;
     cout << "Paid: " << paidCount << endl;
     cout << "Pending: " << pendingCount << endl;
     cout << "Overdue: " << overdueCount << endl;
-    
+
     return 0;
 }
 ```
@@ -499,16 +364,16 @@ int main() {
           {104, "Ana Reyes", 200.0, OVERDUE},
           {105, "Jose Mendoza", 350.0, CANCELLED}
       };
-      
+
       cout << "=== PAYMENT TRACKER ===" << endl << endl;
       for (int i = 0; i < 5; i++) {
           displayPayment(payments[i]);
       }
-      
+
       // Count by status
       int pendingCount = 0, paidCount = 0, overdueCount = 0, processingCount = 0, cancelledCount = 0;
       double totalPaid = 0, totalPending = 0, totalOverdue = 0;
-      
+
       for (int i = 0; i < 5; i++) {
           switch (payments[i].status) {
               case PENDING:
@@ -531,14 +396,14 @@ int main() {
                   break;
           }
       }
-      
+
       cout << "=== SUMMARY ===" << endl;
       cout << "Paid: " << paidCount << " (P" << totalPaid << ")" << endl;
       cout << "Pending: " << pendingCount << " (P" << totalPending << ")" << endl;
       cout << "Processing: " << processingCount << endl;
       cout << "Overdue: " << overdueCount << " (P" << totalOverdue << ")" << endl;
       cout << "Cancelled: " << cancelledCount << endl;
-      
+
       return 0;
   }
   ```
@@ -550,6 +415,7 @@ int main() {
 **Context:** Use enums for priority levels and categories.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -616,12 +482,12 @@ int main() {
         {4, "Suspicious activity", SECURITY, URGENT, false},
         {5, "Document request", OTHER, LOW, true}
     };
-    
+
     cout << "=== BARANGAY COMPLAINTS ===" << endl;
     for (int i = 0; i < 5; i++) {
         displayComplaint(complaints[i]);
     }
-    
+
     // Filter urgent complaints
     cout << "=== URGENT COMPLAINTS ===" << endl;
     for (int i = 0; i < 5; i++) {
@@ -629,7 +495,7 @@ int main() {
             displayComplaint(complaints[i]);
         }
     }
-    
+
     return 0;
 }
 ```
@@ -704,12 +570,12 @@ int main() {
           {4, "Suspicious activity", SECURITY, URGENT, false},
           {5, "Document request", OTHER, LOW, true}
       };
-      
+
       cout << "=== BARANGAY COMPLAINTS ===" << endl << endl;
       for (int i = 0; i < 5; i++) {
           displayComplaint(complaints[i]);
       }
-      
+
       // Filter urgent complaints
       cout << "\n=== URGENT COMPLAINTS ===" << endl;
       bool hasUrgent = false;
@@ -722,7 +588,7 @@ int main() {
       if (!hasUrgent) {
           cout << "No urgent complaints." << endl << endl;
       }
-      
+
       // Statistics by category
       cout << "\n=== COMPLAINTS BY CATEGORY ===" << endl;
       int noiseCnt = 0, sanitationCnt = 0, infraCnt = 0, securityCnt = 0, otherCnt = 0;
@@ -740,7 +606,7 @@ int main() {
       cout << "Infrastructure: " << infraCnt << endl;
       cout << "Security: " << securityCnt << endl;
       cout << "Other: " << otherCnt << endl;
-      
+
       // Resolution status
       int openCount = 0, resolvedCount = 0;
       for (int i = 0; i < 5; i++) {
@@ -750,7 +616,7 @@ int main() {
       cout << "\n=== STATUS ===" << endl;
       cout << "Open: " << openCount << endl;
       cout << "Resolved: " << resolvedCount << endl;
-      
+
       return 0;
   }
   ```
@@ -761,6 +627,7 @@ int main() {
 <summary><strong>📝 Enum Essentials</strong></summary>
 
 **Basic Syntax:**
+
 ```cpp
 enum EnumName {
     VALUE1,    // 0
@@ -770,6 +637,7 @@ enum EnumName {
 ```
 
 **Custom Values:**
+
 ```cpp
 enum Status {
     PENDING = 0,
@@ -779,6 +647,7 @@ enum Status {
 ```
 
 **Usage:**
+
 ```cpp
 Status s = PENDING;
 if (s == APPROVED) {
@@ -787,12 +656,14 @@ if (s == APPROVED) {
 ```
 
 **Benefits:**
+
 1. **Readability:** `status == APPROVED` vs `status == 1`
 2. **Type Safety:** Can't accidentally pass wrong integer
 3. **Self-Documenting:** Code explains itself
 4. **Maintainability:** Change enum value in one place
 
 **Best Practices:**
+
 - Use UPPERCASE for enum values
 - Group related constants
 - Use with switch statements
@@ -800,6 +671,7 @@ if (s == APPROVED) {
 - Combine with structs for organized data
 
 **Common Use Cases:**
+
 - States (PENDING, ACTIVE, INACTIVE)
 - Types (STUDENT, TEACHER, ADMIN)
 - Priority levels (LOW, MEDIUM, HIGH)
