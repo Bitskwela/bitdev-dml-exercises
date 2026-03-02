@@ -1,195 +1,60 @@
-﻿# Lesson 19 Activities: Structs
+﻿# C++ Activity: Structs
 
-## No More Parallel Arrays!
+Group related data into a single custom data type using structs.
 
-Tian's resident tracking system was a **nightmare**:
-```cpp
-string names[100];
-int ages[100];
-string addresses[100];
-```
-
-**If indices got misaligned, chaos!** Resident 0's name with resident 12's age? Disaster.
-
-**Structs bundle related data together.** One `Resident` struct holds name, age, and address. No more parallel array hell!
-
----
-
-## Task 1: Basic Struct Declaration
-
-**Context:** Group related data into a custom type.
-
-**Starter Code:**
 ```cpp
 #include <iostream>
 #include <string>
 using namespace std;
 
-struct Resident {
-    string name;
-    int age;
-    string address;
-};
+// Your code here: Define a Resident struct with name (string), age (int), and isVaccinated (bool)
 
 int main() {
-    // Create a Resident
-    Resident r1;
-    r1.name = "Juan Dela Cruz";
-    r1.age = 35;
-    r1.address = "123 Main St, Iloilo";
-    
-    // Access members with dot operator
-    cout << "Name: " << r1.name << endl;
-    cout << "Age: " << r1.age << endl;
-    cout << "Address: " << r1.address << endl;
-    
+    // Your code here: Create a Resident variable
+
+    // Your code here: Initialize the members with data
+
+    // Your code here: Print the resident's information
+
     return 0;
 }
 ```
 
-# Tasks for Learners
+**Time Allotment: 15 minutes**
 
-- Create a `Student` struct with name, grade, and section. Declare a student, initialize the members, and display the information.
+## Tasks for students
 
-  ```cpp
-  #include <iostream>
-  #include <string>
-  using namespace std;
+Topics Covered: `struct` definition, Member Access (dot operator), Data Grouping.
 
-  struct Student {
-      string name;
-      int grade;
-      string section;
-  };
-
-  int main() {
-      Student s1;
-      s1.name = "Maria Clara";
-      s1.grade = 95;
-      s1.section = "A";
-      
-      cout << "Name: " << s1.name << endl;
-      cout << "Grade: " << s1.grade << endl;
-      cout << "Section: " << s1.section << endl;
-      
-      return 0;
-  }
-  ```
-
----
-
-## Task 2: Struct Initialization
-
-**Context:** Different ways to create and initialize structs.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-struct Product {
-    string name;
-    double price;
-    int quantity;
-};
+1. **Define the Struct**: Create a `struct` named `Resident` that contains three members: a `name` (string), an `age` (int), and `isVaccinated` (bool).
+2. **Instantiate a Resident**: In the `main` function, declare a variable of type `Resident` (e.g., `Resident person1`).
+3. **Assign Values**: Use the dot operator (`.`) to assign values to each of the struct members.
+4. **Display Data**: Print all the members of your `Resident` variable to the console in a clear format. string name;
+   int age;
+   string barangay;
+   };
 
 int main() {
-    // Method 1: Declare then assign
-    Product p1;
-    p1.name = "Rice";
-    p1.price = 50.0;
-    p1.quantity = 10;
-    
-    // Method 2: Aggregate initialization
-    Product p2 = {"Sardines", 25.0, 20};
-    
-    // Method 3: Uniform initialization (C++11)
-    Product p3{"Cooking Oil", 150.0, 5};
-    
-    cout << "Product 1: " << p1.name << " - P" << p1.price << endl;
-    cout << "Product 2: " << p2.name << " - P" << p2.price << endl;
-    cout << "Product 3: " << p3.name << " - P" << p3.price << endl;
-    
-    return 0;
-}
-```
-
-# Tasks for Learners
-
-- Practice all three initialization methods by creating a `Book` struct with title, author, and price. Initialize three books using different methods and display them.
-
-  ```cpp
-  #include <iostream>
-  #include <string>
-  using namespace std;
-
-  struct Book {
-      string title;
-      string author;
-      double price;
-  };
-
-  int main() {
-      // Method 1: Declare then assign
-      Book b1;
-      b1.title = "Noli Me Tangere";
-      b1.author = "Jose Rizal";
-      b1.price = 250.0;
-      
-      // Method 2: Aggregate initialization
-      Book b2 = {"El Filibusterismo", "Jose Rizal", 300.0};
-      
-      // Method 3: Uniform initialization
-      Book b3{"Florante at Laura", "Francisco Balagtas", 200.0};
-      
-      cout << "Book 1: " << b1.title << " by " << b1.author << " - P" << b1.price << endl;
-      cout << "Book 2: " << b2.title << " by " << b2.author << " - P" << b2.price << endl;
-      cout << "Book 3: " << b3.title << " by " << b3.author << " - P" << b3.price << endl;
-      
-      return 0;
-  }
-  ```
-
----
-
-## Task 3: Array of Structs
-
-**Context:** Replace parallel arrays with struct array.
-
-**Challenge:** Manage multiple residents cleanly.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-struct Resident {
-    string name;
-    int age;
-    string barangay;
+Resident residents[5] = {
+{"Juan Dela Cruz", 35, "Poblacion"},
+{"Maria Santos", 28, "San Jose"},
+{"Pedro Garcia", 42, "Santa Maria"},
+{"Ana Reyes", 31, "Del Pilar"},
+{"Jose Mendoza", 39, "San Antonio"}
 };
 
-int main() {
-    Resident residents[5] = {
-        {"Juan Dela Cruz", 35, "Poblacion"},
-        {"Maria Santos", 28, "San Jose"},
-        {"Pedro Garcia", 42, "Santa Maria"},
-        {"Ana Reyes", 31, "Del Pilar"},
-        {"Jose Mendoza", 39, "San Antonio"}
-    };
-    
     cout << "=== RESIDENT LIST ===" << endl;
     for (int i = 0; i < 5; i++) {
-        cout << (i+1) << ". " << residents[i].name 
-             << " (" << residents[i].age << " years old) - " 
+        cout << (i+1) << ". " << residents[i].name
+             << " (" << residents[i].age << " years old) - "
              << residents[i].barangay << endl;
     }
-    
+
     return 0;
+
 }
-```
+
+````
 
 # Tasks for Learners
 
@@ -213,17 +78,17 @@ int main() {
           {"Pedro Garcia", "Designer", 35000.0},
           {"Ana Reyes", "Analyst", 38000.0}
       };
-      
+
       cout << "=== EMPLOYEE LIST ===" << endl;
       for (int i = 0; i < 4; i++) {
-          cout << (i+1) << ". " << employees[i].name 
+          cout << (i+1) << ". " << employees[i].name
                << " - " << employees[i].position
                << " (P" << employees[i].salary << ")" << endl;
       }
-      
+
       return 0;
   }
-  ```
+````
 
 **Compare:** 1 array of structs vs 3 parallel arrays. Which is cleaner?
 
@@ -236,6 +101,7 @@ int main() {
 **Challenge:** Create functions to process resident data.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -260,14 +126,14 @@ bool isSenior(Resident r) {
 int main() {
     Resident r1 = {"Juan Dela Cruz", 65, "123 Main St"};
     Resident r2 = {"Maria Santos", 28, "456 Oak Ave"};
-    
+
     displayResident(r1);
     cout << "Senior citizen: " << (isSenior(r1) ? "Yes" : "No") << endl;
     cout << endl;
-    
+
     displayResident(r2);
     cout << "Senior citizen: " << (isSenior(r2) ? "Yes" : "No") << endl;
-    
+
     return 0;
 }
 ```
@@ -300,14 +166,14 @@ int main() {
   int main() {
       Student s1 = {"Maria Clara", 85, "Computer Science"};
       Student s2 = {"Jose Rizal", 72, "Mathematics"};
-      
+
       displayStudent(s1);
       cout << "Passed: " << (hasPassed(s1) ? "Yes" : "No") << endl;
       cout << endl;
-      
+
       displayStudent(s2);
       cout << "Passed: " << (hasPassed(s2) ? "Yes" : "No") << endl;
-      
+
       return 0;
   }
   ```
@@ -319,6 +185,7 @@ int main() {
 **Context:** Pass by reference to modify original struct.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -350,16 +217,16 @@ void displayAccount(const BankAccount& account) {
 
 int main() {
     BankAccount acc = {"Juan Dela Cruz", 5000.0};
-    
+
     displayAccount(acc);
     cout << endl;
-    
+
     deposit(acc, 2000.0);
     withdraw(acc, 1500.0);
     cout << endl;
-    
+
     displayAccount(acc);
-    
+
     return 0;
 }
 ```
@@ -401,16 +268,16 @@ int main() {
 
   int main() {
       Product p = {"Rice", 100, 50.0};
-      
+
       displayProduct(p);
       cout << endl;
-      
+
       addStock(p, 50);
       sellProduct(p, 20);
       cout << endl;
-      
+
       displayProduct(p);
-      
+
       return 0;
   }
   ```
@@ -426,6 +293,7 @@ int main() {
 **Challenge:** Search for resident by name.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -454,13 +322,13 @@ int main() {
         {"Ana Reyes", 31, "321 Elm St"},
         {"Jose Mendoza", 39, "654 Maple Dr"}
     };
-    
+
     string searchName;
     cout << "Enter name to search: ";
     getline(cin, searchName);
-    
+
     int index = findResident(residents, 5, searchName);
-    
+
     if (index != -1) {
         cout << "Found!" << endl;
         cout << "Name: " << residents[index].name << endl;
@@ -469,7 +337,7 @@ int main() {
     } else {
         cout << "Resident not found." << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -505,13 +373,13 @@ int main() {
           {"Pedro Garcia", 103, 78},
           {"Ana Reyes", 104, 88}
       };
-      
+
       int searchId;
       cout << "Enter student ID to search: ";
       cin >> searchId;
-      
+
       int index = findStudent(students, 4, searchId);
-      
+
       if (index != -1) {
           cout << "Found!" << endl;
           cout << "Name: " << students[index].name << endl;
@@ -520,7 +388,7 @@ int main() {
       } else {
           cout << "Student not found." << endl;
       }
-      
+
       return 0;
   }
   ```
@@ -534,6 +402,7 @@ int main() {
 **Challenge:** Register residents, display list, search.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -574,40 +443,40 @@ int main() {
     const int MAX_RESIDENTS = 100;
     Resident residents[MAX_RESIDENTS];
     int count = 0;
-    
+
     cout << "=== BARANGAY RESIDENT REGISTRATION ===" << endl;
-    
+
     char addMore = 'y';
     while (addMore == 'y' && count < MAX_RESIDENTS) {
         cout << "\n--- Resident " << (count + 1) << " ---" << endl;
-        
+
         cin.ignore();
         cout << "Name: ";
         getline(cin, residents[count].name);
-        
+
         cout << "Age: ";
         cin >> residents[count].age;
-        
+
         cin.ignore();
         cout << "Address: ";
         getline(cin, residents[count].address);
-        
+
         cout << "Contact Number: ";
         getline(cin, residents[count].contactNumber);
-        
+
         count++;
-        
+
         if (count < MAX_RESIDENTS) {
             cout << "Add another resident? (y/n): ";
             cin >> addMore;
         }
     }
-    
+
     displayAllResidents(residents, count);
-    
+
     int seniors = countSeniors(residents, count);
     cout << "\nSenior citizens: " << seniors << endl;
-    
+
     return 0;
 }
 ```
@@ -656,43 +525,43 @@ int main() {
       const int MAX_RESIDENTS = 100;
       Resident residents[MAX_RESIDENTS];
       int count = 0;
-      
+
       cout << "=== BARANGAY RESIDENT REGISTRATION ===" << endl;
-      
+
       char addMore = 'y';
       while (addMore == 'y' && count < MAX_RESIDENTS) {
           cout << "\n--- Resident " << (count + 1) << " ---" << endl;
-          
+
           if (count == 0) {
               cin.ignore();
           }
-          
+
           cout << "Name: ";
           getline(cin, residents[count].name);
-          
+
           cout << "Age: ";
           cin >> residents[count].age;
-          
+
           cin.ignore();
           cout << "Address: ";
           getline(cin, residents[count].address);
-          
+
           cout << "Contact Number: ";
           getline(cin, residents[count].contactNumber);
-          
+
           count++;
-          
+
           if (count < MAX_RESIDENTS) {
               cout << "Add another resident? (y/n): ";
               cin >> addMore;
           }
       }
-      
+
       displayAllResidents(residents, count);
-      
+
       int seniors = countSeniors(residents, count);
       cout << "\nSenior citizens: " << seniors << endl;
-      
+
       return 0;
   }
   ```
@@ -703,6 +572,7 @@ int main() {
 <summary><strong>📝 Struct Essentials</strong></summary>
 
 **Syntax:**
+
 ```cpp
 struct StructName {
     type1 member1;
@@ -715,6 +585,7 @@ obj.member1 = value;
 ```
 
 **Why Structs?**
+
 - Bundle related data together
 - Create custom data types
 - Cleaner than parallel arrays
@@ -723,6 +594,7 @@ obj.member1 = value;
 **Struct vs Parallel Arrays:**
 
 **Before (Parallel Arrays - BAD):**
+
 ```cpp
 string names[100];
 int ages[100];
@@ -731,6 +603,7 @@ string addresses[100];
 ```
 
 **After (Struct Array - GOOD):**
+
 ```cpp
 struct Resident {
     string name;
@@ -742,6 +615,7 @@ Resident residents[100];
 ```
 
 **Pass by Value vs Reference:**
+
 ```cpp
 // Pass by value: copies entire struct (expensive!)
 void display(Resident r);
@@ -754,6 +628,7 @@ void display(const Resident& r);
 ```
 
 **Common Patterns:**
+
 ```cpp
 // Array of structs
 Resident residents[100];

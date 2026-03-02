@@ -1,22 +1,5 @@
-﻿# Lesson 10 Activities: Functions Defined
+﻿# C++ Activity:
 
-## From Spaghetti Code to Clean Architecture
-
-Tian's ATM project: 243 lines in `main()`. Finding bugs was a nightmare. Kuya Miguel introduced **functions**—breaking complex systems into small, reusable, testable pieces. Professional code!
-
-**This lesson is about organization.** Functions transform messy spaghetti into clean, maintainable architecture. Each function does one job perfectly. Need to validate withdrawal? Call a function. Need to check PIN? Call a function. Simple!
-
----
-
-## Task 1: Simple Greeting Function
-
-**Context:**  
-Create a reusable welcome message function.
-
-**Your Challenge:**  
-Define `displayWelcome()` with no parameters or return.
-
-**Starter Code:**
 ```cpp
 #include <iostream>
 using namespace std;
@@ -32,9 +15,16 @@ int main() {
 }
 ```
 
-# Tasks for Learners
+**Time Allotment: 15 minutes**
 
-- Create a simple welcome function: Define `displayWelcome()` that prints a greeting message.
+## Tasks for students
+
+Topics Covered: Function definition, function call, `void` return type.
+
+- Create a simple welcome function:
+
+  - Define `displayWelcome()` that prints a greeting message like "Welcome to Barangay Portal!".
+  - Call the function inside `main()`.
 
   ```cpp
   #include <iostream>
@@ -50,55 +40,6 @@ int main() {
   }
   ```
 
----
-
-## Task 2: Function with Parameter
-
-**Context:**  
-Personalized greeting for different residents.
-
-**Your Challenge:**  
-Create `greetResident(string name)` that takes one parameter.
-
-**Starter Code:**
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-void greetResident(string name) {
-    cout << "Welcome, " << name << "!" << endl;
-}
-
-int main() {
-    greetResident("Juan");
-    greetResident("Maria");
-    return 0;
-}
-```
-
-# Tasks for Learners
-
-- Create personalized greeting function: Define `greetResident(string name)` that takes a name parameter.
-
-  ```cpp
-  #include <iostream>
-  #include <string>
-  using namespace std;
-
-  void greetResident(string name) {
-      cout << "Welcome, " << name << "!" << endl;
-  }
-
-  int main() {
-      greetResident("Juan");
-      greetResident("Maria");
-      return 0;
-  }
-  ```
-
----
-
 ## Task 3: Function with Return Value
 
 **Context:**  
@@ -108,6 +49,7 @@ Calculate fees based on age, return the amount.
 Write `calculateFee(int age)` that returns `int`.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -157,6 +99,7 @@ Calculate total cost from price and quantity.
 Create `calculateTotal(double price, int quantity)`.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -202,6 +145,7 @@ Apply percentage discounts with a reusable function.
 Write `applyDiscount(double amount, double percent)`.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -215,11 +159,11 @@ int main() {
     double original = 200.0;
     double senior = applyDiscount(original, 20.0);
     double pwd = applyDiscount(original, 25.0);
-    
+
     cout << "Regular: PHP " << original << endl;
     cout << "Senior: PHP " << senior << endl;
     cout << "PWD: PHP " << pwd << endl;
-    
+
     return 0;
 }
 ```
@@ -241,11 +185,11 @@ int main() {
       double original = 200.0;
       double senior = applyDiscount(original, 20.0);
       double pwd = applyDiscount(original, 25.0);
-      
+
       cout << "Regular: PHP " << original << endl;
       cout << "Senior: PHP " << senior << endl;
       cout << "PWD: PHP " << pwd << endl;
-      
+
       return 0;
   }
   ```

@@ -1,22 +1,7 @@
-﻿# Lesson 25 Activities: Encapsulation
+﻿# C++ Activity: Encapsulation
 
-## The Security Flaw
+Protect your data and control access using private members and public methods.
 
-Tian proudly showed the BankAccount class: **"Look! Users can directly set balance: `account.balance = 1000000`. Instant millionaire!"**
-
-Kuya Miguel's face went serious. **"That's a critical security flaw."** No validation, no limits, no security. Real bank software would never allow direct access.
-
-**Encapsulation = Make data private + provide controlled access through methods.** Want to withdraw? Call `withdraw(amount)` which checks funds. Want balance? Call `getBalance()` which returns a copy.
-
-**Think of it like an ATM.** You don't reach inside and grab cash. You interact through a controlled interface that validates, checks balance, records transactions.
-
----
-
-## Task 1: Private Data Members
-
-**Context:** Hide implementation details.
-
-**Starter Code:**
 ```cpp
 #include <iostream>
 #include <string>
@@ -24,119 +9,75 @@ using namespace std;
 
 class BankAccount {
 private:
-    double balance;  // Hidden!
-    string accountNumber;
-    
+    double balance; // Hidden from direct access
+
 public:
-    BankAccount(string accNum, double initialBalance) 
-        : accountNumber(accNum), balance(initialBalance) {}
-    
-    void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            cout << "Deposited P" << amount << endl;
-        }
-    }
-    
-    bool withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            cout << "Withdrew P" << amount << endl;
-            return true;
-        }
-        cout << "Insufficient funds!" << endl;
-        return false;
-    }
-    
-    double getBalance() const {
-        return balance;
-    }
-    
-    void display() const {
-        cout << "Account: " << accountNumber << ", Balance: P" << balance << endl;
-    }
+    // Your code here: Implement a constructor to initialize balance
+
+    // Your code here: Implement a getter for balance
+
+    // Your code here: Implement a deposit method with validation
+
+    // Your code here: Implement a withdraw method with validation
 };
 
 int main() {
-    BankAccount account("1001", 5000.0);
-    
-    // account.balance = 1000000;  // ❌ Error! balance is private
-    
-    account.deposit(2000.0);
-    account.withdraw(1500.0);
-    account.withdraw(10000.0);  // Fails
-    
-    cout << "Current balance: P" << account.getBalance() << endl;
-    
+    // Your code here: Create a BankAccount, deposit, and withdraw money
+
     return 0;
 }
 ```
 
-# Tasks for Learners
+**Time Allotment: 20 minutes**
 
-- Create a `Student` class with private data members (name, grade) and public methods for deposit, withdrawal, and display. Ensure the grade cannot be directly modified from outside.
+## Tasks for students
 
-  ```cpp
-  #include <iostream>
-  #include <string>
-  using namespace std;
+Topics Covered: Private vs Public Access, Getters/Setters, Data Validation.
 
-  class Student {
-  private:
-      string name;
-      int grade;
-      
-  public:
-      Student(string n, int g) : name(n), grade(g) {
-          cout << "Student " << name << " created with grade " << grade << endl;
-      }
-      
-      void addPoints(int points) {
-          if (points > 0) {
-              grade += points;
-              if (grade > 100) {
-                  grade = 100;  // Cap at 100
-              }
-              cout << "Added " << points << " points to " << name << endl;
-          }
-      }
-      
-      bool deductPoints(int points) {
-          if (points > 0 && points <= grade) {
-              grade -= points;
-              cout << "Deducted " << points << " points from " << name << endl;
-              return true;
-          }
-          cout << "Cannot deduct " << points << " points!" << endl;
-          return false;
-      }
-      
-      int getGrade() const {
-          return grade;
-      }
-      
-      void display() const {
-          cout << "Student: " << name << ", Grade: " << grade << endl;
-      }
-  };
+1.  **Private Member**: Ensure the `balance` variable is inside the `private` section of the `BankAccount` class.
+2.  **Getter**: Create a public method `double getBalance()` that returns the current balance.
+3.  **Validated Deposit**: Create a method `void deposit(double amount)` that only adds to the balance if the amount is positive.
+4.  **Validated Withdrawal**: Create a method `void withdraw(double amount)` that only subtracts if the amount is positive AND less than or equal to the current balance.
+5.  **Test**: In `main`, try to modify the balance directly (it should fail), then use the methods to manage the account. }
+    }
+        bool deductPoints(int points) {
+            if (points > 0 && points <= grade) {
+                grade -= points;
+                cout << "Deducted " << points << " points from " << name << endl;
+                return true;
+            }
+            cout << "Cannot deduct " << points << " points!" << endl;
+            return false;
+        }
 
-  int main() {
-      Student s("Juan Dela Cruz", 75);
-      
+        int getGrade() const {
+            return grade;
+        }
+
+        void display() const {
+            cout << "Student: " << name << ", Grade: " << grade << endl;
+        }
+    };
+
+int main() {
+Student s("Juan Dela Cruz", 75);
+
       // s.grade = 100;  // ❌ Error! grade is private
-      
+
       s.display();
-      
+
       s.addPoints(15);
       s.deductPoints(5);
-      
+
       s.display();
-      
+
       cout << "Final grade: " << s.getGrade() << endl;
-      
+
       return 0;
-  }
-  ```
+
+}
+
+````
 
 ---
 
@@ -152,70 +93,70 @@ using namespace std;
 
 class Resident {
 private:
-    string name;
-    int age;
-    double balance;
-    
+  string name;
+  int age;
+  double balance;
+
 public:
-    Resident(string n, int a) : name(n), age(0), balance(0) {
-        setAge(a);  // Use setter for validation
-    }
-    
-    // Getters (read-only access)
-    string getName() const { return name; }
-    int getAge() const { return age; }
-    double getBalance() const { return balance; }
-    
-    // Setters (write with validation)
-    void setName(const string& n) {
-        if (!n.empty()) {
-            name = n;
-        }
-    }
-    
-    void setAge(int a) {
-        if (a >= 0 && a <= 150) {
-            age = a;
-        } else {
-            cout << "Invalid age!" << endl;
-        }
-    }
-    
-    void addBalance(double amount) {
-        if (amount > 0) {
-            balance += amount;
-        }
-    }
-    
-    bool deductBalance(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
-    
-    void display() const {
-        cout << "Name: " << name << ", Age: " << age << ", Balance: P" << balance << endl;
-    }
+  Resident(string n, int a) : name(n), age(0), balance(0) {
+      setAge(a);  // Use setter for validation
+  }
+
+  // Getters (read-only access)
+  string getName() const { return name; }
+  int getAge() const { return age; }
+  double getBalance() const { return balance; }
+
+  // Setters (write with validation)
+  void setName(const string& n) {
+      if (!n.empty()) {
+          name = n;
+      }
+  }
+
+  void setAge(int a) {
+      if (a >= 0 && a <= 150) {
+          age = a;
+      } else {
+          cout << "Invalid age!" << endl;
+      }
+  }
+
+  void addBalance(double amount) {
+      if (amount > 0) {
+          balance += amount;
+      }
+  }
+
+  bool deductBalance(double amount) {
+      if (amount > 0 && amount <= balance) {
+          balance -= amount;
+          return true;
+      }
+      return false;
+  }
+
+  void display() const {
+      cout << "Name: " << name << ", Age: " << age << ", Balance: P" << balance << endl;
+  }
 };
 
 int main() {
-    Resident r("Juan Dela Cruz", 30);
-    
-    r.display();
-    
-    r.setAge(200);  // Rejected
-    r.setAge(35);   // Accepted
-    
-    r.addBalance(1000);
-    r.deductBalance(300);
-    
-    r.display();
-    
-    return 0;
+  Resident r("Juan Dela Cruz", 30);
+
+  r.display();
+
+  r.setAge(200);  // Rejected
+  r.setAge(35);   // Accepted
+
+  r.addBalance(1000);
+  r.deductBalance(300);
+
+  r.display();
+
+  return 0;
 }
-```
+````
 
 # Tasks for Learners
 
@@ -230,14 +171,14 @@ int main() {
   private:
       string accountNumber;
       double balance;
-      
+
   public:
       BankAccount(string accNum) : accountNumber(accNum), balance(0.0) {}
-      
+
       // Getters
       string getAccountNumber() const { return accountNumber; }
       double getBalance() const { return balance; }
-      
+
       // Setters with validation
       void setAccountNumber(const string& accNum) {
           if (!accNum.empty()) {
@@ -246,7 +187,7 @@ int main() {
               cout << "Invalid account number!" << endl;
           }
       }
-      
+
       void deposit(double amount) {
           if (amount > 0) {
               balance += amount;
@@ -255,7 +196,7 @@ int main() {
               cout << "Deposit amount must be positive!" << endl;
           }
       }
-      
+
       bool withdraw(double amount) {
           if (amount <= 0) {
               cout << "Withdrawal amount must be positive!" << endl;
@@ -269,7 +210,7 @@ int main() {
           cout << "Withdrew P" << amount << " from account " << accountNumber << endl;
           return true;
       }
-      
+
       void display() const {
           cout << "Account: " << accountNumber << ", Balance: P" << balance << endl;
       }
@@ -277,17 +218,17 @@ int main() {
 
   int main() {
       BankAccount acc("1001");
-      
+
       acc.display();
-      
+
       acc.deposit(5000);
       acc.withdraw(2000);
       acc.withdraw(5000);  // Should fail
-      
+
       acc.display();
-      
+
       cout << "Current balance: P" << acc.getBalance() << endl;
-      
+
       return 0;
   }
   ```
@@ -299,6 +240,7 @@ int main() {
 **Context:** Promise not to modify object.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -310,32 +252,32 @@ private:
     string residentName;
     double fee;
     string status;
-    
+
 public:
-    Clearance(int i, string name, double f) 
+    Clearance(int i, string name, double f)
         : id(i), residentName(name), fee(f), status("Pending") {}
-    
+
     // Const functions - don't modify object
     int getId() const { return id; }
     string getName() const { return residentName; }
     double getFee() const { return fee; }
     string getStatus() const { return status; }
-    
+
     bool isPending() const { return status == "Pending"; }
     bool isApproved() const { return status == "Approved"; }
-    
+
     void display() const {
-        cout << "Clearance #" << id << " - " << residentName 
+        cout << "Clearance #" << id << " - " << residentName
              << " (P" << fee << ") - " << status << endl;
     }
-    
+
     // Non-const - modifies object
     void approve() {
         if (status == "Pending") {
             status = "Approved";
         }
     }
-    
+
     void reject() {
         if (status == "Pending") {
             status = "Rejected";
@@ -345,16 +287,16 @@ public:
 
 int main() {
     const Clearance c1(1001, "Juan", 50.0);
-    
+
     // c1.approve();  // ❌ Error! Can't call non-const on const object
-    
+
     cout << c1.getName() << endl;  // ✓ OK! Const function
     c1.display();  // ✓ OK!
-    
+
     Clearance c2(1002, "Maria", 100.0);
     c2.approve();  // ✓ OK! Non-const object
     c2.display();
-    
+
     return 0;
 }
 ```
@@ -374,26 +316,26 @@ int main() {
       string residentName;
       double amount;
       string status;  // "Pending", "Paid", "Overdue"
-      
+
   public:
-      Payment(int i, string name, double amt) 
+      Payment(int i, string name, double amt)
           : id(i), residentName(name), amount(amt), status("Pending") {}
-      
+
       // Const functions - read only
       int getId() const { return id; }
       string getName() const { return residentName; }
       double getAmount() const { return amount; }
       string getStatus() const { return status; }
-      
+
       bool isPending() const { return status == "Pending"; }
       bool isPaid() const { return status == "Paid"; }
       bool isOverdue() const { return status == "Overdue"; }
-      
+
       void display() const {
-          cout << "Payment #" << id << " - " << residentName 
+          cout << "Payment #" << id << " - " << residentName
                << " - P" << amount << " - " << status << endl;
       }
-      
+
       // Non-const functions - modify object
       void markPaid() {
           if (isPending() || isOverdue()) {
@@ -403,7 +345,7 @@ int main() {
               cout << "Payment #" << id << " is already paid." << endl;
           }
       }
-      
+
       void markOverdue() {
           if (isPending()) {
               status = "Overdue";
@@ -414,22 +356,22 @@ int main() {
 
   int main() {
       const Payment p1(101, "Juan Dela Cruz", 500.0);
-      
+
       // p1.markPaid();  // ❌ Error! Can't call non-const on const object
-      
+
       cout << "Resident: " << p1.getName() << endl;
       cout << "Amount: P" << p1.getAmount() << endl;
       p1.display();  // ✓ OK! Const function
-      
+
       cout << endl;
-      
+
       Payment p2(102, "Maria Santos", 1000.0);
       p2.display();
       p2.markOverdue();
       p2.display();
       p2.markPaid();
       p2.display();
-      
+
       return 0;
   }
   ```
@@ -441,6 +383,7 @@ int main() {
 **Context:** Prevent invalid data from entering the system.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -450,13 +393,13 @@ class Student {
 private:
     string name;
     int grade;
-    
+
 public:
     Student(string n) : name(n), grade(75) {}
-    
+
     string getName() const { return name; }
     int getGrade() const { return grade; }
-    
+
     void setName(const string& n) {
         if (n.length() >= 2) {
             name = n;
@@ -464,7 +407,7 @@ public:
             cout << "Name too short!" << endl;
         }
     }
-    
+
     void setGrade(int g) {
         if (g >= 0 && g <= 100) {
             grade = g;
@@ -472,7 +415,7 @@ public:
             cout << "Invalid grade! Must be 0-100." << endl;
         }
     }
-    
+
     void addPoints(int points) {
         int newGrade = grade + points;
         if (newGrade <= 100) {
@@ -481,7 +424,7 @@ public:
             grade = 100;  // Cap at 100
         }
     }
-    
+
     void display() const {
         cout << name << ": " << grade << endl;
     }
@@ -489,16 +432,16 @@ public:
 
 int main() {
     Student s("Juan");
-    
+
     s.display();
-    
+
     s.setGrade(150);  // Rejected
     s.setGrade(85);   // Accepted
-    
+
     s.addPoints(20);  // 85 + 20 = 100 (capped)
-    
+
     s.display();
-    
+
     return 0;
 }
 ```
@@ -516,17 +459,17 @@ int main() {
   private:
       string name;
       double price;
-      
+
   public:
       Product(string n, double p) : name("Unknown"), price(0.0) {
           setName(n);   // Use setters for validation
           setPrice(p);
       }
-      
+
       // Getters
       string getName() const { return name; }
       double getPrice() const { return price; }
-      
+
       // Setters with validation
       void setName(const string& n) {
           if (!n.empty()) {
@@ -535,7 +478,7 @@ int main() {
               cout << "Name cannot be empty!" << endl;
           }
       }
-      
+
       void setPrice(double p) {
           if (p >= 0 && p <= 10000) {
               price = p;
@@ -543,7 +486,7 @@ int main() {
               cout << "Price must be between 0 and 10000!" << endl;
           }
       }
-      
+
       void applyDiscount(double percent) {
           if (percent > 0 && percent <= 100) {
               double discount = price * (percent / 100);
@@ -553,7 +496,7 @@ int main() {
               cout << "Invalid discount percentage!" << endl;
           }
       }
-      
+
       void display() const {
           cout << "Product: " << name << ", Price: P" << price << endl;
       }
@@ -562,20 +505,20 @@ int main() {
   int main() {
       Product p1("Rice", 50.0);
       p1.display();
-      
+
       cout << endl;
-      
+
       p1.setPrice(15000);  // Rejected - too high
       p1.setPrice(-10);    // Rejected - negative
       p1.setPrice(75);     // Accepted
-      
+
       p1.display();
-      
+
       cout << endl;
-      
+
       p1.applyDiscount(20);
       p1.display();
-      
+
       return 0;
   }
   ```
@@ -587,6 +530,7 @@ int main() {
 **Context:** Some properties are calculated, not stored.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -596,36 +540,36 @@ class Rectangle {
 private:
     double width;
     double height;
-    
+
 public:
     Rectangle(double w, double h) : width(w), height(h) {}
-    
+
     // Getters
     double getWidth() const { return width; }
     double getHeight() const { return height; }
-    
+
     // Computed properties (not stored, calculated on demand)
     double getArea() const {
         return width * height;
     }
-    
+
     double getPerimeter() const {
         return 2 * (width + height);
     }
-    
+
     bool isSquare() const {
         return width == height;
     }
-    
+
     // Setters with validation
     void setWidth(double w) {
         if (w > 0) width = w;
     }
-    
+
     void setHeight(double h) {
         if (h > 0) height = h;
     }
-    
+
     void display() const {
         cout << "Rectangle: " << width << " x " << height << endl;
         cout << "Area: " << getArea() << endl;
@@ -637,12 +581,12 @@ public:
 int main() {
     Rectangle rect(5, 10);
     rect.display();
-    
+
     cout << endl;
-    
+
     Rectangle square(7, 7);
     square.display();
-    
+
     return 0;
 }
 ```
@@ -659,13 +603,13 @@ int main() {
   class Circle {
   private:
       double radius;
-      
+
   public:
       Circle(double r) : radius(r) {}
-      
+
       // Getter
       double getRadius() const { return radius; }
-      
+
       // Setter with validation
       void setRadius(double r) {
           if (r > 0) {
@@ -674,20 +618,20 @@ int main() {
               cout << "Radius must be positive!" << endl;
           }
       }
-      
+
       // Computed properties (calculated on demand)
       double getArea() const {
           return M_PI * radius * radius;
       }
-      
+
       double getCircumference() const {
           return 2 * M_PI * radius;
       }
-      
+
       double getDiameter() const {
           return 2 * radius;
       }
-      
+
       void display() const {
           cout << "Circle with radius: " << radius << endl;
           cout << "Diameter: " << getDiameter() << endl;
@@ -699,18 +643,18 @@ int main() {
   int main() {
       Circle c1(5.0);
       c1.display();
-      
+
       cout << endl;
-      
+
       c1.setRadius(10.0);
       c1.display();
-      
+
       cout << endl;
-      
+
       Circle c2(7.5);
       cout << "Circle 2 area: " << c2.getArea() << endl;
       cout << "Circle 2 circumference: " << c2.getCircumference() << endl;
-      
+
       return 0;
   }
   ```
@@ -722,6 +666,7 @@ int main() {
 **Context:** Complete payment class with full encapsulation.
 
 **Starter Code:**
+
 ```cpp
 #include <iostream>
 #include <string>
@@ -734,23 +679,23 @@ private:
     double amount;
     string status;  // "Pending", "Paid", "Overdue", "Cancelled"
     int daysOverdue;
-    
+
 public:
-    Payment(int paymentId, string name, double amt) 
-        : id(paymentId), residentName(name), amount(amt), 
+    Payment(int paymentId, string name, double amt)
+        : id(paymentId), residentName(name), amount(amt),
           status("Pending"), daysOverdue(0) {}
-    
+
     // Getters
     int getId() const { return id; }
     string getName() const { return residentName; }
     double getAmount() const { return amount; }
     string getStatus() const { return status; }
-    
+
     // Query methods
     bool isPending() const { return status == "Pending"; }
     bool isPaid() const { return status == "Paid"; }
     bool isOverdue() const { return status == "Overdue"; }
-    
+
     // Computed properties
     double getPenalty() const {
         if (isOverdue()) {
@@ -758,11 +703,11 @@ public:
         }
         return 0.0;
     }
-    
+
     double getTotalDue() const {
         return amount + getPenalty();
     }
-    
+
     // State transitions
     void markPaid() {
         if (isPending() || isOverdue()) {
@@ -770,7 +715,7 @@ public:
             cout << "Payment #" << id << " marked as paid." << endl;
         }
     }
-    
+
     void markOverdue(int days) {
         if (isPending()) {
             status = "Overdue";
@@ -778,14 +723,14 @@ public:
             cout << "Payment #" << id << " is " << days << " days overdue!" << endl;
         }
     }
-    
+
     void cancel() {
         if (isPending()) {
             status = "Cancelled";
             cout << "Payment #" << id << " cancelled." << endl;
         }
     }
-    
+
     void display() const {
         cout << "Payment #" << id << " - " << residentName << endl;
         cout << "Amount: P" << amount << endl;
@@ -800,17 +745,17 @@ public:
 
 int main() {
     Payment p1(101, "Juan Dela Cruz", 500.0);
-    
+
     p1.display();
     cout << endl;
-    
+
     p1.markOverdue(3);
     p1.display();
     cout << endl;
-    
+
     p1.markPaid();
     p1.display();
-    
+
     return 0;
 }
 ```
@@ -830,35 +775,35 @@ int main() {
       string ownerName;
       double balance;
       double interestRate;  // Annual interest rate (e.g., 0.05 for 5%)
-      
+
   public:
-      BankAccount(string accNum, string owner, double initialBalance) 
+      BankAccount(string accNum, string owner, double initialBalance)
           : accountNumber(accNum), ownerName(owner), balance(0), interestRate(0.05) {
           if (initialBalance >= 0) {
               balance = initialBalance;
           }
       }
-      
+
       // Getters
       string getAccountNumber() const { return accountNumber; }
       string getOwnerName() const { return ownerName; }
       double getBalance() const { return balance; }
       double getInterestRate() const { return interestRate; }
-      
+
       // Computed property
       double getProjectedInterest() const {
           return balance * interestRate;
       }
-      
+
       // Query methods
       bool hasMinimumBalance(double minimum) const {
           return balance >= minimum;
       }
-      
+
       bool canWithdraw(double amount) const {
           return amount > 0 && amount <= balance;
       }
-      
+
       // Transaction methods
       void deposit(double amount) {
           if (amount > 0) {
@@ -868,7 +813,7 @@ int main() {
               cout << "Deposit amount must be positive!" << endl;
           }
       }
-      
+
       bool withdraw(double amount) {
           if (amount <= 0) {
               cout << "Withdrawal amount must be positive!" << endl;
@@ -882,7 +827,7 @@ int main() {
           cout << "Withdrew P" << amount << " from account " << accountNumber << endl;
           return true;
       }
-      
+
       bool transfer(BankAccount& recipient, double amount) {
           if (amount <= 0) {
               cout << "Transfer amount must be positive!" << endl;
@@ -894,17 +839,17 @@ int main() {
           }
           balance -= amount;
           recipient.balance += amount;
-          cout << "Transferred P" << amount << " from " << accountNumber 
+          cout << "Transferred P" << amount << " from " << accountNumber
                << " to " << recipient.accountNumber << endl;
           return true;
       }
-      
+
       void applyInterest() {
           double interest = getProjectedInterest();
           balance += interest;
           cout << "Applied interest of P" << interest << " to account " << accountNumber << endl;
       }
-      
+
       void display() const {
           cout << "==========================" << endl;
           cout << "Account: " << accountNumber << endl;
@@ -919,28 +864,28 @@ int main() {
   int main() {
       BankAccount acc1("1001", "Juan Dela Cruz", 10000.0);
       BankAccount acc2("1002", "Maria Santos", 5000.0);
-      
+
       cout << "Initial balances:" << endl;
       acc1.display();
       acc2.display();
-      
+
       cout << "\nTransactions:" << endl;
       acc1.deposit(2000);
       acc1.withdraw(1500);
       acc1.transfer(acc2, 3000);
-      
+
       cout << "\nAfter transactions:" << endl;
       acc1.display();
       acc2.display();
-      
+
       cout << "\nApplying interest:" << endl;
       acc1.applyInterest();
       acc2.applyInterest();
-      
+
       cout << "\nFinal balances:" << endl;
       acc1.display();
       acc2.display();
-      
+
       return 0;
   }
   ```
@@ -951,12 +896,14 @@ int main() {
 <summary><strong>📝 Encapsulation Principles</strong></summary>
 
 **Core Concept:**
+
 - Hide data (private)
 - Expose interface (public methods)
 - Validate inputs
 - Control access
 
 **Benefits:**
+
 1. **Data protection:** Can't set invalid values
 2. **Flexibility:** Change implementation without breaking code
 3. **Validation:** All writes go through setters
@@ -964,17 +911,18 @@ int main() {
 5. **Maintainability:** Clear interface
 
 **Common Pattern:**
+
 ```cpp
 class Example {
 private:
     int value;  // Hidden
-    
+
 public:
     // Getter
-    int getValue() const { 
-        return value; 
+    int getValue() const {
+        return value;
     }
-    
+
     // Setter with validation
     void setValue(int v) {
         if (v >= 0) {
@@ -985,6 +933,7 @@ public:
 ```
 
 **Const Correctness:**
+
 - Mark methods `const` if they don't modify object
 - Allows const objects to call them
 - Documents intent
