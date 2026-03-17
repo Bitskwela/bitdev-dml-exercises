@@ -6,7 +6,24 @@ description: "Learn to secure your application with environment variables, confi
 date: "2025-11-27"
 
 # For SEO purposes
-tags: ["environment-variables", "deployment", "flask", "configuration", "security", "dotenv", "production", "bitskwela"]
+tags:
+  [
+    "environment-variables",
+    "deployment",
+    "flask",
+    "configuration",
+    "security",
+    "dotenv",
+    "production",
+    "bitskwela",
+  ]
+
+# Currently supported types:
+# NormalExercise - Just a simple module.  Does not require user input.
+# ActivityExercise - Where the user needs to submit a code and verify.  As of now, no backend verification.
+# May be supported in the future:
+# VideoExercise - For exercises that are just videos.
+type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable identifiers for lessons.
 # They are used for stable referencing even if titles change.

@@ -6,14 +6,23 @@ description: "Master CSS colors (hex, RGB, RGBA), background properties (images,
 date: "2025-11-16"
 
 # For SEO purposes
-tags: ["css", "colors", "backgrounds", "fonts", "typography", "google fonts", "bitskwela"]
+tags:
+  [
+    "css",
+    "colors",
+    "backgrounds",
+    "fonts",
+    "typography",
+    "google fonts",
+    "bitskwela",
+  ]
 
 # Currently supported types:
 # NormalExercise - Just a simple module.  Does not require user input.
 # ActivityExercise - Where the user needs to submit a code and verify.  As of now, no backend verification.
 # May be supported in the future:
 # VideoExercise - For exercises that are just videos.
-type: "NormalExercise"
+type: "ActivityExercise"
 
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
 permaname: "bitskwela-contracts-ch_07-le_14"
