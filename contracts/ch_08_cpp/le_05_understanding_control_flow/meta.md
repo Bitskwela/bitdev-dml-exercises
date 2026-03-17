@@ -8,6 +8,11 @@ date: "2025-11-13"
 # For SEO purposes
 tags: ["cpp", "control-flow", "conditions", "if-else", "switch", "programming", "bitskwela"]
 
+# Currently supported types:
+# NormalExercise - Just a simple module.  Does not require user input.
+# ActivityExercise - Where the user needs to submit a code and verify.
+type: "ActivityExercise"
+
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
 permaname: "lesson-5-understanding-control-flow"
 

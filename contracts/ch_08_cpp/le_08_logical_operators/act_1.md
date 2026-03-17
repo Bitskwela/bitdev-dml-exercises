@@ -1,4 +1,6 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Tian builds a voter eligibility checker for the barangay using logical operators to combine conditions.
 
 ```cpp
 #include <iostream>
@@ -14,49 +16,29 @@ int main() {
     cout << "Registered? (1=Yes, 0=No): ";
     cin >> isRegistered;
 
-    // Check if age >= 18 AND isRegistered
+    // Check if age >= 18 AND isRegistered using &&
+    // If both true: print eligible message
+    // Otherwise: print not eligible message
 
     return 0;
 }
 ```
 
-**Time Allotment: 20 minutes**
+## Task for Learners
 
-## Tasks for students
-
-Topics Covered: Logical operators (`&&`, `||`), compound conditions
-
-- Implement a voter eligibility checker using the AND (`&&`) operator:
-
-  - Prompt the user to enter their age.
-  - Prompt the user to indicate if they are registered (using 1 for Yes, 0 for No).
-  - Use an `if` statement with the `&&` operator to check if the age is 18 or older AND the user is registered.
-  - If both conditions are true, display "✓ Eligible to vote!".
-  - Otherwise, display "✗ Not eligible.".
+- Use an `if` statement with the `&&` operator to check both conditions.
 
   ```cpp
-  #include <iostream>
-  using namespace std;
-
-  int main() {
-      int age;
-      bool isRegistered;
-
-      cout << "=== VOTER ELIGIBILITY CHECKER ===" << endl;
-
-      cout << "Age: ";
-      cin >> age;
-
-      cout << "Registered? (1=Yes, 0=No): ";
-      cin >> isRegistered;
-
-      // Both must be true
-      if (age >= 18 && isRegistered) {
-          cout << "✓ Eligible to vote!" << endl;
-      } else {
-          cout << "✗ Not eligible." << endl;
-      }
-
-      return 0;
-  }
+  if (age >= 18 && isRegistered) {
   ```
+
+- Print a success message when both conditions are true.
+
+- Use `else` to print a "not eligible" message when either condition fails.
+
+### Breakdown of the Activity
+
+- **`&&` (AND)**: Both sides must be `true` for the whole expression to be `true`.
+- **`age >= 18`**: Comparison that checks if the voter is old enough.
+- **`isRegistered`**: A `bool` that is already `true` or `false`; no comparison needed.
+- **`cin >> isRegistered`**: Reads `1` as `true` and `0` as `false`.

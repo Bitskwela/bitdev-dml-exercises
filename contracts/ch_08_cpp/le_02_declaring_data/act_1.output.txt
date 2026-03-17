@@ -1,0 +1,6 @@
+
+  Lesson 02: Declaring Data
+    [PASS] Personal Profile System
+
+  1 passing
+

@@ -1,0 +1,8 @@
+
+  Lesson 12: Scope Rules
+    [PASS] addToTotal updates global variable
+    [PASS] Local variable shadows global
+    [PASS] Scope resolution operator accesses global
+
+  3 passing
+

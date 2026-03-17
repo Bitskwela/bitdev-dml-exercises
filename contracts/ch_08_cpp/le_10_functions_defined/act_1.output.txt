@@ -1,0 +1,7 @@
+
+  Lesson 10: Functions Defined
+    [PASS] Functions are defined and callable
+    [PASS] String parameter works correctly
+
+  2 passing
+

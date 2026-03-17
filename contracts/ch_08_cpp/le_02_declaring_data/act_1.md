@@ -1,4 +1,6 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Tian creates a personal profile system to practice declaring different variable types.
 
 ```cpp
 #include <iostream>
@@ -6,24 +8,37 @@
 using namespace std;
 
 int main() {
-    // Declare variables with appropriate types
+    // Declare your variables here
+    // string fullName = ?
+    // int age = ?
+    // int gradeLevel = ?
+    // string favoriteSubject = ?
+    // double gpa = ?
 
-    // Display formatted profile
+    cout << "=== My Profile ===" << endl;
+    // Display each variable with a label
 
     return 0;
 }
 ```
 
-**Time Allotment: 25 minutes**
+## Task for Learners
 
-## Tasks for students
+- Declare a `string` variable `fullName` and assign it a name.
 
-Topics Covered: Variable declaration, data types (`int`, `string`, `double`), output formatting
+  ```cpp
+  string fullName = "Tian Reyes";
+  ```
 
-- Create a student profile system that stores and displays information:
-  - Declare a `string` variable `fullName` for the student's name.
-  - Declare an `int` variable `age` for the student's age.
-  - Declare an `int` variable `gradeLevel`.
-  - Declare a `string` variable `favoriteSubject`.
-  - Declare a `double` variable `gpa` to store decimal precision.
-  - Use `cout` to display the information in a formatted profile with descriptive labels (e.g., "Name: ", "Age: ", etc.).
+- Declare `int` variables `age` and `gradeLevel`, and a `string` for `favoriteSubject`.
+
+- Declare a `double` variable `gpa` for a decimal grade value.
+
+- Use `cout` to display each variable with a descriptive label (e.g., "Name: ", "Age: ").
+
+### Breakdown of the Activity
+
+- **`string`**: Stores text in double quotes; requires `#include <string>`.
+- **`int`**: Stores whole numbers without quotes.
+- **`double`**: Stores decimal numbers for precision.
+- **`cout << "Label: " << variable << endl;`**: Chains a label and variable value together for display.

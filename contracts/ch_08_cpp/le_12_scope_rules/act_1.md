@@ -1,7 +1,10 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Explore how global and local variables interact through scope and shadowing.
 
 ```cpp
 #include <iostream>
+
 using namespace std;
 
 // 1. Declare a global variable 'total'
@@ -9,51 +12,46 @@ int total = 0;
 
 void addToTotal(int amount) {
     // 2. Add amount to the global 'total'
+    // Your code here
 }
 
 void shadowTest() {
     // 3. Declare a local variable named 'total' and initialize it to 100
     // 4. Print the local 'total' and the global 'total' (using ::)
+    // Your code here
 }
 
 int main() {
     addToTotal(50);
     shadowTest();
+
+    cout << "Final Global Total: " << total << endl;
+
     return 0;
 }
 ```
 
-**Time Allotment: 15 minutes**
+## Task for Learners
 
-## Tasks for students
+- Complete `addToTotal` to modify the global variable:
 
-Topics Covered: Global variables, local variables, shadowing, scope resolution operator `::`.
+  ```cpp
+  total += amount;
+  ```
 
-- Explore variable scope and shadowing:
-  - Declare a global variable `total` initialized to 0.
-  - Create a function `addToTotal(int amount)` that updates the global `total`.
-  - Create a function `shadowTest()` that declares a local variable also named `total`.
-  - Inside `shadowTest()`, print both the local `total` and the global `total` using the scope resolution operator `::`.
+- Complete `shadowTest` with a local variable that shadows the global:
 
-```cpp
-#include <iostream>
-using namespace std;
+  ```cpp
+  int total = 100;
+  cout << "Local total: " << total << endl;
+  cout << "Global total: " << ::total << endl;
+  ```
 
-int total = 0;
+- Observe that `::total` accesses the global even when a local variable has the same name.
 
-void addToTotal(int amount) {
-    total += amount;
-}
+### Breakdown of the Activity
 
-void shadowTest() {
-    int total = 100;
-    cout << "Local total: " << total << endl;
-    cout << "Global total: " << ::total << endl;
-}
-
-int main() {
-    addToTotal(50);
-    shadowTest();
-    return 0;
-}
-```
+- **`int total = 0;`** (outside functions): A global variable accessible everywhere.
+- **`int total = 100;`** (inside function): A local variable that shadows the global.
+- **`::total`**: The scope resolution operator accesses the global variable despite shadowing.
+- **`addToTotal(50)`**: Modifies the global `total` directly since no local version exists in that function.

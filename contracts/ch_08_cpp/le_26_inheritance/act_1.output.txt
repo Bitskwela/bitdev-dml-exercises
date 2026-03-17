@@ -1,0 +1,7 @@
+
+  Lesson 26: Inheritance
+    [PASS] Car inherits getBrand from Vehicle
+    [PASS] Car has its own getDoors method
+
+  2 passing
+

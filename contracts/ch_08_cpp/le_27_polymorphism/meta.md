@@ -8,6 +8,11 @@ date: "2025-11-17"
 # For SEO purposes
 tags: ["cpp", "polymorphism", "virtual-functions", "abstract-classes", "dynamic-binding", "oop", "override"]
 
+# Currently supported types:
+# NormalExercise - Just a simple module.  Does not require user input.
+# ActivityExercise - Where the user needs to submit a code and verify.
+type: "ActivityExercise"
+
 # Note: Permanames are unique and immutable. Once set, they cannot be changed.  You may change the filename but not this.
 permaname: "le_27_polymorphism"
 

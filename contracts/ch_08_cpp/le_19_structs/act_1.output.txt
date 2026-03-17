@@ -1,0 +1,4 @@
+  Lesson 19: Structs
+    [PASS] Test Task (Resident Struct): PASS
+
+  1 passing

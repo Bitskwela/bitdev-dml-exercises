@@ -1,4 +1,6 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Tian builds a barangay resident registration form that collects and displays personal information.
 
 ```cpp
 #include <iostream>
@@ -11,29 +13,41 @@ int main() {
     int age;
     double income;
 
-    // Get full name (use getline for spaces!)
-    // Get age (use cin)
-    // Remember cin.ignore() after numeric input!
-    // Get city
-    // Get monthly income
+    cout << "=== RESIDENT REGISTRATION FORM ===" << endl;
 
-    // Display formatted summary
+    // Get full name using getline
+    // Get age using cin
+    // Use cin.ignore() to clear buffer
+    // Get city using getline
+    // Get monthly income using cin
+
+    cout << endl;
+    cout << "=== REGISTRATION SUMMARY ===" << endl;
+    // Display all information with labels
+    // Use fixed and setprecision(2) for income
 
     return 0;
 }
 ```
 
-**Time Allotment: 30 minutes**
+## Task for Learners
 
-## Tasks for students
+- Use `getline(cin, fullName)` to read the full name (supports spaces).
 
-Topics Covered: `cin`, `getline()`, `cin.ignore()`, `<iomanip>` (fixed, setprecision)
+  ```cpp
+  cout << "Full name: ";
+  getline(cin, fullName);
+  ```
 
-- Create an interactive registration form that collects and displays resident information:
-  - Use `getline(cin, fullName)` to read the full name including spaces.
-  - Use `cin >> age` to read the age.
-  - Call `cin.ignore()` after reading the age to clear the newline character from the buffer before using `getline()` again.
-  - Use `getline(cin, city)` to read the city.
-  - Use `cin >> income` to read the monthly income.
-  - Use `fixed` and `setprecision(2)` from the `<iomanip>` library to display the income with two decimal places.
-  - Display all collected information in a clear summary.
+- Use `cin >> age` then `cin.ignore()` before the next `getline`.
+
+- Use `getline(cin, city)` for the city and `cin >> income` for monthly income.
+
+- Display the summary using `fixed << setprecision(2)` for the income value.
+
+### Breakdown of the Activity
+
+- **`getline(cin, var)`**: Reads a full line including spaces.
+- **`cin >> var`**: Reads a single value (stops at whitespace).
+- **`cin.ignore()`**: Clears the newline left in the buffer after `cin >>`.
+- **`fixed << setprecision(2)`**: Formats decimals to exactly 2 places.

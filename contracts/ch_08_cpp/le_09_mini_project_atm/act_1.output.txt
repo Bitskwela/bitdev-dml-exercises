@@ -1,0 +1,9 @@
+
+  Lesson 09: Mini Project ATM
+    [PASS] PIN authentication logic
+    [PASS] Deposit updates balance
+    [PASS] Withdraw checks balance
+    [PASS] Transaction history tracks entries
+
+  4 passing
+

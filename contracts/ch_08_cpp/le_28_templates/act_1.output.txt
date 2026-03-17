@@ -1,0 +1,8 @@
+
+  Lesson 28: Templates
+    [PASS] getMin works with int
+    [PASS] getMin works with double
+    [PASS] getMin works with string
+
+  3 passing
+
