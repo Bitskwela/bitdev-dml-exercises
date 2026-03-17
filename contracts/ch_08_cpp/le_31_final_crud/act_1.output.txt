@@ -1,0 +1,8 @@
+
+  Lesson 31: Final CRUD Project
+    [PASS] OOP integration - polymorphism with smart pointers
+    [PASS] STL integration - vector operations
+    [PASS] Exception integration - try-catch handling
+
+  3 passing
+

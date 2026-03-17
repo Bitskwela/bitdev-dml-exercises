@@ -1,0 +1,6 @@
+
+  Lesson 01: The Language of Machines
+    [PASS] Hello Philippines
+
+  1 passing
+

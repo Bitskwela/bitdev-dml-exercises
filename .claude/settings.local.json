@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(__NEW_LINE_9f6447703b76a906__ echo:*)",
+      "Read(//c/Users/Kolee/proj/dml-contents/bitdev-dml-exercises/**)",
+      "Bash(/dev/null __NEW_LINE_9f6447703b76a906__ echo echo '=== Total CH-02 size ===' du -sh /c/Users/Kolee/proj/dml-contents/bitdev-dml-exercises/contracts/ch_02_solidity_side_quests 2)",
+      "Bash(/dev/null __NEW_LINE_9f6447703b76a906__ echo echo '=== Total CH-03 size ===' du -sh /c/Users/Kolee/proj/dml-contents/bitdev-dml-exercises/contracts/ch_03_mini_projects)",
+      "Bash(__NEW_LINE_633a6c8f9350fcd6__ echo:*)",
+      "Bash(python scripts/office/unpack.py \"C:\\\\Users\\\\Kolee\\\\Downloads\\\\DRAFT-DICT_Solidity_Bootcamp_Learning_Plan.docx\" /c/tmp/draft-plan-unpacked/)",
+      "Bash(pip install:*)",
+      "Bash(python -c \":*)"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+
+  Lesson 14: Arrays
+    [PASS] Total calculation is correct
+    [PASS] Average calculation is correct
+
+  2 passing
+

@@ -1,0 +1,8 @@
+
+  Lesson 13: Modular Grade Calculator
+    [PASS] calculateAverage returns correct average
+    [PASS] isPassing returns true at threshold
+    [PASS] isPassing returns false below threshold
+
+  3 passing
+

@@ -1,61 +1,55 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Build a balance tracker using pass-by-reference and return values.
 
 ```cpp
 #include <iostream>
+
 using namespace std;
 
-// Function that uses pass-by-reference to modify the original variable
+// Task 1: Implement pass-by-reference to modify the original balance
 void updateBalance(double& balance, double amount) {
-    // Add amount to balance
+    // Your code here: add amount to balance
 }
 
-// Function that calculates and returns a value
+// Task 2: Implement a function that calculates and returns interest
 double calculateInterest(double balance, double rate) {
-    // Return balance * (rate / 100.0)
+    // Your code here: return balance * (rate / 100.0)
     return 0;
 }
 
 int main() {
     double myBalance = 1000.0;
 
-    // 1. Call updateBalance with myBalance and 500.0
-
-    // 2. Call calculateInterest with myBalance and 5.0
-
-    return 0;
-}
-```
-
-**Time Allotment: 15 minutes**
-
-## Tasks for students
-
-Topics Covered: Pass by reference, return values, function parameters.
-
-- Implement a balance tracker:
-  - Define `updateBalance(double& balance, double amount)` that adds the `amount` to the `balance` using a reference.
-  - Define `calculateInterest(double balance, double rate)` that returns the interest amount (balance \* rate / 100).
-  - In `main()`, initialize a balance, update it using the function, and then calculate the interest.
-
-```cpp
-#include <iostream>
-using namespace std;
-
-void updateBalance(double& balance, double amount) {
-    balance += amount;
-}
-
-double calculateInterest(double balance, double rate) {
-    return balance * (rate / 100.0);
-}
-
-int main() {
-    double myBalance = 1000.0;
+    // Call updateBalance with myBalance and 500.0
     updateBalance(myBalance, 500.0);
     double interest = calculateInterest(myBalance, 5.0);
 
-    cout << "New Balance: " << myBalance << endl;
+    cout << "Final Balance: " << myBalance << endl;
     cout << "Interest: " << interest << endl;
+
     return 0;
 }
 ```
+
+## Task for Learners
+
+- Complete `updateBalance` to add the amount to the balance using the reference:
+
+  ```cpp
+  balance += amount;
+  ```
+
+- Complete `calculateInterest` to return the interest calculation:
+
+  ```cpp
+  return balance * (rate / 100.0);
+  ```
+
+- Observe that `myBalance` in `main()` changes after calling `updateBalance` because of `&`.
+
+### Breakdown of the Activity
+
+- **`double& balance`**: The `&` makes this a reference parameter, so changes affect the original variable.
+- **`double balance`** (no `&`): Pass by value -- the function gets a copy and the original stays unchanged.
+- **`return`**: Sends a computed value back to the caller.

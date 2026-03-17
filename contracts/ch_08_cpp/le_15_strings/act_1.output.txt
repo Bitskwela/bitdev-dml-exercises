@@ -1,0 +1,8 @@
+
+  Lesson 15: Strings
+    [PASS] String concatenation produces correct result
+    [PASS] String length is correct
+    [PASS] Character modification works
+
+  3 passing
+

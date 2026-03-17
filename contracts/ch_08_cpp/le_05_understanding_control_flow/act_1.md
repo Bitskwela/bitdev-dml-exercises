@@ -1,4 +1,6 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Tian builds a safe division calculator that validates input before performing calculations.
 
 ```cpp
 #include <iostream>
@@ -6,29 +8,40 @@
 using namespace std;
 
 int main() {
-    double num1, num2, result;
+    double num1, num2;
 
     cout << "=== SAFE DIVISION CALCULATOR ===" << endl;
-    cout << endl;
 
-    // Get two numbers from user
-    // Check if divisor is zero
-    // If zero, show error
-    // If not zero, perform division and show result
+    cout << "Enter first number: ";
+    cin >> num1;
+    cout << "Enter second number: ";
+    cin >> num2;
+
+    // Check if num2 is zero
+    // If zero: print error message
+    // If not zero: divide and display result with 2 decimal places
 
     return 0;
 }
 ```
 
-**Time Allotment: 20 minutes**
+## Task for Learners
 
-## Tasks for students
+- Use an `if` statement to check if `num2` equals zero.
 
-Topics Covered: `if/else`, comparison operators (`==`), input validation, output formatting
+  ```cpp
+  if (num2 == 0) {
+      cout << "ERROR: Cannot divide by zero!" << endl;
+  }
+  ```
 
-- Implement a calculator that validates input to prevent division by zero:
-  - Prompt the user to enter two numbers (`num1` and `num2`).
-  - Use an `if` statement to check if the divisor (`num2`) is equal to zero.
-  - If the divisor is zero, display a clear error message: "ERROR: Cannot divide by zero!".
-  - If the divisor is not zero (using `else`), perform the division.
-  - Display the calculated result formatted to 2 decimal places using `fixed` and `setprecision(2)`.
+- Use `else` to perform the division when `num2` is not zero.
+
+- Format the result to 2 decimal places using `fixed` and `setprecision(2)`.
+
+### Breakdown of the Activity
+
+- **`if (condition)`**: Executes the block only when the condition is true.
+- **`else`**: Runs when the `if` condition is false.
+- **`==`**: Comparison operator; do not confuse with `=` (assignment).
+- **`fixed << setprecision(2)`**: Formats output to 2 decimal places.

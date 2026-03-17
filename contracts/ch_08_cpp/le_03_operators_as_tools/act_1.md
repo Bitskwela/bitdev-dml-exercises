@@ -1,4 +1,6 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Tian builds a complete calculator to practice all five arithmetic operators.
 
 ```cpp
 #include <iostream>
@@ -8,22 +10,42 @@ int main() {
     double num1 = 10;
     double num2 = 3;
 
-    // Perform and display ALL arithmetic operations
+    // Perform all arithmetic operations and store in variables
+    // double sum = ?
+    // double difference = ?
+    // double product = ?
+    // double quotient = ?
+    // int remainder = ?
+
+    cout << "=== CALCULATOR SYSTEM ===" << endl;
+    cout << "Number 1: " << num1 << endl;
+    cout << "Number 2: " << num2 << endl;
+    cout << endl;
+    cout << "ARITHMETIC OPERATIONS:" << endl;
+    // Display each result with a label
 
     return 0;
 }
 ```
 
-**Time Allotment: 30 minutes**
+## Task for Learners
 
-## Tasks for students
+- Calculate the sum, difference, product, and quotient of `num1` and `num2`.
 
-Topics Covered: Arithmetic operators (+, -, \*, /, %), type casting
+  ```cpp
+  double sum = num1 + num2;
+  ```
 
-- Create a complete calculator system that performs basic arithmetic operations on two numbers:
-  - Add `num1` and `num2` using the `+` operator.
-  - Subtract `num2` from `num1` using the `-` operator.
-  - Multiply `num1` and `num2` using the `*` operator.
-  - Divide `num1` by `num2` using the `/` operator.
-  - Use the modulo operator `%` to find the remainder. Note: Modulo requires integers, so cast the `double` values to `int`.
-  - Display the results clearly with descriptive labels.
+- Calculate the remainder using modulo. Cast to `int` since `%` requires integers.
+
+  ```cpp
+  int remainder = (int)num1 % (int)num2;
+  ```
+
+- Display all results with descriptive labels using `cout`.
+
+### Breakdown of the Activity
+
+- **`+`, `-`, `*`, `/`**: Basic arithmetic operators that work with `double` values.
+- **`%` (modulo)**: Returns the remainder; requires integer operands.
+- **`(int)value`**: Casts a `double` to `int` so modulo can be used.

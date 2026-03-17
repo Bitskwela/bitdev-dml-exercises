@@ -1,0 +1,7 @@
+
+  Lesson 25: Encapsulation
+    [PASS] BankAccount deposit validates positive amounts
+    [PASS] Student grade caps at 100
+
+  2 passing
+

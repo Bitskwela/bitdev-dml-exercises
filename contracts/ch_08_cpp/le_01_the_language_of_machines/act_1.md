@@ -1,4 +1,6 @@
-﻿# C++ Activity:
+# C++ Activity
+
+Tian writes his very first C++ program to greet the Philippines.
 
 ```cpp
 #include <iostream>
@@ -11,16 +13,22 @@ int main() {
 }
 ```
 
-**Time Allotment: 20 minutes**
+## Task for Learners
 
-## Tasks for students
+- Use `cout` to print the message "Mabuhay, Pilipinas!" followed by `endl`.
 
-Topics Covered: Program structure, `#include`, `using namespace std`, `main()`, `cout`, `return 0`
+  ```cpp
+  cout << "Mabuhay, Pilipinas!" << endl;
+  ```
 
-- Create your first C++ program that greets the Philippines:
-  - Use `#include <iostream>` to provide input/output functionality.
-  - Use `using namespace std;` to allow using `cout` without the `std::` prefix.
-  - Implement the `main()` function as the entry point of your program.
-  - Use `cout` to print the message "Mabuhay, Pilipinas!" followed by `endl` for a new line.
-  - Ensure every statement ends with a semicolon (`;`).
-  - Return `0` to signal successful program completion.
+- Make sure every statement ends with a semicolon (`;`).
+
+- Do not modify the `#include`, `using namespace`, `main()`, or `return 0;` lines.
+
+### Breakdown of the Activity
+
+- **`#include <iostream>`**: Imports the input/output library so `cout` is available.
+- **`using namespace std;`**: Lets you use `cout` without the `std::` prefix.
+- **`int main()`**: The entry point of every C++ program.
+- **`cout << "text" << endl;`**: Prints text to the console and moves to the next line.
+- **`return 0;`**: Tells the OS the program finished successfully.

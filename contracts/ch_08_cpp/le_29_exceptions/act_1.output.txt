@@ -1,0 +1,7 @@
+
+  Lesson 29: Exception Handling
+    [PASS] runtime_error is caught correctly
+    [PASS] Multiple catch blocks select correct type
+
+  2 passing
+
