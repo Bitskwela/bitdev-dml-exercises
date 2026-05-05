@@ -11,24 +11,27 @@ The chapter is well-themed and narratively strong, but has **two chapter-wide bl
 ## 🚫 Blockers (touch all 25 lessons)
 
 ### 1. Answer-key leakage in every `act_1.md`
+
 Every activity ends with a `<details><summary>Answer Key</summary>` block reproducing `act_1.answer.py` verbatim (e.g. `le_01_what_is_ai/act_1.md:128-186`). Students click once and the activity is over. This contradicts the `act_1` / `act_1.answer` split convention used everywhere else in the repo.
 
 **Action:** strip the Answer Key block from all 25 `act_1.md` files.
 
 ### 2. `mat_1.md` bloat — fails FreeCodeCamp brevity rule
+
 Median 150 lines vs. `ch_01` baseline of ~70 lines. Lessons read as long-form blog articles rather than the punchy in-editor cards the React-Remix platform expects.
 
 Worst offenders:
 
-| Lesson | Lines |
-|---|---|
-| `le_03_ai_vs_ml_vs_dl/mat_1.md` | 199 |
-| `le_25_deploy_ai_app/mat_1.md` | 178 |
-| `le_02_narrow_vs_general_ai/mat_1.md` | 169 |
-| `le_23_build_llm_chatbot_part2/mat_1.md` | 165 |
-| `le_21_openai_api_basics/mat_1.md` | 163 |
+| Lesson                                   | Lines |
+| ---------------------------------------- | ----- |
+| `le_03_ai_vs_ml_vs_dl/mat_1.md`          | 199   |
+| `le_25_deploy_ai_app/mat_1.md`           | 178   |
+| `le_02_narrow_vs_general_ai/mat_1.md`    | 169   |
+| `le_23_build_llm_chatbot_part2/mat_1.md` | 165   |
+| `le_21_openai_api_basics/mat_1.md`       | 163   |
 
 Bloat is concentrated in two repeated sections per lesson:
+
 - **"Filipino Culture Cards"** glossary (duplicates across lessons — `Carinderia` is defined nearly every time)
 - **"Dan's Journal"** first-person reflection block
 
@@ -43,7 +46,6 @@ Bloat is concentrated in two repeated sections per lesson:
 - **`le_15_computer_vision`** — `meta.md` advertises Pillow in `tags`, but neither `act_1.py` nor `act_1.answer.py` imports PIL. Either drop Pillow from tags or add a Pillow task.
 - **`le_09_working_with_libraries`** + **`le_17_ethics_in_ai`** depend on `pandas`. Confirm with platform team that Pyodide ships pandas; otherwise these won't run.
 - **`le_02_narrow_vs_general_ai/act_1.py:19-34`** — starter is ~60% pre-populated; the "TODO: add 5 more" is trivial copy-paste. Weak scaffolding gradient.
-- **New protagonist "Dan Santos"** — not in the established Neri / Odessa / Det cast (per CLAUDE.md). Lead-facilitator decision: canonical addition or retcon to existing character? Affects 25 lessons of narrative.
 
 ---
 
