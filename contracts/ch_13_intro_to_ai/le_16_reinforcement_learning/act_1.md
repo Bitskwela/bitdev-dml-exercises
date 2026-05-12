@@ -1,6 +1,6 @@
 # Delivery Agent (Q-Learning)
 
-Train an AI agent to navigate a 5Ã—5 Marikina grid from (0,0) to (4,4), avoiding obstacles, using Q-Learning.
+Train an AI agent to navigate a 5×5 Marikina grid from (0,0) to (4,4), avoiding obstacles, using Q-Learning.
 
 ---
 
@@ -31,7 +31,7 @@ Rewards:
 ## Task 2: Initialize Q-Table
 
 ```python
-# Q[row][col][action] â€” action: 0=up, 1=down, 2=left, 3=right
+# Q[row][col][action] — action: 0=up, 1=down, 2=left, 3=right
 Q = np.zeros((GRID_SIZE, GRID_SIZE, 4))
 ```
 
@@ -82,7 +82,7 @@ Episode 100: avg reward +65.0, success rate 85%
 Episode 200: avg reward +89.3, success rate 100%
 
 Learned optimal path:
-(0,0) â†’ (0,1) â†’ (0,2) â†’ (0,3) â†’ (0,4) â†’ (1,4) â†’ (2,4) â†’ (3,4) â†’ (4,4)
+(0,0) → (0,1) → (0,2) → (0,3) → (0,4) → (1,4) → (2,4) → (3,4) → (4,4)
 Steps: 8, Total reward: 92
 ```
 
@@ -108,4 +108,13 @@ Plot (or print) the average reward per 10 episodes. You should see a smooth upwa
 - Why RL needs many episodes to converge
 - How RL underpins AlphaGo, Tesla Autopilot, recommendation systems
 
-Next up: **Ethics in AI** â€” Dan confronts bias in AI systems.
+Next up: **Ethics in AI** — Dan confronts bias in AI systems.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the full Q-learning implementation with 200 episodes, reward tracking, and the learned optimal path.
+
+</details>

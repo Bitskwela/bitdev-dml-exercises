@@ -6,17 +6,17 @@ Implement four classic algorithms on Tita Malou's menu: bubble sort, Python's bu
 
 ## Task 1: Bubble Sort
 
-Open `act_1.py`. Sort the menu by price using bubble sort â€” manually, with nested loops. Count how many swaps happen.
+Open `act_1.py`. Sort the menu by price using bubble sort — manually, with nested loops. Count how many swaps happen.
 
 ---
 
 ## Task 2: Python's Built-in Sort
 
 Replace your bubble sort with `sorted(menu, key=lambda x: x["price"])`. Compare:
-- Your bubble sort: O(nÂ²)
+- Your bubble sort: O(n²)
 - Python's Timsort: O(n log n)
 
-On 10 items both are fast, but on 1,000,000 items bubble sort takes hours â€” Timsort takes seconds.
+On 10 items both are fast, but on 1,000,000 items bubble sort takes hours — Timsort takes seconds.
 
 ---
 
@@ -25,7 +25,7 @@ On 10 items both are fast, but on 1,000,000 items bubble sort takes hours â€�
 Write a `find_best_combo(menu, budget)` function that:
 - Tries every pair of dishes
 - Returns the highest-rated combo that fits the budget
-- Uses two nested loops (O(nÂ²))
+- Uses two nested loops (O(n²))
 - Counts how many pairs it checked
 
 ---
@@ -62,7 +62,7 @@ def binary_search(sorted_menu, target_name):
     return None
 ```
 
-On a 10-item sorted menu, worst case = 4 checks (logâ‚‚(10) â‰ˆ 3.3).
+On a 10-item sorted menu, worst case = 4 checks (log₂(10) ≈ 3.3).
 
 ---
 
@@ -74,11 +74,11 @@ Extend the combo finder to find the best 3-dish combo. Use three nested loops. C
 
 ```
 Best 3-combo for budget P200:
-   Adobo (P60, 4.5â˜…)
-   Sinigang (P65, 4.8â˜…)
-   Halo-Halo (P60, 4.7â˜…)
+   Adobo (P60, 4.5★)
+   Sinigang (P65, 4.8★)
+   Halo-Halo (P60, 4.7★)
    Total: P185
-   Avg rating: 4.67â˜…
+   Avg rating: 4.67★
    Triples checked: 120
 ```
 
@@ -86,10 +86,19 @@ Best 3-combo for budget P200:
 
 ## What You've Learned
 
-- Bubble sort (O(nÂ²)) â€” educational
-- Python's `sorted()` â€” use this in real code
+- Bubble sort (O(n²)) — educational
+- Python's `sorted()` — use this in real code
 - Nested loops for combinatorial problems
 - Linear search (O(n)) vs binary search (O(log n))
 - The tradeoffs of algorithmic complexity
 
-Next up: **Heuristics vs Learning** â€” Dan compares rule-based vs data-driven systems.
+Next up: **Heuristics vs Learning** — Dan compares rule-based vs data-driven systems.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for all five algorithms + triple combo finder + step count comparisons.
+
+</details>

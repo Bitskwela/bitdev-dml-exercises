@@ -1,6 +1,6 @@
-# AI vs ML vs DL â€” Interactive Quiz
+# AI vs ML vs DL — Interactive Quiz
 
-Now that you understand the three layers (AI â†’ ML â†’ DL), let's build a program that teaches the concept and then tests your knowledge with real-world scenarios.
+Now that you understand the three layers (AI → ML → DL), let's build a program that teaches the concept and then tests your knowledge with real-world scenarios.
 
 ---
 
@@ -8,9 +8,9 @@ Now that you understand the three layers (AI â†’ ML â†’ DL), let's bui
 
 Open `act_1.py`. The starter file has three functions to complete:
 
-1. **`teach_concept()`** â€” Print the matryoshka doll explanation with the Filipino food analogy.
-2. **`ask_question()`** â€” Already implemented for you. Study how it works.
-3. **`show_results()`** â€” Display the final score with a message based on percentage.
+1. **`teach_concept()`** — Print the matryoshka doll explanation with the Filipino food analogy.
+2. **`ask_question()`** — Already implemented for you. Study how it works.
+3. **`show_results()`** — Display the final score with a message based on percentage.
 
 Then add at least **5 quiz questions** in the main section using `ask_question()`.
 
@@ -18,7 +18,7 @@ Then add at least **5 quiz questions** in the main section using `ask_question()
 
 | Scenario | Correct Answer | Why |
 |----------|---------------|-----|
-| Thermostat that turns on AC at 30Â°C | AI (rule-based) | Simple IF-THEN rule, no learning |
+| Thermostat that turns on AC at 30°C | AI (rule-based) | Simple IF-THEN rule, no learning |
 | Shopee recommendations improving over time | ML | Learns from your shopping data |
 | Self-driving car recognizing pedestrians | DL | Image recognition needs neural networks |
 | Email filter with hardcoded spam keywords | AI (rule-based) | Preset list, no learning |
@@ -27,22 +27,22 @@ Then add at least **5 quiz questions** in the main section using `ask_question()
 ### Sample Output
 
 ```
-ðŸ§  QUIZ TIME! â€” 5 Questions
+🧠 QUIZ TIME! — 5 Questions
 
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  â“ Question 1: A thermostat that turns on AC when temperature > 30Â°C
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+───────────────────────────────────────────────────────
+  ❓ Question 1: A thermostat that turns on AC when temperature > 30°C
+───────────────────────────────────────────────────────
      a) Machine Learning
      b) Deep Learning
      c) AI (rule-based)
 
      Your answer (a/b/c): c
-     âœ… Correct! It follows a simple IF-THEN rule â€” no learning involved!
+     ✅ Correct! It follows a simple IF-THEN rule — no learning involved!
 
 =======================================================
-  ðŸ“Š FINAL SCORE: 5/5
+  📊 FINAL SCORE: 5/5
 =======================================================
-  ðŸ† PERFECT SCORE! You know this better than Jasper!
+  🏆 PERFECT SCORE! You know this better than Jasper!
 ```
 
 ---
@@ -80,7 +80,24 @@ Through this activity, you have practiced:
 
 - Building interactive quiz programs in Python
 - Classifying real-world systems as AI, ML, or DL
-- Understanding the nesting relationship (DL âŠ‚ ML âŠ‚ AI)
+- Understanding the nesting relationship (DL ⊂ ML ⊂ AI)
 - Using the Filipino food analogy to remember the hierarchy
 
-Next up: **How AI Works** â€” Dan discovers the AI pipeline at Tita Malou's carinderia.
+Next up: **How AI Works** — Dan discovers the AI pipeline at Tita Malou's carinderia.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+### Task 1: Quiz Questions
+
+See `act_1.answer.py` for the complete solution with all 5 questions, the teach_concept() output, show_results() with percentage-based messages, and the bonus comparison table printer.
+
+### Task 2: Reflection Answers
+
+1. **ML vs AI**: ML *learns from data* instead of following human-written rules. If a human coded every rule, it's rule-based AI. If the machine discovered the rules from examples, it's ML.
+2. **Why DL needs more**: Deep Learning uses neural networks with many layers. Each layer has parameters that need to be learned, requiring massive data to train and GPUs to compute.
+3. **Filipino examples**: AI = automated toll pricing, ML = GCash fraud detection, DL = TikTok content algorithm.
+
+</details>

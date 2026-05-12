@@ -34,13 +34,13 @@ Available AI systems to classify:
 
 Enter an AI system to classify (or 'quit' to exit): grab
 
-  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  ðŸ¤– Grab
+  ─────────────────────────────────────────────
+  🤖 Grab
   Type: Narrow AI
   What it does: Optimizes routes and matches riders to drivers
   PH context: Used by millions of Filipinos daily for transportation
-  Can it do OTHER things? âŒ Nope â€” it's specialized!
-  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  Can it do OTHER things? ❌ Nope — it's specialized!
+  ─────────────────────────────────────────────
 ```
 
 ---
@@ -76,20 +76,20 @@ Add a quiz mode where the program describes an AI system and the user classifies
 ### Challenge Sample Output
 
 ```
-ðŸ§  QUIZ MODE â€” 5 Questions
+🧠 QUIZ MODE — 5 Questions
 For each AI system, type: narrow, general, or super
 
   Question 1/5: Waze
-  â†’ Predicts traffic and suggests the fastest route
+  → Predicts traffic and suggests the fastest route
   Is this Narrow AI, General AI, or Super AI? narrow
-  âœ… Correct! Waze is Narrow AI.
+  ✅ Correct! Waze is Narrow AI.
 
   ...
 
 ========================================
   Your Score: 4/5
 ========================================
-  ðŸ‘ Great job! Just a bit more review needed.
+  👍 Great job! Just a bit more review needed.
 ```
 
 ---
@@ -104,4 +104,51 @@ Through this activity, you have practiced:
 - Understanding that ALL current AI is Narrow AI
 - Building quiz functionality with score tracking
 
-Next up: **AI vs ML vs DL** â€” Dan learns the difference between AI, Machine Learning, and Deep Learning.
+Next up: **AI vs ML vs DL** — Dan learns the difference between AI, Machine Learning, and Deep Learning.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+### Task 1: Basic Classifier
+
+```python
+ai_systems = {
+    "grab": {
+        "type": "Narrow AI",
+        "what_it_does": "Optimizes routes and matches riders to drivers",
+        "philippine_context": "Used by millions of Filipinos daily for transportation"
+    },
+    "gcash fraud detection": {
+        "type": "Narrow AI",
+        "what_it_does": "Detects suspicious transactions to prevent scams",
+        "philippine_context": "Protects over 80 million GCash users in the Philippines"
+    },
+    # ... (see act_1.answer.py for the full dictionary)
+}
+
+while True:
+    user_input = input("Enter an AI system (or 'quit'): ").lower().strip()
+    if user_input == "quit":
+        break
+    if user_input in ai_systems:
+        system = ai_systems[user_input]
+        print(f"  Type: {system['type']}")
+        print(f"  What it does: {system['what_it_does']}")
+    else:
+        print("  Not in database. But if it exists today → Narrow AI!")
+```
+
+### Task 2: Reflection Answers
+
+1. **No systems were General or Super AI** — because those types don't exist yet.
+2. **ChatGPT is Narrow AI** because it only generates text. It can't drive, see images (without plugins), or perform surgery. It's very good at ONE thing: text generation.
+3. **General AI would need** to learn any new task without specific training, transfer knowledge across domains, have common sense reasoning, and understand context/emotion like humans.
+4. **No need to fear AI** — focus on learning to build it. Narrow AI is a tool, not a threat.
+
+### Challenge: Quiz Mode
+
+See `act_1.answer.py` for the complete v2.0 with quiz mode and 17 AI systems.
+
+</details>

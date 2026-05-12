@@ -1,6 +1,6 @@
 # Data Explorer
 
-Let's use Python's built-in `csv` module to read and analyze real carinderia sales data. No external libraries needed â€” just Python!
+Let's use Python's built-in `csv` module to read and analyze real carinderia sales data. No external libraries needed — just Python!
 
 ---
 
@@ -24,10 +24,10 @@ python act_1.py
 
 ### Key Python Patterns
 
-- **`csv.DictReader(file)`** â€” each row becomes a dict keyed by column name
-- **`set()`** â€” stores only unique values
+- **`csv.DictReader(file)`** — each row becomes a dict keyed by column name
+- **`set()`** — stores only unique values
 - **Dictionary accumulation**: `d[key] = d.get(key, 0) + value` is a common pivot-table pattern
-- **`sorted(items, key=lambda x: x[1], reverse=True)`** â€” sort by the second element, descending
+- **`sorted(items, key=lambda x: x[1], reverse=True)`** — sort by the second element, descending
 - **f-string alignment**: `f"{item:12s}"` pads to 12 characters
 
 ---
@@ -81,4 +81,19 @@ CHALLENGE 2: Revenue by Day of Week
 - Real-world insight extraction from raw data
 - Why data quality matters for AI
 
-Next up: **Structured vs Unstructured Data** â€” Dan discovers why not all data is created equal.
+Next up: **Structured vs Unstructured Data** — Dan discovers why not all data is created equal.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the complete solution including the weather-on-sinigang analysis and day-of-week revenue bar chart.
+
+### Reflection Answers
+
+1. **Best seller**: Kare-Kare sold the most in the sample data (50 total units).
+2. **Payday boost**: Average payday revenue is significantly higher than non-payday (typically 40–80% depending on weather).
+3. **Missing sunny-only data**: She'd miss that sinigang sells 2–3x more on rainy days — one of her strongest patterns.
+
+</details>

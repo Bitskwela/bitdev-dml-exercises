@@ -1,6 +1,6 @@
 # Carinderia Profit Calculator
 
-Dan's first real Python project: a profit calculator for Tita Malou's carinderia. This program uses variables, data types, math operations, f-strings, and user input â€” all the basics you need to start coding for AI.
+Dan's first real Python project: a profit calculator for Tita Malou's carinderia. This program uses variables, data types, math operations, f-strings, and user input — all the basics you need to start coding for AI.
 
 ---
 
@@ -8,13 +8,13 @@ Dan's first real Python project: a profit calculator for Tita Malou's carinderia
 
 Open `act_1.py`. The starter has 8 labeled parts. Fill in each TODO:
 
-1. **Part 2** â€” Declare 5 variables (`dish_name`, `cost_per_serving`, `selling_price`, `servings_today`, `is_bestseller`).
-2. **Part 3** â€” Print each variable's type using `type(var).__name__`.
-3. **Part 4** â€” Calculate `profit_per_serving`, `total_revenue`, `total_cost`, `total_profit`, `markup_percent`.
-4. **Part 5** â€” Print a formatted profit report using f-strings.
-5. **Part 6** â€” Demonstrate `/`, `//`, `%`, `**`.
-6. **Part 7** â€” Show type conversion: `int("60")`, `float("35.50")`, `str(60)`.
-7. **Part 8** â€” Interactive input with conditional feedback.
+1. **Part 2** — Declare 5 variables (`dish_name`, `cost_per_serving`, `selling_price`, `servings_today`, `is_bestseller`).
+2. **Part 3** — Print each variable's type using `type(var).__name__`.
+3. **Part 4** — Calculate `profit_per_serving`, `total_revenue`, `total_cost`, `total_profit`, `markup_percent`.
+4. **Part 5** — Print a formatted profit report using f-strings.
+5. **Part 6** — Demonstrate `/`, `//`, `%`, `**`.
+6. **Part 7** — Show type conversion: `int("60")`, `float("35.50")`, `str(60)`.
+7. **Part 8** — Interactive input with conditional feedback.
 
 ### Sample Output
 
@@ -62,10 +62,10 @@ For each item, ask the user how many servings sold today. Calculate:
 ### Bonus
 
 Add a performance rating:
-- > P2000 total profit â†’ "Excellent!"
-- > P1000 â†’ "Good day"
-- > P0 â†’ "Breaking even-ish"
-- else â†’ "Review pricing"
+- > P2000 total profit → "Excellent!"
+- > P1000 → "Good day"
+- > P0 → "Breaking even-ish"
+- else → "Review pricing"
 
 ---
 
@@ -77,4 +77,18 @@ Add a performance rating:
 - Writing clean, readable Python code
 - Why Python reads like English
 
-Next up: **Python Basics** â€” loops, lists, and conditionals.
+Next up: **Python Basics** — loops, lists, and conditionals.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the complete 8-part solution with:
+- All variable declarations
+- Full f-string report
+- All math operators
+- Type conversion examples
+- Interactive input with feedback messages
+
+</details>

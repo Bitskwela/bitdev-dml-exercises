@@ -1,16 +1,16 @@
 # Recommender Showdown: Heuristic vs Learning
 
-Build TWO dish recommenders for Tita Malou's carinderia â€” one based on her rules (heuristic), one that learns patterns from sales data. Then race them on a held-out test set.
+Build TWO dish recommenders for Tita Malou's carinderia — one based on her rules (heuristic), one that learns patterns from sales data. Then race them on a held-out test set.
 
 ---
 
 ## Task 1: Generate the Dataset
 
 The starter generates 200 days of simulated sales data with realistic patterns:
-- Rainy + Friday â†’ Sinigang dominates (45%)
-- Payday â†’ Kare-Kare or Bistek (55%)
-- Weekend + Sunny â†’ Halo-Halo (40%)
-- Monday â†’ Lugaw or Tortang Talong (43%)
+- Rainy + Friday → Sinigang dominates (45%)
+- Payday → Kare-Kare or Bistek (55%)
+- Weekend + Sunny → Halo-Halo (40%)
+- Monday → Lugaw or Tortang Talong (43%)
 
 ---
 
@@ -70,4 +70,13 @@ Define 10 specific scenarios with a "ground truth" expected dish. Test both reco
 - Train/test splits to measure accuracy fairly
 - Why data-driven systems can find patterns humans miss
 
-Next up: **Intro to Neural Networks** â€” Dan builds his first perceptron.
+Next up: **Intro to Neural Networks** — Dan builds his first perceptron.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the full showdown with synthetic data generation, both recommenders, train/test split, and head-to-head accuracy comparison.
+
+</details>

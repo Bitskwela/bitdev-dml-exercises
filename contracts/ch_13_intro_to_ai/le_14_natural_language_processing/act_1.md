@@ -77,7 +77,7 @@ For all 20 reviews:
 ### Sample Output
 
 ```
-ðŸ“Š REVIEW ANALYSIS â€” Tita Malou's Carinderia
+📊 REVIEW ANALYSIS — Tita Malou's Carinderia
   Total reviews:    20
   Positive:         14 (70%)
   Negative:          4 (20%)
@@ -94,8 +94,8 @@ Top negative keywords: matagal (3), konti (2), mahal (2)
 ### Challenge A: Intensifiers
 
 Words like "sobrang" or "super" amplify the next word. Detect them and weight sentiment accordingly:
-- "sobrang masarap" â†’ +2 positive
-- "super pangit" â†’ +2 negative
+- "sobrang masarap" → +2 positive
+- "super pangit" → +2 negative
 
 ### Challenge B: Topic Categories
 
@@ -115,4 +115,13 @@ Classify each review into a topic:
 - Keyword-based sentiment classification
 - Why real NLP is harder (sarcasm, Taglish, context)
 
-Next up: **Computer Vision** â€” Dan discovers how AI sees images.
+Next up: **Computer Vision** — Dan discovers how AI sees images.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the complete 20-review NLP lab with intensifiers and topic categorization.
+
+</details>

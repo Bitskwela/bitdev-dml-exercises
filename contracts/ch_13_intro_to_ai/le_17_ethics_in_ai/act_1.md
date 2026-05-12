@@ -80,4 +80,13 @@ Extend `check_bias()` to work on any categorical column (age groups, gender, reg
 - The accuracy-vs-fairness tradeoff
 - Writing responsible AI commitments
 
-Next up: **AI Applications** â€” Dan brainstorms his hackathon idea.
+Next up: **AI Applications** — Dan brainstorms his hackathon idea.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the full bias detector with generated dataset, income-controlled analysis, fair model comparison, and reusable bias-check function.
+
+</details>

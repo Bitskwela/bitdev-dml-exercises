@@ -1,4 +1,4 @@
-# API Lab â€” Mock Carinderia API
+# API Lab — Mock Carinderia API
 
 Build a mock carinderia API (no external service needed) that demonstrates all HTTP verbs, status codes, and JSON handling.
 
@@ -10,8 +10,8 @@ Build a mock carinderia API (no external service needed) that demonstrates all H
 import json
 
 data = {"order_id": 1234, "items": ["Adobo", "Sinigang"], "total": 125.50}
-text = json.dumps(data)              # dict â†’ JSON string
-back = json.loads(text)              # JSON string â†’ dict
+text = json.dumps(data)              # dict → JSON string
+back = json.loads(text)              # JSON string → dict
 ```
 
 ---
@@ -19,12 +19,12 @@ back = json.loads(text)              # JSON string â†’ dict
 ## Task 2: Build MockCarinderiaAPI Class
 
 6 endpoints:
-- `GET /menu` â€” return list of dishes
-- `GET /menu/<item>` â€” return one dish (or 404)
-- `POST /order` â€” create an order (returns 201 + order_id)
-- `GET /orders` â€” return all orders + total revenue
-- `GET /recommendation` â€” weather-based suggestion
-- `GET /health` â€” simple heartbeat
+- `GET /menu` — return list of dishes
+- `GET /menu/<item>` — return one dish (or 404)
+- `POST /order` — create an order (returns 201 + order_id)
+- `GET /orders` — return all orders + total revenue
+- `GET /recommendation` — weather-based suggestion
+- `GET /health` — simple heartbeat
 
 Each method returns `(status_code, response_dict)`.
 
@@ -69,4 +69,13 @@ Add a `/smart-recommendation` endpoint that factors in weather, budget, is_payda
 - Client wrappers over raw API calls
 - Why secrets go in environment variables, never in code
 
-Next up: **OpenAI API Basics** â€” Dan's first real LLM call.
+Next up: **OpenAI API Basics** — Dan's first real LLM call.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the complete MockCarinderiaAPI, CarinderiaClient, and end-to-end demonstration.
+
+</details>

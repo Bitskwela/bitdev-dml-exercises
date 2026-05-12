@@ -1,6 +1,6 @@
 # Carinderia Ordering System
 
-Build a complete carinderia ordering system using lists, dictionaries, loops, and conditionals â€” the building blocks of every Python program.
+Build a complete carinderia ordering system using lists, dictionaries, loops, and conditionals — the building blocks of every Python program.
 
 ---
 
@@ -57,14 +57,14 @@ Count items by category and print a breakdown.
 ### Sample Output
 
 ```
-=== RECEIPT â€” Tita Malou's Carinderia ===
+=== RECEIPT — Tita Malou's Carinderia ===
    2x Adobo + Rice              P 120.00
    1x Halo-Halo                 P  60.00
 ------------------------------------------
                        Subtotal P 180.00
                           TOTAL P 180.00
 
-ðŸ“Š Order stats:
+📊 Order stats:
    Total items: 3
    desserts: 1
    mains: 2
@@ -93,4 +93,13 @@ Extend the system to handle multiple customers in a single session:
 - String methods (strip, lower, split)
 - f-string alignment for formatted output
 
-Next up: **Working with Libraries** â€” Dan meets numpy and pandas.
+Next up: **Working with Libraries** — Dan meets numpy and pandas.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for a complete 12-item ordering system with category-grouped menu, error handling, senior discount, and stats.
+
+</details>

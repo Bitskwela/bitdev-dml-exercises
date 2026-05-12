@@ -23,11 +23,11 @@ while True:
 ## Task 2: Slash Commands
 
 Implement:
-- `/help` â€” list commands
-- `/history` â€” print conversation history (role, first 60 chars)
-- `/tokens` â€” total tokens + estimated P cost
-- `/clear` â€” reset history (keep only system prompt)
-- `/quit` or `/bye` â€” exit with session summary
+- `/help` — list commands
+- `/history` — print conversation history (role, first 60 chars)
+- `/tokens` — total tokens + estimated P cost
+- `/clear` — reset history (keep only system prompt)
+- `/quit` or `/bye` — exit with session summary
 
 ---
 
@@ -77,4 +77,13 @@ Add `/save luto.json` and `/load luto.json`. Lets you resume conversations acros
 - Session state tracking
 - Scripted test mode for non-interactive runs
 
-Next up: **Improve Chatbot** â€” polish Luto with real user feedback.
+Next up: **Improve Chatbot** — polish Luto with real user feedback.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for the complete interactive Luto with all slash commands, session tracking, and scripted test mode.
+
+</details>

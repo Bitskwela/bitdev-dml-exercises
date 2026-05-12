@@ -39,7 +39,7 @@ Opens at http://localhost:8501. Chat with Luto.
 2. Go to https://share.streamlit.io
 3. Connect your GitHub account
 4. Select the repo and `app.py`
-5. In "Advanced settings" â†’ Secrets, add:
+5. In "Advanced settings" → Secrets, add:
    ```
    OPENAI_API_KEY = "sk-..."
    ```
@@ -84,3 +84,12 @@ Dan completed 25 lessons. You did too (or you're about to). From "What is AI?" t
 **Next:** Build your own AI project. Your carinderia. Your jeepney. Your barangay. Your app. The skills are yours now.
 
 **Salamat!**
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for a complete Streamlit app with sidebar, metrics, clear button, download, and MockOpenAI fallback.
+
+</details>

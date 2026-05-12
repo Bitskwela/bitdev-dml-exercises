@@ -1,6 +1,6 @@
 # Computer Vision Lab
 
-See how AI views images â€” as grids of numbers. Build a brightness detector and a color-based dish classifier.
+See how AI views images — as grids of numbers. Build a brightness detector and a color-based dish classifier.
 
 ---
 
@@ -10,7 +10,7 @@ See how AI views images â€” as grids of numbers. Build a brightness detecto
 pip install numpy
 ```
 
-(Pillow is optional â€” we'll use numpy only to keep things self-contained.)
+(Pillow is optional — we'll use numpy only to keep things self-contained.)
 
 ---
 
@@ -53,7 +53,7 @@ print("Average of entire image:", flag.mean(axis=(0, 1)))
 ## Task 3: Grayscale Conversion
 
 ```python
-gray = flag.mean(axis=2)  # collapse RGB â†’ single brightness value
+gray = flag.mean(axis=2)  # collapse RGB → single brightness value
 print("Grayscale shape:", gray.shape)
 print("Brightness range:", gray.min(), "to", gray.max())
 ```
@@ -113,4 +113,13 @@ Given an unknown average-color input, the system should:
 - Color-based classification via nearest-neighbor on RGB space
 - Why modern CV (CNNs) uses learned features instead of hand-coded color rules
 
-Next up: **Reinforcement Learning** â€” Dan trains a delivery agent.
+Next up: **Reinforcement Learning** — Dan trains a delivery agent.
+
+---
+
+<details>
+<summary><strong>Answer Key</strong></summary>
+
+See `act_1.answer.py` for flag creation, brightness detector on 5 synthetic photos, and color classifier on all 4 dishes with accuracy report.
+
+</details>
