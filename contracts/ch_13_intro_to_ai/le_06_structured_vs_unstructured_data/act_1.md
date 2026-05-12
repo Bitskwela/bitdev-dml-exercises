@@ -88,7 +88,7 @@ Add 5 more messy notebook entries, convert them to structured format, and append
 ## What You've Learned
 
 - Reading unstructured text and transforming it into structured records
-- Using `csv.DictWriter` to write CSV files
+- Using `csv.DictWriter` with `io.StringIO` to encode CSV in memory
 - The dictionary pattern for structured records
 - Why data cleaning is 80% of a data scientist's work
 
