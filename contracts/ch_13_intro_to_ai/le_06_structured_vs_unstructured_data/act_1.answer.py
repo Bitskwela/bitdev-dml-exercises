@@ -94,7 +94,3 @@ samples = [
 
 for sample, data_type in samples:
     print(f"   {sample:42} → {data_type}")
-
-# Cleanup
-if os.path.exists(CSV_FILE):
-    os.remove(CSV_FILE)
