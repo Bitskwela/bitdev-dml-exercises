@@ -53,16 +53,27 @@ structured_records = [
 
 
 # ============================================
-# PART 3: Write to CSV
+# PART 3: Write to an in-memory CSV buffer
 # ============================================
-# TODO: Use csv.DictWriter to write structured_records to "sales.csv"
-# Include a header row.
+# TODO: Create a StringIO buffer, then use csv.DictWriter on it to
+# write structured_records (with a header row). This keeps the lesson
+# sandbox-safe — no files are created on disk.
+#
+#   csv_buffer = StringIO()
+#   writer = csv.DictWriter(csv_buffer, fieldnames=[...])
+#   writer.writeheader()
+#   writer.writerows(structured_records)
 
 
 # ============================================
 # PART 4: Read it back
 # ============================================
-# TODO: Read sales.csv back and print it as a formatted table.
+# TODO: Seek the buffer back to the start, then read it with csv.DictReader
+# and print each row as a formatted table.
+#
+#   csv_buffer.seek(0)
+#   reader = csv.DictReader(csv_buffer)
+#   for row in reader: ...
 
 
 # ============================================
