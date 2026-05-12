@@ -41,14 +41,13 @@ structured_records = [
     {"date": "2026-03-03", "item": "Banana Cue", "quantity": 1, "revenue": 10, "payment_method": "cash"},
 ]
 
-# Part 3: Write to CSV
-CSV_FILE = "sales.csv"
-with open(CSV_FILE, "w", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=["date", "item", "quantity", "revenue", "payment_method"])
-    writer.writeheader()
-    writer.writerows(structured_records)
+# Part 3: Write to an in-memory CSV (sandbox-safe — no disk needed)
+csv_buffer = StringIO()
+writer = csv.DictWriter(csv_buffer, fieldnames=["date", "item", "quantity", "revenue", "payment_method"])
+writer.writeheader()
+writer.writerows(structured_records)
 
-print(f"\n✅ Wrote {len(structured_records)} records to {CSV_FILE}")
+print(f"\n✅ Encoded {len(structured_records)} records as CSV ({len(csv_buffer.getvalue())} chars)")
 
 # Part 4: Read back and display as table
 print("\nStructured Data (readable table):")
@@ -56,11 +55,11 @@ print("-" * 75)
 print(f"{'Date':12} {'Item':32} {'Qty':>4} {'Revenue':>8} {'Payment':>10}")
 print("-" * 75)
 
-with open(CSV_FILE, "r") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        print(f"{row['date']:12} {row['item']:32} {row['quantity']:>4} "
-              f"P{row['revenue']:>6} {row['payment_method']:>10}")
+csv_buffer.seek(0)
+reader = csv.DictReader(csv_buffer)
+for row in reader:
+    print(f"{row['date']:12} {row['item']:32} {row['quantity']:>4} "
+          f"P{row['revenue']:>6} {row['payment_method']:>10}")
 
 # Part 5: Quick analysis
 total_revenue = sum(int(r["revenue"]) for r in structured_records)
