@@ -11,7 +11,7 @@ This is a real-world data engineering task. Data scientists spend a huge chunk o
 Open `act_1.py`. You'll find Tita Malou's messy notebook entries as Python strings. Your job:
 
 1. **Convert each entry to a dict** with fields: `date`, `item`, `quantity`, `revenue`, `payment_method`.
-2. **Write to CSV** using `csv.DictWriter`.
+2. **Encode as CSV in memory** using `csv.DictWriter` on a `io.StringIO()` buffer (no disk writes needed).
 3. **Read back and display** as a formatted table.
 4. **Analyze**: total revenue, cash vs GCash split, record count.
 
