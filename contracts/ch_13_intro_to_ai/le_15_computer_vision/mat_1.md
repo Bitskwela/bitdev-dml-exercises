@@ -100,20 +100,6 @@ Pretrained models like ResNet, EfficientNet, or Vision Transformers can identify
 
 ---
 
-## Dan's Journal
-
-> **March 29, 2026 — Carinderia after closing**
->
-> Today I photographed every dish for Mama's Facebook page. Then I wondered if I could automate the labeling. Turns out images are just numbers.
->
-> A 1080x1920 photo = ~2 million pixels = ~6 million numbers. My laptop can process that in half a second. Mind. Blown.
->
-> Built a brightness detector. Found 3 photos too dark to post (kitchen lighting was bad). Built a color-based dish classifier — works for very distinct colors (Kare-Kare vs Halo-Halo) but confused Adobo and Bistek (both brown). Real CNNs would handle this easily by looking at shape + texture + color.
->
-> Mama doesn't care about the math. She just wants her Facebook page to look good. AI solves the boring stuff so she can focus on cooking. That's the real value.
-
----
-
 ## Key Takeaways
 
 1. **Images are 3D numpy arrays** of shape (height, width, 3) — RGB channels.
@@ -122,17 +108,6 @@ Pretrained models like ResNet, EfficientNet, or Vision Transformers can identify
 4. **Brightness detection** = mean of all pixel values.
 5. **Color classification** by comparing dominant RGB to known profiles.
 6. **Modern CV** uses CNNs — they automatically learn edges, shapes, and objects from pixels.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Tita** | TEE-tah | Auntie; used for older women, related or not. |
-| **Adobo** | ah-DOH-boh | National dish — meat braised in vinegar, soy sauce, garlic. |
-| **Pinakbet** | pee-nahk-BET | Vegetable dish with bitter melon, squash, eggplant, okra. |
-| **Kare-Kare** | kah-REH kah-REH | Peanut-based stew with oxtail and tripe. |
 
 ---
 

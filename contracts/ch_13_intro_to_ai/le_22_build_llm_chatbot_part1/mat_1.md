@@ -81,26 +81,6 @@ Always catch broad `Exception` as a final fallback — never let the chatbot cra
 
 ---
 
-## Dan's Journal
-
-> **April 7, 2026 — Lab, 11 PM**
->
-> Two hours well spent. Built the foundation of Luto.
->
-> One `chat(user_msg) -> str` function. History list. Error handling. Luto personality in the system prompt. Tested with 5 messages:
->
-> 1. "Kumusta?" → warm greeting back
-> 2. "What should I cook for a rainy Friday?" → sinigang recommendation
-> 3. "How much for 10 people?" → remembers we're talking about sinigang
-> 4. "How long to prep?" → still contextual
-> 5. "Thank you!" → warm close
->
-> The history grew from 2 messages (just the system prompt + first user msg) to 12 messages. Context preserved. Tokens: ~850 total. P0.13 estimated. Negligible.
->
-> Tomorrow: wrap it in a chat loop. That's Part 2.
-
----
-
 ## Key Takeaways
 
 1. **Build chatbots in layers**: setup, personality (system prompt), logic (chat function), testing.
@@ -109,16 +89,6 @@ Always catch broad `Exception` as a final fallback — never let the chatbot cra
 4. **Error handling** is non-negotiable — APIs fail; chatbots shouldn't crash.
 5. **Test with scripted messages** before building UI — verify context preservation.
 6. **Start simple** — one function, one flow, working end-to-end. Then iterate.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **MRT** | em-ar-tee | Metro Rail Transit in Manila. |
-| **Anak** | AH-nahk | "Child" — term of endearment. |
-| **Carinderia** | kah-rin-DEH-ryah | Small family-run eatery. |
 
 ---
 

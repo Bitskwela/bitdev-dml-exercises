@@ -107,26 +107,6 @@ Understanding the pipeline is crucial because:
 
 ---
 
-## Dan's Journal
-
-> *Dan wrote in his journal after the dinner rush:*
->
-> **March 15, 2026 — Marikina**
->
-> I had a huge realization today. My mom, for the past 15 years, has been doing exactly what AI does — collecting data, processing it in her brain, then making predictions. She's not just cooking. She's been running a prediction model powered by experience.
->
-> Data → Model → Output. It really is that simple at its foundation. But it's so powerful.
->
-> When I say "the weather is rainy + it's payday + there's a basketball game" — my mom, within 2 seconds, already knows: "Cook 3 extra pots of sinigang." That's a prediction! She's not a math genius or a fortune teller — she's experienced. And that experience is her training data.
->
-> The difference between my mom and real AI? Scale. My mom can only predict for one carinderia. But if all her data from the past 15 years were recorded — every payday, every rainy day, every fiesta — we could train a computer to do the same thing. And not just for one carinderia, but for thousands.
->
-> Kuya JM says the pipeline is the foundation of EVERYTHING in AI. If you understand Data → Model → Output, you already get 80% of the concept. The rest is just making the model smarter.
->
-> Tomorrow, I want to figure out: where does the DATA come from? How would I even collect data from my mom's carinderia?
-
----
-
 ## Key Takeaways
 
 1. **Every AI system follows the pipeline:** Data → Model → Output.
@@ -135,19 +115,6 @@ Understanding the pipeline is crucial because:
 4. **Output** is the model's prediction or decision — classification, number, recommendation, or action.
 5. **Garbage in, garbage out**: the output is only as good as the data and model.
 6. **Tita Malou has been running an AI pipeline** for 15 years — just with a human brain instead of a computer.
-
----
-
-## Filipino Culture Cards
-
-> Learn about the Filipino terms and cultural elements featured in this lesson!
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Tita** | TEE-tah | Auntie — used for older women, whether related or not. A sign of warmth and familiarity in Filipino culture. |
-| **Carinderia** | kah-rin-DEH-ryah | A small, family-run eatery — the heart of Filipino street food culture. Customers point at dishes behind a glass counter ("turo-turo"). Affordable, home-cooked meals for working-class Filipinos. |
-| **Ate** | AH-teh | Respectful term for an older sister or older female relative/friend. The female counterpart of Kuya. |
-| **Fiesta** | fee-YES-tah | A town or barangay festival celebrating a patron saint. Families cook massive amounts of food and open their doors to everyone. |
 
 ---
 

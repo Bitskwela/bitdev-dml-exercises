@@ -87,26 +87,6 @@ Modern LLMs (like ChatGPT) handle these far better than keyword matching — but
 
 ---
 
-## Dan's Journal
-
-> **March 28, 2026 — Dorm, after autocorrect fail**
->
-> NLP is basically: text → numbers → math → text. The magic is in the conversion.
->
-> Built a review analyzer today. Tokenized 20 Taglish reviews. Removed stop words like "ang", "ng", "sa". Counted word frequencies. Built a keyword-based sentiment classifier.
->
-> Results for Mama's carinderia:
-> - 70% positive reviews
-> - Top positive words: masarap, sulit, fresh
-> - Top negative words: matagal, konti, mahal (slow, small portion, expensive)
-> - Actionable insight: serve faster, slightly bigger portions
->
-> Mama reviewed my output and said it matched her gut feeling but gave her NUMBERS to work with. That's the power of NLP.
->
-> Real ChatGPT-level NLP uses transformers with billions of parameters. Mine uses a wordlist with 30 words. Both are NLP. Mine just has humble roots.
-
----
-
 ## Key Takeaways
 
 1. **NLP converts text to numbers** so computers can process it.
@@ -115,16 +95,6 @@ Modern LLMs (like ChatGPT) handle these far better than keyword matching — but
 4. **Sentiment analysis** can start with keyword matching (good enough for short text).
 5. **Real NLP is hard** because of sarcasm, slang, mixed languages, context ambiguity.
 6. **Modern LLMs (ChatGPT, Gemini)** are deep NLP — transformers trained on billions of text examples.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Carinderia** | kah-rin-DEH-ryah | A small family-run eatery — the heart of Filipino street food culture. |
-| **Palengke** | pah-LENG-keh | Traditional wet market. |
-| **Bistek** | bis-TEHK | Filipino beef steak with soy sauce, calamansi, and onions. |
 
 ---
 

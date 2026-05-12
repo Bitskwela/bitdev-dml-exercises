@@ -106,20 +106,6 @@ print(r.json())
 
 ---
 
-## Dan's Journal
-
-> **April 5, 2026 — Kuya JM's apartment**
->
-> APIs are just restaurants. That mental model made everything click.
->
-> Built a mock carinderia API with 6 endpoints: GET /menu, GET /menu/<item>, POST /order, GET /orders, GET /recommendation, and GET /health. Also called real APIs — httpbin.org, advice slip — and saw actual HTTP status codes, JSON bodies, headers.
->
-> Kuya JM gave me a P500 OpenAI key. He wrapped it in a stern lecture: "Never commit this. Use os.environ. Delete the key from your machine if you're done. If it leaks, someone will drain it in minutes." I nodded. Created a `.env` file. Added it to `.gitignore`.
->
-> Tomorrow: first real OpenAI API call. The hackathon countdown is real.
-
----
-
 ## Key Takeaways
 
 1. **API = the "waiter"** between your code and a remote service.
@@ -128,16 +114,6 @@ print(r.json())
 4. **JSON** is the universal data format for APIs.
 5. **Python's `requests` library** is the go-to for API calls.
 6. **NEVER commit API keys** — use environment variables and `.env` files.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **GCash** | jee-CASH | PH's most popular mobile wallet; has a dev API too. |
-| **Kare-Kare** | kah-REH kah-REH | Peanut-based celebration stew. |
-| **Tinola** | tee-NOH-lah | Light ginger-chicken soup. |
 
 ---
 

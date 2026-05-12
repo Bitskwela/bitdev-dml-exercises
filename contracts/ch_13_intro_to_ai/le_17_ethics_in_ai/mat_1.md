@@ -89,33 +89,6 @@ Sometimes improving fairness reduces raw accuracy (on biased test data). That's 
 
 ---
 
-## Dan's Journal
-
-> **March 31, 2026 — Classroom, after Dr. Reyes' lecture**
->
-> AI isn't automatically fair. It's only as fair as its training data.
->
-> I built a bias detector today on loan approval data. Same income level (P35k-45k), approval rates by region:
-> - NCR: 82%
-> - Luzon (outside NCR): 68%
-> - Visayas: 51%
-> - Mindanao: 45%
->
-> Same income. Same qualifications. Different approval rates. That's not risk analysis — that's discrimination.
->
-> Built a fair model that only used income. Accuracy dropped from 78% to 74%. But it approved equally across regions. Dr. Reyes would be proud.
->
-> For my hackathon, I'm going to write an "AI Ethics Statement" before I build anything. Commitments:
-> - Fair across regions, genders, ages
-> - Transparent — explainable decisions
-> - Privacy-preserving — no unnecessary data collection
-> - Human-in-the-loop — final decisions reviewed by Mama, not automated
-> - Failure-tested — I'll break my own system before deploying
->
-> Jasper still thinks I'm overthinking. He doesn't get it. That's fine. Someone has to.
-
----
-
 ## Key Takeaways
 
 1. **AI inherits bias from training data.** Garbage in = unfair out.
@@ -124,16 +97,6 @@ Sometimes improving fairness reduces raw accuracy (on biased test data). That's 
 4. **5 Pillars**: Fairness, Transparency, Accountability, Privacy, Safety.
 5. **Detect bias by comparing outcomes across groups** with the same qualifications.
 6. **Accuracy vs fairness tradeoff** — sometimes you lose a few accuracy points to be fair. Worth it.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Barangay** | bah-RAHNG-guy | Smallest admin unit in PH. |
-| **GCash** | jee-CASH | Top mobile wallet in the Philippines. |
-| **BGC** | bee-jee-see | Bonifacio Global City — PH fintech hub. |
 
 ---
 

@@ -105,26 +105,6 @@ These three lines (`read_csv`, `groupby`, `sum`) replace what would be 30+ lines
 
 ---
 
-## Dan's Journal
-
-> **March 22, 2026 — Dorm, Sunday night**
->
-> Pandas is a superpower. I just analyzed Mama's carinderia CSV — 50 rows of sales data — and pulled out insights I didn't even know to look for:
->
-> - Adobo sells the most by quantity
-> - Kare-Kare brings the most revenue
-> - Payday boosts revenue 60%
-> - Sinigang on rainy days sells 3x more than sunny days
-> - Friday is the busiest revenue day
->
-> All of that with 40 lines of code. In raw Python it would have been hundreds. The library does the heavy lifting.
->
-> Kuya JM was right — "standing on the shoulders of giants" is real. Some smart engineers at PyData wrote pandas. I just import it. Beautiful.
->
-> Next: actual algorithms.
-
----
-
 ## Key Takeaways
 
 1. **Libraries are pre-built code** you import to avoid reinventing the wheel.
@@ -133,15 +113,6 @@ These three lines (`read_csv`, `groupby`, `sum`) replace what would be 30+ lines
 4. **pandas** = DataFrames for tabular data analysis (read_csv, head, describe, groupby).
 5. **matplotlib** = quick visualization (plt.bar, plt.plot, plt.show).
 6. **Libraries are 100x faster** than pure Python loops because the heavy work is in compiled C.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Carinderia** | kah-rin-DEH-ryah | A small, family-run eatery — the heart of Filipino street food culture. |
-| **Turon** | too-ROHN | Crispy spring roll with banana and jackfruit, caramelized sugar coating. A favorite merienda. |
 
 ---
 

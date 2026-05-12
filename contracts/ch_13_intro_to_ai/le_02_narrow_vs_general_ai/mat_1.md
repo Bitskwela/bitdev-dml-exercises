@@ -113,26 +113,6 @@ This does not mean Narrow AI is not powerful. Narrow AI can beat the world champ
 
 ---
 
-## Dan's Journal
-
-> **Entry #2 — "No Robot Apocalypse After All"**
->
-> Man, earlier tonight I thought the world was ending. I read all these articles about AI taking over — "Robot Overlords!" "AI Will Replace All Jobs!" I panicked so hard. I was stressed out in my dorm while all my roommates were already asleep.
->
-> Good thing I messaged Kuya JM. He told me that the AI people are afraid of — General AI with human-level intelligence — doesn't exist yet. It hasn't been built. Nobody knows how to build it. It might not even be possible!
->
-> All AI right now is just Narrow AI. Like a specialist doctor — great at one thing, but clueless about everything else. The Grab AI is amazing at optimizing routes, but it can't recommend a dish. The spam filter can detect spam, but it can't compose music.
->
-> I built an AI classifier program. Everything I classified — Grab, Shopee, Siri, ChatGPT, GCash — all Narrow AI. ALL of them. Zero General AI. Zero Super AI.
->
-> I feel a lot calmer now. Instead of being scared of AI, I should be learning how to BUILD it. That's what I need for the hackathon. Focus on Narrow AI — solve real problems for real Filipinos.
->
-> Time to sleep. I still have class tomorrow. The robot apocalypse isn't happening anytime soon after all.
->
-> — Dan, finally calm, 2 AM
-
----
-
 ## Key Takeaways
 
 1. **Narrow AI (ANI)** is the ONLY type of AI that exists today. It can do one specific task very well but nothing else.
@@ -140,17 +120,6 @@ This does not mean Narrow AI is not powerful. Narrow AI can beat the world champ
 3. **Super AI (ASI)** would surpass all human intelligence. It is pure science fiction.
 4. **All AI you interact with daily is Narrow AI** — Grab, GCash, Shopee, Siri, ChatGPT, Netflix, Waze, face unlock, spam filters.
 5. **Do not fear AI — learn to build it.** Understanding Narrow AI is where all the real opportunities are: jobs, startups, hackathons, and solving problems for Filipino communities.
-
----
-
-## Filipino Culture Cards
-
-> Learn about the Filipino terms and cultural elements featured in this lesson!
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Barkada** | bar-KAH-dah | A close friend group. In Filipino culture, your barkada is like a second family — you eat, study, and hang out together. |
-| **GCash** | jee-CASH | The Philippines' most popular mobile wallet — used for bills, shopping, and even street food. A game-changer for the unbanked population. |
 
 ---
 

@@ -103,22 +103,6 @@ Think of libraries like a palengke — pre-made ingredients so you don't have to
 
 ---
 
-## Dan's Journal
-
-> **March 20, 2026 — Computer Lab**
->
-> Wrote my first real Python program today. Just `print("Hello, AI!")`, but it FELT huge.
->
-> Then I built a carinderia profit calculator. Variables for dish name, cost, price. Math operations for total profit and markup percent. f-strings for formatted output. It all just... made sense. Compared to Java (which feels like putting on a suit to write a grocery list), Python feels like texting.
->
-> Kuya JM was right — Python reads like English. I could literally explain my code to Nanay and she'd understand it (mostly). When she sees `total_profit = selling_price - cost_per_serving`, she gets it instantly. That's the power of readability.
->
-> The libraries blew my mind too. I haven't used numpy or pandas yet, but just knowing they exist — that someone already wrote the hard code so I can focus on solving problems — that's like having a palengke at your fingertips.
->
-> Tomorrow: loops and conditionals. Tonight: finally writing something useful.
-
----
-
 ## Key Takeaways
 
 1. **Python dominates AI** because of readability, libraries, community, and being free.
@@ -127,14 +111,6 @@ Think of libraries like a palengke — pre-made ingredients so you don't have to
 4. **f-strings** are the modern way to format output: `f"Price: {price:.2f}"` gives 2 decimal places.
 5. **Dynamic typing**: you don't declare types — Python figures them out.
 6. **Math operators beyond +-*/**: `//` (floor division), `%` (modulo), `**` (exponent).
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Palengke** | pah-LENG-keh | A traditional wet market for fresh meat, fish, vegetables, and spices. Loud, colorful, and full of life. |
 
 ---
 
