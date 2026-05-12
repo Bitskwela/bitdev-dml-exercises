@@ -81,7 +81,7 @@ Build a function that classifies data sources as Structured, Semi-Structured, or
 
 ### Bonus: Expand the Dataset
 
-Add 5 more messy notebook entries, convert them to structured format, and append to your CSV. Then re-run the analysis.
+Add 5 more messy notebook entries, convert them to structured format, and append them to your `structured_records` list. Then re-run the analysis.
 
 ---
 
