@@ -3,12 +3,19 @@
 # LUTO — Streamlit Web App (Deployment)
 # by: <Your Name>
 # ============================================
-# Run locally: streamlit run act_1.py
-# Install: pip install streamlit openai
-
-# This is a STREAMLIT app, not a standalone script.
-# The `streamlit` imports will only work when run via `streamlit run`.
-
+#
+# !!! RUN LOCALLY — NOT IN THE IN-BROWSER SANDBOX !!!
+# Streamlit needs a real Python environment and a browser.
+# The sandbox cannot host a Streamlit server, so this file is
+# read-along until you copy it to your own machine.
+#
+# Local setup:
+#   pip install streamlit openai python-dotenv
+#   streamlit run act_1.py
+#
+# `import streamlit` will fail in any environment without Streamlit
+# installed (including the sandbox). That is expected.
+#
 # NOTE: This file is intentionally outlined.
 # See act_1.answer.py for a fully-working Streamlit app.
 
