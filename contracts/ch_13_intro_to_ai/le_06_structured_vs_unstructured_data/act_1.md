@@ -2,7 +2,7 @@
 
 Let's do what Dan did that night: take Tita Malou's messy, unstructured notebook entries and convert them into a clean, structured CSV file using Python.
 
-This is a real-world data engineering task. Data scientists spend a huge chunk of their time on this — cleaning and structuring data so models can use it.
+This is a real-world data engineering task. Data scientists spend a huge chunk of their time on this â€” cleaning and structuring data so models can use it.
 
 ---
 
@@ -44,7 +44,7 @@ Date         Item                             Qty  Revenue    Payment
 2026-03-01   Sinigang + Rice                    1  P    85      GCash
 ...
 
-📊 Analysis:
+ðŸ“Š Analysis:
    Total records:   8
    Total revenue:   P1,285
    Cash revenue:    P245
@@ -92,19 +92,4 @@ Add 5 more messy notebook entries, convert them to structured format, and append
 - The dictionary pattern for structured records
 - Why data cleaning is 80% of a data scientist's work
 
-Next up: **Intro to Python for AI** — Dan levels up his Python skills.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete solution with 8 structured records, CSV round-trip, analysis, and data type classifier demo.
-
-### Reflection Answers
-
-1. **Lost information**: Free-form notes ("It rained today"), customer identities ("Aling Rosa"), emotional/contextual cues ("The guy from the corner, who was that?").
-2. **Now possible**: Sorting, filtering, computing aggregates, plotting trends, feeding into ML models.
-3. **In this sample**: Both payment methods are well-represented, but GCash accounts for the single largest transaction (P225).
-
-</details>
+Next up: **Intro to Python for AI** â€” Dan levels up his Python skills.

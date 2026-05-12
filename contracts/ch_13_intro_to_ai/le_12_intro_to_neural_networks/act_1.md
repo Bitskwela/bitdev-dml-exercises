@@ -41,16 +41,16 @@ Try different weight configurations and see how predictions change:
 - Proximity-focused: [0.2, 0.2, 0.6]
 - Equal weights: [0.33, 0.33, 0.34]
 
-Same customers, different weights → see how the neuron's "personality" shifts.
+Same customers, different weights â†’ see how the neuron's "personality" shifts.
 
 ---
 
 ## Task 4: Two Neurons Working Together
 
 Build a second neuron that predicts a different output (e.g., "will order PREMIUM?" with a bias that makes it harder to activate). Combine both predictions into a final recommendation:
-- Both say yes → "Upsell the deluxe set"
-- First yes, second no → "Standard meal"
-- First no → "Pass"
+- Both say yes â†’ "Upsell the deluxe set"
+- First yes, second no â†’ "Standard meal"
+- First no â†’ "Pass"
 
 ---
 
@@ -81,19 +81,10 @@ Extend to 4 inputs: [hunger, budget, proximity, weather_is_rainy]. Find good wei
 
 ## What You've Learned
 
-- Perceptron math: inputs × weights + bias → activation
+- Perceptron math: inputs Ã— weights + bias â†’ activation
 - Weights encode importance
 - Bias encodes default tendency
 - Changing weights changes predictions
 - Why training a neural network = finding good weights
 
-Next up: **What is Deep Learning?** — Dan stacks neurons in layers.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete 8-customer test, 6 weight configurations, 2-neuron composition, and manual training grid search.
-
-</details>
+Next up: **What is Deep Learning?** â€” Dan stacks neurons in layers.

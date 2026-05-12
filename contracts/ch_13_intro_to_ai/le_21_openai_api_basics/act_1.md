@@ -1,6 +1,6 @@
 # First OpenAI Call (with Mock Fallback)
 
-Make your first real call to an LLM — or run in mock mode if you don't have an API key.
+Make your first real call to an LLM â€” or run in mock mode if you don't have an API key.
 
 ---
 
@@ -15,7 +15,7 @@ If you have an API key, set it in a `.env` file:
 OPENAI_API_KEY=sk-...
 ```
 
-If you don't, the code falls back to a `MockOpenAI` that simulates responses — so the exercise works offline.
+If you don't, the code falls back to a `MockOpenAI` that simulates responses â€” so the exercise works offline.
 
 ---
 
@@ -88,10 +88,10 @@ Track total tokens used across all calls. Stop if you exceed P500 worth of token
 ## Challenge: ask_luto_multi
 
 Build specialized helpers:
-- `ask_menu_planner(weather, budget)` — uses a menu-planner system prompt
-- `ask_pricing(item, ingredients)` — uses a pricing system prompt
-- `ask_inventory(stock)` — uses an inventory system prompt
-- `ask_general(question)` — falls back to default system prompt
+- `ask_menu_planner(weather, budget)` â€” uses a menu-planner system prompt
+- `ask_pricing(item, ingredients)` â€” uses a pricing system prompt
+- `ask_inventory(stock)` â€” uses an inventory system prompt
+- `ask_general(question)` â€” falls back to default system prompt
 
 Each switches the system prompt for a different "mode."
 
@@ -106,13 +106,4 @@ Each switches the system prompt for a different "mode."
 - Mock clients for offline development
 - Token tracking for cost management
 
-Next up: **Build an LLM Chatbot (Part 1)** — foundation of Luto.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for a complete setup with `MockOpenAI`, real/mock fallback, temperature experiments, multi-turn demo, and token budget tracker.
-
-</details>
+Next up: **Build an LLM Chatbot (Part 1)** â€” foundation of Luto.

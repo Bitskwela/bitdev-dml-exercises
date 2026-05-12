@@ -35,7 +35,7 @@ w2 = np.random.randn(4, 1)
 b2 = np.random.randn(1)
 ```
 
-Total parameters: 3×4 + 4 + 4×1 + 1 = 21.
+Total parameters: 3Ã—4 + 4 + 4Ã—1 + 1 = 21.
 
 ---
 
@@ -70,13 +70,13 @@ Print predictions (threshold at 0.5) and accuracy.
 
 ## Task 5: Experiment with Seeds
 
-Try `np.random.seed(42)`, `7`, `123`, `0`, `999`. Same random-weighted network produces very different outputs for different seeds — demonstrating why training matters (to find GOOD weights instead of random ones).
+Try `np.random.seed(42)`, `7`, `123`, `0`, `999`. Same random-weighted network produces very different outputs for different seeds â€” demonstrating why training matters (to find GOOD weights instead of random ones).
 
 ---
 
 ## Challenge A: 3-Layer Comparison
 
-Build 1-layer, 2-layer, and 3-layer versions. Compare parameter count and accuracy. With random weights, depth alone doesn't help — you need training.
+Build 1-layer, 2-layer, and 3-layer versions. Compare parameter count and accuracy. With random weights, depth alone doesn't help â€” you need training.
 
 ---
 
@@ -121,13 +121,4 @@ Watch accuracy climb from ~50% (random) to 100% over 10,000 epochs.
 - Why random weights give random results (training matters!)
 - How backpropagation updates weights to reduce error
 
-Next up: **Natural Language Processing** — Dan discovers how AI reads text.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full 2-layer network, forward pass trace, seed experiments, and (optional) backpropagation training loop.
-
-</details>
+Next up: **Natural Language Processing** â€” Dan discovers how AI reads text.

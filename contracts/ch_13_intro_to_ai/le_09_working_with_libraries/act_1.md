@@ -93,13 +93,4 @@ Print your top 3 recommendations for Tita Malou.
 - Grouping: `df.groupby("col")["target"].sum()`
 - Why libraries are 10-100x faster than pure Python
 
-Next up: **What is an Algorithm?** — Dan demystifies sorting and searching.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete pandas analysis with all 5 tasks plus the business intelligence report.
-
-</details>
+Next up: **What is an Algorithm?** â€” Dan demystifies sorting and searching.

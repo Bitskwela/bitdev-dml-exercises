@@ -26,10 +26,10 @@ Constraints: {constraints}"""
 ## Task 3: Pre-Built Templates
 
 Build templates for 4 Luto tasks:
-- `menu_suggestion(weather, budget)` — suggest 5 dishes
-- `customer_reply(question)` — polite Taglish-friendly response
-- `cost_analysis(item, ingredients)` — break down costs
-- `inventory_alert(ingredient, qty)` — urgency-appropriate notification
+- `menu_suggestion(weather, budget)` â€” suggest 5 dishes
+- `customer_reply(question)` â€” polite Taglish-friendly response
+- `cost_analysis(item, ingredients)` â€” break down costs
+- `inventory_alert(ingredient, qty)` â€” urgency-appropriate notification
 
 Each template returns a fully-formed RCTFC prompt.
 
@@ -72,13 +72,4 @@ Take a weak prompt as input. Output the improved RCTFC version + before/after sc
 - Scoring prompt quality
 - Why prompt engineering is a real skill
 
-Next up: **APIs in AI** — Dan wires Luto to a real LLM.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the prompt builder, 4 Luto templates, scorer with explanations, and improvement engine.
-
-</details>
+Next up: **APIs in AI** â€” Dan wires Luto to a real LLM.

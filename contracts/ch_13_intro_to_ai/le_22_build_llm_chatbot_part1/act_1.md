@@ -1,6 +1,6 @@
 # Build Luto: The chat() Function
 
-Create the foundation of your chatbot — a single `chat()` function with personality, history tracking, and error handling.
+Create the foundation of your chatbot â€” a single `chat()` function with personality, history tracking, and error handling.
 
 ---
 
@@ -64,7 +64,7 @@ print(f"History length: {len(history)} messages")
 
 ## Task 5: History Inspection
 
-Print the first 3 and last 3 messages from history to confirm role progression (system → user → assistant → user → assistant ...).
+Print the first 3 and last 3 messages from history to confirm role progression (system â†’ user â†’ assistant â†’ user â†’ assistant ...).
 
 ---
 
@@ -96,13 +96,4 @@ Save to `luto.json`. Reload it in a new session. Confirm context is preserved.
 - Scripted tests before interactive UI
 - Persistent conversation state via JSON
 
-Next up: **Build an LLM Chatbot (Part 2)** — the chat loop.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full Luto foundation: system prompt, mock fallback, `chat()` with error handling, 5-message test, history inspection, and save/load.
-
-</details>
+Next up: **Build an LLM Chatbot (Part 2)** â€” the chat loop.

@@ -1,4 +1,4 @@
-# Luto AI — Carinderia Inventory Prototype
+# Luto AI â€” Carinderia Inventory Prototype
 
 Build a simple demand-prediction tool for Tita Malou's carinderia. Use 30 days of generated data + day-of-week averages to forecast tomorrow's needs.
 
@@ -62,7 +62,7 @@ thresholds = {"rice_kg": 10, "sinigang_mix": 3, "pork_kg": 2, "coconut_milk": 2}
 
 for ingredient, qty in stock.items():
     if qty < thresholds[ingredient]:
-        print(f"   🚨 {ingredient}: only {qty} left — ORDER NOW")
+        print(f"   ðŸš¨ {ingredient}: only {qty} left â€” ORDER NOW")
 ```
 
 ---
@@ -76,7 +76,7 @@ Extend to track ingredient prices over time. Detect price spikes.
 ## Challenge B: Luto v2
 
 Add:
-- Weather factor (rainy → more soup)
+- Weather factor (rainy â†’ more soup)
 - Payday effect (+25% demand on 15th/30th)
 - Trending detection (dish climbing in popularity)
 
@@ -89,13 +89,4 @@ Add:
 - Threshold-based alerting
 - Why simple models beat complex ones at hackathons
 
-Next up: **Prompt Engineering** — Dan starts building the Luto chatbot.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full Luto prototype with 30-day data generation, weekly patterns, demand prediction, and low-stock alerting.
-
-</details>
+Next up: **Prompt Engineering** â€” Dan starts building the Luto chatbot.
