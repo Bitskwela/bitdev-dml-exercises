@@ -1,3 +1,7 @@
+> **⚠️ Run this lesson locally — not in the sandbox.** Streamlit web apps cannot run inside the in-browser Python sandbox. Install with `pip install streamlit openai python-dotenv`, then run `streamlit run app.py` on your own machine to see this lesson end-to-end. The code in this lesson is read-along until you reach a local terminal.
+
+---
+
 ## Previously on Dan's AI Journey...
 
 Dan improved Luto with memory management, better prompts, and specialized commands — based on Tita Malou's real feedback.
