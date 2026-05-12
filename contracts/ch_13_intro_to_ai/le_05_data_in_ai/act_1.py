@@ -59,7 +59,3 @@ print("\n-- Key Insight --")
 print("   Data tells stories! Without this data, Tita Malou relies on gut feeling.")
 print("   With data, we can make SMARTER predictions.")
 print("   This is why DATA is the fuel of AI!")
-
-# Cleanup
-if os.path.exists(SAMPLE_CSV):
-    os.remove(SAMPLE_CSV)
