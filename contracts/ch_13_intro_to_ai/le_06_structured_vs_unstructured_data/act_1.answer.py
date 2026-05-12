@@ -5,7 +5,7 @@
 # ============================================
 
 import csv
-import os
+from io import StringIO
 
 print("=" * 55)
 print("  STRUCTURING DATA")
