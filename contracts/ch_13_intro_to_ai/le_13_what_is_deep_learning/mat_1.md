@@ -114,20 +114,6 @@ For small structured data, often simpler ML models (random forests, gradient boo
 
 ---
 
-## Dan's Journal
-
-> **March 26, 2026 — 2 AM, dorm**
->
-> I understand deep learning now. Really.
->
-> TensorFlow Playground showed me everything. One neuron = straight line. One hidden layer = curves. Three hidden layers = can wrap around a spiral. The magic isn't one neuron — it's STACKING.
->
-> Built a 2-layer net from scratch in numpy. 21 parameters. Random weights (so predictions are random). Tested with 6 carinderia customers. Accuracy = random chance because I haven't trained yet. But the FORWARD PASS works. Numbers flow through layers, get transformed, produce an output.
->
-> Real networks are trained with backpropagation — I'll get to that in later lessons. For now I get the anatomy. Next up: NLP.
-
----
-
 ## Key Takeaways
 
 1. **Deep = 2+ hidden layers.** Each layer learns increasingly abstract features.
@@ -136,15 +122,6 @@ For small structured data, often simpler ML models (random forests, gradient boo
 4. **Layers automatically discover features** — no human tells the model what to look for.
 5. **Deep learning excels at unstructured data** (images, speech, text) with lots of training data.
 6. **Even 21 parameters** (our tiny network) is a neural network — real ones just have billions more.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Sinigang** | see-nee-GANG | Sour tamarind soup; ultimate rainy-day comfort food. |
-| **Kare-Kare** | kah-REH kah-REH | Rich peanut-based stew; a celebration staple. |
 
 ---
 

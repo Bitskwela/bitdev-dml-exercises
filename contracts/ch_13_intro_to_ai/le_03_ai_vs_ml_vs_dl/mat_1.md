@@ -140,28 +140,6 @@ PAGKAIN (Food)          = AI (Artificial Intelligence)
 
 ---
 
-## Dan's Journal
-
-> **Entry #3 — "No More Pretending"**
->
-> Something kind of embarrassing happened at the canteen today. Jasper was dropping "machine learning" and "deep learning" and "neural networks" while we were eating. I was just nodding along like I understood, but honestly I had zero idea what he was talking about.
->
-> But after studying today — I GET IT NOW.
->
-> AI is the biggest category — any technique that makes machines "smart." This includes my ulam recommender from Lesson 1. It's just simple if-else rules, but technically it's already AI.
->
-> Machine Learning is a subset — instead of me writing all the rules, the machine LEARNS the rules from data. Like if you gave it 10,000 examples of "hot weather + low budget = tortang talong," it would figure out the pattern on its own.
->
-> Deep Learning is a subset of ML — it uses neural networks with multiple layers. That's what's behind face recognition, voice assistants, and ChatGPT. Complex stuff.
->
-> The analogy that clicked for me: **pagkain → lutong Pinoy → sinigang**. All sinigang is lutong Pinoy, but not all lutong Pinoy is sinigang. All DL is ML, but not all ML is DL. BOOM. I totally get it.
->
-> Next time Jasper drops buzzwords at the canteen, I won't be pretending anymore. I might even be the one teaching him.
->
-> — Dan, finally understanding the buzzwords
-
----
-
 ## Key Takeaways
 
 1. **AI is the broadest field** — any technique that makes machines perform tasks requiring human intelligence. This includes simple if-else rules all the way to complex neural networks.
@@ -170,17 +148,6 @@ PAGKAIN (Food)          = AI (Artificial Intelligence)
 4. **The nesting relationship: DL is inside ML, which is inside AI.** All Deep Learning is Machine Learning, but not all ML is DL.
 5. **The Filipino food analogy:** AI = pagkain (food). ML = lutong Pinoy (Filipino cuisine). DL = sinigang (a specific dish).
 6. **The key difference between rule-based AI and ML:** In rule-based AI, humans write the rules. In ML, the machine discovers the rules from data.
-
----
-
-## Filipino Culture Cards
-
-> Learn about the Filipino terms and cultural elements featured in this lesson!
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Sinigang** | see-nee-GANG | A sour tamarind-based soup with pork or shrimp and vegetables. The ultimate comfort food, especially on rainy days. |
-| **Tapsilog** | tahp-see-LOG | A breakfast combo of tapa (cured beef), sinangag (garlic rice), and itlog (egg). One of many "-silog" combos that fuel Filipino mornings. |
 
 ---
 

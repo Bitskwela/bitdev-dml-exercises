@@ -87,23 +87,6 @@ Early AI (1960s-80s) was 99% heuristics — expert systems, rule engines. Modern
 
 ---
 
-## Dan's Journal
-
-> **March 24, 2026 — Jeepney then dorm**
->
-> Huge insight today. Built two recommenders for Mama's carinderia:
->
-> 1. Heuristic one: Mama's 20 years of rules in if-else. Deployed instantly.
-> 2. Data-driven one: fed 200 days of simulated sales data. It LEARNED the patterns.
->
-> On the test set, the data-driven one was 8% more accurate. More importantly, it found patterns Mama didn't know about — like Sinigang dominating on rainy Fridays specifically (not all rainy days). Mama was amazed.
->
-> The Waze vs Mang Tonyo thing clicked. Both get the job done. Mang Tonyo is a specialist in Marikina — he'd beat Waze in our barangay. But Waze scales to all of Metro Manila because it learns from millions of drivers.
->
-> Real ML in practice: start with heuristics when you have no data, upgrade to learning when data arrives.
-
----
-
 ## Key Takeaways
 
 1. **Heuristics** are rule-of-thumb rules written by humans. Fast, transparent, don't improve.
@@ -112,16 +95,6 @@ Early AI (1960s-80s) was 99% heuristics — expert systems, rule engines. Modern
 4. **Best practice**: start with heuristics (MVP), upgrade to learning once you have data.
 5. **Historical evolution**: early AI = heuristics. Modern AI = learning. The shift = explosion of data + compute.
 6. **Human experts can be beaten** by learning systems — but humans are always needed to collect data, define the problem, and validate results.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Jeepney** | JEEP-nee | Colorfully decorated public transport; iconic Philippine symbol. |
-| **EDSA** | ed-SAH | Main highway, notorious for traffic; site of 1986 People Power Revolution. |
-| **Fiesta** | fee-YES-tah | Town festival celebrating patron saint; massive community cooking. |
 
 ---
 

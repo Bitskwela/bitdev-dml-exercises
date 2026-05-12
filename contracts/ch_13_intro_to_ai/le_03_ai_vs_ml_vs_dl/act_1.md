@@ -84,20 +84,3 @@ Through this activity, you have practiced:
 - Using the Filipino food analogy to remember the hierarchy
 
 Next up: **How AI Works** — Dan discovers the AI pipeline at Tita Malou's carinderia.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-### Task 1: Quiz Questions
-
-See `act_1.answer.py` for the complete solution with all 5 questions, the teach_concept() output, show_results() with percentage-based messages, and the bonus comparison table printer.
-
-### Task 2: Reflection Answers
-
-1. **ML vs AI**: ML *learns from data* instead of following human-written rules. If a human coded every rule, it's rule-based AI. If the machine discovered the rules from examples, it's ML.
-2. **Why DL needs more**: Deep Learning uses neural networks with many layers. Each layer has parameters that need to be learned, requiring massive data to train and GPUs to compute.
-3. **Filipino examples**: AI = automated toll pricing, ML = GCash fraud detection, DL = TikTok content algorithm.
-
-</details>

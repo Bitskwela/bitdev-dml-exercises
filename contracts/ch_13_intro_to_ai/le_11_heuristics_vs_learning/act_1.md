@@ -71,12 +71,3 @@ Define 10 specific scenarios with a "ground truth" expected dish. Test both reco
 - Why data-driven systems can find patterns humans miss
 
 Next up: **Intro to Neural Networks** — Dan builds his first perceptron.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full showdown with synthetic data generation, both recommenders, train/test split, and head-to-head accuracy comparison.
-
-</details>

@@ -106,22 +106,6 @@ It was going to be a long night.
 
 ---
 
-## Dan's Journal
-
-> **March 19, 2026 — Late Night at the Carinderia**
->
-> Spent four hours tonight turning Ma's notebook into a spreadsheet. Four. Hours. For like, three weeks of entries.
->
-> This is what data scientists call "data cleaning." And they say it's 80% of the job. I finally understand why. The actual ML part is kind of the easy part once you have clean data.
->
-> The notebook had everything — but nothing was consistent. Sometimes she wrote the customer's name, sometimes not. Sometimes she wrote "cash" or "GCash," sometimes she didn't. She used abbreviations I didn't recognize. She mixed weather notes into order records. But once I got it into a CSV — rows and columns — I could suddenly SEE the data. Patterns jumped out. Payday days had 2x the entries. Sinigang dominated on rainy days. Aling Rosa is literally a daily customer.
->
-> Kuya JM said "80% of world data is unstructured." That blew my mind. Every tweet, every photo, every voice message on Messenger — unstructured. The reason ChatGPT and face recognition are a big deal? They can work with unstructured data. Traditional AI couldn't.
->
-> — Dan, fingers tired, data structured.
-
----
-
 ## Key Takeaways
 
 1. **Structured data** fits into rows and columns (CSV, databases, spreadsheets).
@@ -130,16 +114,6 @@ It was going to be a long night.
 4. **80% of the world's data is unstructured** — which is why Deep Learning is such a breakthrough.
 5. **Data cleaning is 80% of a data scientist's job** — converting messy real-world data into structured formats.
 6. **Different data types need different AI techniques**: ML for tables, NLP for text, CV for images.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Bistek** | bis-TEHK | Filipino beef steak — thin slices of beef marinated in soy sauce and calamansi, topped with caramelized onions. |
-| **Lumpia** | LOOM-pyah | Filipino spring rolls — can be fresh or fried. The fried version (lumpiang Shanghai) is a party essential. |
-| **Tortang Talong** | tohr-TAHNG tah-LOHNG | Filipino eggplant omelet — grilled eggplant coated in beaten egg and pan-fried. A carinderia staple. |
 
 ---
 

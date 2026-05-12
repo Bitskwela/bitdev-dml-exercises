@@ -86,23 +86,6 @@ One neuron can only draw a straight line (a linear decision boundary). Stack mul
 
 ---
 
-## Dan's Journal
-
-> **March 25, 2026 — Carinderia, slow afternoon**
->
-> Drew my first neural network on a napkin. Three inputs, one neuron, one output. It's embarrassingly simple in math, but the behavior it produces is surprisingly rich.
->
-> Tested with 8 customers:
-> - Starving student near the carinderia → orders ✓
-> - Full office worker just passing → doesn't order ✓
-> - Broke-but-hungry student → my original weights said no, but lowering the bias to -0.2 flipped it to yes
->
-> I can see why "training" a neural network is hard — there are millions of weights to tune in real networks. Manually? Impossible. That's why we have gradient descent (in later lessons).
->
-> Kuya JM said "neurons are dumb alone but brilliant in teams." One neuron = straight line. Stack them = any shape. That's the next lesson.
-
----
-
 ## Key Takeaways
 
 1. **A perceptron is a function**: inputs × weights + bias → activation → output.
@@ -111,16 +94,6 @@ One neuron can only draw a straight line (a linear decision boundary). Stack mul
 4. **Activation function** turns the weighted sum into output (step, sigmoid, ReLU).
 5. **Same inputs + different weights = different predictions.** Training = finding the right weights.
 6. **One neuron draws straight lines**; stacked neurons (layers) can draw any shape — that's deep learning.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Anak** | AH-nahk | "Child" or "Son/Daughter" — term of endearment. |
-| **Leche Flan** | LEH-cheh FLAHN | Rich caramel custard; dense and sweet, a fixture at Filipino celebrations. |
-| **Banana Cue** | bah-NAH-nah KYOO | Deep-fried bananas with caramelized brown sugar on a bamboo stick. |
 
 ---
 

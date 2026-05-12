@@ -70,12 +70,3 @@ Add a `/smart-recommendation` endpoint that factors in weather, budget, is_payda
 - Why secrets go in environment variables, never in code
 
 Next up: **OpenAI API Basics** — Dan's first real LLM call.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete MockCarinderiaAPI, CarinderiaClient, and end-to-end demonstration.
-
-</details>

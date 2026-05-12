@@ -114,27 +114,6 @@ To manage: trim old messages (next lesson).
 
 ---
 
-## Dan's Journal
-
-> **April 8, 2026 — Dorm, 2 AM**
->
-> Luto is alive.
->
-> Actually interactive now. I type. It responds. I type again, it remembers. I can ask "what should I cook?" then "how much for 10?" and it knows I'm asking about the dish from the previous turn.
->
-> Added slash commands:
-> - `/help` — lists all commands
-> - `/history` — shows the full conversation
-> - `/tokens` — shows usage and estimated P cost
-> - `/clear` — resets to just the system prompt
-> - `/quit` — exits with session summary
->
-> The stateless bug almost killed me. I had `history = [...]` INSIDE the loop. Every iteration was a fresh conversation. Moved one indentation level. Fixed. 2-hour bug.
->
-> Tomorrow: improve Luto with memory management and specialized commands. Hackathon is 3 days away.
-
----
-
 ## Key Takeaways
 
 1. **A while loop turns `chat()` into an interactive chatbot.**
@@ -143,16 +122,6 @@ To manage: trim old messages (next lesson).
 4. **Track session state** for debugging and user feedback.
 5. **Token cost grows with conversation length** — every turn sends the full history.
 6. **Test the full flow** — scripted tests + interactive testing before adding UI.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Arroz Caldo** | ah-ROHS KAHL-doh | Filipino rice porridge with ginger and chicken. |
-| **Ulam** | OO-lahm | The main dish eaten with rice. |
-| **Kuya** | KOO-yah | Older brother / respectful term for older males. |
 
 ---
 

@@ -91,24 +91,6 @@ In our activity, you will build a rule-based ulam (dish) recommender — a simpl
 
 ---
 
-## Dan's Journal
-
-> **Entry #1 — "AI Is Everywhere"**
->
-> I used to think AI was like JARVIS from Iron Man — a super-smart robot that can talk to you and do everything.
->
-> But today I learned that AI is actually everywhere. The Grab I always use to get to school — that's AI. The Shopee I always open during boring lectures — that's AI too, recommending products to me. Even the face unlock on my phone — AI!
->
-> I built a simple ulam recommender using just if-else statements. It's basic, but I get the concept now: INPUT goes in, the program PROCESSES it using rules, then gives an OUTPUT. It's like asking Nanay what to cook for dinner — she considers the weather, the budget, who's eating, what's in the fridge — and then she decides. Same logic.
->
-> The difference between what I built and real AI? Real AI learns the rules on its own from data. I had to write every single rule manually. Imagine if there were 1,000 dishes and 50 factors — it would be impossible to code all of that by hand!
->
-> I'm excited about the hackathon. Baby steps for now. But at least I know this: **AI is just making machines do things that normally need human intelligence.** And it's already all around us.
->
-> — Dan Santos, somewhere in his dorm in Diliman
-
----
-
 ## Key Takeaways
 
 1. **AI is the science of making machines perform tasks that normally require human intelligence** — understanding language, recognizing images, making decisions, learning from experience.
@@ -116,23 +98,6 @@ In our activity, you will build a rule-based ulam (dish) recommender — a simpl
 3. **The basic AI pattern is: INPUT (data) → PROCESS (rules/logic) → OUTPUT (decision/action).**
 4. **Rule-based AI** (like our ulam recommender) requires humans to write every rule by hand. This works for simple problems but does not scale.
 5. **Modern AI (machine learning)** lets machines discover rules from data — but we will get to that in Lesson 3.
-
----
-
-## Filipino Culture Cards
-
-> Learn about the Filipino terms and cultural elements featured in this lesson!
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Kuya** | KOO-yah | Respectful term for an older brother or older male relative/friend. Filipinos use it even for non-relatives as a sign of respect and warmth. |
-| **Anak** | AH-nahk | "Child" or "Son/Daughter" — a term of endearment used by Filipino elders and parents when speaking to younger family members. |
-| **Carinderia** | kah-rin-DEH-ryah | A small, family-run eatery — the heart of Filipino street food culture. Customers point at dishes behind a glass counter ("turo-turo"). Affordable, home-cooked meals for working-class Filipinos. |
-| **GCash** | jee-CASH | The Philippines' most popular mobile wallet — used for bills, shopping, and even street food. A game-changer for the unbanked population. |
-| **Ulam** | OO-lahm | The main dish eaten with rice. In Filipino meals, rice is the base and ulam is whatever goes with it — meat, fish, or vegetables. |
-| **Adobo** | ah-DOH-boh | The unofficial national dish — meat braised in vinegar, soy sauce, garlic, and bay leaves. Every Filipino family has their own recipe. |
-| **Sinigang** | see-nee-GANG | A sour tamarind-based soup with pork or shrimp and vegetables. The ultimate comfort food, especially on rainy days. |
-| **Halo-Halo** | HAH-loh HAH-loh | Literally "mix-mix" — a shaved ice dessert with sweet beans, jellies, fruits, ube ice cream, and evaporated milk. The iconic summer treat. |
 
 ---
 

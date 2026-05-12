@@ -11,7 +11,7 @@ This is a real-world data engineering task. Data scientists spend a huge chunk o
 Open `act_1.py`. You'll find Tita Malou's messy notebook entries as Python strings. Your job:
 
 1. **Convert each entry to a dict** with fields: `date`, `item`, `quantity`, `revenue`, `payment_method`.
-2. **Write to CSV** using `csv.DictWriter`.
+2. **Encode as CSV in memory** using `csv.DictWriter` on a `io.StringIO()` buffer (no disk writes needed).
 3. **Read back and display** as a formatted table.
 4. **Analyze**: total revenue, cash vs GCash split, record count.
 
@@ -81,30 +81,15 @@ Build a function that classifies data sources as Structured, Semi-Structured, or
 
 ### Bonus: Expand the Dataset
 
-Add 5 more messy notebook entries, convert them to structured format, and append to your CSV. Then re-run the analysis.
+Add 5 more messy notebook entries, convert them to structured format, and append them to your `structured_records` list. Then re-run the analysis.
 
 ---
 
 ## What You've Learned
 
 - Reading unstructured text and transforming it into structured records
-- Using `csv.DictWriter` to write CSV files
+- Using `csv.DictWriter` with `io.StringIO` to encode CSV in memory
 - The dictionary pattern for structured records
 - Why data cleaning is 80% of a data scientist's work
 
 Next up: **Intro to Python for AI** — Dan levels up his Python skills.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete solution with 8 structured records, CSV round-trip, analysis, and data type classifier demo.
-
-### Reflection Answers
-
-1. **Lost information**: Free-form notes ("It rained today"), customer identities ("Aling Rosa"), emotional/contextual cues ("The guy from the corner, who was that?").
-2. **Now possible**: Sorting, filtering, computing aggregates, plotting trends, feeding into ML models.
-3. **In this sample**: Both payment methods are well-represented, but GCash accounts for the single largest transaction (P225).
-
-</details>

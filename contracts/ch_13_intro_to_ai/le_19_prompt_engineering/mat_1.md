@@ -80,27 +80,6 @@ A good prompt scores 8+.
 
 ---
 
-## Dan's Journal
-
-> **April 4, 2026 — Dorm**
->
-> Prompt engineering is a SKILL. I underestimated it.
->
-> Weak prompt: "help me build a chatbot." ChatGPT gave me a generic article.
->
-> Strong prompt with RCTFC: I got working Python code, customized for my carinderia use case, with a specific tone matching Filipino conversational style.
->
-> Built 5 prompt templates for Luto:
-> 1. Menu suggestion (given weather + budget)
-> 2. Customer reply (polite, Taglish-friendly)
-> 3. Cost analysis (break-even calculation)
-> 4. Inventory alert (urgency-appropriate tone)
-> 5. General assistant (catch-all)
->
-> Tomorrow: wire them into actual API calls.
-
----
-
 ## Key Takeaways
 
 1. **Prompt engineering = writing effective instructions.** The quality of the prompt determines the quality of the output.
@@ -109,16 +88,6 @@ A good prompt scores 8+.
 4. **Specify format**: tables, JSON, bullet lists — tell the AI what you want.
 5. **Few-shot examples** help when the task is unusual.
 6. **Templates save time**: build reusable prompts for common tasks.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Luto** | LOO-toh | "To cook" in Filipino — name of Dan's chatbot. |
-| **Carinderia** | kah-rin-DEH-ryah | Small family-run eatery. |
-| **Sinigang** | see-nee-GANG | Sour tamarind soup. |
 
 ---
 

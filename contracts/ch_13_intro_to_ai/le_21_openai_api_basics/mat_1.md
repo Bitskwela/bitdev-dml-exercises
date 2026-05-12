@@ -113,26 +113,6 @@ class MockOpenAI:
 
 ---
 
-## Dan's Journal
-
-> **April 6, 2026 — Computer lab, 8 PM**
->
-> I made AI talk to me from MY OWN CODE.
->
-> First call: 2 seconds. Response: helpful, specific, warm. I stared for ten seconds. Then I yelled a quiet "YES" in the empty lab.
->
-> Spent 2 hours exploring:
-> - Temperature 0.0 = consistent, sometimes boring
-> - Temperature 1.2 = creative, sometimes chaotic
-> - Temperature 0.7 = sweet spot for chatbot
-> - System prompt matters MORE than user prompt for personality
-> - Multi-turn works if you send full history (LLMs are stateless!)
-> - 50 messages = ~P5 in tokens. Not bad.
->
-> Built a mock OpenAI client too — tests run offline, no tokens burned, fast CI. Only switch to real client for integration tests.
-
----
-
 ## Key Takeaways
 
 1. **OpenAI API = HTTP API** with SDK wrapper. You send messages, get back completions.
@@ -141,16 +121,6 @@ class MockOpenAI:
 4. **LLMs are stateless** — send full conversation history every request.
 5. **Tokens cost money** — track `response.usage`. Cheap per call, but scales.
 6. **Mock clients** let you develop without spending API credits.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Halo-Halo** | HAH-loh HAH-loh | Iconic shaved ice dessert. |
-| **Tortang Talong** | tohr-TAHNG tah-LOHNG | Eggplant omelet — Filipino carinderia staple. |
-| **Luto** | LOO-toh | "To cook" — and the name of Dan's chatbot. |
 
 ---
 

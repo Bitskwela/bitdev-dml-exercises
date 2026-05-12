@@ -115,22 +115,6 @@ else:
 
 ---
 
-## Dan's Journal
-
-> **March 21, 2026 — Coffee Project, Saturday afternoon**
->
-> LOOPS. CHANGED. EVERYTHING.
->
-> I just built a complete carinderia ordering system. 150 lines of code. It displays the menu. Takes customer orders. Calculates totals. Applies senior citizen discount. Prints a formatted receipt. Tracks order statistics by category.
->
-> All that — without copy-pasting code 20 times. The `for` loop iterates through every menu item automatically. The `while True` loop keeps taking orders until the customer says "done." The if/elif/else chain handles the discount logic.
->
-> I tested it with my barkada at the cafe. They typed orders, I watched my code work. Total today: P2,847. Senior discount applied: P50. They were impressed. (Or maybe just being nice. Either way, I'll take it.)
->
-> Tomorrow: figure out how Mama can actually use this on her phone. For now: I'm a real programmer.
-
----
-
 ## Key Takeaways
 
 1. **Lists** hold multiple items in order. Access by index: `menu[0]`.
@@ -140,15 +124,6 @@ else:
 5. **Conditionals** (if/elif/else) let your program make decisions.
 6. **Comparison and logical operators** combine to express complex conditions.
 7. **A list of dictionaries** is the foundational structure for almost every dataset and menu.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Pan de sal** | pahn deh SAHL | Small soft bread rolls with breadcrumbs; quintessential Filipino breakfast. |
-| **Merienda** | mehr-YEN-dah | Afternoon snack time around 3-4 PM. A beloved Filipino tradition. |
 
 ---
 

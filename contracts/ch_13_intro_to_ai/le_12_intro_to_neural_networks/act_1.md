@@ -88,12 +88,3 @@ Extend to 4 inputs: [hunger, budget, proximity, weather_is_rainy]. Find good wei
 - Why training a neural network = finding good weights
 
 Next up: **What is Deep Learning?** — Dan stacks neurons in layers.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete 8-customer test, 6 weight configurations, 2-neuron composition, and manual training grid search.
-
-</details>

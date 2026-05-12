@@ -111,22 +111,6 @@ Only O(log n) — ~20 steps to find 1 item in a million.
 
 ---
 
-## Dan's Journal
-
-> **March 23, 2026 — Library**
->
-> Algorithms aren't scary. They're recipes. I feel dumb for being intimidated.
->
-> I wrote bubble sort from scratch to sort Mama's menu by price. Then I replaced it with `sorted(menu, key=lambda x: x["price"])` — one line. The built-in is way faster.
->
-> Then I built a combo finder: given a budget, find the best 2-dish combo by rating. Two nested loops — O(n²) but still fast on a 10-item menu.
->
-> Then linear search vs binary search. Linear: check each. Binary: cut in half. On a sorted list of 1024 items, linear takes up to 1024 steps, binary takes 10. The power of log n.
->
-> Jasper's words aren't magic anymore. He's just showing off the vocabulary. The concepts are simple.
-
----
-
 ## Key Takeaways
 
 1. **An algorithm is a recipe** — a finite, well-defined sequence of steps to solve a problem.
@@ -135,16 +119,6 @@ Only O(log n) — ~20 steps to find 1 item in a million.
 4. **Sorting**: bubble sort (O(n²), educational) vs Python's Timsort (O(n log n), use in real code).
 5. **Searching**: linear (check each, O(n)) vs binary (halve the range, O(log n), requires sorted data).
 6. **ML is built on algorithms** — gradient descent, backpropagation, k-nearest neighbors — all algorithms.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Ulam** | OO-lahm | The main dish eaten with rice. In Filipino meals, rice is the base. |
-| **Palengke** | pah-LENG-keh | Traditional wet market for fresh meat, fish, vegetables. |
-| **Pinakbet** | pee-nahk-BET | Vegetable dish with bitter melon, squash, eggplant, and okra. |
 
 ---
 

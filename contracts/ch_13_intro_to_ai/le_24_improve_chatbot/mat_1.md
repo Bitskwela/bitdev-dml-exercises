@@ -90,24 +90,6 @@ Tell the user what happened AND how to fix it.
 
 ---
 
-## Dan's Journal
-
-> **April 9, 2026 — Carinderia then dorm, 11 PM**
->
-> Testing with Mama was the best thing I've ever done for this project.
->
-> Bug 1: Generic answers. Fix: added MENU_DATABASE into the system prompt with real prices.
->
-> Bug 2: Token growth. After 30 messages, each call was 5000+ tokens. Fix: trim history to last 8 pairs. Now stable.
->
-> Bug 3: Mama typed "magkano ang kare-kare" and Luto answered in pure English with MBA-speak. Fix: updated system prompt to "mirror the user's language. If user types Taglish, respond in Taglish."
->
-> Added /suggest and /cost commands. Mama used them more than free-form chat. Turns out specialized commands are MORE user-friendly than pure conversation for routine queries.
->
-> When Mama said "You are so talented" — that hit harder than anything in 25 lessons. The whole point was for her to use this. She can. That's the win.
-
----
-
 ## Key Takeaways
 
 1. **User testing reveals what docs can't.** Real usage exposes gaps.
@@ -116,16 +98,6 @@ Tell the user what happened AND how to fix it.
 4. **Better system prompts** inject real data (menu, prices, constraints).
 5. **Specialized commands** (`/suggest`, `/cost`) often beat free-form chat for routine tasks.
 6. **Helpful error messages** tell users what happened AND how to fix it.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Tita** | TEE-tah | Auntie — term of warmth and respect. |
-| **Anak** | AH-nahk | "Child" — term of endearment. |
-| **Carinderia** | kah-rin-DEH-ryah | Small family-run eatery. |
 
 ---
 

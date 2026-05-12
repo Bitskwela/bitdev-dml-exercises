@@ -78,17 +78,3 @@ Add a performance rating:
 - Why Python reads like English
 
 Next up: **Python Basics** — loops, lists, and conditionals.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete 8-part solution with:
-- All variable declarations
-- Full f-string report
-- All math operators
-- Type conversion examples
-- Interactive input with feedback messages
-
-</details>

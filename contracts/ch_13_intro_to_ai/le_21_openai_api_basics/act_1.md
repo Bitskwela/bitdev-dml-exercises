@@ -107,12 +107,3 @@ Each switches the system prompt for a different "mode."
 - Token tracking for cost management
 
 Next up: **Build an LLM Chatbot (Part 1)** — foundation of Luto.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for a complete setup with `MockOpenAI`, real/mock fallback, temperature experiments, multi-turn demo, and token budget tracker.
-
-</details>

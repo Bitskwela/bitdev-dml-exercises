@@ -7,35 +7,46 @@
 # because that's the only kind that exists!
 # ============================================
 
-# TODO: Create a dictionary called `ai_systems`
+# Build a dictionary called `ai_systems`.
 # Each key is the system name (lowercase).
-# Each value is another dictionary with:
-#   "type": "Narrow AI",
-#   "what_it_does": "...",
-#   "philippine_context": "..."
+# Each value is another dictionary with three keys:
+#   "type": "Narrow AI"
+#   "what_it_does": one short sentence
+#   "philippine_context": where you encounter it in the Philippines
 #
-# Start with these 3 examples, then add at least 5 more:
+# The dictionary below shows a four-step scaffolding gradient.
+# You will finish it as you work through the activity.
 
 ai_systems = {
+    # (1) Worked example — fully filled in for you. Use this as your template.
     "grab": {
         "type": "Narrow AI",
         "what_it_does": "Optimizes routes and matches riders to drivers",
         "philippine_context": "Used by millions of Filipinos daily for transportation"
     },
+
+    # (2) Partial skeleton — the keys are here, you write the values.
     "gcash fraud detection": {
         "type": "Narrow AI",
-        "what_it_does": "Detects suspicious transactions to prevent scams",
-        "philippine_context": "Protects over 80 million GCash users in the Philippines"
+        "what_it_does": "",  # TODO: describe what it does in one sentence
+        "philippine_context": "",  # TODO: where Filipinos encounter it
     },
+
+    # (3) Partial skeleton — same as above, second pass.
     "shopee recommendations": {
-        "type": "Narrow AI",
-        "what_it_does": "Suggests products based on your browsing and purchase history",
-        "philippine_context": "Why you end up buying things you didn't plan to during 9.9 sale"
+        "type": "",  # TODO: which AI type? (hint: all real-world AI is Narrow)
+        "what_it_does": "",  # TODO
+        "philippine_context": "",  # TODO
     },
-    # TODO: Add at least 5 more AI systems here!
-    # Ideas: siri, spam filter, chatgpt, google translate,
-    #        face unlock, waze, youtube recommendations,
-    #        tiktok algorithm, lazada smart search
+
+    # (4) Empty placeholders — you write the WHOLE entry (keys + values).
+    "siri": {},          # TODO: fill in type, what_it_does, philippine_context
+    "face unlock": {},   # TODO: fill in all three keys
+
+    # (5) Open slots — add at least FIVE more AI systems below.
+    #     Ideas: spam filter, chatgpt, google translate, waze,
+    #            youtube recommendations, tiktok algorithm, lazada smart search,
+    #            spotify discover weekly, maya fraud detection, canva magic design
 }
 
 print("=" * 55)

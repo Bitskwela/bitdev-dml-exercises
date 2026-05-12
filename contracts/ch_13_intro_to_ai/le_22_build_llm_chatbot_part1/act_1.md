@@ -97,12 +97,3 @@ Save to `luto.json`. Reload it in a new session. Confirm context is preserved.
 - Persistent conversation state via JSON
 
 Next up: **Build an LLM Chatbot (Part 2)** — the chat loop.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full Luto foundation: system prompt, mock fallback, `chat()` with error handling, 5-message test, history inspection, and save/load.
-
-</details>

@@ -76,24 +76,6 @@ Q[s][a] = Q[s][a] + α * (reward + γ * max(Q[s']) - Q[s][a])
 
 ---
 
-## Dan's Journal
-
-> **March 30, 2026 — Dorm, late**
->
-> Trained a delivery agent today. 5x5 Marikina grid. Start (0,0), goal (4,4), 2 obstacles. Reward: +100 goal, -10 obstacle, -1 each step.
->
-> Episode 1-20: random stumbling. Agent bumps into walls, gets stuck in corners. Rewards ≈ -50 per episode.
->
-> Episode 50-100: agent starts finding paths. Still messy. Rewards ≈ -10.
->
-> Episode 150+: optimal path found. Rewards stabilize at +90 (100 - 10 steps).
->
-> Watching the Q-table converge was satisfying. Started with zeros. Values grew near the goal first, then propagated backward to the start. Bellman equation in action.
->
-> Real RL is used in Tesla Autopilot, Grab's dynamic pricing, YouTube recommendations. Mine is a 5x5 grid. Same core algorithm. Same math. Just smaller scale.
-
----
-
 ## Key Takeaways
 
 1. **RL = agent + environment + actions + rewards.** Agent learns by trial and error.
@@ -102,16 +84,6 @@ Q[s][a] = Q[s][a] + α * (reward + γ * max(Q[s']) - Q[s][a])
 4. **Exploration vs exploitation**: try new things vs use what works. Epsilon-greedy balances them.
 5. **No labels needed** — just rewards. Great for games, robotics, routing.
 6. **AlphaGo, Tesla Autopilot, ChatGPT's RLHF tuning** — all use RL.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Madiskarte** | mah-dis-KAR-teh | Resourceful, street-smart — a highly admired Filipino trait. |
-| **Matiyaga** | mah-tee-YAH-gah | Patient, persistent, hardworking. A core Filipino value. |
-| **Barangay** | bah-RAHNG-guy | Smallest administrative unit in the Philippines (a neighborhood). |
 
 ---
 

@@ -78,24 +78,6 @@ Four questions for any AI project:
 
 ---
 
-## Dan's Journal
-
-> **April 3, 2026 — SM Mall of Asia**
->
-> Everywhere I look: AI. Parking cameras. Lazada notifications. Waze. CCTV. Self-checkout counters.
->
-> The hackathon is in a week. I finally have my idea: **Luto** — AI inventory tracker for small carinderias.
->
-> Not flashy. Not chasing trends. Just solves a real problem: Mama wastes food every day because she guesses demand. With 3 months of sales data + simple predictions, I can help her cook the right amount.
->
-> Built a prototype tonight. Generated 30 days of fake carinderia data. Used day-of-week averages. Predicted tomorrow's demand. Added a "low stock alert" for ingredients falling below threshold. Showed it to Mama. She said: "Anak, this is useful."
->
-> That's the bar. Not "this is cool." Not "this uses neural networks." Not "this ranks first in the hackathon." The bar is: "This is useful."
->
-> Jasper is building a neural network to classify bird species. Cool. But not useful to anyone he knows. Mine is useful to my mom. I'll take that.
-
----
-
 ## Key Takeaways
 
 1. **AI is EVERYWHERE** in daily Filipino life — retail, transport, fintech, social media.
@@ -104,16 +86,6 @@ Four questions for any AI project:
 4. **Build vs Buy vs Combine**: pick based on uniqueness + data + time.
 5. **Simple techniques win at hackathons** — a weighted average + good UX beats a fancy model with bad UX.
 6. **Filipino-specific opportunities abound** — language, crops, micro-retail, disaster response.
-
----
-
-## Filipino Culture Cards
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **SM Mall** | es-em MAHL | Massive shopping chain; weekend tradition for Filipino families. |
-| **Fiesta** | fee-YES-tah | Town festival with huge community feasts. |
-| **Luto** | LOO-toh | "To cook" in Filipino — name of Dan's chatbot. |
 
 ---
 

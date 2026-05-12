@@ -90,12 +90,3 @@ Add:
 - Why simple models beat complex ones at hackathons
 
 Next up: **Prompt Engineering** — Dan starts building the Luto chatbot.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full Luto prototype with 30-day data generation, weekly patterns, demand prediction, and low-stock alerting.
-
-</details>

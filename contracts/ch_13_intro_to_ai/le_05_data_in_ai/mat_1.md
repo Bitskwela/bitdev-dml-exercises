@@ -88,32 +88,6 @@ As a Filipino student interested in AI, you have many data sources:
 
 ---
 
-## Dan's Journal
-
-> **March 18, 2026 — Barangay Hall, then jeepney ride home**
->
-> Mind = blown. Data is EVERYWHERE.
->
-> At the barangay office, I've been encoding resident records for 3 months. I thought it was just a boring data entry job. But today, I realized — I've been building a DATASET. Hundreds of rows of structured information. Name, age, purok, vaccination status. If I had an ML model, I could predict which residents are most likely not yet fully vaccinated based on age and location. That's AI!
->
-> Then I thought about Mama. So much data goes to waste at her carinderia every single day:
-> - How many orders per dish, per day
-> - How much revenue
-> - What the weather was
-> - Whether it was payday or not
-> - What time the peak hours were
-> - How much she spent on ingredients
->
-> All of that is either written in her notebook in her messy handwriting, or worse, just stored in her head. She doesn't have a spreadsheet, doesn't have a system. Fifteen years of data, gone. Imagine if she'd been recording all of it — we'd have the most powerful carinderia prediction model in Marikina!
->
-> Kuya JM said: "Data without collection is just... experience. It stays in one person's brain and dies when they retire." That hit hard.
->
-> The lesson says: Garbage In, Garbage Out. Makes sense. If your data is bad, your AI will be bad too. It's like cooking — if your ingredients are rotten, the dish won't taste good no matter how skilled you are.
->
-> Starting tomorrow, I'm going to help Mama start tracking her sales properly.
-
----
-
 ## Key Takeaways
 
 1. **Data is the fuel of AI** — without good data, even the best models produce bad predictions.
@@ -122,19 +96,6 @@ As a Filipino student interested in AI, you have many data sources:
 4. **Good data is complete, accurate, consistent, relevant, and timely.**
 5. **Data is everywhere** — every transaction, click, and observation is data. The difference between a regular and a data-driven business is whether they collect and use it.
 6. **Filipino students have access to great data sources** — Kaggle, data.gov.ph, PSA, World Bank.
-
----
-
-## Filipino Culture Cards
-
-> Learn about the Filipino terms and cultural elements featured in this lesson!
-
-| Term | Pronunciation | What It Means |
-|------|--------------|---------------|
-| **Barangay** | bah-RAHNG-guy | The smallest administrative unit in the Philippines, like a neighborhood or village. Each has its own elected captain and community hall. |
-| **Palengke** | pah-LENG-keh | A traditional wet market for fresh meat, fish, vegetables, and spices. Loud, colorful, and full of life — haggling is expected! |
-| **Jeepney** | JEEP-nee | A colorfully decorated public transport vehicle originally made from repurposed American military jeeps after WWII. An iconic Philippine symbol. |
-| **Merienda** | mehr-YEN-dah | Afternoon snack time around 3-4 PM. A beloved Filipino tradition — think turon, banana cue, or pan de sal with coffee. |
 
 ---
 

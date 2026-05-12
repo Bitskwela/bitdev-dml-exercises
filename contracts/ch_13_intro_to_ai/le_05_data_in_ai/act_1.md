@@ -82,18 +82,3 @@ CHALLENGE 2: Revenue by Day of Week
 - Why data quality matters for AI
 
 Next up: **Structured vs Unstructured Data** — Dan discovers why not all data is created equal.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete solution including the weather-on-sinigang analysis and day-of-week revenue bar chart.
-
-### Reflection Answers
-
-1. **Best seller**: Kare-Kare sold the most in the sample data (50 total units).
-2. **Payday boost**: Average payday revenue is significantly higher than non-payday (typically 40–80% depending on weather).
-3. **Missing sunny-only data**: She'd miss that sinigang sells 2–3x more on rainy days — one of her strongest patterns.
-
-</details>

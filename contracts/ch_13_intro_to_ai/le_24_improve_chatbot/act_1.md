@@ -102,12 +102,3 @@ Analyze the conversation history and summarize the topics discussed. Group by ca
 - Error messages that tell users HOW to fix problems
 
 Next up: **Deploy AI App** — Streamlit + the hackathon.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for Luto v3 with menu database, memory trimming, /suggest, /cost, /summary, and enhanced error handling.
-
-</details>

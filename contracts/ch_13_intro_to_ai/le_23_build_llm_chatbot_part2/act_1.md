@@ -78,12 +78,3 @@ Add `/save luto.json` and `/load luto.json`. Lets you resume conversations acros
 - Scripted test mode for non-interactive runs
 
 Next up: **Improve Chatbot** — polish Luto with real user feedback.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete interactive Luto with all slash commands, session tracking, and scripted test mode.
-
-</details>

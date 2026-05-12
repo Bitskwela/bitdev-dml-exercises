@@ -2,6 +2,8 @@
 
 Deploy your chatbot as a web app anyone can use from a browser.
 
+> **⚠️ Run this activity locally — not in the sandbox.** Streamlit needs a real Python environment and a browser. The in-browser sandbox cannot host a Streamlit server. Install the packages below on your own machine and run `streamlit run app.py` from a terminal.
+
 ---
 
 ## Prerequisites
@@ -84,12 +86,3 @@ Dan completed 25 lessons. You did too (or you're about to). From "What is AI?" t
 **Next:** Build your own AI project. Your carinderia. Your jeepney. Your barangay. Your app. The skills are yours now.
 
 **Salamat!**
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for a complete Streamlit app with sidebar, metrics, clear button, download, and MockOpenAI fallback.
-
-</details>
