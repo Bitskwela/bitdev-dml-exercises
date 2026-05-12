@@ -2,6 +2,8 @@
 
 Deploy your chatbot as a web app anyone can use from a browser.
 
+> **⚠️ Run this activity locally — not in the sandbox.** Streamlit needs a real Python environment and a browser. The in-browser sandbox cannot host a Streamlit server. Install the packages below on your own machine and run `streamlit run app.py` from a terminal.
+
 ---
 
 ## Prerequisites
