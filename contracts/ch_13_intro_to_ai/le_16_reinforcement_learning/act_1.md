@@ -109,12 +109,3 @@ Plot (or print) the average reward per 10 episodes. You should see a smooth upwa
 - How RL underpins AlphaGo, Tesla Autopilot, recommendation systems
 
 Next up: **Ethics in AI** — Dan confronts bias in AI systems.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full Q-learning implementation with 200 episodes, reward tracking, and the learned optimal path.
-
-</details>

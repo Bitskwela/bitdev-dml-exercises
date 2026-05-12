@@ -94,12 +94,3 @@ Extend the system to handle multiple customers in a single session:
 - f-string alignment for formatted output
 
 Next up: **Working with Libraries** — Dan meets numpy and pandas.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for a complete 12-item ordering system with category-grouped menu, error handling, senior discount, and stats.
-
-</details>

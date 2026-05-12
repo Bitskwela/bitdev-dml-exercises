@@ -114,12 +114,3 @@ Given an unknown average-color input, the system should:
 - Why modern CV (CNNs) uses learned features instead of hand-coded color rules
 
 Next up: **Reinforcement Learning** — Dan trains a delivery agent.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for flag creation, brightness detector on 5 synthetic photos, and color classifier on all 4 dishes with accuracy report.
-
-</details>

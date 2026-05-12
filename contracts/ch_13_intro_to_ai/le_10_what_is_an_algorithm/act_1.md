@@ -93,12 +93,3 @@ Best 3-combo for budget P200:
 - The tradeoffs of algorithmic complexity
 
 Next up: **Heuristics vs Learning** — Dan compares rule-based vs data-driven systems.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for all five algorithms + triple combo finder + step count comparisons.
-
-</details>

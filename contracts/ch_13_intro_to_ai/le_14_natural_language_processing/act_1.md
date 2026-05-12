@@ -116,12 +116,3 @@ Classify each review into a topic:
 - Why real NLP is harder (sarcasm, Taglish, context)
 
 Next up: **Computer Vision** — Dan discovers how AI sees images.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete 20-review NLP lab with intensifiers and topic categorization.
-
-</details>

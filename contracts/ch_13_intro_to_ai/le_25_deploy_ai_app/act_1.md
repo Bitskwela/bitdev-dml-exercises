@@ -84,12 +84,3 @@ Dan completed 25 lessons. You did too (or you're about to). From "What is AI?" t
 **Next:** Build your own AI project. Your carinderia. Your jeepney. Your barangay. Your app. The skills are yours now.
 
 **Salamat!**
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for a complete Streamlit app with sidebar, metrics, clear button, download, and MockOpenAI fallback.
-
-</details>

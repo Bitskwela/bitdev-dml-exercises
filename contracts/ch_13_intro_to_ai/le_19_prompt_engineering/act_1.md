@@ -73,12 +73,3 @@ Take a weak prompt as input. Output the improved RCTFC version + before/after sc
 - Why prompt engineering is a real skill
 
 Next up: **APIs in AI** — Dan wires Luto to a real LLM.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the prompt builder, 4 Luto templates, scorer with explanations, and improvement engine.
-
-</details>

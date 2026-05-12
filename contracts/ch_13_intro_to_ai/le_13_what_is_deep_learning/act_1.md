@@ -122,12 +122,3 @@ Watch accuracy climb from ~50% (random) to 100% over 10,000 epochs.
 - How backpropagation updates weights to reduce error
 
 Next up: **Natural Language Processing** — Dan discovers how AI reads text.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the full 2-layer network, forward pass trace, seed experiments, and (optional) backpropagation training loop.
-
-</details>

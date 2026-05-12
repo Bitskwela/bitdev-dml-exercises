@@ -93,18 +93,3 @@ Add 5 more messy notebook entries, convert them to structured format, and append
 - Why data cleaning is 80% of a data scientist's work
 
 Next up: **Intro to Python for AI** — Dan levels up his Python skills.
-
----
-
-<details>
-<summary><strong>Answer Key</strong></summary>
-
-See `act_1.answer.py` for the complete solution with 8 structured records, CSV round-trip, analysis, and data type classifier demo.
-
-### Reflection Answers
-
-1. **Lost information**: Free-form notes ("It rained today"), customer identities ("Aling Rosa"), emotional/contextual cues ("The guy from the corner, who was that?").
-2. **Now possible**: Sorting, filtering, computing aggregates, plotting trends, feeding into ML models.
-3. **In this sample**: Both payment methods are well-represented, but GCash accounts for the single largest transaction (P225).
-
-</details>
