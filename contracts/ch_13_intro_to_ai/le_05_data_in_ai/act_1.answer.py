@@ -9,41 +9,32 @@
 # ============================================
 
 import csv
-import os
+from io import StringIO
 
 print("=" * 50)
 print("  DATA EXPLORER")
 print("  Exploring Tita Malou's carinderia sales data")
 print("=" * 50)
 
-SAMPLE_CSV = "sample_sales.csv"
-
-sample_data = [
-    ["date", "item", "quantity", "revenue", "day_of_week", "is_payday", "weather"],
-    ["2026-01-01", "Sinigang", "10", "800", "Thursday", "False", "rainy"],
-    ["2026-01-01", "Adobo", "8", "720", "Thursday", "False", "rainy"],
-    ["2026-01-02", "Sinigang", "15", "1200", "Friday", "True", "rainy"],
-    ["2026-01-02", "Bistek", "12", "960", "Friday", "True", "rainy"],
-    ["2026-01-03", "Adobo", "14", "1260", "Saturday", "False", "sunny"],
-    ["2026-01-03", "Kare-Kare", "10", "1100", "Saturday", "False", "sunny"],
-    ["2026-01-05", "Tinola", "8", "560", "Monday", "False", "cloudy"],
-    ["2026-01-06", "Sinigang", "6", "480", "Tuesday", "False", "sunny"],
-    ["2026-01-07", "Adobo", "10", "900", "Wednesday", "False", "cloudy"],
-    ["2026-01-15", "Kare-Kare", "18", "1980", "Friday", "True", "sunny"],
-    ["2026-01-15", "Sinigang", "20", "1600", "Friday", "True", "rainy"],
-    ["2026-01-30", "Kare-Kare", "22", "2420", "Friday", "True", "sunny"],
-]
-
-with open(SAMPLE_CSV, "w", newline="") as f:
-    writer = csv.writer(f)
-    writer.writerows(sample_data)
+# Sample dataset kept inline so the lesson runs anywhere
+# (including the in-browser sandbox — no filesystem needed).
+SAMPLE_CSV = """date,item,quantity,revenue,day_of_week,is_payday,weather
+2026-01-01,Sinigang,10,800,Thursday,False,rainy
+2026-01-01,Adobo,8,720,Thursday,False,rainy
+2026-01-02,Sinigang,15,1200,Friday,True,rainy
+2026-01-02,Bistek,12,960,Friday,True,rainy
+2026-01-03,Adobo,14,1260,Saturday,False,sunny
+2026-01-03,Kare-Kare,10,1100,Saturday,False,sunny
+2026-01-05,Tinola,8,560,Monday,False,cloudy
+2026-01-06,Sinigang,6,480,Tuesday,False,sunny
+2026-01-07,Adobo,10,900,Wednesday,False,cloudy
+2026-01-15,Kare-Kare,18,1980,Friday,True,sunny
+2026-01-15,Sinigang,20,1600,Friday,True,rainy
+2026-01-30,Kare-Kare,22,2420,Friday,True,sunny
+"""
 
 # Step 1: Read the CSV
-rows = []
-with open(SAMPLE_CSV, "r") as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        rows.append(row)
+rows = list(csv.DictReader(StringIO(SAMPLE_CSV)))
 
 print(f"\nLoaded {len(rows)} rows of data!")
 print(f"   Columns: {list(rows[0].keys())}")
