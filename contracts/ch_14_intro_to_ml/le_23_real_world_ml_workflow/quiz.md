@@ -39,14 +39,14 @@ D. Random
 
 ---
 
-**Question 4:** Why do "deliverable" scripts prefer ONE file vs. multiple notebooks?
-A. Notebooks are slow
-B. One auditable script can be read top to bottom; multiple notebooks risk silent drift between cells across runs
-C. Notebooks are obsolete
-D. Random
+**Question 4:** A teammate's pipeline spans 4 notebooks: `01_load.ipynb`, `02_engineer.ipynb`, `03_cv.ipynb`, `04_fit.ipynb`. On a deadline they re-run only `03_cv.ipynb` and `04_fit.ipynb`. What could go wrong, and how would a single-file script prevent it?
+A. Nothing — each notebook is independent so partial re-runs are always safe
+B. `03_cv.ipynb` ran using stale `X_train` left in memory from the previous full run of `02_engineer.ipynb` — possibly with old features or stale data. CV score reflects old data; the model fits on current data. A single script always runs every step in order, guaranteeing consistent inputs throughout.
+C. The CV accuracy would improve because cached data is already preprocessed
+D. Only a problem if the CSV source file changed between runs
 
 **Answer:** B
-**Explanation:** For deliverables and production, one auditable script wins. Notebooks are great for exploration but harder to review.
+**Explanation:** Notebooks store kernel state. Re-running `03_cv.ipynb` reuses whatever `X_train` happened to exist in memory — which could be from a different data version or feature set. You end up with a CV score that doesn't match what the final model was trained on. `python workflow.py` has no persistent state: every run is end-to-end, every step uses the same inputs, every output is trustworthy.
 
 ---
 
