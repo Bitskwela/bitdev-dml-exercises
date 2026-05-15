@@ -17,14 +17,14 @@ D. A database concept
 
 ---
 
-**Question 2:** Without a pipeline, what's a common LEAKAGE mistake?
-A. Forgetting to save the model
-B. `StandardScaler().fit_transform(X)` on ALL data BEFORE splitting — leaks test info into the scaler
-C. Using too many features
-D. Random initialization
+**Question 2:** You write `X_scaled = StandardScaler().fit_transform(X_full)`, then split `X_scaled` into train and test. What exactly leaked, and how does a pipeline fix it?
+A. Nothing leaked — scaling is a reversible transformation that does not transfer information
+B. The scaler computed mean and std from the full dataset including test rows; those test-set statistics influenced X_train's scaling. A pipeline fits the scaler on X_train only, then applies the train-fit params to both sets.
+C. The labels leaked, not the features
+D. Leakage only occurs with categorical encoding, not numerical scaling
 
 **Answer:** B
-**Explanation:** Preprocessing must be fit on train ONLY. Pipelines enforce this automatically.
+**Explanation:** `fit_transform(X_full)` computes mean and std from every row, including the test set. When the model then trains on scaled X_train, it has implicitly seen test distribution statistics — an optimistic bias. A pipeline calls `.fit()` only on X_train and `.transform()` on both, so the scaler never sees test data during training.
 
 ---
 
