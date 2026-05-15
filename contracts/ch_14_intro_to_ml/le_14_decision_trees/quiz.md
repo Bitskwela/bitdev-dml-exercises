@@ -55,14 +55,14 @@ D. Magic
 
 The tree's root split is `is_payday`. Tita Malou nods because she'd do the same.
 
-**Question 5:** The algorithm chose `is_payday` as the root split because:
-A. It was alphabetically first
-B. It produces the lowest weighted Gini among all candidate splits — it's the most informative feature
-C. Random choice
-D. The user told it to
+**Question 5:** Two candidate splits were evaluated: `is_payday` (Gini reduction 0.18) and `is_friday` (Gini reduction 0.04). The tree chose `is_payday` as the root. Which split produced purer child nodes, and how do you know from those numbers?
+A. `is_friday` — smaller reduction means it is more conservative and safe
+B. `is_payday` — higher Gini reduction means child nodes are more homogeneous after that split
+C. They are equal — the root choice is arbitrary among close values
+D. The smaller number always wins in Gini scoring
 
 **Answer:** B
-**Explanation:** The algorithm tries every feature/threshold and picks the one that minimizes weighted child Gini. Payday's strong signal makes it win.
+**Explanation:** Gini reduction = parent Gini − weighted child Gini. Higher reduction means the split cleans up the labels more. `is_payday`'s 0.18 dwarfs `is_friday`'s 0.04, so `is_payday` creates far purer child populations and wins the root split.
 
 ---
 

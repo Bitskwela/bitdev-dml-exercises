@@ -44,28 +44,11 @@ class DecisionTreeScratch:
         return self
 
     def _predict_one(self, row, node):
-        if node["leaf"]:
-            return node["prediction"]
-        if row[node["feature"]] <= node["threshold"]:
-            return self._predict_one(row, node["left"])
-        return self._predict_one(row, node["right"])
+        if node["leaf"]: return node["prediction"]
+        return self._predict_one(row, node["left"] if row[node["feature"]] <= node["threshold"] else node["right"])
 
     def predict(self, X):
         return np.array([self._predict_one(row, self.tree) for row in X], dtype=int)
-
-    def print_tree(self, feature_names, node=None, depth=0):
-        if node is None:
-            node = self.tree
-        indent = "  " * depth
-        if node["leaf"]:
-            label = "busy" if node["prediction"] == 1 else "not_busy"
-            print(f"{indent}-> predict {label}  (n={node['n']})")
-            return
-        fname = feature_names[node["feature"]]
-        print(f"{indent}if {fname} <= {node['threshold']:.1f}:")
-        self.print_tree(feature_names, node["left"],  depth + 1)
-        print(f"{indent}else:")
-        self.print_tree(feature_names, node["right"], depth + 1)
 
 
 SAMPLE_CSV = """date,item,quantity,revenue,day_of_week,is_payday,weather
@@ -104,9 +87,8 @@ idx = rng.permutation(len(X))
 n_test = max(1, int(len(X) * 0.2))
 test_idx, train_idx = idx[:n_test], idx[n_test:]
 
-# TODO: fit, print tree, predict, compute accuracy
+# TODO: fit the tree
 tree = DecisionTreeScratch(max_depth=2)
-# tree.fit(X[train_idx], y[train_idx])
-# tree.print_tree(feature_cols)
-# accuracy = (tree.predict(X[test_idx]) == y[test_idx]).mean()
-# print(f"Test accuracy: {accuracy:.3f}")
+# TODO: tree.fit(X[train_idx], y[train_idx])
+# TODO: accuracy = (tree.predict(X[test_idx]) == y[test_idx]).mean()
+# TODO: print(f"Test accuracy: {accuracy:.3f}")

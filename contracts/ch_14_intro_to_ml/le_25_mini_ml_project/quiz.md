@@ -28,14 +28,14 @@ D. A confusion matrix
 
 ---
 
-**Question 3:** Why does the model predict EXPECTED REVENUE per ulam (not just "this ulam will sell")?
-A. It doesn't
-B. Because Tita Malou cares about peso revenue when deciding what to push — the regression target matches the business goal
-C. Random
-D. Convention
+**Question 3:** Tita Malou wants to know which 3 ulam to prepare tomorrow. Design choice: (a) binary classifier — will each ulam sell ≥15 portions? (b) regressor — what is the expected revenue? Which gives her a more useful ranked list, and why?
+A. (a) the classifier — yes/no is simpler and easier to explain to a non-technical user
+B. (b) the regressor — it produces a number per ulam you can sort to get a ranked top-3; the classifier only says good/bad with no way to rank ties
+C. Both are equivalent — just run whichever is faster
+D. Neither — clustering would produce natural ulam groups for this problem
 
 **Answer:** B
-**Explanation:** Frame the ML target to match the business question. "Top revenue" is what she optimizes.
+**Explanation:** The business need is a ranked list: push ulam 1 first, ulam 2 second, ulam 3 third. A binary classifier can only say yes or no per ulam — if 5 ulam all pass the threshold, you have no ranking. A regressor predicts expected revenue for each ulam; sort descending and take the top 3. The output shape of your model must match the decision your stakeholder needs to make.
 
 ---
 

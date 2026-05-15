@@ -28,14 +28,14 @@ D. Sort and pick
 
 ---
 
-**Question 3:** Why MUST you standardize features before K-Means?
-A. You don't
-B. K-Means uses Euclidean distance; without standardization, large-range features dominate over small-range ones
-C. Pandas requires it
-D. Speed
+**Question 3:** You cluster carinderia customers using revenue (range: 0–5,000 pesos) and `is_payday` (values: 0 or 1). Without standardization, which feature dominates the Euclidean distance, and what will the clusters actually represent?
+A. `is_payday` — binary features are always stronger signals for distance
+B. Revenue — (5000-0)² = 25,000,000 while (1-0)² = 1; revenue dominates every distance calculation and the clusters will split by spending level, ignoring payday entirely
+C. Both contribute equally — K-Means is scale-invariant by design
+D. Neither — K-Means ignores raw feature values
 
 **Answer:** B
-**Explanation:** Distance metrics are scale-sensitive. Subtract mean, divide by std before clustering.
+**Explanation:** Euclidean distance squares differences. A 5,000-peso range contributes 25M per pair while a 0-vs-1 range contributes 1. The algorithm effectively only sees revenue; `is_payday` disappears. Standardize both features to mean=0, std=1 so each contributes meaningfully to the cluster geometry.
 
 ---
 

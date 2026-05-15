@@ -55,14 +55,14 @@ D. A bug
 
 Dan sweeps `max_depth ∈ [1..15]` and watches the curves.
 
-**Question 5:** As `max_depth` rises, what does TRAIN accuracy do?
-A. Goes down
-B. Monotonically rises (more flexibility = better training fit)
-C. U-shape
-D. Constant
+**Question 5:** You sweep `max_depth` from 1 to 20. At depth=15, train accuracy is 100%. Validation accuracy peaked at depth=8 and has been falling ever since. What do you conclude, and which depth do you use?
+A. Use depth=15 — 100% train accuracy is the goal
+B. Use depth=8 — the model overfit beyond depth=8; it memorizes training data but generalizes worse at greater depths
+C. Use depth=1 — the simplest model is always the safest choice
+D. The sweep is broken — validation accuracy should not fall as depth increases
 
 **Answer:** B
-**Explanation:** More flexibility can only fit training better — never worse. Train accuracy is always monotonically improving with complexity.
+**Explanation:** 100% train accuracy is a red flag, not a goal. The model at depth=15 has memorized training rows. Validation falling after depth=8 is the signal: beyond that point the model learns noise rather than pattern. The validation peak identifies the best-generalization depth — use depth=8.
 
 ---
 

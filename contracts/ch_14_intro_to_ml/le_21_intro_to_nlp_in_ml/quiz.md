@@ -17,14 +17,14 @@ D. Compresses text
 
 ---
 
-**Question 2:** With bag-of-words, why does "order 3 sinigang" still classify correctly even though we don't know "order" came BEFORE "sinigang"?
-A. It doesn't
-B. The presence of "order" alone is strongly correlated with the "order" class — counts matter, not order
-C. Random luck
-D. Position is preserved secretly
+**Question 2:** Entry A: "sinigang order 3 sinigang order" (class: high-demand) and Entry B: "order sinigang order sinigang" (class: restock-needed) have identical BOW vectors. Would your BOW classifier distinguish them? What technique would help?
+A. Yes — BOW captures word positions internally
+B. No — identical word counts = identical feature vectors; the classifier sees the same row for both classes. Bigrams ("sinigang_order" vs "order_sinigang") create separate features that capture position.
+C. Yes — the classifier learns from label differences even when inputs are identical
+D. It doesn't matter — identical inputs with different labels will average to a middle prediction
 
 **Answer:** B
-**Explanation:** Many classification problems are well-served by word presence/absence. Word order is bonus information, not always required.
+**Explanation:** Two different-class entries with the same BOW vector are indistinguishable to any downstream classifier — same feature row, same prediction. Bigrams add sequential context: "sinigang_order" and "order_sinigang" become separate vocabulary items, breaking the tie. This is why n-grams are the natural next step after plain unigram BOW.
 
 ---
 

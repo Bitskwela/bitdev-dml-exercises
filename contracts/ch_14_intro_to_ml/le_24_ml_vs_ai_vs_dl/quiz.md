@@ -55,14 +55,14 @@ D. None of the above
 
 Different data shapes need different algorithms.
 
-**Question 5:** For 30 rows of tabular carinderia data, what's the RIGHT first algorithm?
-A. A deep neural network
-B. Random Forest or Logistic Regression — tabular + small → ML wins
-C. GPT-4
-D. K-Means
+**Question 5:** Your Random Forest hits 100% accuracy on a 30-row carinderia test set. Your manager says "perfect — now let's try a neural net to push it even higher." What would you tell them, and which metric should you actually focus on?
+A. Agree — neural nets are always worth trying for any potential improvement
+B. Disagree — 100% on 30 rows signals overfitting risk, not a lower bound to beat. The metric that matters is CV mean ± std. On 30 rows, a neural net adds far more parameters than data, guaranteeing worse generalization.
+C. Agree — more model capacity always helps when the current accuracy is already high
+D. Disagree — neural nets cannot run on tabular data at any scale
 
 **Answer:** B
-**Explanation:** DL is overkill for small tabular data. ML is the right tool.
+**Explanation:** 100% test accuracy on a 6-row test set (80/20 split of 30) is suspicious — a model can hit 100% by chance. The metric that tells you whether performance is real is CV mean ± std across multiple folds. Adding a neural net to 30 rows gives the model 10–100× more parameters than data points: it will fit training perfectly and generalize worse. Tabular + small = classical ML wins every time.
 
 ---
 
