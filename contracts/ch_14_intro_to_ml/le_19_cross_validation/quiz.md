@@ -66,14 +66,14 @@ D. 0.5
 
 ---
 
-**Question 6:** Model A: mean=0.86 ± 0.02. Model B: mean=0.87 ± 0.05. Are they meaningfully different?
-A. Yes — B is 0.01 higher
-B. NO — the difference (0.01) is much smaller than the std (0.02-0.05); the comparison is within noise
-C. Yes — B is always better
-D. Cannot tell
+**Question 6:** Model A's 5 CV fold scores: [0.85, 0.87, 0.84, 0.88, 0.86]. Model B's: [0.89, 0.82, 0.88, 0.85, 0.91]. Estimate mean and std for each. Which would you ship and why?
+A. Model B — it has a higher peak score (0.91) and a higher mean
+B. Model A — mean ≈ 0.860, std ≈ 0.015; vs Model B mean ≈ 0.870, std ≈ 0.033. The 0.01 mean gap is within noise; Model A's lower std makes its production performance predictable
+C. Model B — higher mean always wins regardless of std
+D. Either — the means are close enough to be interchangeable without checking std
 
 **Answer:** B
-**Explanation:** Stat 101. Differences within the uncertainty band aren't meaningful. Always look at std before claiming "X beats Y."
+**Explanation:** Model A: mean ≈ 0.860, std ≈ 0.015 (range ~0.845–0.875). Model B: mean ≈ 0.870, std ≈ 0.033 (range ~0.837–0.903). Model B's 0.01 higher mean is dwarfed by its 2× larger std. You can reliably predict Model A will score around 0.86; Model B might give you 0.82 or 0.91 on the next unseen dataset. For a production carinderia tool, consistency beats a lucky 0.91.
 
 ---
 
