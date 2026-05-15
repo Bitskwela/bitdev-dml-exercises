@@ -39,14 +39,14 @@ D. Random predictions
 
 ---
 
-**Question 4:** Why does a forest of 10 weak trees often BEAT a single strong tree?
-A. It doesn't
-B. Errors of individual trees average out; bias stays low while variance drops
-C. The forest is deeper
-D. Magic
+**Question 4:** Model A (single tree, depth=10): CV accuracy 0.87 ± 0.12. Model B (forest of 10 trees, depth=4): CV accuracy 0.86 ± 0.03. Same dataset. Which would you deploy and why?
+A. Model A — higher mean accuracy always wins
+B. Model B — a std of 0.03 means consistent ~0.86; Model A's 0.12 std means real-world accuracy could be anywhere from 0.75 to 0.99
+C. Model A — deeper trees generalize better
+D. Neither — the means are too close to matter
 
 **Answer:** B
-**Explanation:** Each tree has noise. Averaging votes cancels uncorrelated errors. Ensemble = lower variance.
+**Explanation:** Mean alone doesn't tell the story. Model A's 0.12 std means its performance is unreliable — a lucky split could explain the 0.87. Model B's 0.03 std means you can count on consistent ~0.86. Forests trade peak accuracy for stability; that stability is what you deploy.
 
 ---
 
