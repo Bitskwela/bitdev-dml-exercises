@@ -10,64 +10,36 @@ import io
 import numpy as np
 import pandas as pd
 
-# Copy DecisionTreeScratch from Lesson 14 (or import it via your project setup)
-
+# DecisionTreeScratch: provided from Lesson 14 — do not modify
 class DecisionTreeScratch:
-    """Reuse from Lesson 14."""
     def __init__(self, max_depth=3, min_samples_leaf=2):
-        self.max_depth = max_depth
-        self.min_samples_leaf = min_samples_leaf
-        self.tree = None
-
+        self.max_depth = max_depth; self.min_samples_leaf = min_samples_leaf; self.tree = None
     @staticmethod
     def _gini(y):
-        if len(y) == 0: return 0.0
-        p1 = y.mean()
-        return float(1.0 - (p1 ** 2 + (1 - p1) ** 2))
-
+        p1 = y.mean(); return float(1.0 - (p1**2 + (1-p1)**2)) if len(y) else 0.0
     def _best_split(self, X, y):
-        best_score = float("inf")
-        best_split = None
-        for feat_idx in range(X.shape[1]):
-            for thr in np.unique(X[:, feat_idx]):
-                left  = X[:, feat_idx] <= thr
-                right = ~left
-                if left.sum() < self.min_samples_leaf or right.sum() < self.min_samples_leaf:
-                    continue
-                g_left  = self._gini(y[left])
-                g_right = self._gini(y[right])
-                weighted = (left.sum() * g_left + right.sum() * g_right) / len(y)
-                if weighted < best_score:
-                    best_score = weighted
-                    best_split = (feat_idx, thr)
-        return best_split
-
-    def _build(self, X, y, depth):
-        if (depth >= self.max_depth or len(np.unique(y)) == 1
-            or len(y) < 2 * self.min_samples_leaf):
+        best, res = float("inf"), None
+        for f in range(X.shape[1]):
+            for thr in np.unique(X[:, f]):
+                l = X[:, f] <= thr
+                if l.sum() < self.min_samples_leaf or (~l).sum() < self.min_samples_leaf: continue
+                w = (l.sum()*self._gini(y[l]) + (~l).sum()*self._gini(y[~l])) / len(y)
+                if w < best: best, res = w, (f, thr)
+        return res
+    def _build(self, X, y, d):
+        if d >= self.max_depth or len(np.unique(y)) == 1 or len(y) < 2*self.min_samples_leaf:
             return {"leaf": True, "prediction": int(round(y.mean()))}
-        split = self._best_split(X, y)
-        if split is None:
-            return {"leaf": True, "prediction": int(round(y.mean()))}
-        feat_idx, thr = split
-        mask = X[:, feat_idx] <= thr
-        return {"leaf": False, "feature": feat_idx, "threshold": thr,
-                "left":  self._build(X[mask],  y[mask],  depth + 1),
-                "right": self._build(X[~mask], y[~mask], depth + 1)}
-
+        s = self._best_split(X, y)
+        if s is None: return {"leaf": True, "prediction": int(round(y.mean()))}
+        f, thr = s; mask = X[:, f] <= thr
+        return {"leaf": False, "feature": f, "threshold": thr,
+                "left": self._build(X[mask], y[mask], d+1), "right": self._build(X[~mask], y[~mask], d+1)}
     def fit(self, X, y):
-        self.tree = self._build(np.asarray(X, dtype=float),
-                                np.asarray(y, dtype=int), depth=0)
-        return self
-
+        self.tree = self._build(np.asarray(X, float), np.asarray(y, int), 0); return self
     def _predict_one(self, row, node):
-        if node["leaf"]: return node["prediction"]
-        if row[node["feature"]] <= node["threshold"]:
-            return self._predict_one(row, node["left"])
-        return self._predict_one(row, node["right"])
-
+        return node["prediction"] if node["leaf"] else self._predict_one(row, node["left" if row[node["feature"]] <= node["threshold"] else "right"])
     def predict(self, X):
-        return np.array([self._predict_one(row, self.tree) for row in X], dtype=int)
+        return np.array([self._predict_one(r, self.tree) for r in X], dtype=int)
 
 
 class RandomForestScratch:
