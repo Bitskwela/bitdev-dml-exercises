@@ -55,14 +55,14 @@ D. The number of features
 
 PC1's largest-magnitude loadings are `is_payday`, `quantity`, `is_friday`.
 
-**Question 5:** What does that combination of loadings tell you PC1 "represents"?
-A. Nothing — PCs are uninterpretable
-B. PC1 acts as a "busy-payday axis" — points with high values on PC1 are payday days with high quantities, often Fridays
-C. PC1 represents weather
-D. PC1 represents customer ID
+**Question 5:** PC1 explains 85% of variance; PC2 explains 5%. Your tech lead says "drop PC2 to save compute." Give one reason to keep it and one reason to drop it. What would you do?
+A. Always drop it — 5% is negligible regardless of what it contains
+B. Reason to keep: PC2 may contain the exact signal that separates your target classes, even if it has low overall variance. Reason to drop: if PC2 is unrelated to labels, it adds noise. Run a classifier with vs without PC2 and compare CV accuracy to decide.
+C. Always keep it — every PC contains important information by definition
+D. The decision depends only on training time, not model performance
 
 **Answer:** B
-**Explanation:** PCs are interpretable via their loadings. Identifying the axis tells you what variation it captures.
+**Explanation:** Variance explained measures how much spread a PC captures across ALL data, not whether it correlates with your labels. A PC with 5% variance could perfectly separate classes if that 5% is where your signal lives. A PC with 50% variance could be pure noise for classification. Check empirically: CV accuracy with vs without PC2. The number decides — not the variance ratio alone.
 
 ---
 
