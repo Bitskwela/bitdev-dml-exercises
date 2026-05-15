@@ -66,14 +66,14 @@ D. Random
 
 ---
 
-**Question 6:** What's the risk of training with one sklearn version and loading with another?
-A. None
-B. Internal data structures may differ between versions — you can get warnings or outright errors
-C. Lower accuracy
-D. Speed
+**Question 6:** You train a Random Forest on sklearn 1.3, serialize it with `pickle.dumps`, then load it on a server running sklearn 1.5 and get a `UserWarning` about version mismatch. Which response is best and why?
+A. Ignore the warning — if no exception was raised, predictions are safe
+B. Retrain and re-serialize on sklearn 1.5, then pin `sklearn==1.5` in `requirements.txt`
+C. Downgrade the server to sklearn 1.3 without retesting
+D. Delete the artifact immediately and serve no predictions until retrained
 
 **Answer:** B
-**Explanation:** Pin versions in production. `requirements.txt` is your friend.
+**Explanation:** A `UserWarning` on load means deserialization succeeded, but internal object state from 1.3 may not match 1.5's expectations — leading to silent wrong predictions without an obvious error. Retraining on the production version eliminates the mismatch entirely; pinning the version prevents future drift. Ignoring the warning (A) risks silent bugs. Downgrading the server (C) couples production to an older library and doesn't verify the artifact is correct.
 
 ---
 
