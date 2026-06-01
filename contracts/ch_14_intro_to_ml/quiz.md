@@ -354,7 +354,7 @@
     "type": "FIB",
     "answer": "5",
     "points": 1,
-    "question": "The industry-default value of K in K-fold cross validation is ______."
+    "question": "A common default for the number of folds K in K-fold cross validation — and the value used in this course's examples — is ______."
   },
   {
     "id": 34,
