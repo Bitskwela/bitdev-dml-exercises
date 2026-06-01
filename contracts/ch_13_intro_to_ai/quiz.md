@@ -369,7 +369,7 @@
     "points": 1,
     "choices": [
       { "id": "a", "text": "A single string with all messages concatenated using newlines" },
-      { "id": "b", "text": "A list of message objects, each with a 'role' ('user' or 'assistant') and 'content' field" },
+      { "id": "b", "text": "A list of message objects, each with a 'role' ('system', 'user', or 'assistant') and 'content' field" },
       { "id": "c", "text": "A CSV file stored on disk between conversation turns" },
       { "id": "d", "text": "A dictionary with a single key called 'history'" }
     ],
