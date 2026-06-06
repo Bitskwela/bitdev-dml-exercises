@@ -8,13 +8,9 @@ Nine in the morning, the quiet hour at the carinderia. Dan opened last night's c
 
 But the clone that survived all of last night — `add_note` — has to *change* the order. Borrowing just to read won't cut it. JM pointed at the counter, where Tita Malou had the utang notebook open: writing a new line while a suki read his own column upside down over her shoulder.
 
-> **Kuya JM:** How many people can read that notebook at the same time?
+> **Kuya JM:** How many people can read that notebook at the same time? And how many hands write in it?
 >
-> **Dan:** Lahat. Reading doesn't bother anyone — basta abot ng mata nila.
->
-> **Kuya JM:** And how many hands write in it at the same time?
->
-> **Dan:** One. Hers. Always hers. Kapag dalawang kamay ang sumusulat, magulo ang records.
+> **Dan:** Lahat ang nakakabasa — reading doesn't bother anyone. Pero one hand lang ang sumusulat. Hers. Always hers. Kapag dalawang kamay ang sumusulat, magulo ang records.
 >
 > **Kuya JM:** Naks. You just recited Rust's borrowing rules word for word. Any number of readers, OR exactly one writer — never both at once. The compiler enforces what your mom enforces with one glare.
 
