@@ -73,13 +73,7 @@ Read it ritual-style: the code is **E0603**, the `^^^^^` arrows mark the illegal
 
 ### Paths — `use crate::` Says the Address Once
 
-Once code lives in modules, every item has a full address: `crate::menu::MenuItem` — this crate, then the `menu` module, then `MenuItem`. Typing full addresses everywhere gets old fast, which is what `use` is for:
-
-```rust
-use crate::menu::MenuItem; // full address once; plain `MenuItem` afterwards
-```
-
-`crate::` is the **absolute** address — it always starts from the crate root (your `main.rs`) and works identically from any file, which is why it survives refactors and why it's this course's house style. (`self::` is the relative form — "starting from where I'm standing.") One habit to build now: **`use` lines never leak between modules.** If `sales` wants `HashMap`, then `sales` writes its own `use std::collections::HashMap;`, no matter what `main` already imported.
+Once code lives in modules, every item has a full address: `crate::menu::MenuItem` — this crate, then the `menu` module, then `MenuItem`. Typing full addresses everywhere gets old fast, which is what `use` is for: `use crate::menu::MenuItem;` says the full address once, and plain `MenuItem` works in that file afterwards. `crate::` is the **absolute** address — it always starts from the crate root (your `main.rs`) and works identically from any file, which is why it survives refactors and why it's this course's house style. (`self::` is the relative form — "starting from where I'm standing.") One habit to build now: **`use` lines never leak between modules.** If `sales` wants `HashMap`, then `sales` writes its own `use std::collections::HashMap;`, no matter what `main` already imported.
 
 ### The Module Tree
 
