@@ -69,3 +69,37 @@ error[E0382]: borrow of moved value: `header`
 ```
 
 It's not broken; it's a move wearing a math costume, and `format!` does the same job with no casualties. After today, `+` does not appear in this course again.
+
+### No `s[0]` — Bytes vs Characters
+
+Rust strings are UTF-8, where a character takes one to four bytes — `H` is one, `₱` is three. So `s[0]` could honestly mean three different things: the first **byte**, the first **char**, or the first **grapheme cluster** (what a human would circle as "one character"). Rust refuses to guess, so indexing simply doesn't compile. You say what you mean instead: `.as_bytes()` for bytes, `.chars()` to walk characters, and Lesson 11's byte-range slices when you know the boundary is real.
+
+```rust
+let halo = "Halo-Halo ₱95";
+halo.len();             // 15 — BYTES
+halo.chars().count();   // 13 — CHARACTERS
+```
+
+`.len()` counts **bytes**; `.chars().count()` counts **characters**. They agree on pure-ASCII text and silently disagree the moment a `₱` walks in — thirteen characters, fifteen bytes, because the peso sign is one char and three bytes. If your receipt-width math uses `.len()`, your columns drift on every line with a peso sign. Count characters when you mean characters.
+
+And memorize the rule that decides 90% of your string choices from now on: **"functions take `&str`, structs own `String`."** A `&str` parameter accepts *everything* — literals, slices, and `&String` too, because Rust quietly coerces `&String` into `&str` at the call site. When data needs to *live* somewhere long-term, the owner holds a `String`. Borrow to read, own to keep.
+
+---
+
+## Key Takeaways
+
+- **`String` is the pot you own** — owned, growable, heap-allocated. **`&str` is looking into someone else's pot** — a borrowed, read-only view. Literals are `&'static str`: views into text baked into your binary.
+- **Create with `String::from("...")`; grow with `push_str`** for a `&str` **and `push`** for a single `char`.
+- **`format!` is the workhorse:** `println!` syntax, borrows every argument, returns a new `String`. Nothing moves, nothing dies.
+- **`+` moves its left side** and only borrows the right — reuse the left and E0382 finds you. Retired today in favor of `format!`.
+- **`s[0]` doesn't compile, honestly so:** in UTF-8, "first element" has three competing meanings — byte, char, grapheme cluster. Say which one you mean.
+- **`.len()` counts BYTES; `.chars().count()` counts CHARACTERS.** `"Halo-Halo ₱95"` is 15 bytes but 13 characters — the peso sign is one char, three bytes.
+- **The course rule: "functions take `&str`, structs own `String`."** `&String` coerces to `&str` at the call site, so a `&str` parameter welcomes everyone.
+
+---
+
+## What's Next?
+
+The receipt printer works, and the peso sign prints proudly in all three of its bytes. But look at today's code with cold eyes: `dish1`, `dish2`, `dish3`, a separate parallel list of prices. Nothing in the code says "this name and this price belong to the same dish" — Dan just has to never, ever mix up an index. Tomorrow, whiteboard night at the dorm: data that belongs together finally *lives* together.
+
+**Next Lesson: Structs** — defining `MenuItem`, fields that travel as one unit, and methods that give Dan's data its own behavior.
