@@ -35,9 +35,7 @@ fn main() {
 }
 ```
 
-Items inside a module are addressed with `::` — `kitchen::serve_adobo()` reads as "the kitchen's serve_adobo." And inside the module, `serve_adobo` calls `secret_recipe` with no ceremony at all: staff at the same station share freely.
-
-Inline modules are fine for small things, but Dan's goal is fewer lines in `main.rs` — so here is the second form. Replace the braces with a semicolon, `mod menu;`, and you've made the compiler a promise: *"May module akong `menu` — its contents are in `src/menu.rs`. Go look."* Same module, same rules — only the contents move out:
+Items inside a module are addressed with `::` — `kitchen::serve_adobo()` reads as "the kitchen's serve_adobo." Inside the module, `serve_adobo` calls `secret_recipe` with no ceremony at all: staff at the same station share freely. Inline modules are fine for small things, but Dan's goal is fewer lines in `main.rs` — so here is the second form. Replace the braces with a semicolon, `mod menu;`, and you've made the compiler a promise: *"May module akong `menu` — its contents are in `src/menu.rs`. Go look."* Same module, same rules — only the contents move out:
 
 ```text
 lutocli_refactor/
