@@ -8,13 +8,13 @@
 
 **Windows:** Go to <https://rustup.rs>, download `rustup-init.exe`, run it. If Windows asks for the *Visual Studio C++ Build Tools*, let the installer set them up — one-time prerequisite. At the menu, press **Enter** for the standard installation. That's the entire decision.
 
-**macOS / Linux:** One line in the terminal:
+**macOS / Linux:** One line in the terminal, then press **Enter** at the same menu:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Same menu appears; press **Enter**. Either way, wait for: `Rust is installed now. Great!`
+Either way, wait for the last line: `Rust is installed now. Great!`
 
 ---
 
@@ -44,13 +44,11 @@ cargo 1.95.0 (f2d3ce0bd 2026-03-21)
 
 $ rustup show
 Default host: x86_64-pc-windows-msvc
-
-installed toolchains
---------------------
+...
 stable-x86_64-pc-windows-msvc (active, default)
 ```
 
-Your version may be newer than 1.95.0 — stable ships every six weeks. Newer is fine. The long name is your *host triple* (architecture-vendor-OS); on an Apple Silicon Mac you'd see `aarch64-apple-darwin`. Different triple, same Rust.
+Your version may be newer than 1.95.0 — stable ships every six weeks; newer is fine. The long name is your *host triple* (architecture-vendor-OS); an Apple Silicon Mac shows `aarch64-apple-darwin`. Different triple, same Rust.
 
 ---
 
@@ -64,13 +62,9 @@ Your version may be newer than 1.95.0 — stable ships every six weeks. Newer is
 
 ## Challenge: Bookmark Chapter 4
 
-Run:
+Run `rustup doc --book`. Your browser opens *The Rust Programming Language* served straight from your disk — check the address bar: `file://`, not `https://`. Zero internet.
 
-```text
-rustup doc --book
-```
-
-Your browser opens *The Rust Programming Language* served straight from your disk — check the address bar: `file://`, not `https://`. Zero internet. Navigate to **Chapter 4: "Understanding Ownership"** and bookmark it. Don't read it yet. In Lesson 9, Dan is going to need that chapter *badly* — and so will you.
+Navigate to **Chapter 4: "Understanding Ownership"** and bookmark it. Don't read it yet. In Lesson 9, Dan is going to need that chapter *badly* — and so will you.
 
 ---
 
