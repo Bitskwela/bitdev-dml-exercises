@@ -8,8 +8,6 @@ Dan typed his first `match` — one arm per payment, one tray per coin — and f
 
 > **Kuya JM:** Sa payment team namin, this is the entire reason we sleep at night. May bagong payment channel? Add the variant, then follow the red hanggang maging green. The compiler does the remembering — may bodyguard ka na.
 
----
-
 ## The Concept: One Tray for Every Case
 
 ### Match Arms
