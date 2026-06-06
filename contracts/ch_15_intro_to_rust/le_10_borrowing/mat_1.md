@@ -87,13 +87,6 @@ When a reference goes out of scope, **nothing is freed and nothing is dropped** 
 
 A reference can never outlive the value it points to. In C you can return a pointer to a function's local variable — it compiles without complaint and aims at freed memory; maybe it crashes three weeks later, in production. In Rust, the equivalent code is rejected *at compile time*: the compiler proves, before the binary exists, that every reference's owner is still alive at every use. The dangling pointer isn't caught, or handled, or debugged — it is **never compiled**.
 
-| | `&T` (shared) | `&mut T` (exclusive) |
-|---|---|---|
-| Can read? | Yes | Yes |
-| Can modify? | No | Yes |
-| How many at once? | Any number | Exactly one |
-| Utang notebook role | reading over the shoulder | the one hand holding the pen |
-
 ---
 
 ## Key Takeaways
