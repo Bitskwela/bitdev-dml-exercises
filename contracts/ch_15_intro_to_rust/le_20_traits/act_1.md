@@ -42,3 +42,48 @@ The last line is the payoff: `Adobo — ₱75`, no braces, no field names — cl
 1. `short_label` appears in *neither* `impl` block, yet both types can call it — and each label still comes out personalized. What two trait features make that possible?
 2. Inside `print_summary`, why does the compiler refuse `item.price` even when the caller really did pass a `MenuItem`? What does the function actually know about `item`?
 3. `Debug`, `Clone`, and `PartialEq` are derivable, but `Display` deliberately is not. What is different about the question each trait answers?
+
+## Challenge: The Drawer Learns to Speak
+
+Lesson 14 built the `Payment` enum; Lesson 15 taught you `match`. Tonight they shake hands with Lesson 20 — traits are not struct-only. Make payments print like a human wrote them:
+
+```rust
+use std::fmt;
+
+enum Payment {
+    Cash,
+    GCash(String),
+    Utang,
+}
+
+// TODO: impl fmt::Display for Payment — put a `match`
+// INSIDE fmt, one arm per variant, each arm its own write!
+
+fn main() {
+    let payments = [
+        Payment::Cash,
+        Payment::GCash(String::from("REF-2384-001")),
+        Payment::Utang,
+    ];
+    for p in &payments {
+        println!("{}", p); // E0277 until you sign the Display contract
+    }
+}
+```
+
+Target output, exactly:
+
+```
+Cash
+GCash (ref REF-2384-001)
+Utang — nasa notebook
+```
+
+Hints, in escalating order: **(1)** match on `self` inside `fmt` — your Lesson 15 patterns work the same here, including binding the reference number: `Payment::GCash(reference) => write!(f, "GCash (ref {})", reference)`. **(2)** Make the whole `match` the last expression of `fmt` (no semicolon) — every arm ends in a `write!`, every `write!` produces a `fmt::Result`, so the `match` itself becomes the return value the signature demands. **(3)** Forget the `Utang` arm and your Lesson 15 bodyguard steps in: E0004, non-exhaustive match, no compile. Human-friendly printing with exhaustiveness checking underneath — two lessons guarding a third.
+
+## What You've Learned
+
+- A trait is a contract about behavior: `impl Trait for Type` signs it, and one `&impl Summarize` function serves every signer — iba-ibang ulam, isang sandok
+- Default methods are free, can call required methods, and are overridable per type
+- `#[derive(Debug, Clone, PartialEq)]` is the compiler writing real trait impls for you — you have been implementing traits since Lesson 13
+- `impl fmt::Display` plus one `write!` earns the `{}` — human-facing formatting is a decision you sign by hand, and it works on enums exactly like structs
