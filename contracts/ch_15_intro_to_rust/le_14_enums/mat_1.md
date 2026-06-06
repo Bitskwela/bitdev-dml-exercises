@@ -94,8 +94,7 @@ That label is house policy from here on. Every `unwrap()` is a debt; Lesson 16's
 ## Key Takeaways
 
 - **An enum defines a type by listing every possible value — strings can lie; enums can't.** `"Gkash"` type-checks as a `String` and fails silently at runtime; against an enum it's an E0599 at compile time, with the correct spelling suggested.
-- **Variants can carry data.** `GCash(String)` glues the reference to the variant: no GCash without a ref, no Cash smuggling one in. Struct = AND; enum = OR.
-- **Enums get `impl` blocks too** — constructor helpers like `Payment::gcash("REF-...")`, exactly like `MenuItem::new`.
+- **Variants can carry data, and enums get `impl` blocks too.** `GCash(String)` glues the reference to the variant — no GCash without a ref, no Cash smuggling one in (struct = AND; enum = OR) — and constructor helpers like `Payment::gcash("REF-...")` work exactly like `MenuItem::new`.
 - **`Option<T>` is the most important enum in the standard library.** Rust has no null; absence is a type — `Some(T)` or `None` — visible in every struct definition and impossible to forget.
 - **`unwrap_or(default)` is the gentle first Option tool.** `unwrap()` panics on `None` and is tolerated only in prototypes with a `// PROTOTYPE:` confession — debts that Lesson 16 pays off.
 - **Data goes INTO a variant easily; getting it OUT needs pattern matching.** The compiler's `field is never read` warnings point at the locked trays — not a bug, a cliffhanger.
