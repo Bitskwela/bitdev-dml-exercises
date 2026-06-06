@@ -19,8 +19,6 @@ Find `TODO(2)` in Part 2. Add `.clone()` to the `print_order(order)` call, then 
 
 ## Task 3: Fix v2 — Hand the Key Back, Then Watch a u32 Not Care
 
-Two markers left:
-
 - `TODO(3)`, below `main`: write the body of `print_and_return`. Print `"Kitchen receives: {}"` with the order, then make `order` the LAST LINE with no semicolon — an expression, not a statement. That tail expression is the return value: ownership moves back OUT to the caller, where Part 3 catches it by shadowing (the Lesson 4 trick).
 - `TODO(4)`, in Part 4: call `print_price(price)` a SECOND time, then print `"Price is still ours: ₱{price}"`. Both lines compile — no move, no funeral, no E0382. `u32` is a `Copy` type: the function only ever received a photocopy.
 
