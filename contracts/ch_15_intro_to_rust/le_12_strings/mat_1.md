@@ -29,3 +29,43 @@ Easy, Dan figured — a receipt is just strings glued together. So he glued: `le
 | The framing | The pot you own | Looking into someone else's pot |
 
 One sentence on what you'll see in error messages: a string literal's full type is `&'static str` — a view into text baked into your compiled binary, valid for the entire run of the program — and that is all `'static` means until Lesson 22.
+
+### Creating and Growing a `String`
+
+```rust
+let mut receipt = String::from("** Tita Malou's Carinderia **\n");
+receipt.push_str("Adobo ₱75\n");  // push_str appends a &str — a borrowed view
+receipt.push('\n');               // push appends ONE char — single quotes
+```
+
+`String::from("...")` (or `"...".to_string()` — identical result; this course writes `String::from`) buys you your own pot, with a copy of the text inside. `push_str` borrows its argument, so whatever you append stays alive and usable; `push` is for a single `char`. Both need `mut` — you're changing your pot, and Lesson 4's rules never stopped applying.
+
+### `format!` Is the Workhorse
+
+Everything `println!` can do, `format!` does into a String instead of the screen:
+
+```rust
+let line = format!("{:<18} ₱{:>3}\n", "Adobo", 75);
+```
+
+Three properties make it the tool you'll reach for daily: it's **readable** (the template looks like the output), it **borrows everything** (every argument survives the call, unmoved), and it **returns a new `String`** — your own pot, ready to keep or grow. Build lines with `format!`, assemble them with `push_str`. That pair builds every receipt, report, and menu board for the rest of this course.
+
+### `+` Moves the Left Side
+
+`+` on strings only accepts `String + &str`, and it **moves the left side** — takes your pot, stirs in the right side, returns the same pot. Reuse the left side afterwards and this is waiting:
+
+```text
+error[E0382]: borrow of moved value: `header`
+ --> src\main.rs:6:20
+  |
+2 |     let header = String::from("** Tita Malou's Carinderia **\n");
+  |         ------ move occurs because `header` has type `String`, which does not implement the `Copy` trait
+3 |     let line = "Adobo ₱75\n";
+4 |     let receipt = header + line;
+  |                   ------------- `header` moved due to usage in operator
+5 |     println!("{}", receipt);
+6 |     println!("{}", header);
+  |                    ^^^^^^ value borrowed here after move
+```
+
+It's not broken; it's a move wearing a math costume, and `format!` does the same job with no casualties. After today, `+` does not appear in this course again.
