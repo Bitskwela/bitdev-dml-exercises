@@ -83,14 +83,12 @@ This is why the tally idiom says `dish.clone()`: inside `for dish in &sales` you
 
 ### Unordered, On Purpose
 
-**HashMaps have no order.** Print one directly and the entries come out shuffled — and shuffled *differently* on the next run. Not a bug; that's how hash maps buy their instant lookups. To *display* a tally, collect the pairs into a Vec — which does have order — and sort it yourself:
+**HashMaps have no order.** Print one directly and the entries come out shuffled — and shuffled *differently* on the next run. Not a bug; that's how hash maps buy their instant lookups. To *display* a tally, collect the pairs into a Vec — which does have order — and sort it yourself. Map for tallying, Vec for displaying: that division of labor is permanent.
 
 ```rust
 let mut leaderboard: Vec<(&String, &u32)> = tally.iter().collect();
 leaderboard.sort_by(|a, b| b.1.cmp(a.1));   // b vs a = DESCENDING by count
 ```
-
-Map for tallying, Vec for displaying: that division of labor is permanent.
 
 ---
 
