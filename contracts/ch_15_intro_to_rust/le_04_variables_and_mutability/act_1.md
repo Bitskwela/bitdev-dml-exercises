@@ -2,16 +2,9 @@
 
 Build Tita Malou's rice tracker: one honest `mut` counter, a price that transforms through shadowing — including a type change `mut` could never pull off — and one `const` house rule.
 
----
-
 ## Task 1: Finish the Lunch Rush (`mut`)
 
-Open `act_1.rs`. Part 2 already handles the 7:30 AM jeepney batch — the `let mut` and the first `-=` are the worked example. Two more batches hit the counter:
-
-- 11:45 AM — office crowd from the barangay hall, **12 cups**
-- 12:30 PM — tricycle drivers, extra-rice gang, **9 cups**
-
-Update `cups_of_rice` with `-=` and print after each batch. Every one of those updates compiles for exactly one reason: the three letters in `let mut`.
+Open `act_1.rs`. Part 2 already handles the 7:30 AM jeepney batch — the `let mut` and the first `-=` are the worked example. Two more batches hit the counter: the 11:45 AM office crowd from the barangay hall (**12 cups**) and the 12:30 PM tricycle drivers, extra-rice gang (**9 cups**). Update `cups_of_rice` with `-=` and print after each batch — every one of those updates compiles for exactly one reason: the three letters in `let mut`.
 
 ## Task 2: Payday Price (shadowing)
 
@@ -31,9 +24,7 @@ Deliberately earn the error. Delete the `mut` from your working `cups_of_rice` l
 
 1. Read the **error code** and headline. What rule was broken, in plain words?
 2. Find both **span arrows** — which line gets `------`, which gets `^^^^^`, and what is each one telling you?
-3. Read the **`help:`** line. What exact fix does the compiler propose, and where do the `+++` characters say it goes?
-
-Restore the `mut` and confirm green. (Part 1's commented-out lines are the same exercise in a sandbox — uncomment, read, re-comment.)
+3. Read the **`help:`** line. What exact fix does the compiler propose, and where do the `+++` characters say it goes? Then restore the `mut` and confirm green. (Part 1's commented-out lines are the same exercise in a sandbox — uncomment, read, re-comment.)
 
 ---
 

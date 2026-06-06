@@ -1,8 +1,6 @@
 ## Dan's Story: The Recipe You Cannot Edit
 
-Six-thirty in the morning, carinderia kitchen. Two rice cookers already steaming, Tita Malou portioning pork for the adobo, and Dan wedged into the corner table with his laptop. His second-ever Rust program had one job: track rice through the lunch rush — start with the morning's fifty cups, subtract every batch served. He typed it the way Python Dan would have: `let cups_of_rice = 50;` and then, a few lines later, `cups_of_rice = cups_of_rice - 4;`.
-
-`cargo check`. And then, for the first time in his life, a compiler told Dan Santos *no*: `cannot assign twice to immutable variable`. He screenshotted the error and sent it to Kuya JM with three crying emojis.
+Six-thirty in the morning, carinderia kitchen. Two rice cookers already steaming, Tita Malou portioning pork for the adobo, and Dan wedged into the corner table with his laptop. His second-ever Rust program had one job: track rice through the lunch rush — start with the morning's fifty cups, subtract every batch served. He typed it the way Python Dan would have: `let cups_of_rice = 50;` and then, a few lines later, `cups_of_rice = cups_of_rice - 4;`. `cargo check`. And then, for the first time in his life, a compiler told Dan Santos *no*: `cannot assign twice to immutable variable`. He screenshotted the error and sent it to Kuya JM with three crying emojis.
 
 > **Dan:** Kuya, the compiler is yelling at me. I changed a variable. CHANGED. A. VARIABLE. Apparently that's illegal now?
 >
@@ -46,15 +44,11 @@ help: consider making this binding mutable
   |         +++
 ```
 
-Why design a language this way? In Python, any line, anywhere, can quietly overwrite any variable — and that bug class, *accidental change*, costs real debugging nights. Rust's position: **change is the dangerous case, so change is the case that must be declared.** A plain `let` is a guarantee the value never changes for its whole life; you only need to watch the variables marked `mut`. In a 50-line program that's a nicety. In a 50,000-line payment service, it's the difference between auditing every variable and auditing five.
-
-E0384 is also your first compiler error, and there will be others — so learn the **error-reading ritual**, calmly, in this order:
+Why design a language this way? In Python, any line, anywhere, can quietly overwrite any variable — and that bug class, *accidental change*, costs real debugging nights. Rust's position: **change is the dangerous case, so change is the case that must be declared.** A plain `let` is a guarantee the value never changes for its whole life; you only need to watch the variables marked `mut`. In a 50-line program that's a nicety. In a 50,000-line payment service, it's the difference between auditing every variable and auditing five. E0384 is also your first compiler error, and there will be others — so learn the **error-reading ritual**, calmly, in this order:
 
 1. **The error code.** `error[E0384]` — every Rust error has a number. Run `rustc --explain E0384` for a full essay with examples. You are never the first person to hit it.
 2. **The `help:` line.** Skip to the bottom. Rust errors very often end with a literal patch — here it wrote `let mut cups_of_rice = 50;` and even marked where the three new characters go (`+++`).
-3. **The span arrows.** The `------` underlines where the binding was born; the `^^^^^` underlines the crime scene. Two arrows, full story: what you did at line 2 made line 6 illegal.
-
-Panic reads errors top to bottom as one angry wall. The ritual reads them as three labeled parts.
+3. **The span arrows.** The `------` underlines where the binding was born; the `^^^^^` underlines the crime scene. Two arrows, full story: what you did at line 2 made line 6 illegal. Panic reads errors as one angry wall; the ritual reads them as three labeled parts.
 
 ### `mut` — the Explicit Opt-In
 
@@ -62,8 +56,7 @@ Three letters turn the rejection into a permission slip:
 
 ```rust
 let mut cups_of_rice = 50;
-cups_of_rice = cups_of_rice - 4;  // legal now
-cups_of_rice -= 9;                // shorthand for the same thing
+cups_of_rice -= 4;  // legal now — shorthand for: cups_of_rice = cups_of_rice - 4
 ```
 
 `mut` is not an apology — it's documentation. It tells every future reader, including future you: *this value moves; watch it.* One catch: `mut` lets the **value** change, never the **type**. A `mut` u32 stays a u32 forever.
@@ -88,9 +81,7 @@ For values fixed for the entire program — house rules, not ingredients:
 const SENIOR_DISCOUNT_PCT: u32 = 20;
 ```
 
-Three things separate a `const` from a `let`: the **type annotation is required** (no inference), the name is **SCREAMING_SNAKE_CASE** by convention so constants are visible from across the room, and the **value must be known at compile time** and can never change. No `mut const`. Ever. The senior citizen discount is the law of the land — 20%, not negotiable during the lunch rush. That's a `const`.
-
-### The Four, Side by Side
+Three things separate a `const` from a `let`: the **type annotation is required** (no inference), the name is **SCREAMING_SNAKE_CASE** by convention so constants are visible from across the room, and the **value must be known at compile time** and can never change. No `mut const`. Ever. The senior citizen discount is the law of the land — 20%, not negotiable during the lunch rush. That's a `const`. Here are the four techniques side by side:
 
 | Technique | Syntax | Value can change? | Type can change? | Use it for |
 |---|---|---|---|---|
@@ -103,8 +94,7 @@ Three things separate a `const` from a `let`: the **type annotation is required*
 
 ## Key Takeaways
 
-- **`let` bindings are immutable by default.** A plain `let` is a promise the value never changes — and the compiler enforces it with E0384.
-- **Immutability-by-default kills the accidental-overwrite bug class** — the silent variable stomp Python allows, which costs real debugging nights.
+- **`let` bindings are immutable by default** — a plain `let` is a promise the value never changes, enforced with E0384, and it kills the accidental-overwrite bug class Python lets in silently.
 - **`mut` is an explicit, visible opt-in.** It changes the value but never the type. Reading code, `mut` is a "watch this one" flag.
 - **Shadowing creates a new binding under an old name** — and because the binding is new, the type CAN change. Use it for values that transform through stages.
 - **`const` is for program-wide fixed rules:** type annotation required, SCREAMING_SNAKE_CASE, compile-time value, never changeable.
