@@ -6,16 +6,7 @@ Dan copy-pasted the same five lines into three projects and fixed the bug in onl
 
 ## Task 1: `compute_change`
 
-Sukli math, written once, called everywhere:
-
-```rust
-fn compute_change(paid: u32, total: u32) -> u32 {
-    // change = paid - total
-    todo!()
-}
-```
-
-Replace `todo!()` with the formula. Remember: the last expression takes NO semicolon — that bare expression IS the return value. No `return` keyword needed.
+Sukli math, written once, called everywhere. In `fn compute_change(paid: u32, total: u32) -> u32`, replace `todo!()` with the formula from the starter comment: `paid - total`. Remember: the last expression takes NO semicolon — that bare expression IS the return value. No `return` keyword needed.
 
 ## Task 2: `apply_senior_discount`
 
