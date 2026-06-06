@@ -1,26 +1,14 @@
 ## Dan's Story: The Borrowed Plate
 
-Eleven-forty PM, Marikina. Dan was deep in LutoCLI's specials-board feature — compare the two best-seller candidates and headline the longer name, because Tita Malou's rule says *mas mahabang pangalan, mas mukhang espesyal*. Three lines, `first_word`'s younger sibling: borrow two strings, return one of the borrows.
+Eleven-forty PM, Marikina. Dan was deep in LutoCLI's specials-board feature — compare the two best-seller candidates and headline the longer name, because Tita Malou's rule says *mas mahabang pangalan, mas mukhang espesyal*. Three lines, `first_word`'s younger sibling: `fn longest_dish_name(a: &str, b: &str) -> &str { if a.len() > b.len() { a } else { b } }`. Borrow two strings, return one of the borrows. Dan ran `cargo check` already composing the commit message in his head.
 
-```rust
-fn longest_dish_name(a: &str, b: &str) -> &str {
-    if a.len() > b.len() { a } else { b }
-}
-```
-
-`cargo check` said no — `error[E0106]: missing lifetime specifier` — and the `help:` line offered a fix full of *apostrophes*: `<'a>`, `&'a str`. Then a memory surfaced. Dan scrolled the barkada group chat months back, to the night E0382 ate his evening:
+The compiler said no — `error[E0106]: missing lifetime specifier` — and the `help:` line offered a fix full of *apostrophes*: `<'a>`, `&'a str`. Then a memory surfaced, and Dan scrolled the barkada group chat months back, to the night E0382 ate his evening:
 
 > **Jasper:** and bro kung ma-survive mo pa yung borrow checker, I peeked at what comes after. LIFETIMES. apostrophes all over the code like it's haunted. NOBODY understands lifetimes bro. uninstall na.
 
-The haunted apostrophes had finally come for him. He called Kuya JM, who picked up on the second ring.
-
-> **Dan:** Kuya, the compiler just asked me to specify a *lifetime*. E0106. Jasper warned the GC about this exact thing — he said *nobody* understands lifetimes.
+> **Dan:** *(calling Kuya JM, who picks up on the second ring)* Kuya, the compiler just asked me to specify a *lifetime*. E0106. Jasper warned the GC about this exact thing — he said *nobody* understands lifetimes.
 >
-> **Kuya JM:** Jasper quit before ever meeting one, so let's not take exit interviews from the guy at the exit. Pero totoo, hindi ako magyayabang dito: lifetimes took me *weeks* at work. I read the borrows chapter five times, and may mga corner cases pa rin akong dine-deadma. So here's the version I wish someone gave me on week one. Mga plato ni Tita — may suki ba na nagpapa-takeout pero hiram yung plato?
->
-> **Dan:** Mang Ben. Lugaw every morning, hiram na plato, sinasauli before lunch.
->
-> **Kuya JM:** And when Tita lends that plate, isa lang ang tanong niya: *hanggang kailan?* That's E0106, Dan. The compiler is just asking *hanggang kailan valid ang borrow*. You're not CHANGING lifetimes — you're DESCRIBING them. Walang plato na tumatagal nang mas matagal dahil sumagot ka. You're writing the return time on the chalkboard, that's all. And it has to ask *you*, because when it checks the code that *calls* your function, it reads the signature lang — the contract — never the body. "Returns a borrowed plate" without saying kaninong plato gives the borrow checker downstream nothing to verify against.
+> **Kuya JM:** Jasper quit before ever meeting one, so let's not take exit interviews from the guy at the exit. Pero totoo, hindi ako magyayabang dito: lifetimes took me *weeks* at work. I read the borrows chapter five times, and may mga corner cases pa rin akong dine-deadma. So here's the version I wish someone gave me on week one. Mga plato ni Tita — when Mang Ben takes his lugaw out on a borrowed plate, isa lang ang tanong niya: *hanggang kailan?* That's E0106, Dan. The compiler is just asking *hanggang kailan valid ang borrow*. You're not CHANGING lifetimes — you're DESCRIBING them. Walang plato na tumatagal nang mas matagal dahil sumagot ka; you're writing the return time on the chalkboard, that's all. And it has to ask *you*, because when it checks the code that *calls* your function, it reads the signature lang — the contract — never the body. "Returns a borrowed plate" without saying kaninong plato gives the borrow checker downstream nothing to verify against.
 
 Dan applied the `help:` line's fix, character for character. Green in eleven minutes — he checked, because Lesson 9 took sixty-eight. Then he reread the error and noticed what it had actually done: not rejected his code, but asked a *question*, waited for his answer, and co-signed it. He opened his notes: *The compiler used to be a wall. Then a bodyguard. Tonight it interviewed me like a mentor. Jasper, you quit before the best part.*
 
@@ -57,15 +45,13 @@ The `help:` line typed the fix — and the fix is not new code. It is a *schedul
 
 ### The Canonical `longest<'a>` — Every Apostrophe Accounted For
 
-Every Rust learner writes this function. Tonight it's yours:
+Every Rust learner writes this function, and tonight it's yours — four appearances of `'a`, four jobs:
 
 ```rust
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() { x } else { y }
 }
 ```
-
-Four appearances of `'a`, four jobs:
 
 | Where | What it records |
 |---|---|
