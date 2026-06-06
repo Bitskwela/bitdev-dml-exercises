@@ -156,3 +156,46 @@ Senior order:      ₱175.00 -> ₱140.00 after 20% discount
 ```
 
 (If your terminal prints a strange symbol where `₱` should be, that's your terminal's font or encoding being old-fashioned — the code is fine.)
+
+## Reflection Questions
+
+1. You typed `cargo run` once, inside `kita-checker` — yet two `Compiling` lines appeared, library first. What did cargo read to know it had to build `lutolib` at all, and why in that order?
+2. The dependency line `lutolib = { path = "../lutolib" }` names the *crate*, not any function. What does that imply about what `kita-checker` has to do when the library grows a new `pub fn`?
+3. Money stays `u32` whole pesos everywhere business logic lives; centavos exist only as `u64` *inside* `format_peso`, at the display boundary. Why is the library the right place to bury that conversion, now that more than one tool will print pesos?
+
+## Challenge: The Quincena Function
+
+Every 15th and 30th, the lunch crowd doubles and Tita Malou's prices tick up. Add this to `lutolib/src/lib.rs` — doc comment included; it's a library now, and libraries explain themselves:
+
+```rust
+/// Adds the 15% quincena markup to a whole-peso base price.
+/// Example: 80 -> 92.
+pub fn payday_price(base: u32) -> u32 {
+    base * 115 / 100
+}
+```
+
+Then call it from `kita-checker` — extend the `use` line and append to `main`:
+
+```rust
+use lutolib::{format_peso, payday_price, senior_discount};
+```
+
+```rust
+    // Challenge
+    let base: u32 = 85;
+    println!(
+        "\nQuincena price:    {} -> {} on the 15th",
+        format_peso(base as u64 * 100),
+        format_peso(payday_price(base) as u64 * 100),
+    );
+```
+
+`cargo run` from `kita-checker` should now end with `Quincena price:    ₱85.00 -> ₱97.00 on the 15th`. Now the actual point of this challenge: **look at `kita-checker/Cargo.toml`. You didn't touch it.** The dependency line doesn't name functions — it names the crate. Every `pub` item the library has, or will ever grow, is already covered. You stocked the commissary, and every stall that buys from it got the new sauce automatically. (Mirror the same function and print in `act_1.rs` to keep the practice file in step.)
+
+## What You've Learned
+
+- `cargo new --lib` creates a library crate: `src/lib.rs`, no `main`, nothing to run — just `pub` recipes waiting to be borrowed
+- One path-dependency line in `Cargo.toml` is the entire relationship; cargo builds the library first, automatically, with zero network
+- `///` doc comments make a library self-explaining — `cargo doc --open` renders them into HTML
+- A new `pub fn` in the library reaches every dependent with no manifest change — the dependency names the crate, not the functions
