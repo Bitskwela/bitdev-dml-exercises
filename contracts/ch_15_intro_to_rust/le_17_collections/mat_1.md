@@ -37,7 +37,7 @@ let menu = vec!["Adobo", "Tinola"];        // the vec! macro, with starters
 
 Two ways to loop — one of them eats the Vec. A bare `for dish in sales` implicitly calls `.into_iter()` and **moves** the whole Vec into the loop; `for dish in &sales` borrows it instead, and the Vec is still usable afterward. Default to the `&`.
 
-Two ways to read by index, too: `sales[0]` works — and `sales[100]` **panics** with "index out of bounds." That's a crash, the exact thing this course exists to keep away from Tita Malou. The safe way is `.get(i)`, which returns `Option<&T>`:
+Two ways to read by index, too: `sales[0]` works — and `sales[100]` **panics** with "index out of bounds." That's a crash, the exact thing this course exists to keep away from Tita Malou. The safe way is `.get(i)`, which returns `Option<&T>`. Rule of thumb: `v[i]` only when the index is provably in range, like a loop counter you control; `.get(i)` whenever the index came from anywhere else.
 
 ```rust
 match sales.get(100) {
