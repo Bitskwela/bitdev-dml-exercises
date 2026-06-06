@@ -15,9 +15,7 @@ Nine-forty PM, carinderia closed, chairs up on the tables. Dan held his markered
 
 JM drew two pictures. The **order spike** by the counter — slips stabbed in arrival order, growing all rush. That's a `Vec`. The **chalk tally board** — dish names, marks beside each, "ilan na ang Adobo?" answered instantly. That's a `HashMap`. Dan typed a quick prototype, looped `for dish in sales`, asked for `sales.len()` afterward — and got E0382: *borrow of moved value*. The bare loop had **eaten** his Vec.
 
-> **Dan:** And the fix is one character. `&sales`. "Tingin lang, hindi kukunin."
->
-> **Kuya JM:** Exacto. Now the tally board — one line of Rust na tina-type ko sa trabaho almost daily. By tonight you'll know it from memory:
+> **Kuya JM:** The fix is one character — `&sales`. "Tingin lang, hindi kukunin." Now the tally board — one line of Rust na tina-type ko sa trabaho almost daily. By tonight you'll know it from memory:
 
 ```rust
 *tally.entry(dish.clone()).or_insert(0) += 1;
