@@ -1,5 +1,4 @@
 # Type the Sale, Compute the Sukli
-
 Ring up the carinderia's signature transaction with every scalar type on duty — and meet the compiler error that protects the drawer.
 
 ---
