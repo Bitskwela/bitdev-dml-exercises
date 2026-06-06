@@ -36,13 +36,7 @@ enum Payment {
 
 An `enum` lists **every possible value at the definition**. A `Payment` is exactly one of these four **variants** — never two at once, never zero, never `"Gkash"`. You name one through the type with `::`, like `Payment::Cash`; misspell it and E0599 arrives at compile time, often with the correct spelling attached.
 
-The parentheses in `GCash(String)` mean the variant **carries data** — the data is glued on. You *cannot* construct a `GCash` without its String (`Payment::GCash` alone is just a constructor function, `fn(String) -> Payment`, still waiting for one), and `Cash` *cannot* smuggle a reference in. Rust's two big custom types answer opposite questions:
-
-| | Struct | Enum |
-|---|---|---|
-| The question it answers | "What does this HAVE?" | "Which one IS this?" |
-| Holds | ALL of its fields, at once | exactly ONE variant at a time |
-| Carinderia version | a filled-out order slip | one tray on the turo-turo line |
+The parentheses in `GCash(String)` mean the variant **carries data** — the data is glued on. You *cannot* construct a `GCash` without its String (`Payment::GCash` alone is just a constructor function, `fn(String) -> Payment`, still waiting for one), and `Cash` *cannot* smuggle a reference in. Rust's two big custom types answer opposite questions: a struct is an **AND** — "what does this HAVE?", all fields at once, a filled-out order slip — while an enum is an **OR** — "which one IS this?", exactly one variant at a time, one tray on the turo-turo line.
 
 ### Enums Get `impl` Blocks Too
 
