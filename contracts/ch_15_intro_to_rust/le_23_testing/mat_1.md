@@ -8,9 +8,7 @@ Nine forty-seven PM, Dan's room in Marikina. LutoCLI's money functions finally l
 >
 > **Ate Rina:** You looked at the output. Once. At night, pagod ka. That's the QA process for your mother's money? Bata, LutoCLI computes Tita Malou's money. *Prove* it works.
 >
-> **Dan:** Prove it... how? Run it a hundred times?
->
-> **Ate Rina:** Your code needs a checker that never sleeps. Rust ships one: write a function that calls your function and *asserts* the right answer, mark it `#[test]`, and `cargo test` runs every checker you've ever written, in seconds, every time. Tita Malou doesn't trust the drawer count because it "looks tama" — she counts it against the notebook. Write the notebook.
+> **Ate Rina:** Prove it how? Not by running it a hundred times. Your code needs a checker that never sleeps. Rust ships one: write a function that calls your function and *asserts* the right answer, mark it `#[test]`, and `cargo test` runs every checker you've ever written, in seconds, every time. Tita Malou doesn't trust the drawer count because it "looks tama" — she counts it against the notebook. Write the notebook.
 
 So Dan wrote the notebook: a `#[cfg(test)] mod tests` block at the bottom of the file. Exact payment returns zero sukli. `senior_discount(80)` returns P64. `parse_price` accepts `" 120 "` and rejects garbage. All friendly numbers — and Ate Rina caught it: *"100, 500, 80. Round, divisible. Easy numbers are where bugs go to hide. Open the actual ledger and find an awkward one."* There: Lola Cion, last Tuesday. Total P99, senior. Tita Malou's pencil math in the margin: *20% of 99... P19 off... P80.* Dan added one more test — `senior_discount(99)` should be `80` — and ran the suite. Six passed. One did not:
 
@@ -56,7 +54,6 @@ All three accept an optional custom message with `format!`-style arguments: `ass
 #[cfg(test)]
 mod tests {
     use super::*; // pull in every function from the parent module
-    // ... your #[test] functions ...
 }
 ```
 
@@ -68,10 +65,9 @@ Two pieces, two jobs. `use super::*;` imports everything from the enclosing file
 
 ### Reading a Failure: Left and Right
 
-1. **The thread name** tells you *which test* — they run in parallel, so each gets a thread.
-2. **The custom message** tells you *what was at stake* (this is why you write them).
-3. **`left` vs `right`** is *the disagreement itself*: code said 79, truth says 80. The size and direction of the gap often points straight at the bug — "off by exactly one peso" practically shouted *truncation* at Dan.
-4. **`src/main.rs:92`** is where the assert lives, so you can go see the inputs. And remember which test caught the bug: not the friendly `80`, the ugly `99`. Test boundaries, odd totals, real ledger entries — not the examples you invented because they're easy to verify in your head.
+1. **The thread name** tells you *which test* (parallel runs, one thread each); **the custom message** tells you *what was at stake* — this is why you write them.
+2. **`left` vs `right`** is *the disagreement itself*: code said 79, truth says 80. The size and direction of the gap often points straight at the bug — "off by exactly one peso" practically shouted *truncation* at Dan.
+3. **`src/main.rs:92`** is where the assert lives, so you can go see the inputs. And remember which test caught the bug: not the friendly `80`, the ugly `99`. Test boundaries, odd totals, real ledger entries — not the examples you invented because they're easy to verify in your head.
 
 ### `#[should_panic]` and Tests That Return `Result`
 
@@ -87,9 +83,9 @@ fn test_compute_change_kulang_panics() {
 
 This passes only if the code panics **and** the panic message *contains* the `expected` substring. Always supply `expected` — a bare `#[should_panic]` is satisfied by *any* panic, including a brand-new bug panicking for the wrong reason two lines earlier.
 
-At the other end, a test may itself return a `Result`, which unlocks the `?` operator from Lesson 16:
-
 ```rust
+// And at the other end: a test may itself RETURN a Result,
+// which unlocks the `?` operator from Lesson 16.
 #[test]
 fn test_parse_price_trims_spaces() -> Result<(), String> {
     let price = parse_price(" 120 ").map_err(|e| e.to_string())?;
@@ -102,12 +98,11 @@ fn test_parse_price_trims_spaces() -> Result<(), String> {
 
 ## Key Takeaways
 
-- **A test is a function marked `#[test]` that calls your code and asserts the answer.** It passes by finishing, fails by panicking — and `cargo test` runs every one, in parallel, in seconds. Filter with `cargo test <name>` to re-run just the checkers you're iterating on.
+- **A test is a function marked `#[test]` that calls your code and asserts the answer — bayanihan with future-Dan.** It passes by finishing, fails by panicking; `cargo test` runs every one, in parallel, in seconds (filter with `cargo test <name>`). Every assertion is past-you carrying the house so the next refactor can't silently drop it.
 - **`#[cfg(test)] mod tests { use super::*; }` is the convention** — tests live beside the code they check, but the module is only compiled for `cargo test`. The release binary on the USB stick ships zero test code.
 - **`assert_eq!` failures print `left` and `right`.** Keep the convention: left is what the code did, right is what it should have done. Custom messages (`"sukli dapat {}", expected`) tell future-you what was at stake.
 - **Friendly inputs hide bugs; ugly inputs and boundaries expose them.** `senior_discount(80)` vouched for a broken function; `senior_discount(99)` convicted it. With integer math, *where* you truncate is part of the spec — truncate the discount, never the price.
 - **`#[should_panic(expected = "...")]` tests a panic contract** — the `expected` substring keeps a wrong panic from passing as the right one — and **tests can return `Result<(), String>`**, which unlocks `?` inside them.
-- **Tests are bayanihan with future-Dan.** Every assertion is past-you carrying the house so the next refactor — yours or anyone's — can't silently drop it.
 
 ## What's Next?
 
