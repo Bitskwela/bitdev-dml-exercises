@@ -10,11 +10,7 @@ Challenge accepted. Dan dropped the CSV into `src/`, next to `main.rs` — where
 Error: Os { code: 2, kind: NotFound, message: "The system cannot find the file specified." }
 ```
 
-The file was *right there* in the explorer. Then it clicked: `cargo run` resolves relative paths from the **project root** — the folder with `Cargo.toml` — not from `src/`, and not from wherever the `.exe` sits. He moved the CSV up one level, next to `Cargo.toml`. Green. Second attempt, parsing the payday column the obvious way — `fields[5].parse::<bool>()?` — died mid-file with `ParseBoolError`. Dan opened the CSV. There it was: `True`. Capital T. *He* had exported this file from pandas, and Python capitalizes its booleans. His own Python past, sabotaging his Rust present. He swapped the parse for a plain comparison — `fields[5] == "True"` — and ran it one more time:
-
-```text
-Total revenue:   P75165
-```
+The file was *right there* in the explorer. Then it clicked: `cargo run` resolves relative paths from the **project root** — the folder with `Cargo.toml` — not from `src/`, and not from wherever the `.exe` sits. He moved the CSV up one level, next to `Cargo.toml`. Green. Second attempt, parsing the payday column the obvious way — `fields[5].parse::<bool>()?` — died mid-file with `ParseBoolError`. Dan opened the CSV. There it was: `True`. Capital T. *He* had exported this file from pandas, and Python capitalizes its booleans. His own Python past, sabotaging his Rust present. He swapped the parse for a plain comparison — `fields[5] == "True"` — and ran it one more time: `Total revenue:   P75165`.
 
 > **Tita Malou:** Pitumpu't limang libo, one hundred sixty-five. *(she didn't even look up from the kangkong)* Tama. Alam ko ang buwan ko, anak. Sige nga — kung marunong na siyang bumasa, marunong din ba siyang magsulat?
 
