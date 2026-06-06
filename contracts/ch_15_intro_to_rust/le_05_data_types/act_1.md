@@ -6,24 +6,17 @@ Ring up the carinderia's signature transaction with every scalar type on duty �
 
 ## Task 1: Declare the Sale, Fully Annotated
 
-Open `act_1.rs`. Replace the placeholder values with the real morning — three sinigang at ₱95, on payday, at a 4.6-star carinderia:
+Open `act_1.rs`. Replace the placeholder values with the real morning, keeping every type annotation:
 
-```rust
-let quantity: u32 = ...;      // three orders of sinigang
-let price: u32 = ...;         // ₱95 — pesos are u32 in this course, JM's rule
-let is_payday: bool = ...;    // it's the 15th
-let peso_symbol: char = ...;  // '₱' — one char, a 4-byte Unicode scalar
-let avg_rating: f64 = ...;    // 4.6 stars — floats are for NOT-money numbers
-```
+- `quantity: u32` — three orders of sinigang; `price: u32` — ₱95 each (pesos are `u32` in this course, JM's rule)
+- `is_payday: bool` — it's the 15th; `peso_symbol: char` — `'₱'`, one char, a 4-byte Unicode scalar
+- `avg_rating: f64` — 4.6 stars; floats are for NOT-money numbers
 
 ---
 
 ## Task 2: Compute the Total and the Sukli
 
-The customer hands over a ₱500 bill. `bill` is unannotated on purpose — the subtraction you write will pin it to `u32`, not the `i32` default. Compute:
-
-- `total` = `quantity * price` — u32 in, u32 out
-- `sukli` = `bill - total` — 500 − 285 = 215
+The customer hands over a ₱500 bill. `bill` is unannotated on purpose — the subtraction you write pins it to `u32`, not the `i32` default. Compute `total` as `quantity * price` (u32 in, u32 out) and `sukli` as `bill - total` — 500 − 285 = 215.
 
 ---
 
@@ -65,13 +58,11 @@ Sapat ang balance mo, suki!
 
 ## Challenge: The Centavo Drawer
 
-Kuya JM said centavos would still be integers. Prove it. Rewrite the sale with **all money as centavos in `u64`** — `9_500` for the price, `50_000` for the bill — floats banned entirely. Then format the output back to peso-and-centavo form using only integer division and modulo:
+Kuya JM said centavos would still be integers. Prove it. Rewrite the sale with **all money as centavos in `u64`** — `9_500` for the price, `50_000` for the bill — floats banned entirely. Format the output back to peso-and-centavo form using only integer division and modulo (`{:02}` pads the remainder to two digits, so 5 centavos prints as `.05`, not `.5`):
 
 ```rust
 println!("₱{}.{:02}", cents / 100, cents % 100);
 ```
-
-(`{:02}` pads the remainder to two digits, so 5 centavos prints as `.05`, not `.5`.) Expected output:
 
 ```text
 price: ₱95.00
