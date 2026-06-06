@@ -1,10 +1,8 @@
 ## Dan's Story: The Two-Hundred-Line Kitchen
 
-Refactor weekend — official, because there's a sticky note on the laptop lid saying so. Step one: find `build_menu`, a function Dan wrote two weeks ago. He scrolled past the tally loop, past the leaderboard sort, past a receipt experiment he forgot existed, past a comment that just said `// TODO: kalimutan muna ito`. Five minutes to find one function *he himself wrote*, in a `main.rs` that had quietly grown to two hundred lines. He called Kuya JM.
+Refactor weekend — official, because there's a sticky note on the laptop lid saying so. Step one: find `build_menu`, a function Dan wrote two weeks ago. He scrolled past the tally loop, past the leaderboard sort, past a receipt experiment he forgot existed, past a comment that just said `// TODO: kalimutan muna ito`. Five minutes to find one function *he himself wrote*, in a `main.rs` that had quietly grown to two hundred lines. He called Kuya JM, whose payment-service `main.rs` at work is thirty lines — "it starts things up, tapos delegate na agad."
 
-> **Dan:** Kuya, gaano kahaba ang main file ng payment service niyo sa work?
->
-> **Kuya JM:** Mga thirty lines. It starts things up, tapos delegate na agad. Question: how does Tita Malou cook ten orders at once without the kitchen turning into a riot?
+> **Kuya JM:** Question: how does Tita Malou cook ten orders at once without the kitchen turning into a riot?
 >
 > **Dan:** Stations. Prep sa likod, frying sa gilid, cashier sa harap. You don't julienne carrots sa tabi ng kaha.
 >
