@@ -101,11 +101,8 @@ Read it as: *if the value fits this pattern, bind and run the block; otherwise s
 - **Patterns bind the data inside variants.** `Payment::GCash(ref_no)` checks the variant AND names its contents — this is how data gets *out* of an enum. Matching on `&Payment` makes the bindings references; read, don't move.
 - **Exhaustiveness is the bodyguard.** A missing variant is `error[E0004]` at compile time — and when you *add* a variant, the compiler lists every `match` that needs updating, with line numbers. Add the variant, follow the red until green.
 - **`_` blindfolds the bodyguard.** A catch-all satisfies exhaustiveness forever, so new variants slide through silently. Use it for unlistable domains, never as a shortcut on enums you own.
-- **`Option<T>` matches like any enum** — `Some(t)` binds the value, `None` is the empty case, and the compiler forces you to face both.
 - **"match when you care about every case; if let when you care about one."** `if let` trades exhaustiveness for brevity — a good trade only when skipping the other cases is truly the plan.
 - **`match` is an expression** — assign it, return it, build a whole function body out of it, as long as every arm produces the same type.
-
----
 
 ## What's Next?
 
