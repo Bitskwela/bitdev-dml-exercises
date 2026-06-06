@@ -10,17 +10,7 @@ L U T O C L I  —  PINDUTIN LANG:
   lutocli weather   ->  kita kada panahon
 ```
 
-Tita Malou wiped her hands on her apron and sat down in front of a terminal for the first time in her life. One finger, reading off the tape, letter by letter: `l-u-t-o-c-l-i`, space, `s-u-m-m-a-r-y`. Enter.
-
-```text
-=== LutoCLI: Buod ng Benta ===
-Rows sa notebook:  90
-Kabuuang kita:     P75165
-Average kada row:  P835
-Pinakamalakas:     Saturday (P14645 sa buong buwan)
-```
-
-It appeared before her finger left the key — the old Python script took forty seconds just to wake up, when it woke up at all. She checked the total against the arithmetic in her notebook margin. It matched. Then she got ambitious and typed a filename herself: `lutocli summary sales.cvs`. Dan held his breath — pure reflex from that Python Sunday. *Here comes the traceback. Here come the forty lines of red.*
+Tita Malou wiped her hands on her apron and sat down in front of a terminal for the first time in her life. One finger, reading off the tape, letter by letter: `l-u-t-o-c-l-i`, space, `s-u-m-m-a-r-y`. Enter. The whole of May — 90 rows, P75165, Saturday strongest — appeared before her finger left the key; the old Python script took forty seconds just to wake up, when it woke up at all. She checked the total against the arithmetic in her notebook margin. It matched. Then she got ambitious and typed a filename herself: `lutocli summary sales.cvs`. Dan held his breath — pure reflex from that Python Sunday. *Here comes the traceback. Here come the forty lines of red.*
 
 ```text
 Hindi mahanap ang file na 'sales.cvs'. Baka ang ibig mo sabihin ay 'carinderia-sales.csv'?
@@ -36,7 +26,7 @@ Mid-afternoon, Jasper caught Tita Malou running `lutocli top` herself — no Dan
 
 > **Jasper:** Bro. It fails *on purpose*? Politely? My thesis tool prints a stack trace if you breathe near it. ...Teach me Rust pala.
 
-That night Dan sent the demo video — Tita Malou's first `summary`, filmed over her shoulder — to the group chat. And then, last, the message he didn't know he'd been waiting for:
+That night Dan sent the demo video — Tita Malou's first `summary`, filmed over her shoulder — to the group chat, and the message he didn't know he'd been waiting for came back:
 
 > **Ate Rina:** Saw the demo video. The compiler trained you well, bata.
 
@@ -48,13 +38,11 @@ Lesson 4, the compiler was an enemy. Lesson 9, a wall. Lesson 15, a bodyguard. L
 
 ### The Last New Tool: Reading Command-Line Arguments
 
-Twenty-five lessons, and here is the final new item — small on purpose:
-
 ```rust
 let args: Vec<String> = env::args().collect(); // after `use std::env;`
 ```
 
-`env::args()` is an iterator over every word the user typed; `.collect()` gathers them into a `Vec<String>`. Two details: **`args[0]` is the program itself** (its path), so the subcommand Tita Malou types is `args[1]`. And during development you run `cargo run -- summary` — everything **after the `--`** goes to *your program*, not to cargo. The shipped binary drops the ceremony: just `lutocli summary`.
+Twenty-five lessons, and this is the final new item — small on purpose. `env::args()` is an iterator over every word the user typed; `.collect()` gathers them into a `Vec<String>`. Two details: **`args[0]` is the program itself** (its path), so the subcommand Tita Malou types is `args[1]`. And during development you run `cargo run -- summary` — everything **after the `--`** goes to *your program*, not to cargo. The shipped binary drops the ceremony: just `lutocli summary`.
 
 ### The Dispatch Line — Four Lessons in One Line of Code
 
@@ -80,15 +68,13 @@ That is the real shipped layout. In this lesson's activity file, the same three 
 
 ### The `Result` Rail — Zero Unwrap, End to End
 
-Every failure rides one rail, from the disk to Tita Malou's eyes:
-
 ```text
 fs::read_to_string(path)  --Err?-->  "Hindi mahanap ang file na '...'"
 parse_line(line)          --Err?-->  "Problema sa row 14 ...: hindi mabasa ang quantity..."
 report functions          (pure math on clean records — cannot fail)
 ```
 
-Each `?` passes the problem up; `main` catches it in exactly one place, prints the sentence, exits with code 1. Count the `unwrap()` calls in the finished program: **zero**. The `expect()` calls: **zero**. Lesson 16's policy — *panics are for bugs, errors are for sentences* — kept, in shipped code, on the program that computes a family's money.
+Every failure rides one rail, from the disk to Tita Malou's eyes. Each `?` passes the problem up; `main` catches it in exactly one place, prints the sentence, exits with code 1. Count the `unwrap()` calls in the finished program: **zero**. The `expect()` calls: **zero**. Lesson 16's policy — *panics are for bugs, errors are for sentences* — kept, in shipped code, on the program that computes a family's money.
 
 ### Tests on the Money Path
 
@@ -114,8 +100,7 @@ The optimized binary appears at **`target\release\lutocli.exe`** on Windows, **`
 
 - **`std::env::args()` reads the command line** — collect into a `Vec<String>`; `args[0]` is the program, `args[1]` onward are the user's words. `cargo run -- summary` passes everything after `--` to your program.
 - **`match args.get(1).map(|s| s.as_str())` is four lessons in one line** — Option instead of a panic, a closure transform, a string slice, an exhaustive match. Rust features are built to stack.
-- **Modules are the shipping layout** — counter (`main.rs`), prep station (`record.rs`), kitchen (`report.rs`). Each station testable, readable, replaceable.
-- **The `Result` rail runs end to end** — file read, every parsed row, one error funnel in `main`. Zero `unwrap()`, zero `expect()`: panics are for bugs, errors are for sentences — and tests guard the money path, returning `Result` so even proofs get `?`.
+- **Modules are the shipping layout, and the `Result` rail runs end to end** — counter, prep station, kitchen; file read, every parsed row, one error funnel in `main`. Zero `unwrap()`, zero `expect()` — and tests guard the money path, returning `Result` so even proofs get `?`.
 - **Errors are part of the user interface.** "Baka ang ibig mo sabihin ay...?" did more for Tita Malou's trust than any feature. Write error messages for the person who will actually read them.
 - **`cargo build --release` produces one self-contained binary** — USB, copy, run. The promise from Lesson 1, kept in full.
 
@@ -125,8 +110,6 @@ The optimized binary appears at **`target\release\lutocli.exe`** on Windows, **`
 
 There is no Lesson 26. This is the end of Dan's Rust story — so let's say it properly. Three tools now share one name: Luto v1 answered questions with rules, Luto v2 predicted best-sellers with a model, and LutoCLI — the smallest and least glamorous of the three — is the one running right now, unattended, on a desktop with no internet, computing a real family's real money, driven by Tita Malou herself. Sometimes the most advanced thing you can build is the thing that refuses to break.
 
-And you — you finished a course where the language fought you in Lesson 9 and you stayed. So here is the final assignment, and it isn't optional the way the others were: **find your community's carinderia problem.** The sari-sari store tracking utang in a notebook. The barangay office retyping the same spreadsheet every Monday. Build the small, sturdy, polite tool — parse the real data, handle every case, test the money path, `cargo build --release`, put it on a USB. Ship it to someone who will never know what a borrow checker is, and make sure they never need to.
-
-Dan's Rust story ends here, at a carinderia counter in Marikina, with a 1.2 MB binary and a hand-written cheat sheet taped to a monitor. Yours is one `cargo new` away.
+And you — you finished a course where the language fought you in Lesson 9 and you stayed. So here is the final assignment, and it isn't optional the way the others were: **find your community's carinderia problem.** The sari-sari store tracking utang in a notebook. The barangay office retyping the same spreadsheet every Monday. Build the small, sturdy, polite tool — parse the real data, handle every case, test the money path, `cargo build --release`, put it on a USB. Ship it to someone who will never know what a borrow checker is, and make sure they never need to. Dan's Rust story ends here, at a carinderia counter in Marikina, with a 1.2 MB binary and a hand-written cheat sheet taped to a monitor. Yours is one `cargo new` away.
 
 *— END NG KURSO. Salamat sa pagsama kay Dan. Ngayon, luto mo na.*
