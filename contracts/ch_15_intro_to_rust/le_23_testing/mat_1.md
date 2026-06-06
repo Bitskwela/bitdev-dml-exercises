@@ -49,3 +49,68 @@ fn test_compute_change_exact_payment() {
 | `assert_ne!(a, b)` | `a != b` | both values | "whatever it is, it must NOT be this" |
 
 All three accept an optional custom message with `format!`-style arguments: `assert_eq!(compute_change(500, 387), expected, "sukli dapat {}", expected)`. And adopt this convention today: put the **call** first, the **expected value** second — then `left` is always what the code did, `right` is what it should have done, and you can read any failure at a glance.
+
+### `#[cfg(test)] mod tests` — the Proof Stays in the Kitchen
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*; // pull in every function from the parent module
+    // ... your #[test] functions ...
+}
+```
+
+Two pieces, two jobs. `use super::*;` imports everything from the enclosing file, so tests can call `compute_change` without ceremony. And `#[cfg(test)]` is **conditional compilation**: this entire module exists only when you run `cargo test`. When you run `cargo build --release` — the build that goes on the USB stick — the tests are not skipped, not disabled, but *never compiled at all*. Zero bytes of checker code in Tita Malou's binary. The proof stays in the kitchen; only the dish goes out.
+
+### `cargo test` — a Hundred Checkers in Parallel
+
+`cargo test` compiles a special test build and runs every `#[test]` it finds — **in parallel, on separate threads**. That's why the output order shuffles between runs, and why tests must be independent: no test may rely on another running first or on shared mutable state. Each checker counts its own drawer. You can also run a subset — `cargo test discount` runs every test whose *name contains* `discount` — and the summary reports the rest as `filtered out`, not skipped in shame. This is how you iterate on one bug without re-running the world.
+
+### Reading a Failure: Left and Right
+
+1. **The thread name** tells you *which test* — they run in parallel, so each gets a thread.
+2. **The custom message** tells you *what was at stake* (this is why you write them).
+3. **`left` vs `right`** is *the disagreement itself*: code said 79, truth says 80. The size and direction of the gap often points straight at the bug — "off by exactly one peso" practically shouted *truncation* at Dan.
+4. **`src/main.rs:92`** is where the assert lives, so you can go see the inputs. And remember which test caught the bug: not the friendly `80`, the ugly `99`. Test boundaries, odd totals, real ledger entries — not the examples you invented because they're easy to verify in your head.
+
+### `#[should_panic]` and Tests That Return `Result`
+
+Some functions are *supposed* to panic — that's their contract, and you test the contract:
+
+```rust
+#[test]
+#[should_panic(expected = "kulang ang bayad")]
+fn test_compute_change_kulang_panics() {
+    compute_change(50, 387); // P50 for a P387 order: must panic
+}
+```
+
+This passes only if the code panics **and** the panic message *contains* the `expected` substring. Always supply `expected` — a bare `#[should_panic]` is satisfied by *any* panic, including a brand-new bug panicking for the wrong reason two lines earlier.
+
+At the other end, a test may itself return a `Result`, which unlocks the `?` operator from Lesson 16:
+
+```rust
+#[test]
+fn test_parse_price_trims_spaces() -> Result<(), String> {
+    let price = parse_price(" 120 ").map_err(|e| e.to_string())?;
+    assert_eq!(price, 120);
+    Ok(())
+}
+```
+
+`Ok(())` at the end means pass; any `Err` propagated by `?` means fail, with the error printed. Same plumbing you already know, now keeping your tests as clean as your functions — no `unwrap()` clutter.
+
+## Key Takeaways
+
+- **A test is a function marked `#[test]` that calls your code and asserts the answer.** It passes by finishing, fails by panicking — and `cargo test` runs every one, in parallel, in seconds. Filter with `cargo test <name>` to re-run just the checkers you're iterating on.
+- **`#[cfg(test)] mod tests { use super::*; }` is the convention** — tests live beside the code they check, but the module is only compiled for `cargo test`. The release binary on the USB stick ships zero test code.
+- **`assert_eq!` failures print `left` and `right`.** Keep the convention: left is what the code did, right is what it should have done. Custom messages (`"sukli dapat {}", expected`) tell future-you what was at stake.
+- **Friendly inputs hide bugs; ugly inputs and boundaries expose them.** `senior_discount(80)` vouched for a broken function; `senior_discount(99)` convicted it. With integer math, *where* you truncate is part of the spec — truncate the discount, never the price.
+- **`#[should_panic(expected = "...")]` tests a panic contract** — the `expected` substring keeps a wrong panic from passing as the right one — and **tests can return `Result<(), String>`**, which unlocks `?` inside them.
+- **Tests are bayanihan with future-Dan.** Every assertion is past-you carrying the house so the next refactor — yours or anyone's — can't silently drop it.
+
+## What's Next?
+
+Seven green checkers now stand guard over LutoCLI's money math, and Ate Rina has signed off — her highest compliment on record ("Counts."). But everything LutoCLI computes still comes from values typed into the source code. Tita Malou's real numbers don't live in `main()`; they live in a file. Tomorrow, the dataset comes home: the *same* sales CSV Dan cleaned and fed to Luto v2 back in the ML course gets opened by Rust for the first time — and every way a file can fail (missing file, yanked USB stick, one blank cell with a history) will be a `Result` Dan handles on purpose, with tests to prove it.
+
+**Next Lesson: File I/O** — `std::fs`, reading and writing files, paths, and the day LutoCLI meets the carinderia's real sales data.
