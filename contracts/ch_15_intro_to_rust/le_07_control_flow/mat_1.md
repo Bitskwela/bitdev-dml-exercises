@@ -2,11 +2,7 @@
 
 The rain arrived at two in the afternoon — the heavy kind that turns the carinderia's tin roof into a drum section. Tita Malou hadn't even looked at the sky. That morning she had already pulled the sinigang pot to the front burner and told the vegetable suki to double the kangkong. By 2:30, sinigang was the only word the carinderia knew.
 
-Dan had seen this exact scene before — as code. Luto v1, his first program ever: a Python `if/elif` chain that recommended ulam. *If weather == "rainy" → Sinigang na Baboy.* The rules were never really his. They were hers — he had just typed his mom's brain into a file. He opened a terminal, `cargo new ulam_recommender`, and rebuilt the tiniest slice of the old rule engine. Same rules, new language. Python muscle memory got him exactly once (you'll meet that error below), and then:
-
-```text
-Recommendation: Sinigang na Baboy — comfort food for a rainy day!
-```
+Dan had seen this exact scene before — as code. Luto v1, his first program ever: a Python `if/elif` chain that recommended ulam. *If weather == "rainy" → Sinigang na Baboy.* The rules were never really his. They were hers — he had just typed his mom's brain into a file. He opened a terminal, `cargo new ulam_recommender`, and rebuilt the tiniest slice of the old rule engine. Same rules, new language. Python muscle memory got him exactly once (you'll meet that error below), and then the terminal printed the exact sentence his first program used to say: *Recommendation: Sinigang na Baboy — comfort food for a rainy day!*
 
 > **Tita Malou:** *(reading the screen, slowly)* "Sinigang na Baboy... comfort food for a rainy day."... The computer agrees with me again.
 >
