@@ -46,11 +46,9 @@ match sales.get(100) {
 }
 ```
 
-Rule of thumb: `v[i]` only when the index is provably in range, like a loop counter you control; `.get(i)` whenever the index came from anywhere else.
-
 ### `HashMap<K, V>` — the Tally Board
 
-Maps keys to values — dish name to count, dish name to price. One ceremony: unlike `Vec` and `String`, `HashMap` is not in the prelude, so every file that uses it starts with `use std::collections::HashMap;`.
+Maps keys to values — dish name to count, dish name to price. One ceremony: unlike `Vec` and `String`, `HashMap` is not in the prelude, so every file that uses it starts with `use std::collections::HashMap;`. And the same safety split as Vec applies: `.get(&key)` answers with an `Option`; `menu[&key]` square brackets panic on a missing key.
 
 ```rust
 let mut menu: HashMap<String, u32> = HashMap::new();
