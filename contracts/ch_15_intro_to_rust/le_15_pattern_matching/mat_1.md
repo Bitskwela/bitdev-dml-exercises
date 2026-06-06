@@ -95,8 +95,6 @@ Read it as: *if the value fits this pattern, bind and run the block; otherwise s
 
 **"match when you care about every case; if let when you care about one."**
 
----
-
 ## Key Takeaways
 
 - **`match` sorts a value into exactly one arm** — patterns checked top to bottom, first fit wins, one arm always runs. Every coin gets a tray.
