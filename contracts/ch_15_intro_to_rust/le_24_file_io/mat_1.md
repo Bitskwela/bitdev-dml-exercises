@@ -89,3 +89,22 @@ The mirror image of `read_to_string`: contents in, file on disk out. It creates 
 ### The Working-Directory Gotcha
 
 A relative path is resolved from the **current working directory** — the folder your terminal is standing in when the program starts. With `cargo run`, that's the project root: the folder with `Cargo.toml` in it. Not `src/`, and not `target/debug/` where the `.exe` actually lives. Data files for `cargo run` belong **next to `Cargo.toml`**. Get this wrong and you'll meet Dan's `Os { code: 2, kind: NotFound }` — it's not lying, it's just looking where *it* stands, not where *you're* looking.
+
+---
+
+## Key Takeaways
+
+- **`fs::read_to_string(path)` returns `Result<String, io::Error>`** — the whole file in one call, with the failure case in the type. Missing, locked, or yanked files are recoverable errors, handled with Lesson 16 tools.
+- **`fn main() -> Result<(), Box<dyn std::error::Error>>` makes `?` legal in `main`.** `Box<dyn Error>` means "any kind of error, boxed" — one container for `io::Error` and `ParseIntError` alike.
+- **`.lines().skip(1)` for rows, `split(',') + collect::<Vec<&str>>()` for columns.** Honest caveat: only safe on comma-free fields like ours; real-world CSVs with quoted commas need the `csv` crate.
+- **Parse money strictly.** `parse::<u32>()?` stops loudly on garbage; `unwrap_or(0)` turns garbage into a silent ₱0 inside the total. A crash you can fix beats a lie you can't see.
+- **`"True".parse::<bool>()` fails — Rust wants lowercase.** Compare instead: `field == "True"`. Real data follows the conventions of whatever wrote it, not your language's.
+- **`fs::write(path, contents)` creates or fully overwrites in one call — build the whole `String`, write once.** And `cargo run` resolves relative paths from the project root, the folder with `Cargo.toml`: `Os { code: 2, kind: NotFound }` almost always means "right file, wrong folder."
+
+---
+
+## What's Next?
+
+Look at the workbench tonight: structs and enums modeling the menu, `match` guarding every case, `Result` on every operation that can fail, tests proving the money math — and as of today, real data read in from a real file and a real report written back out. Every lesson since the rice tracker has been a part for this one machine. Tomorrow the machine gets assembled. **Ship day.** One command, one binary on a USB stick, and the walk across the carinderia to the ancient desktop where this whole course started. No Python. No internet. No Dan on call.
+
+**Next Lesson: Mini Project — LutoCLI** — everything converges: read the notebook's CSV, compute the day's kita, write the report — and Dan ships v1.0 into Tita Malou's own two hands.
