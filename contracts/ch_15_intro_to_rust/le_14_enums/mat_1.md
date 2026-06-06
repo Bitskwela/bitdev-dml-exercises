@@ -42,9 +42,7 @@ The parentheses in `GCash(String)` mean the variant **carries data** — the dat
 
 ```rust
 impl Payment {
-    fn gcash(reference: &str) -> Payment {
-        Payment::GCash(String::from(reference))
-    }
+    fn gcash(reference: &str) -> Payment { Payment::GCash(String::from(reference)) }
 }
 ```
 
