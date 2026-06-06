@@ -84,8 +84,7 @@ fn test_compute_change_kulang_panics() {
 This passes only if the code panics **and** the panic message *contains* the `expected` substring. Always supply `expected` — a bare `#[should_panic]` is satisfied by *any* panic, including a brand-new bug panicking for the wrong reason two lines earlier.
 
 ```rust
-// And at the other end: a test may itself RETURN a Result,
-// which unlocks the `?` operator from Lesson 16.
+// And at the other end: a test may itself RETURN a Result — unlocking `?`.
 #[test]
 fn test_parse_price_trims_spaces() -> Result<(), String> {
     let price = parse_price(" 120 ").map_err(|e| e.to_string())?;
