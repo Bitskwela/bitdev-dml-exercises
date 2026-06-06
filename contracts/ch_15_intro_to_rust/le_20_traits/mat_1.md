@@ -73,3 +73,35 @@ fn print_summary(item: &impl Summarize) {
 | `impl fmt::Display for ...` | `{}` in `println!` | `std::fmt::Display` | **you** |
 
 You have been implementing traits since Lesson 13 — you just outsourced the typing. `#[derive(Debug)]` is the compiler writing `impl Debug for MenuItem` on your behalf: a real `impl Trait for Type` block, the same kind you wrote by hand today, generated into your program. Deriving works when the implementation is mechanical — print all the fields, clone all the fields, compare all the fields. No judgment calls, so a machine can do it.
+
+### `impl fmt::Display` — Earning the `{}`
+
+```rust
+use std::fmt;
+
+impl fmt::Display for MenuItem {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} — ₱{}", self.name, self.price)
+    }
+}
+```
+
+The moving parts: `fmt` is `Display`'s single required method — sign it and `{}` works. `f` is the destination, whatever the text is being written *into* (the terminal via `println!`, a `String` via `format!`). `write!` is `println!`'s cousin — same format syntax, but it writes into `f` and produces the `fmt::Result` the signature demands; as the last expression (no semicolon — Lesson 6 rules), that result is the return value. Why isn't this derivable like `Debug`? Because `Debug` answers a programmer's question — *what is in this thing?* — so an honest dump is always correct, while `Display` answers a human's question — *what should this look like?* Menu board, hindi X-ray: presentation is a decision you sign by hand. Once the impl exists, `println!("{}", adobo)`, `format!("{adobo}")`, and even a free `.to_string()` all just work.
+
+---
+
+## Key Takeaways
+
+- **A trait is a contract about behavior.** `trait Summarize { fn summary(&self) -> String; }` declares what a signer can DO and says nothing about its fields — iba-ibang ulam, isang sandok. Each type signs with `impl Summarize for Type`, and the compiler enforces completeness with E0046: duck typing's runtime surprise, moved to compile time.
+- **Default methods are free behavior:** a body in the trait is inherited by every implementor, may call required methods, and can be overridden per type — the type's own `impl` wins, the default is the fallback.
+- **`&impl Summarize` is a trait bound:** one function for every signer, and inside it only contract methods exist. `fn f<T: Summarize>(x: &T)` is the same bound in generic clothes — that's tomorrow.
+- **`#[derive]` auto-writes trait impls.** `Debug` (`{:?}`), `Clone` (`.clone()`), `PartialEq` (`==`) — you've been implementing traits since Lesson 13 with the compiler as ghostwriter.
+- **`Display` is the trait behind `{}`** — deliberately not derivable, because human-facing output is a judgment call. One `impl fmt::Display`, one `write!(f, ...)`, and `println!("{}")` plus a free `.to_string()` both wake up.
+
+---
+
+## What's Next?
+
+That evening, still riding the Display high, Dan started the best-sellers section of the daily report. Finding the priciest dish was easy — `fn largest_u32(list: &[u32]) -> u32`, straight out of Lesson 8 muscle memory. Then he remembered the other list: each dish's average customer rating, and ratings — unlike pesos — live in `f64`. His cursor was already on `largest_u32`, fingers on Ctrl+C, the new name pre-typed in his head: `largest_f64`. Same body, two type names changed — the exact twin-function smell from this afternoon, except this time the duplication isn't in the *behavior*. It's in the *types*. If one function can serve any type that can *summarize*, can one function serve any type that can be *compared*?
+
+**Next Lesson: Generics** — type parameters, trait bounds doing real work, and the day `largest_f64` gets deleted before it's even born.
