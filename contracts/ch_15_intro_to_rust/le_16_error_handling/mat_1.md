@@ -3,9 +3,7 @@
 Saturday night, Marikina. Dan scrolled months back through Messenger for a screenshot he had never deleted — *kept*, actually, the way you keep a scar:
 
 ```text
-Traceback (most recent call last):
   File "sales_report.py", line 42, in <module>
-    rainy_bonus = WEATHER_BONUS[row["weather"]]
 KeyError: ''
 ```
 
@@ -34,13 +32,7 @@ let total: u32 = "120".parse::<u32>();
 
 ### `panic!` vs Recoverable
 
-Rust splits all failure into two categories, and choosing the right one is the whole skill. **Unrecoverable failures** are programmer bugs — states so broken that continuing would make things worse. Rust's answer is **`panic!`**: print a message, unwind, die.
-
-```rust
-panic!("cash drawer is negative — the math itself is broken");
-```
-
-**Recoverable failures** are everything else — a blank cell, garbage in a price column, a missing file. Not bugs. They are *Tuesday*. In Python, both kinds arrived the same way: a runtime traceback, whenever it felt like it, in front of whoever was watching. Rust makes you sort them at compile time. Bugs panic. Bad input returns a value you are forced to deal with.
+Rust splits all failure into two categories, and choosing the right one is the whole skill. **Unrecoverable failures** are programmer bugs — states so broken that continuing would make things worse. Rust's answer is **`panic!`**: print a message, unwind, die — `panic!("cash drawer is negative — the math itself is broken")`. A panic says *the bug is in the code, not the input.* **Recoverable failures** are everything else — a blank cell, garbage in a price column, a missing file. Not bugs. They are *Tuesday*. In Python, both kinds arrived the same way: a runtime traceback, whenever it felt like it, in front of whoever was watching. Rust makes you sort them at compile time. Bugs panic. Bad input returns a value you are forced to deal with.
 
 ### `Option<T>` vs `Result<T, E>` — Both Are Just Enums
 
@@ -106,9 +98,8 @@ The label is the point. Every `unwrap()` is a small bet that the input is clean 
 - **Rust splits failure into two kinds and makes you choose.** `panic!` is for unrecoverable programmer bugs. Expected bad input is not a bug; it gets a `Result` and a decision.
 - **`Option<T>` answers "is there a value?"; `Result<T, E>` answers "did it work, and if not, why?"** Both are plain enums — `match` exhaustiveness guards every error in the language.
 - **`.parse::<u32>()` returns `Result<u32, ParseIntError>`, never a bare number.** The failure Python delivered at runtime with an audience, Rust delivers at compile time, at your desk.
-- **Openers, by situation:** full `match` when both arms deserve real handling; `unwrap_or(default)` when a sensible default exists; `unwrap_or_else` when the default must be computed; `?` to early-return the `Err` to a caller with better context.
-- **`?` is an early return, nothing more.** `Ok(v)` unwraps and continues; `Err(e)` returns from the enclosing function immediately — which is why that function must itself return a `Result`.
-- **The unwrap policy:** fine in prototypes labeled `// PROTOTYPE:`, BANNED from LutoCLI's final code. Every unlabeled `unwrap` is hope wearing a disguise, and hope is not a strategy.
+- **Openers, by situation:** full `match` when both arms deserve real handling; `unwrap_or(default)` when a sensible default exists; `unwrap_or_else` when it must be computed; `?` to early-return the `Err` — `Ok(v)` unwraps and continues, `Err(e)` returns from the enclosing function immediately, which is why that function must itself return a `Result`.
+- **The unwrap policy:** fine in prototypes labeled `// PROTOTYPE:`, BANNED from LutoCLI's final code (Lessons 24-25). Every unlabeled `unwrap` is hope wearing a disguise, and hope is not a strategy.
 
 ---
 
