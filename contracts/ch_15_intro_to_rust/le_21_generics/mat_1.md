@@ -28,13 +28,11 @@ Then the reveal. Kuya JM had Dan scroll his own LutoCLI code and read the types 
 
 ### The Signature, Piece by Piece
 
-Tonight's whole lesson in one line:
-
 ```rust
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T
 ```
 
-Walk it left to right. **`fn largest`** — a function, nothing new. **`<T>`** — the declaration: "this function works *for some type T*, to be chosen by whoever calls it"; declaring the placeholder here is what lets you use `T` everywhere after. **`T: PartialOrd + Copy`** — the **trait bounds**: not *any* type may apply — `T` must have signed the `PartialOrd` contract *and* the `Copy` contract, and `+` stacks the requirements. **`(list: &[T])`** — a borrowed slice (Lesson 11) whose element type is the blank. **`-> T`** — returns one element, by value. Call it with `&[u32]` and `T` becomes `u32` for that call; call it with `&[f64]` and `T` becomes `f64`. One ladle, many pots.
+Tonight's whole lesson is that one line. Walk it left to right. **`fn largest`** — a function, nothing new. **`<T>`** — the declaration: "this function works *for some type T*, to be chosen by whoever calls it"; declaring the placeholder here is what lets you use `T` everywhere after. **`T: PartialOrd + Copy`** — the **trait bounds**: not *any* type may apply — `T` must have signed the `PartialOrd` contract *and* the `Copy` contract, and `+` stacks the requirements. **`(list: &[T])`** — a borrowed slice (Lesson 11) whose element type is the blank. **`-> T`** — returns one element, by value. Call it with `&[u32]` and `T` becomes `u32` for that call; call it with `&[f64]` and `T` becomes `f64`. One ladle, many pots.
 
 ### Trait Bounds Are the Contract
 
