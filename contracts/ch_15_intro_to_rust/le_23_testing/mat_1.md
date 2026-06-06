@@ -45,3 +45,69 @@ fn test_compute_change_exact_payment() {
 ```
 
 A test passes if it runs to the end without panicking. It fails if anything inside panics — and the `assert!` family exists precisely to panic with a *useful report* when reality doesn't match expectation.
+
+### The `assert!` Family
+
+| Macro | Checks | On failure, prints | Reach for it when |
+|---|---|---|---|
+| `assert!(cond)` | `cond` is `true` | the condition's source text | yes/no facts: `is_err()`, `>=`, `contains` |
+| `assert_eq!(a, b)` | `a == b` | **both values**, as `left` and `right` | "the answer must be exactly X" — most tests |
+| `assert_ne!(a, b)` | `a != b` | both values | "whatever it is, it must NOT be this" |
+
+All three accept an optional custom message with `format!`-style arguments: `assert_eq!(compute_change(500, 387), expected, "sukli dapat {}", expected)`. And adopt this convention today: put the **call** first, the **expected value** second — then `left` is always what the code did, `right` is what it should have done, and you can read any failure at a glance.
+
+### `#[cfg(test)] mod tests` — the Proof Stays in the Kitchen
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*; // pull in every function from the parent module
+
+    #[test]
+    fn test_something() { /* ... */ }
+}
+```
+
+Two pieces, two jobs. `use super::*;` imports everything from the enclosing file, so tests can call `compute_change` without ceremony. And `#[cfg(test)]` is **conditional compilation**: this entire module exists only when you run `cargo test`. When you run `cargo build --release` — the build that goes on the USB stick — the tests are not skipped, not disabled, but *never compiled at all*. Zero bytes of checker code in Tita Malou's binary. The proof stays in the kitchen; only the dish goes out.
+
+### `cargo test` — a Hundred Checkers in Parallel
+
+`cargo test` compiles a special test build and runs every `#[test]` it finds — **in parallel, on separate threads**. That's why the output order shuffles between runs, and why tests must be independent: no test may rely on another running first or on shared mutable state. Each checker counts its own drawer. You can also run a subset — any test whose *name contains* the argument — and the summary reports the rest as `filtered out`, not skipped in shame. This is how you iterate on one bug without re-running the world: `cargo test discount` runs only the two `senior_discount` tests.
+
+### Reading a Failure: Left and Right
+
+Test failures get their own reading ritual, and it's short:
+
+1. **The thread name** tells you *which test* — they run in parallel, so each gets a thread.
+2. **The custom message** tells you *what was at stake* (this is why you write them).
+3. **`left` vs `right`** is *the disagreement itself*: code said 79, truth says 80. The size and direction of the gap often points straight at the bug — "off by exactly one peso" practically shouted *truncation* at Dan.
+4. **`src/main.rs:92`** is where the assert lives, so you can go see the inputs. And remember which test caught the bug: not the friendly `80`, the ugly `99`. Test boundaries, odd totals, real ledger entries — not the examples you invented because they're easy to verify in your head.
+
+### `#[should_panic]` — When Crashing Is the Correct Answer
+
+Some functions are *supposed* to panic — that's their contract, and you test the contract:
+
+```rust
+#[test]
+#[should_panic(expected = "kulang ang bayad")]
+fn test_compute_change_kulang_panics() {
+    compute_change(50, 387); // P50 for a P387 order: must panic
+}
+```
+
+This passes only if the code panics **and** the panic message *contains* the `expected` substring. Always supply `expected` — a bare `#[should_panic]` is satisfied by *any* panic, including a brand-new bug panicking for the wrong reason two lines earlier.
+
+### Tests That Return `Result` — so `?` Works Inside
+
+A test may itself return a `Result`, which unlocks the `?` operator from Lesson 16 — no `unwrap()` clutter:
+
+```rust
+#[test]
+fn test_parse_price_trims_spaces() -> Result<(), String> {
+    let price = parse_price(" 120 ").map_err(|e| e.to_string())?;
+    assert_eq!(price, 120);
+    Ok(())
+}
+```
+
+`Ok(())` at the end means pass; any `Err` propagated by `?` means fail, with the error printed. Same plumbing you already know, now keeping your tests as clean as your functions.
