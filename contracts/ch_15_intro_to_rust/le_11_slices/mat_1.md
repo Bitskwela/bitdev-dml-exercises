@@ -55,3 +55,49 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
 The compiler can't catch this, because the *content* of a string is a runtime fact — so this one bug class survives to runtime, and Rust handles it the honest way: an immediate, loud, precisely-worded panic instead of silently serving garbled bytes. The practical rule that keeps you safe: **don't invent string slice numbers — let string methods hand them to you.** `.find(' ')` returns the byte index of a space, and a space is always a valid boundary — indices that come from `.find()` are safe by construction. (Array slices have no such drama: `&[u32]` indices count elements, and a `u32` can't be half-cut.)
+
+### Why `&str` and `&[u32]`, Not `&String` and `&[u32; 7]`
+
+When a function only reads a string, make the parameter `&str` — never `&String`:
+
+| You're holding | `fn f(s: &String)` | `fn f(s: &str)` |
+|---|---|---|
+| a `String` (carinderia records) | works | works |
+| a literal `"Lechon Kawali"` | **rejected** | works |
+| a slice `&dish[0..8]` | **rejected** | works |
+
+The bottom-right column works thanks to **deref coercion**: hand a `&String` to a function asking for `&str` and Rust quietly converts at the call site. The same logic applies to number sequences: take `&[u32]`, not `&[u32; 7]` and not `&Vec<u32>`, and one `total()` accepts the whole week, the weekdays, or the weekend — any length, any source, nothing copied on the way in.
+
+### The Canonical `first_word`
+
+Every Rust learner writes this function. Today it's yours:
+
+```rust
+fn first_word(s: &str) -> &str {
+    match s.find(' ') {
+        Some(space_at) => &s[..space_at], // window: start to the space
+        None => s,                        // no space? the word IS the string
+    }
+}
+```
+
+`.find(' ')` answers with an `Option`: either *"found a space at byte index `space_at`"* (`Some`) or *"there's no space anywhere"* (`None`). The full `Option` story gets its own lesson soon — for today, read the `match` as exactly those two sentences. "Sinigang na Baboy" has a space at byte 8, so you get `&s[..8]` — `"Sinigang"`. "Adobo" has no space, so you get the whole string back. Either way the return value is a *window into the caller's string* — no copy, no second spelling to maintain.
+
+---
+
+## Key Takeaways
+
+- **A slice is a borrowed view, not a copy** — a pointer plus a length into data someone else owns. `&str` views string data; `&[T]` views arrays and `Vec`s.
+- **Slices are borrows**, so Lesson 10's rules apply unchanged: a live slice is a registered reader — no `&mut` to the owner until every window closes.
+- **Range syntax is half-open:** `&arr[0..5]` is indices 0-4. Shorthands: `&arr[..5]` from the start, `&arr[5..]` to the end, `&arr[..]` for the whole thing.
+- **String slices count BYTES, not characters.** `₱` is three bytes; slicing through the middle of it compiles fine and **panics at runtime**. Get your indices from methods like `.find()` — they always land on boundaries.
+- **Write functions against `&str` and `&[u32]`, never `&String` or `&[u32; 7]`.** Deref coercion means a `String`, a literal, an array, a `Vec`, or another slice all fit the same parameter — one function, every caller.
+- **`first_word` is the pattern to keep:** find a boundary, return a window. The caller's data never moves, never copies, and there's never a second spelling to maintain.
+
+---
+
+## What's Next?
+
+The chalkboard is up: short labels on the board, full names in the records, one source of truth with windows cut into it — and Tita Malou got her weekend numbers without Dan copying a single array. The helper is getting hired. Tomorrow is receipt day: Dan finally has to *build* strings, not just look at windows into them — and the most innocent line in all of programming, gluing two strings with `+`, will make so little sense he reads the error three times. Why did the left side *disappear* after the plus?
+
+**Next Lesson: Strings** — `String` vs `&str` head-on, building and growing strings with `push_str` and `format!`, why `+` takes ownership of its left operand, and the first receipt ever printed at Tita Malou's carinderia.
