@@ -65,3 +65,33 @@ Payday rows:     2
 ```
 
 On **Path A** — the full 90-row dataset next to `Cargo.toml` — the same code prints the real month: **90 rows, P75165 total, P835 average per row, 6 payday rows**. P75165 is the exact number Tita Malou recited from memory while slicing kangkong.
+
+## Reflection Questions
+
+1. The starter uses *tolerant* handling (the fallback) for the missing file but demands *strict* handling (`?`) for the revenue cell. Both failures are "bad input" — what makes a sensible default honest in one case and a silent lie in the other?
+2. Move the CSV into `src/` and run again. The program doesn't crash — it quietly switches to 14 rows. Why does the fallback *mask* the working-directory gotcha that crashed Dan's first attempt, and which output line is now your only clue that it happened?
+3. `fs::write` overwrites the file completely on every run. Why does the build-the-whole-`String`-first, write-once pattern fit that behavior better than writing the report line by line?
+
+## Challenge: The Sinigang Theory and the Top Three
+
+**Part A — the Sinigang Theory.** Fifteen years, Tita Malou has sworn by one rule: *"Pag umuulan, kumakain ang tao."* Check her against the data. For each row, `match` on `fields[6]` (weather) and accumulate total revenue and row count separately for `rainy` and `sunny` rows (let `cloudy` fall through to `_`). Print totals AND per-row averages for both.
+
+- On the embedded sample: rainy = 3 rows, P3065 total, P1021/row; sunny = 9 rows, P7910 total, P878/row.
+- On the real file: rainy = 18 rows, P15495 total, P860/row; sunny = 57 rows, P47355 total, P830/row.
+
+Sunny "wins" the raw total only because May had three times as many sunny rows — per row, rainy earns MORE. Same per-row-versus-total trap from your ML course, now in Rust: normalize first, conclude second. Tita Malou's theory holds.
+
+**Part B — the Top Three board.** Tally `quantity` (column 2) per `item` (column 1) into a `HashMap<String, u32>` with the entry API — `*tally.entry(fields[1].to_string()).or_insert(0) += quantity;` (the map outlives the loop, so it must *own* its keys: Lesson 9 was never optional). A `HashMap` has no order, so drain it into a `Vec`, `sort_by(|a, b| b.1.cmp(&a.1))` for descending, `.iter().take(3)`, and `format!` the podium into the report before the `fs::write`.
+
+- On the embedded sample: Sinigang na Baboy 53, Halo-Halo 40, Adobo 29.
+- On the real file: Halo-Halo 254, Sinigang na Baboy 209, Adobo 170.
+
+Notice the flip: in the 14-row sample, sinigang's rainy spikes top the board; across all 90 rows, Halo-Halo's sell-every-single-day volume wins. Two different "best-sellers," depende sa sample at sa metric. Choose both to fit the question — not the answer you were hoping for.
+
+## What You've Learned
+
+- `fs::read_to_string` returns `Result<String, io::Error>` — and a labeled tolerant fallback (`unwrap_or_else` or a `match`) makes the same program run with or without the dataset
+- `.lines().skip(1)` + `split(',')` turn a comma-free CSV into indexed fields — and the `csv` crate exists for the day the fields aren't comma-free
+- Strict `parse::<u32>()?` for money; a plain comparison (`== "True"`) for Python-flavored booleans that `parse::<bool>()` rejects
+- `fs::write` creates-or-overwrites in one call: build the whole `String`, write once, handle the `Result`
+- With `cargo run`, relative paths resolve from the folder with `Cargo.toml` — data files live there, and so does the report you just wrote
