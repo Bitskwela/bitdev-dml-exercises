@@ -4,11 +4,7 @@ Nine in the morning, the quiet hour at the carinderia. Dan opened last night's c
 
 > **Dan:** Kuya, ako na ang clone king. Five clones para lang gumana ang order board. It runs, pero parang niluto ko ang isang ulam sa limang kaldero.
 >
-> **Kuya JM:** Balik tayo sa cash drawer. Ownership says: hand someone the key, hindi na sayo. Pero isipin mo ang totoong carinderia — does your mom ever GIVE AWAY the drawer key?
->
-> **Dan:** Never. She lets me borrow it when I handle the sukli. Then I give it back. Immediately. With eye contact.
->
-> **Kuya JM:** Ayan. That's the whole fix. You don't give away the key — you let people *borrow* it. Sa Rust, that's a **reference**. One ampersand: `&`. No move, no funeral, no clone.
+> **Kuya JM:** Balik tayo sa cash drawer. Ownership says: hand someone the key, hindi na sayo. Pero your mom never GIVES AWAY the drawer key, diba? She lets you *borrow* it for the sukli, and you give it back. Sa Rust, that's a **reference**. One ampersand: `&`. No move, no funeral, no clone.
 
 But the clone that survived all of last night — `add_note` — has to *change* the order. Borrowing just to read won't cut it. JM pointed at the counter, where Tita Malou had the utang notebook open: writing a new line while a suki read his own column upside down over her shoulder.
 
