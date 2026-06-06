@@ -42,3 +42,41 @@ A **crate** is one compilation unit — the thing `rustc` compiles in one go. Ev
 |---|---|---|
 | **Crate** | One compilation unit: binary (runnable) or library (borrowable) | `lutolib` is a library crate; `kita-checker` is a binary crate |
 | **Package** | `Cargo.toml` + the crates it owns; the folder `cargo new` makes | the `lutolib/` folder; the `kita-checker/` folder |
+
+### Binary vs Library Crates
+
+A **binary crate** has a `fn main()` and compiles to an executable; its root file is `src/main.rs`, and it's every project you've made so far. A **library crate** — created with `cargo new lutolib --lib` — has *no* `main` and produces nothing you can run; its root file is `src/lib.rs`, and its entire job is to offer `pub` items for other crates to use. Kitchen translation: a binary crate is a finished ulam, a library crate is the commissary that supplies the sauce base. Nobody orders a plate of sauce, but every dish in the house depends on it. Try `cargo run` inside a library and cargo agrees with the metaphor: `error: a bin target must be available for 'cargo run'`.
+
+### Cargo.toml Anatomy
+
+You've been generating this file since Lesson 4 and politely ignoring it. Time to read one for real:
+
+```toml
+[package]
+name = "kita-checker"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+lutolib = { path = "../lutolib" }
+```
+
+- **`name`** — the package name. Dashes are allowed here, but in code dashes become underscores: a package named `kita-checker` is the crate `kita_checker`.
+- **`version`** — semantic versioning, `MAJOR.MINOR.PATCH`. Breaking change bumps major; new feature, minor; bug fix, patch. Every fresh package starts at `0.1.0`.
+- **`edition`** — which year's ruleset of Rust this crate speaks; keep whatever your cargo generated (`2021` or `2024`).
+- **`[dependencies]`** — every crate this one borrows, one line each. The line `lutolib = { path = "../lutolib" }` is a **path dependency**: *the crate lives one folder up and over — go compile it yourself.* Cargo reads it, builds `lutolib` first, then builds your binary against it. No registry, no download, no account, no signal — the complete dependency mechanism running entirely on your hard drive. On the code side the crate's name becomes a root you can path through, just like `crate::` did for your own modules: `use lutolib::format_peso;`.
+
+### The Cargo Verbs
+
+| Verb | What it does |
+|---|---|
+| `cargo build` | Compile; the binary lands in `target/debug/` |
+| `cargo run` | Build if needed, then run the binary |
+| `cargo check` | Type-check everything, produce no binary — your fastest feedback loop |
+| `cargo test` | Build and run every `#[test]` function (Lesson 23 lives here) |
+| `cargo doc --open` | Render `///` doc comments into browsable HTML docs |
+| `cargo add <name>` | Write a dependency line into `Cargo.toml` for you |
+
+### crates.io, `cargo add`, and Semver — the Honest Paragraph
+
+[crates.io](https://crates.io) is Rust's public registry — Kuya JM's palengke ng code, over a hundred thousand published crates. `cargo add rand` fetches the newest version and writes a line like `rand = "0.10.1"` into `[dependencies]`, which under semver means *"0.10.1 or any compatible newer 0.10.x"* — cargo may quietly take bug fixes, never breaking changes. Before you depend on a stall, inspect it the way you'd check a new suki-to-be: download count, date of last update, docs, whether the repository looks alive. And know that the palengke churns: by the time you run `cargo add rand` you may fetch something newer than `0.10.1`, and rand has renamed its API across versions before — `0.8` had `thread_rng()` and `gen_range()`, `0.9` renamed them to `rng()` and `random_range()`, and `0.10` moved `random_range` onto the `RngExt` trait. When a blog-post snippet won't compile, `cargo doc --open` renders the docs for the *exact* version you fetched. This course stays std-only — partly the fiction (the carinderia desktop is offline, Dan's laptop runs on phone-load internet), mostly the pedagogy: learn to cook from your own pantry first, and you'll be a better judge of what's worth buying later.

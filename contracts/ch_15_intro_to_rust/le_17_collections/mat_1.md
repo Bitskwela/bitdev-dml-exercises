@@ -56,8 +56,6 @@ menu.insert(String::from("Adobo"), 75);
 let price = menu.get("Adobo");   // Option<&u32> — match it, like always
 ```
 
-Same safety split as Vec: `.get(&key)` answers with an `Option`; `menu[&key]` square brackets panic on a missing key. You know the rule by now.
-
 ### `entry().or_insert(0)` — THE LutoCLI Idiom
 
 Counting with `.get()` + `.insert()` means two lookups and an awkward dance. The `entry` API does it in one motion:
