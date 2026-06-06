@@ -80,3 +80,22 @@ lutolib = { path = "../lutolib" }
 ### crates.io, `cargo add`, and Semver — the Honest Paragraph
 
 [crates.io](https://crates.io) is Rust's public registry — Kuya JM's palengke ng code, over a hundred thousand published crates. `cargo add rand` fetches the newest version and writes a line like `rand = "0.10.1"` into `[dependencies]`, which under semver means *"0.10.1 or any compatible newer 0.10.x"* — cargo may quietly take bug fixes, never breaking changes. Before you depend on a stall, inspect it the way you'd check a new suki-to-be: download count, date of last update, docs, whether the repository looks alive. And know that the palengke churns: by the time you run `cargo add rand` you may fetch something newer than `0.10.1`, and rand has renamed its API across versions before — `0.8` had `thread_rng()` and `gen_range()`, `0.9` renamed them to `rng()` and `random_range()`, and `0.10` moved `random_range` onto the `RngExt` trait. When a blog-post snippet won't compile, `cargo doc --open` renders the docs for the *exact* version you fetched. This course stays std-only — partly the fiction (the carinderia desktop is offline, Dan's laptop runs on phone-load internet), mostly the pedagogy: learn to cook from your own pantry first, and you'll be a better judge of what's worth buying later.
+
+---
+
+## Key Takeaways
+
+- **A crate is one compilation unit.** Binary crates (`src/main.rs`) have a `main` and run; library crates (`src/lib.rs`) have no `main` and exist to be borrowed. `cargo new --lib` makes the second kind.
+- **A package is `Cargo.toml` plus the crates it owns** — at most one library, any number of binaries. In this course, one package always wraps one crate.
+- **`Cargo.toml` has two sections that matter today:** `[package]` (name, semver version, edition) and `[dependencies]` (every crate you borrow, one line each).
+- **A path dependency — `lutolib = { path = "../lutolib" }` — is the full dependency mechanism with zero network.** Cargo builds the library first, automatically, then links your binary against it.
+- **One dependency line covers the whole crate, forever.** Add a new `pub fn` to the library and every dependent gets it with no manifest change.
+- **crates.io is the palengke ng code** — `cargo add` away, semver keeps upgrades compatible — but check the tindahan first: downloads, freshness, docs. This course stays std-only.
+
+---
+
+## What's Next?
+
+Riding home from Makati, Dan kept scrolling through kita-checker's output, feeling like a man with a commissary. Then he looked at his LutoCLI roadmap and saw the next wall. The daily summary prints itself one way. The receipt for a single order needs another way. The menu board, a third. Three different types, and every one needs the same *ability* — "summarize yourself for the counter." His fingers already itch toward three nearly identical function signatures — the copy-paste itch all over again, except this time it's not code he'd be duplicating. It's *behavior*. Rust has a word for "different types sharing one ability," and it is the biggest idea left in the course.
+
+**Next Lesson: Traits** — one behavior, many types, and the day Dan's receipts, reports, and menu boards all learn to introduce themselves.
