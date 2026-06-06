@@ -49,3 +49,42 @@ D. Both keep the default; overriding requires defining a brand-new trait
 **Explanation:** Defaults are overridable per type: the type's own `impl` wins, the default is the fallback. One type overrode, the other kept the freebie — same trait, same program, side by side.
 
 ---
+
+# Quiz 2
+## Scenario: Earning the `{}`
+
+Dan types `println!("{}", adobo);` and gets `error[E0277]: MenuItem doesn't implement std::fmt::Display` — while `println!("{:?}", adobo)` works fine, thanks to `#[derive(Debug)]`.
+
+**Question 5:** Why does `{:?}` work while `{}` fails on the same struct?
+A. `{}` only works on numbers and strings, never on structs
+B. `{:?}` is powered by the `Debug` trait, which `#[derive(Debug)]` already implemented; `{}` is powered by the `Display` trait, which nobody has implemented for `MenuItem` yet — every format specifier is backed by a trait
+C. A missing semicolon somewhere else in the program
+D. `{:?}` ignores traits entirely and reads memory directly
+
+**Answer:** B
+**Explanation:** `{}` has been a trait this whole time. The fix is to sign the contract by hand — `impl fmt::Display for MenuItem` with one `write!(f, ...)` inside — and then `println!("{}")`, `format!`, and a free `.to_string()` all wake up.
+
+---
+
+**Question 6:** `Debug`, `Clone`, and `PartialEq` are all derivable, but `std` refuses to offer `#[derive(Display)]`. Why the exception?
+A. Nobody has gotten around to writing that derive macro
+B. `Display` is too slow to generate automatically
+C. Deriving works when the impl is mechanical — dump all fields, clone all fields, compare all fields — and `#[derive]` simply has the compiler ghostwrite those `impl Trait for Type` blocks. `Display` answers a human question — what should this LOOK like? — and presentation is a judgment call no compiler should guess
+D. `Display` is not actually a trait
+
+**Answer:** C
+**Explanation:** `Debug` answers a programmer's question (*what is in this thing?*), so an honest dump is always correct. `Display` is the menu board, hindi X-ray — you write it by hand. And yes: you have been implementing traits since Lesson 13, with the compiler as ghostwriter.
+
+---
+
+**Question 7:** Inside `fn print_summary(item: &impl Summarize)`, Dan tries `item.price` — and the caller at that call site really did pass a `&MenuItem`. What happens?
+A. It compiles — the compiler knows the concrete type at the call site
+B. It compiles, but returns 0 whenever the argument is not a `MenuItem`
+C. Compile error — inside the function only the contract exists: `item.summary()` compiles because the trait promises it, `item.price` does not, even for a `MenuItem`. The function knows the sandok, not the ulam
+D. It panics at runtime the first time a `DailySales` is passed
+
+**Answer:** C
+**Explanation:** `&impl Summarize` is a trait bound — the parameter is bounded by the contract, not pinned to one type, so only contract methods are visible. And `fn print_summary<T: Summarize>(item: &T)` means exactly the same thing in generic syntax: that `<T>` machinery is Lesson 21.
+
+---
+**Next:** Proceed to Lesson 20 exercises.
