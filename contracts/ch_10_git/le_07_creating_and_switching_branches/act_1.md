@@ -1,19 +1,39 @@
-# Le 07 Assessment: Creating and Switching Branches
+# Hands-On Lab — Creating And Switching Branches
 
-## Question 1: Basic Commands
-When you create a new branch with `git branch feature/voting` and then switch to it with `git switch feature/voting`, what has changed in your working directory? What hasn't changed?
+## Goal
 
-## Question 2: One-Step Creation
-Explain the advantage of `git switch -c feature/voting` (create and switch) versus doing it in two steps. When might you still want two separate steps?
+branch off, commit there, main stays clean.
 
-## Question 3: Branch Independence
-You're on feature/voting and make commits. Maria is on feature/payment. How are your changes independent? What happens if you accidentally push to the wrong branch?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Real Workflow
-The San Juan Payment System needs three simultaneous features: payments, audit-logging, and security. Create three branch names following conventions. Explain why clear naming matters.
+## What you'll accomplish
 
-## Question 5: Team Scenario
-Dev Sam creates feature/security but forgets to document what he's working on. The London developer sees this branch. What problems might occur? How could better communication help?
+- Work through each command and observe what Git does.
 
-## Question 6: Personal Development
-How have you structured your own projects? Would branching have made it easier? Describe a real scenario where creating a feature branch first would have prevented problems.
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base app"
+git switch -c feature/voting        # create AND switch in one step
+echo "vote()" > voting.py; git add voting.py; git commit -m "Add voting feature"
+git switch main                     # back to main — voting.py is NOT here
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

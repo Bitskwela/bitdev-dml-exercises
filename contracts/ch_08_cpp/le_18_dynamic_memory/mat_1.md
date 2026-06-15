@@ -57,3 +57,36 @@ int main() {
 ```
 
 The `new int[size]` allocates an array on the heap whose size is determined at runtime. After use, `delete[]` frees the memory and setting the pointer to `nullptr` prevents accidental access to freed memory.
+
+## Common Pitfalls ⚠️
+
+**1. Memory leaks — `new` without `delete`**
+
+```cpp
+int* a = new int[n];   // ❌ if you never delete[], memory leaks
+delete[] a;            // ✅ free what you allocated
+```
+
+**2. Wrong delete form**
+
+```cpp
+int* a = new int[n];
+delete a;     // ❌ allocated with new[], must use delete[]
+delete[] a;   // ✅
+```
+
+**3. Using a pointer after `delete` (use-after-free)**
+
+```cpp
+delete[] a;
+a = nullptr;   // ✅ prevents accidental reuse
+```
+
+**4. Allocating with a non-positive size** — `new int[size]` with `size <= 0` is a logic bug; validate input.
+
+**5. Modern C++ tip: prefer smart pointers / containers**
+
+```cpp
+vector<int> ages(n);                 // ✅ auto-frees, no leaks
+auto p = make_unique<int[]>(n);      // ✅ RAII for raw arrays
+```

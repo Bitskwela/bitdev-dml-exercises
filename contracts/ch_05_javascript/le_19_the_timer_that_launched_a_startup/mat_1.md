@@ -121,6 +121,47 @@ class CountdownTimer {
 }
 ```
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Calling the function instead of passing it**
+
+```js
+setTimeout(greet(), 1000); // ❌ runs greet NOW, schedules its return value
+setTimeout(greet, 1000); // ✅ pass the reference
+setTimeout(() => greet("Odessa"), 1000); // ✅ wrap when you need arguments
+```
+
+**2. Forgetting to store the id, so you can never stop it**
+
+```js
+setInterval(tick, 1000); // ❌ runs forever, no handle to cancel
+const id = setInterval(tick, 1000); // ✅ keep the id
+clearInterval(id); // ...so you can stop it later
+```
+
+**3. Stacking duplicate intervals**
+
+```js
+function start() { setInterval(tick, 1000); } // ❌ each call adds ANOTHER timer
+function start() { if (!id) id = setInterval(tick, 1000); } // ✅ guard against doubles
+```
+
+**4. Expecting `setTimeout(fn, 0)` to run immediately**
+
+```js
+setTimeout(() => console.log("A"), 0);
+console.log("B"); // ✅ logs "B" then "A" — timers are async, they wait for the call stack
+```
+
+**5. Assuming the delay is exact**
+
+```js
+// setTimeout/setInterval guarantee "at least" the delay, not "exactly".
+// ❌ Don't build precise clocks by counting ticks.
+// ✅ Compare against Date.now() for accuracy that survives lag and throttling.
+```
+
 ---
 
 ## Closing Story

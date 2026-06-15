@@ -237,3 +237,25 @@ This lesson covers Creating and Switching Branches in detail.
 ---
 
 **Ready for the activity? Let's get started!**
+
+## Common Pitfalls ⚠️
+
+**1. Switching with uncommitted changes that conflict**
+
+```bash
+git switch other   # ❌ may refuse if local edits would be overwritten
+# ✅ commit, or 'git stash', before switching
+```
+
+**2. Using old `checkout` and confusing yourself** — modern Git splits the overloaded `checkout` into `switch` (branches) and `restore` (files). Prefer them.
+
+**3. Forgetting `-c` to create**
+
+```bash
+git switch feature/x      # ❌ fails if it doesn't exist yet
+git switch -c feature/x   # ✅ create and switch in one step
+```
+
+**4. Assuming files carry over** — files unique to one branch vanish when you switch away (they're safe in that branch's commits).
+
+**5. Branch name typos** — `git switch fearure/x` silently fails to find it; copy-paste names.

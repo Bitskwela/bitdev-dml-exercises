@@ -1,0 +1,23 @@
+name: cpp-answers
+on:
+  push:
+    paths:
+      - 'contracts/**/*.cpp'
+      - 'contracts/**/act_1.input.txt'
+      - 'contracts/**/act_1.expected.txt'
+      - 'scripts/check-cpp.sh'
+      - '.github/workflows/cpp.yml'
+  pull_request:
+    paths:
+      - 'contracts/**/*.cpp'
+      - 'scripts/check-cpp.sh'
+      - '.github/workflows/cpp.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install g++
+        run: sudo apt-get update && sudo apt-get install -y g++
+      - name: Compile-and-run all C++ activity files
+        run: bash scripts/check-cpp.sh

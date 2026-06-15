@@ -180,3 +180,15 @@ With workflow discipline:
 ✓ Every region follows same workflow
 
 **Next Lesson:** Once features are merged, we clean up branches to keep the repository organized.
+
+## Common Pitfalls ⚠️
+
+**1. Working directly on main** — main should always be deployable. Do work on a feature branch and merge it in.
+
+**2. Long-lived feature branches** — the longer a branch drifts from main, the worse the merge. Integrate often.
+
+**3. Skipping `--no-ff` when you want a record** — a `--no-ff` merge commit documents that a feature was integrated as a unit (easier to revert later).
+
+**4. Forgetting to pull main before branching** — start features from the latest main, not a stale copy.
+
+**5. Not cleaning up** — delete the branch after merging so the branch list reflects active work only.

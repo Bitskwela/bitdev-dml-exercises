@@ -14,35 +14,135 @@ With topics like `document.querySelector`, `innerText`, and DOM events under her
 
 ## Theory & Lecture Content
 
-The Document Object Model (DOM) is a programming interface for web documents. It represents the structure of a document as a tree of objects that can be modified with scripting languages like JavaScript.
+The **Document Object Model (DOM)** is the browser's live, in-memory representation of an HTML page. The browser parses your HTML into a tree of objects (nodes), and JavaScript can read and rewrite that tree on the fly. Change a node, and the page updates instantly. This is what turns a static document into an *application*.
 
-### document.querySelector
-
-`document.querySelector` is a method in JavaScript that allows us to select an element in the DOM using a CSS selector.
-
-```js
-const heading = document.querySelector("h1");
+```
+document
+ └── html
+      └── body
+           ├── h1#welcome
+           ├── button#alertBtn
+           └── div#status
 ```
 
-### innerText
+### Selecting Elements
 
-The `innerText` property allows us to set or return the text content of an element and all its descendants.
+Before you can change something, you have to grab it. Modern code uses two methods that accept any CSS selector:
 
 ```js
-heading.innerText = "Hello, World!";
+// querySelector returns the FIRST match (or null if none)
+const heading = document.querySelector("h1"); // by tag
+const welcome = document.querySelector("#welcome"); // by id
+const firstCard = document.querySelector(".card"); // by class
+
+// querySelectorAll returns ALL matches as a NodeList
+const allCards = document.querySelectorAll(".card");
+allCards.forEach((card) => console.log(card.innerText));
 ```
+
+`querySelector` always returns either an element or `null`, so guard against `null` when an element might not exist:
+
+```js
+const banner = document.querySelector("#banner");
+if (banner) {
+  banner.innerText = "Welcome back!";
+}
+```
+
+### Reading and Changing Content
+
+Once you hold an element, three properties cover most needs:
+
+```js
+const status = document.querySelector("#status");
+
+status.innerText = "Saved!"; // visible text only (respects styling)
+status.textContent = "Saved!"; // raw text, faster, ignores CSS visibility
+status.innerHTML = "<strong>Saved!</strong>"; // parses HTML — use with care
+```
+
+Prefer `innerText`/`textContent` for plain text. Only use `innerHTML` when you intentionally need markup, because injecting untrusted strings as HTML opens the door to cross-site scripting (XSS).
+
+### Changing Styles and Attributes
+
+```js
+const box = document.querySelector("#box");
+
+box.style.display = "none"; // hide it
+box.style.backgroundColor = "tomato"; // note: camelCase, not background-color
+box.classList.add("active"); // add a CSS class
+box.classList.toggle("open"); // flip it on/off
+box.setAttribute("data-id", "42"); // any attribute
+```
+
+Reaching for `classList` and a CSS class is usually cleaner than setting many inline `style` properties one by one.
 
 ### DOM Events
 
-DOM events are actions that occur as a result of user interaction or other events in the browser. We can add event listeners to elements to respond to these events.
+An **event** is something that happens on the page — a click, a keypress, a form submit. `addEventListener` lets your code react to it:
 
 ```js
+const button = document.querySelector("#alertBtn");
+
 button.addEventListener("click", function () {
-  console.log("Button Clicked!");
+  document.querySelector("#status").innerText = "Button was clicked!";
 });
 ```
 
-For more information, you can visit the [Mozilla Developer Network (MDN) documentation on Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
+The function you pass is the *handler* (or callback). It runs every time the event fires. You can read details from the `event` object the browser hands you:
+
+```js
+button.addEventListener("click", function (event) {
+  console.log(event.target); // the element that was clicked
+  event.preventDefault(); // stop the default browser behavior
+});
+```
+
+For more, see the [MDN documentation on the Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
+
+### Common Beginner Mistakes ⚠️
+
+**1. Running your script before the HTML exists**
+
+```js
+// ❌ If this <script> runs in <head>, #welcome isn't on the page yet → null
+const el = document.querySelector("#welcome");
+el.innerText = "Hi"; // TypeError: Cannot set properties of null
+
+// ✅ Put the script at the end of <body>, or wait for the DOM to load
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#welcome").innerText = "Hi";
+});
+```
+
+**2. Forgetting the `#` or `.` in a selector**
+
+```js
+document.querySelector("welcome"); // ❌ looks for a <welcome> tag
+document.querySelector("#welcome"); // ✅ looks for id="welcome"
+```
+
+**3. Confusing `innerText` with `value`**
+
+```js
+const input = document.querySelector("#name");
+console.log(input.innerText); // ❌ empty for form fields
+console.log(input.value); // ✅ inputs store their content in .value
+```
+
+**4. Calling the handler instead of passing it**
+
+```js
+button.addEventListener("click", handleClick()); // ❌ runs NOW, passes its return value
+button.addEventListener("click", handleClick); // ✅ pass the function itself
+```
+
+**5. Using `=` to add a class and wiping the rest**
+
+```js
+box.className = "active"; // ❌ erases every other class on the element
+box.classList.add("active"); // ✅ adds without removing the others
+```
 
 ## Closing Story
 

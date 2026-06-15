@@ -149,6 +149,46 @@ Typical workflow:
 Reference:  
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Mixing default and named imports in the wrong braces**
+
+```js
+import { config } from "./config.js"; // ❌ if config is a DEFAULT export
+import config from "./config.js"; // ✅ default import has no braces
+import { add, subtract } from "./mathUtils.js"; // ✅ named imports use braces
+```
+
+**2. Misspelling a named import**
+
+```js
+export function getUser() {}
+import { getuser } from "./api.js"; // ❌ undefined — names are case-sensitive
+import { getUser } from "./api.js"; // ✅
+```
+
+**3. Forgetting the file extension in the browser**
+
+```js
+import { add } from "./utils/math"; // ❌ native browser modules need the .js
+import { add } from "./utils/math.js"; // ✅
+```
+
+**4. Trying to use `import`/`export` in a plain `<script>`**
+
+```html
+<script src="app.js"></script> <!-- ❌ import will throw -->
+<script type="module" src="app.js"></script> <!-- ✅ enables modules -->
+```
+
+**5. Creating circular imports**
+
+```js
+// a.js imports b.js, and b.js imports a.js → ❌ one side gets `undefined`.
+// ✅ Extract the shared piece into a third module both can import.
+```
+
 ---
 
 ## Closing Story

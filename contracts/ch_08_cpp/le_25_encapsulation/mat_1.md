@@ -46,3 +46,20 @@ public:
 ```
 
 The `balance` field is private so it cannot be modified directly. The `deposit` method validates that the amount is positive before updating. The `getBalance` getter is marked `const` since it only reads data.
+
+## Common Pitfalls ⚠️
+
+**1. Making data members `public`**
+
+```cpp
+class Account { public: double balance; };  // ❌ anyone can set balance = -999
+class Account { private: double balance; public: void deposit(double); };  // ✅
+```
+
+**2. Getters/setters that do no validation** — a setter that blindly assigns is just a public field in disguise. Validate inside it.
+
+**3. Returning a non-const reference to a private member** — leaks control of the internal state.
+
+**4. Over-encapsulating** — not every field needs a getter/setter; expose behavior, not raw data.
+
+**5. Forgetting `const` correctness** — read-only accessors should be `const` and return by value or `const&`.

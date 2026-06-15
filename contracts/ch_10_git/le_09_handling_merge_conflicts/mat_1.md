@@ -171,3 +171,19 @@ This lesson covers Handling Merge Conflicts in detail.
 ---
 
 **Ready for the activity? Let's get started!**
+
+## Common Pitfalls ⚠️
+
+**1. Committing the conflict markers**
+
+```bash
+<<<<<<< HEAD ... ======= ... >>>>>>>   # ❌ these MUST be removed before committing
+```
+
+**2. Picking a side blindly** — `--theirs`/`--ours` are quick but can drop real work. Read both sides and craft the correct result.
+
+**3. Forgetting to `git add` the resolved file** — Git won't let you finish the merge until you stage the resolution.
+
+**4. Panicking and abandoning** — `git merge --abort` cleanly returns you to the pre-merge state if you want to start over.
+
+**5. Thinking conflicts mean you did something wrong** — conflicts are normal when two people edit the same lines. Resolving them is a core skill, not a failure.

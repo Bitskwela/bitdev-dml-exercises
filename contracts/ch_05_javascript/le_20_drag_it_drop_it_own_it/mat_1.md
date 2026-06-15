@@ -134,6 +134,45 @@ function dragEnd(evt) {
 Reference:  
 https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Forgetting `preventDefault()` on `dragover`**
+
+```js
+zone.addEventListener("dragover", (e) => {}); // ❌ drop never fires
+zone.addEventListener("dragover", (e) => e.preventDefault()); // ✅ allows the drop
+```
+
+**2. Forgetting `preventDefault()` inside `drop` too**
+
+```js
+function drop(e) { /* ... */ } // ❌ browser may navigate/open the data
+function drop(e) { e.preventDefault(); /* ... */ } // ✅
+```
+
+**3. Reading the data with the wrong key**
+
+```js
+e.dataTransfer.getData("text"); // ❌ if you stored it as "text/plain"
+e.dataTransfer.setData("text/plain", id);
+e.dataTransfer.getData("text/plain"); // ✅ keys must match
+```
+
+**4. Appending the element by reference, expecting a copy**
+
+```js
+target.appendChild(card); // moves the SAME node (this is correct for kanban!)
+target.appendChild(card.cloneNode(true)); // ✅ use cloneNode only if you want a copy
+```
+
+**5. Attaching listeners before the cards exist**
+
+```js
+// ❌ querySelectorAll(".task-card") runs before cards are rendered → empty list
+// ✅ wire listeners after rendering, or use event delegation on the parent column.
+```
+
 ---
 
 ## Closing Story

@@ -1,32 +1,39 @@
-# Activity Answer
+# Activity Answer — Handling Merge Conflicts
 
-## Solution
+This is the canonical, **runnable** solution. The automated grader executes
+`act_1.answer.sh` in a throwaway repository and then checks the resulting
+repository state with `act_1.expect.sh` (see `TESTING.md`).
+
+## Solution (`act_1.answer.sh`)
 
 ```bash
-#!/bin/bash
-# Solution for activity
+#!/usr/bin/env bash
+# Lesson 09 — Merge conflicts: two branches edit the same line; resolve by hand.
+set -e
+git init
+echo "rate = 0.10" > pricing.py; git add pricing.py; git commit -m "Base pricing"
 
-# Step 1: [Description]
-# [git command]
+git switch -c feature/promo
+echo "rate = 0.20" > pricing.py; git add pricing.py; git commit -m "Promo rate 20%"
 
-# Step 2: [Description]
-# [git command]
+git switch main
+echo "rate = 0.12" > pricing.py; git add pricing.py; git commit -m "Standard rate 12%"
 
-# Step 3: [Description]
-# [git command]
-
-# Verify the result:
-# [verification command]
+# This merge conflicts on the 'rate' line:
+git merge feature/promo || true
+# Resolve: keep the promo rate, then complete the merge.
+echo "rate = 0.20" > pricing.py
+git add pricing.py
+git commit --no-edit                 # records the merge commit
 ```
 
-## Explanation
+## Step-by-step explanation
 
-1. **Step 1**: Description
-2. **Step 2**: Description
-3. **Step 3**: Description
+- `git merge feature/promo || true` — This merge conflicts on the 'rate' line:
+- `echo "rate = 0.20" > pricing.py` — Resolve: keep the promo rate, then complete the merge.
 
-## Key Concepts
+## Verify
 
-- Concept 1
-- Concept 2
-- Concept 3
+Run the lesson's checker (or `bash scripts/check-git.sh`) — it replays this
+solution in a clean repo and asserts the end state. A green check means your
+own commands produced the same result.

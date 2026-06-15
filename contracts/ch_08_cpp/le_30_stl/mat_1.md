@@ -46,3 +46,26 @@ m[1] = "One";
 ```
 
 `vector` handles dynamic sizing and memory automatically. `sort()` takes iterator begin/end and sorts in-place. `map` provides key-value storage with automatic sorting by key. These replace manual arrays, custom sort functions, and hand-built lookup tables.
+
+## Common Pitfalls ⚠️
+
+**1. Using an invalidated iterator**
+
+```cpp
+for (auto it = v.begin(); it != v.end(); ++it)
+    if (*it == x) v.erase(it);   // ❌ erase invalidates it
+    // ✅ it = v.erase(it); or use std::remove_if + erase
+```
+
+**2. `[]` on a map silently inserts**
+
+```cpp
+if (m["key"] == ...)   // ❌ creates "key" if absent
+if (m.count("key"))    // ✅ check first, or use m.find()
+```
+
+**3. Forgetting the right `#include`** — `<vector>`, `<map>`, `<algorithm>`, `<string>` each as needed.
+
+**4. Sorting without a valid comparator** — custom types need `operator<` or a comparator lambda.
+
+**5. Modern C++ tip:** prefer range-based for (`for (auto& x : v)`) and algorithms (`sort`, `find_if`, `accumulate`) over hand-written loops.

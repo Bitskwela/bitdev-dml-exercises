@@ -147,3 +147,20 @@ Deleting a branch is safe. You're not deleting commits, just the pointer.
 ✓ Establish cleanup as part of workflow
 
 **Next Lesson:** With clean branches, let's talk about branch strategies—how to organize branching for different deployment models (Gitflow, GitHub Flow, trunk-based).
+
+## Common Pitfalls ⚠️
+
+**1. `-d` vs `-D`**
+
+```bash
+git branch -d feature/x   # safe: refuses if not merged
+git branch -D feature/x   # force: deletes even unmerged work (can lose commits)
+```
+
+**2. Deleting the branch you're standing on** — you can't; switch to main first.
+
+**3. Forgetting remote branches still exist** — deleting locally doesn't remove `origin/feature/x`. Use `git push origin --delete feature/x`.
+
+**4. Pruning fear** — `git fetch --prune` removes stale remote-tracking refs for branches deleted on the server; it does not touch your local work.
+
+**5. Mass-deleting without checking** — confirm a branch is merged (`git branch --merged`) before bulk cleanup.

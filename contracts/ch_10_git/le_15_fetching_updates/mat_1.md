@@ -205,3 +205,15 @@ Many Git GUIs fetch automatically in the background. But understanding manual fe
 ✓ "Fetch first" is a professional habit
 
 **Next Lesson:** Pull Requests—the formal code review process that makes team collaboration safe and organized.
+
+## Common Pitfalls ⚠️
+
+**1. Expecting `fetch` to change your files** — `fetch` only updates remote-tracking refs (`origin/main`). Your working tree is untouched until you `merge` or `rebase`.
+
+**2. Never fetching** — working blind to what teammates pushed leads to painful surprises at push time. Fetch often.
+
+**3. Confusing `origin/main` with `main`** — `origin/main` is a read-only snapshot of the server; you merge it into your `main`.
+
+**4. `pull` when you only wanted to look** — use `fetch` to inspect incoming changes (`git log main..origin/main`) before integrating.
+
+**5. Forgetting `--prune`** — without it, branches deleted on the server still appear in your remote-tracking list.

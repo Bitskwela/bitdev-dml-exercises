@@ -65,3 +65,30 @@ int main() {
 ```
 
 The `BarangayPosition` enum replaces magic numbers with readable names. The switch statement uses enum values directly, making the code self-documenting. Default values start at 0 and increment automatically.
+
+## Common Pitfalls ⚠️
+
+**1. Plain `enum` leaks its names into the surrounding scope**
+
+```cpp
+enum Role { ADMIN, USER };
+enum Status { ACTIVE, USER };  // ❌ 'USER' clashes
+```
+
+**2. Modern C++ tip: prefer `enum class`**
+
+```cpp
+enum class Role { Admin, User };
+Role r = Role::Admin;   // ✅ scoped, type-safe, no implicit int conversion
+```
+
+**3. Assuming an enum prints as text**
+
+```cpp
+cout << role;   // ❌ prints the underlying int (0,1,2)
+// ✅ write a roleToString() helper (switch over the cases)
+```
+
+**4. Forgetting the `default:` in a switch** — handle unexpected values explicitly.
+
+**5. Relying on hidden integer values** — don't do math on enums unless you intend it; their job is readable named constants.

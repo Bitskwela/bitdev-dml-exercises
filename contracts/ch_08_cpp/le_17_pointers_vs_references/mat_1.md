@@ -57,3 +57,24 @@ int main() {
 ```
 
 The pointer version requires `&` when calling and `*` to dereference inside the function. The reference version uses clean, direct syntax -- no special operators needed. Both achieve the same result: modifying the original variable.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting a reference must be initialized**
+
+```cpp
+int& r;        // ❌ references can't be null/empty
+int& r = x;    // ✅ bound at birth, forever
+```
+
+**2. Expecting to "reseat" a reference**
+
+```cpp
+int& r = a; r = b;  // ❌ this copies b's VALUE into a, doesn't rebind
+```
+
+**3. Choosing the wrong tool** — use a **reference** for "always present, never changes target"; use a **pointer** when it can be null or point to different things over time.
+
+**4. Returning a reference to a temporary/local** — dangles, just like pointers.
+
+**5. Modern C++ tip:** prefer `const&` parameters for read-only big objects, and references over raw pointers when the thing always exists.

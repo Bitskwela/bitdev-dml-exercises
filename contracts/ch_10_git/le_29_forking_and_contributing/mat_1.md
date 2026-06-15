@@ -336,3 +336,20 @@ The Barangay Blockchain started in Manila. Now it could help communities in Jaka
 ✓ Your local project can have global impact
 
 **Next Lesson:** Capstone project—putting it all together!
+
+## Common Pitfalls ⚠️
+
+**1. Pushing directly to upstream** — you usually can't (and shouldn't). Push to *your fork*, then open a PR to upstream.
+
+**2. Letting your fork drift** — add an `upstream` remote and sync regularly, or your PR will be full of conflicts.
+
+```bash
+git remote add upstream <original-repo-url>
+git fetch upstream && git merge upstream/main   # ✅ stay current
+```
+
+**3. Working on your fork's main** — branch per contribution so you can have several PRs in flight.
+
+**4. Ignoring CONTRIBUTING.md / code style** — maintainers reject PRs that don't follow project conventions.
+
+**5. Huge unsolicited PRs** — open an issue and discuss big changes first; small, focused PRs get merged.

@@ -199,3 +199,25 @@ When you deploy your app globally:
 - Your team in Singapore can understand your changes
 - When bugs appear, you can pinpoint exactly which commit caused them
 - You can deploy individual commits to different regions
+
+## Common Pitfalls ⚠️
+
+**1. `git add .` when you meant to stage only some files**
+
+```bash
+git add .                       # ❌ stages everything, including half-done work
+git add discount.py logger.py   # ✅ stage only what's ready
+```
+
+**2. Committing without a message / with a useless one**
+
+```bash
+git commit -m "stuff"   # ❌ meaningless in 6 months
+git commit -m "Fix discount rounding for senior-citizen receipts"  # ✅
+```
+
+**3. Forgetting that staging is a snapshot in time** — if you edit a file *after* `git add`, you must `git add` again to include the new changes.
+
+**4. Confusing `git diff` and `git diff --staged`** — the first shows unstaged changes, the second shows what's actually about to be committed.
+
+**5. Committing everything in one giant commit** — separate bug fixes from features so history tells a story and is easy to revert.

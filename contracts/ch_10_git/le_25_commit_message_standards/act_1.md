@@ -1,19 +1,39 @@
-# Le 25 Assessment: Commit Message Best Practices
+# Hands-On Lab — Commit Message Standards
 
-## Question 1: Why It Matters
-Why is this practice important for long-term project health? Give a specific example.
+## Goal
 
-## Question 2: Implementation
-How would you implement this practice in your next project? What tooling helps?
+type(scope): summary.
 
-## Question 3: Team Standards
-For a distributed team (Manila, Cebu, Singapore, London), how would you ensure everyone follows the same standard?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Real Conflict
-You discover the team isn't following this practice consistently. Past commits are messy. How do you fix it?
+## What you'll accomplish
 
-## Question 5: Upstream Impact
-How does this practice affect other teams if they fork your open-source project and depend on your code?
+- Work through each command and observe what Git does.
 
-## Question 6: Reflection
-Quality practices prevent problems. How do they contribute to professional development and team trust?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "chore: initialize project"
+echo "pay()" > payments.py; git add payments.py; git commit -m "feat(payments): add GCash payment option"
+sed -i 's/pay()/pay() # fixed/' payments.py; git add payments.py; git commit -m "fix(payments): correct rounding of centavos"
+git log --oneline
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

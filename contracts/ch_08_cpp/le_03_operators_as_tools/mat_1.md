@@ -56,3 +56,40 @@ int main() {
 ```
 
 This program performs all five arithmetic operations on two numbers. Note that modulo (`%`) requires integer operands, so we cast the doubles to `int` using `(int)`. Division between two doubles gives a decimal result automatically.
+
+## Common Pitfalls ⚠️
+
+**1. `=` (assign) vs `==` (compare)**
+
+```cpp
+if (x = 5) { ... }   // ❌ assigns 5, always true
+if (x == 5) { ... }  // ✅ compares
+```
+
+**2. Modulo on doubles**
+
+```cpp
+double r = 10.0 % 3;  // ❌ % only works on integers
+int r = 10 % 3;       // ✅ 1
+```
+
+**3. Forgetting operator precedence**
+
+```cpp
+int x = 2 + 3 * 4;    // 14, not 20 — * binds tighter than +
+int x = (2 + 3) * 4;  // ✅ 20 if that's what you meant
+```
+
+**4. Pre vs post increment confusion**
+
+```cpp
+int a = 5; int b = a++;  // b = 5, then a = 6
+int a = 5; int b = ++a;  // a = 6, then b = 6
+```
+
+**5. Dividing by a variable that might be zero**
+
+```cpp
+int q = total / count;          // ❌ crashes if count == 0
+if (count != 0) q = total/count; // ✅ guard first
+```

@@ -50,3 +50,31 @@ int main() {
 ```
 
 This `for` loop starts with `i = 1`, checks if `i <= 5`, executes the body, then increments `i` with `i++`. It prints 5 numbered reminders automatically. To print 200, just change `5` to `200` -- that is the power of loops.
+
+## Common Pitfalls ⚠️
+
+**1. Off-by-one errors**
+
+```cpp
+for (int i = 1; i <= 5; i++)  // runs 1..5 (5 times)
+for (int i = 0; i < 5; i++)   // runs 0..4 (5 times)
+for (int i = 0; i <= 5; i++)  // ❌ runs 6 times — watch the boundary
+```
+
+**2. Infinite loops (forgetting to advance)**
+
+```cpp
+int i = 0;
+while (i < 5) { cout << i; }   // ❌ i never changes → forever
+while (i < 5) { cout << i; i++; } // ✅
+```
+
+**3. Declaring the counter outside when you don't need it**
+
+```cpp
+for (int i = 0; i < n; i++)   // ✅ i is scoped to the loop
+```
+
+**4. Modifying the loop counter inside the body** — surprising bugs; let the `for` header own it.
+
+**5. Using `=` instead of `<`/`<=` in the condition** — a condition must be a comparison, not an assignment.

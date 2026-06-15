@@ -49,3 +49,25 @@ try {
 ```
 
 The `throw` statement creates a `runtime_error` exception when division by zero is detected. The `catch` block receives it by reference and prints the error message via `what()`. The program does not crash -- it continues after the catch block.
+
+## Common Pitfalls ⚠️
+
+**1. Catching by value instead of by reference**
+
+```cpp
+catch (std::exception e)   // ❌ slices the exception, copies it
+catch (const std::exception& e)  // ✅ catch by const reference
+```
+
+**2. Swallowing exceptions silently**
+
+```cpp
+try { risky(); } catch (...) {}  // ❌ the error vanishes
+catch (const exception& e) { cerr << e.what(); }  // ✅ at least report it
+```
+
+**3. Using exceptions for normal control flow** — they're for *exceptional* conditions, not loops/branches.
+
+**4. Leaking resources when an exception fires** — use RAII (smart pointers, containers) so cleanup is automatic.
+
+**5. Catch order** — catch the most-derived types first; a `catch (...)` or base catch must come last.

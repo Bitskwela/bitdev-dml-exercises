@@ -54,3 +54,31 @@ int main() {
 ```
 
 `displayWelcome()` is a `void` function with no parameters -- it just prints a message. `greetResident()` takes a `string` parameter so the same function works for any resident name.
+
+## Common Pitfalls ⚠️
+
+**1. Calling a function before it's declared**
+
+```cpp
+int main() { greet(); }     // ❌ 'greet' not declared yet
+void greet() { ... }
+// ✅ define greet() above main(), or add a prototype: void greet();
+```
+
+**2. Forgetting the return type / `void`**
+
+```cpp
+greet() { ... }       // ❌ missing return type
+void greet() { ... }  // ✅
+```
+
+**3. Declaring vs calling**
+
+```cpp
+void greet();   // a declaration (no body) — does nothing on its own
+greet();        // ✅ the actual call
+```
+
+**4. Doing too much in one function** — one function, one job. If you can't name it simply, split it.
+
+**5. Repeating code instead of extracting a function** — the whole point: write once, call many times.

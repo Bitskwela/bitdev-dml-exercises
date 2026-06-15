@@ -58,3 +58,41 @@ int main() {
 ```
 
 This program declares variables of different types -- a `string` for text, an `int` for a whole number, and a `double` for a decimal. Each variable must have its type declared before use. The `cout` statement chains values together with `<<` to display them.
+
+## Common Pitfalls ⚠️
+
+**1. Using a variable before initializing it**
+
+```cpp
+int age;
+cout << age;   // ❌ undefined value — garbage
+int age = 16;  // ✅ initialize when you declare
+```
+
+**2. Integer division surprises**
+
+```cpp
+int avg = 7 / 2;       // ❌ 3 (decimals truncated)
+double avg = 7 / 2.0;  // ✅ 3.5 (one operand is a double)
+```
+
+**3. Picking the wrong type**
+
+```cpp
+int gpa = 91.5;     // ❌ becomes 91 — int can't hold decimals
+double gpa = 91.5;  // ✅
+```
+
+**4. Overflowing a small type**
+
+```cpp
+int big = 3000000000;   // ❌ overflows 32-bit int
+long long big = 3000000000;  // ✅ use a wider type
+```
+
+**5. Modern C++ tip: prefer `auto` when the type is obvious**
+
+```cpp
+auto name = string("Tian");  // ✅ compiler infers the type
+auto pi = 3.14;              // double
+```

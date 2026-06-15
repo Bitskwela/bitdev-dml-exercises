@@ -275,3 +275,24 @@ This lesson covers Undoing Changes in detail.
 ---
 
 **Ready for the activity? Let's get started!**
+
+## Common Pitfalls ⚠️
+
+**1. `git reset --hard` destroys uncommitted work**
+
+```bash
+git reset --hard   # ❌ throws away your working changes with no undo prompt
+git restore <file> # ✅ discard ONE file's changes deliberately
+```
+
+**2. Using `reset` on shared history** — rewriting commits others have pulled causes chaos. On shared branches, prefer `git revert` (which adds a new, safe "undo" commit).
+
+**3. Confusing the three "undos"** — `restore` (discard working changes), `reset` (move the branch pointer), `revert` (new commit that cancels an old one). They are not interchangeable.
+
+**4. Forgetting `--staged` to unstage**
+
+```bash
+git restore --staged file.py   # ✅ unstage without losing the edit
+```
+
+**5. Panicking** — almost nothing is truly lost in Git. `git reflog` (a later lesson) can recover most "disasters."

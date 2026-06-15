@@ -104,6 +104,50 @@ while (container.firstChild) {
 Reference:  
 https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Forgetting to append the element you created**
+
+```js
+const p = document.createElement("p");
+p.textContent = "Hi"; // ❌ exists only in memory — nothing shows on the page
+container.appendChild(p); // ✅ now it's in the DOM
+```
+
+**2. Building markup by string-concatenating user input**
+
+```js
+container.innerHTML += "<li>" + userInput + "</li>"; // ❌ XSS risk + drops listeners
+const li = document.createElement("li"); // ✅ safe
+li.textContent = userInput;
+container.appendChild(li);
+```
+
+**3. Updating innerHTML in a loop (slow, destroys state)**
+
+```js
+items.forEach((i) => (list.innerHTML += `<li>${i}</li>`)); // ❌ re-parses every pass
+const frag = document.createDocumentFragment(); // ✅ batch, then append once
+items.forEach((i) => { const li = document.createElement("li"); li.textContent = i; frag.appendChild(li); });
+list.appendChild(frag);
+```
+
+**4. Calling `removeChild` on the wrong parent**
+
+```js
+document.body.removeChild(card); // ❌ throws if card isn't a direct child of body
+card.parentNode.removeChild(card); // ✅ ask the real parent
+card.remove(); // ✅ simplest modern way
+```
+
+**5. Forgetting `textContent` vs `value` for the element type**
+
+```js
+div.value = "hi"; // ❌ divs have no value
+div.textContent = "hi"; // ✅ use textContent for non-form elements
+```
+
 ---
 
 ## Closing Story

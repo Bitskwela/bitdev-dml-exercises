@@ -48,3 +48,27 @@ int main() {
 ```
 
 This creates a 5x5 multiplication table. The outer loop controls rows, the inner loop controls columns. For each row `i`, the inner loop prints the product of `i * j` for every column `j`, separated by tabs. After each row completes, `endl` moves to the next line.
+
+## Common Pitfalls ⚠️
+
+**1. Reusing the same counter name for inner and outer loops**
+
+```cpp
+for (int i...) { for (int i...) }  // ❌ inner i shadows outer i → chaos
+for (int i...) { for (int j...) }  // ✅ distinct names
+```
+
+**2. Putting the output statement in the wrong loop**
+
+```cpp
+for (int r...) {
+    for (int c...) cout << r*c << "\t";
+    cout << endl;   // ✅ newline AFTER the inner loop (once per row)
+}
+```
+
+**3. Exponential cost** — nested loops multiply. 10×10 = 100 iterations; 1000×1000 = a million. Mind the scale.
+
+**4. Forgetting that `break` only exits the innermost loop** — use a flag or a function to leave both.
+
+**5. Deeply nested logic** — more than 2-3 levels usually means you should extract a function.

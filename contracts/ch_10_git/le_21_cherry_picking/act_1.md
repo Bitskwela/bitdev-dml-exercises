@@ -1,19 +1,42 @@
-# Le 21 Assessment: Cherry-Picking Commits
+# Hands-On Lab — Cherry Picking
 
-## Question 1: Understanding the Concept
-Explain the core purpose of this technique. When would you use it instead of simpler approaches?
+## Goal
 
-## Question 2: Hands-On Scenario
-Walk through a practical example using the Barangay Blockchain or San Juan Payment System. Show the before and after state.
+grab ONE commit from another branch onto main.
 
-## Question 3: Team Impact
-How does this advanced technique affect collaboration in a global team? Does it help or complicate things?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Risk Assessment
-What could go wrong if you use this technique incorrectly? How do you recover?
+## What you'll accomplish
 
-## Question 5: Decision-Making
-You have multiple ways to achieve the same result. What factors would help you decide to use this technique?
+- Work through each command and observe what Git does.
 
-## Question 6: Mastery Reflection
-This is an advanced Git skill. How does it prepare you for professional development in large-scale projects?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base"
+git switch -c feature/experiments
+echo "keep" > urgent_fix.py; git add urgent_fix.py; git commit -m "Urgent fix"
+PICK=$(git rev-parse HEAD)
+echo "noise" > experiment.py; git add experiment.py; git commit -m "Experimental noise"
+git switch main
+git cherry-pick "$PICK"             # bring ONLY the urgent fix to main
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

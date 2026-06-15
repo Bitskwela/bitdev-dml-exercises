@@ -86,6 +86,45 @@ Best Practices
 References:  
 https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Storing objects or arrays without stringifying**
+
+```js
+localStorage.setItem("scores", [100, 95]); // ❌ becomes the string "100,95"
+localStorage.setItem("scores", JSON.stringify([100, 95])); // ✅ round-trips correctly
+```
+
+**2. Forgetting `getItem` returns `null` when missing**
+
+```js
+const theme = localStorage.getItem("theme").toUpperCase(); // ❌ TypeError if unset
+const theme = (localStorage.getItem("theme") || "light").toUpperCase(); // ✅ default
+```
+
+**3. Calling `JSON.parse` on possibly-corrupt data without a guard**
+
+```js
+const data = JSON.parse(raw); // ❌ throws & crashes if `raw` isn't valid JSON
+try { return JSON.parse(raw); } catch { return []; } // ✅ fail safe
+```
+
+**4. Expecting numbers/booleans back — everything is a string**
+
+```js
+localStorage.setItem("count", 5);
+const c = localStorage.getItem("count"); // "5", a string
+const c = Number(localStorage.getItem("count")); // ✅ convert when reading
+```
+
+**5. Not namespacing keys (collisions across features)**
+
+```js
+localStorage.setItem("theme", "dark"); // ❌ generic key, easy to clash
+localStorage.setItem("bitskwela-theme", "dark"); // ✅ prefix per app/feature
+```
+
 ---
 
 ## Closing Story

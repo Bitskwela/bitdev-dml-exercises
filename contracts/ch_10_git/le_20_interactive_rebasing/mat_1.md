@@ -306,3 +306,15 @@ git push --force-with-lease origin feature/my-branch
 ✓ Only rebase your own unpushed/feature branches
 
 **Next Lesson:** Cherry-pick—apply specific commits from one branch to another.
+
+## Common Pitfalls ⚠️
+
+**1. Squashing commits that are already pushed/shared** — same rule as rebasing: don't rewrite history others depend on.
+
+**2. Confusing `squash` and `fixup`** — `squash` keeps both messages to edit; `fixup` discards the squashed commit's message. Pick based on whether the message matters.
+
+**3. Reordering commits that depend on each other** — moving a commit before the one it builds on causes conflicts.
+
+**4. Deleting the wrong line** — removing a `pick` line in the todo *drops that commit entirely*. Double-check before saving.
+
+**5. Editing published history** — interactive rebase is a power tool for *local* cleanup before sharing, not for rewriting the team's branch.

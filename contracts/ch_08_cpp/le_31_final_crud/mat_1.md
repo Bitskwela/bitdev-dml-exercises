@@ -58,3 +58,17 @@ public:
 ```
 
 The manager uses `unique_ptr` for automatic memory management, `remove_if` with a lambda for deletion, and exceptions for error cases. This combines OOP, STL, templates, and exception handling into one cohesive system.
+
+## Common Pitfalls ⚠️
+
+**1. No input validation across the CRUD flow** — every Create/Update path must reject bad data (empty names, out-of-range ids).
+
+**2. Hard "delete" vs soft "delete"** — removing an element shifts indices; a `bool active` soft-delete (or `vector::erase`) avoids dangling references. Pick one and be consistent.
+
+**3. Not persisting state** — if the system writes `residents.txt`, handle the case where the file can't be opened, and reload on startup.
+
+**4. One monolithic `main()`** — the capstone should compose small, tested functions/classes, not a 300-line `main`.
+
+**5. Ignoring edge cases** — empty list, duplicate ids, searching a missing record. A "hero" program handles the unhappy paths gracefully.
+
+**6. Modern C++ tip:** lean on `std::vector`, `std::string`, range-based for, and (where shown) classes with encapsulated state — exactly the tools this course built toward.

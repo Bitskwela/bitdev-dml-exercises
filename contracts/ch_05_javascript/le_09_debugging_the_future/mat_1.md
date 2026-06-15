@@ -12,19 +12,142 @@ The journey of debugging opens up a new perspective for Odessa, highlighting the
 
 ## Theory & Lecture Content
 
-Mastering the art of debugging is essential for any developer. Here are some key topics that Odessa will explore:
+Every developer writes bugs — the difference between a beginner and a pro is how fast they *find and fix* them. Debugging is detective work: read the error, form a theory, test it, repeat. JavaScript gives you a toolkit for exactly this.
 
-### try...catch Statement
+### Reading Error Messages
 
-The `try...catch` statement in JavaScript allows developers to handle exceptions (errors) gracefully. Code within the `try` block is executed, and if an error occurs, the `catch` block can handle the error.
+An error message is not an insult — it's a map. Learn to read all three parts:
 
-### Console
+```
+TypeError: Cannot read properties of null (reading 'innerText')
+    at updateBoard (app.js:12:18)
+```
 
-The console in browser developer tools is a powerful tool for debugging JavaScript code. Developers can log messages, variables, and errors to the console to track the flow of the program.
+1. **Type** — `TypeError` tells you the *kind* of problem (here, you used a value the wrong way).
+2. **Message** — "Cannot read properties of null" tells you a variable was `null` when you expected an object.
+3. **Stack trace** — `app.js:12:18` points to the exact file, line, and column. Start there.
 
-### Error Messages
+Common error types you'll meet:
 
-Understanding and deciphering error messages is crucial in debugging. Error messages provide valuable insights into what went wrong in the code and where the issue might be located.
+```js
+undefinedFunction(); // ReferenceError: undefinedFunction is not defined
+null.value; // TypeError: Cannot read properties of null
+JSON.parse("{bad}"); // SyntaxError: Unexpected token b in JSON
+```
+
+### The Console Is Your Microscope
+
+`console` does far more than `log`:
+
+```js
+console.log("value is", value); // label your logs so you know what's what
+console.table(arrayOfObjects); // arrays/objects as a readable grid
+console.warn("Stock is low"); // yellow warning
+console.error("Save failed"); // red error with a stack trace
+console.assert(total > 0, "total should be positive"); // logs only if false
+```
+
+Tip: log the *variable name with it* — `console.log("user:", user)` beats a bare `console.log(user)` when you have ten logs scrolling by.
+
+### Handling Errors Gracefully with try...catch
+
+Some errors you can predict — a network call fails, JSON is malformed. Wrap risky code in `try...catch` so one failure doesn't crash the whole page:
+
+```js
+try {
+  const data = JSON.parse(localStorage.getItem("settings"));
+  applySettings(data);
+} catch (error) {
+  console.error("Could not load settings:", error.message);
+  applyDefaults(); // recover instead of crashing
+}
+```
+
+- Code in `try` runs normally.
+- If anything throws, execution jumps to `catch` with the `error` object.
+- Read `error.message` for the human-readable reason and `error.name` for the type.
+
+### Throwing Your Own Errors
+
+When *your* function receives bad input, fail loudly and early:
+
+```js
+function withdraw(balance, amount) {
+  if (amount > balance) {
+    throw new Error("Insufficient funds");
+  }
+  return balance - amount;
+}
+
+try {
+  withdraw(100, 500);
+} catch (e) {
+  console.error(e.message); // "Insufficient funds"
+}
+```
+
+### The `finally` Block
+
+`finally` runs whether or not an error occurred — perfect for cleanup:
+
+```js
+try {
+  showSpinner();
+  await saveData();
+} catch (e) {
+  showError(e.message);
+} finally {
+  hideSpinner(); // always runs
+}
+```
+
+For more, see the [MDN guide on try...catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch).
+
+### Common Beginner Mistakes ⚠️
+
+**1. Ignoring the line number in the stack trace**
+
+```js
+// ❌ "It doesn't work" — staring at the whole file
+// ✅ The error says app.js:12 — open line 12 first. The answer is usually right there.
+```
+
+**2. Wrapping everything in one giant try...catch**
+
+```js
+try {
+  doA(); doB(); doC(); doD(); // ❌ which one threw? You can't tell.
+} catch (e) { console.log("something broke"); }
+
+try { doRiskyThing(); } // ✅ wrap only the part that can realistically fail
+catch (e) { console.error("doRiskyThing failed:", e.message); }
+```
+
+**3. Swallowing errors silently**
+
+```js
+try { risky(); } catch (e) {} // ❌ the bug vanishes — you'll never find it
+try { risky(); } catch (e) { console.error(e); } // ✅ at least log it
+```
+
+**4. Confusing `=` (assign) with `===` (compare) in a condition**
+
+```js
+if (status = "done") { ... } // ❌ assigns, always truthy — a silent logic bug
+if (status === "done") { ... } // ✅ compares
+```
+
+**5. Forgetting that `catch` only catches *thrown* errors, not rejected promises without `await`**
+
+```js
+try {
+  fetchData(); // ❌ returns a promise; rejection escapes the try block
+} catch (e) { ... }
+
+try {
+  await fetchData(); // ✅ await lets the rejection become a catchable error
+} catch (e) { ... }
+```
 
 ## Closing Story
 

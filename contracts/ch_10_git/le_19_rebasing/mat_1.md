@@ -221,3 +221,20 @@ When Singapore investigates a production issue at 2 AM, they need clear history.
 ✓ Clean history helps global teams understand changes
 
 **Next Lesson:** Interactive rebase—even more control over your commit history.
+
+## Common Pitfalls ⚠️
+
+**1. Rebasing shared/public history**
+
+```bash
+# SAFE: rebase your own unpushed feature branch
+# ❌ DANGEROUS: rebase main or any branch others have pulled — it rewrites their history
+```
+
+**2. Forgetting you must force-push after a rebase** — rebasing rewrites commit hashes, so the remote branch needs `git push --force-with-lease`.
+
+**3. Treating rebase like merge** — rebase *rewrites* history into a line; merge *preserves* it. Choose deliberately.
+
+**4. Giving up at the first conflict** — resolve, `git add`, then `git rebase --continue`. Use `--abort` to bail out safely.
+
+**5. Rebasing with uncommitted changes** — commit or stash first; rebase needs a clean tree.

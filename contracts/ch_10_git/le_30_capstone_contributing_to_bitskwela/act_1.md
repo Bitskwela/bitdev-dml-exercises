@@ -1,30 +1,49 @@
-# Activity: Capstone Contributing to Bitskwela
+# Hands-On Lab — Capstone Contributing To Bitskwela
 
-## Task
+## Goal
 
-Perform the following tasks to practice Capstone Contributing to Bitskwela:
+full real-world flow against a shared remote.
 
-1. Step one
-2. Step two
-3. Step three
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Instructions
+## What you'll accomplish
 
-Follow the guide below to complete this activity.
+- Feature branch -> conventional commits -> integrate with a merge commit
 
-### Part 1
-[Instructions here]
+## Guided steps
 
-### Part 2
-[Instructions here]
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
 
-## Verification
+```bash
+git init --bare origin.git
+git clone origin.git bitskwela
+cd bitskwela
+echo "# Bitskwela Platform" > README.md
+git add README.md; git commit -m "chore: initialize platform"; git push -u origin main
+# Feature branch -> conventional commits -> integrate with a merge commit
+git switch -c feature/leaderboard
+echo "leaderboard()" > leaderboard.py; git add leaderboard.py; git commit -m "feat(game): add leaderboard"
+echo "leaderboard() # tuned" > leaderboard.py; git add leaderboard.py; git commit -m "fix(game): tune scoring"
+git switch main
+git merge --no-ff -m "Merge feature/leaderboard" feature/leaderboard
+git tag -a v1.0.0 -m "First public release"
+git branch -d feature/leaderboard
+git push origin main
+git push origin v1.0.0
+```
 
-You'll know you've completed this correctly when:
-- [ ] You can see the expected output
-- [ ] You understand what happened
-- [ ] You can explain the concept
+## Verify your work
 
----
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
 
-**Check the answer file (`act_1.answer.sh`) if you get stuck!**
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

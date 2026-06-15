@@ -279,3 +279,15 @@ git reset --hard a1b2c3d
 ✓ Before risky operations, note your current HEAD hash
 
 **Next Lesson:** Advanced workflow strategies—putting all your Git skills together.
+
+## Common Pitfalls ⚠️
+
+**1. Believing `reset --hard` is permanent** — the reflog remembers where HEAD was. `git reflog` + `git reset --hard HEAD@{n}` usually brings it back.
+
+**2. Waiting too long** — unreachable commits are eventually garbage-collected (default ~90 days). Recover sooner rather than later.
+
+**3. Confusing `reflog` (local, per-repo) with `log`** — reflog records *where your HEAD moved*, including resets and rebases; it isn't shared on push.
+
+**4. Recovering to the wrong entry** — read `git reflog` carefully; `HEAD@{1}` is one move ago, not always "the good state."
+
+**5. Relying on reflog instead of backups** — it's a safety net for local mistakes, not a substitute for pushing your work to a remote.

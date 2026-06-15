@@ -63,3 +63,30 @@ int main() {
 ```
 
 The `Resident` class bundles `name` and `age` data with `introduce()` and `haveBirthday()` behavior. The methods access class data directly -- no need to pass the resident as a parameter. Each object manages its own state.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting the semicolon after the class**
+
+```cpp
+class Resident { ... }   // ❌ needs ;
+class Resident { ... };  // ✅
+```
+
+**2. Everything `public` by default? No — `class` is `private` by default**
+
+```cpp
+class C { int x; };   // x is PRIVATE
+struct S { int x; };  // x is public
+```
+
+**3. Forgetting `this` is a pointer**
+
+```cpp
+void grow() { this.age++; }   // ❌ this is a pointer
+void grow() { this->age++; }  // ✅ (or just age++)
+```
+
+**4. Defining methods that should be `const`** — mark read-only methods `const` so they can be called on `const` objects.
+
+**5. Mixing data and behavior carelessly** — a class should bundle related state with the methods that operate on it.

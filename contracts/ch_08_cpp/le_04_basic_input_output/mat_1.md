@@ -58,3 +58,39 @@ int main() {
 ```
 
 This program collects user input using `getline` for a full name and `cin >>` for numeric values. The `cin.ignore()` call clears the buffer between numeric and text input. Output is formatted with `fixed` and `setprecision(2)` to show exactly two decimal places.
+
+## Common Pitfalls ⚠️
+
+**1. Mixing `cin >>` and `getline` without clearing the buffer**
+
+```cpp
+cin >> age;
+getline(cin, name);   // ❌ reads the leftover newline as an empty line
+cin >> age;
+cin.ignore();         // ✅ discard the newline
+getline(cin, name);
+```
+
+**2. Using `cin >>` for full names with spaces**
+
+```cpp
+cin >> fullName;          // ❌ stops at the first space ("Tian")
+getline(cin, fullName);   // ✅ reads the whole line ("Tian Reyes")
+```
+
+**3. Not setting decimal precision for money**
+
+```cpp
+cout << income;                         // ❌ 25000.5
+cout << fixed << setprecision(2)        // ✅ 25000.50
+     << income;                          //   (needs #include <iomanip>)
+```
+
+**4. Reading into the wrong type**
+
+```cpp
+int age; cin >> age;   // if the user types "abc", cin fails silently
+if (!(cin >> age)) { /* handle bad input */ }  // ✅ check the read
+```
+
+**5. Forgetting `#include <iomanip>` for `setprecision`/`setw`**

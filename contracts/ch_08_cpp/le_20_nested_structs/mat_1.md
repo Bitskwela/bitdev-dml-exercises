@@ -66,3 +66,20 @@ int main() {
 ```
 
 The `Date` struct is defined separately, then used as a member inside `Resident`. Accessing nested members uses chained dots: `person.birthDate.year`. This keeps data organized and the `Date` struct reusable.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting to chain the member access**
+
+```cpp
+resident.birthDate.year   // ✅ drill down level by level
+resident.year             // ❌ year lives inside birthDate
+```
+
+**2. Defining the inner struct after using it** — declare `Date` before `Resident` uses it.
+
+**3. Uninitialized nested members** — each level needs initializing; a nested struct doesn't magically zero out.
+
+**4. Deeply nested data** — 3+ levels of nesting is a smell; consider separate types or a class.
+
+**5. Copy cost compounds** — nested structs copy their whole tree by value; pass by `const&`.

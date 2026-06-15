@@ -32,7 +32,7 @@ That afternoon over merienda of **halo-halo** at a nearby store, Odessa realized
 
 ---
 
-## Theory
+## Theory & Lecture Content
 
 JavaScript provides three powerful array methods for transforming and summarizing data:
 
@@ -108,6 +108,45 @@ JavaScript provides three powerful array methods for transforming and summarizin
      .reduce((sum, val) => sum + val, 0); // total reorder value
    console.log(reorderValue);
    ```
+
+
+### Common Beginner Mistakes ⚠️
+
+**1. Forgetting that `.map()` and `.filter()` return NEW arrays**
+
+```js
+products.map((p) => p.name.toUpperCase()); // ❌ result thrown away
+const names = products.map((p) => p.name.toUpperCase()); // ✅ capture it
+```
+
+**2. Forgetting to `return` inside the callback**
+
+```js
+const doubled = nums.map((n) => { n * 2; }); // ❌ [undefined, undefined, ...]
+const doubled = nums.map((n) => n * 2); // ✅ implicit return
+const doubled = nums.map((n) => { return n * 2; }); // ✅ explicit return
+```
+
+**3. Using `.map()` when you mean `.forEach()`**
+
+```js
+items.map((i) => console.log(i)); // ❌ builds a throwaway array just to loop
+items.forEach((i) => console.log(i)); // ✅ for side effects, use forEach
+```
+
+**4. Omitting the initial value in `.reduce()`**
+
+```js
+[].reduce((sum, n) => sum + n); // ❌ TypeError on an empty array
+[].reduce((sum, n) => sum + n, 0); // ✅ safe, returns 0
+```
+
+**5. Confusing `.filter()` (keeps matches) with `.find()` (first match)**
+
+```js
+const low = products.filter((p) => p.stock < 10); // ✅ array of all low-stock items
+const one = products.find((p) => p.stock < 10); // ✅ the single first match (or undefined)
+```
 
 ---
 

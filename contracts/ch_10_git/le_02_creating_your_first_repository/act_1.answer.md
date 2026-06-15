@@ -1,62 +1,30 @@
-# Activity Answer: Creating Your First Repository
+# Activity Answer — Creating Your First Repository
 
-## Solution
+This is the canonical, **runnable** solution. The automated grader executes
+`act_1.answer.sh` in a throwaway repository and then checks the resulting
+repository state with `act_1.expect.sh` (see `TESTING.md`).
 
-### Part 1: Initialize a Repository
+## Solution (`act_1.answer.sh`)
 
 ```bash
-mkdir my-first-repo
-cd my-first-repo
+#!/usr/bin/env bash
+# Lesson 02 — Creating your first repository: init, explore .git, first files.
+set -e
+mkdir barangay-marketplace-system
+cd barangay-marketplace-system
 git init
-# Output: Initialized empty Git repository in /path/to/my-first-repo/.git/
-
-ls -la
-# You should see:
-# drwxr-xr-x  10 user  staff   320 Dec 14 10:00 .git
+echo "# Barangay Marketplace Payment System" > README.md
+echo "*.pyc" > .gitignore
+echo "print('Processing marketplace payments')" > payment_processor.py
+git status                                  # all three are 'untracked'
 ```
 
-### Part 2: Configure Git
+## Step-by-step explanation
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+- Run the commands above in order.
 
-# Verify
-git config --list | grep user
-# Output should show:
-# user.name=Your Name
-# user.email=your.email@example.com
-```
+## Verify
 
-### Part 3: Check Repository Status
-
-```bash
-git status
-# Output: On branch main (or master)
-# No commits yet
-# nothing to commit
-
-echo "# My First Repository" > README.md
-
-git status
-# Output: On branch main
-# No commits yet
-# Untracked files:
-#   (use "git add <file>..." to include in what will be committed)
-#         README.md
-#
-# nothing added to commit but untracked files present (use "git add" to track)
-```
-
-## Explanation
-
-1. **`git init`** - Creates the `.git` directory with all necessary Git internals
-2. **`git config`** - Sets user information needed for commits
-3. **`git status`** - Shows the current state of your repository
-4. Untracked files are files Git knows about but isn't yet tracking
-
-## Key Concepts
-
-- A repository is a directory with a `.git` folder
-- Configuration must happen before making meaningful commits
-- `git status` is your window into the repository state
+Run the lesson's checker (or `bash scripts/check-git.sh`) — it replays this
+solution in a clean repo and asserts the end state. A green check means your
+own commands produced the same result.

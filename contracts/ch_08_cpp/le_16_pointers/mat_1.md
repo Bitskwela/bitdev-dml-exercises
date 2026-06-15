@@ -53,3 +53,32 @@ int main() {
 ```
 
 `ptr` holds the address of `barangayFund`. Inside `updateFund`, `*fundPtr += amount` dereferences the pointer to modify the original variable. The `nullptr` check prevents crashes if the pointer is null.
+
+## Common Pitfalls ⚠️
+
+**1. Dereferencing an uninitialized or null pointer**
+
+```cpp
+int* p;        // ❌ points at garbage
+cout << *p;    // crash / undefined behavior
+int* p = nullptr;  // ✅ at least it's a known, checkable value
+```
+
+**2. Confusing the pointer with what it points to**
+
+```cpp
+int x = 5; int* p = &x;
+*p = 10;   // changes x to 10 (the value)
+p = &y;    // changes WHERE p points (the address)
+```
+
+**3. Using `NULL` or `0` instead of `nullptr`**
+
+```cpp
+int* p = NULL;     // ❌ legacy
+int* p = nullptr;  // ✅ modern, type-safe (C++11+)
+```
+
+**4. Forgetting `&` (address-of) vs `*` (dereference)** — `&x` gives the address; `*p` gives the value at the address.
+
+**5. Dangling pointers** — a pointer to memory that's been freed or gone out of scope is a trap. Set to `nullptr` after `delete`.

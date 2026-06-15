@@ -136,6 +136,53 @@ console.log(admin.greet()); // "Hello, ods!"
 admin.addPermission("EDIT_USERS");
 ```
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Forgetting the `new` keyword**
+
+```js
+const p = Product("P1", "Rice", 50); // ❌ `this` is undefined → crash
+const p = new Product("P1", "Rice", 50); // ✅ creates a real instance
+```
+
+**2. Putting a comma or `function` keyword between methods**
+
+```js
+class A {
+  foo() {}, // ❌ no commas between class methods
+  function bar() {} // ❌ don't write `function` inside a class body
+}
+class A { foo() {} bar() {} } // ✅
+```
+
+**3. Forgetting `super()` in a subclass constructor**
+
+```js
+class Admin extends User {
+  constructor(name) { this.name = name; } // ❌ ReferenceError: must call super first
+}
+class Admin extends User {
+  constructor(name) { super(name); } // ✅ initialize the parent first
+}
+```
+
+**4. Losing `this` when passing a method as a callback**
+
+```js
+button.addEventListener("click", obj.handle); // ❌ `this` is no longer obj
+button.addEventListener("click", () => obj.handle()); // ✅ keep the binding
+button.addEventListener("click", obj.handle.bind(obj)); // ✅ or bind it
+```
+
+**5. Confusing instance and static members**
+
+```js
+const p = new Product();
+p.getCount(); // ❌ getCount is static, not on instances
+Product.getCount(); // ✅ static methods are called on the class
+```
+
 ---
 
 ## Closing Story

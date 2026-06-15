@@ -1,19 +1,41 @@
-# Le 22 Assessment: Stashing Work
+# Hands-On Lab — Stashing
 
-## Question 1: Understanding the Concept
-Explain the core purpose of this technique. When would you use it instead of simpler approaches?
+## Goal
 
-## Question 2: Hands-On Scenario
-Walk through a practical example using the Barangay Blockchain or San Juan Payment System. Show the before and after state.
+shelve unfinished work, handle an urgent task, restore.
 
-## Question 3: Team Impact
-How does this advanced technique affect collaboration in a global team? Does it help or complicate things?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Risk Assessment
-What could go wrong if you use this technique incorrectly? How do you recover?
+## What you'll accomplish
 
-## Question 5: Decision-Making
-You have multiple ways to achieve the same result. What factors would help you decide to use this technique?
+- Work through each command and observe what Git does.
 
-## Question 6: Mastery Reflection
-This is an advanced Git skill. How does it prepare you for professional development in large-scale projects?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base"
+echo "half-done feature" > wip.py        # unstaged work in progress
+git add wip.py
+git stash push -m "WIP feature"           # shelve it; working tree is clean again
+echo "urgent" > hotfix.py; git add hotfix.py; git commit -m "Urgent hotfix"
+git stash pop                             # bring the WIP back
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

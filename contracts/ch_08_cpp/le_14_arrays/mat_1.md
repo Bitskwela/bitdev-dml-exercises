@@ -54,3 +54,30 @@ int main() {
 ```
 
 The array `expenses` stores 5 values. A `for` loop iterates through each index, accumulating the total. Casting to `double` before division ensures a decimal average.
+
+## Common Pitfalls ⚠️
+
+**1. Index out of bounds**
+
+```cpp
+int a[5];
+a[5] = 10;   // ❌ valid indices are 0..4 — this is undefined behavior
+```
+
+**2. Off-by-one in the loop bound**
+
+```cpp
+for (int i = 0; i <= 5; i++) a[i]...  // ❌ touches a[5]
+for (int i = 0; i < 5; i++)  a[i]...  // ✅
+```
+
+**3. Forgetting C-arrays don't know their own size** — `sizeof(a)/sizeof(a[0])` works only in the declaring scope, not after passing to a function.
+
+**4. Integer division when averaging the array** — cast to `double`.
+
+**5. Modern C++ tip: prefer `std::vector` or `std::array`**
+
+```cpp
+vector<int> expenses = {1000, 2000};  // grows safely, knows its size
+expenses.size();                       // ✅ no manual length tracking
+```

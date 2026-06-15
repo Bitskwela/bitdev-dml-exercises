@@ -353,3 +353,15 @@ Or visit: https://github.com/github/gitignore
 ✓ If secrets are committed, rotate them immediately
 
 **Next Lesson:** Tagging and releases—marking important points in your history.
+
+## Common Pitfalls ⚠️
+
+**1. Adding `.gitignore` *after* committing the secret** — `.gitignore` only stops *untracked* files. If `.env` is already committed, it stays in history until you purge it.
+
+**2. Thinking ignored = deleted from history** — removing a tracked secret needs `git rm --cached` plus history rewriting (e.g., `git filter-repo`) and rotating the key.
+
+**3. Over-broad patterns** — `*` or `config*` can accidentally ignore files you need. Be specific.
+
+**4. Not ignoring build/junk** — `node_modules/`, `__pycache__/`, `*.log` bloat the repo if tracked.
+
+**5. Assuming a leaked key is safe once removed** — if a secret ever hit a remote, treat it as compromised and rotate it immediately.

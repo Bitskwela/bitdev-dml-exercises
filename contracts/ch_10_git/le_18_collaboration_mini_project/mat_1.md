@@ -405,3 +405,15 @@ This mini-project practiced:
 ✓ Global teams do this daily—you can too
 
 **Next Lesson:** Advanced Git techniques begin. First up: Rebasing—rewriting history for cleaner commits.
+
+## Common Pitfalls ⚠️
+
+**1. Both developers on the same branch** — divergence and rejections everywhere. One feature, one branch, per person.
+
+**2. Forgetting to pull before starting new work** — always begin a feature from the latest integrated main.
+
+**3. Merging your own PR without review** — defeats the purpose of collaboration; have a teammate look.
+
+**4. Losing track of who has what** — communicate (branch names, PR descriptions) so two people don't build the same thing.
+
+**5. Letting main go red** — if an integration breaks main, fixing it is the team's top priority before new work continues.

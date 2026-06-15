@@ -1,19 +1,56 @@
-# Le 29 Assessment: Forking and Open Source Contribution
+# Hands-On Lab — Forking And Contributing
 
-## Question 1: The Fork Workflow
-Explain why you must fork a project before contributing. What does forking give you that you don't have with just cloning?
+## Goal
 
-## Question 2: Upstream and Origin
-After forking and cloning, you have two remotes: origin and upstream. What does each do? Why do you need both?
+contribute to an upstream project via a fork.
 
-## Question 3: Sync Strategy
-The official project (upstream) has new commits. You have unpushed commits on your fork. How do you sync without losing your work?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Pull Request Communication
-You submit a pull request to an open-source project. The maintainer asks for changes. Walk through the conversation and revision process.
+## What you'll accomplish
 
-## Question 5: Global Open Source
-Open-source projects have contributors worldwide. How does Git (branches, forks, PRs, remotes) enable this distributed collaboration?
+- Maintainer seeds upstream:
+- Your fork = a server-side copy of upstream:
+- You clone YOUR fork and add 'upstream' to stay in sync:
+- Maintainer reviews the fork's branch and merges it into upstream:
 
-## Question 6: Career Growth
-Contributing to open-source is impressive on a resume. How does mastering Git make you a more valuable developer in the open-source community?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init --bare upstream.git
+# Maintainer seeds upstream:
+git clone upstream.git maint
+( cd maint; echo "# Bitskwela" > README.md; git add README.md; git commit -m "chore: init"; git push -u origin main )
+# Your fork = a server-side copy of upstream:
+git clone --bare upstream.git fork.git
+# You clone YOUR fork and add 'upstream' to stay in sync:
+git clone fork.git contrib
+( cd contrib
+  git remote add upstream ../upstream.git
+  git switch -c feature/docs
+  echo "Contributing guide" > CONTRIBUTING.md; git add CONTRIBUTING.md; git commit -m "docs: add contributing guide"
+  git push origin feature/docs )
+# Maintainer reviews the fork's branch and merges it into upstream:
+( cd maint
+  git remote add fork ../fork.git
+  git fetch fork
+  git merge --no-ff -m "Merge fork: docs contribution" fork/feature/docs
+  git push origin main )
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

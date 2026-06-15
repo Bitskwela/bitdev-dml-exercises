@@ -160,3 +160,23 @@ Ready to make your first commit? Let's go to the next lesson!
 ---
 
 **Next:** [Staging & Committing](/lessons/le_03_staging_and_committing/)
+
+## Common Pitfalls ⚠️
+
+**1. Running `git init` in the wrong (or nested) folder**
+
+```bash
+git init   # ❌ in your home folder => tracks EVERYTHING. cd into the project first.
+```
+
+**2. Initializing a repo inside another repo** — a nested `.git` causes confusing behavior. One project, one repository.
+
+**3. Expecting new files to be tracked automatically**
+
+```bash
+git status   # new files show as "Untracked" until you git add them
+```
+
+**4. Committing secrets on day one** — add a `.gitignore` *before* your first commit so `.env`, keys, and `__pycache__/` never enter history.
+
+**5. Confusing "no commits yet" with "nothing happened"** — a fresh repo is valid; it just has an empty history until your first commit.

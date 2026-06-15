@@ -45,3 +45,25 @@ T getMin(T a, T b) {
 ```
 
 The `template <typename T>` line tells the compiler that `T` is a placeholder. When you call `getMin(5, 10)`, the compiler generates an `int` version automatically. One function definition handles all types.
+
+## Common Pitfalls ⚠️
+
+**1. Putting template definitions in a .cpp file**
+
+```cpp
+// templates are usually defined in HEADERS so the compiler can instantiate them
+template <typename T> T maxOf(T a, T b) { return a > b ? a : b; }  // keep in .h
+```
+
+**2. Assuming the type supports your operations**
+
+```cpp
+template <typename T> T sum(T a, T b){ return a + b; }
+sum(obj1, obj2);  // ❌ fails to compile if T has no operator+
+```
+
+**3. Cryptic template error messages** — read from the FIRST error; later ones cascade.
+
+**4. Forgetting `typename` for dependent types** — `typename T::value_type x;` inside templates.
+
+**5. Modern C++ tip:** for simple generic code, `auto` parameters (C++20) or the STL's existing generics often beat hand-rolled templates.

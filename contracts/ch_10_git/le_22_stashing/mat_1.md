@@ -309,3 +309,15 @@ git stash push -m "Payment form validation WIP"
 ✓ Essential for handling interruptions in global teams
 
 **Next Lesson:** Reflog—your safety net for recovering lost commits.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting you stashed something** — `git stash list` piles up. Stashes are easy to lose track of; pop or apply them promptly.
+
+**2. `pop` vs `apply`** — `pop` applies *and deletes* the stash; `apply` keeps it. Use `apply` if you want to reuse it on multiple branches.
+
+**3. Stashing untracked files by default** — plain `git stash` ignores untracked files. Use `git stash -u` to include them.
+
+**4. Popping onto the wrong branch** — a stash applies wherever you are; switch to the intended branch first.
+
+**5. Treating stash as long-term storage** — it's a short-term shelf. For real work you want to keep, make a commit on a branch.

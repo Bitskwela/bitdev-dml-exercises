@@ -1,19 +1,51 @@
-# Le 18 Assessment: Collaboration Mini-Project
+# Hands-On Lab — Collaboration Mini Project
 
-## Question 1: Core Understanding
-You're coordinating with a global team. Four developers on four features. How do you ensure they don't conflict?
+## Goal
 
-## Question 2: Practical Application
-A merge conflict appears during integration. Walk through the resolution as a distributed team.
+two devs ship features through origin.
 
-## Question 3: Team Coordination
-How would this concept work when coordinating between Manila, Cebu, Singapore, and London developers all working on the same project?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Problem-Solving
-Describe a specific challenge that could occur in this lesson's workflow and how you would solve it.
+## What you'll accomplish
 
-## Question 5: Global Deployment
-The San Juan Payment System is deployed to four regions. How does this concept ensure consistency across all regions?
+- Dev A: payments on a feature branch, merged + pushed
+- Dev B: sync, then ship reports
 
-## Question 6: Reflection
-How does mastering remote collaboration skills enable "Beyond the Islands" global development?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init --bare origin.git
+git clone origin.git devA
+( cd devA; echo "# App" > README.md; git add README.md; git commit -m "Init"; git push -u origin main )
+git clone origin.git devB
+# Dev A: payments on a feature branch, merged + pushed
+( cd devA
+  git switch -c feature/payments
+  echo "pay()" > payments.py; git add payments.py; git commit -m "Add payments"
+  git switch main; git merge --no-ff -m "Merge payments" feature/payments; git push origin main )
+# Dev B: sync, then ship reports
+( cd devB
+  git pull --no-rebase origin main
+  git switch -c feature/reports
+  echo "report()" > reports.py; git add reports.py; git commit -m "Add reports"
+  git switch main; git merge --no-ff -m "Merge reports" feature/reports; git push origin main )
+( cd devA; git pull --no-rebase origin main )    # A ends with both features
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

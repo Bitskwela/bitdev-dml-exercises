@@ -1,19 +1,41 @@
-# Le 10 Assessment: Branch Workflow
+# Hands-On Lab — Branch Workflow
 
-## Question 1: Core Understanding
-Why might feature/, bugfix/, hotfix/ prefixes be important for a global team? Name two benefits.
+## Goal
 
-## Question 2: Practical Application
-You have main, develop, release/v1.0, feature/payment, feature/voting branches. Which should be protected? Why?
+branch, build, merge with --no-ff, delete.
 
-## Question 3: Team Context
-How does this concept relate to the San Juan Payment System being developed by teams in Manila, Cebu, Singapore, and London?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Real Scenario
-Describe a specific situation from your own projects where understanding this concept would have saved time or prevented bugs.
+## What you'll accomplish
 
-## Question 5: Complex Problem
-A complex scenario combining this lesson with previous concepts.
+- Work through each command and observe what Git does.
 
-## Question 6: Reflection
-How does this skill contribute to the broader goal of "Beyond the Islands"—enabling global teams to collaborate effectively?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base app"
+git switch -c feature/search
+echo "search()" > search.py; git add search.py; git commit -m "Add search"
+git switch main
+git merge --no-ff -m "Merge feature/search" feature/search   # keep a merge commit
+git branch -d feature/search                                  # tidy up
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

@@ -1,4 +1,39 @@
-  Lesson 22: Contact Book
-    [PASS] Test Task (Contact Book Implementation): PASS
 
-  1 passing
+1. Add Contact
+2. Display All
+3. Search
+4. Exit
+Choice: Enter name: Enter phone: Select category (0:Personal, 1:Work, 2:Emergency): Contact added!
+
+1. Add Contact
+2. Display All
+3. Search
+4. Exit
+Choice: Enter name: Enter phone: Select category (0:Personal, 1:Work, 2:Emergency): Contact added!
+
+1. Add Contact
+2. Display All
+3. Search
+4. Exit
+Choice: 
+--- Contact List ---
+Name: Juan Dela Cruz | Phone: 0917-100-2000 | Category: Personal
+Name: Maria Santos | Phone: 0918-300-4000 | Category: Emergency
+
+1. Add Contact
+2. Display All
+3. Search
+4. Exit
+Choice: Enter name to search: Found: Maria Santos [Emergency] - 0918-300-4000
+
+1. Add Contact
+2. Display All
+3. Search
+4. Exit
+Choice: Enter name to search: Contact not found.
+
+1. Add Contact
+2. Display All
+3. Search
+4. Exit
+Choice: 

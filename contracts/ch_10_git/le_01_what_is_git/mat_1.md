@@ -99,3 +99,25 @@ As Marco and the Manila Digital Collective scale from 3 developers to 30 across 
 ---
 
 **Ready to understand the next step? Let's configure Git and set up your identity!**
+
+## Common Pitfalls ⚠️
+
+**1. Committing before setting your identity**
+
+```bash
+git commit -m "first"   # ❌ "Please tell me who you are" if name/email unset
+git config --global user.name "Maria Santos"   # ✅ set once, globally
+git config --global user.email "maria@barangaymarket.ph"
+```
+
+**2. Running git commands outside a repository**
+
+```bash
+git status   # ❌ "not a git repository" — you forgot to run git init (or cd in)
+```
+
+**3. Thinking Git and GitHub are the same** — Git is the version-control tool on your machine; GitHub is one website that hosts Git repos. You can use Git with zero internet.
+
+**4. Deleting the `.git` folder** — that hidden folder *is* the repository history. Delete it and every commit is gone.
+
+**5. Expecting `git init` to save your files** — `init` only creates the repo. Nothing is tracked until you `git add` and `git commit`.

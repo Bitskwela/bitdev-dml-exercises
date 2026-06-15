@@ -306,3 +306,15 @@ We use Gitflow.
 ✓ Document your workflow for the team
 
 **Next Lesson:** Best practices—commit messages that help future developers.
+
+## Common Pitfalls ⚠️
+
+**1. Combining power tools without understanding each** — rebase + squash + force-push compounds risk. Master them individually first.
+
+**2. Force-pushing shared branches** — the cardinal sin. Confine history rewriting to your own feature branches.
+
+**3. Over-automating too early** — don't bury your team in hooks and scripts before the basic flow is solid.
+
+**4. Inconsistent process** — if half the team rebases and half merges, history becomes confusing. Agree on conventions.
+
+**5. Skipping the safety net** — push work-in-progress to a remote branch before risky operations so nothing is truly lost.

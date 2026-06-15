@@ -128,6 +128,47 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/asy
 - Use `response.json()` to convert response body into JS object.
 - Wrap in `try/catch` when using `await`.
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Forgetting that `fetch` returns a Promise**
+
+```js
+const data = fetch(url); // ❌ data is a Promise, not the response
+const data = await fetch(url); // ✅ await it (inside an async function)
+```
+
+**2. Skipping the second `.json()` await**
+
+```js
+const res = await fetch(url);
+const data = res.json(); // ❌ data is still a Promise
+const data = await res.json(); // ✅ parsing is also asynchronous
+```
+
+**3. Assuming `fetch` rejects on HTTP 404/500**
+
+```js
+const res = await fetch(url); // resolves even for a 404!
+const data = await res.json(); // ❌ you parse an error page as data
+if (!res.ok) throw new Error(`HTTP ${res.status}`); // ✅ check res.ok yourself
+```
+
+**4. Using `await` outside an `async` function**
+
+```js
+function load() { const r = await fetch(url); } // ❌ SyntaxError
+async function load() { const r = await fetch(url); } // ✅
+```
+
+**5. Running independent requests one after another**
+
+```js
+const a = await fetch(url1); // ❌ b waits for a even though it doesn't need to
+const b = await fetch(url2);
+const [a, b] = await Promise.all([fetch(url1), fetch(url2)]); // ✅ in parallel
+```
+
 ---
 
 ## Closing Story

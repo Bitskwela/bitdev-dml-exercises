@@ -53,3 +53,30 @@ int main() {
 ```
 
 The `+` operator concatenates strings. `.length()` returns the character count. Bracket notation accesses and modifies individual characters by index.
+
+## Common Pitfalls ⚠️
+
+**1. Confusing `length()`/`size()` with the last index**
+
+```cpp
+string s = "Tian";
+s[s.length()];      // ❌ out of bounds — last char is s[length()-1]
+```
+
+**2. `cin >>` stops at whitespace**
+
+```cpp
+cin >> fullName;        // ❌ only "Juan"
+getline(cin, fullName); // ✅ "Juan Dela Cruz"
+```
+
+**3. Comparing C++ strings with `==` is fine — but C-strings aren't**
+
+```cpp
+string a = "x"; if (a == "x")          // ✅ works for std::string
+char* c = ...;  if (c == "x")          // ❌ compares pointers, use strcmp
+```
+
+**4. Out-of-range `.at()` vs `[]`** — `.at(i)` throws on bad index (safer); `[]` is undefined behavior.
+
+**5. Modifying a character** — `s[0] = 'R';` works on `std::string` (mutable), unlike a string literal.

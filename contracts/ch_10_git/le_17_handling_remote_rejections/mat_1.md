@@ -281,3 +281,20 @@ git push origin main
 ✓ Rejections are Git protecting the team, not errors
 
 **Next Lesson:** Time for hands-on practice! We'll simulate a full team collaboration project using everything you've learned.
+
+## Common Pitfalls ⚠️
+
+**1. Force-pushing to "win" a rejection**
+
+```bash
+git push --force   # ❌ overwrites teammates' commits on a shared branch
+git pull --rebase   # ✅ integrate first, THEN push
+```
+
+**2. Not reading the rejection message** — "non-fast-forward" literally tells you the remote has commits you don't. Pull them.
+
+**3. Blind merge resolution** — when the pull conflicts, resolve carefully; don't `-X ours` away someone's work.
+
+**4. `--force` vs `--force-with-lease`** — if you must rewrite your *own* branch, `--force-with-lease` refuses to clobber unexpected remote changes.
+
+**5. Repeating the loop without syncing** — if push keeps getting rejected, someone is pushing faster than you sync; fetch, integrate, push promptly.

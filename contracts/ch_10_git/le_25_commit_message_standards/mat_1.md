@@ -257,3 +257,20 @@ Many teams use commitlint to enforce standards:
 ✓ "fix" and "update" are never acceptable alone
 
 **Next Lesson:** Gitignore—keeping your repository clean and secure.
+
+## Common Pitfalls ⚠️
+
+**1. Vague messages**
+
+```bash
+git commit -m "fixes"        # ❌
+git commit -m "fix(auth): reject expired barangay-ID tokens"  # ✅ type(scope): what
+```
+
+**2. Mixing unrelated changes in one commit** — a commit should have one logical purpose so its message can be honest.
+
+**3. Past vs imperative mood** — convention is imperative ("add", "fix"), reading as "this commit will…". Be consistent.
+
+**4. Writing only a subject for complex changes** — use a body (blank line, then details) to explain *why*, not just *what*.
+
+**5. Ignoring a standard entirely** — Conventional Commits (`feat`, `fix`, `chore`, `docs`…) enable automated changelogs and semantic versioning later.

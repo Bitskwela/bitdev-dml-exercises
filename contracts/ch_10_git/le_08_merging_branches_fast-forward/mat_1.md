@@ -161,3 +161,21 @@ This lesson covers Merging Branches Fast-Forward in detail.
 ---
 
 **Ready for the activity? Let's get started!**
+
+## Common Pitfalls ⚠️
+
+**1. Merging while standing on the wrong branch**
+
+```bash
+# To bring feature INTO main: be ON main, then merge feature.
+git switch main
+git merge feature/receipts   # ✅
+```
+
+**2. Expecting a fast-forward when main has moved** — if main has new commits, Git can't fast-forward and creates a merge commit instead. That's normal.
+
+**3. Confusing fast-forward with "no merge happened"** — a fast-forward simply moves the pointer forward; the work is fully merged.
+
+**4. Forgetting to delete the merged branch afterward** — leftover branches clutter the repo.
+
+**5. Merging untested code into main** — main should stay deployable. Test on the feature branch first.

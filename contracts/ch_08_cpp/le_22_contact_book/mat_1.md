@@ -67,3 +67,27 @@ int main() {
 ```
 
 The Contact struct holds related data, the enum categorizes contacts, and the vector stores them dynamically. A helper function converts the enum to a readable string. This pattern forms the foundation of any CRUD system.
+
+## Common Pitfalls ⚠️
+
+**1. The classic `cin >>` then `getline` buffer bug**
+
+```cpp
+cin >> choice;
+getline(cin, name);   // ❌ grabs the leftover newline (empty name)
+cin >> choice; cin.ignore();
+getline(cin, name);   // ✅
+```
+
+**2. No exit path in the menu loop** — a `do/while` must let `choice == 4` (Exit) actually break, or it runs forever.
+
+**3. Passing the vector by value**
+
+```cpp
+void addContact(vector<Contact> book)   // ❌ edits a COPY, lost on return
+void addContact(vector<Contact>& book)  // ✅ by reference, changes persist
+```
+
+**4. Unsafe enum cast** — `static_cast<ContactCategory>(cat)` trusts the input; validate `cat` is 0-2 first.
+
+**5. Searching with `==` on names** — exact match misses "juan" vs "Juan". Decide if search should be case-insensitive / partial.

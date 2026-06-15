@@ -333,3 +333,20 @@ The Barangay Blockchain serves communities across the Philippines. Push and pull
 
 **Next Lesson:** Fetch—see what changed on the remote without automatically merging.
 ````
+
+## Common Pitfalls ⚠️
+
+**1. Pushing before pulling on a shared branch**
+
+```bash
+git push   # ❌ rejected if the remote moved ahead of you
+git pull   # ✅ integrate first, then push
+```
+
+**2. `git pull` surprise merges** — `pull` is `fetch` + `merge`. If you prefer a linear history, configure `pull.rebase` or use `git pull --rebase`.
+
+**3. Pulling with uncommitted changes** — commit or stash first, or the pull may refuse/conflict.
+
+**4. Force-pushing to a shared branch** — `git push --force` can erase teammates' commits. Use `--force-with-lease` and only on your own branches.
+
+**5. Assuming `pull` updates all branches** — it updates the current branch's upstream; other branches need their own pull.

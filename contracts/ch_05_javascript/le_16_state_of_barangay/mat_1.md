@@ -118,6 +118,45 @@ export function showScreen(name) {
 }
 ```
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Scattering state across many global variables**
+
+```js
+let screen = "home"; let draft = ""; let user = {}; // ❌ hard to track, pollutes window
+const AppState = { screen: "home", draft: "", user: {} }; // ✅ one source of truth
+```
+
+**2. Mutating state directly instead of through your setter**
+
+```js
+state.draft = "hi"; // ❌ no save, no logging, easy to forget
+setState("draft", "hi"); // ✅ one chokepoint you can extend (persist, validate, log)
+```
+
+**3. Forgetting to persist after a change**
+
+```js
+setState("draft", value); // ❌ lost on refresh
+setState("draft", value); saveState(); // ✅ write it to localStorage
+```
+
+**4. Storing the object instead of a JSON string**
+
+```js
+localStorage.setItem("appState", state); // ❌ saves "[object Object]"
+localStorage.setItem("appState", JSON.stringify(state)); // ✅
+```
+
+**5. Loading state without a null check**
+
+```js
+Object.assign(state, JSON.parse(localStorage.getItem("appState"))); // ❌ throws if null
+const json = localStorage.getItem("appState"); // ✅ guard first
+if (json) Object.assign(state, JSON.parse(json));
+```
+
 ---
 
 ## Closing Story

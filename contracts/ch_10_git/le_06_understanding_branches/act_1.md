@@ -1,21 +1,39 @@
-# Le 06 Assessment: Understanding Branches
+# Hands-On Lab — Understanding Branches
 
-Answer the following questions in your own words. These are free-form—focus on understanding, not syntax.
+## Goal
 
-## Question 1: Basic Concept
-Explain what a branch is in Git using the pointer analogy. How is a branch different from just having multiple folders?
+create parallel lines of work, list them.
 
-## Question 2: HEAD and Isolation
-What does HEAD point to, and why does it matter for branch isolation? Give an example from your own development work.
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 3: Naming Convention
-Why might branch naming conventions (like feature/voting, bugfix/security) matter for a global team? Name three branches that would be useful for the San Juan Payment System.
+## What you'll accomplish
 
-## Question 4: Parallel Development
-Maria and Dev Sam want to work on different features simultaneously. Explain how branches enable this without interfering with each other's work.
+- Work through each command and observe what Git does.
 
-## Question 5: Complex Scenario
-The Barangay Blockchain has 12 active branches. A new London developer arrives. Why is good branch hygiene and naming important for helping her understand what work is happening?
+## Guided steps
 
-## Question 6: Reflection
-How does the concept of branches relate to the theme "Beyond the Islands"? How do branches enable distributed teams to work independently yet collaboratively?
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base app"
+git branch feature/payments        # create (do not switch)
+git branch feature/audit-logging
+git branch                          # list all branches; * marks current
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

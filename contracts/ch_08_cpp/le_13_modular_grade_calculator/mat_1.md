@@ -52,3 +52,20 @@ int main() {
 ```
 
 Each function has one responsibility: `calculateAverage` computes the mean, `isPassing` checks the threshold, and `main` orchestrates the flow.
+
+## Common Pitfalls ⚠️
+
+**1. Integer division when averaging**
+
+```cpp
+int avg = (a + b + c) / 3;       // ❌ truncates
+double avg = (a + b + c) / 3.0;  // ✅
+```
+
+**2. One giant `main()`** — the lesson's point is modularity. Split into `computeAverage()`, `determineStatus()`, etc.
+
+**3. Magic numbers** — `if (avg >= 75)` reads better as `if (avg >= PASSING_GRADE)` with a named `const`.
+
+**4. Functions that both compute AND print** — separate calculation from I/O so logic is testable.
+
+**5. Not validating grade ranges** — a grade of `150` or `-10` should be rejected, not averaged.

@@ -231,3 +231,20 @@ This lesson covers Viewing History in detail.
 ---
 
 **Ready for the activity? Let's get started!**
+
+## Common Pitfalls ⚠️
+
+**1. `git log` "freezes" the terminal** — it opens a pager. Press `q` to quit, or use `git log --oneline`. (We disable the pager in automated runs.)
+
+**2. Expecting commit hashes to be sequential** — they're SHA-1 fingerprints, not 1,2,3. Use `--oneline` to read them comfortably.
+
+**3. Forgetting the most useful views**
+
+```bash
+git log --oneline --graph --all   # ✅ see branches and merges visually
+git show HEAD                       # ✅ inspect the latest commit's changes
+```
+
+**4. Confusing `git show` (one commit) with `git diff` (between two states).**
+
+**5. Assuming history is editable freely** — viewing is safe; rewriting published history (later lessons) is not.

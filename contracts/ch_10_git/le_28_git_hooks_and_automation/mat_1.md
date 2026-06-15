@@ -387,3 +387,19 @@ With hooks:
 ✓ `--no-verify` bypasses hooks (use sparingly)
 
 **Next Lesson:** Forking and contributing to open source—collaborating beyond your team.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting to make the hook executable**
+
+```bash
+chmod +x .git/hooks/pre-commit   # ✅ a non-executable hook is silently ignored
+```
+
+**2. Expecting hooks to be shared by clone** — `.git/hooks/` is *not* version-controlled. Use a tracked folder + `core.hooksPath`, or a tool like pre-commit/Husky, to share them.
+
+**3. Hooks that are too slow** — a sluggish pre-commit hook trains developers to `--no-verify`. Keep them fast.
+
+**4. No escape hatch** — legitimate emergencies need `git commit --no-verify`; document when it's acceptable.
+
+**5. Putting critical checks *only* in local hooks** — local hooks can be bypassed. Enforce the important gates in CI on the server too.

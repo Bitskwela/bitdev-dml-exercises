@@ -1,19 +1,40 @@
-# Le 27 Assessment: Tagging and Releases
+# Hands-On Lab — Tags And Releases
 
-## Question 1: Why It Matters
-Why is this practice important for long-term project health? Give a specific example.
+## Goal
 
-## Question 2: Implementation
-How would you implement this practice in your next project? What tooling helps?
+mark a version with an annotated tag.
 
-## Question 3: Team Standards
-For a distributed team (Manila, Cebu, Singapore, London), how would you ensure everyone follows the same standard?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Real Conflict
-You discover the team isn't following this practice consistently. Past commits are messy. How do you fix it?
+## What you'll accomplish
 
-## Question 5: Upstream Impact
-How does this practice affect other teams if they fork your open-source project and depend on your code?
+- Work through each command and observe what Git does.
 
-## Question 6: Reflection
-Quality practices prevent problems. How do they contribute to professional development and team trust?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "v1 code" > app.py; git add app.py; git commit -m "feat: first release-ready build"
+git tag v1.0.0-beta                                  # lightweight tag
+git tag -a v1.0.0 -m "Barangay Marketplace 1.0.0"    # annotated release tag
+git tag
+git show v1.0.0 --quiet
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

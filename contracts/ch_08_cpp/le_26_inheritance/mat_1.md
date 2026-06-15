@@ -51,3 +51,30 @@ public:
 ```
 
 `Car` inherits `brand` and `getBrand()` from `Vehicle`, then adds its own `doors` member. The `Car` constructor chains to `Vehicle`'s constructor using `: Vehicle(b)` in the initializer list.
+
+## Common Pitfalls ⚠️
+
+**1. Expecting `private` members to be reachable in the child**
+
+```cpp
+class Base { private: int x; };
+class Derived : Base { void f(){ x; } };  // ❌ private is not inherited-accessible
+// ✅ use 'protected' for members children should reach
+```
+
+**2. Forgetting to call the base constructor**
+
+```cpp
+Derived(int a, int b) : Base(a) { ... }  // ✅ pass up what Base needs
+```
+
+**3. Default `private` inheritance**
+
+```cpp
+class D : Base {}        // private inheritance (rarely what you want)
+class D : public Base {} // ✅ usual "is-a" relationship
+```
+
+**4. Deep inheritance trees** — favor shallow hierarchies (or composition) over 5-level chains.
+
+**5. Hiding vs overriding** — without `virtual`, a same-named method hides rather than overrides (next lesson).

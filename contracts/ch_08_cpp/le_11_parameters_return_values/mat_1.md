@@ -55,3 +55,29 @@ int main() {
 ```
 
 `updateBalance` uses `&` to modify the original balance directly. `calculateInterest` passes by value (read-only) and returns the computed interest.
+
+## Common Pitfalls ⚠️
+
+**1. Pass-by-value can't change the caller's variable**
+
+```cpp
+void addBonus(int bal) { bal += 100; }   // ❌ caller's balance unchanged
+void addBonus(int& bal) { bal += 100; }  // ✅ reference modifies the original
+```
+
+**2. Forgetting to use (or capture) the return value**
+
+```cpp
+computeInterest(bal);              // ❌ result discarded
+double i = computeInterest(bal);   // ✅
+```
+
+**3. Reaching a path with no `return`** — a non-`void` function must return on every path, or you get undefined behavior.
+
+**4. Copying large objects by value** — pass big structs/strings by `const&` to avoid expensive copies:
+
+```cpp
+double total(const vector<int>& items);  // ✅ no copy, can't mutate
+```
+
+**5. Mismatched argument order** — `transfer(to, from)` vs `transfer(from, to)` compiles fine but is a logic bug. Name parameters clearly.

@@ -1,0 +1,21 @@
+name: git-answers
+on:
+  push:
+    paths:
+      - 'contracts/**/act_1.answer.sh'
+      - 'contracts/**/act_1.expect.sh'
+      - 'scripts/check-git.sh'
+      - '.github/workflows/git.yml'
+  pull_request:
+    paths:
+      - 'contracts/**/act_1.answer.sh'
+      - 'contracts/**/act_1.expect.sh'
+      - 'scripts/check-git.sh'
+      - '.github/workflows/git.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replay-and-assert all Git activity files
+        run: bash scripts/check-git.sh

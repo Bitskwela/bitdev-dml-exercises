@@ -250,3 +250,15 @@ No one waits. Reviews happen asynchronously. Merges are safe.
 ✓ Small, focused PRs get reviewed faster
 
 **Next Lesson:** What happens when your push is rejected? Learn to handle remote rejections gracefully.
+
+## Common Pitfalls ⚠️
+
+**1. Opening a PR from main** — push a *feature branch* and open the PR from it. PRs from your main are messy and hard to iterate on.
+
+**2. Giant PRs** — a 2,000-line PR is unreviewable. Keep them small and focused on one change.
+
+**3. No description** — explain *what* and *why*. Reviewers (and future you) need context, not just a diff.
+
+**4. Ignoring CI / review feedback** — a green PR with passing checks and an approval is the bar; don't merge red builds.
+
+**5. Forgetting to delete the branch after merge** — most hosts offer a one-click delete; take it.

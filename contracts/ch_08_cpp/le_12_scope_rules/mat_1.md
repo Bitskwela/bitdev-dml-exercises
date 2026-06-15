@@ -57,3 +57,29 @@ int main() {
 ```
 
 `total` declared globally is modified by `addToTotal()`. Inside `shadowTest()`, a local `total` hides the global one, but `::total` still accesses the global version.
+
+## Common Pitfalls ⚠️
+
+**1. Shadowing a global with a local of the same name**
+
+```cpp
+int total = 50;
+void f() { int total = 100; /* this is a DIFFERENT total */ }
+```
+
+**2. Returning a reference/pointer to a local variable**
+
+```cpp
+int& bad() { int x = 5; return x; }  // ❌ x dies when bad() returns
+```
+
+**3. Expecting a loop variable to outlive the loop**
+
+```cpp
+for (int i = 0; i < n; i++) {}
+cout << i;   // ❌ i is out of scope here
+```
+
+**4. Overusing globals** — globals are visible everywhere, which makes bugs hard to trace. Prefer passing data through parameters.
+
+**5. Assuming a block variable persists** — variables declared inside `{ }` vanish at the closing brace.

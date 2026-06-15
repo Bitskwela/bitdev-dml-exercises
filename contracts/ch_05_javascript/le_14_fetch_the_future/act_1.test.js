@@ -20,7 +20,7 @@ describe("Lesson 14: Fetch the Future", () => {
       status: 200,
     });
 
-    validateSolution(codePath, async (context) => {
+    await validateSolution(codePath, async (context) => {
       const { fetchUserData } = context;
       const user = await fetchUserData(1);
       expect(user).toEqual(mockUser);
@@ -38,7 +38,7 @@ describe("Lesson 14: Fetch the Future", () => {
       status: 200,
     });
 
-    validateSolution(codePath, async (context) => {
+    await validateSolution(codePath, async (context) => {
       const { fetchPostTitle } = context;
       const title = await fetchPostTitle(1);
       expect(title).toBe("Sample Post");
@@ -67,7 +67,7 @@ describe("Lesson 14: Fetch the Future", () => {
       }
     });
 
-    validateSolution(codePath, async (context) => {
+    await validateSolution(codePath, async (context) => {
       const { fetchUserAndPosts } = context;
       const result = await fetchUserAndPosts(1);
       expect(result).toEqual({ user: mockUser, posts: mockPosts });

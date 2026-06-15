@@ -1,19 +1,40 @@
-# Le 08 Assessment: Fast-Forward Merging
+# Hands-On Lab — Merging Branches Fast-Forward
 
-## Question 1: Pointer Movement
-Draw or describe what happens to pointers when you do a fast-forward merge. Why can Git just move the pointer instead of creating a merge commit?
+## Goal
 
-## Question 2: When Fast-Forward Works
-You're merging feature/voting into main. Fast-forward merge is possible. What does this tell you about the commit history? What would be different if fast-forward wasn't possible?
+main hasn't moved, so the merge is linear.
 
-## Question 3: Cleanup After Merge
-After merging feature/voting into main, Maria deletes the feature/voting branch. Can she recover the commits? Why or why not?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Team Workflow
-The Barangay Blockchain has three feature branches ready to merge. They can all fast-forward merge. What does this tell you about the team's workflow discipline? Is this good or concerning?
+## What you'll accomplish
 
-## Question 5: Deployment Scenario
-Friday before release. Four features are merged via fast-forward to main. Monday morning, a bug is discovered in one feature. How would you find which commits caused it? Would it be easier or harder with fast-forward merges versus explicit merge commits?
+- Work through each command and observe what Git does.
 
-## Question 6: Reflection
-Some teams disable fast-forward merges (always creating explicit merge commits). Why might a team make that choice, especially for a global deployment?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base app"
+git switch -c feature/receipts
+echo "receipt()" > receipt.py; git add receipt.py; git commit -m "Add receipts"
+git switch main
+git merge feature/receipts          # fast-forward: no merge commit needed
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

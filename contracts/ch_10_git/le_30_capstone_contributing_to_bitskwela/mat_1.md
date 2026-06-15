@@ -392,3 +392,15 @@ Now she's an open-source contributor. A global developer. Beyond the islands.
 You've gone from "what is version control?" to contributing to real open-source projects. The Barangay Blockchain team is proud of you.
 
 Now go build something amazing.
+
+## Common Pitfalls ⚠️
+
+**1. Skipping the feature branch** — even solo, branch your work so main stays releasable and your history is clean.
+
+**2. Sloppy commit messages on a portfolio project** — this is the repo people will *read*. Use Conventional Commits; make it tell a story.
+
+**3. Forgetting to push tags and branches** — `git push origin main` and `git push origin v1.0.0` are separate actions.
+
+**4. Merging untested code** — verify the feature works before the `--no-ff` merge into main.
+
+**5. Not cleaning up** — delete merged branches; a tidy repo signals a professional. This capstone is your proof you can run the full workflow end to end.

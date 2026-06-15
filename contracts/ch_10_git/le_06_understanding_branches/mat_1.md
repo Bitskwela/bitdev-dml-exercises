@@ -198,3 +198,20 @@ This lesson covers Understanding Branches in detail.
 ---
 
 **Ready for the activity? Let's get started!**
+
+## Common Pitfalls ⚠️
+
+**1. Thinking a branch copies your files** — a branch is just a lightweight movable pointer to a commit. Creating one is instant and cheap.
+
+**2. Creating a branch but forgetting to switch to it**
+
+```bash
+git branch feature/x   # creates it, but you're STILL on main
+git switch feature/x   # ✅ now your commits land on feature/x
+```
+
+**3. Vague branch names** — `test`, `new`, `fix` tell no one anything. Use `feature/payments`, `bugfix/discount-rounding`.
+
+**4. Committing to the wrong branch** — always check `git branch` / your prompt before committing.
+
+**5. Letting branches pile up** — stale branches confuse the team. Delete them once merged (a later lesson).

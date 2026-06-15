@@ -49,3 +49,29 @@ public:
 ```
 
 The `virtual` keyword on `msg()` enables runtime dispatch. When called through a `Base*` pointer pointing to a `Derived` object, the `Derived` version executes. The `override` keyword ensures we are actually overriding a base method.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting `virtual` on the base method**
+
+```cpp
+class Base { void speak(); };          // ❌ no dynamic dispatch
+class Base { virtual void speak(); };  // ✅ derived override is used
+```
+
+**2. Missing a virtual destructor**
+
+```cpp
+class Base { virtual ~Base() = default; };  // ✅ deleting via Base* frees Derived correctly
+```
+
+**3. Object slicing**
+
+```cpp
+Base b = derivedObj;   // ❌ slices off the Derived part
+Base& b = derivedObj;  // ✅ use references/pointers for polymorphism
+```
+
+**4. Forgetting `override`** — annotate overrides with `override` so the compiler catches signature typos.
+
+**5. Calling virtuals from constructors/destructors** — dispatch doesn't behave the way you'd expect there.

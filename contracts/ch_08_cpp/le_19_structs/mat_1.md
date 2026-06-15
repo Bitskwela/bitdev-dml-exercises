@@ -57,3 +57,25 @@ int main() {
 ```
 
 The `Resident` struct bundles name, age, and vaccination status into one unit. Members are accessed using the dot operator. This is far cleaner than managing three separate parallel arrays.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting the semicolon after the struct definition**
+
+```cpp
+struct Resident { string name; }   // ❌ needs a ; here
+struct Resident { string name; };  // ✅
+```
+
+**2. Accessing members with the wrong operator**
+
+```cpp
+Resident r; r.name = "Juan";    // ✅ dot for objects
+Resident* p = &r; p->name;      // ✅ arrow for pointers ((*p).name)
+```
+
+**3. Uninitialized members** — a freshly declared struct has garbage in its fields unless you initialize them.
+
+**4. Copying large structs by value** — pass by `const&` to functions to avoid copies.
+
+**5. Treating a `bool` field as text** — print it intentionally (`r.vaccinated ? "Yes" : "No"`).

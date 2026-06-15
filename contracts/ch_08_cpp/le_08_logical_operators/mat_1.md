@@ -54,3 +54,30 @@ int main() {
 ```
 
 This program uses the AND operator (`&&`) to ensure both conditions are true before granting eligibility. The voter must be 18 or older AND be registered. If either condition fails, the `else` block runs instead.
+
+## Common Pitfalls ⚠️
+
+**1. Using `&`/`|` (bitwise) instead of `&&`/`||` (logical)**
+
+```cpp
+if (age >= 18 & registered)   // ❌ bitwise — subtle bugs
+if (age >= 18 && registered)  // ✅ logical AND
+```
+
+**2. Chaining comparisons like math**
+
+```cpp
+if (0 < age < 18) { ... }          // ❌ always true (parses oddly)
+if (age > 0 && age < 18) { ... }   // ✅
+```
+
+**3. Forgetting short-circuit evaluation**
+
+```cpp
+if (ptr != nullptr && ptr->ok())  // ✅ right side skipped if ptr is null
+if (ptr->ok() && ptr != nullptr)  // ❌ dereferences null first → crash
+```
+
+**4. Double negatives** — `if (!isNotReady)` is hard to read. Prefer positive names.
+
+**5. Reading a bool from `cin`** — `cin >> isRegistered` expects `0`/`1`, not `true`/`false` text.

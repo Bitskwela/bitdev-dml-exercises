@@ -53,3 +53,34 @@ int main() {
 ```
 
 This program checks whether the divisor is zero before performing division. The `if` block handles the error case, and the `else` block runs only when division is safe. This pattern of validating input before processing is fundamental to writing robust programs.
+
+## Common Pitfalls ⚠️
+
+**1. Assignment inside the condition**
+
+```cpp
+if (num = 0) { ... }   // ❌ assigns 0 → false, and wipes num
+if (num == 0) { ... }  // ✅
+```
+
+**2. Dangling-else / missing braces**
+
+```cpp
+if (x > 0)
+    cout << "positive";
+    cout << "always runs";  // ❌ NOT part of the if (no braces)
+if (x > 0) {               // ✅ braces make the block explicit
+    cout << "positive";
+}
+```
+
+**3. Comparing floating-point with `==`**
+
+```cpp
+if (price == 0.1 + 0.2) { ... }  // ❌ almost never true (0.30000000004)
+if (fabs(price - 0.3) < 1e-9) {} // ✅ compare within a tolerance
+```
+
+**4. Forgetting to handle the zero / edge case** — the whole point of a "safe" calculator is the `num2 == 0` branch. Always ask: what input breaks this?
+
+**5. `else if` chains that can't all be reached** — order conditions from most specific to most general.

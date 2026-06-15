@@ -326,3 +326,20 @@ git log v1.2.4..v1.2.5 --oneline
 ✓ GitHub Releases build on top of Git tags
 
 **Next Lesson:** Git hooks—automating checks before commits and pushes.
+
+## Common Pitfalls ⚠️
+
+**1. Lightweight vs annotated tags**
+
+```bash
+git tag v1.0.0            # lightweight: just a pointer, no metadata
+git tag -a v1.0.0 -m "…"  # ✅ annotated: author, date, message — use for releases
+```
+
+**2. Forgetting to push tags** — `git push` does not send tags. Use `git push origin v1.0.0` (or `--tags`).
+
+**3. Inconsistent versioning** — adopt SemVer (`MAJOR.MINOR.PATCH`) so `v1.2.0` vs `v2.0.0` communicates impact.
+
+**4. Moving/retagging a released version** — tags should be immutable once published; cut a new version instead.
+
+**5. Tagging the wrong commit** — verify `git log` before tagging; a release tag should point at tested code.

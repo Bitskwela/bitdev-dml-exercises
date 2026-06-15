@@ -1,19 +1,47 @@
-# Le 11 Assessment: Cleaning Up Branches
+# Hands-On Lab — Cleaning Up Branches
 
-## Question 1: Core Understanding
-When is it safe to delete a branch with git branch -d? When do you need git branch -D?
+## Goal
 
-## Question 2: Practical Application
-After deleting a branch, can you recover the commits? What Git feature enables recovery?
+delete merged branches; force-delete an unmerged one.
 
-## Question 3: Team Context
-How does this concept relate to the San Juan Payment System being developed by teams in Manila, Cebu, Singapore, and London?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Real Scenario
-Describe a specific situation from your own projects where understanding this concept would have saved time or prevented bugs.
+## What you'll accomplish
 
-## Question 5: Complex Problem
-A complex scenario combining this lesson with previous concepts.
+- Work through each command and observe what Git does.
 
-## Question 6: Reflection
-How does this skill contribute to the broader goal of "Beyond the Islands"—enabling global teams to collaborate effectively?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init
+echo "base" > app.py; git add app.py; git commit -m "Base app"
+git switch -c feature/done
+echo "x" > done.py; git add done.py; git commit -m "Finish feature"
+git switch main
+git merge --no-ff -m "Merge feature/done" feature/done
+git branch -d feature/done            # safe delete (merged)
+
+git switch -c feature/abandoned
+echo "y" > scratch.py; git add scratch.py; git commit -m "Abandoned WIP"
+git switch main
+git branch -D feature/abandoned       # force delete (not merged)
+git branch
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

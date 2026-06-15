@@ -419,3 +419,15 @@ git switch -c hotfix/voting-security main
 You've mastered how to organize your local work. But the real power emerges when the team is _distributed_.
 
 Tomorrow, Maria and Sam are in different cities. Code written in Manila needs to reach developers in Cebu and Mexico City. This requires sharing repositories across machines. The next lesson introduces **remote repositories on GitHub**—where "Beyond the Islands" truly begins.
+
+## Common Pitfalls ⚠️
+
+**1. Everyone committing to one branch** — leads to constant conflicts. Adopt a strategy (feature branches, develop/main) and stick to it.
+
+**2. Over-engineering the model** — full Git-flow is overkill for a tiny team. Trunk-based (short-lived feature branches off main) is often enough.
+
+**3. Inconsistent naming** — mixing `feat-x`, `feature/x`, `JIRA-12` confuses everyone. Agree on one convention.
+
+**4. Treating `develop` and `main` casually** — protect them; integrate through reviewed merges, not direct pushes.
+
+**5. No release tagging** — without tags, "what's in production?" becomes guesswork (see the tags lesson).

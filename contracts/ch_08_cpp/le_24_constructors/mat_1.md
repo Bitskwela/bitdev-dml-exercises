@@ -75,3 +75,26 @@ int main() {
 ```
 
 The default constructor guarantees every account starts with zero balance. The parameterized constructor allows custom initialization. The destructor runs automatically at the end of scope, cleaning up resources. No more forgotten initialization.
+
+## Common Pitfalls ⚠️
+
+**1. Adding a parameterized constructor removes the free default one**
+
+```cpp
+class A { A(int x){} };
+A a;   // ❌ no default constructor anymore
+A a;   // ✅ add  A() = default;  if you still need it
+```
+
+**2. Confusing constructor with a normal method** — a constructor has no return type and matches the class name exactly.
+
+**3. Not using an initializer list**
+
+```cpp
+A(int x) { this->x = x; }       // assignment (after default-init)
+A(int x) : x(x) {}              // ✅ initializer list — required for const/ref members
+```
+
+**4. Forgetting the destructor for resources** — if the constructor acquires (memory, files), the destructor must release (RAII).
+
+**5. Object slicing / shallow copies** — default copy copies pointers, not what they point to. Mind the Rule of Three/Five for resource-owning classes.

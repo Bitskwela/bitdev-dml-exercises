@@ -67,3 +67,27 @@ int main() {
 ```
 
 This skeleton shows how a `while` loop with `&&` handles authentication, a boolean flag controls the menu loop, and `if-else` chains route each menu choice to the right action.
+
+## Common Pitfalls ⚠️
+
+**1. Checking the balance AFTER withdrawing**
+
+```cpp
+balance -= amount;
+if (balance < 0) { ... }       // ❌ already corrupted the balance
+if (amount <= balance)         // ✅ validate BEFORE mutating
+    balance -= amount;
+```
+
+**2. Storing money as a floating-point type** — `double` rounding can lose centavos. For real banking, integer centavos or a fixed-point type is safer.
+
+**3. Array index out of bounds in the history log**
+
+```cpp
+history[count++] = txn;   // ❌ overflows once count == capacity
+if (count < CAP) history[count++] = txn;  // ✅ guard
+```
+
+**4. No loop guard** — a menu `do/while` must have a reachable exit option or it runs forever.
+
+**5. Trusting input** — a PIN entry or amount should be validated; never assume the user typed a number.

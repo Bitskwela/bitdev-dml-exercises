@@ -47,3 +47,39 @@ int main() {
 ```
 
 This program includes the iostream library, uses the standard namespace, defines the main entry point, prints a greeting with `cout`, and returns 0 to indicate success. Every statement ends with a semicolon, and C++ is case-sensitive.
+
+## Common Pitfalls ⚠️
+
+**1. Forgetting the semicolon**
+
+```cpp
+cout << "Hi" << endl   // ❌ error: expected ';'
+cout << "Hi" << endl;  // ✅ every statement ends with ;
+```
+
+**2. Wrong stream operator direction**
+
+```cpp
+cout >> "Hi";  // ❌ >> is for input (cin)
+cout << "Hi";  // ✅ << sends data OUT to the console
+```
+
+**3. Case sensitivity**
+
+```cpp
+Cout << "Hi";  // ❌ 'Cout' is not defined — C++ is case-sensitive
+cout << "Hi";  // ✅
+```
+
+**4. Forgetting `#include <iostream>`**
+
+```cpp
+int main() { cout << "Hi"; }            // ❌ 'cout' was not declared
+#include <iostream>                      // ✅ include it first
+using namespace std;
+int main() { cout << "Hi"; }
+```
+
+**5. Expecting output without `return 0` discipline**
+
+`main()` returning `0` signals success to the OS. Non-zero means failure — useful when other programs run yours and check the exit code.

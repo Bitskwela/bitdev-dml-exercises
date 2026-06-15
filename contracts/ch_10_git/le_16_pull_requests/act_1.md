@@ -1,19 +1,45 @@
-# Le 16 Assessment: Pull Requests
+# Hands-On Lab — Pull Requests
 
-## Question 1: Core Understanding
-Why do teams require pull requests instead of just pushing directly to main?
+## Goal
 
-## Question 2: Practical Application
-Maria submits a PR. Dev Sam reviews and asks for changes. Walk through the conversation process.
+push a feature branch, then integrate it like a PR.
 
-## Question 3: Team Coordination
-How would this concept work when coordinating between Manila, Cebu, Singapore, and London developers all working on the same project?
+> This is a **hands-on lab**, not an essay. You run real Git commands and an
+> automated checker verifies your repository's final state. Work in a scratch
+> folder so you can experiment freely.
 
-## Question 4: Problem-Solving
-Describe a specific challenge that could occur in this lesson's workflow and how you would solve it.
+## What you'll accomplish
 
-## Question 5: Global Deployment
-The San Juan Payment System is deployed to four regions. How does this concept ensure consistency across all regions?
+- Reviewer approves -> integrate the PR into main with a merge commit:
 
-## Question 6: Reflection
-How does mastering remote collaboration skills enable "Beyond the Islands" global development?
+## Guided steps
+
+Open a terminal in an empty folder and work through these. Try to predict each
+result before you run it:
+
+```bash
+git init --bare origin.git
+git clone origin.git marketplace
+cd marketplace
+echo "base" > app.py; git add app.py; git commit -m "Base"; git push -u origin main
+git switch -c feature/login
+echo "login()" > login.py; git add login.py; git commit -m "Add login"
+git push -u origin feature/login        # this is what opening a PR pushes
+# Reviewer approves -> integrate the PR into main with a merge commit:
+git switch main
+git merge --no-ff -m "Merge pull request: feature/login" feature/login
+git push origin main
+```
+
+## Verify your work
+
+Your repository should satisfy every assertion in `act_1.expect.sh`. Self-check
+the whole chapter with:
+
+```bash
+bash scripts/check-git.sh contracts/ch_10_git
+```
+
+The full worked solution lives in **`act_1.answer.sh`** (explained in
+`act_1.answer.md`). Try it yourself first — the commands stick when you struggle
+a little before peeking.

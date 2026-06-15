@@ -182,6 +182,50 @@ not ${2 * a + b}.`);
 Reference:  
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Expecting `this` inside an arrow function to be the object**
+
+```js
+const counter = {
+  count: 0,
+  start() {
+    setInterval(() => this.count++, 1000); // ✅ arrow inherits `this` = counter
+    setInterval(function () { this.count++; }, 1000); // ❌ `this` is not counter here
+  },
+};
+```
+
+**2. Destructuring a property that doesn't exist**
+
+```js
+const { city, region } = weather; // region is undefined if missing
+const { region = "NCR" } = weather; // ✅ provide a default value
+```
+
+**3. Using `{}` braces on an arrow but forgetting `return`**
+
+```js
+const double = (n) => { n * 2 }; // ❌ returns undefined
+const double = (n) => n * 2; // ✅ implicit return (no braces)
+const double = (n) => ({ value: n }); // ✅ wrap an object literal in ()
+```
+
+**4. Mixing up regular quotes with backticks for interpolation**
+
+```js
+const msg = "Hi ${name}"; // ❌ prints the literal text ${name}
+const msg = `Hi ${name}`; // ✅ backticks enable interpolation
+```
+
+**5. Renaming during destructuring with the wrong syntax**
+
+```js
+const { name => fullName } = user; // ❌ SyntaxError
+const { name: fullName } = user; // ✅ colon renames the variable
+```
+
 ---
 
 ## Closing Story

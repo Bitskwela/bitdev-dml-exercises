@@ -221,3 +221,15 @@ git commit --amend -m "Fix XSS vulnerability (cherry-picked from feature/securit
 ✓ Essential for production emergencies in global deployments
 
 **Next Lesson:** Stashing—save your work temporarily without committing.
+
+## Common Pitfalls ⚠️
+
+**1. Cherry-picking instead of merging whole features** — cherry-pick is for *one* specific commit (e.g., a hotfix). For full features, merge or rebase.
+
+**2. Creating duplicate commits** — the cherry-picked commit gets a new hash; later merging the source branch can introduce the change twice.
+
+**3. Picking a commit that depends on earlier commits** — it may not apply cleanly or may compile-fail because its prerequisites aren't there.
+
+**4. Forgetting to resolve a cherry-pick conflict** — like merges, you `git add` then `git cherry-pick --continue`.
+
+**5. Losing track of provenance** — note *why* you cherry-picked; six months later it's a mystery commit.

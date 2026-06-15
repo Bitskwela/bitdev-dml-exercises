@@ -343,3 +343,25 @@ When you `git push origin main`, Git:
 You understand the infrastructure. GitHub is set up. Remotes are configured.
 
 But code doesn't move magically. Next, you'll learn the two commands that move code between your machine and GitHub: **push** (your code goes up) and **pull** (their code comes down). The team coordination happens in these moments.
+
+## Common Pitfalls ⚠️
+
+**1. Wrong remote URL / protocol**
+
+```bash
+git remote add origin <url>   # double-check https vs ssh; a typo means push fails
+git remote -v                 # ✅ verify what 'origin' points to
+```
+
+**2. Forgetting `-u` on the first push**
+
+```bash
+git push origin main      # works, but you must specify it every time
+git push -u origin main   # ✅ sets upstream so later 'git push' is enough
+```
+
+**3. Adding two remotes named `origin`** — names must be unique; use `upstream` for the project you forked from.
+
+**4. Assuming push uploads uncommitted work** — push only sends *commits*. Commit first.
+
+**5. Confusing local and remote branches** — `main` (yours) and `origin/main` (the server's last-known state) are different pointers.

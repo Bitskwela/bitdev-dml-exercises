@@ -168,6 +168,46 @@ console.log(new Date().toLocaleString("en-PH", opts));
 Reference:  
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
 
+
+### Common Beginner Mistakes ⚠️
+
+**1. Forgetting months are zero-indexed**
+
+```js
+new Date(2023, 7, 1); // ❌ this is AUGUST, not July
+new Date(2023, 6, 1); // ✅ month 6 = July
+```
+
+**2. Comparing dates with `===`**
+
+```js
+date1 === date2; // ❌ compares object references, almost always false
+date1.getTime() === date2.getTime(); // ✅ compare the numeric timestamps
+```
+
+**3. Mutating a date you didn't mean to change**
+
+```js
+const tomorrow = today;
+tomorrow.setDate(today.getDate() + 1); // ❌ ALSO changes `today` (same object)
+const tomorrow = new Date(today); // ✅ make a copy first
+tomorrow.setDate(tomorrow.getDate() + 1);
+```
+
+**4. Assuming the user's timezone is Philippine time**
+
+```js
+new Date().toLocaleString(); // ❌ depends on the visitor's machine
+new Date().toLocaleString("en-PH", { timeZone: "Asia/Manila" }); // ✅ explicit
+```
+
+**5. Building date strings by hand without padding**
+
+```js
+`${d.getHours()}:${d.getMinutes()}`; // ❌ "9:5" instead of "09:05"
+`${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; // ✅
+```
+
 ---
 
 ## Closing Story
