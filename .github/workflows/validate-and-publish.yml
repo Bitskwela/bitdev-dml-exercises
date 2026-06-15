@@ -1,0 +1,146 @@
+name: Validate & Publish Solidity Test Bundles
+
+# Verifies and publishes per-exercise grading bundles (spec.json + act_1.t.sol
+# [+ extra_sources]) used by the blockskwela-rs answer-validation grader.
+#
+#   - Pull request  -> golden gate ONLY (answer must pass, starter must fail). Blocking.
+#   - Push to main  -> golden gate THEN publish the bundle to R2.
+#   - Manual run    -> optionally re-verify/publish ALL lessons.
+#
+# The grading tooling (golden_gate / publish_bundle) lives in the blockskwela-rs
+# repo, so this workflow checks that out alongside the content.
+#
+# Required repo secrets:
+#   GRADER_REPO_TOKEN     - PAT/deploy token with read access to blockskwela-rs
+#   R2_ACCOUNT_ID         - Cloudflare R2 account id
+#   R2_BUCKET_NAME        - bundle bucket (e.g. bitskwela-dev)
+#   R2_ACCESS_KEY_ID      - R2 access key
+#   R2_SECRET_ACCESS_KEY  - R2 secret key
+#
+# Optional repo variables:
+#   GRADER_REPO_REF       - branch of blockskwela-rs to use (default: main)
+
+on:
+  pull_request:
+    paths:
+      - "contracts/**/spec.json"
+      - "contracts/**/act_1.t.sol"
+      - "contracts/**/act_1.sol"
+      - "contracts/**/act_1.answer.sol"
+      - "contracts/**/*.sol"
+  push:
+    branches: [main]
+    paths:
+      - "contracts/**/spec.json"
+      - "contracts/**/act_1.t.sol"
+      - "contracts/**/act_1.sol"
+      - "contracts/**/act_1.answer.sol"
+      - "contracts/**/*.sol"
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Verify/publish ALL lessons (not just changed)"
+        type: boolean
+        default: false
+
+env:
+  GRADER_LIB_DIR: ${{ github.workspace }}/grader-lib
+  GRADER_OFFLINE: "false" # CI has network; let forge fetch solc 0.8.26 on demand
+  OZ_VERSION: v5.3.0
+
+jobs:
+  validate-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout content
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need history to diff changed lessons
+
+      - name: Checkout grader (blockskwela-rs)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/blockskwela-rs
+          ref: ${{ vars.GRADER_REPO_REF || 'main' }}
+          token: ${{ secrets.GRADER_REPO_TOKEN }}
+          path: _grader
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: _grader
+
+      - name: Vendor forge-std + OpenZeppelin into GRADER_LIB_DIR
+        run: |
+          set -euo pipefail
+          mkdir -p "$GRADER_LIB_DIR"
+          git clone --depth 1 https://github.com/foundry-rs/forge-std "$GRADER_LIB_DIR/forge-std"
+          git clone --depth 1 --branch "$OZ_VERSION" https://github.com/OpenZeppelin/openzeppelin-contracts /tmp/oz
+          mkdir -p "$GRADER_LIB_DIR/@openzeppelin"
+          cp -r /tmp/oz/contracts "$GRADER_LIB_DIR/@openzeppelin/contracts"
+
+      - name: Build grading tools
+        working-directory: _grader
+        run: cargo build --example golden_gate --example publish_bundle
+
+      - name: Determine target lessons
+        id: lessons
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            # All lessons that have a spec.json.
+            find contracts -name spec.json -printf '%h\n' | sort -u > /tmp/lessons.txt
+          else
+            # Lesson dirs (those containing spec.json) touched by this change.
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              BASE="${{ github.event.pull_request.base.sha }}"; HEAD="${{ github.sha }}"
+            else
+              BASE="${{ github.event.before }}"; HEAD="${{ github.sha }}"
+            fi
+            git diff --name-only "$BASE" "$HEAD" 2>/dev/null \
+              | while read -r f; do d=$(dirname "$f"); [ -f "$d/spec.json" ] && echo "$d"; done \
+              | sort -u > /tmp/lessons.txt || true
+          fi
+          echo "count=$(wc -l < /tmp/lessons.txt)" >> "$GITHUB_OUTPUT"
+          echo "Target lessons:"; cat /tmp/lessons.txt || true
+
+      - name: Golden gate (blocking)
+        if: steps.lessons.outputs.count != '0'
+        working-directory: _grader
+        run: |
+          set -euo pipefail
+          fail=0
+          while read -r d; do
+            [ -n "$d" ] || continue
+            echo "::group::golden_gate $d"
+            if ! cargo run --quiet --example golden_gate -- "$GITHUB_WORKSPACE/$d"; then
+              echo "::error::Golden gate RED for $d"
+              fail=1
+            fi
+            echo "::endgroup::"
+          done < /tmp/lessons.txt
+          exit $fail
+
+      - name: Publish bundles to R2
+        # Only on push to main or manual dispatch — never on PRs.
+        if: steps.lessons.outputs.count != '0' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        working-directory: _grader
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          set -euo pipefail
+          while read -r d; do
+            [ -n "$d" ] || continue
+            echo "::group::publish_bundle $d"
+            cargo run --quiet --example publish_bundle -- "$GITHUB_WORKSPACE/$d"
+            echo "::endgroup::"
+          done < /tmp/lessons.txt

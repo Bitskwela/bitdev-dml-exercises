@@ -1,0 +1,13 @@
+{
+  "permaname": "soliditys-inheritance",
+  "contract": "DerivedContract",
+  "source_file": "DerivedContract.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["inheritance", "base-contract", "require"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

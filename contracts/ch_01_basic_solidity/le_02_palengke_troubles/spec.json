@@ -1,0 +1,13 @@
+{
+  "permaname": "palengke-troubles",
+  "contract": "PalengkeLedger",
+  "source_file": "PalengkeLedger.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["state-variables", "mappings", "booleans"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": ["waking-up-to-chaos"]
+}

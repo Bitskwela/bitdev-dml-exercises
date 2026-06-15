@@ -1,0 +1,13 @@
+{
+  "permaname": "calldata-the-art-of-efficient-comms",
+  "contract": "BarangayServiceFees",
+  "source_file": "BarangayServiceFees.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["calldata", "pure-functions", "view-functions"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

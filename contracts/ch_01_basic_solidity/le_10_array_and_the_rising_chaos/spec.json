@@ -1,0 +1,13 @@
+{
+  "permaname": "arrays-and-the-rising-chaos",
+  "contract": "PalengkeTransactions",
+  "source_file": "PalengkeTransactions.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["arrays", "push", "require"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

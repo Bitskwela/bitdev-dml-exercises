@@ -1,0 +1,13 @@
+{
+  "permaname": "waking-up-to-chaos",
+  "contract": "PalengkePay",
+  "source_file": "PalengkePay.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["state-variables", "functions", "memory-params"],
+  "difficulty": "beginner",
+  "est_minutes": 15,
+  "prerequisites": []
+}

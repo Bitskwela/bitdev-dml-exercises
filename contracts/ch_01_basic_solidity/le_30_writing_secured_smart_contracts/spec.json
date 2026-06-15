@@ -1,0 +1,14 @@
+{
+  "permaname": "writing-secure-smart-contracts",
+  "contract": "SecureDonation",
+  "source_file": "SecureDonation.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": ["@openzeppelin/contracts/=@openzeppelin/contracts/"],
+  "extra_sources": [],
+  "concepts": ["security", "reentrancy-guard", "access-control", "openzeppelin"],
+  "difficulty": "advanced",
+  "est_minutes": 30,
+  "prerequisites": ["erc1155-token-standard"]
+}

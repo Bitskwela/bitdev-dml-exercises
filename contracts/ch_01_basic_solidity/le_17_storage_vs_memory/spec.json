@@ -1,0 +1,13 @@
+{
+  "permaname": "storage-vs-memory",
+  "contract": "DataOptimization",
+  "source_file": "DataOptimization.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["storage", "memory", "data-location", "strings"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

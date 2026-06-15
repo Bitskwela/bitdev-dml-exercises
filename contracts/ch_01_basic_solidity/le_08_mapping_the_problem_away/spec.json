@@ -1,0 +1,13 @@
+{
+  "permaname": "mapping-the-problem-away",
+  "contract": "AntiHackanaLedger",
+  "source_file": "AntiHackanaLedger.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["mappings", "view functions", "state variables"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

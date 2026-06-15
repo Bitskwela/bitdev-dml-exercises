@@ -1,0 +1,13 @@
+{
+  "permaname": "protecting-the-donation-fund",
+  "contract": "SecureFund",
+  "source_file": "SecureFund.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["modifiers", "access control", "payable", "ether transfer"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

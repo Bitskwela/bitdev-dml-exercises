@@ -1,0 +1,13 @@
+{
+  "permaname": "interfaces-in-solidity",
+  "contract": "Marketplace",
+  "source_file": "Marketplace.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["interfaces", "override", "payable"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

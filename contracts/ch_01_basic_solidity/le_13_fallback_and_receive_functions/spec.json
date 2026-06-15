@@ -1,0 +1,13 @@
+{
+  "permaname": "fallback-and-receive-functions",
+  "contract": "BarangayWallet",
+  "source_file": "BarangayWallet.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["receive", "fallback", "payable", "events"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

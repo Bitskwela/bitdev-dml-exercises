@@ -1,0 +1,14 @@
+{
+  "permaname": "erc1155-token-standard",
+  "contract": "MultiAsset",
+  "source_file": "MultiAsset.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": ["@openzeppelin/contracts/=@openzeppelin/contracts/"],
+  "extra_sources": [],
+  "concepts": ["erc1155", "multi-token", "openzeppelin", "access-control"],
+  "difficulty": "advanced",
+  "est_minutes": 30,
+  "prerequisites": ["the-erc721-token-standard"]
+}

@@ -1,0 +1,13 @@
+{
+  "permaname": "battle-against-hackana",
+  "contract": "CommunityFund",
+  "source_file": "CommunityFund.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["payable", "require", "access control", "ether transfer"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

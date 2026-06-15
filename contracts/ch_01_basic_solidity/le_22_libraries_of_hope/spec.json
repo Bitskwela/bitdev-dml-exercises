@@ -1,0 +1,13 @@
+{
+  "permaname": "libraries-of-hope",
+  "contract": "HackanaDefense",
+  "source_file": "HackanaDefense.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["libraries", "pure-functions", "internal"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

@@ -1,0 +1,14 @@
+{
+  "permaname": "file-imports",
+  "contract": "Calculator",
+  "source_file": "Calculator.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "extra_sources": ["MathLibrary.sol"],
+  "concepts": ["libraries", "file-imports", "pure-functions"],
+  "difficulty": "beginner",
+  "est_minutes": 15,
+  "prerequisites": []
+}

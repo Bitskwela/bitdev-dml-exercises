@@ -1,0 +1,13 @@
+{
+  "permaname": "custom-errors-and-error-handling",
+  "contract": "CustomErrorExample",
+  "source_file": "CustomErrorExample.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["custom-errors", "revert", "access-control"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

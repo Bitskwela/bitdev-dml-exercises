@@ -1,0 +1,13 @@
+{
+  "permaname": "unlocking-the-payable-arsenal",
+  "contract": "EtherReceiver",
+  "source_file": "EtherReceiver.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["payable", "msg.value", "events"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

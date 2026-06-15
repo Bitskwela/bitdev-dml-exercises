@@ -1,0 +1,13 @@
+{
+  "permaname": "events-and-the-barangay-fund",
+  "contract": "BarangayFund",
+  "source_file": "BarangayFund.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["events", "require", "state-variables"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}
