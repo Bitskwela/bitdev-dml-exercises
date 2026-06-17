@@ -1,0 +1,13 @@
+{
+  "permaname": "sq-5-dynamic-pricing",
+  "contract": "DynamicPricing",
+  "source_file": "DynamicPricing.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["pure-functions", "arithmetic", "integer-division", "dynamic-pricing"],
+  "difficulty": "intermediate",
+  "est_minutes": 20,
+  "prerequisites": []
+}

@@ -24,7 +24,7 @@ export default function EscrowStats() {
     async function loadStats() {
       try {
         // Task 1: Initialize provider and contract
-        const provider = new ethers.providers.JsonRpcProvider(RPC);
+        const provider = new ethers.JsonRpcProvider(RPC);
         const escrow = new ethers.Contract(ADDR, ABI, provider);
 
         // Task 2: Fetch all escrow data using Promise.all
@@ -56,7 +56,7 @@ export default function EscrowStats() {
       <h3>Escrow Status</h3>
       <p>Buyer: {buyer}</p>
       <p>Seller: {seller}</p>
-      <p>Amount: {ethers.utils.formatEther(amt)} ETH</p>
+      <p>Amount: {ethers.formatEther(amt)} ETH</p>
       <p>
         Status:{" "}
         {released

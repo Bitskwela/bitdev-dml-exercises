@@ -10,11 +10,9 @@ describe("Lesson 19: Contract Deployment Simulator", function () {
     code = fs.readFileSync(filePath, "utf8");
   });
 
-  it("Task 1: Should setup signer from Web3Provider", function () {
-    expect(code).to.contain(
-      "new ethers.providers.Web3Provider(window.ethereum)",
-    );
-    expect(code).to.contain("provider.getSigner()");
+  it("Task 1: Should setup signer from BrowserProvider", function () {
+    expect(code).to.contain("new ethers.BrowserProvider(window.ethereum)");
+    expect(code).to.contain("await provider.getSigner()");
   });
 
   it("Task 2: Should use ContractFactory with artifact abi and bytecode", function () {
@@ -25,7 +23,7 @@ describe("Lesson 19: Contract Deployment Simulator", function () {
 
   it("Task 3: Should deploy contract and wait for confirmation", function () {
     expect(code).to.contain("factory.deploy(greet)");
-    expect(code).to.contain("contract.deployed()");
-    expect(code).to.contain("onDeployed(contract.address)");
+    expect(code).to.contain("contract.waitForDeployment()");
+    expect(code).to.contain("onDeployed(await contract.getAddress())");
   });
 });

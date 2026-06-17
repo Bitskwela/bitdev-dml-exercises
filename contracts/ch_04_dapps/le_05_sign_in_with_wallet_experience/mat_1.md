@@ -227,8 +227,8 @@ contract Authenticator {
 await window.ethereum.request({ method: "eth_requestAccounts" });
 
 // Create provider and signer
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
 
 // Get the connected address
 const userAddress = await signer.getAddress();
@@ -263,10 +263,10 @@ console.log("Signature:", signature);
 
 ```js
 // Hash the message (same way Solidity will)
-const messageHash = ethers.utils.id(message); // keccak256
+const messageHash = ethers.id(message); // keccak256
 
-// Split signature into v, r, s components
-const { v, r, s } = ethers.utils.splitSignature(signature);
+// Split signature into v, r, s components (v6 replaced utils.splitSignature)
+const { v, r, s } = ethers.Signature.from(signature);
 
 console.log("v:", v); // 27 or 28
 console.log("r:", r); // "0x..." (32 bytes)
@@ -349,10 +349,10 @@ Expiration: ${expirationTime.toISOString()}
 
 ```js
 // ❌ Problem: Hash calculated differently than contract expects
-const hash = ethers.utils.keccak256(message); // Wrong!
+const hash = ethers.keccak256(message); // Wrong!
 
-// ✅ Solution: Use ethers.utils.id() for string messages
-const hash = ethers.utils.id(message); // Correct!
+// ✅ Solution: Use ethers.id() for string messages
+const hash = ethers.id(message); // Correct!
 ```
 
 #### **2. User Rejects Signing**
@@ -399,10 +399,10 @@ Before deploying, verify:
 ### External References & Further Learning
 
 - **EIP-4361 Specification**: https://eips.ethereum.org/EIPS/eip-4361 - The official SIWE standard
-- **Ethers.js signMessage**: https://docs.ethers.org/v5/api/signer/#Signer-signMessage - Signing documentation
+- **Ethers.js signMessage**: https://docs.ethers.org/v6/api/providers/#Signer-signMessage - Signing documentation
 - **Solidity ecrecover**: https://docs.soliditylang.org/en/latest/units-and-global-variables.html - Built-in functions
 - **Sign-In with Ethereum Website**: https://login.xyz - Official SIWE resources
-- **OpenZeppelin ECDSA**: https://docs.openzeppelin.com/contracts/4.x/api/utils#ECDSA - Safe signature verification
+- **OpenZeppelin ECDSA**: https://docs.openzeppelin.com/contracts/5.x/api/utils#ECDSA - Safe signature verification
 
 ---
 
@@ -469,8 +469,8 @@ export default function ConnectWallet() {
 
 - Check `window.ethereum`; alert if missing.
 - `await window.ethereum.request({ method: 'eth_requestAccounts' })`.
-- Create `provider = new ethers.providers.Web3Provider(window.ethereum)`.
-- `const signer = provider.getSigner()`.
+- Create `provider = new ethers.BrowserProvider(window.ethereum)`.
+- `const signer = await provider.getSigner()` (async in ethers v6).
 - `setAccount(await signer.getAddress())`.
 
 **Full Solution**
@@ -482,8 +482,8 @@ const connect = async () => {
     return;
   }
   await window.ethereum.request({ method: "eth_requestAccounts" });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const addr = await signer.getAddress();
   setAccount(addr);
 };
@@ -527,7 +527,7 @@ export default function SignIn({ account }) {
 
 **To Do List**
 
-- Use existing `Web3Provider` & `signer`.
+- Use existing `BrowserProvider` & `signer` (await `getSigner()`).
 - Create `message = \`Nonce: ${Date.now()}\``.
 - `const sig = await signer.signMessage(message)`.
 - `setSignature(sig)`.
@@ -536,8 +536,8 @@ export default function SignIn({ account }) {
 
 ```js
 const sign = async () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const nonce = Date.now().toString();
   const msg = `Sign in to HR Dashboard\n\nNonce: ${nonce}`;
   const sig = await signer.signMessage(msg);
@@ -584,9 +584,9 @@ export default function AuthDashboard({ account, signature, message }) {
 
 **To Do List**
 
-1. Hash the message: `const msgHash = ethers.utils.id(message)`.
-2. `splitSignature(signature)` → `{ v, r, s }`.
-3. Instantiate `provider = new ethers.providers.JsonRpcProvider(RPC_URL)`.
+1. Hash the message: `const msgHash = ethers.id(message)`.
+2. `ethers.Signature.from(signature)` → `{ v, r, s }`.
+3. Instantiate `provider = new ethers.JsonRpcProvider(RPC_URL)`.
 4. `const contract = new ethers.Contract(addr, abi, provider)`.
 5. `const ok = await contract.verify(account, msgHash, v, r, s)`.
 6. `if ok, setIsValid(true)`; else alert failure.
@@ -595,9 +595,9 @@ export default function AuthDashboard({ account, signature, message }) {
 
 ```js
 const verifyOnChain = async () => {
-  const msgHash = ethers.utils.id(message);
-  const { v, r, s } = ethers.utils.splitSignature(signature);
-  const provider = new ethers.providers.JsonRpcProvider(
+  const msgHash = ethers.id(message);
+  const { v, r, s } = ethers.Signature.from(signature);
+  const provider = new ethers.JsonRpcProvider(
     process.env.REACT_APP_RPC_URL
   );
   const contract = new ethers.Contract(
@@ -638,13 +638,11 @@ jest.mock("ethers", () => {
   const original = jest.requireActual("ethers");
   return {
     ...original,
-    providers: {
-      Web3Provider: jest.fn(() => ({
-        getSigner: () => ({
-          getAddress: () => Promise.resolve("0xABC"),
-        }),
-      })),
-    },
+    BrowserProvider: jest.fn(() => ({
+      getSigner: async () => ({
+        getAddress: () => Promise.resolve("0xABC"),
+      }),
+    })),
   };
 });
 
@@ -669,18 +667,16 @@ jest.mock("ethers", () => {
   const fakeSig = "0xsig";
   return {
     ...original,
-    providers: {
-      Web3Provider: jest.fn(() => ({
-        getSigner: () => ({
-          signMessage: () => Promise.resolve(fakeSig),
-        }),
-      })),
-      JsonRpcProvider: jest.fn(),
-    },
-    utils: {
-      ...original.utils,
-      id: jest.fn(() => "0xhash"),
-      splitSignature: jest.fn(() => ({ v: 27, r: "0x1", s: "0x2" })),
+    BrowserProvider: jest.fn(() => ({
+      getSigner: async () => ({
+        signMessage: () => Promise.resolve(fakeSig),
+      }),
+    })),
+    JsonRpcProvider: jest.fn(),
+    id: jest.fn(() => "0xhash"),
+    Signature: {
+      ...original.Signature,
+      from: jest.fn(() => ({ v: 27, r: "0x1", s: "0x2" })),
     },
     Contract: jest.fn(() => ({
       verify: jest.fn(() => Promise.resolve(true)),

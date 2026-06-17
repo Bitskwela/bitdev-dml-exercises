@@ -12,7 +12,7 @@ describe("Lesson 13: Multisig Transaction Initiator", function () {
 
   it("Task 1: Should setup provider and logic to fetch count", function () {
     expect(code).to.contain(
-      "new ethers.providers.Web3Provider(window.ethereum)",
+      "new ethers.BrowserProvider(window.ethereum)",
     );
     expect(code).to.contain("wallet.getTransactionCount()");
   });
@@ -23,7 +23,7 @@ describe("Lesson 13: Multisig Transaction Initiator", function () {
   });
 
   it("Task 3: Should format output and update proposals state", function () {
-    expect(code).to.contain("ethers.utils.formatEther(value)");
+    expect(code).to.contain("ethers.formatEther(value)");
     expect(code).to.contain("setProposals(items)");
   });
 });

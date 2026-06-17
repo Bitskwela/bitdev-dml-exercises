@@ -18,11 +18,11 @@ describe("Lesson 14: Simulated Chain Oracle DApp", function () {
 
   it("Task 2: Should fetch bridge contract balance in ETH", function () {
     expect(code).to.contain("provider.getBalance(CONTRACT)");
-    expect(code).to.contain("ethers.utils.formatEther(bal)");
+    expect(code).to.contain("ethers.formatEther(bal)");
   });
 
   it("Task 3: Should update all status states", function () {
-    expect(code).to.contain("setWind(ws.toNumber())");
+    expect(code).to.contain("setWind(Number(ws))");
     expect(code).to.contain("setReleased(rel)");
     expect(code).to.contain("setBalance(");
   });

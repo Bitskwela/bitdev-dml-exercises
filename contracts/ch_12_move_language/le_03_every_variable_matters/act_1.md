@@ -1,4 +1,4 @@
-````markdown
+
 # Activity: Building a Type-Safe Data Registry
 
 ## Objective
@@ -68,9 +68,33 @@ module movestack::type_registry {
    - Return the boolean for testing
 
 3. **Implement safe type conversion**
+
    - Take a `u8` input parameter
    - Convert it safely to `u64` using the `as` keyword
    - This demonstrates upcasting (smaller to larger type)
+
+4. **Validate a user's age**
+
+   - Create a public function `create_user_age` that takes `age: u8`
+   - Return `true` only when the age is a valid adult (between 18 and 120)
+   - Use comparison operators with logical AND (`&&`)
+
+   ```move
+   public fun create_user_age(age: u8): bool {
+       age >= 18 && age <= 120
+   }
+   ```
+
+5. **Calculate total tokens**
+
+   - Create a public function `calculate_total_tokens` that takes `balance: u64` and `bonus: u64`
+   - Return their sum as `u64`
+
+   ```move
+   public fun calculate_total_tokens(balance: u64, bonus: u64): u64 {
+       balance + bonus
+   }
+   ```
 
 ## Expected Behavior
 
@@ -138,4 +162,4 @@ public fun create_user_age(age: u8): bool {
 ```
 
 </details>
-````
+

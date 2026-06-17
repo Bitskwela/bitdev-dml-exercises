@@ -17,7 +17,7 @@ export default function TokenTransfer({ contractAddress }) {
     e.preventDefault();
 
     // Validate inputs
-    if (!ethers.utils.isAddress(recipient)) {
+    if (!ethers.isAddress(recipient)) {
       setStatus("error");
       alert("Invalid recipient address");
       return;
@@ -35,13 +35,13 @@ export default function TokenTransfer({ contractAddress }) {
 
       // Connect wallet and get signer
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
       // Parse amount with decimals and transfer
       const decimals = await contract.decimals();
-      const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+      const parsedAmount = ethers.parseUnits(amount, decimals);
 
       const tx = await contract.transfer(recipient, parsedAmount);
       setTxHash(tx.hash);

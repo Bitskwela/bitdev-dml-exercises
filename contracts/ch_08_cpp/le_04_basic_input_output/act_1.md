@@ -32,18 +32,39 @@ int main() {
 
 ## Task for Learners
 
-- Use `getline(cin, fullName)` to read the full name (supports spaces).
+- Use `getline(cin, fullName)` to read the full name (supports spaces). Print the prompt `Full name: ` first.
 
   ```cpp
   cout << "Full name: ";
   getline(cin, fullName);
   ```
 
-- Use `cin >> age` then `cin.ignore()` before the next `getline`.
+- Print the prompt `Age: `, read with `cin >> age`, then call `cin.ignore()` before the next `getline`.
 
-- Use `getline(cin, city)` for the city and `cin >> income` for monthly income.
+  ```cpp
+  cout << "Age: ";
+  cin >> age;
+  cin.ignore();
+  ```
 
-- Display the summary using `fixed << setprecision(2)` for the income value.
+- Print the prompt `City: ` and use `getline(cin, city)`; then print `Monthly income: ` and use `cin >> income`.
+
+  ```cpp
+  cout << "City: ";
+  getline(cin, city);
+  cout << "Monthly income: ";
+  cin >> income;
+  ```
+
+- Display the summary with the exact labels below. Use `fixed << setprecision(2)` so the income shows two decimals, and prefix it with `P` for pesos.
+
+  ```cpp
+  cout << "Name: " << fullName << endl;
+  cout << "Age: " << age << endl;
+  cout << "City: " << city << endl;
+  cout << fixed << setprecision(2);
+  cout << "Monthly Income: P" << income << endl;
+  ```
 
 ### Breakdown of the Activity
 

@@ -23,7 +23,7 @@ describe("Lesson 05: Sign-in with Wallet Experience", function () {
   });
 
   it("Task 3: Should verify signature using contract.verify", function () {
-    expect(code).to.contain("ethers.utils.splitSignature(signature)");
+    expect(code).to.contain("ethers.Signature.from(signature)");
     expect(code).to.contain("contract.verify(account, msgHash, v, r, s)");
     expect(code).to.contain("setIsAuthenticated(true)");
   });

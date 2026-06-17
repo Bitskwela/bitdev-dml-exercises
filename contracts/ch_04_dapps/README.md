@@ -63,7 +63,7 @@ Before starting this chapter, make sure you have:
 1. ✅ Completed Chapter 1 (Basic Solidity)
 2. ✅ Familiarity with JavaScript/React basics
 3. ✅ MetaMask wallet installed
-4. ✅ Access to testnet ETH (Sepolia/Goerli)
+4. ✅ Access to testnet ETH (Sepolia)
 5. ✅ Understanding of smart contract deployment
 
 ## 🎯 Learning Objectives
@@ -101,7 +101,7 @@ These stories make learning more engaging while showcasing how Web3 technology c
 
 2. **Install MetaMask** browser extension
 
-3. **Get testnet ETH** from faucets for Sepolia or Goerli
+3. **Get testnet ETH** from faucets for Sepolia
 
 4. **Start with Lesson 1** and work through sequentially
 

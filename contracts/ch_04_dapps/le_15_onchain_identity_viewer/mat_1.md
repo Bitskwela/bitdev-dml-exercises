@@ -149,14 +149,14 @@ const [name, status, credCount] = await contract.getProfile(userAddress);
 
 // Step 2: Fetch each credential by index
 const credentials = [];
-for (let i = 0; i < credCount.toNumber(); i++) {
+for (let i = 0; i < Number(credCount); i++) {
   const cred = await contract.getCredential(userAddress, i);
   credentials.push(cred);
 }
 
 // Or use Promise.all for parallel fetching
 const credPromises = [];
-for (let i = 0; i < credCount.toNumber(); i++) {
+for (let i = 0; i < Number(credCount); i++) {
   credPromises.push(contract.getCredential(userAddress, i));
 }
 const credentials = await Promise.all(credPromises);
@@ -207,7 +207,7 @@ function IdentityViewer() {
 
   const fetchProfile = async (address) => {
     // Validate address format
-    if (!ethers.utils.isAddress(address)) {
+    if (!ethers.isAddress(address)) {
       setError("Invalid Ethereum address");
       return;
     }
@@ -216,7 +216,7 @@ function IdentityViewer() {
     setError(null);
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -238,7 +238,7 @@ function IdentityViewer() {
 
       // Fetch all credentials in parallel
       const credPromises = [];
-      for (let i = 0; i < credCount.toNumber(); i++) {
+      for (let i = 0; i < Number(credCount); i++) {
         credPromises.push(contract.getCredential(address, i));
       }
       const credentials = await Promise.all(credPromises);
@@ -253,9 +253,9 @@ function IdentityViewer() {
 
   // Listen for profile updates
   useEffect(() => {
-    if (!searchAddress || !ethers.utils.isAddress(searchAddress)) return;
+    if (!searchAddress || !ethers.isAddress(searchAddress)) return;
 
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL
     );
     const contract = new ethers.Contract(
@@ -288,11 +288,11 @@ Always validate Ethereum addresses before using them:
 import { ethers } from "ethers";
 
 // Check if valid address format
-ethers.utils.isAddress("0x1234...ABCD"); // true
-ethers.utils.isAddress("invalid"); // false
+ethers.isAddress("0x1234...ABCD"); // true
+ethers.isAddress("invalid"); // false
 
 // Normalize to checksum format
-const checksummed = ethers.utils.getAddress("0xabcd...");
+const checksummed = ethers.getAddress("0xabcd...");
 // Returns: "0xAbCd..." (with proper capitalization)
 
 // Compare addresses (case-insensitive)
@@ -307,7 +307,7 @@ function addressesMatch(a, b) {
 
 | Mistake                       | Problem                    | Solution                       |
 | ----------------------------- | -------------------------- | ------------------------------ |
-| Not validating address        | Crashes on bad input       | Use `ethers.utils.isAddress()` |
+| Not validating address        | Crashes on bad input       | Use `ethers.isAddress()`       |
 | Sequential credential fetches | Slow with many credentials | Use `Promise.all()`            |
 | Case-sensitive comparison     | Misses matching addresses  | Use `.toLowerCase()`           |
 | No "not found" handling       | Confusing empty state      | Check `hasProfile` first       |
@@ -337,7 +337,7 @@ Before considering this lesson complete, verify:
 | --------------------------- | ----------------------------------------------------------------------------------- |
 | W3C DID Core                | https://www.w3.org/TR/did-core/                                                     |
 | Ethereum Name Service (ENS) | https://docs.ens.domains/                                                           |
-| Ethers Address Utilities    | https://docs.ethers.org/v5/api/utils/address/                                       |
+| Ethers Address Utilities    | https://docs.ethers.org/v6/api/address/                                             |
 | Self-Sovereign Identity     | https://www.lifewithalacrity.com/2016/04/the-path-to-self-soverereign-identity.html |
 
 ---

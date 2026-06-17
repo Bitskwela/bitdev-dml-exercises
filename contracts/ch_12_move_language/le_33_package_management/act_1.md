@@ -98,6 +98,18 @@ Configure a Move package with proper structure and named addresses.
   }
   ```
 
+- Add view helpers that compare against and return the named addresses:
+
+  ```move
+  public fun is_admin(addr: address): bool {
+      addr == ADMIN_ADDRESS
+  }
+
+  public fun get_module_address(): address {
+      @tokenproject
+  }
+  ```
+
 ### Breakdown for learners
 
 **The `Move.toml` file** is the manifest for every Move package. It defines your project's identity and configuration.

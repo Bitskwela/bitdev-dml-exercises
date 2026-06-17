@@ -246,8 +246,8 @@ async function setupContract() {
   await window.ethereum.request({ method: "eth_requestAccounts" });
 
   // Create provider and signer
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
 
   // Create contract with signer (for write operations)
   const contract = new ethers.Contract(
@@ -317,7 +317,7 @@ useEffect(() => {
 
 | Mistake                  | Problem                        | Solution                       |
 | ------------------------ | ------------------------------ | ------------------------------ |
-| Not validating addresses | Invalid `to` address           | Use `ethers.utils.isAddress()` |
+| Not validating addresses | Invalid `to` address           | Use `ethers.isAddress()`       |
 | Allowing re-confirmation | Owner confirms twice           | Check `isConfirmed` mapping    |
 | Forgetting `tx.wait()`   | UI updates before confirmation | Always await receipt           |
 | No loading states        | User clicks multiple times     | Disable buttons while pending  |
@@ -347,7 +347,7 @@ Before considering this lesson complete, verify:
 | --------------------------------- | ------------------------------------------------------------------------- |
 | Gnosis Safe (Production Multisig) | https://safe.global/                                                      |
 | OpenZeppelin Governor             | https://docs.openzeppelin.com/contracts/4.x/governance                    |
-| Ethers.js Events                  | https://docs.ethers.org/v5/api/contract/contract/#Contract--events        |
+| Ethers.js Events                  | https://docs.ethers.org/v6/api/contract/#ContractEvent                     |
 | Solidity Modifiers                | https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers |
 
 ---
@@ -382,31 +382,35 @@ describe("Multisig UI Integration", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xABC"]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
-    fakeProvider.getSigner = () => fakeSigner;
+    ethers.BrowserProvider = jest.fn().mockReturnValue(fakeProvider);
+    fakeProvider.getSigner = async () => fakeSigner;
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
   });
 
   it("lists proposals", async () => {
-    fakeContract.getTransactionCount.mockResolvedValue({ toNumber: () => 1 });
+    fakeContract.getTransactionCount.mockResolvedValue(1n);
     fakeContract.transactions.mockResolvedValue([
       "0xTo",
-      ethers.BigNumber.from("1000000000000000000"),
+      1000000000000000000n,
       "0x1234",
       false,
-      ethers.BigNumber.from("2"),
+      2n,
     ]);
     render(<ProposalList contractAddress="0xWallet" />);
     expect(await screen.findByText(/ID #0/)).toBeInTheDocument();
   });
 
   it("submits a new proposal", async () => {
+    // ethers v6: receipt.events is gone — parse receipt.logs via
+    // contract.interface.parseLog(log) to read the emitted "Submitted" event.
+    const parsedLog = { name: "Submitted", args: { txId: 5n } };
+    fakeContract.interface = {
+      parseLog: jest.fn().mockReturnValue(parsedLog),
+    };
     const receipt = {
       wait: () =>
         Promise.resolve({
-          events: [
-            { event: "Submit", args: { txId: ethers.BigNumber.from("5") } },
-          ],
+          logs: [{ topics: [], data: "0x" }],
         }),
     };
     fakeContract.submitTransaction.mockResolvedValue(receipt);

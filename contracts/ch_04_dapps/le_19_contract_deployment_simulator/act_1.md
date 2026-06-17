@@ -20,14 +20,14 @@ export default function DeploySimulator({ onDeployed }) {
 
       // TODO: Task 1 - Connect to MetaMask and get signer
       // @note Request account access using eth_requestAccounts,
-      // create a Web3Provider from window.ethereum, and get the signer
+      // create a BrowserProvider from window.ethereum, and await the signer
 
       // TODO: Task 2 - Create ContractFactory with artifact
       // @note Use ethers.ContractFactory with the ABI, bytecode, and signer
 
       // TODO: Task 3 - Deploy contract and wait for confirmation
-      // @note Call factory.deploy() with the greeting, wait for deployment,
-      // and invoke the onDeployed callback with the contract address
+      // @note Call factory.deploy() with the greeting, await waitForDeployment(),
+      // and invoke the onDeployed callback with the deployed address
     } catch (err) {
       setError(err.message);
     } finally {
@@ -56,18 +56,18 @@ export default function DeploySimulator({ onDeployed }) {
 
 ## Tasks for Learners
 
-Topics Covered: `Web3Provider`, Signer, `ContractFactory`, Contract artifacts (ABI & bytecode), Deployment confirmation, Callback pattern
+Topics Covered: `BrowserProvider`, Signer, `ContractFactory`, Contract artifacts (ABI & bytecode), Deployment confirmation, Callback pattern
 
 ---
 
 ### Task 1: Connect to MetaMask and Get Signer
 
-Request account access from MetaMask using `eth_requestAccounts`. Then create a `Web3Provider` from `window.ethereum` and obtain a signer. The signer is required because deployment is a write operation that needs transaction signing.
+Request account access from MetaMask using `eth_requestAccounts`. Then create a `BrowserProvider` from `window.ethereum` and `await` the signer. The signer is required because deployment is a write operation that needs transaction signing. In ethers v6 `getSigner()` is asynchronous, so it must be awaited.
 
 ```js
 await window.ethereum.request({ method: "eth_requestAccounts" });
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
 ```
 
 ---
@@ -88,12 +88,12 @@ const factory = new ethers.ContractFactory(
 
 ### Task 3: Deploy Contract and Wait for Confirmation
 
-Call `factory.deploy()` with the constructor argument (greeting message). This sends the deployment transaction. Then call `contract.deployed()` to wait for on-chain confirmation. Finally, invoke the `onDeployed` callback with the new contract address.
+Call `factory.deploy()` with the constructor argument (greeting message). This sends the deployment transaction and returns a contract object. Then call `contract.waitForDeployment()` to wait for on-chain confirmation (ethers v6 replaced v5's `deployed()`). Finally, invoke the `onDeployed` callback with the new contract address, obtained via `await contract.getAddress()`.
 
 ```js
 const contract = await factory.deploy(greet);
-await contract.deployed();
-onDeployed(contract.address);
+await contract.waitForDeployment();
+onDeployed(await contract.getAddress());
 ```
 
 ---
@@ -117,7 +117,7 @@ onDeployed(contract.address);
 **Key Functions:**
 
 - `deploy()`:
-  The main async function handling the entire deployment workflow. First requests MetaMask access and creates provider/signer. Then creates a ContractFactory with the compiled artifact. Deploys the contract with the greeting argument and waits for confirmation. Finally calls the parent callback with the new address. Wrapped in try/catch/finally for proper error handling and loading state management.
+  The main async function handling the entire deployment workflow. First requests MetaMask access and creates provider/signer (awaiting `getSigner()`). Then creates a ContractFactory with the compiled artifact. Deploys the contract with the greeting argument and awaits `waitForDeployment()` for confirmation. Finally calls the parent callback with the new address from `getAddress()`. Wrapped in try/catch/finally for proper error handling and loading state management.
 
 - `ethers.ContractFactory(abi, bytecode, signer)`:
   Creates a factory for deploying new contract instances. The ABI defines the contract interface (functions, events). The bytecode is the compiled EVM code. The signer authorizes and pays for the deployment transaction.
@@ -125,8 +125,11 @@ onDeployed(contract.address);
 - `factory.deploy(...args)`:
   Sends a deployment transaction to the network. Arguments are passed to the contract's constructor. Returns a Contract object immediately, but the contract isn't confirmed yet.
 
-- `contract.deployed()`:
-  Returns a Promise that resolves when the deployment transaction is mined and the contract is live on-chain. Essential for knowing when the contract is ready to use.
+- `contract.waitForDeployment()`:
+  Returns a Promise that resolves when the deployment transaction is mined and the contract is live on-chain. In ethers v6 this replaces v5's `contract.deployed()`. Essential for knowing when the contract is ready to use.
+
+- `contract.getAddress()`:
+  Returns a Promise resolving to the deployed contract's address. In ethers v6 this replaces the synchronous `contract.address` property (the synchronous `contract.target` is also available once the address is known).
 
 - `onDeployed(address)`:
   Callback prop passed from the parent component. Called with the new contract address after successful deployment. Allows the parent to store or display the deployed address.
@@ -151,8 +154,8 @@ export default function DeploySimulator({ onDeployed }) {
       setLoading(true);
 
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
       const factory = new ethers.ContractFactory(
         HelloWorldArtifact.abi,
@@ -161,8 +164,8 @@ export default function DeploySimulator({ onDeployed }) {
       );
 
       const contract = await factory.deploy(greet);
-      await contract.deployed();
-      onDeployed(contract.address);
+      await contract.waitForDeployment();
+      onDeployed(await contract.getAddress());
     } catch (err) {
       setError(err.message);
     } finally {

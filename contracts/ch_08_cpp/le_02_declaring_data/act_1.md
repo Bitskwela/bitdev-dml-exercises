@@ -32,9 +32,27 @@ int main() {
 
 - Declare `int` variables `age` and `gradeLevel`, and a `string` for `favoriteSubject`.
 
+  ```cpp
+  int age = 16;
+  int gradeLevel = 10;
+  string favoriteSubject = "Computer Science";
+  ```
+
 - Declare a `double` variable `gpa` for a decimal grade value.
 
-- Use `cout` to display each variable with a descriptive label (e.g., "Name: ", "Age: ").
+  ```cpp
+  double gpa = 91.5;
+  ```
+
+- Use `cout` to display each variable with the exact labels shown below.
+
+  ```cpp
+  cout << "Name: " << fullName << endl;
+  cout << "Age: " << age << endl;
+  cout << "Grade: " << gradeLevel << endl;
+  cout << "Favorite Subject: " << favoriteSubject << endl;
+  cout << "GPA: " << gpa << endl;
+  ```
 
 ### Breakdown of the Activity
 

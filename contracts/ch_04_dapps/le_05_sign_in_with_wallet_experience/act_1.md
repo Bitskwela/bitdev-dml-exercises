@@ -88,7 +88,7 @@ Topics Covered: Wallet connection, message signing, signature verification, `ecr
 
 ### Task 1: Implement the `connectWallet` Function
 
-Check if MetaMask is installed, request account access using `eth_requestAccounts`, create a Web3Provider, and store the connected account address in state.
+Check if MetaMask is installed, request account access using `eth_requestAccounts`, create a `BrowserProvider`, get the signer with `await provider.getSigner()` (async in ethers v6), and store the connected account address in state.
 
 ```js
 const connectWallet = async () => {
@@ -100,8 +100,8 @@ const connectWallet = async () => {
     }
 
     await window.ethereum.request({ method: "eth_requestAccounts" });
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const address = await signer.getAddress();
     setAccount(address);
   } catch (err) {
@@ -123,8 +123,8 @@ const [message, setMessage] = useState("");
 const signMessage = async () => {
   try {
     setError("");
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
 
     const nonce = Date.now().toString();
     const msg = `Sign in to Dashboard\n\nNonce: ${nonce}`;
@@ -149,10 +149,10 @@ Hash the message, split the signature into its components (v, r, s), and call th
 const verifySignature = async () => {
   try {
     setError("");
-    const msgHash = ethers.utils.id(message);
-    const { v, r, s } = ethers.utils.splitSignature(signature);
+    const msgHash = ethers.id(message);
+    const { v, r, s } = ethers.Signature.from(signature);
 
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL
     );
     const contract = new ethers.Contract(
@@ -200,8 +200,8 @@ export default function WalletAuth() {
       }
 
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const address = await signer.getAddress();
       setAccount(address);
     } catch (err) {
@@ -213,8 +213,8 @@ export default function WalletAuth() {
   const signMessage = async () => {
     try {
       setError("");
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
       const nonce = Date.now().toString();
       const msg = `Sign in to Dashboard\n\nNonce: ${nonce}`;
@@ -231,10 +231,10 @@ export default function WalletAuth() {
   const verifySignature = async () => {
     try {
       setError("");
-      const msgHash = ethers.utils.id(message);
-      const { v, r, s } = ethers.utils.splitSignature(signature);
+      const msgHash = ethers.id(message);
+      const { v, r, s } = ethers.Signature.from(signature);
 
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -296,17 +296,17 @@ export default function WalletAuth() {
 
 - `isAuthenticated`: A boolean state that tracks whether the user has successfully verified their signature on-chain. When `true`, the dashboard is unlocked and displayed.
 
-- `msgHash`: The keccak256 hash of the message, created using `ethers.utils.id()`. This hash is what gets signed and verified, not the raw message text.
+- `msgHash`: The keccak256 hash of the message, created using `ethers.id()` (in ethers v6 the `utils` namespace was removed and helpers like `id` live on the top-level `ethers` object). This hash is what gets signed and verified, not the raw message text.
 
 - `v, r, s`: The three components of an Ethereum signature. `r` and `s` are 32-byte values that form the core signature, while `v` (27 or 28) is the recovery ID that helps determine which public key was used.
 
 **Key Functions:**
 
 - `connectWallet`:
-  Initiates the wallet connection flow. First checks if MetaMask is installed by looking for `window.ethereum`. Calls `eth_requestAccounts` to prompt the user to connect (triggers MetaMask popup). Creates a Web3Provider and signer to access the connected account's address. Error handling catches both MetaMask absence and user rejection.
+  Initiates the wallet connection flow. First checks if MetaMask is installed by looking for `window.ethereum`. Calls `eth_requestAccounts` to prompt the user to connect (triggers MetaMask popup). Creates a `BrowserProvider` and awaits `getSigner()` to access the connected account's address. Error handling catches both MetaMask absence and user rejection.
 
 - `signMessage`:
   Generates a unique message with a timestamp-based nonce, then requests the user's signature via `signer.signMessage()`. MetaMask displays the message content so the user can review what they're signing. The nonce ensures each sign-in attempt creates a unique signature, preventing attackers from reusing old signatures.
 
 - `verifySignature`:
-  Performs on-chain verification of the signature. Hashes the message with `ethers.utils.id()` (equivalent to `keccak256`), then splits the signature into its `v`, `r`, `s` components. Calls the smart contract's `verify()` function which uses Solidity's built-in `ecrecover` to recover the signer's address and compare it to the claimed account. This is a read-only call (no gas cost) since `verify` is a `pure` function.
+  Performs on-chain verification of the signature. Hashes the message with `ethers.id()` (equivalent to `keccak256`), then splits the signature into its `v`, `r`, `s` components with `ethers.Signature.from()` (ethers v6 replaced the v5 `ethers.utils.splitSignature()` helper). Calls the smart contract's `verify()` function which uses Solidity's built-in `ecrecover` to recover the signer's address and compare it to the claimed account. This is a read-only call (no gas cost) since `verify` is a `pure` function.

@@ -101,7 +101,7 @@ window.ethereum.on("accountsChanged", (accounts) => {
 ```
 
 **`chainChanged` Event**
-Fires when the user switches blockchain networks (e.g., from Ethereum mainnet to Goerli testnet).
+Fires when the user switches blockchain networks (e.g., from Ethereum mainnet to Sepolia testnet).
 
 ```js
 window.ethereum.on("chainChanged", (chainId) => {
@@ -128,7 +128,6 @@ await window.ethereum.request({
 **Chain IDs you should know:**
 
 - `0x1` = Ethereum Mainnet
-- `0x5` = Goerli Testnet (being deprecated)
 - `0xaa36a7` = Sepolia Testnet (recommended for testing)
 - `0x89` = Polygon Mainnet
 
@@ -143,6 +142,17 @@ npm install ethers
 ```
 
 This downloads the Ethers.js library so you can use it in your code.
+
+> **Note on scaffolding your project:** The story above uses `npx create-react-app`, but Create React App (CRA) is now **deprecated and unmaintained** — the React team no longer recommends it. The modern default for spinning up a React project is **Vite**, which is faster and actively maintained:
+>
+> ```bash
+> npm create vite@latest dapp-foundation -- --template react
+> cd dapp-foundation
+> npm install
+> npm install ethers
+> ```
+>
+> The wallet-connection code in this lesson works identically regardless of how you scaffolded the project.
 
 #### **Step 2: Build the WalletConnector Component**
 
@@ -285,12 +295,12 @@ If you use services like Infura or Alchemy, keep API keys in environment variabl
 
 ```js
 // ❌ BAD - API key exposed
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   "https://mainnet.infura.io/v3/YOUR_API_KEY"
 );
 
 // ✅ GOOD - API key hidden
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL
 );
 ```
@@ -313,7 +323,7 @@ If users enter addresses or amounts, validate them before sending transactions:
 
 ```js
 // Check if address is valid
-if (!ethers.utils.isAddress(userAddress)) {
+if (!ethers.isAddress(userAddress)) {
   alert("Invalid Ethereum address!");
 }
 

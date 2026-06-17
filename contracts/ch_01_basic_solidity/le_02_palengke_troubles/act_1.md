@@ -56,6 +56,14 @@ contract PalengkeLedger {
       }
   ```
 
+- Implement the `isTransactionSuccessful` function to return the current transaction status.
+
+  ```solidity
+      function isTransactionSuccessful() public view returns (bool) {
+          return transactionStatus;
+      }
+  ```
+
 ### Breakdown for learners
 
 - Variables Defined:

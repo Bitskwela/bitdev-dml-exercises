@@ -17,10 +17,9 @@ const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
 
 const NAMES = {
   1: "Ethereum Mainnet",
-  5: "Goerli",
   11155111: "Sepolia",
   137: "Polygon",
-  80001: "Mumbai",
+  80002: "Polygon Amoy",
 };
 
 export default function NetworkStats() {
@@ -69,20 +68,20 @@ export default function NetworkStats() {
 
 ## Tasks for Learners
 
-Topics Covered: `Web3Provider`, `JsonRpcProvider`, `window.ethereum`, `chainChanged` event, Chain ID mapping, Event cleanup
+Topics Covered: `BrowserProvider`, `JsonRpcProvider`, `window.ethereum`, `chainChanged` event, Chain ID mapping, Event cleanup
 
 ---
 
 ### Task 1: Create Provider Based on Wallet Availability
 
-Detect if `window.ethereum` exists (MetaMask installed). If yes, create a `Web3Provider` and request account access. Otherwise, fall back to `JsonRpcProvider` using the RPC URL from environment variables for read-only access.
+Detect if `window.ethereum` exists (MetaMask installed). If yes, create a `BrowserProvider` and request account access. Otherwise, fall back to `JsonRpcProvider` using the RPC URL from environment variables for read-only access.
 
 ```js
 if (window.ethereum) {
-  provider = new ethers.providers.Web3Provider(window.ethereum);
+  provider = new ethers.BrowserProvider(window.ethereum);
   await window.ethereum.request({ method: "eth_requestAccounts" });
 } else {
-  provider = new ethers.providers.JsonRpcProvider(RPC);
+  provider = new ethers.JsonRpcProvider(RPC);
 }
 ```
 
@@ -90,12 +89,12 @@ if (window.ethereum) {
 
 ### Task 2: Fetch Chain ID and Map to Friendly Name
 
-Create a contract instance using the ABI, contract address, and provider. Call `getChainId()` to get the current chain ID as a BigNumber, convert it to a regular number, and map it to a human-readable name using the `NAMES` lookup object.
+Create a contract instance using the ABI, contract address, and provider. Call `getChainId()` to get the current chain ID — in ethers v6 a `uint256` is returned as a native `bigint`, so convert it with `Number(...)` before using it as an object key — and map it to a human-readable name using the `NAMES` lookup object.
 
 ```js
 contract = new ethers.Contract(CONTRACT, ABI, provider);
-const idBN = await contract.getChainId();
-const id = idBN.toNumber();
+const idRaw = await contract.getChainId();
+const id = Number(idRaw);
 setChainId(id);
 setChainName(NAMES[id] || "Unknown");
 ```
@@ -140,12 +139,12 @@ return () => {
 
 - `chainName`: State variable storing the friendly network name. Falls back to "Unknown" for unrecognized chain IDs.
 
-- `provider`: Either a `Web3Provider` (MetaMask) or `JsonRpcProvider` (direct RPC) depending on wallet availability.
+- `provider`: Either a `BrowserProvider` (MetaMask, ethers v6's replacement for v5's `Web3Provider`) or `JsonRpcProvider` (direct RPC) depending on wallet availability.
 
 **Key Functions:**
 
 - `loadChain()`:
-  The async initialization function that runs on component mount. First detects MetaMask availability to create the appropriate provider. Then creates a contract instance and calls `getChainId()` to fetch the current network. Converts the BigNumber result to a number and maps it to a friendly name.
+  The async initialization function that runs on component mount. First detects MetaMask availability to create the appropriate provider. Then creates a contract instance and calls `getChainId()` to fetch the current network. Converts the `bigint` result to a number with `Number(...)` and maps it to a friendly name.
 
 - `handleChange(chainHex)`:
   Event handler for MetaMask's `chainChanged` event. Receives the new chain ID as a hex string (e.g., "0x1" for Ethereum Mainnet). Parses it to a decimal number using `parseInt(chainHex, 16)` and updates both state variables.
@@ -170,10 +169,9 @@ const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
 
 const NAMES = {
   1: "Ethereum Mainnet",
-  5: "Goerli",
   11155111: "Sepolia",
   137: "Polygon",
-  80001: "Mumbai",
+  80002: "Polygon Amoy",
 };
 
 export default function NetworkStats() {
@@ -187,15 +185,15 @@ export default function NetworkStats() {
     async function loadChain() {
       try {
         if (window.ethereum) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
+          provider = new ethers.BrowserProvider(window.ethereum);
           await window.ethereum.request({ method: "eth_requestAccounts" });
         } else {
-          provider = new ethers.providers.JsonRpcProvider(RPC);
+          provider = new ethers.JsonRpcProvider(RPC);
         }
 
         contract = new ethers.Contract(CONTRACT, ABI, provider);
-        const idBN = await contract.getChainId();
-        const id = idBN.toNumber();
+        const idRaw = await contract.getChainId();
+        const id = Number(idRaw);
         setChainId(id);
         setChainName(NAMES[id] || "Unknown");
       } catch (err) {

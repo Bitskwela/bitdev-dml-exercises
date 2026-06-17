@@ -4,9 +4,9 @@
 
 Odessa squished into the LRT car, earbuds in, phone buzzing with a DM from a California startup founder: “Show me you can fetch NFT metadata on‐chain.” Her heart raced—this was her ticket to proving she wasn’t just another “crypto tourist.”
 
-Moments earlier, at a Quiapo co‐working space, she’d deployed a simple ERC-721 contract on Goerli, minting a handful of “QuiapoArt” tokens with unique URIs, each pointing to Pinoy‐inspired artwork. Now, as the train rattled past church bells and sari–sari stores, she sketched out a React UI: display the contract’s name, symbol, total minted count, plus a lookup field to fetch a token’s URI.
+Moments earlier, at a Quiapo co‐working space, she’d deployed a simple ERC-721 contract on Sepolia, minting a handful of “QuiapoArt” tokens with unique URIs, each pointing to Pinoy‐inspired artwork. Now, as the train rattled past church bells and sari–sari stores, she sketched out a React UI: display the contract’s name, symbol, total minted count, plus a lookup field to fetch a token’s URI.
 
-With every clack of the rails, Odessa pieced together Ethers.js calls: `contract.name()`, `contract.symbol()`, `contract.totalMinted()`, `contract.tokenURIs(id)`. By the time she reached Ascencion Station, her read‐only interface was live—pulling real Goerli data into her browser. She tapped “Get Token URI” and watched the IPFS link appear.
+With every clack of the rails, Odessa pieced together Ethers.js calls: `contract.name()`, `contract.symbol()`, `contract.totalMinted()`, `contract.tokenURIs(id)`. By the time she reached Ascencion Station, her read‐only interface was live—pulling real Sepolia data into her browser. She tapped “Get Token URI” and watched the IPFS link appear.
 
 That evening, Odessa dialed into the Zoom pitch. As the founder saw “QuiapoArt (QART) – Total Minted: 5” and a live URI field, he leaned in: “Impressive, you really know your stuff.” Odessa closed her eyes, smiling at Manila’s skyline in her laptop wallpaper. From LRT to VC approval—she’d nailed it.
 
@@ -69,7 +69,7 @@ This lesson focuses on **read operations**—they're free, fast, and perfect for
 ```
 ┌──────────┐    ┌───────────┐    ┌──────────────┐    ┌────────────┐
 │  React   │───▶│ Ethers.js │───▶│ RPC Provider │───▶│ Blockchain │
-│   UI     │◀───│           │◀───│ (Infura/etc) │◀───│  (Goerli)  │
+│   UI     │◀───│           │◀───│ (Infura/etc) │◀───│ (Sepolia)  │
 └──────────┘    └───────────┘    └──────────────┘    └────────────┘
      ▲                                                      │
      │              Your call: contract.name()              │
@@ -86,18 +86,18 @@ This lesson focuses on **read operations**—they're free, fast, and perfect for
 A **Provider** is your connection to the blockchain. Think of it as a phone line to Ethereum:
 
 - **Without MetaMask**: Use `JsonRpcProvider` with an RPC URL (like Infura or Alchemy)
-- **With MetaMask**: Use `Web3Provider` which connects through the user's wallet
+- **With MetaMask**: Use `BrowserProvider` which connects through the user's wallet
 
 For read-only operations, we don't need MetaMask! We can connect directly to the blockchain using a public RPC endpoint.
 
 ```js
 // Direct connection (no wallet needed)
-const provider = new ethers.providers.JsonRpcProvider(
-  "https://goerli.infura.io/v3/YOUR_KEY"
+const provider = new ethers.JsonRpcProvider(
+  "https://sepolia.infura.io/v3/YOUR_KEY"
 );
 
 // Through MetaMask (needed for write operations)
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum);
 ```
 
 #### **What is a Contract Instance?**
@@ -156,7 +156,7 @@ Create a `.env` file in your project root:
 
 ```bash
 # .env
-REACT_APP_RPC_URL=https://goerli.infura.io/v3/YOUR_INFURA_KEY
+REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
 REACT_APP_CONTRACT_ADDRESS=0xYourSimpleNFTAddress
 ```
 
@@ -183,7 +183,7 @@ import { ethers } from "ethers";
 import abi from "./abi/SimpleNFT.json";
 
 // Create provider (connection to blockchain)
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL
 );
 
@@ -241,7 +241,7 @@ export default function NFTReader() {
         setError(null);
 
         // Step 1: Create provider (connection to blockchain)
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
 
@@ -257,16 +257,16 @@ export default function NFTReader() {
         const [fetchedName, fetchedSymbol, fetchedTotal] = await Promise.all([
           contract.name(), // Returns: string
           contract.symbol(), // Returns: string
-          contract.totalMinted(), // Returns: BigNumber
+          contract.totalMinted(), // Returns: bigint
         ]);
 
         // Step 4: Update state with fetched values
         setName(fetchedName);
         setSymbol(fetchedSymbol);
 
-        // Note: Solidity returns BigNumber for uint256
-        // We convert to regular JavaScript number for display
-        setTotal(fetchedTotal.toNumber());
+        // Note: in ethers v6, Solidity uint256 is returned as a native bigint
+        // We convert to a regular JavaScript number for display
+        setTotal(Number(fetchedTotal));
       } catch (err) {
         console.error("Error loading contract data:", err);
         setError(
@@ -292,7 +292,7 @@ export default function NFTReader() {
     }
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -384,16 +384,16 @@ const [name, symbol, total] = await Promise.all([
 // Total time: ~1 second (all run simultaneously)
 ```
 
-**Pattern 2: Handling BigNumber**
+**Pattern 2: Handling bigint**
 
 ```js
-// Solidity uint256 returns a BigNumber object, not a regular number
+// In ethers v6, Solidity uint256 returns a native JavaScript bigint, not a regular number
 const total = await contract.totalMinted();
-console.log(total); // BigNumber { _hex: '0x05', ... }
-console.log(total.toNumber()); // 5
+console.log(total); // 5n  (note the trailing "n" — that's a bigint literal)
+console.log(Number(total)); // 5
 console.log(total.toString()); // "5"
 
-// For very large numbers, use toString() to avoid overflow
+// For very large numbers, use toString() to avoid precision loss
 const hugeBalance = await contract.balanceOf(address);
 console.log(hugeBalance.toString()); // "1000000000000000000" (1 ETH in wei)
 ```
@@ -527,15 +527,15 @@ return <YourComponent />;
 
 ### 6. Common Mistakes to Avoid
 
-1. **Forgetting to convert BigNumber**
+1. **Mixing bigint and number**
 
    ```js
-   // ❌ Wrong - BigNumber is not a regular number
-   const total = await contract.totalMinted();
-   console.log(total + 1); // "[object Object]1"
+   // ❌ Wrong - can't add a number to a bigint, this throws a TypeError
+   const total = await contract.totalMinted(); // 5n
+   console.log(total + 1); // TypeError: Cannot mix BigInt and other types
 
-   // ✅ Correct
-   console.log(total.toNumber() + 1); // 6
+   // ✅ Correct - convert to a number first (or use a bigint literal: total + 1n)
+   console.log(Number(total) + 1); // 6
    ```
 
 2. **Creating provider inside render loop**
@@ -543,13 +543,13 @@ return <YourComponent />;
    ```js
    // ❌ Bad - creates new provider on every render
    function Component() {
-     const provider = new ethers.providers.JsonRpcProvider(url);
+     const provider = new ethers.JsonRpcProvider(url);
      // ...
    }
 
    // ✅ Good - create once, outside component or with useMemo
    const provider = useMemo(
-     () => new ethers.providers.JsonRpcProvider(url),
+     () => new ethers.JsonRpcProvider(url),
      [url]
    );
    ```
@@ -611,6 +611,6 @@ Now that you can **read** from smart contracts, the next steps are:
 
 ## 🌟 Closing Story
 
-Later that night, Odessa replayed her Zoom pitch, watching the founder’s jaws drop as live Goerli data populated her UI. She’d bridged Manila’s LRT chaos and Silicon Valley’s expectations with a few Ethers.js calls.
+Later that night, Odessa replayed her Zoom pitch, watching the founder’s jaws drop as live Sepolia data populated her UI. She’d bridged Manila’s LRT chaos and Silicon Valley’s expectations with a few Ethers.js calls.
 
 Tomorrow, she’ll write to the contract—mint new NFTs, transfer ownership, and power genuine Web3 interactions. From read‐only glory to full DApp mastery, Odessa’s Philippine spirit is unstoppable. Next stop: **Write Transactions & Gas Management**! 🚀🪙✨

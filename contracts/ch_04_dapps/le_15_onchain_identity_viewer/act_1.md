@@ -83,7 +83,7 @@ const accounts = await window.ethereum.request({
 const userAddress = accounts[0];
 setAddr(userAddress);
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum);
 const identity = new ethers.Contract(
   process.env.REACT_APP_IDENTITY_ADDRESS,
   ABI,
@@ -95,13 +95,13 @@ const identity = new ethers.Contract(
 
 ### Task 2: Fetch Profile Data and Parse Struct Return
 
-Call `getProfile()` which returns a tuple (name, status, credCount). Destructure the return values and convert the credential count from `BigNumber` to a number.
+Call `getProfile()` which returns a tuple (name, status, credCount). Destructure the return values and convert the credential count from `bigint` to a number.
 
 ```js
 const [n, s, c] = await identity.getProfile(userAddress);
 setName(n);
 setStatus(s);
-const credCount = c.toNumber();
+const credCount = Number(c);
 ```
 
 ---
@@ -126,16 +126,17 @@ setCreds(credList);
 Listen for `ProfileUpdated` events to automatically reload the profile when changes occur. Remember to remove the listener on component unmount.
 
 ```js
-const handleUpdate = (user) => {
+identity.on("ProfileUpdated", (user) => {
   if (user.toLowerCase() === userAddress.toLowerCase()) {
     load(); // Re-fetch profile
   }
-};
-identity.on("ProfileUpdated", handleUpdate);
+});
 
 // Cleanup in useEffect return
 return () => {
-  identity.off("ProfileUpdated", handleUpdate);
+  if (identity) {
+    identity.removeAllListeners("ProfileUpdated");
+  }
 };
 ```
 
@@ -151,7 +152,7 @@ return () => {
 
 - `creds`: Array of credential strings fetched through indexed calls to `getCredential()`. Each credential is fetched individually.
 
-- `credCount`: The number of credentials stored for this user. Returned as a `BigNumber` from the contract, converted with `.toNumber()`.
+- `credCount`: The number of credentials stored for this user. Returned as a `bigint` from the contract, converted with `Number()`.
 
 **Key Functions:**
 
@@ -201,14 +202,14 @@ export default function ProfileViewer() {
         const userAddress = accounts[0];
         setAddr(userAddress);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         identity = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [n, s, c] = await identity.getProfile(userAddress);
         setName(n);
         setStatus(s);
 
-        const credCount = c.toNumber();
+        const credCount = Number(c);
         const credList = [];
         for (let i = 0; i < credCount; i++) {
           const cred = await identity.getCredential(userAddress, i);

@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-
 contract UserRegistryV1 {
     // Mapping to store user addresses and their names
     mapping(address => string) public userNames;

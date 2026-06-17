@@ -14,7 +14,7 @@ import { ethers } from "ethers";
 
 const ABI = [
   "function getReserves() view returns (uint112, uint112)",
-  "function getTotalSupply() view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
 ];
 
 export default function LPStats() {
@@ -56,12 +56,12 @@ Topics Covered: Address validation, `JsonRpcProvider`, tuple destructuring, mult
 
 ### Task 1: Validate the Contract Address
 
-Before interacting with the contract, validate that the LP address from environment variables is a valid Ethereum address using `ethers.utils.isAddress()`.
+Before interacting with the contract, validate that the LP address from environment variables is a valid Ethereum address using `ethers.isAddress()`.
 
 ```js
 const LP_ADDRESS = process.env.REACT_APP_LP_ADDRESS;
 
-if (!ethers.utils.isAddress(LP_ADDRESS)) {
+if (!ethers.isAddress(LP_ADDRESS)) {
   throw new Error("Invalid LP contract address");
 }
 ```
@@ -73,7 +73,7 @@ if (!ethers.utils.isAddress(LP_ADDRESS)) {
 Instantiate a `JsonRpcProvider` with the RPC URL and create a contract instance for read-only calls to the MockLP contract.
 
 ```js
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL,
 );
 const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);
@@ -83,11 +83,11 @@ const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);
 
 ### Task 3: Fetch Reserves and Total Supply
 
-Call `getReserves()` and `getTotalSupply()` from the contract. Destructure the tuple returned by `getReserves()` and update component state with the fetched values.
+Call `getReserves()` and `totalSupply()` from the contract. Destructure the tuple returned by `getReserves()` and update component state with the fetched values.
 
 ```js
 const [r0, r1] = await lp.getReserves();
-const ts = await lp.getTotalSupply();
+const ts = await lp.totalSupply();
 setReserves({ r0, r1 });
 setSupply(ts);
 ```
@@ -106,11 +106,11 @@ setSupply(ts);
 
 **Key Functions:**
 
-- `ethers.utils.isAddress()`:
+- `ethers.isAddress()`:
   A utility function that validates whether a string is a valid Ethereum address (40 hex characters with 0x prefix). Returns `true` or `false`. Essential for preventing errors when interacting with invalid addresses.
 
 - `getReserves()`:
-  Returns a tuple of two `uint112` values. In JavaScript, we destructure this as `const [r0, r1] = await lp.getReserves()`. Each value is a `BigNumber` representing the token balance.
+  Returns a tuple of two `uint112` values. In JavaScript, we destructure this as `const [r0, r1] = await lp.getReserves()`. Each value is a `bigint` representing the token balance.
 
 - `fetchStats`:
   The main async function that validates the address, creates the provider and contract, fetches both reserves and total supply, and updates state. Errors are caught and displayed to the user.
@@ -125,7 +125,7 @@ import { ethers } from "ethers";
 
 const ABI = [
   "function getReserves() view returns (uint112, uint112)",
-  "function getTotalSupply() view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
 ];
 
 export default function LPStats() {
@@ -138,17 +138,17 @@ export default function LPStats() {
       try {
         const LP_ADDRESS = process.env.REACT_APP_LP_ADDRESS;
 
-        if (!ethers.utils.isAddress(LP_ADDRESS)) {
+        if (!ethers.isAddress(LP_ADDRESS)) {
           throw new Error("Invalid LP contract address");
         }
 
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL,
         );
         const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);
 
         const [r0, r1] = await lp.getReserves();
-        const ts = await lp.getTotalSupply();
+        const ts = await lp.totalSupply();
         setReserves({ r0, r1 });
         setSupply(ts);
       } catch (err) {

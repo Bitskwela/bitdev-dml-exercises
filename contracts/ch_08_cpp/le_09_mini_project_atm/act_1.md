@@ -48,25 +48,37 @@ int main() {
 
 ## Task for Learners
 
-- Simulate a deposit of 500.0 and record it in the transactions array:
+- Simulate a deposit of 500.0, record it in the transactions array, and print the deposited amount:
 
   ```cpp
   double depositAmount = 500.0;
   balance += depositAmount;
   transactions[transactionCount++] = "Deposit: P" + to_string((int)depositAmount);
+  cout << "Deposited: P" << depositAmount << endl;
   ```
 
-- Simulate a withdrawal of 200.0 with a balance check:
+- Simulate a withdrawal of 200.0 with a balance check, and print the withdrawn amount (or an error if funds are short):
 
   ```cpp
   double withdrawAmount = 200.0;
   if (withdrawAmount <= balance) {
       balance -= withdrawAmount;
       transactions[transactionCount++] = "Withdraw: P" + to_string((int)withdrawAmount);
+      cout << "Withdrawn: P" << withdrawAmount << endl;
+  } else {
+      cout << "Insufficient funds!" << endl;
   }
   ```
 
-- Print the final balance and loop through the transaction history.
+- Print the final balance with 2 decimal places, then loop through the transaction history:
+
+  ```cpp
+  cout << "\nFinal Balance: P" << fixed << setprecision(2) << balance << endl;
+  cout << "--- Transaction History ---" << endl;
+  for (int i = 0; i < transactionCount; i++) {
+      cout << (i + 1) << ". " << transactions[i] << endl;
+  }
+  ```
 
 ### Breakdown of the Activity
 

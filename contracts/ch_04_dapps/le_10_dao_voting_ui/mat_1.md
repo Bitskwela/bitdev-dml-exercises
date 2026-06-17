@@ -218,7 +218,7 @@ const DAO_ABI = [
 
 ```js
 async function loadProposals() {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
 
   // Get total count
@@ -230,10 +230,10 @@ async function loadProposals() {
   for (let i = 0; i < count; i++) {
     const [id, description, yes, no] = await dao.proposals(i);
     proposals.push({
-      id: id.toNumber(),
+      id: Number(id),
       description,
-      yes: yes.toNumber(),
-      no: no.toNumber(),
+      yes: Number(yes),
+      no: Number(no),
     });
   }
 
@@ -280,8 +280,8 @@ function ProposalCard({ proposal }) {
 async function castVote(proposalId, support) {
   // Get signer for transaction
   await window.ethereum.request({ method: "eth_requestAccounts" });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, signer);
 
   // Check if already voted
@@ -397,7 +397,7 @@ Event-Driven Updates:
 ```js
 function useVoteEvents(daoAddress, onVoteReceived) {
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const dao = new ethers.Contract(daoAddress, DAO_ABI, provider);
 
     // Handler for vote events
@@ -409,7 +409,7 @@ function useVoteEvents(daoAddress, onVoteReceived) {
       );
 
       // Update the specific proposal
-      onVoteReceived(proposalId.toNumber(), support);
+      onVoteReceived(Number(proposalId), support);
     }
 
     // Subscribe
@@ -462,8 +462,8 @@ async function createProposal(description) {
 
   // Get signer
   await window.ethereum.request({ method: "eth_requestAccounts" });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, signer);
 
   // Create proposal
@@ -473,9 +473,17 @@ async function createProposal(description) {
   // Wait for confirmation
   const receipt = await tx.wait();
 
-  // Get the new proposal ID from event
-  const event = receipt.events.find((e) => e.event === "ProposalCreated");
-  const newId = event.args.id.toNumber();
+  // Get the new proposal ID from event (parse receipt.logs in v6)
+  const event = receipt.logs
+    .map((log) => {
+      try {
+        return dao.interface.parseLog(log);
+      } catch {
+        return null;
+      }
+    })
+    .find((parsed) => parsed && parsed.name === "ProposalCreated");
+  const newId = Number(event.args.id);
 
   console.log(`Proposal #${newId} created!`);
   return newId;
@@ -490,7 +498,7 @@ async function createProposal(description) {
 
 ```js
 async function checkVoteStatus(proposalId, userAddress) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
 
   const hasVoted = await dao.hasVoted(proposalId, userAddress);
@@ -580,7 +588,7 @@ function DAOVotingApp() {
       });
       setUserAddress(account);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
 
       const count = await dao.getProposalCount();
@@ -591,10 +599,10 @@ function DAOVotingApp() {
         const hasVoted = await dao.hasVoted(i, account);
 
         items.push({
-          id: id.toNumber(),
+          id: Number(id),
           description,
-          yes: yes.toNumber(),
-          no: no.toNumber(),
+          yes: Number(yes),
+          no: Number(no),
           hasVoted,
         });
       }
@@ -659,14 +667,18 @@ if (hasVoted) {
 await dao.vote(proposalId, true);
 ```
 
-#### **2. Not Converting BigNumbers**
+#### **2. Mixing bigint and number**
 
 ```js
-// ❌ Comparing BigNumber to number
-if (proposal.yes > proposal.no) // May not work!
+// In ethers v6, uint values come back as native bigint.
+// ❌ Mixing bigint with a JS number throws a TypeError
+const total = proposal.yes + 1; // TypeError: Cannot mix BigInt and other types
 
-// ✅ Convert to numbers
-if (proposal.yes.toNumber() > proposal.no.toNumber())
+// ✅ Convert to a number when doing number math or display
+if (Number(proposal.yes) > Number(proposal.no)) {
+  // bigint-to-bigint comparison (proposal.yes > proposal.no) also works,
+  // but convert with Number(...) when you need a plain JS number.
+}
 ```
 
 #### **3. Forgetting Event Cleanup**
@@ -703,7 +715,7 @@ Before deploying, verify:
 
 ### External References & Further Learning
 
-- **Ethers.js Events**: https://docs.ethers.org/v5/api/contract/contract/#Contract--events - Listening to events
+- **Ethers.js Events**: https://docs.ethers.org/v6/api/contract/#ContractEvent - Listening to events
 - **Compound Governance**: https://docs.compound.finance/v2/governance/ - Real DAO example
 - **OpenZeppelin Governor**: https://docs.openzeppelin.com/contracts/4.x/governance - Production governance
 - **Snapshot**: https://docs.snapshot.org - Off-chain voting
@@ -776,7 +788,7 @@ export default function ProposalList() {
     async function load() {
       try {
         // 1. await window.ethereum.request(...)
-        // 2. const provider = new ethers.providers.Web3Provider(...)
+        // 2. const provider = new ethers.BrowserProvider(...)
         // 3. const dao = new ethers.Contract(address, ABI, provider)
         // 4. const count = await dao.getProposalCount()
         // 5. loop i in [0..count) => dao.proposals(i)
@@ -833,17 +845,17 @@ export default function ProposalList() {
     async function load() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const dao = new ethers.Contract(DAO_ADDRESS, ABI, provider);
-        const count = (await dao.getProposalCount()).toNumber();
+        const count = Number(await dao.getProposalCount());
         const items = [];
         for (let i = 0; i < count; i++) {
           const [id, desc, yes, no] = await dao.proposals(i);
           items.push({
-            id: id.toNumber(),
+            id: Number(id),
             description: desc,
-            yes: yes.toNumber(),
-            no: no.toNumber(),
+            yes: Number(yes),
+            no: Number(no),
           });
         }
         setProposals(items);
@@ -968,8 +980,8 @@ export default function VoteForm({ proposalId, onVoted }) {
     try {
       setLoading(true);
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const dao = new ethers.Contract(DAO_ADDRESS, ABI, signer);
       const tx = await dao.vote(proposalId, support);
       const receipt = await tx.wait();
@@ -1078,13 +1090,13 @@ export default function ResultsPanel() {
   useEffect(() => {
     let dao;
     async function init() {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       dao = new ethers.Contract(DAO_ADDRESS, ABI, provider);
-      const count = (await dao.getProposalCount()).toNumber();
+      const count = Number(await dao.getProposalCount());
       const arr = [];
       for (let i = 0; i < count; i++) {
         const [id, , yes, no] = await dao.proposals(i);
-        arr.push({ id: id.toNumber(), yes: yes.toNumber(), no: no.toNumber() });
+        arr.push({ id: Number(id), yes: Number(yes), no: Number(no) });
       }
       setResults(arr);
 
@@ -1092,7 +1104,7 @@ export default function ResultsPanel() {
       dao.on("Voted", (_voter, pid, _support) => {
         setResults((prev) =>
           prev.map((r) =>
-            r.id === pid.toNumber()
+            r.id === Number(pid)
               ? {
                   ...r,
                   yes: _support ? r.yes + 1 : r.yes,
@@ -1148,11 +1160,9 @@ describe("ProposalList Component", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xACC"]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
+    ethers.BrowserProvider = jest.fn().mockReturnValue({});
     ethers.Contract = jest.fn().mockReturnValue({
-      getProposalCount: jest.fn().mockResolvedValue({
-        toNumber: () => fakeCount,
-      }),
+      getProposalCount: jest.fn().mockResolvedValue(BigInt(fakeCount)),
       proposals: jest
         .fn()
         .mockResolvedValueOnce(fakeProposals[0])
@@ -1189,7 +1199,7 @@ describe("VoteForm Component", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xACC"]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
+    ethers.BrowserProvider = jest.fn().mockReturnValue({});
     mockVote = jest.fn().mockResolvedValue({
       wait: () => Promise.resolve({ transactionHash: "0xHash" }),
     });

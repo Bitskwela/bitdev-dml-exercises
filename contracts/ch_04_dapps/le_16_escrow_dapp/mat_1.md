@@ -249,12 +249,12 @@ const handleDeposit = async (ethAmount) => {
   setError(null);
 
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const contract = new ethers.Contract(ESCROW_ADDRESS, ESCROW_ABI, signer);
 
     const tx = await contract.deposit({
-      value: ethers.utils.parseEther(ethAmount),
+      value: ethers.parseEther(ethAmount),
     });
 
     // Wait for confirmation
@@ -321,9 +321,9 @@ Before considering this lesson complete, verify:
 
 | Resource              | Link                                                                     |
 | --------------------- | ------------------------------------------------------------------------ |
-| OpenZeppelin Escrow   | https://docs.openzeppelin.com/contracts/4.x/api/utils#Escrow             |
+| OpenZeppelin Escrow   | https://docs.openzeppelin.com/contracts/5.x/api/utils#Escrow             |
 | Solidity Security     | https://docs.soliditylang.org/en/latest/security-considerations.html     |
-| Ethers Transactions   | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
+| Ethers Transactions   | https://docs.ethers.org/v6/api/contract/#BaseContractMethod              |
 | Pull vs Push Payments | https://fravoll.github.io/solidity-patterns/pull_over_push.html          |
 
 ---
@@ -362,9 +362,9 @@ describe("Escrow DApp Components", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xBUYER"]),
     };
-    ethers.providers.JsonRpcProvider = jest.fn().mockReturnValue(fakeProvider);
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({
-      getSigner: () => fakeSigner,
+    ethers.JsonRpcProvider = jest.fn().mockReturnValue(fakeProvider);
+    ethers.BrowserProvider = jest.fn().mockReturnValue({
+      getSigner: jest.fn().mockResolvedValue(fakeSigner),
     });
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
   });
@@ -372,7 +372,7 @@ describe("Escrow DApp Components", () => {
   it("loads escrow stats", async () => {
     fakeContract.buyer.mockResolvedValue("0xBUYER");
     fakeContract.seller.mockResolvedValue("0xSELLER");
-    fakeContract.amount.mockResolvedValue(ethers.utils.parseEther("0.5"));
+    fakeContract.amount.mockResolvedValue(ethers.parseEther("0.5"));
     fakeContract.deposited.mockResolvedValue(true);
     fakeContract.released.mockResolvedValue(false);
 

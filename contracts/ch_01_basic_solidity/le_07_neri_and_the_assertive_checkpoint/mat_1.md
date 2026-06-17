@@ -14,7 +14,7 @@ As she analyzes the issue, Neri identifies the importance of building systems th
 
 In Solidity, `assert()` and `revert()` are crucial for error handling and ensuring the integrity of smart contracts. They help in maintaining the reliability of the contract by stopping execution when something goes wrong.
 
-- `assert()`: Used to check for conditions that should never fail under normal execution. If the condition evaluates to false, the transaction is reverted, and all changes are undone. It consumes all remaining gas, making it suitable for internal errors or invariants.
+- `assert()`: Used to check for conditions that should never fail under normal execution. If the condition evaluates to false, the transaction is reverted and all changes are undone. Since Solidity 0.8.0, a failing `assert` raises a `Panic(uint256)` error and refunds the remaining gas like `revert` (it no longer burns all remaining gas — that was pre-0.8.0 behavior). It is still meant for internal errors or invariants that should never occur.
 
   **Example use case: Validating internal states or ensuring critical assumptions remain true.**
 
@@ -31,3 +31,5 @@ In Solidity, `assert()` and `revert()` are crucial for error handling and ensuri
       revert("Insufficient balance");
   }
   ```
+
+  > Since Solidity 0.8.4, the preferred modern form uses custom errors, which are cheaper than string messages: `error InsufficientBalance(); ... revert InsufficientBalance();`

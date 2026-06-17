@@ -16,8 +16,8 @@ export default function CastVote({ proposals, onVoted }) {
       setStatus("pending");
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = web3Provider.getSigner();
+      const web3Provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await web3Provider.getSigner();
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,

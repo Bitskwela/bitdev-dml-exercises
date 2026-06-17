@@ -125,12 +125,12 @@ Token Tracker App Structure:
 
 ```js
 // Provider: For reading data (name, symbol, balance)
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum);
 const contract = new ethers.Contract(address, ABI, provider);
 const name = await contract.name(); // Free!
 
 // Signer: For writing data (transfer tokens)
-const signer = provider.getSigner();
+const signer = await provider.getSigner();
 const contractWithSigner = new ethers.Contract(address, ABI, signer);
 const tx = await contractWithSigner.transfer(to, amount); // Costs gas!
 ```
@@ -166,12 +166,12 @@ const ERC20_ABI = [
 ```js
 async function fetchTokenInfo(contractAddress) {
   // Step 1: Validate the address
-  if (!ethers.utils.isAddress(contractAddress)) {
+  if (!ethers.isAddress(contractAddress)) {
     throw new Error("Invalid contract address");
   }
 
   // Step 2: Connect to the contract
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
 
   // Step 3: Fetch all info in parallel (faster!)
@@ -183,7 +183,7 @@ async function fetchTokenInfo(contractAddress) {
   ]);
 
   // Step 4: Format the total supply
-  const formattedSupply = ethers.utils.formatUnits(totalSupply, decimals);
+  const formattedSupply = ethers.formatUnits(totalSupply, decimals);
 
   return {
     name, // "BaryoToken"
@@ -212,7 +212,7 @@ const balance = await contract.balanceOf(userAddress);
 console.log(balance.toString()); // "123456789012345678901234"
 
 // Format for display
-const formatted = ethers.utils.formatUnits(balance, 18);
+const formatted = ethers.formatUnits(balance, 18);
 console.log(formatted); // "123456.789012345678901234"
 ```
 
@@ -220,7 +220,7 @@ console.log(formatted); // "123456.789012345678901234"
 
 ```js
 async function fetchBalance(contractAddress, userAddress) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
 
   // Fetch balance and decimals
@@ -234,7 +234,7 @@ async function fetchBalance(contractAddress, userAddress) {
   console.log("Raw balance:", rawBalance.toString());
 
   // Format to human-readable
-  const formatted = ethers.utils.formatUnits(rawBalance, decimals);
+  const formatted = ethers.formatUnits(rawBalance, decimals);
   console.log("Formatted:", formatted); // "25.5"
 
   return `${formatted} ${symbol}`; // "25.5 BARYO"
@@ -245,15 +245,15 @@ async function fetchBalance(contractAddress, userAddress) {
 
 ```js
 // formatUnits: BigNumber → String (for display)
-ethers.utils.formatUnits("25500000000000000000", 18); // "25.5"
+ethers.formatUnits("25500000000000000000", 18); // "25.5"
 
 // parseUnits: String → BigNumber (for transactions)
-ethers.utils.parseUnits("25.5", 18);
+ethers.parseUnits("25.5", 18);
 // BigNumber: 25500000000000000000
 
 // Common patterns:
-const displayBalance = ethers.utils.formatUnits(raw, decimals);
-const sendAmount = ethers.utils.parseUnits(userInput, decimals);
+const displayBalance = ethers.formatUnits(raw, decimals);
+const sendAmount = ethers.parseUnits(userInput, decimals);
 ```
 
 ---
@@ -277,11 +277,11 @@ function useTokenInfo(contractAddress) {
 
       try {
         // Validate address first
-        if (!ethers.utils.isAddress(contractAddress)) {
+        if (!ethers.isAddress(contractAddress)) {
           throw new Error("Invalid address");
         }
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(contractAddress, ABI, provider);
 
         const [name, symbol, decimals] = await Promise.all([
@@ -325,7 +325,7 @@ function useTokenBalance(contractAddress) {
         setAccount(user);
 
         // Fetch balance
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(contractAddress, ABI, provider);
 
         const [rawBalance, decimals, symbol] = await Promise.all([
@@ -334,7 +334,7 @@ function useTokenBalance(contractAddress) {
           contract.symbol(),
         ]);
 
-        const formatted = ethers.utils.formatUnits(rawBalance, decimals);
+        const formatted = ethers.formatUnits(rawBalance, decimals);
         setBalance(`${formatted} ${symbol}`);
       } catch (err) {
         setError(err.message);
@@ -357,12 +357,12 @@ function useTokenBalance(contractAddress) {
 ```js
 function validateAddress(address) {
   // Check if it's a valid Ethereum address format
-  if (!ethers.utils.isAddress(address)) {
+  if (!ethers.isAddress(address)) {
     return { valid: false, error: "Invalid address format" };
   }
 
   // Check if it's the zero address
-  if (address === ethers.constants.AddressZero) {
+  if (address === ethers.ZeroAddress) {
     return { valid: false, error: "Cannot use zero address" };
   }
 
@@ -453,7 +453,7 @@ display(balance.toString()); // "25500000000000000000" 😱
 
 // ✅ GOOD: Format with decimals
 const decimals = await contract.decimals();
-const formatted = ethers.utils.formatUnits(balance, decimals);
+const formatted = ethers.formatUnits(balance, decimals);
 display(formatted); // "25.5" 👍
 ```
 
@@ -461,12 +461,12 @@ display(formatted); // "25.5" 👍
 
 ```js
 // ❌ BAD: Will fail - no account connected
-const signer = provider.getSigner();
+const signer = await provider.getSigner();
 const address = await signer.getAddress(); // Error!
 
 // ✅ GOOD: Request first
 await window.ethereum.request({ method: "eth_requestAccounts" });
-const signer = provider.getSigner();
+const signer = await provider.getSigner();
 const address = await signer.getAddress(); // Works!
 ```
 
@@ -503,7 +503,7 @@ Before deploying, verify:
 
 ### External References & Further Learning
 
-- **Ethers.js Documentation**: https://docs.ethers.org/v5 - Complete Ethers.js guide
+- **Ethers.js Documentation**: https://docs.ethers.org/v6 - Complete Ethers.js guide
 - **OpenZeppelin ERC-20**: https://docs.openzeppelin.com/contracts/4.x/erc20 - Standard implementation
 - **EIP-20 Specification**: https://eips.ethereum.org/EIPS/eip-20 - The official ERC-20 standard
 - **React Hooks**: https://reactjs.org/docs/hooks-overview.html - React state management
@@ -556,7 +556,7 @@ export default function TokenInfo() {
 
   async function loadInfo() {
     try {
-      // TODO: Validate address with ethers.utils.isAddress
+      // TODO: Validate address with ethers.isAddress
       // TODO: Create provider & contract
       // TODO: Call name(), symbol(), decimals()
       // TODO: setInfo({ name, symbol, decimals })
@@ -590,9 +590,9 @@ export default function TokenInfo() {
 
 **To Do List**
 
-- [ ] Use `ethers.utils.isAddress(addr)` to validate.
+- [ ] Use `ethers.isAddress(addr)` to validate.
 - [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`.
-- [ ] `provider = new ethers.providers.Web3Provider(window.ethereum)`.
+- [ ] `provider = new ethers.BrowserProvider(window.ethereum)`.
 - [ ] `contract = new ethers.Contract(addr, ABI, provider)`.
 - [ ] Call `name()`, `symbol()`, `decimals()`, then `setInfo`.
 
@@ -616,13 +616,13 @@ export default function TokenInfo() {
   async function loadInfo() {
     setError("");
     setInfo({});
-    if (!ethers.utils.isAddress(addr)) {
+    if (!ethers.isAddress(addr)) {
       setError("Invalid address");
       return;
     }
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const token = new ethers.Contract(addr, ABI, provider);
       const [name, symbol, decimals] = await Promise.all([
         token.name(),
@@ -720,7 +720,7 @@ export default function TokenBalance({ contractAddress }) {
 - [ ] Grab `account`, set `setAccount`.
 - [ ] Instantiate contract with `provider`.
 - [ ] Call `decimals()`, `symbol()`, and `balanceOf(account)`.
-- [ ] Format via `ethers.utils.formatUnits(raw, decimals)`.
+- [ ] Format via `ethers.formatUnits(raw, decimals)`.
 
 **Full Solution**
 
@@ -746,14 +746,14 @@ export default function TokenBalance({ contractAddress }) {
           method: "eth_requestAccounts",
         });
         setAccount(user);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const token = new ethers.Contract(contractAddress, ABI, provider);
         const [sym, dec, raw] = await Promise.all([
           token.symbol(),
           token.decimals(),
           token.balanceOf(user),
         ]);
-        const formatted = ethers.utils.formatUnits(raw, dec);
+        const formatted = ethers.formatUnits(raw, dec);
         setBalance(`${formatted} ${sym}`);
       } catch (err) {
         setError(err.message);
@@ -794,10 +794,10 @@ export default function TokenTransfer({ contractAddress }) {
   async function sendToken() {
     try {
       // TODO: ethereum.request(accounts)
-      // TODO: signer = provider.getSigner()
+      // TODO: signer = await provider.getSigner()
       // TODO: contract = new ethers.Contract(address, ABI, signer)
       // TODO: decimals = (fetch from token or assume 18)
-      // TODO: amount = ethers.utils.parseUnits(amt, decimals)
+      // TODO: amount = ethers.parseUnits(amt, decimals)
       // TODO: tx = await contract.transfer(to, amount)
       // TODO: setTxHash(tx.hash)
     } catch (err) {
@@ -856,11 +856,11 @@ export default function TokenTransfer({ contractAddress }) {
     setTxHash("");
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const token = new ethers.Contract(contractAddress, ABI, signer);
       const dec = await token.decimals();
-      const parsed = ethers.utils.parseUnits(amt, dec);
+      const parsed = ethers.parseUnits(amt, dec);
       const tx = await token.transfer(to, parsed);
       setTxHash(tx.hash);
     } catch (err) {
@@ -916,14 +916,14 @@ describe("TokenBalance Component", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue([fakeAccount]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
+    ethers.BrowserProvider = jest.fn().mockReturnValue({});
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
   });
 
   it("displays formatted balance correctly", async () => {
     fakeContract.symbol.mockResolvedValue("BARYO");
     fakeContract.decimals.mockResolvedValue(2);
-    fakeContract.balanceOf.mockResolvedValue(ethers.BigNumber.from("12345")); // 123.45
+    fakeContract.balanceOf.mockResolvedValue(12345n); // 123.45
 
     render(<TokenBalance contractAddress="0xTokenAddr" />);
 

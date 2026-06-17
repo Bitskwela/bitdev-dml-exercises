@@ -76,7 +76,7 @@ Topics Covered: ERC-20 `transfer`, `Web3Provider`, Signer, `parseUnits`, transac
 Before initiating the transfer, validate that the recipient is a valid Ethereum address and the amount is a positive number. Set appropriate error states if validation fails.
 
 ```js
-if (!ethers.utils.isAddress(recipient)) {
+if (!ethers.isAddress(recipient)) {
   setStatus("error");
   alert("Invalid recipient address");
   return;
@@ -98,8 +98,8 @@ Request MetaMask account access, create a `Web3Provider`, get the signer for tra
 ```js
 await window.ethereum.request({ method: "eth_requestAccounts" });
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
 const contract = new ethers.Contract(contractAddress, ABI, signer);
 ```
 
@@ -115,7 +115,7 @@ try {
   setTxHash("");
 
   const decimals = await contract.decimals();
-  const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+  const parsedAmount = ethers.parseUnits(amount, decimals);
 
   const tx = await contract.transfer(recipient, parsedAmount);
   setTxHash(tx.hash);
@@ -156,7 +156,7 @@ export default function TokenTransfer({ contractAddress }) {
     e.preventDefault();
 
     // Validate inputs
-    if (!ethers.utils.isAddress(recipient)) {
+    if (!ethers.isAddress(recipient)) {
       setStatus("error");
       alert("Invalid recipient address");
       return;
@@ -174,13 +174,13 @@ export default function TokenTransfer({ contractAddress }) {
 
       // Connect wallet and get signer
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
       // Parse amount with decimals and transfer
       const decimals = await contract.decimals();
-      const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+      const parsedAmount = ethers.parseUnits(amount, decimals);
 
       const tx = await contract.transfer(recipient, parsedAmount);
       setTxHash(tx.hash);
@@ -230,7 +230,7 @@ export default function TokenTransfer({ contractAddress }) {
 
 **Variables Defined:**
 
-- `recipient`: State variable storing the destination wallet address. Must be validated as a proper Ethereum address using `ethers.utils.isAddress()` before sending.
+- `recipient`: State variable storing the destination wallet address. Must be validated as a proper Ethereum address using `ethers.isAddress()` before sending.
 
 - `amount`: The user-entered amount as a string. This raw input must be converted to the proper token units using `parseUnits()` with the token's decimals.
 

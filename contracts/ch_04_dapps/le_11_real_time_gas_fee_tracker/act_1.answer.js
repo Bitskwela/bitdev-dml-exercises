@@ -11,7 +11,7 @@ export default function GasStats() {
     async function fetchBaseFee() {
       try {
         // Task 1: Create the provider instance
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
 

@@ -33,7 +33,7 @@ library MathLibrary {
 }
 ```
 
-- Implement a function `calculatePercentage` inside the `HackanaDefense` contract to calculate transaction fees using the library.
+- Implement a function `calculateFee` inside the `HackanaDefense` contract to calculate transaction fees using the library's `calculatePercentage`.
 
 ```solidity
     function calculateFee(

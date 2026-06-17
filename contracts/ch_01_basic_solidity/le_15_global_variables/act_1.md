@@ -41,7 +41,7 @@ Help Neri prepare her transaction tracker by:
 
 **Function Logic:**
 
-`logTransaction`:
+`updateTransaction`:
 
 - **Purpose**: Logs the caller's address and the time when the function is called.
 
@@ -63,7 +63,3 @@ Meanwhile, Hackana, monitoring the situation, smirks and types furiously:
 "**Interesting. Let’s see if you can keep up with me, Neri.**"
 
 The battle is getting closer, and Neri knows the next move will require sharp skills and innovative solutions.
-
-```
-
-```

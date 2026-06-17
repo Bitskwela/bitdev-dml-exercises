@@ -17,12 +17,13 @@ describe("Lesson 20: LayerZero Inspired UI", function () {
 
   it("Task 2: Should call lockTokens with ETH value", function () {
     expect(code).to.contain("bridge.lockTokens({");
-    expect(code).to.contain("value: ethers.utils.parseEther(amt)");
+    expect(code).to.contain("value: ethers.parseEther(amt)");
   });
 
   it("Task 3: Should parse Locked event and return ID", function () {
-    expect(code).to.contain("receipt.events.find(");
-    expect(code).to.contain('e.event === "Locked"');
-    expect(code).to.contain("evt.args.id.toNumber()");
+    expect(code).to.contain("receipt.logs");
+    expect(code).to.contain("bridge.interface.parseLog(log)");
+    expect(code).to.contain('parsed.name === "Locked"');
+    expect(code).to.contain("Number(parsed.args.id)");
   });
 });

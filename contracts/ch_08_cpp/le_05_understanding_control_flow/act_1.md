@@ -37,7 +37,12 @@ int main() {
 
 - Use `else` to perform the division when `num2` is not zero.
 
-- Format the result to 2 decimal places using `fixed` and `setprecision(2)`.
+- Format the result to 2 decimal places using `fixed` and `setprecision(2)`, then print it in the form `num1 / num2 = result`.
+
+  ```cpp
+  cout << fixed << setprecision(2);
+  cout << num1 << " / " << num2 << " = " << result << endl;
+  ```
 
 ### Breakdown of the Activity
 

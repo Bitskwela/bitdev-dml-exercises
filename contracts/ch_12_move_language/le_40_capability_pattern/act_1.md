@@ -1,4 +1,3 @@
-````markdown
 ## Smart contract activity
 
 ```move
@@ -141,6 +140,18 @@ Implement the Capability Pattern for controlled vault access with delegatable wi
   }
   ```
 
+- Add the view helpers to check admin status and read the vault balance:
+
+  ```move
+  public fun is_admin(addr: address): bool {
+      exists<AdminCapability>(addr)
+  }
+
+  public fun get_balance(vault_addr: address): u64 acquires Vault {
+      borrow_global<Vault>(vault_addr).balance
+  }
+  ```
+
 ### Breakdown for learners
 
 **The Capability Pattern** uses resources as permission tokens. If you have the capability, you have the permission.
@@ -177,4 +188,3 @@ Implement the Capability Pattern for controlled vault access with delegatable wi
 - Easy to transfer, delegate, or revoke
 - Type system enforces access control
 - No centralized role tables to manage
-````

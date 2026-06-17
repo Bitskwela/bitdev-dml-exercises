@@ -7,7 +7,7 @@ export default function RaffleListener() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL
     );
 

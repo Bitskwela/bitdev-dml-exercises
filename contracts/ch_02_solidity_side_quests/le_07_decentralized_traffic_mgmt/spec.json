@@ -1,0 +1,13 @@
+{
+  "permaname": "sq-7-decentralize-traffic-mgmt",
+  "contract": "TrafficLightManager",
+  "source_file": "TrafficLightManager.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["mappings", "strings", "keccak256-comparison", "state-management", "require"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

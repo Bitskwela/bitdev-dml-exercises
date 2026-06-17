@@ -85,16 +85,25 @@ Configure a Move project with external and local dependencies.
   use std::signer;
   ```
 
-- Complete the create_vault function:
+- Define the error codes used by the vault functions:
+
+  ```move
+  const E_VAULT_NOT_EXISTS: u64 = 1;
+  const E_VAULT_EXISTS: u64 = 2;
+  const E_INSUFFICIENT_BALANCE: u64 = 3;
+  ```
+
+- Complete the create_vault function (guard against creating a vault twice):
 
   ```move
   public fun create_vault<CoinType>(account: &signer) {
-      let _addr = signer::address_of(account);
+      let addr = signer::address_of(account);
+      assert!(!exists<Vault<CoinType>>(addr), E_VAULT_EXISTS);
       move_to(account, Vault<CoinType> { balance: 0 });
   }
   ```
 
-- Complete the deposit function:
+- Complete the deposit function (verify the vault exists first):
 
   ```move
   public fun deposit<CoinType>(
@@ -102,8 +111,37 @@ Configure a Move project with external and local dependencies.
       amount: u64
   ) acquires Vault {
       let addr = signer::address_of(account);
+      assert!(exists<Vault<CoinType>>(addr), E_VAULT_NOT_EXISTS);
       let vault = borrow_global_mut<Vault<CoinType>>(addr);
       vault.balance = vault.balance + amount;
+  }
+  ```
+
+- Add the withdraw function that checks the balance before deducting:
+
+  ```move
+  public fun withdraw<CoinType>(
+      account: &signer,
+      amount: u64
+  ) acquires Vault {
+      let addr = signer::address_of(account);
+      assert!(exists<Vault<CoinType>>(addr), E_VAULT_NOT_EXISTS);
+      let vault = borrow_global_mut<Vault<CoinType>>(addr);
+      assert!(vault.balance >= amount, E_INSUFFICIENT_BALANCE);
+      vault.balance = vault.balance - amount;
+  }
+  ```
+
+- Add the view functions to read the balance and check for a vault:
+
+  ```move
+  public fun get_balance<CoinType>(addr: address): u64 acquires Vault {
+      assert!(exists<Vault<CoinType>>(addr), E_VAULT_NOT_EXISTS);
+      borrow_global<Vault<CoinType>>(addr).balance
+  }
+
+  public fun vault_exists<CoinType>(addr: address): bool {
+      exists<Vault<CoinType>>(addr)
   }
   ```
 

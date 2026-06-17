@@ -16,14 +16,14 @@ A `struct` is a custom data type in Solidity that allows developers to group mul
 
 Structs are particularly useful in scenarios where you need to represent complex entities with multiple attributes, such as user profiles, transactions, or any other data structure that requires grouping related information.
 
-Structs are defined using the `struct` keyword, followed by the name of the struct and its fields. They can be used in mappings, arrays, or as function parameters and return types. Structs are value types, meaning they are copied when passed around, which can be beneficial for certain use cases but also requires careful consideration of gas costs and storage implications.
+Structs are defined using the `struct` keyword, followed by the name of the struct and its fields. They can be used in mappings, arrays, or as function parameters and return types. How a struct behaves when passed around depends on its data location: a `storage` reference is a pointer to the struct in contract state, so mutating it changes the stored data directly, while a `memory` or `calldata` struct is a copy that does not affect state. This distinction matters for both correctness and gas costs.
 
 ### Key Features of Structs
 
 - They can hold different types of data (e.g., `strings`, `integers`, `booleans`).
 - Structs can be stored in mappings or arrays for further organization.
 - Structs can contain other structs, allowing for complex data models.
-- They are value types, meaning they are copied when passed around.
+- They are reference types: a `storage` reference points to the struct in state (mutating it changes contract state), while `memory`/`calldata` structs are copies.
 - Structs can be used as function parameters and return types.
 - They can be public or private, depending on the use case.
 

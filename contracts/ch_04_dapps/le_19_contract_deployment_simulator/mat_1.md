@@ -103,11 +103,11 @@ const factory = new ethers.ContractFactory(
 // Deploy with constructor arguments
 const contract = await factory.deploy("Hello!", 42);
 
-// Wait for mining
-await contract.deployed();
+// Wait for mining (ethers v6 — replaces v5's contract.deployed())
+await contract.waitForDeployment();
 
-// Now you have the address
-console.log("Deployed to:", contract.address);
+// Now you have the address (ethers v6 — replaces v5's contract.address)
+console.log("Deployed to:", await contract.getAddress());
 ```
 
 #### 2. Deployment Transaction Anatomy
@@ -138,14 +138,16 @@ console.log("Deployed to:", contract.address);
 #### 3. Gas Estimation
 
 ```javascript
-// Estimate gas before deploying
-const deployTx = factory.getDeployTransaction("Hello!", 42);
+// Estimate gas before deploying.
+// factory.getDeployTransaction() is unchanged in ethers v6.
+const deployTx = await factory.getDeployTransaction("Hello!", 42);
 const estimatedGas = await signer.estimateGas(deployTx);
 
 console.log("Estimated gas:", estimatedGas.toString());
 
-// Add 20% buffer for safety
-const gasLimit = estimatedGas.mul(120).div(100);
+// estimatedGas is a native bigint in ethers v6 — use bigint math, not .mul()/.div().
+// Add 20% buffer for safety:
+const gasLimit = (estimatedGas * 120n) / 100n;
 ```
 
 #### 4. Example: HelloWorld Contract
@@ -247,9 +249,9 @@ function DeploySimulator() {
         method: "eth_requestAccounts",
       });
 
-      // Setup provider and signer
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      // Setup provider and signer (ethers v6: BrowserProvider, async getSigner)
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
       // Create factory
       const factory = new ethers.ContractFactory(
@@ -263,19 +265,22 @@ function DeploySimulator() {
       const contract = await factory.deploy(greeting);
 
       console.log("Waiting for confirmation...");
-      console.log("Tx hash:", contract.deployTransaction.hash);
+      // ethers v6: deployTransaction() is a method returning the deploy tx
+      console.log("Tx hash:", contract.deploymentTransaction().hash);
 
-      // Wait for deployment
-      await contract.deployed();
+      // Wait for deployment (ethers v6: replaces v5's contract.deployed())
+      await contract.waitForDeployment();
 
-      console.log("Deployed to:", contract.address);
-      setDeployedAddress(contract.address);
+      // ethers v6: getAddress() replaces the v5 contract.address property
+      const address = await contract.getAddress();
+      console.log("Deployed to:", address);
+      setDeployedAddress(address);
 
       // Add to history
       setHistory((prev) => [
         ...prev,
         {
-          address: contract.address,
+          address: address,
           greeting: greeting,
           timestamp: new Date().toISOString(),
         },
@@ -363,7 +368,7 @@ function DeploySimulator() {
 | ------------------------- | ----------------------- | ---------------------------------- |
 | Missing bytecode          | Factory fails           | Check artifact file                |
 | Wrong constructor args    | Deployment reverts      | Match Solidity constructor         |
-| Not awaiting `deployed()` | Address undefined       | Always `await contract.deployed()` |
+| Not awaiting deployment   | Address undefined       | Always `await contract.waitForDeployment()` |
 | Insufficient gas          | Transaction fails       | Use gas estimation                 |
 | Wrong network             | Contract on wrong chain | Verify chain ID first              |
 
@@ -389,9 +394,9 @@ Before considering this lesson complete, verify:
 
 | Resource               | Link                                                                    |
 | ---------------------- | ----------------------------------------------------------------------- |
-| Ethers ContractFactory | https://docs.ethers.org/v5/api/contract/contract-factory/               |
+| Ethers ContractFactory | https://docs.ethers.org/v6/api/contract/#ContractFactory                |
 | Hardhat Compilation    | https://hardhat.org/hardhat-runner/docs/guides/compile-contracts        |
-| Gas Estimation         | https://docs.ethers.org/v5/api/providers/provider/#Provider-estimateGas |
+| Gas Estimation         | https://docs.ethers.org/v6/api/providers/#Provider-estimateGas          |
 | Contract Creation      | https://ethereum.org/en/developers/docs/smart-contracts/deploying/      |
 
 ---
@@ -413,23 +418,28 @@ describe("DeploySimulator Component", () => {
   const fakeProvider = {};
   const fakeSigner = {};
   const fakeFactory = { deploy: jest.fn() };
-  const fakeContract = { deployed: jest.fn() };
+  // ethers v6: contract exposes waitForDeployment() and getAddress()
+  const fakeContract = {
+    waitForDeployment: jest.fn(),
+    getAddress: jest.fn(),
+  };
 
   beforeAll(() => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xABC"]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
-    fakeProvider.getSigner = jest.fn().mockReturnValue(fakeSigner);
+    // ethers v6: BrowserProvider replaces Web3Provider; getSigner is async
+    ethers.BrowserProvider = jest.fn().mockReturnValue(fakeProvider);
+    fakeProvider.getSigner = jest.fn().mockResolvedValue(fakeSigner);
     ethers.ContractFactory = jest.fn().mockImplementation(() => fakeFactory);
   });
 
   it("deploys contract and calls onDeployed", async () => {
     const onDeployed = jest.fn();
     // Mock deploy flow
-    fakeContract.address = "0xDEAD";
+    fakeContract.getAddress.mockResolvedValue("0xDEAD");
     fakeFactory.deploy.mockResolvedValue(fakeContract);
-    fakeContract.deployed.mockResolvedValue();
+    fakeContract.waitForDeployment.mockResolvedValue();
 
     render(<DeploySimulator onDeployed={onDeployed} />);
     fireEvent.change(screen.getByPlaceholderText("Greeting message"), {

@@ -19,7 +19,7 @@ export default function TodoApp() {
   const loadTasks = async () => {
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const count = await contract.getTasksCount();
@@ -28,7 +28,7 @@ export default function TodoApp() {
       for (let i = 0; i < count; i++) {
         const [id, content, done] = await contract.tasks(i);
         if (content !== "") {
-          items.push({ id: id.toNumber(), content, done });
+          items.push({ id: Number(id), content, done });
         }
       }
 
@@ -49,8 +49,8 @@ export default function TodoApp() {
     if (!newTask.trim()) return;
 
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.createTask(newTask);
@@ -65,8 +65,8 @@ export default function TodoApp() {
 
   const handleToggle = async (taskId) => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.toggleDone(taskId);
