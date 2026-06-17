@@ -55,28 +55,28 @@ export default function ProposalList({ contractAddress }) {
 
 ## Tasks for Learners
 
-Topics Covered: MetaMask integration, `Web3Provider`, contract loops, `formatEther`, data formatting
+Topics Covered: MetaMask integration, `BrowserProvider`, contract loops, `formatEther`, data formatting
 
 ---
 
 ### Task 1: Connect to MetaMask
 
-Request account access from MetaMask and create a `Web3Provider` instance. Unlike `JsonRpcProvider`, this wraps the browser's injected wallet.
+Request account access from MetaMask and create a `BrowserProvider` instance. Unlike `JsonRpcProvider`, this wraps the browser's injected wallet.
 
 ```js
 await window.ethereum.request({ method: "eth_requestAccounts" });
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum);
 ```
 
 ---
 
 ### Task 2: Create Contract Instance and Get Transaction Count
 
-Instantiate the contract with the provider and call `getTransactionCount()` to know how many proposals exist. Convert the `BigNumber` to a regular number for looping.
+Instantiate the contract with the provider and call `getTransactionCount()` to know how many proposals exist. Convert the returned `bigint` to a regular number for looping.
 
 ```js
 const wallet = new ethers.Contract(contractAddress, ABI, provider);
-const count = (await wallet.getTransactionCount()).toNumber();
+const count = Number(await wallet.getTransactionCount());
 ```
 
 ---
@@ -93,10 +93,10 @@ for (let i = 0; i < count; i++) {
   items.push({
     id: i,
     to,
-    value: ethers.utils.formatEther(value),
+    value: ethers.formatEther(value),
     data: data.slice(0, 10) + "…",
     executed,
-    numConfirmations: numConfirmations.toNumber(),
+    numConfirmations: Number(numConfirmations),
   });
 }
 setProposals(items);
@@ -110,7 +110,7 @@ setProposals(items);
 
 - `proposals`: Array state holding all fetched transaction proposals. Each proposal contains `id`, `to`, `value`, `data`, `executed`, and `numConfirmations`.
 
-- `provider`: A `Web3Provider` instance that wraps MetaMask. Required for dApps that need wallet context for transactions.
+- `provider`: A `BrowserProvider` instance that wraps MetaMask. Required for dApps that need wallet context for transactions.
 
 - `wallet`: The contract instance connected to the multisig wallet. Named `wallet` to reflect it represents the multisig wallet contract.
 
@@ -120,12 +120,12 @@ setProposals(items);
   A JSON-RPC method that prompts MetaMask to show the connection popup. Returns an array of connected account addresses. Must be called before interacting with contracts through MetaMask.
 
 - `getTransactionCount()`:
-  Returns the total number of proposals in the multisig. We convert to a regular number using `.toNumber()` for use in the loop condition.
+  Returns the total number of proposals in the multisig. We convert the returned `bigint` to a regular number using `Number()` for use in the loop condition.
 
 - `wallet.transactions(i)`:
   The public `transactions` array auto-generates a getter function. Calling it with an index returns all fields of the `Transaction` struct as a tuple.
 
-- `ethers.utils.formatEther(value)`:
+- `ethers.formatEther(value)`:
   Converts wei (smallest ETH unit, 10^18) to a human-readable ETH string. Essential for displaying transaction values.
 
 - `data.slice(0, 10)`:
@@ -153,10 +153,10 @@ export default function ProposalList({ contractAddress }) {
     async function loadProposals() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const wallet = new ethers.Contract(contractAddress, ABI, provider);
 
-        const count = (await wallet.getTransactionCount()).toNumber();
+        const count = Number(await wallet.getTransactionCount());
         const items = [];
         for (let i = 0; i < count; i++) {
           const [to, value, data, executed, numConfirmations] =
@@ -164,10 +164,10 @@ export default function ProposalList({ contractAddress }) {
           items.push({
             id: i,
             to,
-            value: ethers.utils.formatEther(value),
+            value: ethers.formatEther(value),
             data: data.slice(0, 10) + "…",
             executed,
-            numConfirmations: numConfirmations.toNumber(),
+            numConfirmations: Number(numConfirmations),
           });
         }
         setProposals(items);

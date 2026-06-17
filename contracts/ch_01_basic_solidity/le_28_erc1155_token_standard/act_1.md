@@ -29,7 +29,7 @@ contract MultiAsset {
 
   ```solidity
       constructor()
-          ERC1155("https://api.bitskwela.com/metadata/{id}.json")
+          ERC1155("https://api.example.com/metadata/{id}.json")
           Ownable(msg.sender)
       {
           _mint(msg.sender, GOLD, 1000, ""); // Mint 1000 Gold Coins

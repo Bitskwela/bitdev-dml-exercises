@@ -120,6 +120,26 @@ public fun get_item_count<T: store>(addr: address): u64 acquires Container {
 }
 ```
 
+### Task 8: Implement the Generic Utility Helpers
+
+Round out the module with capacity helpers and a multi-type wrapping function.
+
+```move
+public fun has_space<T: store>(addr: address): bool acquires Container {
+    let container = borrow_global<Container<T>>(addr);
+    vector::length(&container.items) < container.capacity
+}
+
+public fun remaining_capacity<T: store>(addr: address): u64 acquires Container {
+    let container = borrow_global<Container<T>>(addr);
+    container.capacity - vector::length(&container.items)
+}
+
+public fun wrap_pair<A, B>(first: A, second: B): (Wrapper<A>, Wrapper<B>) {
+    (Wrapper { value: first }, Wrapper { value: second })
+}
+```
+
 ---
 
 ## Breakdown

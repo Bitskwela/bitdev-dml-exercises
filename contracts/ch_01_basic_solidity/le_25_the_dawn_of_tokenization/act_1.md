@@ -5,22 +5,27 @@
 pragma solidity ^0.8.0;
 ```
 
-#@ Task for Learners
+## Task for Learners
 
-Create an ERC20 token called `SanJuanToken` to be used by the local community for seamless transactions. Ensure that the token complies with the ERC20 standard and has basic functionality.
+Create an ERC20 token for the local community to use for seamless transactions. Ensure the token complies with the ERC20 standard and has basic functionality.
 
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+- Import OpenZeppelin's ERC20 implementation.
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  ```solidity
+  import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+  ```
 
-contract SanJuanCityToken is ERC20 {
-    constructor() ERC20("SanJuanToken", "SJC") {
-        _mint(msg.sender, 1000 * 10 ** decimals());
-    }
-}
-```
+- Create a contract named `SanJuanCityToken` that inherits from `ERC20`. The contract **must** be named `SanJuanCityToken` — that is the name the grader checks (the token's display name is set separately, below).
+
+- In the constructor, set the token name to `SanJuanToken` and the symbol to `SJC`, then mint an initial supply of 1000 tokens to the deployer.
+
+  ```solidity
+  contract SanJuanCityToken is ERC20 {
+      constructor() ERC20("SanJuanToken", "SJC") {
+          _mint(msg.sender, 1000 * 10 ** decimals());
+      }
+  }
+  ```
 
 ### Breakdown of Activity
 
@@ -29,7 +34,7 @@ contract SanJuanCityToken is ERC20 {
 - **Define the Token Contract**:
   Inherit from the ERC20 contract to get access to its predefined functionalities.
 - **Constructor Initialization**:
-  Name the token _SanJuanToken_ with the symbol _SJT_.
+  Name the token _SanJuanToken_ with the symbol _SJC_.
   Mint an initial supply of tokens to the deployer’s address.
 
 ### Closing Story

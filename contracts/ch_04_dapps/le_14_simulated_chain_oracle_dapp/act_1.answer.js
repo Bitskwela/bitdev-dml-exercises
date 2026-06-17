@@ -17,7 +17,7 @@ export default function ReliefStats() {
     async function loadStats() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const relief = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [ws, rel] = await Promise.all([
@@ -26,9 +26,9 @@ export default function ReliefStats() {
         ]);
         const bal = await provider.getBalance(CONTRACT);
 
-        setWind(ws.toNumber());
+        setWind(Number(ws));
         setReleased(rel);
-        setBalance(ethers.utils.formatEther(bal));
+        setBalance(ethers.formatEther(bal));
       } catch (err) {
         setError(err.message);
       }

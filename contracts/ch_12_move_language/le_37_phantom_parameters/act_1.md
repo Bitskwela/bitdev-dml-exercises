@@ -127,6 +127,16 @@ public fun get_balance<State, Asset>(vault: &Vault<State, Asset>): u64 {
 }
 ```
 
+### Task 9: Implement get_owner
+
+Read the owner from any vault, regardless of its state or asset type.
+
+```move
+public fun get_owner<State, Asset>(vault: &Vault<State, Asset>): address {
+    vault.owner
+}
+```
+
 ---
 
 ## Breakdown

@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract BarangayServiceFees {
-    uint256 public certificationFee = 100; // Fee for one certification
-
-    function getCertificationFee() public view returns (uint256) {
-        return certificationFee;
+contract EfficientDataTransfer {
+    // `calldata` is the cheapest location for read-only external arguments:
+    // the value is read directly from the transaction payload, with no copy.
+    function echoData(string calldata data) external pure returns (string memory) {
+        return data;
     }
 
-    function calculateTotalCost(
-        uint256 numberOfCertifications
-    ) public pure returns (uint256) {
-        return numberOfCertifications * 100;
+    // The `memory` variant copies the argument into memory first, which costs
+    // more gas. It is shown here for comparison with the calldata version above.
+    function memoryData(string memory data) public pure returns (string memory) {
+        return data;
     }
 }

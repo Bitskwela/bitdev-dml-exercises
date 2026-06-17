@@ -27,14 +27,14 @@ export default function ProfileViewer() {
         const userAddress = accounts[0];
         setAddr(userAddress);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         identity = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [n, s, c] = await identity.getProfile(userAddress);
         setName(n);
         setStatus(s);
 
-        const credCount = c.toNumber();
+        const credCount = Number(c);
         const credList = [];
         for (let i = 0; i < credCount; i++) {
           const cred = await identity.getCredential(userAddress, i);

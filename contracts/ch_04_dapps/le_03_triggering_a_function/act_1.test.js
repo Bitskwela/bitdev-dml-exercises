@@ -13,9 +13,9 @@ describe("Lesson 03: Triggering a Function", function () {
   it("Task 1: Should handle wallet request and signer correctly", function () {
     expect(code).to.contain("eth_requestAccounts");
     expect(code).to.contain(
-      "new ethers.providers.Web3Provider(window.ethereum)",
+      "new ethers.BrowserProvider(window.ethereum)",
     );
-    expect(code).to.contain("web3Provider.getSigner()");
+    expect(code).to.contain("await web3Provider.getSigner()");
   });
 
   it("Task 2: Should call contract.vote with selected proposal and gas limit", function () {

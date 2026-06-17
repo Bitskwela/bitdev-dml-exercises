@@ -50,17 +50,17 @@ export default function ReliefStats() {
 
 ## Tasks for Learners
 
-Topics Covered: `Web3Provider`, contract reads, `provider.getBalance()`, `Promise.all`, `formatEther`
+Topics Covered: `BrowserProvider`, contract reads, `provider.getBalance()`, `Promise.all`, `formatEther`
 
 ---
 
 ### Task 1: Connect to MetaMask and Create Provider
 
-Request MetaMask account access and create a `Web3Provider` instance to connect to the user's wallet.
+Request MetaMask account access and create a `BrowserProvider` instance to connect to the user's wallet.
 
 ```js
 await window.ethereum.request({ method: "eth_requestAccounts" });
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum);
 ```
 
 ---
@@ -85,9 +85,9 @@ Use `provider.getBalance()` to query the contract's ETH balance, then update all
 ```js
 const bal = await provider.getBalance(CONTRACT);
 
-setWind(ws.toNumber());
+setWind(Number(ws));
 setReleased(rel);
-setBalance(ethers.utils.formatEther(bal));
+setBalance(ethers.formatEther(bal));
 ```
 
 ---
@@ -96,7 +96,7 @@ setBalance(ethers.utils.formatEther(bal));
 
 **Variables Defined:**
 
-- `wind`: The current wind speed reading from the oracle, stored as a number (km/h). Converted from `BigNumber` using `.toNumber()`.
+- `wind`: The current wind speed reading from the oracle, stored as a number (km/h). Converted from `bigint` using `Number()`.
 
 - `balance`: The contract's ETH pool balance as a string. Converted from wei using `formatEther()` for human-readable display.
 
@@ -107,15 +107,15 @@ setBalance(ethers.utils.formatEther(bal));
 **Key Functions:**
 
 - `provider.getBalance(address)`:
-  Queries the ETH balance of any address (wallet or contract). Returns a `BigNumber` in wei. Unlike token balances which require contract calls, ETH balance is queried directly from the provider.
+  Queries the ETH balance of any address (wallet or contract). Returns a `bigint` in wei. Unlike token balances which require contract calls, ETH balance is queried directly from the provider.
 
 - `Promise.all([...])`:
   Executes multiple async calls in parallel and waits for all to complete. More efficient than sequential `await` calls. Returns an array of results in the same order as the input promises.
 
-- `ws.toNumber()`:
-  Converts a `BigNumber` to a JavaScript number. Safe for values that fit within JavaScript's safe integer range (wind speed values). For large values like token amounts, use `.toString()` instead.
+- `Number(ws)`:
+  Converts a `bigint` to a JavaScript number. Safe for values that fit within JavaScript's safe integer range (wind speed values). For large values like token amounts, use `.toString()` instead.
 
-- `ethers.utils.formatEther(bal)`:
+- `ethers.formatEther(bal)`:
   Converts wei (10^18) to ETH as a string. Essential for displaying ETH amounts in a human-readable format.
 
 ---
@@ -142,7 +142,7 @@ export default function ReliefStats() {
     async function loadStats() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const relief = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [ws, rel] = await Promise.all([
@@ -151,9 +151,9 @@ export default function ReliefStats() {
         ]);
         const bal = await provider.getBalance(CONTRACT);
 
-        setWind(ws.toNumber());
+        setWind(Number(ws));
         setReleased(rel);
-        setBalance(ethers.utils.formatEther(bal));
+        setBalance(ethers.formatEther(bal));
       } catch (err) {
         setError(err.message);
       }

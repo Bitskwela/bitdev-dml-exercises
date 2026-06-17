@@ -70,6 +70,15 @@ Build a multi-module project with proper dependencies. The coin module is the ba
   }
   ```
 
+- Add a `credit` function to the coin module that increases a balance (the shop module credits the seller with it during a purchase):
+
+  ```move
+  public fun credit(addr: address, amount: u64) acquires Coin {
+      let coin = borrow_global_mut<Coin>(addr);
+      coin.value = coin.value + amount;
+  }
+  ```
+
 - Import the coin module in shop and create a buy function:
 
   ```move
@@ -96,11 +105,12 @@ Build a multi-module project with proper dependencies. The coin module is the ba
           let price = item.price;
 
           // Check balance using coin module
-          let balance = coin::balance(buyer_addr);
-          assert!(balance >= price, 2);
+          let buyer_balance = coin::balance(buyer_addr);
+          assert!(buyer_balance >= price, 2);
 
-          // Deduct coins using coin module
+          // Transfer coins: deduct from buyer, credit to seller
           coin::deduct(buyer_addr, price);
+          coin::credit(seller_addr, price);
       }
   }
   ```

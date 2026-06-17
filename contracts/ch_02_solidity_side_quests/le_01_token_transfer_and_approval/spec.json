@@ -1,0 +1,13 @@
+{
+  "permaname": "sq-1-token-transfer-and-approval",
+  "contract": "SanJuanToken",
+  "source_file": "SanJuanToken.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["erc20", "transfer", "approve", "allowance", "transferFrom"],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": []
+}

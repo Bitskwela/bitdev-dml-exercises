@@ -42,7 +42,15 @@ int main() {
   int remainder = (int)num1 % (int)num2;
   ```
 
-- Display all results with descriptive labels using `cout`.
+- Display all results using `cout` with the exact labels shown below.
+
+  ```cpp
+  cout << "Sum: " << sum << endl;
+  cout << "Difference: " << difference << endl;
+  cout << "Product: " << product << endl;
+  cout << "Quotient: " << quotient << endl;
+  cout << "Remainder: " << remainder << endl;
+  ```
 
 ### Breakdown of the Activity
 

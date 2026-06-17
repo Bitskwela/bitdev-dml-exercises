@@ -113,10 +113,10 @@ await token.transferFrom(ownerAddress, recipientAddress, amount); // Then transf
 await window.ethereum.request({ method: "eth_requestAccounts" });
 
 // Step 2: Create provider
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum);
 
 // Step 3: Get signer from provider
-const signer = provider.getSigner();
+const signer = await provider.getSigner();
 
 // Step 4: Create contract WITH signer (for transfers)
 const token = new ethers.Contract(tokenAddress, ABI, signer);
@@ -138,7 +138,7 @@ await token.transfer(to, amount);
 
 // ✅ CORRECT: Parse with decimals
 const decimals = await token.decimals(); // Usually 18
-const amount = ethers.utils.parseUnits("10", decimals);
+const amount = ethers.parseUnits("10", decimals);
 // Now amount = 10000000000000000000 (10 * 10^18)
 await token.transfer(to, amount);
 ```
@@ -206,7 +206,7 @@ async function sendTokens(to, amount) {
     // Step 1: Prepare the transaction
     console.log("Preparing transaction...");
     const decimals = await token.decimals();
-    const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+    const parsedAmount = ethers.parseUnits(amount, decimals);
 
     // Step 2: Send transaction (MetaMask popup appears)
     console.log("Waiting for user confirmation...");
@@ -251,9 +251,9 @@ function validateTransfer(to, amount, balance) {
   // 1. Validate recipient address
   if (!to) {
     errors.push("Recipient address is required");
-  } else if (!ethers.utils.isAddress(to)) {
+  } else if (!ethers.isAddress(to)) {
     errors.push("Invalid recipient address");
-  } else if (to === ethers.constants.AddressZero) {
+  } else if (to === ethers.ZeroAddress) {
     errors.push("Cannot send to zero address");
   }
 
@@ -361,8 +361,8 @@ async function transferAndRefresh(to, amount) {
   // 3. Format for display
   const decimals = await token.decimals();
   return {
-    senderBalance: ethers.utils.formatUnits(senderBalance, decimals),
-    recipientBalance: ethers.utils.formatUnits(recipientBalance, decimals),
+    senderBalance: ethers.formatUnits(senderBalance, decimals),
+    recipientBalance: ethers.formatUnits(recipientBalance, decimals),
   };
 }
 ```
@@ -377,7 +377,7 @@ Instead of polling, subscribe to `Transfer` events:
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const token = new ethers.Contract(tokenAddress, ABI, provider);
 
   // Define the event handler
@@ -385,7 +385,7 @@ useEffect(() => {
     console.log("Transfer detected!");
     console.log("From:", from);
     console.log("To:", to);
-    console.log("Amount:", ethers.utils.formatUnits(value, decimals));
+    console.log("Amount:", ethers.formatUnits(value, decimals));
 
     // Refresh balances if this affects the current user
     if (from === userAddress || to === userAddress) {
@@ -422,7 +422,7 @@ function TokenTransfer({ contractAddress }) {
 
     // Validate inputs
     setStatus("validating");
-    if (!ethers.utils.isAddress(to)) {
+    if (!ethers.isAddress(to)) {
       setError("Invalid recipient address");
       setStatus("error");
       return;
@@ -438,13 +438,13 @@ function TokenTransfer({ contractAddress }) {
 
       // Get signer and contract
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const token = new ethers.Contract(contractAddress, ABI, signer);
 
       // Parse amount with decimals
       const decimals = await token.decimals();
-      const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+      const parsedAmount = ethers.parseUnits(amount, decimals);
 
       // Send transaction
       const tx = await token.transfer(to, parsedAmount);
@@ -524,7 +524,7 @@ await token.transfer(to, "10");
 
 // ✅ Sends 10 tokens
 const decimals = await token.decimals();
-await token.transfer(to, ethers.utils.parseUnits("10", decimals));
+await token.transfer(to, ethers.parseUnits("10", decimals));
 ```
 
 #### **2. Not Waiting for Confirmation**
@@ -577,9 +577,9 @@ Before deploying, verify:
 
 ### External References & Further Learning
 
-- **Ethers.js Contract Interaction**: https://docs.ethers.org/v5/api/contract/contract/ - Sending transactions
+- **Ethers.js Contract Interaction**: https://docs.ethers.org/v6/api/contract/ - Sending transactions
 - **ERC-20 Standard**: https://eips.ethereum.org/EIPS/eip-20 - Token transfer specification
-- **Gas Estimation**: https://docs.ethers.org/v5/api/contract/contract/#contract-estimateGas - Estimating gas
+- **Gas Estimation**: https://docs.ethers.org/v6/api/contract/#ContractMethod - Estimating gas
 - **Etherscan**: https://etherscan.io - Verify transactions
 - **OpenZeppelin ERC-20**: https://docs.openzeppelin.com/contracts/4.x/erc20 - Safe implementations
 
@@ -668,11 +668,11 @@ export default function TokenTransfer({ contractAddress }) {
 **To Do List**
 
 - [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`
-- [ ] `const provider = new ethers.providers.Web3Provider(window.ethereum)`
-- [ ] `const signer = provider.getSigner()`
+- [ ] `const provider = new ethers.BrowserProvider(window.ethereum)`
+- [ ] `const signer = await provider.getSigner()`
 - [ ] `const token = new ethers.Contract(contractAddress, ABI, signer)`
 - [ ] `const dec = await token.decimals()`
-- [ ] `const parsed = ethers.utils.parseUnits(amt, dec)`
+- [ ] `const parsed = ethers.parseUnits(amt, dec)`
 - [ ] `const tx = await token.transfer(to, parsed)` & `await tx.wait()`
 - [ ] `setTxHash(tx.hash)`
 
@@ -698,7 +698,7 @@ export default function TokenTransfer({ contractAddress }) {
   async function sendToken() {
     setError("");
     setTxHash("");
-    if (!ethers.utils.isAddress(to)) {
+    if (!ethers.isAddress(to)) {
       setError("Invalid recipient address");
       return;
     }
@@ -709,11 +709,11 @@ export default function TokenTransfer({ contractAddress }) {
     try {
       setLoading(true);
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const token = new ethers.Contract(contractAddress, ABI, signer);
       const dec = await token.decimals();
-      const parsed = ethers.utils.parseUnits(amt, dec);
+      const parsed = ethers.parseUnits(amt, dec);
       const tx = await token.transfer(to, parsed);
       const receipt = await tx.wait();
       setTxHash(receipt.transactionHash);
@@ -831,7 +831,7 @@ export default function TokenTransferWithBalance({ contractAddress }) {
         method: "eth_requestAccounts",
       });
       setAccount(user);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const token = new ethers.Contract(contractAddress, ABI, provider);
       const [sym, dec] = await Promise.all([token.symbol(), token.decimals()]);
       setSymbol(sym);
@@ -847,17 +847,17 @@ export default function TokenTransferWithBalance({ contractAddress }) {
       token.balanceOf(to || user), // show own balance if no recipient
     ]);
     setBalances({
-      from: ethers.utils.formatUnits(rawFrom, dec),
-      to: ethers.utils.formatUnits(rawTo, dec),
+      from: ethers.formatUnits(rawFrom, dec),
+      to: ethers.formatUnits(rawTo, dec),
     });
   }
 
   async function sendToken() {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const token = new ethers.Contract(contractAddress, ABI, signer);
-      const parsed = ethers.utils.parseUnits(amt, decimals);
+      const parsed = ethers.parseUnits(amt, decimals);
       const tx = await token.transfer(to, parsed);
       await tx.wait();
       await fetchBalances(account, token, decimals);
@@ -914,11 +914,11 @@ Subscribe to the `Transfer` event on the BaryoToken contract and log every trans
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const token = new ethers.Contract(contractAddress, ABI, provider);
   function onTransfer(from, to, value, event) {
     console.log(
-      `Transfer: ${ethers.utils.formatUnits(
+      `Transfer: ${ethers.formatUnits(
         value,
         decimals
       )} from ${from} to ${to}`
@@ -961,7 +961,7 @@ describe("TokenTransfer Component", () => {
       request: jest.fn().mockResolvedValue([fakeAddress]),
     };
     // Mock provider & signer
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
+    ethers.BrowserProvider = jest.fn().mockReturnValue(fakeProvider);
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
   });
 
@@ -989,7 +989,7 @@ describe("TokenTransfer Component", () => {
     expect(fakeContract.decimals).toHaveBeenCalled();
     expect(fakeContract.transfer).toHaveBeenCalledWith(
       fakeAddress,
-      ethers.utils.parseUnits("5", 18)
+      ethers.parseUnits("5", 18)
     );
   });
 

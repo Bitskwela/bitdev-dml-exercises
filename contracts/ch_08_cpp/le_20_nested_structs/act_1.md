@@ -37,7 +37,17 @@ int main() {
 
 - Define a `Resident` struct that contains a `string name` and a `Date birthDate`.
 
-- Create a Resident, assign values using chained dots (e.g., `person.birthDate.year = 1861`), and print the details.
+- Create a Resident and assign values using chained dots -- use `name = "Crisostomo Ibarra"`, `birthDate.day = 30`, `birthDate.month = 12`, and `birthDate.year = 1861`.
+
+- Print the details using these exact labels, with the date formatted as `day/month/year` and leading zeros on day and month:
+
+  ```cpp
+  cout << "Resident: " << person.name << endl;
+  cout << "Birth Date: "
+       << setfill('0') << setw(2) << person.birthDate.day << "/"
+       << setfill('0') << setw(2) << person.birthDate.month << "/"
+       << person.birthDate.year << endl;
+  ```
 
 ### Breakdown of the Activity
 

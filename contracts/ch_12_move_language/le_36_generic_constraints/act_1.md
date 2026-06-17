@@ -166,6 +166,53 @@ public fun duplicate_box<T: copy + drop + store>(
 }
 ```
 
+### Task 10: Implement get_all_items
+
+Return a copy of every cached item.
+
+```move
+public fun get_all_items<T: copy + drop>(addr: address): vector<T> acquires CopyableCache {
+    let cache = borrow_global<CopyableCache<T>>(addr);
+    cache.items
+}
+```
+
+### Task 11: Implement backup_data
+
+Copy the persistent store's data into its backup vector. This needs the extra `copy` constraint (`T: store + copy`) so the data can be duplicated.
+
+```move
+public fun backup_data<T: store + copy>(account: &signer) acquires PersistentStore {
+    let addr = signer::address_of(account);
+    let store = borrow_global_mut<PersistentStore<T>>(addr);
+    vector::push_back(&mut store.backup, copy store.data);
+}
+```
+
+### Task 12: Implement peek_box
+
+Read a copy of a box's contents without consuming the box.
+
+```move
+public fun peek_box<T: copy + drop + store>(box: &FlexibleBox<T>): T {
+    box.contents
+}
+```
+
+### Task 13: Implement the Existence Checks
+
+Add helpers that report whether a cache or store exists for a given type.
+
+```move
+public fun cache_exists<T: copy + drop>(addr: address): bool {
+    exists<CopyableCache<T>>(addr)
+}
+
+public fun store_exists<T: store>(addr: address): bool {
+    exists<PersistentStore<T>>(addr)
+}
+```
+
 ---
 
 ## Breakdown

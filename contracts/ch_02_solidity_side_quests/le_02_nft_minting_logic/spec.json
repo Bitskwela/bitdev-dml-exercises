@@ -1,0 +1,13 @@
+{
+  "permaname": "sq-2-nft-minting-logic",
+  "contract": "SecureNFT",
+  "source_file": "SecureNFT.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": ["@openzeppelin/contracts/=@openzeppelin/contracts/"],
+  "concepts": ["erc721", "nft-minting", "access-control", "ownable", "supply-cap"],
+  "difficulty": "intermediate",
+  "est_minutes": 30,
+  "prerequisites": []
+}

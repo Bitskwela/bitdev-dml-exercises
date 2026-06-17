@@ -29,7 +29,13 @@ int main() {
 
 - Declare a variable of type `BarangayPosition` and assign it a value like `SECRETARY`.
 
-- Write a `switch` statement that prints a unique description for each position.
+- Write a `switch` statement that prints a unique description for each position. Since the variable is set to `SECRETARY`, the `SECRETARY` case must print this exact line:
+
+  ```cpp
+  case SECRETARY:
+      cout << "The Secretary handles all records and documentation." << endl;
+      break;
+  ```
 
 ### Breakdown of the Activity
 

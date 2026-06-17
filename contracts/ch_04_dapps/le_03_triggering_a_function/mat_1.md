@@ -51,7 +51,7 @@ Gas fees compensate these nodes for their computational work and storage.
 
 ```js
 // Anyone can create a provider—no wallet needed
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+const provider = new ethers.JsonRpcProvider(RPC_URL);
 
 // Use for view/pure functions
 const name = await contract.name(); // Free, instant
@@ -61,8 +61,8 @@ const name = await contract.name(); // Free, instant
 
 ```js
 // Requires MetaMask or another wallet
-const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = web3Provider.getSigner();
+const web3Provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await web3Provider.getSigner();
 
 // Use for state-changing functions
 const tx = await contract.vote("Health"); // Costs gas, needs approval
@@ -98,7 +98,7 @@ import { ethers } from "ethers";
 import abi from "./abi/CooperativeVote.json";
 
 // Step 1: Create provider (connection to blockchain)
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL
 );
 
@@ -119,10 +119,11 @@ Use this when you need to change blockchain state (like casting a vote):
 
 ```js
 // Step 1: Connect to user's MetaMask wallet
-const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+const web3Provider = new ethers.BrowserProvider(window.ethereum);
 
 // Step 2: Get the signer (the user's wallet that will sign transactions)
-const signer = web3Provider.getSigner();
+// Note: in ethers v6, getSigner() is async — remember to await it
+const signer = await web3Provider.getSigner();
 
 // Step 3: Create write-capable contract instance
 // Option A: Create new instance with signer
@@ -207,8 +208,8 @@ console.log("Transaction hash:", tx.hash);
   hash: "0x1234...",      // Unique transaction ID
   from: "0xYourAddress",  // Who sent it
   to: "0xContractAddr",   // The contract address
-  gasLimit: BigNumber,    // Max gas
-  gasPrice: BigNumber,    // Price per gas unit
+  gasLimit: bigint,       // Max gas
+  gasPrice: bigint,       // Price per gas unit
   nonce: 42,              // Transaction count from this address
   data: "0x...",          // Encoded function call
 }
@@ -232,7 +233,7 @@ const receipt = await tx.wait(3); // Wait for 3 block confirmations
 {
   status: 1,              // 1 = success, 0 = failed
   blockNumber: 12345678,  // Which block included this tx
-  gasUsed: BigNumber,     // Actual gas consumed
+  gasUsed: bigint,        // Actual gas consumed
   transactionHash: "0x..",
   logs: [...],            // Events emitted during execution
 }
@@ -329,7 +330,7 @@ contract.off("Voted", handler);
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+  const provider = new ethers.JsonRpcProvider(RPC_URL);
   const contract = new ethers.Contract(ADDRESS, abi, provider);
 
   const handleVote = (voter, proposal) => {
@@ -355,12 +356,12 @@ Gas is the "fuel" for your transaction. Too little = transaction fails. Too much
 #### **Automatic Estimation**
 
 ```js
-// Let Ethers.js estimate the gas needed
-const estimatedGas = await contract.estimateGas.vote("Health");
+// Let Ethers.js estimate the gas needed (v6: estimateGas lives on the method)
+const estimatedGas = await contract.vote.estimateGas("Health");
 console.log("Estimated gas:", estimatedGas.toString()); // e.g., "45000"
 
-// Add a 20% buffer for safety
-const gasLimit = estimatedGas.mul(120).div(100);
+// estimatedGas is a bigint in v6, so add a 20% buffer with native bigint math
+const gasLimit = (estimatedGas * 120n) / 100n;
 
 const tx = await contract.vote("Health", { gasLimit });
 ```
@@ -371,7 +372,7 @@ If `estimateGas` throws an error, it usually means the transaction would revert:
 
 ```js
 try {
-  await contract.estimateGas.vote("Health");
+  await contract.vote.estimateGas("Health");
 } catch (error) {
   // Transaction would fail! Common reasons:
   // - Already voted
@@ -425,7 +426,7 @@ Let users verify their transaction on Etherscan:
     <p>
       View on Etherscan:
       <a
-        href={`https://goerli.etherscan.io/tx/${txHash}`}
+        href={`https://sepolia.etherscan.io/tx/${txHash}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -461,11 +462,11 @@ catch (error) {
 
    ```js
    // ❌ This will fail - no account connected
-   const signer = provider.getSigner();
+   const signer = await provider.getSigner();
 
    // ✅ Always request accounts first
    await window.ethereum.request({ method: "eth_requestAccounts" });
-   const signer = provider.getSigner();
+   const signer = await provider.getSigner();
    ```
 
 2. **Not waiting for confirmation**
@@ -514,9 +515,9 @@ Before deploying, verify these scenarios:
 
 ### External References & Further Learning
 
-- **Ethers.js Signers**: https://docs.ethers.org/v5/api/signer/ - Complete signer documentation
-- **Ethers.js Providers**: https://docs.ethers.org/v5/api/providers/ - Provider types explained
-- **Gas Estimation**: https://docs.ethers.org/v5/api/contract/contract/#contract-estimateGas - Estimate gas usage
+- **Ethers.js Signers**: https://docs.ethers.org/v6/api/providers/#Signer - Complete signer documentation
+- **Ethers.js Providers**: https://docs.ethers.org/v6/api/providers/ - Provider types explained
+- **Gas Estimation**: https://docs.ethers.org/v6/api/contract/#BaseContractMethod-estimateGas - Estimate gas usage
 - **React Hooks**: https://reactjs.org/docs/hooks-intro.html - Managing state in React
 - **Etherscan**: https://etherscan.io - Verify transactions on-chain
 
@@ -557,7 +558,7 @@ To Do List
 
 - Check `window.ethereum`; alert if missing.
 - Request accounts: `eth_requestAccounts`.
-- Create `Web3Provider` & `signer`; connect to contract.
+- Create `BrowserProvider` & `signer` (await `getSigner()`); connect to contract.
 - Call `contract.vote(selected, { gasLimit: 100_000 })`.
 - `await tx.wait()`, then set “confirmed” & call `onVoted()`.
 - Catch errors → `setStatus('error: …')`.
@@ -573,8 +574,8 @@ const castVote = async () => {
   try {
     setStatus("pending");
     await window.ethereum.request({ method: "eth_requestAccounts" });
-    const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = web3Provider.getSigner();
+    const web3Provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await web3Provider.getSigner();
     const contract = new ethers.Contract(
       process.env.REACT_APP_CONTRACT_ADDRESS,
       abi,
@@ -641,7 +642,7 @@ Full Solution
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.JsonRpcProvider(
+  const provider = new ethers.JsonRpcProvider(
     process.env.REACT_APP_RPC_URL
   );
   const contract = new ethers.Contract(
@@ -682,13 +683,13 @@ jest.mock("ethers", () => {
   const fake = {
     getVoteCount: jest.fn((p) =>
       Promise.resolve(
-        original.BigNumber.from(p.length) // dummy count
+        BigInt(p.length) // dummy count — ethers v6 returns uint256 as a native bigint
       )
     ),
   };
   return {
     ...original,
-    providers: { JsonRpcProvider: jest.fn() },
+    JsonRpcProvider: jest.fn(),
     Contract: jest.fn(() => fake),
   };
 });
@@ -723,9 +724,7 @@ jest.mock("ethers", () => {
   };
   return {
     ...original,
-    providers: {
-      Web3Provider: jest.fn(() => ({ getSigner: () => ({}) })),
-    },
+    BrowserProvider: jest.fn(() => ({ getSigner: async () => ({}) })),
     Contract: jest.fn(() => fakeContract),
   };
 });

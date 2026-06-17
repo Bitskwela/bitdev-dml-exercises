@@ -1,7 +1,7 @@
 ## Smart contract activity
 
 ```move
-module movestack::tokens {
+module movestack::currency {
     // TODO: Create marker structs for Gold and Silver
 
     // TODO: Create Token struct with phantom type parameter

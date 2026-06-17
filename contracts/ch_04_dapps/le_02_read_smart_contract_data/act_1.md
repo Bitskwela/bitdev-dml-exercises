@@ -42,7 +42,7 @@ export default function NFTReader() {
 
 ## Tasks for Learners
 
-Topics Covered: Provider instantiation, contract instance creation, view function calls, `Promise.all`, BigNumber conversion, React state management
+Topics Covered: Provider instantiation, contract instance creation, view function calls, `Promise.all`, bigint conversion, React state management
 
 ---
 
@@ -51,7 +51,7 @@ Topics Covered: Provider instantiation, contract instance creation, view functio
 Inside the `useEffect`, create a `JsonRpcProvider` using the RPC URL from environment variables, then instantiate the contract using the contract address, ABI, and provider.
 
 ```js
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL,
 );
 
@@ -66,12 +66,12 @@ const contract = new ethers.Contract(
 
 ### Task 2: Fetch Contract Metadata Using `Promise.all`
 
-Complete the `useEffect` to fetch the contract's `name`, `symbol`, and `totalMinted` values in parallel using `Promise.all`. Update the `info` state with the fetched data. Remember to convert `totalMinted` from BigNumber to a regular number.
+Complete the `useEffect` to fetch the contract's `name`, `symbol`, and `totalMinted` values in parallel using `Promise.all`. Update the `info` state with the fetched data. Remember to convert `totalMinted` from a `bigint` to a regular number with `Number(...)`.
 
 ```js
 useEffect(() => {
   async function fetchInfo() {
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL,
     );
     const contract = new ethers.Contract(
@@ -86,7 +86,7 @@ useEffect(() => {
       contract.totalMinted(),
     ]);
 
-    setInfo({ name, symbol, total: total.toNumber() });
+    setInfo({ name, symbol, total: Number(total) });
   }
   fetchInfo();
 }, []);
@@ -106,7 +106,7 @@ const fetchTokenURI = async () => {
   }
 
   try {
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL,
     );
     const contract = new ethers.Contract(
@@ -140,7 +140,7 @@ export default function NFTReader() {
 
   useEffect(() => {
     async function fetchInfo() {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL,
       );
       const contract = new ethers.Contract(
@@ -155,7 +155,7 @@ export default function NFTReader() {
         contract.totalMinted(),
       ]);
 
-      setInfo({ name, symbol, total: total.toNumber() });
+      setInfo({ name, symbol, total: Number(total) });
     }
     fetchInfo();
   }, []);
@@ -167,7 +167,7 @@ export default function NFTReader() {
     }
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL,
       );
       const contract = new ethers.Contract(
@@ -220,7 +220,7 @@ export default function NFTReader() {
 **Key Functions:**
 
 - `fetchInfo` (inside useEffect):
-  An async function that runs when the component mounts. It creates a provider and contract instance, then uses `Promise.all` to fetch `name()`, `symbol()`, and `totalMinted()` in parallel for better performance. The `totalMinted` value is converted from BigNumber to a regular JavaScript number using `.toNumber()` before storing in state. Using `Promise.all` is more efficient than sequential calls because all three RPC requests happen simultaneously.
+  An async function that runs when the component mounts. It creates a provider and contract instance, then uses `Promise.all` to fetch `name()`, `symbol()`, and `totalMinted()` in parallel for better performance. In ethers v6 a `uint256` is returned as a native JavaScript `bigint`, so the `totalMinted` value is converted to a regular number using `Number(...)` before storing in state. Using `Promise.all` is more efficient than sequential calls because all three RPC requests happen simultaneously.
 
 - `fetchTokenURI`:
   An async function triggered when the user clicks "Get Token URI". It first validates that the `tokenId` is within the valid range (0 to total-1) to prevent unnecessary blockchain calls. If valid, it creates a contract instance and calls `tokenURIs(tokenId)` to fetch the metadata URI for that specific token. The function includes try-catch error handling to gracefully handle scenarios where the token doesn't exist or network errors occur.

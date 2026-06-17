@@ -8,10 +8,9 @@ const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
 
 const NAMES = {
   1: "Ethereum Mainnet",
-  5: "Goerli",
   11155111: "Sepolia",
   137: "Polygon",
-  80001: "Mumbai",
+  80002: "Polygon Amoy",
 };
 
 export default function NetworkStats() {
@@ -26,16 +25,16 @@ export default function NetworkStats() {
       try {
         // Task 1: Create provider based on wallet availability
         if (window.ethereum) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
+          provider = new ethers.BrowserProvider(window.ethereum);
           await window.ethereum.request({ method: "eth_requestAccounts" });
         } else {
-          provider = new ethers.providers.JsonRpcProvider(RPC);
+          provider = new ethers.JsonRpcProvider(RPC);
         }
 
         // Task 2: Fetch chain ID and map to friendly name
         contract = new ethers.Contract(CONTRACT, ABI, provider);
-        const idBN = await contract.getChainId();
-        const id = idBN.toNumber();
+        const idRaw = await contract.getChainId();
+        const id = Number(idRaw);
         setChainId(id);
         setChainName(NAMES[id] || "Unknown");
       } catch (err) {

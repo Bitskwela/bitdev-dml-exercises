@@ -101,7 +101,7 @@ const fetchSingleNFT = async () => {
     setError("");
     setNft(null);
 
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL,
     );
     const contract = new ethers.Contract(
@@ -151,7 +151,7 @@ const fetchOwnedNFTs = async () => {
       method: "eth_requestAccounts",
     });
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(
       process.env.REACT_APP_CONTRACT_ADDRESS,
       ABI,
@@ -262,7 +262,7 @@ export default function NFTGallery() {
       setError("");
       setNft(null);
 
-      const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+      const provider = new ethers.JsonRpcProvider(RPC_URL);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const uri = await contract.tokenURI(tokenId);
@@ -292,7 +292,7 @@ export default function NFTGallery() {
         method: "eth_requestAccounts",
       });
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const balance = await contract.balanceOf(account);

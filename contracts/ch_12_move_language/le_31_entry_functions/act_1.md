@@ -100,6 +100,26 @@ Add entry modifiers to functions that need to be called from transactions. Choos
   }
   ```
 
+- Add `public fun` view helpers so other modules can inspect voter and proposal state (these return values, so they stay `public fun`, not `entry`):
+
+  ```move
+  public fun has_voted(voter_addr: address): bool acquires Voter {
+      if (exists<Voter>(voter_addr)) {
+          borrow_global<Voter>(voter_addr).has_voted
+      } else {
+          false
+      }
+  }
+
+  public fun proposal_exists(addr: address): bool {
+      exists<Proposal>(addr)
+  }
+
+  public fun is_registered(addr: address): bool {
+      exists<Voter>(addr)
+  }
+  ```
+
 ### Breakdown for learners
 
 **Entry functions** are the only functions that can be called directly from blockchain transactions. They serve as the public API for external users.

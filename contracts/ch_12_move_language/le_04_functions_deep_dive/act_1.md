@@ -1,4 +1,4 @@
-````markdown
+
 # Activity: Building a Calculator Module
 
 ## Objective
@@ -22,12 +22,25 @@ Jaymart grabs a notepad. "So we'll have internal helpers, public utilities, and 
 ```move
 module movestack::calculator {
     // ============================================
+    // ERROR CODES
+    // ============================================
+
+    // TODO: Define error code constants
+    // E_DIVISION_BY_ZERO: u64 = 1
+    // E_SUBTRACTION_UNDERFLOW: u64 = 2
+    // E_INVALID_OPERATION: u64 = 3
+
+    // ============================================
     // PRIVATE HELPER FUNCTIONS
     // ============================================
 
     // TODO: Create a private function called 'validate_divisor'
     // Takes a u64 parameter called 'divisor'
     // Returns true if divisor is not zero, false otherwise
+
+    // TODO: Create a private function called 'validate_subtraction'
+    // Takes two u64 parameters: a and b
+    // Returns true if a >= b (subtraction won't underflow)
 
     // ============================================
     // PUBLIC FUNCTIONS (callable by other modules)
@@ -49,7 +62,7 @@ module movestack::calculator {
     // TODO: Create a public function called 'divide'
     // Takes two u64 parameters: dividend and divisor
     // Use validate_divisor to check for zero
-    // If divisor is zero, abort with error code 1
+    // If divisor is zero, abort with E_DIVISION_BY_ZERO
     // Otherwise return the quotient
 
     // ============================================
@@ -59,7 +72,11 @@ module movestack::calculator {
     // TODO: Create a public function called 'divide_with_remainder'
     // Takes two u64 parameters: dividend and divisor
     // Returns TWO values: (quotient, remainder)
-    // Abort with error code 1 if divisor is zero
+    // Abort with E_DIVISION_BY_ZERO if divisor is zero
+
+    // TODO: Create a public function called 'number_stats'
+    // Takes one u64 parameter: n
+    // Returns THREE values: (doubled, halved, is_even)
 
     // ============================================
     // ENTRY FUNCTIONS (callable from transactions)
@@ -68,6 +85,7 @@ module movestack::calculator {
     // TODO: Create a public entry function called 'perform_calculation'
     // Takes three parameters: a (u64), b (u64), operation (u8)
     // operation: 0 = add, 1 = subtract, 2 = multiply, 3 = divide
+    // Abort with E_INVALID_OPERATION for any other operation code
     // This demonstrates how entry functions work
     // (In a real app, this would store the result somewhere)
 }
@@ -75,21 +93,54 @@ module movestack::calculator {
 
 ## Tasks
 
-1. **Create private helper function**
+1. **Define error code constants**
+
+   - Declare `const E_DIVISION_BY_ZERO: u64 = 1;`
+   - Declare `const E_SUBTRACTION_UNDERFLOW: u64 = 2;`
+   - Declare `const E_INVALID_OPERATION: u64 = 3;`
+   - These give meaningful context when an operation aborts
+
+2. **Create private helper functions**
 
    - Write `validate_divisor` that returns a boolean
    - Check if the divisor equals zero
    - This helper keeps validation logic reusable
+   - Also write `validate_subtraction(a: u64, b: u64): bool` that returns `true` when `a >= b`
+     (used by `subtract` to guard against underflow)
 
-2. **Implement public arithmetic functions**
+   ```move
+   fun validate_subtraction(a: u64, b: u64): bool {
+       a >= b
+   }
+   ```
+
+3. **Implement public arithmetic functions**
 
    - `add`, `subtract`, `multiply`, `divide`
    - Each takes two u64 parameters and returns u64
-   - `divide` must use `validate_divisor` and abort on zero
+   - `subtract` must use `validate_subtraction` and abort with `E_SUBTRACTION_UNDERFLOW` when `b > a`
+   - `divide` must use `validate_divisor` and abort with `E_DIVISION_BY_ZERO` on zero
 
-3. **Implement multiple return values**
+4. **Implement multiple return values**
+
    - `divide_with_remainder` returns a tuple `(u64, u64)`
    - Use the tuple return syntax: `(quotient, remainder)`
+   - Also write `number_stats(n: u64): (u64, u64, bool)` that returns the number doubled, halved,
+     and whether it is even — a three-value tuple
+
+   ```move
+   public fun number_stats(n: u64): (u64, u64, bool) {
+       let doubled = n * 2;
+       let halved = n / 2;
+       let is_even = n % 2 == 0;
+       (doubled, halved, is_even)
+   }
+   ```
+
+5. **Add the entry point**
+   - Write a `public entry fun perform_calculation(a: u64, b: u64, operation: u8)`
+   - Dispatch on `operation` (0 = add, 1 = subtract, 2 = multiply, 3 = divide)
+   - Abort with `E_INVALID_OPERATION` for any other operation code
 
 ## Expected Behavior
 
@@ -99,8 +150,9 @@ After completing this activity:
 - `subtract(10, 5)` returns `5`
 - `multiply(10, 5)` returns `50`
 - `divide(10, 5)` returns `2`
-- `divide(10, 0)` aborts with error code 1
+- `divide(10, 0)` aborts with `E_DIVISION_BY_ZERO`
 - `divide_with_remainder(17, 5)` returns `(3, 2)`
+- `number_stats(10)` returns `(20, 5, true)`
 
 ## Hints
 
@@ -137,7 +189,7 @@ Use `assert!` or `if` with `abort` for error handling:
 
 ```move
 public fun divide(dividend: u64, divisor: u64): u64 {
-    assert!(validate_divisor(divisor), 1);
+    assert!(validate_divisor(divisor), E_DIVISION_BY_ZERO);
     dividend / divisor
 }
 ```
@@ -151,7 +203,7 @@ Return a tuple and declare the return type accordingly:
 
 ```move
 public fun divide_with_remainder(dividend: u64, divisor: u64): (u64, u64) {
-    assert!(divisor != 0, 1);
+    assert!(validate_divisor(divisor), E_DIVISION_BY_ZERO);
     let quotient = dividend / divisor;
     let remainder = dividend % divisor;
     (quotient, remainder)
@@ -173,12 +225,14 @@ public entry fun perform_calculation(a: u64, b: u64, operation: u8) {
         subtract(a, b)
     } else if (operation == 2) {
         multiply(a, b)
-    } else {
+    } else if (operation == 3) {
         divide(a, b)
+    } else {
+        abort E_INVALID_OPERATION
     };
     // Result would typically be stored or emitted as an event
 }
 ```
 
 </details>
-````
+

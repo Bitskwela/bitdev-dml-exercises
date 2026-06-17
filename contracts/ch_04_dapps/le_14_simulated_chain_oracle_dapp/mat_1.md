@@ -149,7 +149,7 @@ const isReleased = await contract.released();
 const balance = await provider.getBalance(contractAddress);
 
 // Writing (gas required, needs signer)
-const tx = await contract.donate({ value: ethers.utils.parseEther("0.1") });
+const tx = await contract.donate({ value: ethers.parseEther("0.1") });
 await tx.wait();
 
 const tx2 = await contract.updateWeather(120);
@@ -192,8 +192,8 @@ await tx2.wait();
 ```javascript
 useEffect(() => {
   const setupContract = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS, RELIEF_ABI, signer);
 
     // Initial data fetch
@@ -201,13 +201,13 @@ useEffect(() => {
 
     // Subscribe to events for real-time updates
     contract.on("Donated", (donor, amount) => {
-      console.log(`Donation: ${ethers.utils.formatEther(amount)} ETH`);
+      console.log(`Donation: ${ethers.formatEther(amount)} ETH`);
       refreshStats();
     });
 
     contract.on("DataUpdated", (speed) => {
       console.log(`Wind speed updated: ${speed} km/h`);
-      setWindSpeed(speed.toNumber());
+      setWindSpeed(Number(speed));
     });
 
     contract.on("Released", (to, amount) => {
@@ -283,7 +283,7 @@ Before considering this lesson complete, verify:
 | -------------------- | -------------------------------------------------------------------- |
 | Chainlink Data Feeds | https://docs.chain.link/data-feeds                                   |
 | The Oracle Problem   | https://blog.chain.link/what-is-the-blockchain-oracle-problem/       |
-| Ethers.js Events     | https://docs.ethers.org/v5/api/contract/contract/#Contract--events   |
+| Ethers.js Events     | https://docs.ethers.org/v6/api/contract/#ContractEvent               |
 | Solidity Security    | https://docs.soliditylang.org/en/latest/security-considerations.html |
 
 ---
@@ -317,14 +317,17 @@ describe("TyphoonReliefChain App", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xABC"]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
-    fakeProvider.getSigner = () => fakeSigner;
+    ethers.BrowserProvider = jest.fn().mockReturnValue(fakeProvider);
+    fakeProvider.getSigner = async () => fakeSigner;
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-    fakeContract.windSpeed.mockResolvedValue(ethers.BigNumber.from("50"));
+    fakeContract.windSpeed.mockResolvedValue(50n);
     fakeContract.released.mockResolvedValue(false);
-    ethers.providers.Web3Provider.prototype.getBalance = jest
+    // ethers v6 returns native bigint for parseEther / getBalance
+    ethers.parseEther = jest.fn((v) => BigInt(Math.round(Number(v) * 1e18)));
+    ethers.formatEther = jest.fn((wei) => (Number(wei) / 1e18).toString());
+    fakeProvider.getBalance = jest
       .fn()
-      .mockResolvedValue(ethers.utils.parseEther("1.5"));
+      .mockResolvedValue(ethers.parseEther("1.5"));
   });
 
   it("loads and shows stats", async () => {

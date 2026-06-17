@@ -48,7 +48,7 @@ export default function EscrowStats() {
       <h3>Escrow Status</h3>
       <p>Buyer: {buyer}</p>
       <p>Seller: {seller}</p>
-      <p>Amount: {ethers.utils.formatEther(amt)} ETH</p>
+      <p>Amount: {ethers.formatEther(amt)} ETH</p>
       <p>
         Status:{" "}
         {released
@@ -78,7 +78,7 @@ Create a `JsonRpcProvider` using the RPC URL from environment variables. Then in
 const RPC = process.env.REACT_APP_RPC_URL;
 const ADDR = process.env.REACT_APP_ESCROW_ADDRESS;
 
-const provider = new ethers.providers.JsonRpcProvider(RPC);
+const provider = new ethers.JsonRpcProvider(RPC);
 const escrow = new ethers.Contract(ADDR, ABI, provider);
 ```
 
@@ -128,14 +128,14 @@ setReleased(rel);
 
 - `buyer`, `seller`: State variables storing the buyer and seller addresses retrieved from the contract.
 
-- `amt`: The deposited amount as a BigNumber. Displayed using `formatEther()` to convert from wei to ETH.
+- `amt`: The deposited amount as a native `bigint` (ethers v6 returns `bigint` for `uint256` values). Displayed using `formatEther()` to convert from wei to ETH.
 
 - `deposited`, `released`: Boolean state variables tracking the escrow status. Used to determine which status message to display.
 
 **Key Functions:**
 
 - `JsonRpcProvider(url)`:
-  Creates a read-only connection to an Ethereum node. Unlike `Web3Provider` which connects to MetaMask, `JsonRpcProvider` connects directly to a node URL. Ideal for reading blockchain data without user interaction.
+  Creates a read-only connection to an Ethereum node. Unlike `BrowserProvider` which connects to MetaMask, `JsonRpcProvider` connects directly to a node URL. Ideal for reading blockchain data without user interaction. In ethers v6 it's constructed as `new ethers.JsonRpcProvider(url)` (the `ethers.providers.*` namespace was removed).
 
 - `ethers.Contract(address, abi, provider)`:
   Creates a contract instance for interacting with a deployed contract. When passed a provider (not signer), it can only call view/pure functions. Each ABI entry becomes a callable method on the contract object.
@@ -143,8 +143,8 @@ setReleased(rel);
 - `Promise.all([...])`:
   Executes multiple async calls concurrently and waits for all to complete. Returns an array of results in the same order as the input promises. More efficient than sequential `await` calls.
 
-- `formatEther(bigNumber)`:
-  Converts a BigNumber in wei (10^18) to a human-readable ETH string. Essential for displaying token/ETH amounts since Solidity uses integers without decimals.
+- `ethers.formatEther(value)`:
+  Converts a `bigint` value in wei (10^18) to a human-readable ETH string. In ethers v6 it's a top-level helper (`ethers.formatEther`), not under `ethers.utils`. Essential for displaying token/ETH amounts since Solidity uses integers without decimals.
 
 ---
 
@@ -175,7 +175,7 @@ export default function EscrowStats() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const provider = new ethers.providers.JsonRpcProvider(RPC);
+        const provider = new ethers.JsonRpcProvider(RPC);
         const escrow = new ethers.Contract(ADDR, ABI, provider);
 
         const [b, s, a, dep, rel] = await Promise.all([
@@ -205,7 +205,7 @@ export default function EscrowStats() {
       <h3>Escrow Status</h3>
       <p>Buyer: {buyer}</p>
       <p>Seller: {seller}</p>
-      <p>Amount: {ethers.utils.formatEther(amt)} ETH</p>
+      <p>Amount: {ethers.formatEther(amt)} ETH</p>
       <p>
         Status:{" "}
         {released

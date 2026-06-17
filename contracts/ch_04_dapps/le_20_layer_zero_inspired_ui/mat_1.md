@@ -259,8 +259,9 @@ function BridgeApp() {
     setStep("LOCKING");
 
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      // ethers v6: BrowserProvider replaces Web3Provider; getSigner is async
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(
         process.env.REACT_APP_BRIDGE_ADDRESS,
         BRIDGE_ABI,
@@ -268,14 +269,25 @@ function BridgeApp() {
       );
 
       const tx = await contract.lockTokens({
-        value: ethers.utils.parseEther(amount),
+        value: ethers.parseEther(amount),
       });
 
       const receipt = await tx.wait();
 
-      // Extract lock ID from event
-      const lockEvent = receipt.events.find((e) => e.event === "Locked");
-      const id = lockEvent.args.id.toNumber();
+      // Extract lock ID from event.
+      // ethers v6: parse receipt.logs via the contract interface (no receipt.events).
+      let id;
+      for (const log of receipt.logs) {
+        try {
+          const parsed = contract.interface.parseLog(log);
+          if (parsed && parsed.name === "Locked") {
+            id = Number(parsed.args.id); // bigint -> number in v6
+            break;
+          }
+        } catch {
+          // Not one of this contract's events — skip it.
+        }
+      }
 
       setLockId(id);
       setStep("LOCKED");
@@ -299,8 +311,9 @@ function BridgeApp() {
     setStep("RELEASING");
 
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      // ethers v6: BrowserProvider replaces Web3Provider; getSigner is async
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(
         process.env.REACT_APP_BRIDGE_ADDRESS,
         BRIDGE_ABI,
@@ -374,7 +387,7 @@ Before considering this lesson complete, verify:
 | --------------------- | ------------------------------------------------------------------------ |
 | LayerZero Docs        | https://layerzero.gitbook.io/                                            |
 | Cross-Chain Messaging | https://ethereum.org/en/developers/docs/bridges/                         |
-| Ethers Transactions   | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
+| Ethers Transactions   | https://docs.ethers.org/v6/api/contract/#BaseContractMethod              |
 | Bridge Security       | https://blog.chain.link/cross-chain-security/                            |
 
 ---
@@ -398,6 +411,13 @@ describe("BridgeApp Flow", () => {
   const fakeBridge = {
     lockTokens: jest.fn(),
     releaseTokens: jest.fn(),
+    // ethers v6: we parse logs ourselves via the contract interface
+    interface: {
+      parseLog: jest.fn().mockReturnValue({
+        name: "Locked",
+        args: { id: 7n }, // v6 returns bigint, not BigNumber
+      }),
+    },
   };
   beforeAll(() => {
     global.window.ethereum = {
@@ -410,16 +430,15 @@ describe("BridgeApp Flow", () => {
         // wallet_switchEthereumChain
         .mockResolvedValueOnce(null),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
-    fakeProvider.getSigner = () => fakeSigner;
+    // ethers v6: BrowserProvider replaces Web3Provider; getSigner is async
+    ethers.BrowserProvider = jest.fn().mockReturnValue(fakeProvider);
+    fakeProvider.getSigner = jest.fn().mockResolvedValue(fakeSigner);
     ethers.Contract = jest.fn().mockReturnValue(fakeBridge);
-    // mock lock tx
+    // mock lock tx — v6 receipts expose logs, not events
     fakeBridge.lockTokens.mockResolvedValue({
       wait: () =>
         Promise.resolve({
-          events: [
-            { event: "Locked", args: { id: ethers.BigNumber.from("7") } },
-          ],
+          logs: [{ topics: [], data: "0x" }],
         }),
     });
     // mock release tx

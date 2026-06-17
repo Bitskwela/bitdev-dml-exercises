@@ -18,8 +18,8 @@ export default function LockForm({ onLocked }) {
 
       // Task 1: Connect to MetaMask and create contract instance
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const bridge = new ethers.Contract(
         process.env.REACT_APP_BRIDGE_ADDR,
         ABI,
@@ -28,13 +28,23 @@ export default function LockForm({ onLocked }) {
 
       // Task 2: Call lockTokens() with ETH value
       const tx = await bridge.lockTokens({
-        value: ethers.utils.parseEther(amt),
+        value: ethers.parseEther(amt),
       });
       const receipt = await tx.wait();
 
       // Task 3: Parse Locked event and invoke callback
-      const evt = receipt.events.find((e) => e.event === "Locked");
-      const id = evt.args.id.toNumber();
+      let id;
+      for (const log of receipt.logs) {
+        try {
+          const parsed = bridge.interface.parseLog(log);
+          if (parsed && parsed.name === "Locked") {
+            id = Number(parsed.args.id);
+            break;
+          }
+        } catch {
+          // Not one of this contract's events — skip it.
+        }
+      }
       onLocked(id, amt);
       setStep("Idle");
     } catch (err) {

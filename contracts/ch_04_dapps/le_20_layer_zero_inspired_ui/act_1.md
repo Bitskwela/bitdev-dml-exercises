@@ -26,14 +26,14 @@ export default function LockForm({ onLocked }) {
       setStep("Locking");
 
       // TODO: Task 1 - Connect to MetaMask and create contract instance
-      // @note Request account access, create Web3Provider and signer,
+      // @note Request account access, create BrowserProvider and await the signer,
       // then instantiate the BridgeSimulator contract
 
       // TODO: Task 2 - Call lockTokens() with ETH value
       // @note Send a payable transaction with the ETH amount converted to wei
 
       // TODO: Task 3 - Parse Locked event and invoke callback
-      // @note Extract lock ID from receipt events and call onLocked callback
+      // @note Extract lock ID by parsing receipt.logs and call onLocked callback
     } catch (err) {
       setError(err.message);
       setStep("Idle");
@@ -79,12 +79,12 @@ Topics Covered: Payable transactions, `parseEther()`, UI state management, Confi
 
 ### Task 1: Connect to MetaMask and Create Contract Instance
 
-Request account access from MetaMask, create a `Web3Provider` and signer, then instantiate the BridgeSimulator contract using the contract address from environment variables.
+Request account access from MetaMask, create a `BrowserProvider` and `await` the signer (in ethers v6 `getSigner()` is asynchronous), then instantiate the BridgeSimulator contract using the contract address from environment variables.
 
 ```js
 await window.ethereum.request({ method: "eth_requestAccounts" });
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
 const bridge = new ethers.Contract(
   process.env.REACT_APP_BRIDGE_ADDR,
   ABI,
@@ -96,11 +96,11 @@ const bridge = new ethers.Contract(
 
 ### Task 2: Call lockTokens() with ETH Value
 
-Send a payable transaction to `lockTokens()` by including a `value` field in the transaction options. Use `parseEther()` to convert the user's string input to wei. Then wait for the transaction to be mined using `tx.wait()`.
+Send a payable transaction to `lockTokens()` by including a `value` field in the transaction options. Use `parseEther()` to convert the user's string input to wei — in ethers v6 it's the top-level `ethers.parseEther`, not `ethers.utils.parseEther`. Then wait for the transaction to be mined using `tx.wait()`.
 
 ```js
 const tx = await bridge.lockTokens({
-  value: ethers.utils.parseEther(amt),
+  value: ethers.parseEther(amt),
 });
 const receipt = await tx.wait();
 ```
@@ -109,11 +109,21 @@ const receipt = await tx.wait();
 
 ### Task 3: Parse Locked Event and Invoke Callback
 
-Find the `Locked` event in the transaction receipt's events array. Extract the lock ID from the event arguments (converting from BigNumber to number). Call the `onLocked` callback with the ID and amount, then reset the UI state.
+In ethers v6 the receipt no longer has a parsed `events` array — instead you decode the raw `receipt.logs` yourself with the contract's `interface.parseLog(log)`. Find the `Locked` event, extract the lock ID from the event arguments (a `bigint` in v6, converted with `Number(...)`), call the `onLocked` callback with the ID and amount, then reset the UI state.
 
 ```js
-const evt = receipt.events.find((e) => e.event === "Locked");
-const id = evt.args.id.toNumber();
+let id;
+for (const log of receipt.logs) {
+  try {
+    const parsed = bridge.interface.parseLog(log);
+    if (parsed && parsed.name === "Locked") {
+      id = Number(parsed.args.id);
+      break;
+    }
+  } catch {
+    // Not one of this contract's events — skip it.
+  }
+}
 onLocked(id, amt);
 setStep("Idle");
 ```
@@ -134,23 +144,23 @@ setStep("Idle");
 
 - `bridge`: The contract instance created with `ethers.Contract()`. Connected with a signer to enable payable transactions.
 
-- `receipt`: The transaction receipt returned by `tx.wait()`. Contains the `events` array with all events emitted during the transaction.
+- `receipt`: The transaction receipt returned by `tx.wait()`. In ethers v6 it exposes a `logs` array of raw logs (the v5 pre-parsed `events` array was removed); decode each with the contract's `interface.parseLog()`.
 
-- `evt`: The specific `Locked` event found in the receipt. Contains `args` with the event parameters: `user`, `amount`, and `id`.
+- `parsed`: The decoded log produced by `bridge.interface.parseLog(log)`. For the `Locked` event it has `name === "Locked"` and `args` with the event parameters: `user`, `amount`, and `id`.
 
 **Key Functions:**
 
 - `doLock()`:
   The main async function executed when the user confirms the lock. First connects to MetaMask and creates the contract instance. Sends a payable transaction to `lockTokens()` with the ETH value. Waits for confirmation, parses the emitted event, and invokes the parent callback. Handles errors by displaying messages and resetting state.
 
-- `ethers.utils.parseEther(amt)`:
-  Converts a human-readable ETH string (e.g., "0.5") to wei as a BigNumber. Essential for payable transactions since Solidity works with wei internally. 1 ETH = 10^18 wei.
+- `ethers.parseEther(amt)`:
+  Converts a human-readable ETH string (e.g., "0.5") to wei as a `bigint`. In ethers v6 it's a top-level helper (`ethers.parseEther`), not under `ethers.utils`. Essential for payable transactions since Solidity works with wei internally. 1 ETH = 10^18 wei.
 
 - `tx.wait()`:
   Returns a Promise that resolves to the transaction receipt once the transaction is mined. The receipt contains events, gas used, block number, and confirmation status.
 
-- `receipt.events.find(e => e.event === "Locked")`:
-  Searches the events array for the specific event by name. Returns the event object containing `args` with all indexed and non-indexed parameters.
+- `bridge.interface.parseLog(log)`:
+  Decodes a single raw log from `receipt.logs` against the contract ABI. Returns an object with `name` and `args` (or throws / returns `null` for a log this ABI doesn't recognize). Loop the logs and match `parsed.name === "Locked"` to find the event — this is the ethers v6 replacement for v5's `receipt.events.find(...)`.
 
 - `onLocked(id, amt)`:
   Callback prop passed from the parent component. Called after successful lock with the unique lock ID and amount. Allows the parent to track locked funds or update UI accordingly.
@@ -179,8 +189,8 @@ export default function LockForm({ onLocked }) {
       setStep("Locking");
 
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const bridge = new ethers.Contract(
         process.env.REACT_APP_BRIDGE_ADDR,
         ABI,
@@ -188,12 +198,22 @@ export default function LockForm({ onLocked }) {
       );
 
       const tx = await bridge.lockTokens({
-        value: ethers.utils.parseEther(amt),
+        value: ethers.parseEther(amt),
       });
       const receipt = await tx.wait();
 
-      const evt = receipt.events.find((e) => e.event === "Locked");
-      const id = evt.args.id.toNumber();
+      let id;
+      for (const log of receipt.logs) {
+        try {
+          const parsed = bridge.interface.parseLog(log);
+          if (parsed && parsed.name === "Locked") {
+            id = Number(parsed.args.id);
+            break;
+          }
+        } catch {
+          // Not one of this contract's events — skip it.
+        }
+      }
       onLocked(id, amt);
       setStep("Idle");
     } catch (err) {

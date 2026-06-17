@@ -92,7 +92,7 @@ Different urgency levels require different fee multipliers:
 
 ```javascript
 // Calculate tier prices from base fee
-const baseFeeGwei = ethers.utils.formatUnits(baseFee, "gwei");
+const baseFeeGwei = ethers.formatUnits(baseFee, "gwei");
 const low = parseFloat(baseFeeGwei) * 0.9;
 const medium = parseFloat(baseFeeGwei);
 const high = parseFloat(baseFeeGwei) * 1.1;
@@ -110,9 +110,9 @@ Ethereum uses multiple denomination scales:
 
 ```javascript
 // Converting between units with ethers.js
-const gweiValue = ethers.utils.formatUnits(weiValue, "gwei"); // wei → gwei
-const etherValue = ethers.utils.formatUnits(weiValue, "ether"); // wei → ether
-const weiFromGwei = ethers.utils.parseUnits("50", "gwei"); // gwei → wei
+const gweiValue = ethers.formatUnits(weiValue, "gwei"); // wei → gwei
+const etherValue = ethers.formatUnits(weiValue, "ether"); // wei → ether
+const weiFromGwei = ethers.parseUnits("50", "gwei"); // gwei → wei
 ```
 
 #### 4. Price Conversion to PHP
@@ -173,7 +173,7 @@ function gweiToPhp(gwei, gasLimit = 21000) {
 import { ethers } from "ethers";
 
 // No wallet needed - just reading data
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL
 );
 
@@ -254,7 +254,7 @@ Before considering this lesson complete, verify:
 | Resource                  | Link                                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------------------------- |
 | EIP-1559 Specification    | https://eips.ethereum.org/EIPS/eip-1559                                                                 |
-| Ethers.js Providers       | https://docs.ethers.org/v5/api/providers/                                                               |
+| Ethers.js Providers       | https://docs.ethers.org/v6/api/providers/                                                               |
 | Solidity Global Variables | https://docs.soliditylang.org/en/latest/units-and-global-variables.html                                 |
 | React useEffect Cleanup   | https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development |
 
@@ -274,27 +274,28 @@ import { ethers } from "ethers";
 jest.mock("ethers");
 
 describe("GasDashboard Component", () => {
-  const mockBase = ethers.BigNumber.from("100"); // 100 gwei
+  const mockBase = 100n; // 100 gwei (ethers v6 returns native bigint)
   const mockProvider = {};
   const mockContract = { getBaseFee: jest.fn() };
 
   beforeAll(() => {
     global.process.env.REACT_APP_RPC_URL = "http://localhost";
     global.process.env.REACT_APP_GAS_TRACKER_ADDRESS = "0xGas";
-    ethers.providers.JsonRpcProvider = jest.fn().mockReturnValue(mockProvider);
+    ethers.JsonRpcProvider = jest.fn().mockReturnValue(mockProvider);
     ethers.Contract = jest.fn().mockReturnValue(mockContract);
     mockContract.getBaseFee.mockResolvedValue(mockBase);
   });
 
   it("calculates PHP estimates correctly", async () => {
     render(<GasDashboard />);
-    // Low = 100*0.9=90 gwei → 90×1e-9 ETH = 9e-8 ETH → ₱80×9e-8 = ₱0.00
+    // PHP_PER_ETH = 180000, gasLimit = 21000
+    // Low = 100*0.9=90 gwei → (90×21000)/1e9 = 0.00189 ETH → ×180000 = ₱340.20
     await waitFor(() => screen.getByText(/Low:/i));
-    expect(screen.getByText("Low: ₱0.00")).toBeInTheDocument();
-    // Medium
-    expect(screen.getByText("Med: ₱0.00")).toBeInTheDocument();
-    // High = 110 gwei...
-    expect(screen.getByText("High: ₱0.00")).toBeInTheDocument();
+    expect(screen.getByText("Low: ₱340.20")).toBeInTheDocument();
+    // Med = 100 gwei → (100×21000)/1e9 = 0.0021 ETH → ×180000 = ₱378.00
+    expect(screen.getByText("Med: ₱378.00")).toBeInTheDocument();
+    // High = 110 gwei → (110×21000)/1e9 = 0.00231 ETH → ×180000 = ₱415.80
+    expect(screen.getByText("High: ₱415.80")).toBeInTheDocument();
   });
 });
 ```

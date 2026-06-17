@@ -56,7 +56,7 @@ export default function NFTReader() {
 
   useEffect(() => {
     async function fetchInfo() {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -71,7 +71,7 @@ export default function NFTReader() {
         contract.totalMinted(),
       ]);
 
-      setInfo({ name, symbol, total: total.toNumber() });
+      setInfo({ name, symbol, total: Number(total) });
     }
     fetchInfo();
   }, []);
@@ -83,7 +83,7 @@ export default function NFTReader() {
     }
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -138,8 +138,8 @@ export default function CastVote({ proposals, onVoted }) {
       setStatus("pending");
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = web3Provider.getSigner();
+      const web3Provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await web3Provider.getSigner();
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,
@@ -185,7 +185,7 @@ export default function RaffleListener() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL
     );
 
@@ -250,8 +250,8 @@ export default function WalletAuth() {
       }
 
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const address = await signer.getAddress();
       setAccount(address);
     } catch (err) {
@@ -263,8 +263,8 @@ export default function WalletAuth() {
   const signMessage = async () => {
     try {
       setError("");
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
       const nonce = Date.now().toString();
       const msg = `Sign in to Dashboard\n\nNonce: ${nonce}`;
@@ -281,10 +281,10 @@ export default function WalletAuth() {
   const verifySignature = async () => {
     try {
       setError("");
-      const msgHash = ethers.utils.id(message);
-      const { v, r, s } = ethers.utils.splitSignature(signature);
+      const msgHash = ethers.id(message);
+      const { v, r, s } = ethers.Signature.from(signature);
 
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -354,9 +354,9 @@ export default function TokenTracker({ tokenAddress }) {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       // Task 1: Validate address and create contract instance
-      if (!ethers.utils.isAddress(tokenAddress)) return;
+      if (!ethers.isAddress(tokenAddress)) return;
 
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(tokenAddress, ABI, provider);
@@ -384,11 +384,11 @@ export default function TokenTracker({ tokenAddress }) {
       });
       setAccount(user);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(tokenAddress, ABI, provider);
 
       const rawBalance = await contract.balanceOf(user);
-      const formatted = ethers.utils.formatUnits(rawBalance, info.decimals);
+      const formatted = ethers.formatUnits(rawBalance, info.decimals);
       setBalance(`${formatted} ${info.symbol}`);
     } catch (err) {
       console.error("Error fetching balance:", err);
@@ -451,7 +451,7 @@ export default function NFTGallery() {
       setError("");
       setNft(null);
 
-      const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+      const provider = new ethers.JsonRpcProvider(RPC_URL);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const uri = await contract.tokenURI(tokenId);
@@ -481,7 +481,7 @@ export default function NFTGallery() {
         method: "eth_requestAccounts",
       });
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const balance = await contract.balanceOf(account);
@@ -580,7 +580,7 @@ export default function TokenTransfer({ contractAddress }) {
     e.preventDefault();
 
     // Validate inputs
-    if (!ethers.utils.isAddress(recipient)) {
+    if (!ethers.isAddress(recipient)) {
       setStatus("error");
       alert("Invalid recipient address");
       return;
@@ -598,13 +598,13 @@ export default function TokenTransfer({ contractAddress }) {
 
       // Connect wallet and get signer
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI, signer);
 
       // Parse amount with decimals and transfer
       const decimals = await contract.decimals();
-      const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+      const parsedAmount = ethers.parseUnits(amount, decimals);
 
       const tx = await contract.transfer(recipient, parsedAmount);
       setTxHash(tx.hash);
@@ -672,7 +672,7 @@ export default function TodoApp() {
   const loadTasks = async () => {
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const count = await contract.getTasksCount();
@@ -681,7 +681,7 @@ export default function TodoApp() {
       for (let i = 0; i < count; i++) {
         const [id, content, done] = await contract.tasks(i);
         if (content !== "") {
-          items.push({ id: id.toNumber(), content, done });
+          items.push({ id: Number(id), content, done });
         }
       }
 
@@ -702,8 +702,8 @@ export default function TodoApp() {
     if (!newTask.trim()) return;
 
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.createTask(newTask);
@@ -718,8 +718,8 @@ export default function TodoApp() {
 
   const handleToggle = async (taskId) => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.toggleDone(taskId);
@@ -797,7 +797,7 @@ export default function DAOVoting() {
         });
         setUserAddress(account);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
         const count = await contract.getProposalCount();
@@ -808,10 +808,10 @@ export default function DAOVoting() {
           const voted = await contract.hasVoted(i, account);
 
           items.push({
-            id: id.toNumber(),
+            id: Number(id),
             description,
-            yes: yes.toNumber(),
-            no: no.toNumber(),
+            yes: Number(yes),
+            no: Number(no),
             hasVoted: voted,
           });
         }
@@ -829,13 +829,13 @@ export default function DAOVoting() {
 
   // Real-time vote updates
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
     const handleVote = (voter, proposalId, support) => {
       setProposals((prev) =>
         prev.map((p) =>
-          p.id === proposalId.toNumber()
+          p.id === Number(proposalId)
             ? {
                 ...p,
                 yes: support ? p.yes + 1 : p.yes,
@@ -852,8 +852,8 @@ export default function DAOVoting() {
 
   const castVote = async (proposalId, support) => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(DAO_ADDRESS, ABI, signer);
 
       const tx = await contract.vote(proposalId, support);
@@ -926,7 +926,7 @@ export default function GasStats() {
     async function fetchBaseFee() {
       try {
         // Task 1: Create the provider instance
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
 
@@ -961,7 +961,7 @@ import { ethers } from "ethers";
 
 const ABI = [
   "function getReserves() view returns (uint112, uint112)",
-  "function getTotalSupply() view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
 ];
 
 export default function LPStats() {
@@ -974,17 +974,17 @@ export default function LPStats() {
       try {
         const LP_ADDRESS = process.env.REACT_APP_LP_ADDRESS;
 
-        if (!ethers.utils.isAddress(LP_ADDRESS)) {
+        if (!ethers.isAddress(LP_ADDRESS)) {
           throw new Error("Invalid LP contract address");
         }
 
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
         const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);
 
         const [r0, r1] = await lp.getReserves();
-        const ts = await lp.getTotalSupply();
+        const ts = await lp.totalSupply();
         setReserves({ r0, r1 });
         setSupply(ts);
       } catch (err) {
@@ -1028,10 +1028,10 @@ export default function ProposalList({ contractAddress }) {
     async function loadProposals() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const wallet = new ethers.Contract(contractAddress, ABI, provider);
 
-        const count = (await wallet.getTransactionCount()).toNumber();
+        const count = Number(await wallet.getTransactionCount());
         const items = [];
         for (let i = 0; i < count; i++) {
           const [to, value, data, executed, numConfirmations] =
@@ -1039,10 +1039,10 @@ export default function ProposalList({ contractAddress }) {
           items.push({
             id: i,
             to,
-            value: ethers.utils.formatEther(value),
+            value: ethers.formatEther(value),
             data: data.slice(0, 10) + "…",
             executed,
-            numConfirmations: numConfirmations.toNumber(),
+            numConfirmations: Number(numConfirmations),
           });
         }
         setProposals(items);
@@ -1099,7 +1099,7 @@ export default function ReliefStats() {
     async function loadStats() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const relief = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [ws, rel] = await Promise.all([
@@ -1108,9 +1108,9 @@ export default function ReliefStats() {
         ]);
         const bal = await provider.getBalance(CONTRACT);
 
-        setWind(ws.toNumber());
+        setWind(Number(ws));
         setReleased(rel);
-        setBalance(ethers.utils.formatEther(bal));
+        setBalance(ethers.formatEther(bal));
       } catch (err) {
         setError(err.message);
       }
@@ -1170,14 +1170,14 @@ export default function ProfileViewer() {
         const userAddress = accounts[0];
         setAddr(userAddress);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         identity = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [n, s, c] = await identity.getProfile(userAddress);
         setName(n);
         setStatus(s);
 
-        const credCount = c.toNumber();
+        const credCount = Number(c);
         const credList = [];
         for (let i = 0; i < credCount; i++) {
           const cred = await identity.getCredential(userAddress, i);
@@ -1261,7 +1261,7 @@ export default function EscrowStats() {
     async function loadStats() {
       try {
         // Task 1: Initialize provider and contract
-        const provider = new ethers.providers.JsonRpcProvider(RPC);
+        const provider = new ethers.JsonRpcProvider(RPC);
         const escrow = new ethers.Contract(ADDR, ABI, provider);
 
         // Task 2: Fetch all escrow data using Promise.all
@@ -1293,7 +1293,7 @@ export default function EscrowStats() {
       <h3>Escrow Status</h3>
       <p>Buyer: {buyer}</p>
       <p>Seller: {seller}</p>
-      <p>Amount: {ethers.utils.formatEther(amt)} ETH</p>
+      <p>Amount: {ethers.formatEther(amt)} ETH</p>
       <p>
         Status:{" "}
         {released
@@ -1320,10 +1320,9 @@ const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
 
 const NAMES = {
   1: "Ethereum Mainnet",
-  5: "Goerli",
   11155111: "Sepolia",
   137: "Polygon",
-  80001: "Mumbai",
+  80002: "Polygon Amoy",
 };
 
 export default function NetworkStats() {
@@ -1338,16 +1337,16 @@ export default function NetworkStats() {
       try {
         // Task 1: Create provider based on wallet availability
         if (window.ethereum) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
+          provider = new ethers.BrowserProvider(window.ethereum);
           await window.ethereum.request({ method: "eth_requestAccounts" });
         } else {
-          provider = new ethers.providers.JsonRpcProvider(RPC);
+          provider = new ethers.JsonRpcProvider(RPC);
         }
 
         // Task 2: Fetch chain ID and map to friendly name
         contract = new ethers.Contract(CONTRACT, ABI, provider);
-        const idBN = await contract.getChainId();
-        const id = idBN.toNumber();
+        const idRaw = await contract.getChainId();
+        const id = Number(idRaw);
         setChainId(id);
         setChainName(NAMES[id] || "Unknown");
       } catch (err) {
@@ -1453,8 +1452,8 @@ export default function DeploySimulator({ onDeployed }) {
 
       // Task 1: Connect to MetaMask and get signer
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
       // Task 2: Create ContractFactory with artifact
       const factory = new ethers.ContractFactory(
@@ -1465,8 +1464,8 @@ export default function DeploySimulator({ onDeployed }) {
 
       // Task 3: Deploy contract and wait for confirmation
       const contract = await factory.deploy(greet);
-      await contract.deployed();
-      onDeployed(contract.address);
+      await contract.waitForDeployment();
+      onDeployed(await contract.getAddress());
     } catch (err) {
       setError(err.message);
     } finally {
@@ -1514,8 +1513,8 @@ export default function LockForm({ onLocked }) {
 
       // Task 1: Connect to MetaMask and create contract instance
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const bridge = new ethers.Contract(
         process.env.REACT_APP_BRIDGE_ADDR,
         ABI,
@@ -1524,13 +1523,23 @@ export default function LockForm({ onLocked }) {
 
       // Task 2: Call lockTokens() with ETH value
       const tx = await bridge.lockTokens({
-        value: ethers.utils.parseEther(amt),
+        value: ethers.parseEther(amt),
       });
       const receipt = await tx.wait();
 
       // Task 3: Parse Locked event and invoke callback
-      const evt = receipt.events.find((e) => e.event === "Locked");
-      const id = evt.args.id.toNumber();
+      let id;
+      for (const log of receipt.logs) {
+        try {
+          const parsed = bridge.interface.parseLog(log);
+          if (parsed && parsed.name === "Locked") {
+            id = Number(parsed.args.id);
+            break;
+          }
+        } catch {
+          // Not one of this contract's events — skip it.
+        }
+      }
       onLocked(id, amt);
       setStep("Idle");
     } catch (err) {

@@ -58,6 +58,26 @@ Build a `SecureVault` module with the following:
    - Must validate both vaults exist
    - Must check balances
 
+6. **get_balance**
+   - View function that returns a vault's balance
+   - Must check the vault exists
+
+   ```move
+   public fun get_balance(addr: address): u64 acquires Vault {
+       assert!(exists<Vault>(addr), E_VAULT_NOT_FOUND);
+       borrow_global<Vault>(addr).balance
+   }
+   ```
+
+7. **vault_exists**
+   - View function that returns whether a vault exists at an address
+
+   ```move
+   public fun vault_exists(addr: address): bool {
+       exists<Vault>(addr)
+   }
+   ```
+
 ## Security Checklist
 
 Your solution must satisfy:
@@ -100,6 +120,10 @@ module secure_vault {
     // TODO: Implement withdraw (with reentrancy guard)
 
     // TODO: Implement admin_transfer (with capability)
+
+    // TODO: Implement get_balance view function
+
+    // TODO: Implement vault_exists view function
 }
 ```
 

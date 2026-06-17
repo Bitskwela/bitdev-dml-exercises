@@ -33,7 +33,17 @@ int main() {
 
 - Fill the array with a loop assigning `(i + 1) * 10` to each element.
 
-- Print the values and then free the memory using `delete[]`.
+- Print the values on a single line, starting with the exact label `Ages stored on heap: ` followed by each value separated by a space:
+
+  ```cpp
+  cout << "Ages stored on heap: ";
+  for (int i = 0; i < size; i++) {
+      cout << ages[i] << " ";
+  }
+  cout << endl;
+  ```
+
+- Free the memory using `delete[]` and set the pointer to `nullptr`.
 
 ### Breakdown of the Activity
 

@@ -12,15 +12,13 @@ describe("Lesson 17: Multi-Network Switch UI", function () {
 
   it("Task 1: Should handle both wallet and RPC providers", function () {
     expect(code).to.contain("if (window.ethereum)");
-    expect(code).to.contain(
-      "new ethers.providers.Web3Provider(window.ethereum)",
-    );
-    expect(code).to.contain("new ethers.providers.JsonRpcProvider(RPC)");
+    expect(code).to.contain("new ethers.BrowserProvider(window.ethereum)");
+    expect(code).to.contain("new ethers.JsonRpcProvider(RPC)");
   });
 
   it("Task 2: Should match chain ID to friendly name", function () {
     expect(code).to.contain("NAMES[id]");
-    expect(code).to.contain("idBN.toNumber()");
+    expect(code).to.contain("Number(idRaw)");
   });
 
   it("Task 3: Should setup and cleanup chainChanged listener", function () {

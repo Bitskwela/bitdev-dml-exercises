@@ -4,7 +4,7 @@
 
 Cobwebs of trivia and laughter fill Cubao’s famous “perya” games every weekend—kids shouting “Panalo!”, families crowding around booths, coins clinking in sari-sari stores down the street. Inspired by this Pinoy spirit, Odessa decided to build a decentralized raffle DApp that captures the same excitement on-chain.
 
-She and Neri deployed a simple `Raffle` smart contract on Goerli testnet. Whenever someone calls `enterRaffle()`, their address goes into the pot, and at intervals a “WinnerPicked(address)” event fires with the lucky winner’s address. No page refresh needed—Odessa wanted the UI to light up the moment the smart contract emits the event.
+She and Neri deployed a simple `Raffle` smart contract on Sepolia testnet. Whenever someone calls `enterRaffle()`, their address goes into the pot, and at intervals a “WinnerPicked(address)” event fires with the lucky winner’s address. No page refresh needed—Odessa wanted the UI to light up the moment the smart contract emits the event.
 
 On a humid afternoon in Brooklyn, Odessa brewed her favorite Kapeng Barako, opened her React project, and wrote an Ethers.js listener:
 
@@ -105,7 +105,7 @@ import { ethers } from "ethers";
 import abi from "./abi/Raffle.json";
 
 // Step 1: Create provider (connection to blockchain)
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+const provider = new ethers.JsonRpcProvider(RPC_URL);
 
 // Step 2: Create contract instance
 const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
@@ -233,7 +233,7 @@ export default function RaffleListener() {
     async function setupListener() {
       try {
         // Create provider
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
 
@@ -424,7 +424,7 @@ Each event in the array contains:
 ```js
 useEffect(() => {
   async function loadPastWinners() {
-    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+    const provider = new ethers.JsonRpcProvider(RPC_URL);
     const contract = new ethers.Contract(ADDRESS, abi, provider);
 
     // Fetch last 1000 blocks of events
@@ -525,7 +525,7 @@ useEffect(() => {
 
   async function setup() {
     try {
-      const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+      const provider = new ethers.JsonRpcProvider(RPC_URL);
 
       // Test connection
       await provider.getNetwork();
@@ -650,8 +650,8 @@ Verify these scenarios work:
 
 ### External References & Further Learning
 
-- **Ethers.js Events**: https://docs.ethers.org/v5/api/contract/contract/#Contract--events - Complete events API
-- **Event Filtering**: https://docs.ethers.org/v5/api/contract/contract/#Contract--filters - Create event filters
+- **Ethers.js Events**: https://docs.ethers.org/v6/api/contract/#ContractEvent - Complete events API
+- **Event Filtering**: https://docs.ethers.org/v6/api/contract/#contract-filters - Create event filters
 - **React useEffect**: https://reactjs.org/docs/hooks-effect.html - Effect hook documentation
 - **React Cleanup**: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup - Cleanup pattern
 - **Etherscan Events**: https://etherscan.io - View event logs on-chain
@@ -689,7 +689,7 @@ contract Raffle {
 .env Sample
 
 ```
-REACT_APP_RPC_URL=https://goerli.infura.io/v3/YOUR_INFURA
+REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA
 REACT_APP_CONTRACT_ADDRESS=0xYourRaffleAddress
 ```
 
@@ -735,7 +735,7 @@ export default function RaffleListener() {
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.JsonRpcProvider(
+  const provider = new ethers.JsonRpcProvider(
     process.env.REACT_APP_RPC_URL
   );
   const contract = new ethers.Contract(
@@ -798,7 +798,7 @@ export default function WinnerHistory() {
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.JsonRpcProvider(
+  const provider = new ethers.JsonRpcProvider(
     process.env.REACT_APP_RPC_URL
   );
   const contract = new ethers.Contract(
@@ -862,7 +862,7 @@ export default function PastWinners() {
 ```js
 useEffect(() => {
   async function loadPast() {
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL
     );
     const contract = new ethers.Contract(
@@ -899,7 +899,7 @@ jest.mock("ethers", () => {
   };
   return {
     ...original,
-    providers: { JsonRpcProvider: jest.fn(() => ({})) },
+    JsonRpcProvider: jest.fn(() => ({})),
     Contract: jest.fn(() => fakeContract),
     // expose handler for test
     __triggerWinner: (address) => storedHandler(address),
@@ -934,7 +934,7 @@ jest.mock("ethers", () => {
   ];
   return {
     ...original,
-    providers: { JsonRpcProvider: jest.fn() },
+    JsonRpcProvider: jest.fn(),
     Contract: jest.fn(() => ({
       queryFilter: jest.fn(() => Promise.resolve(fakeEvents)),
     })),

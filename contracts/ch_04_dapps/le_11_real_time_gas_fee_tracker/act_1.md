@@ -25,7 +25,7 @@ export default function GasStats() {
         // TODO: Task 2 - Create the contract instance
         // @note Use ethers.Contract with the deployed address, ABI, and provider
         // TODO: Task 3 - Fetch base fee and update state
-        // @note Call getBaseFee() and store the BigNumber result in state
+        // @note Call getBaseFee() and store the bigint result in state
       } catch (err) {
         setError(err.message);
       }
@@ -43,7 +43,7 @@ export default function GasStats() {
 
 ## Tasks for Learners
 
-Topics Covered: `JsonRpcProvider`, contract instantiation, `BigNumber` handling, environment variables
+Topics Covered: `JsonRpcProvider`, contract instantiation, `bigint` handling, environment variables
 
 ---
 
@@ -52,7 +52,7 @@ Topics Covered: `JsonRpcProvider`, contract instantiation, `BigNumber` handling,
 Instantiate a `JsonRpcProvider` using the RPC URL from environment variables. This provider connects to the Ethereum network without requiring a wallet.
 
 ```js
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL,
 );
 ```
@@ -75,7 +75,7 @@ const contract = new ethers.Contract(
 
 ### Task 3: Fetch Base Fee and Update State
 
-Call the `getBaseFee()` function from the contract and store the returned `BigNumber` in component state.
+Call the `getBaseFee()` function from the contract and store the returned `bigint` in component state.
 
 ```js
 const fee = await contract.getBaseFee();
@@ -88,21 +88,21 @@ setBase(fee);
 
 **Variables Defined:**
 
-- `base`: State variable that holds the `BigNumber` returned from the contract. Initially `null` to indicate loading state.
+- `base`: State variable that holds the `bigint` returned from the contract. Initially `null` to indicate loading state.
 
 - `error`: Stores any error messages that occur during the fetch process.
 
-- `provider`: An instance of `JsonRpcProvider` that connects to the Ethereum network via RPC URL. Unlike `Web3Provider`, it doesn't require a browser wallet.
+- `provider`: An instance of `JsonRpcProvider` that connects to the Ethereum network via RPC URL. Unlike `BrowserProvider`, it doesn't require a browser wallet.
 
 - `contract`: An instance of `ethers.Contract` representing the deployed `GasTracker`. Uses the ABI to understand available functions.
 
 **Key Functions:**
 
 - `fetchBaseFee`:
-  An async function that creates the provider and contract instances, then calls `getBaseFee()` on the contract. The returned `BigNumber` is stored in state. If any error occurs (network issues, invalid address), it's caught and displayed to the user.
+  An async function that creates the provider and contract instances, then calls `getBaseFee()` on the contract. The returned `bigint` is stored in state. If any error occurs (network issues, invalid address), it's caught and displayed to the user.
 
 - `base.toString()`:
-  Converts the `BigNumber` to a string for display. `BigNumber` is used because JavaScript cannot safely handle the large integers common in Ethereum.
+  Converts the `bigint` to a string for display. In ethers v6, contract calls return native `bigint`, which JavaScript can safely use for the large integers common in Ethereum.
 
 ---
 
@@ -122,7 +122,7 @@ export default function GasStats() {
     async function fetchBaseFee() {
       try {
         // Task 1: Create provider
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL,
         );
         // Task 2: Create contract

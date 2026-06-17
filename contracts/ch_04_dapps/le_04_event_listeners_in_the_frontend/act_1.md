@@ -64,7 +64,7 @@ export default function RaffleListener() {
 
 ```bash
 # .env Configuration
-REACT_APP_RPC_URL=https://goerli.infura.io/v3/YOUR_INFURA
+REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA
 REACT_APP_CONTRACT_ADDRESS=0xYourRaffleAddress
 ```
 
@@ -81,7 +81,7 @@ Topics Covered: Smart contract events, event listeners, `contract.on()`, `contra
 Inside the `useEffect`, create a `JsonRpcProvider` and contract instance to listen for events. Store references for later cleanup.
 
 ```js
-const provider = new ethers.providers.JsonRpcProvider(
+const provider = new ethers.JsonRpcProvider(
   process.env.REACT_APP_RPC_URL
 );
 
@@ -133,7 +133,7 @@ export default function RaffleListener() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const provider = new ethers.providers.JsonRpcProvider(
+    const provider = new ethers.JsonRpcProvider(
       process.env.REACT_APP_RPC_URL
     );
 

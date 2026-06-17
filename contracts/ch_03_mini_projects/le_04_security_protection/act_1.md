@@ -48,7 +48,7 @@ contract BarangayAidVault {
 
   ```solidity
       modifier onlyOwner() {
-          require(msg.sender == owner, "Not owner");
+          require(msg.sender == owner, "Not authorized");
           _;
       }
   ```

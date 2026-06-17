@@ -17,9 +17,9 @@ export default function TokenTracker({ tokenAddress }) {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       // Task 1: Validate address and create contract instance
-      if (!ethers.utils.isAddress(tokenAddress)) return;
+      if (!ethers.isAddress(tokenAddress)) return;
 
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(tokenAddress, ABI, provider);
@@ -47,11 +47,11 @@ export default function TokenTracker({ tokenAddress }) {
       });
       setAccount(user);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(tokenAddress, ABI, provider);
 
       const rawBalance = await contract.balanceOf(user);
-      const formatted = ethers.utils.formatUnits(rawBalance, info.decimals);
+      const formatted = ethers.formatUnits(rawBalance, info.decimals);
       setBalance(`${formatted} ${info.symbol}`);
     } catch (err) {
       console.error("Error fetching balance:", err);

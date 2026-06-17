@@ -8,7 +8,7 @@ In a virtual workshop hosted by Ateneo's Blockchain Society, Neri was ready to i
 
 Using Hardhat, Neri deployed a tiny `MockLP` contract on a local network. It stored two token reserves (e.g., USDC and TKO), a total supply, and a fixed APR (in basis points). Now Det would build a clean React + Ethers.js dashboard:
 
-1. Fetch `getReserves()` and `getTotalSupply()`
+1. Fetch `getReserves()` and `totalSupply()`
 2. Compute Token0's price in Token1 (reserve1 / reserve0)
 3. Read `getMockAPR()` (e.g. 1 200 = 12.00 %)
 4. Display all with friendly formatting
@@ -129,47 +129,50 @@ Token1 Price (in Token0) = Reserve0 / Reserve1
 ```
 
 ```javascript
-// With BigNumber precision (using 1e18 scale factor)
-const ONE = ethers.constants.WeiPerEther; // 1e18
+// With bigint precision (using 1e18 scale factor)
+const ONE = ethers.WeiPerEther; // 1e18 (bigint)
 
 // Calculate Token0 price in Token1 terms
-const priceScaled = reserve1.mul(ONE).div(reserve0);
-const price = ethers.utils.formatUnits(priceScaled, 18);
+const priceScaled = (reserve1 * ONE) / reserve0;
+const price = ethers.formatUnits(priceScaled, 18);
 
 // Example: 2000 TKO / 1000 USDC = 2.0 TKO per USDC
 ```
 
 ---
 
-### 🏗️ BigNumber Math Deep Dive
+### 🏗️ bigint Math Deep Dive
+
+In ethers v6, contract calls return native JavaScript `bigint` values
+(not the v5 `BigNumber` object). Use standard operators instead of methods.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                   BIGNUMBER OPERATIONS                          │
+│                     BIGINT OPERATIONS                           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │   ❌ JavaScript Numbers (DANGEROUS)                            │
 │   ─────────────────────────────────                             │
-│   const price = reserve1 / reserve0;  // Precision loss!        │
+│   const price = Number(reserve1) / Number(reserve0); // loss!   │
 │   // 2000000000000000000000 / 1000000000000000000000 = ???      │
 │                                                                 │
-│   ✅ Ethers BigNumber (SAFE)                                    │
+│   ✅ Native bigint (SAFE)                                       │
 │   ────────────────────────                                      │
-│   const price = reserve1.mul(ONE).div(reserve0);                │
+│   const price = (reserve1 * ONE) / reserve0;                    │
 │   // Maintains 18 decimal precision                             │
 │                                                                 │
-│   Common BigNumber Methods:                                     │
+│   Common bigint Operators:                                      │
 │   ┌─────────────┬─────────────────────────────────────────┐    │
-│   │ .add(bn)    │ Addition: a.add(b)                      │    │
-│   │ .sub(bn)    │ Subtraction: a.sub(b)                   │    │
-│   │ .mul(bn)    │ Multiplication: a.mul(b)                │    │
-│   │ .div(bn)    │ Division (rounds down): a.div(b)        │    │
-│   │ .mod(bn)    │ Modulo: a.mod(b)                        │    │
-│   │ .eq(bn)     │ Equals: a.eq(b) → boolean               │    │
-│   │ .gt(bn)     │ Greater than: a.gt(b) → boolean         │    │
-│   │ .lt(bn)     │ Less than: a.lt(b) → boolean            │    │
-│   │ .toNumber() │ Convert to JS number (if small enough)  │    │
-│   │ .toString() │ Convert to string                       │    │
+│   │ a + b       │ Addition                                │    │
+│   │ a - b       │ Subtraction                             │    │
+│   │ a * b       │ Multiplication                          │    │
+│   │ a / b       │ Division (rounds toward zero)           │    │
+│   │ a % b       │ Modulo                                  │    │
+│   │ a === b     │ Equals → boolean                        │    │
+│   │ a > b       │ Greater than → boolean                  │    │
+│   │ a < b       │ Less than → boolean                     │    │
+│   │ Number(a)   │ Convert to JS number (if small enough)  │    │
+│   │ a.toString()│ Convert to string                       │    │
 │   └─────────────┴─────────────────────────────────────────┘    │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
@@ -194,7 +197,7 @@ function DeFiDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
         const lp = new ethers.Contract(
@@ -213,12 +216,12 @@ function DeFiDashboard() {
         // Update state
         setReserves({ r0: reserveData[0], r1: reserveData[1] });
         setSupply(totalSupply);
-        setApr(mockAPR.toNumber() / 100);
+        setApr(Number(mockAPR) / 100);
 
-        // Calculate price with precision
-        const ONE = ethers.constants.WeiPerEther;
-        const priceScaled = reserveData[1].mul(ONE).div(reserveData[0]);
-        setPrice(ethers.utils.formatUnits(priceScaled, 18));
+        // Calculate price with precision (native bigint math)
+        const ONE = ethers.WeiPerEther;
+        const priceScaled = (reserveData[1] * ONE) / reserveData[0];
+        setPrice(ethers.formatUnits(priceScaled, 18));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -251,7 +254,7 @@ function DeFiDashboard() {
 
 | Mistake                        | Problem                     | Solution                  |
 | ------------------------------ | --------------------------- | ------------------------- |
-| Using JS division on BigNumber | `reserve1 / reserve0` fails | Use `.mul()` and `.div()` |
+| Using `Number()` on bigint    | `Number(r1) / Number(r0)` loses precision | Use bigint `*` and `/` |
 | Forgetting scale factor        | Loss of decimal precision   | Multiply by 1e18 first    |
 | Not handling loading state     | Flash of empty content      | Show spinner until ready  |
 | Ignoring error handling        | Silent failures             | Wrap in try/catch         |
@@ -270,7 +273,7 @@ Before considering this lesson complete, verify:
 - [ ] Loading state shows while fetching
 - [ ] Error state displays on fetch failure
 - [ ] All addresses come from `.env`
-- [ ] BigNumber math uses proper methods
+- [ ] bigint math uses proper operators
 
 ---
 
@@ -279,7 +282,7 @@ Before considering this lesson complete, verify:
 | Resource              | Link                                                                               |
 | --------------------- | ---------------------------------------------------------------------------------- |
 | Uniswap V2 Whitepaper | https://uniswap.org/whitepaper.pdf                                                 |
-| Ethers BigNumber      | https://docs.ethers.org/v5/api/utils/bignumber/                                    |
+| Ethers BigInt         | https://docs.ethers.org/v6/api/utils/maths/                                        |
 | Constant Product AMM  | https://docs.uniswap.org/contracts/v2/concepts/protocol-overview/how-uniswap-works |
 | React Hooks           | https://react.dev/reference/react                                                  |
 
@@ -299,29 +302,26 @@ import { ethers } from "ethers";
 jest.mock("ethers");
 
 describe("DeFiDashboard Component", () => {
-  const fakeReserves = [
-    ethers.BigNumber.from("1000"),
-    ethers.BigNumber.from("2000"),
-  ];
-  const fakeSupply = ethers.BigNumber.from("500");
-  const fakeAPR = ethers.BigNumber.from("1200"); // 12.00%
+  const fakeReserves = [1000n, 2000n];
+  const fakeSupply = 500n;
+  const fakeAPR = 1200n; // 12.00%
   const fakeProvider = {};
   const fakeContract = {
     getReserves: jest.fn(),
-    getTotalSupply: jest.fn(),
+    totalSupply: jest.fn(),
     getMockAPR: jest.fn(),
   };
 
   beforeAll(() => {
     process.env.REACT_APP_RPC_URL = "http://localhost";
     process.env.REACT_APP_LP_ADDRESS = "0xLP";
-    ethers.providers.JsonRpcProvider = jest.fn().mockReturnValue(fakeProvider);
+    ethers.JsonRpcProvider = jest.fn().mockReturnValue(fakeProvider);
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
     fakeContract.getReserves.mockResolvedValue(fakeReserves);
-    fakeContract.getTotalSupply.mockResolvedValue(fakeSupply);
+    fakeContract.totalSupply.mockResolvedValue(fakeSupply);
     fakeContract.getMockAPR.mockResolvedValue(fakeAPR);
-    ethers.constants.WeiPerEther = ethers.BigNumber.from("1000000000000000000");
-    ethers.utils.formatUnits = jest.fn((bn, dec) => {
+    ethers.WeiPerEther = 1000000000000000000n;
+    ethers.formatUnits = jest.fn((bn, dec) => {
       // price = r1*1e18/r0 = 2000*1e18/1000 = 2e18 → "2.0"
       return bn.toString() === "2000000000000000000000" ? "2.0" : "0";
     });
@@ -344,7 +344,7 @@ jest.config.js:
 ```js
 module.exports = {
   testEnvironment: "jsdom",
-  moduleNameMapping: {
+  moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
   },
 };

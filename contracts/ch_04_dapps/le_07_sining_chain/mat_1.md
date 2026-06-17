@@ -223,7 +223,7 @@ const NFT_ABI = [
 
 ```js
 async function fetchNFT(contractAddress, tokenId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, NFT_ABI, provider);
 
   // Step 1: Get the token URI from the contract
@@ -256,16 +256,16 @@ async function fetchNFT(contractAddress, tokenId) {
 
 ```js
 async function fetchOwnedNFTs(contractAddress, userAddress) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, NFT_ABI, provider);
 
   // Step 1: Get how many NFTs the user owns
   const balance = await contract.balanceOf(userAddress);
-  console.log(`User owns ${balance.toNumber()} NFTs`);
+  console.log(`User owns ${Number(balance)} NFTs`);
 
   // Step 2: Get each token ID
   const nfts = [];
-  for (let i = 0; i < balance.toNumber(); i++) {
+  for (let i = 0; i < Number(balance); i++) {
     // Get the token ID at this index
     const tokenId = await contract.tokenOfOwnerByIndex(userAddress, i);
 
@@ -299,7 +299,7 @@ for (let i = 0; i < 10; i++) {
 ```js
 // ✅ FASTER: Parallel requests
 async function fetchOwnedNFTsFast(contract, userAddress) {
-  const balance = (await contract.balanceOf(userAddress)).toNumber();
+  const balance = Number(await contract.balanceOf(userAddress));
 
   // Fetch all token IDs in parallel
   const tokenIdPromises = [];
@@ -379,7 +379,7 @@ function convertToHttpUrl(uri) {
 const GATEWAYS = [
   "https://ipfs.io/ipfs/",
   "https://gateway.pinata.cloud/ipfs/",
-  "https://cloudflare-ipfs.com/ipfs/",
+  "https://dweb.link/ipfs/",
   "https://nftstorage.link/ipfs/",
 ];
 ```
@@ -407,7 +407,7 @@ function NFTGallery({ contractAddress }) {
         });
 
         // Fetch owned NFTs
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(contractAddress, ABI, provider);
 
         const balance = await contract.balanceOf(account);
@@ -598,7 +598,7 @@ export default function SingleNFT() {
 
 **To Do List**
 
-- [ ] Add `provider = new ethers.providers.Web3Provider(window.ethereum)` and `await ethereum.request({ method: "eth_requestAccounts" })`.
+- [ ] Add `provider = new ethers.BrowserProvider(window.ethereum)` and `await ethereum.request({ method: "eth_requestAccounts" })`.
 - [ ] Create `contract = new ethers.Contract(address, ABI, provider)`.
 - [ ] Call `tokenURI(tokenId)` and `fetch()` the JSON.
 - [ ] Update `setMeta` with parsed JSON.
@@ -623,7 +623,7 @@ export default function SingleNFT() {
     setMeta(null);
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT, ABI, provider);
       const uri = await contract.tokenURI(tokenId);
       const res = await fetch(uri);
@@ -716,7 +716,7 @@ export default function OwnedGallery() {
 **To Do List**
 
 - [ ] `await ethereum.request({ method: "eth_requestAccounts" })`
-- [ ] `provider = new ethers.providers.Web3Provider(...)` & contract
+- [ ] `provider = new ethers.BrowserProvider(...)` & contract
 - [ ] `balance = await contract.balanceOf(account)`
 - [ ] Loop `i < balance`, fetch `tokenOfOwnerByIndex(account, i)`
 - [ ] Fetch each `tokenURI` JSON, accumulate array, `setMetaList`.
@@ -746,7 +746,7 @@ export default function OwnedGallery() {
           method: "eth_requestAccounts",
         });
         setAccount(user);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(CONTRACT, ABI, provider);
         const balance = await contract.balanceOf(user);
         const metadatas = [];
@@ -855,7 +855,7 @@ export default function AllGallery() {
 
   useEffect(() => {
     async function loadAll() {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(CONTRACT, ABI, provider);
@@ -918,7 +918,7 @@ describe("OwnedGallery Component", () => {
     };
 
     // Mock provider & contract
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
+    ethers.BrowserProvider = jest.fn().mockReturnValue({});
     ethers.Contract = jest.fn().mockReturnValue(fakeContract);
   });
 

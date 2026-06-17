@@ -9,7 +9,7 @@ export default function NFTReader() {
 
   useEffect(() => {
     async function fetchInfo() {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(
@@ -24,7 +24,7 @@ export default function NFTReader() {
         contract.totalMinted(),
       ]);
 
-      setInfo({ name, symbol, total: total.toNumber() });
+      setInfo({ name, symbol, total: Number(total) });
     }
     fetchInfo();
   }, []);
@@ -36,7 +36,7 @@ export default function NFTReader() {
     }
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
+      const provider = new ethers.JsonRpcProvider(
         process.env.REACT_APP_RPC_URL
       );
       const contract = new ethers.Contract(

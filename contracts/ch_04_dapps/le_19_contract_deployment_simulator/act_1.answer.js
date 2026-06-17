@@ -14,8 +14,8 @@ export default function DeploySimulator({ onDeployed }) {
 
       // Task 1: Connect to MetaMask and get signer
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
       // Task 2: Create ContractFactory with artifact
       const factory = new ethers.ContractFactory(
@@ -26,8 +26,8 @@ export default function DeploySimulator({ onDeployed }) {
 
       // Task 3: Deploy contract and wait for confirmation
       const contract = await factory.deploy(greet);
-      await contract.deployed();
-      onDeployed(contract.address);
+      await contract.waitForDeployment();
+      onDeployed(await contract.getAddress());
     } catch (err) {
       setError(err.message);
     } finally {

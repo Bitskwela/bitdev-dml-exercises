@@ -30,7 +30,7 @@ export default function DAOVoting() {
     // @note Create provider and contract instance
     // @note Loop through proposals using getProposalCount()
     // @note For each proposal, check if user hasVoted
-    // @note Convert BigNumbers to regular numbers with .toNumber()
+    // @note Convert bigint values to regular numbers with Number()
   }, []);
 
   // TODO: Task 3 - Add real-time vote updates with events
@@ -99,7 +99,7 @@ useEffect(() => {
       });
       setUserAddress(account);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(
         process.env.REACT_APP_DAO_ADDRESS,
         ABI,
@@ -114,10 +114,10 @@ useEffect(() => {
         const voted = await contract.hasVoted(i, account);
 
         items.push({
-          id: id.toNumber(),
+          id: Number(id),
           description,
-          yes: yes.toNumber(),
-          no: no.toNumber(),
+          yes: Number(yes),
+          no: Number(no),
           hasVoted: voted,
         });
       }
@@ -143,8 +143,8 @@ Create a function that calls the contract's `vote()` method with the proposal ID
 ```js
 const castVote = async (proposalId, support) => {
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const contract = new ethers.Contract(
       process.env.REACT_APP_DAO_ADDRESS,
       ABI,
@@ -185,7 +185,7 @@ Subscribe to the `Voted` event so the UI updates automatically when anyone votes
 
 ```js
 useEffect(() => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(
     process.env.REACT_APP_DAO_ADDRESS,
     ABI,
@@ -195,7 +195,7 @@ useEffect(() => {
   const handleVote = (voter, proposalId, support) => {
     setProposals((prev) =>
       prev.map((p) =>
-        p.id === proposalId.toNumber()
+        p.id === Number(proposalId)
           ? {
               ...p,
               yes: support ? p.yes + 1 : p.yes,
@@ -246,7 +246,7 @@ export default function DAOVoting() {
         });
         setUserAddress(account);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
         const count = await contract.getProposalCount();
@@ -257,10 +257,10 @@ export default function DAOVoting() {
           const voted = await contract.hasVoted(i, account);
 
           items.push({
-            id: id.toNumber(),
+            id: Number(id),
             description,
-            yes: yes.toNumber(),
-            no: no.toNumber(),
+            yes: Number(yes),
+            no: Number(no),
             hasVoted: voted,
           });
         }
@@ -278,13 +278,13 @@ export default function DAOVoting() {
 
   // Real-time vote updates
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
     const handleVote = (voter, proposalId, support) => {
       setProposals((prev) =>
         prev.map((p) =>
-          p.id === proposalId.toNumber()
+          p.id === Number(proposalId)
             ? {
                 ...p,
                 yes: support ? p.yes + 1 : p.yes,
@@ -301,8 +301,8 @@ export default function DAOVoting() {
 
   const castVote = async (proposalId, support) => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(DAO_ADDRESS, ABI, signer);
 
       const tx = await contract.vote(proposalId, support);
@@ -374,7 +374,7 @@ export default function DAOVoting() {
 **Key Functions:**
 
 - `loadProposals`:
-  Fetches all proposals from the DAO contract. First connects to MetaMask and stores the user's address. Then iterates through all proposals using `getProposalCount()` and `proposals(i)`. For each proposal, also checks if the user has voted using the `hasVoted` mapping. All BigNumbers are converted to regular numbers using `.toNumber()`.
+  Fetches all proposals from the DAO contract. First connects to MetaMask and stores the user's address. Then iterates through all proposals using `getProposalCount()` and `proposals(i)`. For each proposal, also checks if the user has voted using the `hasVoted` mapping. All bigint values are converted to regular numbers using `Number()`.
 
 - `castVote`:
   Submits a vote to the blockchain. Takes the proposal ID and a boolean indicating support (true for yes, false for no). Uses a signer for the write operation, calls `vote(proposalId, support)`, waits for confirmation, then optimistically updates local state to reflect the new vote count and mark the proposal as voted.

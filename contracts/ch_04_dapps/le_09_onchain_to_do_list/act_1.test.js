@@ -13,7 +13,7 @@ describe("Lesson 09: On-Chain To-Do List", function () {
   it("Task 1: Should load tasks from the contract", function () {
     expect(code).to.contain("contract.getTasksCount()");
     expect(code).to.contain("contract.tasks(i)");
-    expect(code).to.contain("id.toNumber()");
+    expect(code).to.contain("Number(id)");
   });
 
   it("Task 2: Should implement handleCreate for new tasks", function () {

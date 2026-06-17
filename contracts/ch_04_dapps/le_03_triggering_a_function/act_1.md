@@ -79,7 +79,7 @@ REACT_APP_CONTRACT_ADDRESS=0xYourDeployedAddress
 
 ## Tasks for Learners
 
-Topics Covered: Write transactions, Web3Provider, Signer, gas estimation, transaction confirmation, error handling
+Topics Covered: Write transactions, BrowserProvider, Signer, gas estimation, transaction confirmation, error handling
 
 ---
 
@@ -99,13 +99,13 @@ await window.ethereum.request({ method: "eth_requestAccounts" });
 
 ---
 
-### Task 2: Create Web3Provider, Signer, and Contract Instance
+### Task 2: Create BrowserProvider, Signer, and Contract Instance
 
-Create a `Web3Provider` using MetaMask's `window.ethereum`, get the signer for transaction signing, and instantiate the contract with the signer (not provider) to enable write operations.
+Create a `BrowserProvider` using MetaMask's `window.ethereum`, then get the signer for transaction signing. In ethers v6 `getSigner()` is asynchronous, so remember to `await` it. Instantiate the contract with the signer (not provider) to enable write operations.
 
 ```js
-const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = web3Provider.getSigner();
+const web3Provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await web3Provider.getSigner();
 const contract = new ethers.Contract(
   process.env.REACT_APP_CONTRACT_ADDRESS,
   abi,
@@ -155,8 +155,8 @@ export default function CastVote({ proposals, onVoted }) {
       setStatus("pending");
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = web3Provider.getSigner();
+      const web3Provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await web3Provider.getSigner();
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,
@@ -200,16 +200,16 @@ export default function CastVote({ proposals, onVoted }) {
 
 - `status`: A state variable that tracks the current state of the transaction. It can be empty (idle), "pending" (transaction in progress), "confirmed ✅" (success), or "error: ..." (failure). This is used to provide visual feedback and disable the button during pending transactions.
 
-- `web3Provider`: A `Web3Provider` instance that wraps MetaMask's `window.ethereum` object. Unlike `JsonRpcProvider` which is read-only, `Web3Provider` can access the user's wallet for signing transactions.
+- `web3Provider`: A `BrowserProvider` instance that wraps MetaMask's `window.ethereum` object. Unlike `JsonRpcProvider` which is read-only, `BrowserProvider` can access the user's wallet for signing transactions. (In ethers v5 this class was called `Web3Provider`; v6 renamed it to `BrowserProvider`.)
 
-- `signer`: The signer object obtained from the Web3Provider. This represents the user's wallet and is required for any state-changing operation on the blockchain. The signer holds the ability to sign transactions with the user's private key.
+- `signer`: The signer object obtained from the BrowserProvider via `await web3Provider.getSigner()` (in ethers v6 this call is asynchronous). This represents the user's wallet and is required for any state-changing operation on the blockchain. The signer holds the ability to sign transactions with the user's private key.
 
 - `contract`: An Ethers.js contract instance connected to the signer (not just a provider). When connected to a signer, the contract can execute write operations that modify blockchain state and require gas.
 
 **Key Functions:**
 
 - `castVote`:
-  An async function that handles the complete voting flow. It first validates MetaMask is installed, then requests account access (triggering a MetaMask popup if not already connected). It creates a Web3Provider and signer to enable transaction signing, then instantiates the contract with the signer. The function calls `contract.vote()` with the selected proposal and a gas limit, which triggers a MetaMask confirmation popup showing the estimated gas cost. After the user confirms, it waits for the transaction to be mined using `tx.wait()`, then updates the UI status and calls the `onVoted` callback to refresh vote counts. The try-catch block handles all error scenarios including user rejection (clicking "Reject" in MetaMask), insufficient funds, and contract reverts.
+  An async function that handles the complete voting flow. It first validates MetaMask is installed, then requests account access (triggering a MetaMask popup if not already connected). It creates a BrowserProvider and signer (awaiting `getSigner()`) to enable transaction signing, then instantiates the contract with the signer. The function calls `contract.vote()` with the selected proposal and a gas limit, which triggers a MetaMask confirmation popup showing the estimated gas cost. After the user confirms, it waits for the transaction to be mined using `tx.wait()`, then updates the UI status and calls the `onVoted` callback to refresh vote counts. The try-catch block handles all error scenarios including user rejection (clicking "Reject" in MetaMask), insufficient funds, and contract reverts.
 
 - `tx.wait()`:
   Pauses execution until the transaction is included in a block (mined). This typically takes 12-15 seconds on mainnet. The returned receipt contains information about the transaction including its success status, gas used, and emitted events.

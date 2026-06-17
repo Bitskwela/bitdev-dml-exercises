@@ -32,9 +32,15 @@ int main() {
   };
   ```
 
-- Create a `Resident` variable and assign values using the dot operator.
+- Create a `Resident` variable and assign values using the dot operator -- use `name = "Juan Dela Cruz"`, `age = 35`, and `isVaccinated = true`.
 
-- Print all member values to the console in a clear format.
+- Print the member values using these exact labels:
+
+  ```cpp
+  cout << "Resident Name: " << person1.name << endl;
+  cout << "Age: " << person1.age << endl;
+  cout << "Vaccination Status: " << (person1.isVaccinated ? "Yes" : "No") << endl;
+  ```
 
 ### Breakdown of the Activity
 

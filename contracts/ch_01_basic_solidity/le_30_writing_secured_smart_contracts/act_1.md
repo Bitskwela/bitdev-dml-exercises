@@ -26,6 +26,16 @@ Build a secure donation contract that prevents reentrancy attacks, validates inp
   import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
   ```
 
+- Make the `SecureDonation` contract inherit from `Ownable` and `ReentrancyGuard`, and add a constructor that passes `msg.sender` to `Ownable` so the deployer becomes the owner. (OpenZeppelin v5's `Ownable` has no default constructor, so the contract will not compile without this.)
+
+  ```solidity
+  contract SecureDonation is Ownable, ReentrancyGuard {
+      constructor() Ownable(msg.sender) ReentrancyGuard() {}
+
+      // ... state variables and functions below
+  }
+  ```
+
 - Define a `donate` function that accepts ETH donations, ensuring the donation is greater than zero. Use the `nonReentrant` modifier to prevent reentrancy attacks.
 
   ```solidity

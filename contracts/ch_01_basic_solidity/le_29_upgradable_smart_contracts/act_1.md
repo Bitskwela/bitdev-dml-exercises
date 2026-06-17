@@ -4,8 +4,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-
 contract UserRegistryV1 {
     // Mapping to store user addresses and their names
     mapping(address => string) public userNames;
@@ -29,10 +27,7 @@ contract UserRegistryV2 {}
 
 ## Task for Learners
 
-- Import the `Initializable` contract from OpenZeppelin.
-  ```solidity
-  import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-  ```
+- This exercise focuses on the version-by-inheritance pattern, so no external imports are needed. (Production upgradeable contracts pair OpenZeppelin's `Initializable` with a proxy — that is what `initialize()` below stands in for conceptually.)
 - Complete the `UserRegistryV2` contract by extending `UserRegistryV1`. Add a function `updateUser` that allows users to update their names.
   Create an upgradable contract that stores a list of registered users. In the first version, users can only register. In the second version, add functionality to update user details.
   ```solidity
@@ -45,7 +40,7 @@ contract UserRegistryV2 {}
 
 ### Breakdown of the Activity
 
-**Imports:** Imported Initializable from OpenZeppelin to support initialization.
+**Initialization:** `UserRegistryV1` uses an `initialize()` function in place of a constructor — the pattern proxy-based upgradeable contracts rely on, since a proxy cannot run the implementation's constructor. This exercise keeps it simple and does not pull in OpenZeppelin's `Initializable`.
 
 **UserRegistryV1:**
 

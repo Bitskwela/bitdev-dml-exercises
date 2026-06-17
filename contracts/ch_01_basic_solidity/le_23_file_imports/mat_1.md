@@ -69,13 +69,20 @@ contract Calculator {
 
 ```solidity
 // Importing from an Openzeppelin package
-import "@openzeppelin/contracts/utils/Address.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Example {
-    using Address for address;
+    using Strings for uint256;
 
-    function checkIfContract(address account) public view returns (bool) {
-        return account.isContract();
+    function asString(uint256 value) public pure returns (string memory) {
+        return value.toString();
+    }
+
+    // To check whether an address is a contract, use the built-in
+    // `code.length` instead. OpenZeppelin removed `Address.isContract()`
+    // in v5, so `account.code.length > 0` is the modern equivalent.
+    function isContract(address account) public view returns (bool) {
+        return account.code.length > 0;
     }
 }
 ```
@@ -95,7 +102,9 @@ Use the library path when installed via tools like npm.
 
 _Example:_
 
-`import "@openzeppelin/contracts/utils/Address.sol";`
+`import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";`
+
+> Tip: Prefer the named-import form `import {MathLibrary} from "./MathLibrary.sol";` over the global `import "./MathLibrary.sol";`. Naming exactly what you need avoids polluting your file's namespace with every symbol the imported file defines.
 
 **Why Use Imports?**
 

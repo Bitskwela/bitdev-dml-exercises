@@ -287,7 +287,7 @@ const TODO_ABI = [
 ```js
 async function loadTasks() {
   // Provider is enough for reading
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, provider);
 
   // Get total count
@@ -302,7 +302,7 @@ async function loadTasks() {
     // Skip deleted tasks (content is empty)
     if (content !== "") {
       tasks.push({
-        id: id.toNumber(),
+        id: Number(id),
         content,
         done,
       });
@@ -340,8 +340,8 @@ async function createTask(content) {
 
   // Get signer for write operation
   await window.ethereum.request({ method: "eth_requestAccounts" });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, signer);
 
   // Send transaction
@@ -352,9 +352,17 @@ async function createTask(content) {
   console.log("Waiting for confirmation...");
   const receipt = await tx.wait();
 
-  // Get the new task ID from the event
-  const event = receipt.events.find((e) => e.event === "TaskCreated");
-  const newId = event.args.id.toNumber();
+  // Get the new task ID from the event (parse receipt.logs in v6)
+  const event = receipt.logs
+    .map((log) => {
+      try {
+        return contract.interface.parseLog(log);
+      } catch {
+        return null;
+      }
+    })
+    .find((parsed) => parsed && parsed.name === "TaskCreated");
+  const newId = Number(event.args.id);
 
   console.log(`Task #${newId} created!`);
   return newId;
@@ -369,8 +377,8 @@ async function createTask(content) {
 
 ```js
 async function toggleTask(taskId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, signer);
 
   // Send toggle transaction
@@ -393,8 +401,8 @@ async function toggleTask(taskId) {
 
 ```js
 async function deleteTask(taskId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const contract = new ethers.Contract(CONTRACT_ADDRESS, TODO_ABI, signer);
 
   // Confirm with user (optional but recommended)
@@ -435,7 +443,7 @@ delete tasks[2];
 ```jsx
 function useTodoEvents(contractAddress, onUpdate) {
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(contractAddress, TODO_ABI, provider);
 
     // Listen for new tasks
@@ -532,7 +540,7 @@ function TodoApp() {
       setLoading(true);
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
       const count = await contract.getTasksCount();
@@ -541,7 +549,7 @@ function TodoApp() {
       for (let i = 0; i < count; i++) {
         const [id, content, done] = await contract.tasks(i);
         if (content !== "") {
-          items.push({ id: id.toNumber(), content, done });
+          items.push({ id: Number(id), content, done });
         }
       }
 
@@ -558,8 +566,8 @@ function TodoApp() {
     if (!newTask.trim()) return;
 
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.createTask(newTask);
@@ -574,8 +582,8 @@ function TodoApp() {
 
   async function handleToggle(taskId) {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.toggleDone(taskId);
@@ -589,8 +597,8 @@ function TodoApp() {
 
   async function handleDelete(taskId) {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
       const tx = await contract.deleteTask(taskId);
@@ -697,7 +705,7 @@ Before deploying, verify:
 
 ### External References & Further Learning
 
-- **Ethers.js Contract Events**: https://docs.ethers.org/v5/api/contract/contract/#Contract--events - Event handling
+- **Ethers.js Contract Events**: https://docs.ethers.org/v6/api/contract/#ContractEvent - Event handling
 - **Solidity Data Structures**: https://docs.soliditylang.org/en/latest/types.html - Structs and arrays
 - **Gas Optimization**: https://docs.soliditylang.org/en/latest/internals/optimizer.html - Reduce gas costs
 - **React Hooks**: https://reactjs.org/docs/hooks-effect.html - useEffect for events
@@ -797,7 +805,7 @@ export default function TaskList() {
 **To Do List**
 
 - [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`.
-- [ ] `provider = new ethers.providers.Web3Provider(window.ethereum)`.
+- [ ] `provider = new ethers.BrowserProvider(window.ethereum)`.
 - [ ] `contract = new ethers.Contract(address, ABI, provider)`.
 - [ ] `const count = await contract.getTasksCount()`.
 - [ ] Loop `i < count`, call `contract.tasks(i)` and build `{ id, content, done }`.
@@ -823,13 +831,13 @@ export default function TaskList() {
     async function loadTasks() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const todo = new ethers.Contract(CONTRACT, ABI, provider);
         const count = await todo.getTasksCount();
         const items = [];
         for (let i = 0; i < count; i++) {
           const [id, content, done] = await todo.tasks(i);
-          items.push({ id: id.toNumber(), content, done });
+          items.push({ id: Number(id), content, done });
         }
         setTasks(items);
       } catch (err) {
@@ -911,8 +919,8 @@ export default function CreateTask({ onTaskCreated }) {
 **To Do List**
 
 - [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`
-- [ ] `provider = new ethers.providers.Web3Provider(window.ethereum)`
-- [ ] `signer = provider.getSigner()`
+- [ ] `provider = new ethers.BrowserProvider(window.ethereum)`
+- [ ] `signer = await provider.getSigner()`
 - [ ] `contract = new ethers.Contract(address, ABI, signer)`
 - [ ] `const tx = await contract.createTask(content)`
 - [ ] `await tx.wait()` and `onTaskCreated()`
@@ -939,8 +947,8 @@ export default function CreateTask({ onTaskCreated }) {
     }
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const todo = new ethers.Contract(CONTRACT, ABI, signer);
       const tx = await todo.createTask(content);
       await tx.wait();
@@ -1007,7 +1015,7 @@ export default function TaskItem({ task, onAction }) {
 
 **To Do List**
 
-- [ ] Use `ethers.providers.Web3Provider` & `getSigner()`
+- [ ] Use `ethers.BrowserProvider` & `await getSigner()`
 - [ ] `contract = new ethers.Contract(address, ABI, signer)`
 - [ ] Call appropriate method, `await tx.wait()`
 - [ ] Trigger `onAction()` to reload tasks.
@@ -1023,16 +1031,16 @@ const CONTRACT = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 export default function TaskItem({ task, onAction }) {
   async function toggle() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const todo = new ethers.Contract(CONTRACT, ABI, signer);
     const tx = await todo.toggleDone(task.id);
     await tx.wait();
     onAction();
   }
   async function remove() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const todo = new ethers.Contract(CONTRACT, ABI, signer);
     const tx = await todo.deleteTask(task.id);
     await tx.wait();
@@ -1085,7 +1093,7 @@ describe("TodoApp Integration", () => {
     global.window.ethereum = {
       request: jest.fn().mockResolvedValue(["0xABC"]),
     };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
+    ethers.BrowserProvider = jest.fn().mockReturnValue(fakeProvider);
     fakeProvider.getSigner = () => fakeSigner;
     ethers.Contract = jest.fn().mockReturnValue(mockContract);
   });

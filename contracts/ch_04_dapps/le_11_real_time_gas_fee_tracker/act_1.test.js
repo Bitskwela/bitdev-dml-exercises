@@ -11,7 +11,7 @@ describe("Lesson 11: Real-time Gas Fee Tracker", function () {
   });
 
   it("Task 1 & 2: Should setup provider and contract correctly", function () {
-    expect(code).to.contain("new ethers.providers.JsonRpcProvider");
+    expect(code).to.contain("new ethers.JsonRpcProvider");
     expect(code).to.contain("process.env.REACT_APP_GAS_TRACKER_ADDRESS");
   });
 

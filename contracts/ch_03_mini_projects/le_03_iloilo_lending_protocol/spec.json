@@ -1,0 +1,13 @@
+{
+  "permaname": "proj-3-iloilo-lending-protocol",
+  "contract": "BarangayLending",
+  "source_file": "BarangayLending.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["structs", "mapping", "events", "payable", "ether transfer"],
+  "difficulty": "intermediate",
+  "est_minutes": 35,
+  "prerequisites": []
+}

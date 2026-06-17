@@ -11,7 +11,7 @@ describe("Lesson 06: Token Tracker", function () {
   });
 
   it("Task 1: Should validate token address", function () {
-    expect(code).to.contain("ethers.utils.isAddress(tokenAddress)");
+    expect(code).to.contain("ethers.isAddress(tokenAddress)");
   });
 
   it("Task 2: Should fetch token metadata (name, symbol, decimals)", function () {
@@ -24,7 +24,7 @@ describe("Lesson 06: Token Tracker", function () {
   it("Task 3: Should fetch and format user balance", function () {
     expect(code).to.contain("contract.balanceOf(user)");
     expect(code).to.contain(
-      "ethers.utils.formatUnits(rawBalance, info.decimals)",
+      "ethers.formatUnits(rawBalance, info.decimals)",
     );
     expect(code).to.contain("setBalance(");
   });

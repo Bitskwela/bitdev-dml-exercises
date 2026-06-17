@@ -50,11 +50,14 @@ In Solidity, functions are reusable pieces of code that perform specific tasks. 
   - `view`: Reads data without modifying it. For example, retrieving a passenger's payment status.
 
     ```solidity
-    // View function:  Check the current fare.  Doesn't cost gas.
+    // View function:  Check the current fare.
+    // Free only when called externally as a read (eth_call) from off-chain.
     function getFare() public view returns (uint256) {
         return farePrice;
     }
     ```
+
+    > Note: A `view` (or `pure`) function is gas-free only when it is called externally as a read (an `eth_call`) from off-chain. If it is called internally during a state-changing transaction, it still costs gas like any other executed code.
 
   - `pure`: Performs computations but doesn’t read or write contract data.
 

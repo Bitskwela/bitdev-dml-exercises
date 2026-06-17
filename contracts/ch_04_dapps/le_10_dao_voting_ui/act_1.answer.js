@@ -25,7 +25,7 @@ export default function DAOVoting() {
         });
         setUserAddress(account);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
         const count = await contract.getProposalCount();
@@ -36,10 +36,10 @@ export default function DAOVoting() {
           const voted = await contract.hasVoted(i, account);
 
           items.push({
-            id: id.toNumber(),
+            id: Number(id),
             description,
-            yes: yes.toNumber(),
-            no: no.toNumber(),
+            yes: Number(yes),
+            no: Number(no),
             hasVoted: voted,
           });
         }
@@ -57,13 +57,13 @@ export default function DAOVoting() {
 
   // Real-time vote updates
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
     const handleVote = (voter, proposalId, support) => {
       setProposals((prev) =>
         prev.map((p) =>
-          p.id === proposalId.toNumber()
+          p.id === Number(proposalId)
             ? {
                 ...p,
                 yes: support ? p.yes + 1 : p.yes,
@@ -80,8 +80,8 @@ export default function DAOVoting() {
 
   const castVote = async (proposalId, support) => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const contract = new ethers.Contract(DAO_ADDRESS, ABI, signer);
 
       const tx = await contract.vote(proposalId, support);

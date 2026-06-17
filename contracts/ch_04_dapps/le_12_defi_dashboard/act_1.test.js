@@ -11,13 +11,13 @@ describe("Lesson 12: DeFi Dashboard", function () {
   });
 
   it("Task 1: Should validate LP address and setup contract", function () {
-    expect(code).to.contain("ethers.utils.isAddress(LP_ADDRESS)");
+    expect(code).to.contain("ethers.isAddress(LP_ADDRESS)");
     expect(code).to.contain("new ethers.Contract(LP_ADDRESS, ABI, provider)");
   });
 
   it("Task 2: Should fetch reserves and total supply", function () {
     expect(code).to.contain("lp.getReserves()");
-    expect(code).to.contain("lp.getTotalSupply()");
+    expect(code).to.contain("lp.totalSupply()");
   });
 
   it("Task 3: Should update reserves and supply states", function () {

@@ -32,9 +32,17 @@ int main() {
   if (age >= 18 && isRegistered) {
   ```
 
-- Print a success message when both conditions are true.
+- Print the success message `✓ Eligible to vote!` when both conditions are true.
 
-- Use `else` to print a "not eligible" message when either condition fails.
+  ```cpp
+  cout << "✓ Eligible to vote!" << endl;
+  ```
+
+- Use `else` to print `✗ Not eligible.` when either condition fails.
+
+  ```cpp
+  cout << "✗ Not eligible." << endl;
+  ```
 
 ### Breakdown of the Activity
 
