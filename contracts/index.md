@@ -35,6 +35,7 @@ Each course below targets a unique skill slice while staying grounded in the sam
 8. **C++ from Zero to Hero (Chapter 8)** – Systems programming foundations, data structures, and user-facing CRUD projects.
 9. **Python Programming (Chapter 9)** – Databases, data science with NumPy/Pandas, Flask APIs, and a capstone resident management system.
 10. **Move Language (Chapter 12)** – Resource-oriented programming for Move ecosystems (Sui, Aptos) covering ownership, generics, testing, and security patterns.
+11. **Intro to ERC-20 Tokens (Chapter 16)** – Build a real ERC-20 token and reward store on Ethereum, from "what is a token?" to a Sepolia testnet deploy, using Solidity, OpenZeppelin v5, and Remix.
 
 ### Learning Principles
 
