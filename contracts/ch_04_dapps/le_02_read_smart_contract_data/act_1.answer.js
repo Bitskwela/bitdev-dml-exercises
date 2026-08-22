@@ -9,9 +9,8 @@ export default function NFTReader() {
 
   useEffect(() => {
     async function fetchInfo() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
+      // Read-only work needs no wallet, so a JsonRpcProvider is enough.
+      const provider = new ethers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,
@@ -24,7 +23,8 @@ export default function NFTReader() {
         contract.totalMinted(),
       ]);
 
-      setInfo({ name, symbol, total: total.toNumber() });
+      // uint256 arrives as a native bigint in ethers v6.
+      setInfo({ name, symbol, total: Number(total) });
     }
     fetchInfo();
   }, []);
@@ -36,9 +36,7 @@ export default function NFTReader() {
     }
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
+      const provider = new ethers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,

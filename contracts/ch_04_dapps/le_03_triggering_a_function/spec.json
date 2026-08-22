@@ -1,0 +1,21 @@
+{
+  "permaname": "le-03-triggering-a-function",
+  "runtime": "react-jsx",
+  "source_file": "CastVote.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "props": { "proposals": ["Bagong Palengke", "Solar Streetlights", "Barangay WiFi"] },
+  "env": { "REACT_APP_CONTRACT_ADDRESS": "0xBBbBbBbbBbBbBbbBbBBBBBBBBbbbBbBbBbbBbbBb" },
+  "modules": {
+    "../abi/CooperativeVote.json": ["function vote(string) returns (bool)"]
+  },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "txHash": "0xfeedfacefeedfacefeedfacefeedfacefeedfacefeedfacefeedfacefeedface",
+    "contracts": { "0xBBbBbBbbBbBbBbbBbBBBBBBBBbbbBbBbBbbBbbBb": { "returns": {} } }
+  },
+  "concepts": ["state-changing-call", "signer", "transaction-lifecycle"],
+  "difficulty": "intermediate",
+  "est_minutes": 25
+}

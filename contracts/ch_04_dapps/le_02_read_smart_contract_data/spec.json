@@ -1,0 +1,36 @@
+{
+  "permaname": "le-02-read-smart-contract-data",
+  "runtime": "react-jsx",
+  "source_file": "NFTReader.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_CONTRACT_ADDRESS": "0xAAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa"
+  },
+  "modules": {
+    "../abi/SimpleNFT.json": [
+      "function name() view returns (string)",
+      "function symbol() view returns (string)",
+      "function totalMinted() view returns (uint256)",
+      "function tokenURIs(uint256) view returns (string)"
+    ]
+  },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0xAAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa": {
+        "returns": {
+          "name": "Sining Chain",
+          "symbol": "SNG",
+          "totalMinted": "3n",
+          "tokenURIs": "ipfs://QmSiningTokenTwo"
+        }
+      }
+    }
+  },
+  "concepts": ["read-only-provider", "contract-reads", "async-state"],
+  "difficulty": "beginner",
+  "est_minutes": 20
+}

@@ -1,0 +1,27 @@
+{
+  "permaname": "le-05-sign-in-with-wallet-experience",
+  "runtime": "react-jsx",
+  "source_file": "WalletAuth.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_CONTRACT_ADDRESS": "0xDDdDdDddDdDdDddDdDDDDDDDDdddDdDdDddDddDd"
+  },
+  "modules": {
+    "../abi/Authenticator.json": [
+      "function verify(address,bytes32,uint8,bytes32,bytes32) view returns (bool)"
+    ]
+  },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "signature": "0xabc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd",
+    "contracts": {
+      "0xDDdDdDddDdDdDddDdDDDDDDDDdddDdDdDddDddDd": { "returns": { "verify": true } }
+    }
+  },
+  "concepts": ["message-signing", "off-chain-auth", "nonce"],
+  "difficulty": "intermediate",
+  "est_minutes": 30
+}

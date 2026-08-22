@@ -16,8 +16,10 @@ export default function CastVote({ proposals, onVoted }) {
       setStatus("pending");
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = web3Provider.getSigner();
+      // A state-changing call must be signed, so the contract is built with a
+      // signer rather than the provider. getSigner() is async in ethers v6.
+      const browserProvider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await browserProvider.getSigner();
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,
@@ -26,8 +28,9 @@ export default function CastVote({ proposals, onVoted }) {
 
       const tx = await contract.vote(selected, { gasLimit: 100_000 });
       console.log("Tx Hash:", tx.hash);
+      // Sending is not the same as being mined; wait for the receipt.
       await tx.wait();
-      setStatus("confirmed ✅");
+      setStatus("confirmed");
       onVoted();
     } catch (err) {
       console.error(err);

@@ -1,0 +1,15 @@
+{
+  "permaname": "le-01-connect-my-metamask",
+  "runtime": "react-jsx",
+  "source_file": "WalletConnector.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7"
+  },
+  "concepts": ["wallet-detection", "eth_requestAccounts", "conditional-rendering"],
+  "difficulty": "beginner",
+  "est_minutes": 15,
+  "prerequisites": []
+}

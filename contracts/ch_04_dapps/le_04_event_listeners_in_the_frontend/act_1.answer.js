@@ -7,10 +7,7 @@ export default function RaffleListener() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const provider = new ethers.providers.JsonRpcProvider(
-      process.env.REACT_APP_RPC_URL
-    );
-
+    const provider = new ethers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
     const contract = new ethers.Contract(
       process.env.REACT_APP_CONTRACT_ADDRESS,
       abi,
@@ -19,11 +16,14 @@ export default function RaffleListener() {
 
     const handleWinnerPicked = (winnerAddress) => {
       setWinner(winnerAddress);
+      // Functional update: several events can land before React re-renders.
       setHistory((prev) => [winnerAddress, ...prev].slice(0, 5));
     };
 
     contract.on("WinnerPicked", handleWinnerPicked);
 
+    // Without this, every remount adds another listener and the UI
+    // double-counts each event.
     return () => {
       contract.off("WinnerPicked", handleWinnerPicked);
     };
@@ -31,7 +31,7 @@ export default function RaffleListener() {
 
   return (
     <div>
-      <h2>🎰 Raffle Listener</h2>
+      <h2>Raffle Listener</h2>
       <div>
         <h3>Latest Winner:</h3>
         <p>{winner || "Waiting for winner..."}</p>

@@ -18,8 +18,8 @@ export default function WalletAuth() {
       }
 
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const address = await signer.getAddress();
       setAccount(address);
     } catch (err) {
@@ -31,9 +31,11 @@ export default function WalletAuth() {
   const signMessage = async () => {
     try {
       setError("");
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
+      // The nonce makes each signature single-use, so a captured one cannot
+      // be replayed to sign in again later.
       const nonce = Date.now().toString();
       const msg = `Sign in to Dashboard\n\nNonce: ${nonce}`;
 
@@ -49,12 +51,10 @@ export default function WalletAuth() {
   const verifySignature = async () => {
     try {
       setError("");
-      const msgHash = ethers.utils.id(message);
-      const { v, r, s } = ethers.utils.splitSignature(signature);
+      const msgHash = ethers.id(message);
+      const { v, r, s } = ethers.Signature.from(signature);
 
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
+      const provider = new ethers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
       const contract = new ethers.Contract(
         process.env.REACT_APP_CONTRACT_ADDRESS,
         abi,
@@ -90,7 +90,7 @@ export default function WalletAuth() {
         </div>
       ) : (
         <div>
-          <h2>🚀 Welcome to the Dashboard!</h2>
+          <h2>Welcome to the Dashboard!</h2>
           <p>Authenticated as: {account}</p>
         </div>
       )}

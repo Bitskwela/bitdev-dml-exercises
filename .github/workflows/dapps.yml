@@ -1,0 +1,41 @@
+name: dapp-answers
+
+# Golden gate for `runtime: "react-jsx"` exercises: the instructor answer must
+# pass its own hidden test AND the starter must fail it. A test both satisfy
+# would ship an exercise that grades every submission green, so it fails here.
+#
+# Runs the same harness the `blockskwela-rs` grader runs; only the JSX
+# transform differs (esbuild here, SWC there).
+
+on:
+  push:
+    paths:
+      - "contracts/**/spec.json"
+      - "contracts/**/act_1.js"
+      - "contracts/**/act_1.answer.js"
+      - "contracts/**/act_1.t.js"
+      - "contracts/harness/**"
+      - "scripts/check-dapps.js"
+      - ".github/workflows/dapps.yml"
+  pull_request:
+    paths:
+      - "contracts/**/spec.json"
+      - "contracts/**/act_1.js"
+      - "contracts/**/act_1.answer.js"
+      - "contracts/**/act_1.t.js"
+      - "contracts/harness/**"
+      - "scripts/check-dapps.js"
+      - ".github/workflows/dapps.yml"
+
+jobs:
+  golden-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install esbuild (the JSX transform)
+        run: npm install --no-save esbuild@0.25.12
+      - name: Golden-gate every react-jsx lesson
+        run: node scripts/check-dapps.js
