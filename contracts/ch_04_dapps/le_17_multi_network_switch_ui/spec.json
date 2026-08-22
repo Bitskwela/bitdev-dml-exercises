@@ -1,0 +1,23 @@
+{
+  "permaname": "le-17-multi-network-switch-ui",
+  "runtime": "react-jsx",
+  "source_file": "NetworkStats.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_NETWORK_DETECTOR": "0x9999999999999999999999999999999999999999"
+  },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x9999999999999999999999999999999999999999": {
+        "returns": { "getChainId": "11155111n" }
+      }
+    }
+  },
+  "concepts": ["chain-detection", "wallet-events", "provider-fallback"],
+  "difficulty": "intermediate",
+  "est_minutes": 25
+}

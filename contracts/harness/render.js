@@ -110,11 +110,75 @@ async function mount(Component, { props = {}, chain }) {
       await settle();
       return ui;
     },
-    /** Type into the first matching field, firing its `onChange`. */
-    async type(value, tag = "input") {
-      const field = ui.find(tag);
-      if (!field || !field.props || typeof field.props.onChange !== "function") {
-        throw new Error(`No <${tag}> with an onChange handler was rendered.`);
+    /**
+     * Submit a form, firing its `onSubmit` with a preventable event.
+     *
+     * Separate from {@link click} because a `<button type="submit">` carries no
+     * `onClick` — the handler lives on the enclosing `<form>`.
+     *
+     * @param index - Which form, when a lesson renders more than one.
+     */
+    async submit(index = 0) {
+      const forms = [...walk(tree)].filter(
+        (n) => n.props && typeof n.props.onSubmit === "function",
+      );
+      if (!forms[index]) {
+        throw new Error(
+          `No <form> with an onSubmit handler at index ${index}. Rendered: ${ui.text() || "(nothing)"}`,
+        );
+      }
+      let defaultPrevented = false;
+      await forms[index].props.onSubmit({
+        preventDefault() {
+          defaultPrevented = true;
+        },
+        stopPropagation() {},
+      });
+      await settle();
+      // Surfaced so a lesson can assert the page would not have reloaded.
+      ui.lastSubmitPrevented = defaultPrevented;
+      return ui;
+    },
+    /**
+     * Type into a field, firing its `onChange`.
+     *
+     * @param value - The new value.
+     * @param tag - Element tag, default `input`.
+     * @param index - Which matching field, when a form has several.
+     */
+    async type(value, tag = "input", index = 0) {
+      const fields = ui.all(tag).filter((n) => typeof n.props?.onChange === "function");
+      const field = fields[index];
+      if (!field) {
+        throw new Error(
+          `No <${tag}> with an onChange handler at index ${index} (found ${fields.length}).`,
+        );
+      }
+      await field.props.onChange({ target: { value } });
+      await settle();
+      return ui;
+    },
+    /**
+     * Type into the field whose `placeholder` contains `hint`.
+     *
+     * Clearer than an index when a form has several inputs, and it survives the
+     * student reordering them.
+     */
+    async fill(hint, value) {
+      const field = [...walk(tree)].find(
+        (n) =>
+          typeof n.props?.onChange === "function" &&
+          String(n.props.placeholder ?? "")
+            .toLowerCase()
+            .includes(String(hint).toLowerCase()),
+      );
+      if (!field) {
+        const seen = [...walk(tree)]
+          .filter((n) => n.props?.onChange)
+          .map((n) => JSON.stringify(n.props.placeholder ?? ""));
+        throw new Error(
+          `No field whose placeholder contains ${JSON.stringify(hint)}. Placeholders found: ${seen.join(", ") || "(none)"}`,
+        );
       }
       await field.props.onChange({ target: { value } });
       await settle();

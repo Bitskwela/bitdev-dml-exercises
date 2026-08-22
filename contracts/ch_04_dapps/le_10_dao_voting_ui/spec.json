@@ -1,0 +1,27 @@
+{
+  "permaname": "le-10-dao-voting-ui",
+  "runtime": "react-jsx",
+  "source_file": "DAOVoting.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": { "REACT_APP_DAO_ADDRESS": "0x2222222222222222222222222222222222222222" },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x2222222222222222222222222222222222222222": {
+        "returns": { "getProposalCount": "2n" },
+        "sequences": {
+          "proposals": [
+            ["0n", "Ayusin ang basketball court", "5n", "1n"],
+            ["1n", "Bagong ilaw sa kalye", "2n", "3n"]
+          ],
+          "hasVoted": [false, true]
+        }
+      }
+    }
+  },
+  "concepts": ["indexed-reads", "per-user-state", "event-driven-updates"],
+  "difficulty": "advanced",
+  "est_minutes": 35
+}

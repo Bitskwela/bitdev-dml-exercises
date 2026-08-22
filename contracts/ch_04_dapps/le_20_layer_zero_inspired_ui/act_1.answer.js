@@ -18,23 +18,25 @@ export default function LockForm({ onLocked }) {
 
       // Task 1: Connect to MetaMask and create contract instance
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const bridge = new ethers.Contract(
         process.env.REACT_APP_BRIDGE_ADDR,
         ABI,
         signer
       );
 
-      // Task 2: Call lockTokens() with ETH value
+      // Task 2: A payable call carries ETH in the overrides object, not as an
+      // argument. parseEther turns "1.5" into the wei the chain expects.
       const tx = await bridge.lockTokens({
-        value: ethers.utils.parseEther(amt),
+        value: ethers.parseEther(amt),
       });
       const receipt = await tx.wait();
 
-      // Task 3: Parse Locked event and invoke callback
-      const evt = receipt.events.find((e) => e.event === "Locked");
-      const id = evt.args.id.toNumber();
+      // Task 3: In ethers v6 a receipt exposes `logs`; the ones this contract
+      // could decode carry a `fragment` naming the event.
+      const evt = receipt.logs.find((l) => l.fragment && l.fragment.name === "Locked");
+      const id = Number(evt.args.id);
       onLocked(id, amt);
       setStep("Idle");
     } catch (err) {
@@ -65,7 +67,7 @@ export default function LockForm({ onLocked }) {
           <button onClick={() => setStep("Idle")}>Cancel</button>
         </div>
       )}
-      {step === "Locking" && <p>⏳ Locking on chain…</p>}
+      {step === "Locking" && <p>Locking on chain…</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );

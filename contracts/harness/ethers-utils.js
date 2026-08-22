@@ -32,6 +32,9 @@ function v5Error(name) {
  * native bigint rather than v5's BigNumber object.
  */
 function fixtureValue(raw) {
+  // Recurse into arrays so a tuple return — `contract.tasks(i)` destructured as
+  // `[id, content, done]` — can mix bigints and plain values.
+  if (Array.isArray(raw)) return raw.map(fixtureValue);
   if (typeof raw === "string" && /^-?\d+n$/.test(raw)) return BigInt(raw.slice(0, -1));
   return raw;
 }

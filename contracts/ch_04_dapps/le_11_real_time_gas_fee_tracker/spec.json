@@ -1,0 +1,22 @@
+{
+  "permaname": "le-11-real-time-gas-fee-tracker",
+  "runtime": "react-jsx",
+  "source_file": "GasStats.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_GAS_TRACKER_ADDRESS": "0x3333333333333333333333333333333333333333"
+  },
+  "chain": {
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x3333333333333333333333333333333333333333": {
+        "returns": { "getBaseFee": "24000000000n" }
+      }
+    }
+  },
+  "concepts": ["read-only-provider", "loading-state", "error-state"],
+  "difficulty": "beginner",
+  "est_minutes": 15
+}

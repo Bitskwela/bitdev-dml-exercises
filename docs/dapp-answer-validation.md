@@ -166,9 +166,12 @@ touching an exercise ([`dapps.yml`](../.github/workflows/dapps.yml)) and blocks 
 
 | Lessons | Status |
 |---|---|
-| ch04 le_01 – le_05 | Gradable, golden gate GREEN (31 tests) |
-| ch04 le_06 – le_20 | Not yet — starter, spec, v6 migration and test still to author |
+| **ch04 le_01 – le_20** | **All 20 gradable, golden gate GREEN — 123 behavioural tests** |
 | ch05, ch06 | Planned; plain JavaScript rather than JSX, same harness |
+
+Every ch04 answer is migrated to ethers v6 and carries `act_1.js`, `spec.json` and
+`act_1.t.js`. Narrative (`mat_1.md`), `act_1.md` and all image assets are byte-unchanged;
+the prose still shows v5 snippets and is tracked as a separate pass.
 
 An exercise with no published bundle is **not** gated — students self-mark it, exactly as
 before. Adding a validator is always additive and never retroactively locks anyone out.

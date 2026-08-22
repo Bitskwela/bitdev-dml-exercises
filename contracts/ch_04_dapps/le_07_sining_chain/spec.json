@@ -1,0 +1,53 @@
+{
+  "permaname": "le-07-sining-chain",
+  "runtime": "react-jsx",
+  "source_file": "NFTGallery.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_CONTRACT_ADDRESS": "0xF7F7f7F7f7F7f7f7f7F7F7f7F7f7f7f7F7f7F7f7"
+  },
+  "http": {
+    "https://ipfs.io/ipfs/QmSiningOne": {
+      "name": "Sarimanok sa Umaga",
+      "description": "Woodblock print, Angono",
+      "image": "ipfs://QmImageOne"
+    },
+    "https://ipfs.io/ipfs/QmSiningTwo": {
+      "name": "Jeepney Barok",
+      "description": "Acrylic on tin",
+      "image": "ipfs://QmImageTwo"
+    }
+  },
+  "chain": {
+    "accounts": [
+      "0x1234567890123456789012345678901234567890"
+    ],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0xF7F7f7F7f7F7f7f7f7F7F7f7F7f7f7f7F7f7F7f7": {
+        "returns": {
+          "balanceOf": "2n"
+        },
+        "sequences": {
+          "tokenURI": [
+            "ipfs://QmSiningOne",
+            "ipfs://QmSiningTwo"
+          ],
+          "tokenOfOwnerByIndex": [
+            "0n",
+            "1n"
+          ]
+        }
+      }
+    }
+  },
+  "concepts": [
+    "nft-metadata",
+    "ipfs-gateway",
+    "enumerable-ownership"
+  ],
+  "difficulty": "intermediate",
+  "est_minutes": 30
+}

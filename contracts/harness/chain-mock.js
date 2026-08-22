@@ -22,6 +22,7 @@ const {
   pseudoHash,
   v5Error,
 } = require("./ethers-utils");
+const { createContractClass } = require("./contract-mock");
 
 /** Record of one recorded interaction, e.g. `contract.name` or `provider.getSigner`. */
 function makeRecorder() {
@@ -30,6 +31,10 @@ function makeRecorder() {
     entries,
     record(target, args) {
       entries.push({ target, args });
+    },
+    /** Forget everything recorded so far. */
+    clear() {
+      entries.length = 0;
     },
     /** Names of every call whose target matches, in order. */
     of(target) {
@@ -93,73 +98,43 @@ function createChain(spec) {
     return { returns: {}, reverts: {} };
   }
 
-  /** A signed transaction response, as a v6 write returns. */
-  function txResponse(name) {
+  /**
+   * A signed transaction response, as a v6 write returns.
+   *
+   * The receipt carries `logs`, not v5's `events`. Each entry has the
+   * `fragment.name` / `args` shape ethers v6 gives a log it could decode, so a
+   * lesson that reads its own event has something real to parse. What is
+   * emitted per method comes from the fixture's `emits`.
+   */
+  function txResponse(name, fixture) {
+    const emitted = (fixture.emits || {})[name];
+    const logs = emitted
+      ? [
+          {
+            fragment: { name: emitted.name },
+            eventName: emitted.name,
+            args: Object.fromEntries(
+              Object.entries(emitted.args || {}).map(([k, v]) => [k, fixtureValue(v)]),
+            ),
+          },
+        ]
+      : [];
+
     return {
       hash: chain.txHash || "0xtx",
       async wait() {
         recorder.record(`tx.wait`, [name]);
-        return { status: 1, hash: chain.txHash || "0xtx" };
+        return { status: 1, hash: chain.txHash || "0xtx", logs };
       },
     };
   }
 
-  class Contract {
-    constructor(address, abi, runner) {
-      recorder.record("new ethers.Contract", [address]);
-      const fixture = fixtureFor(address);
-      const contractListeners = new Map();
-
-      // Every ABI member resolves to a recording function. A Proxy is used so
-      // the mock needs no per-exercise wiring — the fixture alone drives it.
-      const instance = new Proxy(this, {
-        get(_target, prop) {
-          if (prop === "target" || prop === "address") return address;
-          if (prop === "runner") return runner;
-          if (prop === "on") {
-            return (event, handler) => {
-              recorder.record("contract.on", [String(event)]);
-              const list = contractListeners.get(String(event)) || [];
-              list.push(handler);
-              contractListeners.set(String(event), list);
-            };
-          }
-          if (prop === "off" || prop === "removeAllListeners") {
-            return (event) => {
-              recorder.record("contract.off", [String(event)]);
-              contractListeners.delete(String(event));
-            };
-          }
-          if (prop === "__emit") {
-            return (event, ...args) => {
-              for (const h of contractListeners.get(String(event)) || []) h(...args);
-            };
-          }
-          if (prop === "getAddress") {
-            return async () => {
-              recorder.record("contract.getAddress", []);
-              return address;
-            };
-          }
-          if (typeof prop !== "string") return undefined;
-
-          return async (...args) => {
-            recorder.record(`contract.${prop}`, args);
-            const revert = (fixture.reverts || {})[prop];
-            if (revert) throw new Error(revert);
-            if (Object.hasOwn(fixture.returns || {}, prop)) {
-              return fixtureValue(fixture.returns[prop]);
-            }
-            // Unlisted members are treated as state-changing writes.
-            return txResponse(prop);
-          };
-        },
-      });
-
-      contractInstances.push(instance);
-      return instance;
-    }
-  }
+  const Contract = createContractClass({
+    recorder,
+    fixtureFor,
+    txResponse,
+    contractInstances,
+  });
 
   /** Shared by BrowserProvider and JsonRpcProvider. */
   class BaseProvider {
@@ -285,7 +260,23 @@ function createChain(spec) {
     return delivered;
   }
 
-  return { ethers, ethereum, recorder, emitContract };
+  /**
+   * Return the chain to its pre-render state.
+   *
+   * One harness serves every `it` in a lesson's test file, so without this the
+   * call log accumulates and a later test sees calls made by an earlier one —
+   * which silently turns "did the component call X?" into "did any test call
+   * X?". Called at the start of each `render`.
+   */
+  function reset() {
+    recorder.clear();
+    listeners.clear();
+    // Dropping the instances also drops their per-contract event listeners and
+    // `sequences` cursors, so indexed reads restart from the first entry.
+    contractInstances.length = 0;
+  }
+
+  return { ethers, ethereum, recorder, emitContract, reset };
 }
 
 module.exports = { createChain, V5_REMOVALS };

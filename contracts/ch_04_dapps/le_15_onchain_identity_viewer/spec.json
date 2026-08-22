@@ -1,0 +1,28 @@
+{
+  "permaname": "le-15-onchain-identity-viewer",
+  "runtime": "react-jsx",
+  "source_file": "ProfileViewer.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": { "REACT_APP_IDENTITY_ADDRESS": "0x8888888888888888888888888888888888888888" },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x8888888888888888888888888888888888888888": {
+        "returns": {
+          "getProfile": ["Neri Gomez", "Barangay Kagawad", "2n"]
+        },
+        "sequences": {
+          "getCredential": [
+            "BS Computer Science — UP Diliman",
+            "Certified Solidity Developer"
+          ]
+        }
+      }
+    }
+  },
+  "concepts": ["tuple-returns", "indexed-reads", "event-subscription"],
+  "difficulty": "intermediate",
+  "est_minutes": 30
+}

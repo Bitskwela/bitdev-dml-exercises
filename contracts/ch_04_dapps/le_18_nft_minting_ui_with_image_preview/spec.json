@@ -1,0 +1,16 @@
+{
+  "permaname": "le-18-nft-minting-ui-with-image-preview",
+  "runtime": "react-jsx",
+  "source_file": "NFTPreview.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "props": {
+    "title": "Sarimanok sa Umaga",
+    "description": "Woodblock print, Angono",
+    "file": { "name": "sarimanok.png", "type": "image/png", "size": 20480 }
+  },
+  "chain": { "chainId": "0xaa36a7" },
+  "concepts": ["file-preview", "object-url", "metadata-shape"],
+  "difficulty": "beginner",
+  "est_minutes": 15
+}

@@ -1,0 +1,19 @@
+{
+  "permaname": "le-08-send-tokens-via-ui",
+  "runtime": "react-jsx",
+  "source_file": "TokenTransfer.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "props": { "contractAddress": "0xEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEe" },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "txHash": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+    "contracts": {
+      "0xEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEe": { "returns": { "decimals": 18 } }
+    }
+  },
+  "concepts": ["address-validation", "parseUnits", "transaction-lifecycle"],
+  "difficulty": "intermediate",
+  "est_minutes": 25
+}

@@ -16,15 +16,13 @@ export default function TokenTracker({ tokenAddress }) {
   // Task 1 & 2: Fetch token info
   useEffect(() => {
     const fetchTokenInfo = async () => {
-      // Task 1: Validate address and create contract instance
-      if (!ethers.utils.isAddress(tokenAddress)) return;
+      // Task 1: A malformed address would make every read revert, so check first.
+      if (!ethers.isAddress(tokenAddress)) return;
 
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
+      const provider = new ethers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
       const contract = new ethers.Contract(tokenAddress, ABI, provider);
 
-      // Task 2: Fetch token metadata using Promise.all
+      // Task 2: One round trip instead of three sequential ones.
       const [name, symbol, decimals] = await Promise.all([
         contract.name(),
         contract.symbol(),
@@ -47,11 +45,13 @@ export default function TokenTracker({ tokenAddress }) {
       });
       setAccount(user);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(tokenAddress, ABI, provider);
 
+      // balanceOf returns the raw integer; decimals turns it back into a
+      // human number. 2500000000000000000 with 18 decimals is 2.5, not 2.5e18.
       const rawBalance = await contract.balanceOf(user);
-      const formatted = ethers.utils.formatUnits(rawBalance, info.decimals);
+      const formatted = ethers.formatUnits(rawBalance, info.decimals);
       setBalance(`${formatted} ${info.symbol}`);
     } catch (err) {
       console.error("Error fetching balance:", err);

@@ -16,10 +16,10 @@ export default function ProposalList({ contractAddress }) {
     async function loadProposals() {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const wallet = new ethers.Contract(contractAddress, ABI, provider);
 
-        const count = (await wallet.getTransactionCount()).toNumber();
+        const count = Number(await wallet.getTransactionCount());
         const items = [];
         for (let i = 0; i < count; i++) {
           const [to, value, data, executed, numConfirmations] =
@@ -27,10 +27,10 @@ export default function ProposalList({ contractAddress }) {
           items.push({
             id: i,
             to,
-            value: ethers.utils.formatEther(value),
+            value: ethers.formatEther(value),
             data: data.slice(0, 10) + "…",
             executed,
-            numConfirmations: numConfirmations.toNumber(),
+            numConfirmations: Number(numConfirmations),
           });
         }
         setProposals(items);

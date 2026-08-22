@@ -1,0 +1,21 @@
+{
+  "permaname": "le-14-simulated-chain-oracle-dapp",
+  "runtime": "react-jsx",
+  "source_file": "ReliefStats.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": { "REACT_APP_RELIEF_ADDRESS": "0x6666666666666666666666666666666666666666" },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "balance": "3250000000000000000n",
+    "contracts": {
+      "0x6666666666666666666666666666666666666666": {
+        "returns": { "windSpeed": "185n", "released": true }
+      }
+    }
+  },
+  "concepts": ["oracle-reads", "provider-balance", "conditional-status"],
+  "difficulty": "intermediate",
+  "est_minutes": 25
+}

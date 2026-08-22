@@ -1,0 +1,21 @@
+{
+  "permaname": "le-19-contract-deployment-simulator",
+  "runtime": "react-jsx",
+  "source_file": "DeploySimulator.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "modules": {
+    "../artifacts/HelloWorld.json": {
+      "abi": ["constructor(string)", "function greet() view returns (string)"],
+      "bytecode": "0x60806040523480156100"
+    }
+  },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "deployedAddress": "0xDe910eD910eD910eD910eD910eD910eD910eD910"
+  },
+  "concepts": ["contract-factory", "deployment", "wait-for-deployment"],
+  "difficulty": "advanced",
+  "est_minutes": 30
+}

@@ -121,6 +121,22 @@ function expect(actual, label) {
       }
       return api;
     },
+    match(pattern, message) {
+      if (pattern.test(String(actual))) {
+        throw new AssertionError(
+          message || `${prefix}expected ${clip(show(actual))} not to match ${pattern}`,
+        );
+      }
+      return api;
+    },
+    ok(message) {
+      if (actual) {
+        throw new AssertionError(
+          message || `${prefix}expected a falsy value, got ${show(actual)}`,
+        );
+      }
+      return api;
+    },
   };
   api.to.not = api.not;
 

@@ -16,11 +16,11 @@ export default function LPStats() {
       try {
         const LP_ADDRESS = process.env.REACT_APP_LP_ADDRESS;
 
-        if (!ethers.utils.isAddress(LP_ADDRESS)) {
+        if (!ethers.isAddress(LP_ADDRESS)) {
           throw new Error("Invalid LP contract address");
         }
 
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.JsonRpcProvider(
           process.env.REACT_APP_RPC_URL
         );
         const lp = new ethers.Contract(LP_ADDRESS, ABI, provider);

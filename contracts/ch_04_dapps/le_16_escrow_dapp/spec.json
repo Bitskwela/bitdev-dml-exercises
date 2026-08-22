@@ -1,0 +1,28 @@
+{
+  "permaname": "le-16-escrow-dapp",
+  "runtime": "react-jsx",
+  "source_file": "EscrowStats.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_ESCROW_ADDRESS": "0x7777777777777777777777777777777777777777"
+  },
+  "chain": {
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x7777777777777777777777777777777777777777": {
+        "returns": {
+          "buyer": "0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa",
+          "seller": "0xBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb",
+          "amount": "750000000000000000n",
+          "deposited": true,
+          "released": false
+        }
+      }
+    }
+  },
+  "concepts": ["escrow-state", "promise-all", "conditional-status"],
+  "difficulty": "intermediate",
+  "est_minutes": 25
+}

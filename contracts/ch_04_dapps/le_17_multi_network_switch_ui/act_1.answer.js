@@ -26,16 +26,16 @@ export default function NetworkStats() {
       try {
         // Task 1: Create provider based on wallet availability
         if (window.ethereum) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
+          provider = new ethers.BrowserProvider(window.ethereum);
           await window.ethereum.request({ method: "eth_requestAccounts" });
         } else {
-          provider = new ethers.providers.JsonRpcProvider(RPC);
+          provider = new ethers.JsonRpcProvider(RPC);
         }
 
         // Task 2: Fetch chain ID and map to friendly name
         contract = new ethers.Contract(CONTRACT, ABI, provider);
         const idBN = await contract.getChainId();
-        const id = idBN.toNumber();
+        const id = Number(idBN);
         setChainId(id);
         setChainName(NAMES[id] || "Unknown");
       } catch (err) {

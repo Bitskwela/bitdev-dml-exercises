@@ -1,0 +1,26 @@
+{
+  "permaname": "le-13-multisig-transaction-initiator",
+  "runtime": "react-jsx",
+  "source_file": "ProposalList.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "props": { "contractAddress": "0x5555555555555555555555555555555555555555" },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x5555555555555555555555555555555555555555": {
+        "returns": { "getTransactionCount": "2n" },
+        "sequences": {
+          "transactions": [
+            ["0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa", "1500000000000000000n", "0xa9059cbb0000", false, "1n"],
+            ["0xBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb", "500000000000000000n", "0x23b872dd0000", true, "2n"]
+          ]
+        }
+      }
+    }
+  },
+  "concepts": ["multisig", "tuple-returns", "formatEther"],
+  "difficulty": "advanced",
+  "est_minutes": 30
+}

@@ -66,6 +66,41 @@ function createSpy(implementation) {
   return fn;
 }
 
+/**
+ * Build the offline `fetch` a lesson's HTTP reads resolve against.
+ *
+ * Exercises that read NFT metadata do a real `fetch` of an IPFS gateway URL.
+ * Grading is offline, so `spec.http` declares the responses. A URL the spec
+ * does not name rejects with a message naming it, rather than hanging or
+ * silently returning undefined.
+ *
+ * @param spec - The exercise spec; `spec.http` maps URL to a JSON body.
+ * @param recorder - The chain recorder, so tests can assert what was fetched.
+ */
+function createFetch(spec, recorder) {
+  const routes = (spec && spec.http) || {};
+  return async function fetchStub(url) {
+    const key = String(url);
+    recorder.record("fetch", [key]);
+    if (!Object.hasOwn(routes, key)) {
+      throw new Error(
+        `No offline response declared for ${JSON.stringify(key)}. Add it to spec.http.`,
+      );
+    }
+    const body = routes[key];
+    return {
+      ok: true,
+      status: 200,
+      async json() {
+        return body;
+      },
+      async text() {
+        return JSON.stringify(body);
+      },
+    };
+  };
+}
+
 /** A Date whose `now()` never moves, so a nonce-stamping lesson is gradable. */
 function createFrozenDate() {
   return Object.assign(
@@ -140,6 +175,18 @@ function createHarness(spec) {
     clearTimeout() {},
     setInterval: () => 0,
     clearInterval() {},
+    fetch: createFetch(spec, chain.recorder),
+    // Deterministic object URLs: a lesson that previews an uploaded file needs
+    // `URL.createObjectURL`, and a real blob: URL would differ on every run.
+    URL: {
+      createObjectURL(file) {
+        chain.recorder.record("URL.createObjectURL", [file && file.name]);
+        return `blob:mock/${(file && file.name) || "unnamed"}`;
+      },
+      revokeObjectURL(url) {
+        chain.recorder.record("URL.revokeObjectURL", [url]);
+      },
+    },
     Date: createFrozenDate(),
     Math: Object.create(Math, {
       random: { value: () => FIXED_RANDOM, enumerable: true },
@@ -157,6 +204,9 @@ function createHarness(spec) {
      *   the no-MetaMask branch.
      */
     render: (Component, options = {}) => {
+      // Each test starts from a clean chain: one harness serves every `it` in
+      // the file, so a stale call log would leak between them.
+      chain.reset();
       walletPresent = options.wallet !== "absent";
       return mount(Component, {
         props: { ...((spec && spec.props) || {}), ...(options.props || {}) },

@@ -1,0 +1,25 @@
+{
+  "permaname": "le-12-defi-dashboard",
+  "runtime": "react-jsx",
+  "source_file": "LPStats.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": {
+    "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
+    "REACT_APP_LP_ADDRESS": "0x4444444444444444444444444444444444444444"
+  },
+  "chain": {
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x4444444444444444444444444444444444444444": {
+        "returns": {
+          "getReserves": ["120000000000000000000n", "45000000000n"],
+          "getTotalSupply": "7350000000000000000n"
+        }
+      }
+    }
+  },
+  "concepts": ["tuple-returns", "address-validation", "loading-and-error-states"],
+  "difficulty": "intermediate",
+  "est_minutes": 20
+}

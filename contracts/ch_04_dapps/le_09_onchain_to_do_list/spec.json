@@ -1,0 +1,26 @@
+{
+  "permaname": "le-09-onchain-to-do-list",
+  "runtime": "react-jsx",
+  "source_file": "TodoApp.jsx",
+  "entry": "default",
+  "ethers": "6",
+  "env": { "REACT_APP_CONTRACT_ADDRESS": "0x1111111111111111111111111111111111111111" },
+  "chain": {
+    "accounts": ["0x1234567890123456789012345678901234567890"],
+    "chainId": "0xaa36a7",
+    "contracts": {
+      "0x1111111111111111111111111111111111111111": {
+        "returns": { "getTasksCount": "2n" },
+        "sequences": {
+          "tasks": [
+            ["0n", "Bumili ng bigas", false],
+            ["1n", "Bayaran ang kuryente", true]
+          ]
+        }
+      }
+    }
+  },
+  "concepts": ["indexed-reads", "optimistic-update", "transaction-lifecycle"],
+  "difficulty": "intermediate",
+  "est_minutes": 30
+}
