@@ -1,0 +1,11 @@
+{
+  "permaname": "le-19-the-timer-that-launched-a-startup",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "delayedGreeting",
+    "startCountdown",
+    "createRepeater"
+  ]
+}

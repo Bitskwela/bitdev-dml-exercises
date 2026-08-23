@@ -1,0 +1,11 @@
+{
+  "permaname": "le-03-loops-of-liberation",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "printNumbers",
+    "sumArray",
+    "multiplicationTable"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "permaname": "le-16-state-of-barangay",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "getState",
+    "setState",
+    "saveState",
+    "loadState",
+    "showScreen",
+    "setupDraftPersistence"
+  ],
+  "dom": {
+    "elements": [
+      {
+        "tag": "section",
+        "id": "home"
+      },
+      {
+        "tag": "section",
+        "id": "reports"
+      },
+      {
+        "tag": "section",
+        "id": "settings"
+      },
+      {
+        "tag": "textarea",
+        "id": "draft"
+      }
+    ]
+  }
+}

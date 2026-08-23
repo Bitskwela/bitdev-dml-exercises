@@ -1,0 +1,11 @@
+{
+  "permaname": "le-04-function-overload",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "welcomeStudent",
+    "calculateTotal",
+    "checkGrade"
+  ]
+}

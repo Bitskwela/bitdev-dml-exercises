@@ -1,0 +1,7 @@
+{
+  "permaname": "le-02-smart-decisions-smarter-code",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": ["checkBudgetStatus", "isValidEntry", "classifyExpense"]
+}

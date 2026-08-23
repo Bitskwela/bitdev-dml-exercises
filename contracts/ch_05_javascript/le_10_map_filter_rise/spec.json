@@ -1,0 +1,11 @@
+{
+  "permaname": "le-10-map-filter-rise",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "getProductNames",
+    "filterLowStock",
+    "calculateTotalValue"
+  ]
+}

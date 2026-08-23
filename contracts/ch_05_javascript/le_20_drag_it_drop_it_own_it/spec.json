@@ -1,0 +1,33 @@
+{
+  "permaname": "le-20-drag-it-drop-it-own-it",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "allowDrop",
+    "drag",
+    "drop",
+    "dragEnd",
+    "createTaskCard",
+    "setupDragAndDrop"
+  ],
+  "dom": {
+    "elements": [
+      {
+        "tag": "div",
+        "id": "todo",
+        "class": "column"
+      },
+      {
+        "tag": "div",
+        "id": "doing",
+        "class": "column"
+      },
+      {
+        "tag": "div",
+        "id": "done",
+        "class": "column"
+      }
+    ]
+  }
+}

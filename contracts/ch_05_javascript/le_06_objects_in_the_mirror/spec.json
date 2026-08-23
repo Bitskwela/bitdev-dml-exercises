@@ -1,0 +1,11 @@
+{
+  "permaname": "le-06-objects-in-the-mirror",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "getStudentSummary",
+    "createProfile",
+    "getTeacherEmail"
+  ]
+}

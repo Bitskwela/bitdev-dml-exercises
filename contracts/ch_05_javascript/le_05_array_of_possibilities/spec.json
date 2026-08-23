@@ -1,0 +1,11 @@
+{
+  "permaname": "le-05-array-of-possibilities",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "findHighestScore",
+    "getEvenNumbers",
+    "calculateAverage"
+  ]
+}

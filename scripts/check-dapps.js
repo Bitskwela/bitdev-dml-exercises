@@ -33,6 +33,41 @@ const STARTER_FILE = "act_1.js";
 const TEST_FILE = "act_1.t.js";
 const SPEC_FILE = "spec.json";
 
+/**
+ * Runtimes this gate grades.
+ *
+ * `react-jsx` mounts a component; `javascript` (ch05, ch06) has none and is
+ * judged on its console output instead. Both run the same harness under the
+ * same transform -- only what counts as "the submission" differs.
+ */
+const GRADED_RUNTIMES = new Set(["react-jsx", "javascript"]);
+
+/**
+ * Whether a string is a plain JavaScript identifier, safe to interpolate.
+ *
+ * `spec.json` is content, and content is not a place to accept arbitrary code,
+ * so anything else is dropped rather than trusted.
+ */
+function isJsIdentifier(name) {
+  return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name);
+}
+
+/**
+ * Copy a plain script's top-level names onto its exports.
+ *
+ * Mirrors `export_epilogue` in `blockskwela-rs`. A submission is evaluated in a
+ * function scope, so `function foo() {}` at a script's top level is invisible to
+ * the test that wants to call it. `typeof` keeps it safe: a name the student
+ * never declared reads as "undefined" instead of throwing, so an unfinished task
+ * fails its own test rather than taking the whole submission down.
+ */
+function exportEpilogue(exports_ = []) {
+  return exports_
+    .filter(isJsIdentifier)
+    .map((name) => `module.exports.${name} = typeof ${name} === "undefined" ? undefined : ${name};`)
+    .join("\n");
+}
+
 /** Transform JSX/ESM to CommonJS the sandbox can evaluate. */
 function transform(source, filename) {
   return esbuild.transformSync(source, {
@@ -85,7 +120,14 @@ async function grade(lessonDir, submissionPath) {
   let Component;
   try {
     const source = fs.readFileSync(submissionPath, "utf8");
-    Component = componentOf(evaluate(source, path.basename(submissionPath), harness), submissionPath);
+    // The epilogue goes inside the submission, after the student code, so the
+    // names it reads are the ones their script just defined.
+    const withEpilogue = `${source}
+${exportEpilogue(spec.exports)}`;
+    const exports_ = evaluate(withEpilogue, path.basename(submissionPath), harness);
+    // A plain-script lesson has nothing to mount: it is graded on what it
+    // printed while loading, which the harness has already captured.
+    Component = spec.runtime === "javascript" ? exports_ : componentOf(exports_, submissionPath);
   } catch (error) {
     return { passed: false, total: 0, results: [], compileError: error.message };
   }
@@ -118,7 +160,7 @@ function findLessons(root) {
       const specPath = path.join(dir, SPEC_FILE);
       if (!fs.existsSync(specPath)) continue;
       try {
-        if (JSON.parse(fs.readFileSync(specPath, "utf8")).runtime === "react-jsx") found.push(dir);
+        if (GRADED_RUNTIMES.has(JSON.parse(fs.readFileSync(specPath, "utf8")).runtime)) found.push(dir);
       } catch {
         // A malformed spec is reported by the gate itself, not skipped here.
         found.push(dir);

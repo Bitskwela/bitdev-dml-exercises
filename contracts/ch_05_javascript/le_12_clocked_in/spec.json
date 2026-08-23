@@ -1,0 +1,11 @@
+{
+  "permaname": "le-12-clocked-in",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "getTomorrowDate",
+    "getHoursDifference",
+    "formatDatePH"
+  ]
+}

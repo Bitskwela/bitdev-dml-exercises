@@ -16,16 +16,16 @@
 const react = require("./react-shim");
 const { createChain } = require("./chain-mock");
 const { createRegistry, expect } = require("./test-api");
+const { createDom } = require("./dom-mock");
 const { drainMicrotasks, mount } = require("./render");
-
-/** The host's real Date, kept before the sandbox shadows it. */
-const OriginalDate = Date;
-
-/** Fixed clock for grading: 2026-01-01T00:00:00Z. Determinism over realism. */
-const FIXED_NOW = 1767225600000;
-
-/** Seeded stand-in for Math.random, for the same reason. */
-const FIXED_RANDOM = 0.42;
+const {
+  FIXED_RANDOM,
+  createConsoleCapture,
+  createFetch,
+  createFrozenDate,
+  createSpy,
+  createTimers,
+} = require("./sandbox");
 
 /** Build the `react` module a student's `import ... from "react"` resolves to. */
 function buildReactModule() {
@@ -54,63 +54,6 @@ function asModule(value) {
   return { default: value, ...named };
 }
 
-/** A recording stand-in for a callback prop, e.g. `onVoted`. */
-function createSpy(implementation) {
-  const calls = [];
-  const fn = (...args) => {
-    calls.push(args);
-    return typeof implementation === "function" ? implementation(...args) : undefined;
-  };
-  fn.calls = calls;
-  fn.called = () => calls.length > 0;
-  return fn;
-}
-
-/**
- * Build the offline `fetch` a lesson's HTTP reads resolve against.
- *
- * Exercises that read NFT metadata do a real `fetch` of an IPFS gateway URL.
- * Grading is offline, so `spec.http` declares the responses. A URL the spec
- * does not name rejects with a message naming it, rather than hanging or
- * silently returning undefined.
- *
- * @param spec - The exercise spec; `spec.http` maps URL to a JSON body.
- * @param recorder - The chain recorder, so tests can assert what was fetched.
- */
-function createFetch(spec, recorder) {
-  const routes = (spec && spec.http) || {};
-  return async function fetchStub(url) {
-    const key = String(url);
-    recorder.record("fetch", [key]);
-    if (!Object.hasOwn(routes, key)) {
-      throw new Error(
-        `No offline response declared for ${JSON.stringify(key)}. Add it to spec.http.`,
-      );
-    }
-    const body = routes[key];
-    return {
-      ok: true,
-      status: 200,
-      async json() {
-        return body;
-      },
-      async text() {
-        return JSON.stringify(body);
-      },
-    };
-  };
-}
-
-/** A Date whose `now()` never moves, so a nonce-stamping lesson is gradable. */
-function createFrozenDate() {
-  return Object.assign(
-    function FixedDate(...args) {
-      return args.length ? new OriginalDate(...args) : new OriginalDate(FIXED_NOW);
-    },
-    { now: () => FIXED_NOW, parse: OriginalDate.parse, UTC: OriginalDate.UTC },
-  );
-}
-
 /**
  * Build the globals a student's module and its test are evaluated against.
  *
@@ -123,6 +66,9 @@ function createFrozenDate() {
 function createHarness(spec) {
   const chain = createChain(spec);
   const registry = createRegistry();
+  const consoleCapture = createConsoleCapture();
+  const dom = createDom(spec);
+  const timers = createTimers();
   const reactModule = buildReactModule();
   /** Whether MetaMask is installed for the render in progress. */
   let walletPresent = true;
@@ -161,7 +107,7 @@ function createHarness(spec) {
 
   const globals = {
     React: reactModule,
-    console: { log() {}, info() {}, warn() {}, error() {} },
+    console: consoleCapture.console,
     alert: recordAlert,
     window: windowStub,
     // Exercises read `process.env.REACT_APP_*`; serve the spec's values rather
@@ -173,8 +119,13 @@ function createHarness(spec) {
       return 0;
     },
     clearTimeout() {},
-    setInterval: () => 0,
-    clearInterval() {},
+    // Intervals are registered but never fire on their own — a test drives them
+    // with `tick()`. Grading must be deterministic and must not wait on a real
+    // clock, and a repeating callback that fired by itself would do both.
+    // `setTimeout` is deliberately left resolving immediately: ch04 depends on
+    // that for settling renders.
+    setInterval: (fn, ms) => timers.set(fn, ms),
+    clearInterval: (id) => timers.clear(id),
     fetch: createFetch(spec, chain.recorder),
     // Deterministic object URLs: a lesson that previews an uploaded file needs
     // `URL.createObjectURL`, and a real blob: URL would differ on every run.
@@ -195,6 +146,32 @@ function createHarness(spec) {
     it: registry.it,
     expect,
     spy: createSpy,
+    /**
+     * Everything the submission printed, oldest first.
+     *
+     * This is how a plain-script exercise (`runtime: "javascript"`, ch05/ch06)
+     * is graded: those lessons have no component to mount and no export to
+     * inspect — their observable behaviour *is* their console output. Asserting
+     * on it keeps such a test behavioural rather than a source-substring match.
+     *
+     * The submission runs once, before any `it`, so the output is the same for
+     * every test in the file and is deliberately **not** cleared by `render`.
+     *
+     * @param level - Optional filter: `"log"`, `"info"`, `"warn"` or `"error"`.
+     * @returns The formatted lines.
+     */
+    logs: (level) => consoleCapture.lines(level),
+    /** The page a plain-script lesson manipulates. See `dom-mock.js`. */
+    document: dom.document,
+    localStorage: dom.localStorage,
+    /** The element a selector refers to, for asserting on what changed. */
+    el: dom.el,
+    /** Dispatch an event at a selector; false when a handler prevented it. */
+    fire: dom.fire,
+    /** Advance every registered interval by `times` rounds. */
+    tick: (times) => timers.tick(times),
+    /** How many intervals are still running. */
+    activeTimers: () => timers.active(),
     /**
      * Mount the component under test.
      *

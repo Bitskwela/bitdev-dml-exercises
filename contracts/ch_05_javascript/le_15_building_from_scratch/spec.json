@@ -1,0 +1,11 @@
+{
+  "permaname": "le-15-building-from-scratch",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "createCard",
+    "createList",
+    "removeCardById"
+  ]
+}

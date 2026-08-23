@@ -1,0 +1,11 @@
+{
+  "permaname": "le-07-dominate-the-web",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "updateWelcomeMessage",
+    "setupClickHandler",
+    "setupToggle"
+  ]
+}

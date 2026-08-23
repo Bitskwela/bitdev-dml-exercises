@@ -1,0 +1,11 @@
+{
+  "permaname": "le-08-the-suggestion-box",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "setupFormSubmit",
+    "getInputValue",
+    "setupValidation"
+  ]
+}

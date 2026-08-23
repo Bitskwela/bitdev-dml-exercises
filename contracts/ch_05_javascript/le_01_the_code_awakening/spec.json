@@ -1,0 +1,10 @@
+{
+  "permaname": "le-01-the-code-awakening",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "concepts": ["variables", "data-types", "console-log", "template-literals"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

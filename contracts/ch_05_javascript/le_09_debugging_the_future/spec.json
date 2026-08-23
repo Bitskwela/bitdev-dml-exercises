@@ -1,0 +1,11 @@
+{
+  "permaname": "le-09-debugging-the-future",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "parseJSONSafely",
+    "safeDivide",
+    "fetchUserData"
+  ]
+}

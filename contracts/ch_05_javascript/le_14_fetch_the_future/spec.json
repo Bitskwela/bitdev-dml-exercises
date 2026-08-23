@@ -1,0 +1,35 @@
+{
+  "permaname": "le-14-fetch-the-future",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "fetchUserData",
+    "fetchPostTitle",
+    "fetchUserAndPosts"
+  ],
+  "http": {
+    "https://jsonplaceholder.typicode.com/users/1": {
+      "id": 1,
+      "name": "Neri Gonzales",
+      "email": "neri@bitskwela.ph"
+    },
+    "https://jsonplaceholder.typicode.com/posts/1": {
+      "id": 1,
+      "userId": 1,
+      "title": "Ang Unang Hakbang"
+    },
+    "https://jsonplaceholder.typicode.com/posts?userId=1": [
+      {
+        "id": 1,
+        "userId": 1,
+        "title": "Ang Unang Hakbang"
+      },
+      {
+        "id": 2,
+        "userId": 1,
+        "title": "Pangalawang Yugto"
+      }
+    ]
+  }
+}

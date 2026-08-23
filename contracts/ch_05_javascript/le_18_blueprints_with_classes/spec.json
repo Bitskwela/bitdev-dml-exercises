@@ -1,0 +1,11 @@
+{
+  "permaname": "le-18-blueprints-with-classes",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "Product",
+    "User",
+    "Counter"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "permaname": "le-11-modern-syntax-modern-mindset",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "calculateArea",
+    "greetUser",
+    "getUserInfo",
+    "formatScores"
+  ]
+}
