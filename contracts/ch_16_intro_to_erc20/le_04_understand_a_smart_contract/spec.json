@@ -1,0 +1,19 @@
+{
+  "permaname": "erc20-understand-a-smart-contract",
+  "contract": "HelloToken",
+  "source_file": "HelloToken.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "state-variables",
+    "public-getters",
+    "pure-functions"
+  ],
+  "difficulty": "beginner",
+  "est_minutes": 15,
+  "prerequisites": [
+    "erc20-set-up-remix"
+  ]
+}

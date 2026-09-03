@@ -1,0 +1,20 @@
+{
+  "permaname": "erc20-meet-the-interface",
+  "contract": "IWorkshopCredit",
+  "source_file": "IWorkshopCredit.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "interfaces",
+    "function-signatures",
+    "events",
+    "erc20-standard"
+  ],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": [
+    "erc20-understand-a-smart-contract"
+  ]
+}

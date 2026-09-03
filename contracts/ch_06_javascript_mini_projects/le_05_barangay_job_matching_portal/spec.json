@@ -1,0 +1,12 @@
+{
+  "permaname": "le-05-barangay-job-matching-portal",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "jobs",
+    "renderJobs",
+    "filterJobs",
+    "setupJobPortal"
+  ]
+}

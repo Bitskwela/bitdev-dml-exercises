@@ -1,0 +1,21 @@
+{
+  "permaname": "erc20-understand-decimals",
+  "contract": "WorkshopCredit",
+  "source_file": "WorkshopCredit.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts@5.0.2/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "decimals",
+    "base-units",
+    "minting"
+  ],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": [
+    "erc20-create-initial-supply"
+  ]
+}

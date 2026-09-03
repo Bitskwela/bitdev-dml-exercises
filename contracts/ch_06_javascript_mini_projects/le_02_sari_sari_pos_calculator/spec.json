@@ -1,0 +1,11 @@
+{
+  "permaname": "le-02-sari-sari-pos-calculator",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "Item",
+    "Cart",
+    "setupPOS"
+  ]
+}

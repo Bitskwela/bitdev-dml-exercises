@@ -1,0 +1,22 @@
+{
+  "permaname": "erc20-import-openzeppelin",
+  "contract": "WorkshopCredit",
+  "source_file": "WorkshopCredit.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts@5.0.2/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "inheritance",
+    "imports",
+    "base-constructor",
+    "openzeppelin"
+  ],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": [
+    "erc20-meet-the-interface"
+  ]
+}

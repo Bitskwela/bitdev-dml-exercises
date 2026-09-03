@@ -1,0 +1,20 @@
+{
+  "permaname": "sq-6-nft-royalty-system",
+  "contract": "NFTWithRoyalties",
+  "source_file": "NFTWithRoyalties.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "payable",
+    "royalties",
+    "ether-transfer",
+    "ownership"
+  ],
+  "difficulty": "intermediate",
+  "est_minutes": 30,
+  "prerequisites": [
+    "sq-5-dynamic-pricing"
+  ]
+}

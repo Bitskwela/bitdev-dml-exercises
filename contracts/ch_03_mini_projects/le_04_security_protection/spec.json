@@ -1,0 +1,20 @@
+{
+  "permaname": "proj-4-barangay-aid-vault",
+  "contract": "BarangayAidVault",
+  "source_file": "BarangayAidVault.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "tx-origin",
+    "access-control",
+    "checks-effects-interactions",
+    "events"
+  ],
+  "difficulty": "advanced",
+  "est_minutes": 35,
+  "prerequisites": [
+    "proj-3-iloilo-lending-protocol"
+  ]
+}

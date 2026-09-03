@@ -1,0 +1,11 @@
+{
+  "permaname": "le-04-online-jeep-fare-calculator",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "getBaseFare",
+    "calculateFare",
+    "setupFareCalculator"
+  ]
+}

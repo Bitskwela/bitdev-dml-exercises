@@ -98,6 +98,29 @@ The server image vendors OpenZeppelin (currently v5.3.0) at that path. To use a
 new OZ path, no change is needed beyond the remapping; to bump the OZ version,
 update the `blockskwela-rs` Dockerfile.
 
+#### Version-pinned prefixes (Remix style)
+
+Lessons written against Remix often pin the version in the import path:
+
+```solidity
+import "@openzeppelin/contracts@5.0.2/token/ERC20/ERC20.sol";
+```
+
+Do **not** rewrite the answer to drop the version — a student pastes that same
+line into Remix, and the answer is the source of truth. Point the pinned prefix
+at the vendored copy instead:
+
+```json
+"allowed_imports": ["@openzeppelin/contracts@5.0.2/=@openzeppelin/contracts/"]
+```
+
+The prefix is matched literally, so the version in it is documentation; the code
+that actually compiles is whatever the image vendors. All 23 gradable ch16
+bundles do this and gate green against v5.3.0, because `ERC20`, `IERC20` and
+`Ownable` did not change across 5.x. If a pinned lesson ever goes red on version
+grounds, vendor that version alongside and remap to it — never move the shared
+copy, which chapter 1 depends on.
+
 ### `extra_sources` (fixed helper files)
 
 When the student's contract imports a **provided** file (e.g. `import "./MathLibrary.sol";`),
@@ -152,5 +175,47 @@ the affected bundles automatically — no `cargo` by hand.
 
 ## Coverage
 
-Chapter 1 (`ch_01_basic_solidity`) — all 30 exercises are gradable and pass the
-golden gate. Chapters 2–4 use the same harness and are planned follow-ons.
+**109 of the catalog's 405 exercises (27%) ship a graded bundle**, across seven
+chapters and two runtimes. Every one of them passes the golden gate: the answer
+passes its own suite and the starter fails it.
+
+| Chapter                            | Runtime      | Gradable  | Notes                                              |
+| ---------------------------------- | ------------ | --------- | -------------------------------------------------- |
+| `ch_01_basic_solidity`             | Solidity     | 30 / 30   |                                                     |
+| `ch_02_solidity_side_quests`       | Solidity     | 7 / 7     | OZ imports on le_02, le_03                          |
+| `ch_03_mini_projects`              | Solidity     | 5 / 5     | OZ imports on le_02 (test mock), le_05              |
+| `ch_04_dapps`                      | `react-jsx`  | 20 / 20   |                                                     |
+| `ch_05_javascript`                 | `javascript` | 19 / 20   | le_13 blocked — see below                           |
+| `ch_06_javascript_mini_projects`   | `javascript` | 5 / 5     | starters extracted from each `act_1.md`             |
+| `ch_16_intro_to_erc20`             | Solidity     | 23 / 25   | version-pinned OZ prefix; le_24/le_25 not gradable  |
+
+Chapter 16 is tagged `web2` in Django yet grades as Solidity: the runtime comes
+from the bundle's `spec.json`, not from the chapter category, so no backend
+change was needed.
+
+### Not gradable, and why
+
+Three exercises cannot pass a golden gate as their content stands. Each needs a
+content fix, not a grader change — and none may be worked around by editing an
+answer, which is the source of truth.
+
+- **`ch_16/le_24_test_the_complete_system`** and
+  **`ch_16/le_25_deploy_and_demonstrate`** — `act_1.sol` and `act_1.answer.sol`
+  are identical apart from comments. The activity is off-contract (write tests in
+  Remix; deploy and demonstrate), so there is no starter-to-answer delta for any
+  test to detect. Gradable only if the activity gains a code deliverable.
+- **`ch_05/le_13_divide_and_conquer`** — `act_1.answer.js` is three ES modules
+  concatenated into one file, and does not parse as a single module:
+
+  ```
+  act_1.js:20:9:  ERROR: The symbol "add" has already been declared
+  act_1.js:20:14: ERROR: The symbol "multiply" has already been declared
+  act_1.js:39:7:  ERROR: The symbol "config" has already been declared
+  ```
+
+  It re-`import`s `add`/`multiply` from `./utils/mathUtils.js` after already
+  declaring them, and ends with `export default config` — which would also make
+  `Submission` the config object rather than the module. The grader runs one
+  file, so the fix is a content edit: drop the self-import (both functions are
+  already in scope) and the `export default`. The 19 sibling lessons are
+  unaffected.

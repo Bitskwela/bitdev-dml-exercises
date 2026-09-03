@@ -1,0 +1,21 @@
+{
+  "permaname": "erc20-create-initial-supply",
+  "contract": "WorkshopCredit",
+  "source_file": "WorkshopCredit.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts@5.0.2/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "minting",
+    "total-supply",
+    "constructor"
+  ],
+  "difficulty": "beginner",
+  "est_minutes": 15,
+  "prerequisites": [
+    "erc20-add-token-metadata"
+  ]
+}

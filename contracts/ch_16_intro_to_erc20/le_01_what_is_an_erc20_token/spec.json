@@ -1,0 +1,13 @@
+{
+  "permaname": "erc20-what-is-a-token",
+  "contract": "WorkshopLedger",
+  "source_file": "WorkshopLedger.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["mappings", "state-variables", "require", "token-ledger"],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": []
+}

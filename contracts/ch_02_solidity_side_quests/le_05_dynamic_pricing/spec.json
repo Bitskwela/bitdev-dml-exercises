@@ -1,0 +1,19 @@
+{
+  "permaname": "sq-5-dynamic-pricing",
+  "contract": "DynamicPricing",
+  "source_file": "DynamicPricing.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "pure-functions",
+    "integer-arithmetic",
+    "percentages"
+  ],
+  "difficulty": "beginner",
+  "est_minutes": 20,
+  "prerequisites": [
+    "sq-4-multi-sig-wallet"
+  ]
+}

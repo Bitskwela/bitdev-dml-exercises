@@ -1,0 +1,22 @@
+{
+  "permaname": "proj-2-staking-the-future",
+  "contract": "SimpleStaker",
+  "source_file": "SimpleStaker.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "staking",
+    "time-locks",
+    "erc20-integration",
+    "structs"
+  ],
+  "difficulty": "advanced",
+  "est_minutes": 35,
+  "prerequisites": [
+    "proj-1-liquidity-lockdown"
+  ]
+}

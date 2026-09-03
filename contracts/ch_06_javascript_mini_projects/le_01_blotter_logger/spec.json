@@ -1,0 +1,12 @@
+{
+  "permaname": "le-01-blotter-logger",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "handleSubmit",
+    "renderBlotter",
+    "validateInputs",
+    "blotterLogs"
+  ]
+}

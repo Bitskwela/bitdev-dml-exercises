@@ -1,0 +1,21 @@
+{
+  "permaname": "sq-3-reentrancy-fix",
+  "contract": "PalengkeWallet",
+  "source_file": "PalengkeWallet.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "reentrancy",
+    "checks-effects-interactions",
+    "reentrancy-guard"
+  ],
+  "difficulty": "advanced",
+  "est_minutes": 30,
+  "prerequisites": [
+    "sq-2-nft-minting-logic"
+  ]
+}

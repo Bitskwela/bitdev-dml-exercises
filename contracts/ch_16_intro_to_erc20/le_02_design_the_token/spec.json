@@ -1,0 +1,13 @@
+{
+  "permaname": "erc20-design-the-token",
+  "contract": "WorkshopCreditDesign",
+  "source_file": "WorkshopCreditDesign.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": ["constants", "immutable", "constructor", "token-metadata"],
+  "difficulty": "beginner",
+  "est_minutes": 15,
+  "prerequisites": ["erc20-what-is-a-token"]
+}

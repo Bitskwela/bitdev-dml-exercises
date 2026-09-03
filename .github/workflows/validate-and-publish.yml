@@ -1,7 +1,8 @@
-name: Validate & Publish Solidity Test Bundles
+name: Validate & Publish Test Bundles
 
-# Verifies and publishes per-exercise grading bundles (spec.json + act_1.t.sol
-# [+ extra_sources]) used by the blockskwela-rs answer-validation grader.
+# Verifies and publishes per-exercise grading bundles (spec.json + the hidden
+# test [+ extra_sources]) used by the blockskwela-rs answer-validation grader.
+# Covers BOTH runtimes: Solidity (act_1.t.sol) and JavaScript/JSX (act_1.t.js).
 #
 #   - Pull request  -> golden gate ONLY (answer must pass, starter must fail). Blocking.
 #   - Push to main  -> golden gate THEN publish the bundle to R2.
@@ -18,24 +19,25 @@ name: Validate & Publish Solidity Test Bundles
 #   R2_SECRET_ACCESS_KEY  - R2 secret key
 #
 # Optional repo variables:
-#   GRADER_REPO_REF       - branch of blockskwela-rs to use (default: main)
+#   GRADER_REPO_REF       - branch of blockskwela-rs to use (default: master;
+#                           that repo has NO `main` branch)
 
 on:
   pull_request:
     paths:
       - "contracts/**/spec.json"
-      - "contracts/**/act_1.t.sol"
-      - "contracts/**/act_1.sol"
-      - "contracts/**/act_1.answer.sol"
       - "contracts/**/*.sol"
+      - "contracts/**/act_1.js"
+      - "contracts/**/act_1.t.js"
+      - "contracts/**/act_1.answer.js"
   push:
     branches: [main]
     paths:
       - "contracts/**/spec.json"
-      - "contracts/**/act_1.t.sol"
-      - "contracts/**/act_1.sol"
-      - "contracts/**/act_1.answer.sol"
       - "contracts/**/*.sol"
+      - "contracts/**/act_1.js"
+      - "contracts/**/act_1.t.js"
+      - "contracts/**/act_1.answer.js"
   workflow_dispatch:
     inputs:
       all:
@@ -61,7 +63,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/blockskwela-rs
-          ref: ${{ vars.GRADER_REPO_REF || 'main' }}
+          ref: ${{ vars.GRADER_REPO_REF || 'master' }}
           token: ${{ secrets.GRADER_REPO_TOKEN }}
           path: _grader
 

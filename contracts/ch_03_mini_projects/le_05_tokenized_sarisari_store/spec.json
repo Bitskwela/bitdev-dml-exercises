@@ -1,0 +1,22 @@
+{
+  "permaname": "proj-5-sari-sari-token",
+  "contract": "SariSariToken",
+  "source_file": "SariSariToken.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "erc20",
+    "supply-cap",
+    "modifiers",
+    "access-control"
+  ],
+  "difficulty": "intermediate",
+  "est_minutes": 30,
+  "prerequisites": [
+    "proj-4-barangay-aid-vault"
+  ]
+}

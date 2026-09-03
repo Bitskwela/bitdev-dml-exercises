@@ -1,0 +1,22 @@
+{
+  "permaname": "erc20-build-a-reward-store",
+  "contract": "RewardStore",
+  "source_file": "RewardStore.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [
+    "@openzeppelin/contracts@5.0.2/=@openzeppelin/contracts/"
+  ],
+  "concepts": [
+    "structs",
+    "arrays",
+    "events",
+    "interfaces"
+  ],
+  "difficulty": "intermediate",
+  "est_minutes": 30,
+  "prerequisites": [
+    "erc20-spend-with-transferfrom"
+  ]
+}

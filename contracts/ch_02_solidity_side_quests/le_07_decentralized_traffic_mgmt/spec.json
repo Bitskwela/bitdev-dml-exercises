@@ -1,0 +1,20 @@
+{
+  "permaname": "sq-7-decentralize-traffic-mgmt",
+  "contract": "TrafficLightManager",
+  "source_file": "TrafficLightManager.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "string-comparison",
+    "keccak256",
+    "mappings",
+    "input-validation"
+  ],
+  "difficulty": "intermediate",
+  "est_minutes": 25,
+  "prerequisites": [
+    "sq-6-nft-royalty-system"
+  ]
+}

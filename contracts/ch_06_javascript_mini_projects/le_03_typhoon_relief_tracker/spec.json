@@ -1,0 +1,13 @@
+{
+  "permaname": "le-03-typhoon-relief-tracker",
+  "runtime": "javascript",
+  "source_file": "act_1.js",
+  "entry": "default",
+  "exports": [
+    "loadReliefData",
+    "saveReliefData",
+    "updateReliefItem",
+    "resetReliefData",
+    "renderTable"
+  ]
+}

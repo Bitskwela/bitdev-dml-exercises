@@ -1,0 +1,20 @@
+{
+  "permaname": "sq-4-multi-sig-wallet",
+  "contract": "MultiSigWallet",
+  "source_file": "MultiSigWallet.sol",
+  "solc": "0.8.26",
+  "via_ir": true,
+  "optimizer": true,
+  "allowed_imports": [],
+  "concepts": [
+    "structs",
+    "access-control",
+    "approval-threshold",
+    "low-level-call"
+  ],
+  "difficulty": "advanced",
+  "est_minutes": 35,
+  "prerequisites": [
+    "sq-3-reentrancy-fix"
+  ]
+}
