@@ -30,6 +30,21 @@ on:
       - "contracts/**/act_1.js"
       - "contracts/**/act_1.t.js"
       - "contracts/**/act_1.answer.js"
+      # Tier 2 process-runtime bundles. Listed ahead of the runtime landing
+      # because this filter list has already failed silently once: it matched
+      # only `*.sol` and `spec.json`, so every JavaScript bundle change re-gated
+      # nothing. A no-op today (no chapter below carries a spec.json yet), and
+      # cheap insurance against repeating that on a larger surface.
+      - "contracts/**/act_1.cpp"
+      - "contracts/**/act_1.answer.cpp"
+      - "contracts/**/act_1.rs"
+      - "contracts/**/act_1.answer.rs"
+      - "contracts/**/act_1.py"
+      - "contracts/**/act_1.answer.py"
+      # The oracles are part of the bundle for `cases[]` runtimes, so a change
+      # to one must re-gate the lesson exactly as a source change does.
+      - "contracts/**/act_1.expected.txt"
+      - "contracts/**/act_1.input.txt"
   push:
     branches: [main]
     paths:
@@ -38,6 +53,21 @@ on:
       - "contracts/**/act_1.js"
       - "contracts/**/act_1.t.js"
       - "contracts/**/act_1.answer.js"
+      # Tier 2 process-runtime bundles. Listed ahead of the runtime landing
+      # because this filter list has already failed silently once: it matched
+      # only `*.sol` and `spec.json`, so every JavaScript bundle change re-gated
+      # nothing. A no-op today (no chapter below carries a spec.json yet), and
+      # cheap insurance against repeating that on a larger surface.
+      - "contracts/**/act_1.cpp"
+      - "contracts/**/act_1.answer.cpp"
+      - "contracts/**/act_1.rs"
+      - "contracts/**/act_1.answer.rs"
+      - "contracts/**/act_1.py"
+      - "contracts/**/act_1.answer.py"
+      # The oracles are part of the bundle for `cases[]` runtimes, so a change
+      # to one must re-gate the lesson exactly as a source change does.
+      - "contracts/**/act_1.expected.txt"
+      - "contracts/**/act_1.input.txt"
   workflow_dispatch:
     inputs:
       all:
@@ -54,6 +84,40 @@ jobs:
   validate-publish:
     runs-on: ubuntu-latest
     steps:
+      # Fail with a readable message instead of `actions/checkout`'s
+      # "Input required and not supplied: token", which says nothing about
+      # WHICH input or why. Every run of this workflow since 2026-06-15 died on
+      # that line with no configured secrets at all, and the message was opaque
+      # enough that it read as a transient CI fault rather than missing setup.
+      - name: Preflight — required secrets
+        env:
+          GRADER_REPO_TOKEN: ${{ secrets.GRADER_REPO_TOKEN }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+        run: |
+          missing=()
+          # GRADER_REPO_TOKEN is needed to check out blockskwela-rs, which is a
+          # separate private repo — the default GITHUB_TOKEN cannot reach it.
+          [ -n "$GRADER_REPO_TOKEN" ] || missing+=("GRADER_REPO_TOKEN")
+          for name in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET_NAME; do
+            [ -n "${!name}" ] || missing+=("$name")
+          done
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::This workflow cannot run. Missing repository secrets: ${missing[*]}"
+            echo
+            echo "  GRADER_REPO_TOKEN     a PAT that can read Bitskwela/blockskwela-rs."
+            echo "                        Prefer a fine-grained token scoped to that one"
+            echo "                        repo with Contents: read — nothing wider."
+            echo "  R2_*                  Cloudflare R2 credentials for the bundle bucket."
+            echo
+            echo "Set them under Settings > Secrets and variables > Actions."
+            echo "Until then, publishing is manual (cargo + local R2 credentials)."
+            exit 1
+          fi
+          echo "All required secrets are present."
+
       - name: Checkout content
         uses: actions/checkout@v4
         with:
