@@ -1,5 +1,5 @@
 ---
-title: "Modern Syntax, Modern Mindset"
+title: "Modern ES6+ Syntax"
 description: "Learn modern JavaScript ES6+ features including arrow functions, template literals, destructuring, and spread operator for cleaner code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

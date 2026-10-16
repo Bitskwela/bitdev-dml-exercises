@@ -1,5 +1,5 @@
 ---
-title: "Lesson 31: Event Handling - Making Pages Interactive"
+title: "Event Handling - Making Pages Interactive"
 description: "Learn JavaScript event handling—adding listeners, responding to user actions, and managing events."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

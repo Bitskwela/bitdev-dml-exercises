@@ -1,5 +1,5 @@
 ---
-title: "Lesson 5: Understanding Control Flow - Conditions and Branching"
+title: "Understanding Control Flow - Conditions and Branching"
 description: "Introduce decision-making with if, else, and nested conditions."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "lesson-5-understanding-control-flow"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-5-understanding-control-flow"
+slug: "understanding-control-flow"
 ---

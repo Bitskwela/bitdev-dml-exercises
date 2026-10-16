@@ -1,5 +1,5 @@
 ---
-title: "Jeepney Fare Disputes and Automated solutions"
+title: "Functions and Visibility"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

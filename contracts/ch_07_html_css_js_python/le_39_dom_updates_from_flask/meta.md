@@ -1,5 +1,5 @@
 ---
-title: "Lesson 39: DOM Updates from Flask - Dynamic Content"
+title: "DOM Updates from Flask - Dynamic Content"
 description: Learn to dynamically update page content with data from Flask backend. Display server responses, handle state management, and create responsive user interfaces.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

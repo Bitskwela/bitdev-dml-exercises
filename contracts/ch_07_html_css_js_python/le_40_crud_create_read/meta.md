@@ -1,5 +1,5 @@
 ---
-title: "Lesson 40: CRUD Operations - Create and Read"
+title: "CRUD Operations - Create and Read"
 description: Implement CREATE and READ operations in full-stack applications. Build Flask endpoints for data creation and retrieval with JavaScript frontend integration.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

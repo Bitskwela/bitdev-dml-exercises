@@ -1,5 +1,5 @@
 ---
-title: "Lesson 8: Text Formatting - Headings, Paragraphs, Lists"
+title: "Text Formatting - Headings, Paragraphs, Lists"
 description: "Master text structure with headings, paragraphs, bullet points, numbered lists, and formatting."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-8-text-formatting"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-8-text-formatting"
+slug: "text-formatting"
 ---

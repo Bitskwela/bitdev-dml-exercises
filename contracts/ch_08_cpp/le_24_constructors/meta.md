@@ -1,5 +1,5 @@
 ---
-title: "Lesson 24: Constructors and Destructors"
+title: "Constructors and Destructors"
 description: "Master constructors and destructors in C++: automatic initialization, constructor overloading, initialization lists, copy constructors, and the RAII pattern."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_24_constructors"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_24_constructors"
+slug: "constructors"
 ---

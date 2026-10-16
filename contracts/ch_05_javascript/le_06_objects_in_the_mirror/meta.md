@@ -1,5 +1,5 @@
 ---
-title: "Objects in the Mirror"
+title: "Objects"
 description: "Master JavaScript objects, properties, methods, and object-oriented programming concepts to structure and organize your code effectively."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

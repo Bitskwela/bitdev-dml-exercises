@@ -1,5 +1,5 @@
 ---
-title: "Pure and View functions"
+title: "Pure and View Functions"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Events and the Barangay Fund"
+title: "Events"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

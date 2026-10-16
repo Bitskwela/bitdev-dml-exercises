@@ -1,5 +1,5 @@
 ---
-title: "Saving Memory"
+title: "Memory Management and Performance"
 description: "Master JavaScript memory management, performance optimization, garbage collection, and efficient coding practices for scalable applications."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

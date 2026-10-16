@@ -1,5 +1,5 @@
 ---
-title: "Lesson 16: Pointers - Introduction to Memory Addresses"
+title: "Pointers - Introduction to Memory Addresses"
 description: "Master pointers in C++: memory addresses, address-of (&) and dereference (*) operators, pointer arithmetic, arrays and pointers, null pointers, and safe pointer usage."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_16_pointers"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_16_pointers"
+slug: "pointers"
 ---

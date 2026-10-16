@@ -1,5 +1,5 @@
 ---
-title: "Lesson 19: Media Queries and Responsive Breakpoints"
+title: "Media Queries and Responsive Breakpoints"
 description: "Master CSS media queries for responsive design. Learn max-width, min-width, breakpoints, mobile-first approach, orientation queries, and dark mode. Make barangay websites work on all devices."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

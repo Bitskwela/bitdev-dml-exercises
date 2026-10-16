@@ -1,5 +1,5 @@
 ---
-title: "Lesson 14: Arrays - Managing Multiple Data"
+title: "Arrays - Managing Multiple Data"
 description: "Master arrays in C++: declaration, initialization, indexing, loops, searching, and passing arrays to functions. Learn to manage collections of data efficiently."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_14_arrays"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_14_arrays"
+slug: "arrays"
 ---

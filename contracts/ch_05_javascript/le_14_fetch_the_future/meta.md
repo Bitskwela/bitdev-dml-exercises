@@ -1,5 +1,5 @@
 ---
-title: "Fetch the Future"
+title: "Fetch API, Promises, and Async/Await"
 description: "Master asynchronous JavaScript with fetch API, promises, async/await, and API integration for modern web applications."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Lesson 25: Conditional Branching (if/else)"
+title: "Conditional Branching (if/else)"
 description: "Master JavaScript conditional branching with if, else if, else, and switch statements. Learn to control program flow and make decisions in barangay web applications."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

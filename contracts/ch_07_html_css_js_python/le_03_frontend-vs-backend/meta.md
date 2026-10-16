@@ -1,5 +1,5 @@
 ---
-title: "Lesson 3: Frontend vs Backend"
+title: "Frontend vs Backend"
 description: "Learn frontend vs backend."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -18,5 +18,5 @@ permaname: "lesson-3-frontend-vs-backend"
 type: "ActivityExercise"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-3-frontend-vs-backend"
+slug: "frontend-vs-backend"
 ---

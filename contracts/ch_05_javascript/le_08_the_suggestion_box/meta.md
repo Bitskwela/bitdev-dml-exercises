@@ -1,5 +1,5 @@
 ---
-title: "The Suggestion Box"
+title: "Forms and Input Validation"
 description: "Build interactive web forms with JavaScript, learn form validation, event handling, and user input processing for better user experiences."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

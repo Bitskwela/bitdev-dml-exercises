@@ -1,5 +1,5 @@
 ---
-title: "Lesson 11: Parameters and Return Values"
+title: "Parameters and Return Values"
 description: "Master pass by value vs pass by reference in C++. Learn const references, default parameters, arrays as parameters, and how to return multiple values efficiently."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_11_parameters_return_values"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_11_parameters_return_values"
+slug: "parameters-return-values"
 ---

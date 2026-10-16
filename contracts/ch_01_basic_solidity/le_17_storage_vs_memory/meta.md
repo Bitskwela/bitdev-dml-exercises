@@ -1,5 +1,5 @@
 ---
-title: "Storage vs. Memory – Unmasking Hackana’s Data Trap"
+title: "Storage vs. Memory"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

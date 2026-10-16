@@ -1,5 +1,5 @@
 ---
-title: "Loops of Liberation"
+title: "Loops"
 description: "Learn how to harness the power of loops in JavaScript to automate repetitive tasks and enhance your coding efficiency."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

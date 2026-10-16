@@ -1,5 +1,5 @@
 ---
-title: "The Code Awakening"
+title: "Variables, Data Types, and console.log"
 description: "Introduction to JavaScript fundamentals including variables, data types, and console.log for beginners starting their programming journey."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

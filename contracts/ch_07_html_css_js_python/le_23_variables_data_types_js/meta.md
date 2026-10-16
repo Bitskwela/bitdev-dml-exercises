@@ -1,5 +1,5 @@
 ---
-title: "Lesson 23: Variables and Data Types in JavaScript"
+title: "Variables and Data Types in JavaScript"
 description: "Learn JavaScript fundamentals: variables (let, const), data types (string, number, boolean, null, undefined), typeof operator, type conversion, and template literals. Start programming logic for barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

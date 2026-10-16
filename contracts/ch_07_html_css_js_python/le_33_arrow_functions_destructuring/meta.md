@@ -1,5 +1,5 @@
 ---
-title: "Lesson 33: Arrow Functions, Destructuring, and Spread - Modern JavaScript Syntax"
+title: "Arrow Functions, Destructuring, and Spread - Modern JavaScript Syntax"
 description: Master modern ES6+ JavaScript features including arrow functions, object/array destructuring, and spread/rest operators for cleaner, more expressive code.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

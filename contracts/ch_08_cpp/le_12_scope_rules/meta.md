@@ -1,5 +1,5 @@
 ---
-title: "Lesson 12: Scope Rules and the Lifetime of Variables"
+title: "Scope Rules and the Lifetime of Variables"
 description: "Understand local, global, and static scope in C++. Learn variable lifetime, shadowing, block scope, and best practices for managing variable visibility."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_12_scope_rules"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_12_scope_rules"
+slug: "scope-rules"
 ---

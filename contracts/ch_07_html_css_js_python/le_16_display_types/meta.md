@@ -1,5 +1,5 @@
 ---
-title: "Lesson 16: CSS Display Types"
+title: "CSS Display Types"
 description: "Master CSS display property: block, inline, inline-block, and none. Learn when to use each display type, control element layout behavior, and create navigation menus and card layouts."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

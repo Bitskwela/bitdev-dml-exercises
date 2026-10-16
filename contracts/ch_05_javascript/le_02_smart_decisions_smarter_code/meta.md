@@ -1,5 +1,5 @@
 ---
-title: "Smart Decisions, Smarter Code"
+title: "Conditionals and Logical Operators"
 description: "Learn JavaScript conditional statements, comparison operators, and logical operators to make intelligent decisions in your code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

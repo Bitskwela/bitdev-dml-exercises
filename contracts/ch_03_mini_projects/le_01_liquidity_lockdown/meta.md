@@ -1,5 +1,5 @@
 ---
-title: "Liquidity Lockdown: Neri vs. the Phantom Pool"
+title: "Liquidity Locker"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

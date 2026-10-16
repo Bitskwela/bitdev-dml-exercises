@@ -1,5 +1,5 @@
 ---
-title: "Lesson 20: Nested Structs and Complex Data Structures"
+title: "Nested Structs and Complex Data Structures"
 description: "Master nested structs in C++: building complex data structures, accessing nested members, arrays in structs, and best practices for organizing hierarchical data."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_20_nested_structs"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_20_nested_structs"
+slug: "nested-structs"
 ---

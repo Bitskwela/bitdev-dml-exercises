@@ -1,5 +1,5 @@
 ---
-title: "Lesson 10: Tables, Forms, and Input Fields"
+title: "Tables, Forms, and Input Fields"
 description: "Master data tables and interactive forms—inputs, validation, radio, checkbox, select, textarea."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-10-tables-forms-inputs"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-10-tables-forms-inputs"
+slug: "tables-forms-inputs"
 ---

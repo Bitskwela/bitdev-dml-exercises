@@ -1,5 +1,5 @@
 ---
-title: "Lesson 18: Dynamic Memory Allocation with new and delete"
+title: "Dynamic Memory Allocation with new and delete"
 description: "Master dynamic memory in C++: heap vs stack, new/delete operators, memory leaks, dangling pointers, dynamic arrays, and best practices for manual memory management."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_18_dynamic_memory"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_18_dynamic_memory"
+slug: "dynamic-memory"
 ---

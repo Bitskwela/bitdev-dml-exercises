@@ -1,5 +1,5 @@
 ---
-title: "Divide and Conquer"
+title: "Modules: Import and Export"
 description: "Learn modular JavaScript programming with modules, imports, exports, and code organization strategies for maintainable applications."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

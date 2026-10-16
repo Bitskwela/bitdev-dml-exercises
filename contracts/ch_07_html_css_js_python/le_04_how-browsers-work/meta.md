@@ -1,5 +1,5 @@
 ---
-title: "Lesson 4: How Browsers Interpret Code"
+title: "How Browsers Interpret Code"
 description: "Learn how browsers interpret code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -18,5 +18,5 @@ type: "ActivityExercise"
 permaname: "lesson-4-how-browsers-work"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-4-how-browsers-work"
+slug: "how-browsers-work"
 ---

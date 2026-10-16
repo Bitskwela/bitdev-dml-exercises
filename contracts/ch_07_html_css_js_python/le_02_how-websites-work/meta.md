@@ -1,5 +1,5 @@
 ---
-title: "Lesson 2: How Websites Work"
+title: "How Websites Work"
 description: "Learn how websites work."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-2-how-websites-work"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-2-how-websites-work"
+slug: "how-websites-work"
 ---

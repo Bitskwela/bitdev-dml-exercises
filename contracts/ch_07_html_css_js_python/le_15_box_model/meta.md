@@ -1,5 +1,5 @@
 ---
-title: "Lesson 15: The CSS Box Model"
+title: "The CSS Box Model"
 description: "Master the CSS Box Model: content, padding, border, and margin. Learn box-sizing, border-radius, spacing patterns, and how to create properly spaced layouts for barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

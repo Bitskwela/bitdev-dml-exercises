@@ -1,5 +1,5 @@
 ---
-title: "Lesson 43: Authentication with JS + Flask"
+title: "Authentication with JS + Flask"
 description: "Learn to implement secure user authentication with password hashing, session management, and protected routes using JavaScript and Flask."
 
 # This is the date the document was last updated. Format: YYYY-MM-DD.
@@ -30,5 +30,5 @@ type: "ActivityExercise"
 permaname: "le_43_authentication_js_flask"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_43_authentication_js_flask"
+slug: "authentication-js-flask"
 ---

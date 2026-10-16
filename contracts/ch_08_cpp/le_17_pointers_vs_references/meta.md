@@ -1,5 +1,5 @@
 ---
-title: "Lesson 17: Pointers vs References - When to Use Each"
+title: "Pointers vs References - When to Use Each"
 description: "Understand the differences between pointers and references in C++. Learn when to use each, their syntax differences, and best practices for clean, safe code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_17_pointers_vs_references"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_17_pointers_vs_references"
+slug: "pointers-vs-references"
 ---

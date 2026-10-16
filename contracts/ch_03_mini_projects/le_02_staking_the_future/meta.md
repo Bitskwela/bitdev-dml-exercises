@@ -1,5 +1,5 @@
 ---
-title: "Staking the Future – Neri and the Farmers of Yield"
+title: "Token Staking Contract"
 description: "Staking the Future – Neri and the Farmers of Yield"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

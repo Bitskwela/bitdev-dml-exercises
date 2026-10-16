@@ -1,5 +1,5 @@
 ---
-title: "Dominate the Web"
+title: "DOM Manipulation"
 description: "Learn DOM manipulation with JavaScript including querySelector, innerText, and events to create dynamic and interactive web pages."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

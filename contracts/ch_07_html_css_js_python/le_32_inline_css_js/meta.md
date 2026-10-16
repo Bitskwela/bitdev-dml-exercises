@@ -1,5 +1,5 @@
 ---
-title: "Lesson 32: Inline CSS with JavaScript - Dynamic Styling"
+title: "Inline CSS with JavaScript - Dynamic Styling"
 description: "Learn how to dynamically modify element styles using JavaScript's style property and classList methods. Create responsive, interactive interfaces with proper CSS management."
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-16"

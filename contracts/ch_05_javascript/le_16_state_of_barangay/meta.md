@@ -1,5 +1,5 @@
 ---
-title: "State of Barangay"
+title: "State Management"
 description: "Learn JavaScript state management patterns, data persistence, and application state handling for complex interactive applications."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

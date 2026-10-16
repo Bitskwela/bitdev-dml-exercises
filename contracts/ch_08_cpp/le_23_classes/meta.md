@@ -1,5 +1,5 @@
 ---
-title: "Lesson 23: Classes and Objects - The Heart of OOP"
+title: "Classes and Objects - The Heart of OOP"
 description: "Introduction to Object-Oriented Programming in C++: classes, objects, access specifiers, methods, encapsulation, and the this pointer."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_23_classes"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_23_classes"
+slug: "classes"
 ---

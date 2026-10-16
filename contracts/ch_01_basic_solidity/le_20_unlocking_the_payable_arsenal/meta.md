@@ -1,5 +1,5 @@
 ---
-title: "Unlocking the Payable Arsenal"
+title: "Payable Functions"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

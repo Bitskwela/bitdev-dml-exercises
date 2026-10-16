@@ -1,5 +1,5 @@
 ---
-title: "Lesson 20: Responsive CSS Units"
+title: "Responsive CSS Units"
 description: "Master responsive CSS units: rem, em, %, vh, vw, vmin, vmax. Learn clamp() for fluid typography. Create flexible layouts that scale perfectly across devices."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

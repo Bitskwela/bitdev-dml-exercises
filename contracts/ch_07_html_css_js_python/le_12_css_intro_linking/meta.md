@@ -1,5 +1,5 @@
 ---
-title: "Lesson 12: What is CSS and How to Link It"
+title: "What is CSS and How to Link It"
 description: "Introduction to CSS—inline, internal, external methods, linking stylesheets, and best practices."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-12-css-intro-linking"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-12-css-intro-linking"
+slug: "css-intro-linking"
 ---

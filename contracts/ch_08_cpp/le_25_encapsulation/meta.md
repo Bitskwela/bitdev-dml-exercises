@@ -1,5 +1,5 @@
 ---
-title: "Lesson 25: Encapsulation - Data Hiding Done Right"
+title: "Encapsulation - Data Hiding Done Right"
 description: "Master encapsulation in C++: data hiding, access control, getters/setters, const methods, validation, and information hiding for secure maintainable code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_25_encapsulation"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_25_encapsulation"
+slug: "encapsulation"
 ---

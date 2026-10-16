@@ -1,5 +1,5 @@
 ---
-title: "Drag It, Drop It, Own It"
+title: "Drag and Drop"
 description: "Master advanced JavaScript interactions with drag and drop functionality, event handling, and interactive user interface development."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

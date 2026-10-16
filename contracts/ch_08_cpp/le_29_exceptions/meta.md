@@ -1,5 +1,5 @@
 ---
-title: "Lesson 29: Exception Handling - Dealing with Errors Gracefully"
+title: "Exception Handling - Dealing with Errors Gracefully"
 description: "Master exception handling in C++: try-catch-throw, standard exceptions, custom exception classes, RAII pattern, and building robust error-safe code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_29_exceptions"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_29_exceptions"
+slug: "exceptions"
 ---

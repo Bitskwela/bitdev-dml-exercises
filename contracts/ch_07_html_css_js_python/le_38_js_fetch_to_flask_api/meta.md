@@ -1,5 +1,5 @@
 ---
-title: "Lesson 38: JavaScript Fetch to Flask API - Full-Stack Communication"
+title: "JavaScript Fetch to Flask API - Full-Stack Communication"
 description: Master sending HTTP requests from JavaScript to Flask backend. Learn GET, POST patterns, error handling, and building interactive full-stack features.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

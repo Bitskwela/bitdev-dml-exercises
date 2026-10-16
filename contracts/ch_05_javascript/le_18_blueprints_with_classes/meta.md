@@ -1,5 +1,5 @@
 ---
-title: "Blueprints with Classes"
+title: "Classes and Inheritance"
 description: "Learn JavaScript classes, constructors, inheritance, and object-oriented programming principles to create robust and scalable code architecture."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

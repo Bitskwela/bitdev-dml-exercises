@@ -1,5 +1,5 @@
 ---
-title: "Lesson 24: Operators and Expressions in JavaScript"
+title: "Operators and Expressions in JavaScript"
 description: "Master JavaScript operators: arithmetic (+, -, *, /, %, **), comparison (===, !==, >, <), logical (&&, ||, !), assignment (+=, -=), and ternary operator. Build barangay fee calculators and eligibility checkers."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

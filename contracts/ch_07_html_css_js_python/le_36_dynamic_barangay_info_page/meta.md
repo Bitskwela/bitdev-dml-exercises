@@ -1,5 +1,5 @@
 ---
-title: "Lesson 36: Mini Project - Dynamic Barangay Information Page"
+title: "Mini Project - Dynamic Barangay Information Page"
 description: Build a complete dynamic web application combining DOM manipulation, event handling, Fetch API, search/filter functionality, and responsive design in a real-world barangay services project.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

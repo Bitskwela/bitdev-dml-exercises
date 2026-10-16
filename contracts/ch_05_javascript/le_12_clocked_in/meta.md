@@ -1,5 +1,5 @@
 ---
-title: "Clocked In"
+title: "Timers and the Date Object"
 description: "Master JavaScript timing functions including setTimeout, setInterval, and Date objects to handle time-based operations and scheduling."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

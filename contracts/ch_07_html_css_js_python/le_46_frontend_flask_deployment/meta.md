@@ -1,5 +1,5 @@
 ---
-title: "Lesson 46: Frontend JS + Flask Deployment (Render/Vercel)"
+title: "Frontend JS + Flask Deployment (Render/Vercel)"
 description: "Learn to deploy full-stack web applications to production using Render for Flask backend and Vercel for frontend, including custom domains, HTTPS, and monitoring."
 
 # This is the date the document was last updated. Format: YYYY-11-27.
@@ -31,5 +31,5 @@ type: "ActivityExercise"
 permaname: "le_46_frontend_flask_deployment"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_46_frontend_flask_deployment"
+slug: "frontend-flask-deployment"
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Neri and the Assertive Checkpoint"
+title: "assert and revert"
 description: "Neri and the Assertive Checkpoint"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Lesson 26: Looping in JavaScript"
+title: "Looping in JavaScript"
 description: "Learn JavaScript loops: for, while, do-while. Master loop control with break and continue. Create efficient code for repetitive tasks in barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

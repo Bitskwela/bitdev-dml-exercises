@@ -1,5 +1,5 @@
 ---
-title: "Lesson 2: Declaring Data - Variables and Types"
+title: "Declaring Data - Variables and Types"
 description: "Explore how to store different types of data in variables using int, float, string, and more."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "lesson-2-declaring-data"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-2-declaring-data"
+slug: "declaring-data"
 ---

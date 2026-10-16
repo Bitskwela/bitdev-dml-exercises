@@ -1,5 +1,5 @@
 ---
-title: "Lesson 17: CSS Positioning"
+title: "CSS Positioning"
 description: "Master CSS positioning: static, relative, absolute, fixed, and sticky. Learn z-index, create fixed headers, floating badges, sticky navigation, and centered modals for barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

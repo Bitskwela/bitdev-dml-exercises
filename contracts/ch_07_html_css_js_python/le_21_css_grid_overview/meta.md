@@ -1,5 +1,5 @@
 ---
-title: "Lesson 21: CSS Grid Overview"
+title: "CSS Grid Overview"
 description: "Learn CSS Grid layout system. Master grid-template-columns, grid-template-rows, fr units, gap, spanning, auto-fit, minmax. Create responsive 2D layouts for barangay websites."
 
 # #This is the date the document was last updated.  Format: YYYY-MM-DD.

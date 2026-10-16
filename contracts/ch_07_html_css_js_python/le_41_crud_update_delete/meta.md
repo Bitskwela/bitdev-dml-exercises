@@ -1,5 +1,5 @@
 ---
-title: "Lesson 41: CRUD Operations - Update and Delete"
+title: "CRUD Operations - Update and Delete"
 description: Complete CRUD operations with UPDATE and DELETE. Build Flask endpoints for data modification and removal with safe JavaScript frontend integration.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Building from Scratch"
+title: "Building a Project from Scratch"
 description: "Create complete JavaScript projects from ground up, integrating multiple concepts and building real-world applications with proper architecture."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

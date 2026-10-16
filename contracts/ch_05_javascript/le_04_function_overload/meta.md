@@ -1,5 +1,5 @@
 ---
-title: "Function Overload"
+title: "Functions"
 description: "Master JavaScript functions including declarations, parameters, return values, and function overloading concepts to write reusable and efficient code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

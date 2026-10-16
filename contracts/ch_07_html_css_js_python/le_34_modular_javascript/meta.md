@@ -1,5 +1,5 @@
 ---
-title: "Lesson 34: Modular JavaScript - Organizing Code with Import/Export"
+title: "Modular JavaScript - Organizing Code with Import/Export"
 description: Learn how to split JavaScript code into reusable modules using ES6 import/export syntax. Organize code by functionality for better maintainability and collaboration.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Lesson 1: What is the Internet?"
+title: "What is the Internet?"
 description: "Learn what is the internet?."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-1-what-is-the-internet"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-1-what-is-the-internet"
+slug: "what-is-the-internet"
 ---

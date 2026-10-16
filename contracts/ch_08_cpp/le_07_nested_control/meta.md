@@ -1,5 +1,5 @@
 ---
-title: "Lesson 7: Nested Control - Ifs Inside Loops and Vice Versa"
+title: "Nested Control - Ifs Inside Loops and Vice Versa"
 description: "Master nested control structures in C++. Learn to combine loops with conditions, create nested loops for multi-dimensional data, and build complex logic flows with practical barangay examples."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_07_nested_control"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_07_nested_control"
+slug: "nested-control"
 ---

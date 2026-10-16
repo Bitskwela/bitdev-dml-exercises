@@ -1,5 +1,5 @@
 ---
-title: "Lesson 27: Functions and Scoping"
+title: "Functions and Scoping"
 description: "Understand JavaScript functions—declarations, expressions, parameters, return values, and scope."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

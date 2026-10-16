@@ -1,5 +1,5 @@
 ---
-title: "Lesson 6: Structure of an HTML Document"
+title: "Structure of an HTML Document"
 description: "Learn the anatomy of HTML documents—DOCTYPE, head, body, and metadata."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-6-html-document-structure"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-6-html-document-structure"
+slug: "html-document-structure"
 ---

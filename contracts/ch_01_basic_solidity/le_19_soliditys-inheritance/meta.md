@@ -1,5 +1,5 @@
 ---
-title: "Inheritance – Building on Solidity’s Foundations"
+title: "Inheritance"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

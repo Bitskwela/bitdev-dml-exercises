@@ -1,5 +1,5 @@
 ---
-title: "Lesson 7: Tags, Elements, and Attributes"
+title: "Tags, Elements, and Attributes"
 description: "Master HTML building blocks—tags, elements, attributes, nesting, and semantic markup."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-7-tags-elements-attributes"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-7-tags-elements-attributes"
+slug: "tags-elements-attributes"
 ---

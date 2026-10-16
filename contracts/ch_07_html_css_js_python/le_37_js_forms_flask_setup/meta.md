@@ -1,5 +1,5 @@
 ---
-title: "Lesson 37: JavaScript Forms + Flask Setup - Connecting Front and Back"
+title: "JavaScript Forms + Flask Setup - Connecting Front and Back"
 description: Learn Flask basics for backend development. Set up routes, handle form submissions, return JSON responses, and connect JavaScript frontends to Python Flask servers.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

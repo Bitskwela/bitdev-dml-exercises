@@ -1,5 +1,5 @@
 ---
-title: "Lesson 9: Links and Images"
+title: "Links and Images"
 description: "Master hyperlinks, navigation, image embedding, and accessibility with alt attributes."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-9-links-and-images"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-9-links-and-images"
+slug: "links-and-images"
 ---

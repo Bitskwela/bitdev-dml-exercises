@@ -1,5 +1,5 @@
 ---
-title: "Lesson 22: Mobile-First Design Strategy"
+title: "Mobile-First Design Strategy"
 description: "Master mobile-first design philosophy. Learn progressive enhancement, min-width media queries, content prioritization, touch targets, and performance optimization for mobile-dominant web."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

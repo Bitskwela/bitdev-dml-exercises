@@ -1,5 +1,5 @@
 ---
-title: "Lesson 6: Loops 101 - Repeating with For, While, and Do-While"
+title: "Loops 101 - Repeating with For, While, and Do-While"
 description: "Master the three types of loops in C++ (for, while, do-while) and learn when to use each one. Includes loop control statements (break, continue) with practical barangay examples."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "cpp-lesson-06-loops-101"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "cpp-lesson-06-loops-101"
+slug: "loops-101"
 ---

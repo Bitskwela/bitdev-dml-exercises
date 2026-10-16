@@ -1,5 +1,5 @@
 ---
-title: "Iloilo Lending Protocol"
+title: "Barangay Lending Protocol"
 description: "Iloilo Lending Protocol"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

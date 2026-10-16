@@ -1,5 +1,5 @@
 ---
-title: "Lesson 28: Arrays and Objects"
+title: "Arrays and Objects"
 description: "Explore JavaScript arrays and objects—creation, manipulation, methods, and JSON."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

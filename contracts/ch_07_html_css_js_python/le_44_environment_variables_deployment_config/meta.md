@@ -1,5 +1,5 @@
 ---
-title: "Lesson 44: Environment Variables + Deployment Config"
+title: "Environment Variables + Deployment Config"
 description: "Learn to secure your application with environment variables, configuration management, and deployment best practices for production readiness."
 
 # This is the date the document was last updated. Format: YYYY-MM-DD.
@@ -30,5 +30,5 @@ type: "ActivityExercise"
 permaname: "le_44_environment_variables_deployment_config"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_44_environment_variables_deployment_config"
+slug: "environment-variables-deployment-config"
 ---

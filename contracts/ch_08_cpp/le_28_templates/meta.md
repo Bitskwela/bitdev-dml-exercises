@@ -1,5 +1,5 @@
 ---
-title: "Lesson 28: Templates - Generic Programming"
+title: "Templates - Generic Programming"
 description: "Master templates in C++: function templates, class templates, template specialization, non-type parameters, and generic programming patterns."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_28_templates"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_28_templates"
+slug: "templates"
 ---

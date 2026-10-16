@@ -1,5 +1,5 @@
 ---
-title: "Array of Possibilities"
+title: "Arrays and Array Methods"
 description: "Explore JavaScript arrays, learn array methods, manipulation techniques, and unlock the potential of working with collections of data."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

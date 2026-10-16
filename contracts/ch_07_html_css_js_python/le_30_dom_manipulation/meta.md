@@ -1,5 +1,5 @@
 ---
-title: "Lesson 30: DOM Manipulation - Controlling the Web Page"
+title: "DOM Manipulation - Controlling the Web Page"
 description: "Learn to manipulate the Document Object Model (DOM) using JavaScript—selecting, modifying, and creating HTML elements dynamically."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

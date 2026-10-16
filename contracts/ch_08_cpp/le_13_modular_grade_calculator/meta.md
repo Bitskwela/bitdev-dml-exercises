@@ -1,5 +1,5 @@
 ---
-title: "Lesson 13: Practical Exercise - Modular Grade Calculator"
+title: "Practical Exercise - Modular Grade Calculator"
 description: "Build a complete grade calculator using functions, parameters, return values, scope, and static variables. Apply modular programming principles to create clean, maintainable code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_13_modular_grade_calculator"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_13_modular_grade_calculator"
+slug: "modular-grade-calculator"
 ---

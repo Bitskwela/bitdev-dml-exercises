@@ -1,5 +1,5 @@
 ---
-title: "Lesson 31: Final Challenge - Complete Barangay CRUD System"
+title: "Final Challenge - Complete Barangay CRUD System"
 description: "Build a complete CRUD system integrating all C++ concepts: OOP, templates, exceptions, STL, file I/O, and comprehensive barangay management."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_31_final_crud"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_31_final_crud"
+slug: "final-crud"
 ---

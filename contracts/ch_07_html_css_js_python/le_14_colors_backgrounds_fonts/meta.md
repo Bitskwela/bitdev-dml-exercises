@@ -1,5 +1,5 @@
 ---
-title: "Lesson 14: Colors, Backgrounds, and Fonts in CSS"
+title: "Colors, Backgrounds, and Fonts in CSS"
 description: "Master CSS colors (hex, RGB, RGBA), background properties (images, size, position), and typography (font families, Google Fonts, text styling) to create beautiful barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Lesson 27: Polymorphism - The Power of Virtual Functions"
+title: "Polymorphism - The Power of Virtual Functions"
 description: "Master polymorphism in C++: virtual functions, pure virtual functions, abstract classes, dynamic binding, virtual destructors, and the override keyword."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_27_polymorphism"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_27_polymorphism"
+slug: "polymorphism"
 ---

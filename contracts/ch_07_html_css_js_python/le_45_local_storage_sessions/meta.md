@@ -1,5 +1,5 @@
 ---
-title: "Lesson 45: Using Local Storage and Sessions"
+title: "Using Local Storage and Sessions"
 description: "Master client-side data persistence with localStorage and sessionStorage for better user experience, including theme preferences, form auto-save, and user settings."
 
 # This is the date the document was last updated. Format: YYYY-MM-DD.
@@ -29,5 +29,5 @@ type: "ActivityExercise"
 permaname: "le_45_local_storage_sessions"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_45_local_storage_sessions"
+slug: "local-storage-sessions"
 ---

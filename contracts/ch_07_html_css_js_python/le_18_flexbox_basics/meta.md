@@ -1,5 +1,5 @@
 ---
-title: "Lesson 18: Flexbox Basics"
+title: "Flexbox Basics"
 description: "Master CSS Flexbox: flex container, flex-direction, justify-content, align-items, gap, and flex-wrap. Learn modern one-dimensional layouts for navigation, cards, and responsive barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

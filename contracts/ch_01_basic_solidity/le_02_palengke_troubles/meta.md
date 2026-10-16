@@ -1,5 +1,5 @@
 ---
-title: "Palengke troubles and immutable data"
+title: "Data Types and Immutable Data"
 description: "A short description of this document."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

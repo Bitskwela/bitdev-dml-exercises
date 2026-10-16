@@ -1,5 +1,5 @@
 ---
-title: "Map, Filter, Rise"
+title: "Map, Filter, and Reduce"
 description: "Explore advanced JavaScript array methods including map, filter, and reduce to transform and manipulate data efficiently with functional programming."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

@@ -1,5 +1,5 @@
 ---
-title: "Lesson 29: Logic Mini Project - Barangay Service Portal"
+title: "Logic Mini Project - Barangay Service Portal"
 description: "Build a JavaScript-powered Barangay Service Portal to manage resident data, validate inputs, and display information dynamically."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

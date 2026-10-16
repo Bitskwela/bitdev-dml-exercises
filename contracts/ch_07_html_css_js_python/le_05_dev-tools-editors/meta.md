@@ -1,5 +1,5 @@
 ---
-title: "Lesson 5: Developer Tools and Editors"
+title: "Developer Tools and Editors"
 description: "Learn developer tools and editors."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -18,5 +18,5 @@ type: "ActivityExercise"
 permaname: "lesson-5-dev-tools-editors"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-5-dev-tools-editors"
+slug: "dev-tools-editors"
 ---

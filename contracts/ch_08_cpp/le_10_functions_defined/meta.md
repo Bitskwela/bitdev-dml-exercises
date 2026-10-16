@@ -1,5 +1,5 @@
 ---
-title: "Lesson 10: Functions Defined - Breaking Down Problems"
+title: "Functions Defined - Breaking Down Problems"
 description: "Learn to organize code with functions in C++. Master function syntax, parameters, return values, forward declarations, function overloading, and best practices for modular programming."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_10_functions_defined"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_10_functions_defined"
+slug: "functions-defined"
 ---

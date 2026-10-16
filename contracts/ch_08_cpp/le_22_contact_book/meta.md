@@ -1,5 +1,5 @@
 ---
-title: "Lesson 22: Mini Project - Contact Book System"
+title: "Mini Project - Contact Book System"
 description: "Build a complete contact book system combining structs, enums, arrays, and functions. Learn real-world application development with CRUD operations."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -17,5 +17,5 @@ type: "ActivityExercise"
 permaname: "le_22_contact_book"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "le_22_contact_book"
+slug: "contact-book"
 ---

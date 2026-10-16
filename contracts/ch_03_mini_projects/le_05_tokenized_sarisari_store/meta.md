@@ -1,5 +1,5 @@
 ---
-title: "SariSari Token — Tokenizing the Barangay Store Economy"
+title: "Sari-Sari Store ERC20 Token"
 description: "SariSari Token — Tokenizing the Barangay Store Economy"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

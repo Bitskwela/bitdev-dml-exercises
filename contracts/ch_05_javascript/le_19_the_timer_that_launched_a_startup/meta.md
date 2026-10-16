@@ -1,5 +1,5 @@
 ---
-title: "The Timer That Launched a Startup"
+title: "Building a Timer App"
 description: "Build real-world timer applications with JavaScript, exploring intervals, timeouts, and time-based functionality for business applications."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

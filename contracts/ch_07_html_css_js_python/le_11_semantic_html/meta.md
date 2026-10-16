@@ -1,5 +1,5 @@
 ---
-title: "Lesson 11: Semantic HTML"
+title: "Semantic HTML"
 description: "Master meaningful HTML5 semantic tags—header, nav, main, article, section, aside, footer for better SEO and accessibility."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
@@ -19,5 +19,5 @@ type: "ActivityExercise"
 permaname: "lesson-11-semantic-html"
 
 # Can be the same as permaname but can be changed if needed.
-slug: "lesson-11-semantic-html"
+slug: "semantic-html"
 ---

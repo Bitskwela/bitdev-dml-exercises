@@ -1,5 +1,5 @@
 ---
-title: "Lesson 35: JSON, APIs, and Fetch - Getting Data from Servers"
+title: "JSON, APIs, and Fetch - Getting Data from Servers"
 description: Learn how to work with JSON data, consume APIs, and make HTTP requests using the Fetch API with async/await for modern data-driven web applications.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

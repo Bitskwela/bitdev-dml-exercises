@@ -1,5 +1,5 @@
 ---
-title: "Lesson 42: Final Project - Barangay Complaint System"
+title: "Final Project - Barangay Complaint System"
 description: Build a complete full-stack Barangay Complaint System with all CRUD operations, form validation, responsive design, and production-ready patterns.
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

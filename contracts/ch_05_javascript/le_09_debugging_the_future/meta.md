@@ -1,5 +1,5 @@
 ---
-title: "Debugging the Future"
+title: "Debugging and Error Handling"
 description: "Master JavaScript debugging techniques, error handling, console methods, and troubleshooting strategies to write robust and reliable code."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

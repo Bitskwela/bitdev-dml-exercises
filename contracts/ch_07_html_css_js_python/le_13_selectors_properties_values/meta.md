@@ -1,5 +1,5 @@
 ---
-title: "Lesson 13: CSS Selectors, Properties, and Values"
+title: "CSS Selectors, Properties, and Values"
 description: "Learn how to target HTML elements using CSS selectors (element, class, ID, descendant) and apply properties with values. Master specificity and create styled barangay websites."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.

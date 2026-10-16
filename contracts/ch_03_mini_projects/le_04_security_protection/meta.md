@@ -1,5 +1,5 @@
 ---
-title: "Barangay Aid Vault – Protect Against Common Solidity Vulnerabilities"
+title: "Securing a Contract Against Common Vulnerabilities"
 description: "Barangay Aid Vault – Protect Against Common Solidity Vulnerabilities"
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
