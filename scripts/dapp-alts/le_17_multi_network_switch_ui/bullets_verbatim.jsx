@@ -1,0 +1,84 @@
+// NetworkStats.js - Starter Code
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+
+const ABI = ["function getChainId() view returns (uint256)"];
+const RPC = process.env.REACT_APP_RPC_URL;
+const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
+
+// Live networks only: Goerli (5) and Mumbai (80001) were shut down. Polygon's
+// gas token is POL now, not MATIC.
+const NAMES = {
+  1: "Ethereum Mainnet",
+  11155111: "Sepolia",
+  560048: "Hoodi",
+  137: "Polygon",
+  80002: "Polygon Amoy",
+};
+
+export default function NetworkStats() {
+  const [chainId, setChainId] = useState(null);
+  const [chainName, setChainName] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let provider, contract;
+
+    async function loadChain() {
+      try {
+        // Task 1: Create provider based on wallet availability
+        if (window.ethereum) {
+          provider = new ethers.BrowserProvider(window.ethereum);
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+        } else {
+          provider = new ethers.JsonRpcProvider(RPC);
+        }
+
+        // Task 2: Fetch chain ID and map to friendly name
+        contract = new ethers.Contract(CONTRACT, ABI, provider);
+        const idBN = await contract.getChainId();
+        const id = Number(idBN);
+        setChainId(id);
+        setChainName(NAMES[id] || "Unknown");
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+
+    // Task 3: Define handler for chainChanged event
+    function handleChange(chainHex) {
+      const id = parseInt(chainHex, 16);
+      setChainId(id);
+      setChainName(NAMES[id] || "Unknown");
+    }
+
+    loadChain();
+
+    // Subscribe to chainChanged event
+    if (window.ethereum) {
+      window.ethereum.on("chainChanged", handleChange);
+    }
+
+    // Cleanup listener on unmount
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.removeListener("chainChanged", handleChange);
+      }
+    };
+  }, []);
+
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (chainId === null) return <p>Detecting network…</p>;
+
+  return (
+    <div>
+      <h3>Current Network</h3>
+      <p>
+        Chain ID: <strong>{chainId}</strong>
+      </p>
+      <p>
+        Chain Name: <strong>{chainName}</strong>
+      </p>
+    </div>
+  );
+}

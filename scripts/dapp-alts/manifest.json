@@ -1,0 +1,582 @@
+{
+  "alts": [
+    {
+      "lesson": "le_01_connect_my_metamask",
+      "file": "altA_disconnect.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: handler + .then, adds a Disconnect button once connected."
+    },
+    {
+      "lesson": "le_01_connect_my_metamask",
+      "file": "altB_eagerconnect.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: restores a prior authorisation with eth_accounts on mount, else offers Connect (fix 7)."
+    },
+    {
+      "lesson": "le_01_connect_my_metamask",
+      "file": "altC_wording.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: task logic exactly, own no-wallet copy."
+    },
+    {
+      "lesson": "le_01_connect_my_metamask",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_01_connect_my_metamask",
+      "file": "control_eth_accounts.jsx",
+      "expect": "fail",
+      "reason": "Wrong: calls eth_accounts on Connect; a wallet that never authorised the site returns [] (guards fix 7)."
+    },
+    {
+      "lesson": "le_02_read_smart_contract_data",
+      "file": "altA_ownlabel.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: memoised contract, .then chain.",
+      "known_failing": "Test clicks the exact label 'Get Token URI'; alt's button reads 'Look up token'."
+    },
+    {
+      "lesson": "le_02_read_smart_contract_data",
+      "file": "altB_separate.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: provider + contract at module scope (guards fix 8)."
+    },
+    {
+      "lesson": "le_02_read_smart_contract_data",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_03_triggering_a_function",
+      "file": "altA_wording.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: own confirmation copy, no gasLimit.",
+      "known_failing": "Test requires specific confirmation wording; 'Vote recorded on-chain' is rejected (copy demand)."
+    },
+    {
+      "lesson": "le_03_triggering_a_function",
+      "file": "altB_connect.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: lecture pattern readContract.connect(signer); connect() is sync in v6 (guards fix 6)."
+    },
+    {
+      "lesson": "le_03_triggering_a_function",
+      "file": "altC_send.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: provider.send('eth_requestAccounts', []) (guards fix 4)."
+    },
+    {
+      "lesson": "le_03_triggering_a_function",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_04_event_listeners_in_the_frontend",
+      "file": "altA_modulescope.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: provider + contract created once at module scope (guards fix 8)."
+    },
+    {
+      "lesson": "le_04_event_listeners_in_the_frontend",
+      "file": "altB_removeall_divs.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: removeAllListeners() cleanup with no argument (guards fix 11).",
+      "known_failing": "Test counts <li> history items; alt renders the history as <div>s (markup demand)."
+    },
+    {
+      "lesson": "le_04_event_listeners_in_the_frontend",
+      "file": "altC_copy.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: task logic exactly, own empty-state copy and an <ol>.",
+      "known_failing": "Test requires waiting-state wording; 'No winner yet - abangan!' is rejected (copy demand)."
+    },
+    {
+      "lesson": "le_04_event_listeners_in_the_frontend",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_05_sign_in_with_wallet_experience",
+      "file": "altA_signeraddress.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: reads the sync signer.address (guards fix 2).",
+      "known_failing": "Test requires a signer.getAddress() call (signer.address is the same value) and the word 'nonce' in the message (alt labels it Timestamp)."
+    },
+    {
+      "lesson": "le_05_sign_in_with_wallet_experience",
+      "file": "altB_accounts0.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: uses accounts[0] from eth_requestAccounts, the same address.",
+      "known_failing": "Test requires the address to come from signer.getAddress()."
+    },
+    {
+      "lesson": "le_05_sign_in_with_wallet_experience",
+      "file": "altC_labels.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own button labels.",
+      "known_failing": "Test clicks the exact label 'Sign In'; alt's button reads 'Sign Message'."
+    },
+    {
+      "lesson": "le_05_sign_in_with_wallet_experience",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_06_token_tracker",
+      "file": "altA_label.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: .then chain.",
+      "known_failing": "Test clicks a label containing 'Fetch'; alt's button reads 'Check Balance'."
+    },
+    {
+      "lesson": "le_06_token_tracker",
+      "file": "altB_signer.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: getSigner() prompts the wallet itself instead of a raw eth_requestAccounts (guards fix 7)."
+    },
+    {
+      "lesson": "le_06_token_tracker",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_07_sining_chain",
+      "file": "altA_gateway.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: resolves ipfs:// through the dweb.link public gateway.",
+      "known_failing": "spec.http answers only the ipfs.io gateway URLs (the prose's helper), so any other valid gateway gets no offline response."
+    },
+    {
+      "lesson": "le_07_sining_chain",
+      "file": "altB_promiseall.jsx",
+      "expect": "fail",
+      "reason": "Wrong: no empty state at all, so the (tightened) empty-state test rightly rejects it."
+    },
+    {
+      "lesson": "le_07_sining_chain",
+      "file": "altC_labels.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own button labels.",
+      "known_failing": "Test clicks the exact labels 'Load NFT' / 'Load My NFTs'."
+    },
+    {
+      "lesson": "le_07_sining_chain",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_08_send_tokens_via_ui",
+      "file": "a1_wording.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own success copy.",
+      "known_failing": "Test regex /success/i rejects 'Transfer complete!' (copy demand)."
+    },
+    {
+      "lesson": "le_08_send_tokens_via_ui",
+      "file": "a2_getaddress.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: normalises the recipient with ethers.getAddress (fix 3)."
+    },
+    {
+      "lesson": "le_08_send_tokens_via_ui",
+      "file": "a3_labels.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own placeholders.",
+      "known_failing": "Test fills by placeholder 'Recipient'; alt uses '0x...'."
+    },
+    {
+      "lesson": "le_08_send_tokens_via_ui",
+      "file": "a4_control.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: promise chain whose .then returns a Contract (guards fix 1, thenable)."
+    },
+    {
+      "lesson": "le_08_send_tokens_via_ui",
+      "file": "a5_asynchelper.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: async helper that returns a Contract (guards fix 1, thenable)."
+    },
+    {
+      "lesson": "le_08_send_tokens_via_ui",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_09_onchain_to_do_list",
+      "file": "a1_listfirst.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: renders the list above the form."
+    },
+    {
+      "lesson": "le_09_onchain_to_do_list",
+      "file": "a2_named.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: reads tuple fields by ABI name t.content (guards fix 5)."
+    },
+    {
+      "lesson": "le_09_onchain_to_do_list",
+      "file": "a3_control.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant: async helper returning a Contract (guards fix 1)."
+    },
+    {
+      "lesson": "le_09_onchain_to_do_list",
+      "file": "a4_control_inline.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant, inline signer."
+    },
+    {
+      "lesson": "le_09_onchain_to_do_list",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "a1_buttons.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own vote button labels.",
+      "known_failing": "Test clicks/counts buttons labelled 'Vote Yes'/'Vote No'; alt uses emoji labels."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "a2_signeraddr.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: signer.address (guards fix 2)."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "a3_named.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: proposal fields by ABI name (guards fix 5)."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "a4_control.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "a5_getAddress.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: await signer.getAddress()."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_10_dao_voting_ui",
+      "file": "wrong_hardcoded_tally.jsx",
+      "expect": "fail",
+      "known_passing": "Wrong: shows 'Yes: 5 | No: 5' for every proposal, ignoring the contract.",
+      "reason": "Wrong: shows 'Yes: 5 | No: 5' for every proposal, ignoring the contract. The test only checks proposal 0's tally and never a second value or a post-Voted update, so it accepts this. Fix needs a test/fixture edit (needs user approval)."
+    },
+    {
+      "lesson": "le_11_real_time_gas_fee_tracker",
+      "file": "a1_formatgwei.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: ethers.formatUnits(base, 'gwei') (fix 10 made it run)."
+    },
+    {
+      "lesson": "le_11_real_time_gas_fee_tracker",
+      "file": "a2_numbergwei.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: Number(formatUnits(...)).toFixed(2) gwei."
+    },
+    {
+      "lesson": "le_11_real_time_gas_fee_tracker",
+      "file": "a3_control_poll.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant with polling."
+    },
+    {
+      "lesson": "le_11_real_time_gas_fee_tracker",
+      "file": "a4_both.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: shows both wei and gwei."
+    },
+    {
+      "lesson": "le_11_real_time_gas_fee_tracker",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_11_real_time_gas_fee_tracker",
+      "file": "wrong_hardcoded_fee.jsx",
+      "expect": "fail",
+      "known_passing": "Wrong: static 'Current Base Fee: 24 gwei', never reads the chain.",
+      "reason": "Wrong: static 'Current Base Fee: 24 gwei', never reads the chain. There is one fixture value, so the test cannot tell. Fix needs a second fixture value (needs user approval)."
+    },
+    {
+      "lesson": "le_12_defi_dashboard",
+      "file": "a1_formatted.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: formats reserves with formatEther."
+    },
+    {
+      "lesson": "le_12_defi_dashboard",
+      "file": "a2_novalidation.jsx",
+      "expect": "fail",
+      "reason": "Wrong: skips Task 1 (validate the LP address) entirely."
+    },
+    {
+      "lesson": "le_12_defi_dashboard",
+      "file": "a3_control.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant."
+    },
+    {
+      "lesson": "le_12_defi_dashboard",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_13_multisig_transaction_initiator",
+      "file": "a1_wording.jsx",
+      "expect": "pass",
+      "reason": "Fails the (tightened) test: it needs the actual counts shown as 'Confirmations: N' (any case) and the word 'Executed', not just a confirmations-ish label.",
+      "known_failing": "Test requires the literal 'Confirmations' and /executed/i (copy demand)."
+    },
+    {
+      "lesson": "le_13_multisig_transaction_initiator",
+      "file": "a2_lowercase.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: '1 confirmations' lower-case."
+    },
+    {
+      "lesson": "le_13_multisig_transaction_initiator",
+      "file": "a3_named.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: transaction fields by ABI name (guards fixes 5 and 10)."
+    },
+    {
+      "lesson": "le_13_multisig_transaction_initiator",
+      "file": "a4_control.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant."
+    },
+    {
+      "lesson": "le_13_multisig_transaction_initiator",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_14_simulated_chain_oracle_dapp",
+      "file": "a1_ignores_released.jsx",
+      "expect": "fail",
+      "reason": "Wrong: reads released() but hardcodes 'Released: Pending'."
+    },
+    {
+      "lesson": "le_14_simulated_chain_oracle_dapp",
+      "file": "a2_wrong_balance_addr.jsx",
+      "expect": "fail",
+      "reason": "Wrong: shows the user's balance, provider.getBalance(account), not the pool's."
+    },
+    {
+      "lesson": "le_14_simulated_chain_oracle_dapp",
+      "file": "a3_filipino.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, Filipino status copy.",
+      "known_failing": "Test regex /dispatch|released/i rejects 'Naipadala na ang ayuda' (copy demand)."
+    },
+    {
+      "lesson": "le_14_simulated_chain_oracle_dapp",
+      "file": "a4_control.jsx",
+      "expect": "pass",
+      "reason": "Correct v6 reference variant."
+    },
+    {
+      "lesson": "le_14_simulated_chain_oracle_dapp",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_14_simulated_chain_oracle_dapp",
+      "file": "wrong_hardcoded_status.jsx",
+      "expect": "fail",
+      "known_passing": "Wrong: always shows 'Funds Dispatched', ignoring the released flag.",
+      "reason": "Wrong: always shows 'Funds Dispatched', ignoring the released flag. The fixture only has released=true, so only a hardcoded 'Pending' is rejected. Fix needs a released=false case (needs user approval)."
+    },
+    {
+      "lesson": "le_15_onchain_identity_viewer",
+      "file": "bullets_v6_only.jsx",
+      "expect": "fail",
+      "reason": "Wrong, and it is what the act_1.md bullets produce once ported to v6: the [addr] dependency re-runs the load (4 reads), and the listener cleanup is returned from inside async load(), so it is never registered. Prose fix is a later phase."
+    },
+    {
+      "lesson": "le_15_onchain_identity_viewer",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_15_onchain_identity_viewer",
+      "file": "v6_async_helper.jsx",
+      "expect": "fail",
+      "reason": "Wrong: re-subscribes inside load() on every event, so listeners grow; the subscribe-once test rightly rejects it."
+    },
+    {
+      "lesson": "le_15_onchain_identity_viewer",
+      "file": "v6_promiseall_twoeffects.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: Promise.all, separate listener effect."
+    },
+    {
+      "lesson": "le_16_escrow_dapp",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_16_escrow_dapp",
+      "file": "v6_awaiting_text.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, status copy 'Awaiting release'.",
+      "known_failing": "Test requires the word 'Pending' (copy demand)."
+    },
+    {
+      "lesson": "le_16_escrow_dapp",
+      "file": "v6_sequential_object.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: sequential reads into one object."
+    },
+    {
+      "lesson": "le_17_multi_network_switch_ui",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_17_multi_network_switch_ui",
+      "file": "v6_contract_derived_name.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: contract getChainId() with a derived name."
+    },
+    {
+      "lesson": "le_17_multi_network_switch_ui",
+      "file": "v6_getNetwork.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: provider.getNetwork().chainId, the idiomatic read."
+    },
+    {
+      "lesson": "le_18_nft_minting_ui_with_image_preview",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_18_nft_minting_ui_with_image_preview",
+      "file": "prompt_wording.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own empty-state prompt."
+    },
+    {
+      "lesson": "le_18_nft_minting_ui_with_image_preview",
+      "file": "state_effect.jsx",
+      "expect": "pass",
+      "reason": "Correct: preview URL kept in state via an effect."
+    },
+    {
+      "lesson": "le_18_nft_minting_ui_with_image_preview",
+      "file": "usememo_revoke.jsx",
+      "expect": "pass",
+      "reason": "Correct: useMemo preview URL, revoked on cleanup."
+    },
+    {
+      "lesson": "le_19_contract_deployment_simulator",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_19_contract_deployment_simulator",
+      "file": "control_v5_deployed.jsx",
+      "expect": "fail",
+      "reason": "Wrong: v6 factory but v5 contract.deployed() and contract.address; real v6 has neither (guards the v5-member tightening)."
+    },
+    {
+      "lesson": "le_19_contract_deployment_simulator",
+      "file": "v6_deploymentTransaction.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: shows contract.deploymentTransaction().hash (guards fix 9)."
+    },
+    {
+      "lesson": "le_19_contract_deployment_simulator",
+      "file": "v6_form_submit.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: <form onSubmit> with a type=submit button (guards fix 13)."
+    },
+    {
+      "lesson": "le_19_contract_deployment_simulator",
+      "file": "v6_plain_onclick.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: plain onClick handler."
+    },
+    {
+      "lesson": "le_19_contract_deployment_simulator",
+      "file": "v6_send_txhash.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: provider.send('eth_requestAccounts') and shows the tx hash (guards fix 4)."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "bullets_v6_but_events.jsx",
+      "expect": "fail",
+      "reason": "Wrong: reads v5 receipt.events, which act_1.md teaches; v6 receipts carry logs. Prose fix is a later phase."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "bullets_verbatim.jsx",
+      "expect": "pass",
+      "reason": "Assembled verbatim from the code in act_1.md's task bullets, nothing added: a learner who follows only the bullets must pass."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "v6_confirm_label.jsx",
+      "expect": "pass",
+      "reason": "Correct v6, own confirm-step label.",
+      "known_failing": "Test clicks a label containing 'Yes'; alt's confirm button reads 'Confirm'."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "v6_eventlog_instanceof.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: log instanceof ethers.EventLog (guards fix 9)."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "v6_eventName.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: finds the log by eventName."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "v6_parseLog.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: contract.interface.parseLog(log) (guards fix 9)."
+    },
+    {
+      "lesson": "le_20_layer_zero_inspired_ui",
+      "file": "v6_positional.jsx",
+      "expect": "pass",
+      "reason": "Correct v6: positional destructuring of evt.args (guards fixes 5 and 9)."
+    }
+  ]
+}
