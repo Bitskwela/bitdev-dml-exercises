@@ -1,6 +1,6 @@
 ---
-title: "Escrow DApp"
-description: "Build a decentralized escrow application for secure peer-to-peer transactions with deposit, release, and refund functionality."
+title: "Escrow Status Viewer"
+description: "Read an escrow contract on Sepolia with a read-only ethers v6 provider and show the buyer, seller, amount in ETH, and whether the funds are Pending, Released or Not Deposited. The lecture also covers how deposit, release and refund work safely."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

@@ -2,19 +2,19 @@
 
 ![Write to the Blockchain](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+3.0+-+COVER.png)
 
-Sunlight danced off Laguna’s rolling rice fields as Neri stepped into the barangay hall, laptop in hand. The cooperative needed a transparent way to decide budget allocations—no more paper ballots lost under stacks of receipts. She’d just deployed `CooperativeVote` on a local Hardhat node.
+Sunlight danced off Laguna’s rolling rice fields as Neri stepped into the barangay hall, laptop in hand. The cooperative needed a transparent way to decide its budget: no more paper ballots lost under stacks of receipts. She’d just deployed a `CooperativeVote` contract on the Sepolia testnet.
 
 ![Laguna Cooperative Meeting](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+3.1.png)
 
-Half a world away in Brooklyn, Odessa sipped her iced coffee at a buzzing co-working space. On Zoom, she watched Neri share her terminal: three proposals—“Infrastructure,” “Education,” “Health.” “Build the frontend,” Neri challenged. Odessa cracked her knuckles, booted up her IDE, and scaffolded a React app.
+Half a world away in Brooklyn, Odessa sipped her iced coffee at a buzzing co-working space. On Zoom, Neri shared her screen with three proposals: “Bagong Palengke,” “Solar Streetlights,” “Barangay WiFi.” “Build the frontend,” Neri challenged. Odessa cracked her knuckles, booted up her editor, and scaffolded a React app.
 
 ![Odessa Coding the Frontend](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+3.2.png)
 
-Moments later, her screen showed a dropdown menu, a “Vote” button, and live vote tallies. She connected MetaMask to Hardhat’s RPC, clicked “Vote,” and got the MetaMask gas-fee simulation popup. “Confirm,” she clicked—₿🌱 simulated gas burned—and the spinner spun. In seconds, the Hardhat console logged the transaction hash, the vote count updated, and Odessa pumped her fist.
+Soon her screen showed a dropdown, a “Vote” button and a status line. She switched MetaMask to Sepolia, clicked “Vote,” and MetaMask popped up with the gas fee: test ETH, worth nothing, but real enough to practice on. She clicked “Confirm,” the button read “Voting…”, and about twelve seconds later the status flipped to “confirmed.” Odessa pumped her fist.
 
-From Laguna’s cooperative to Brooklyn’s co-working café, Web3 had bridged the gap. This was her first write call, her first gas-fee simulation, and her first taste of on-chain transformation. But tonight, she’d celebrate that spinner turning into success.
+From Laguna’s cooperative to Brooklyn’s co-working café, Web3 had bridged the gap. It was her first write call, her first gas fee, and her first taste of changing on-chain state.
 
-Welcome to **Write to the Blockchain**: triggering state-changing transactions with Ethers.js, MetaMask, and React. 🇵🇭✨
+Welcome to **Write to the Blockchain**: triggering state-changing transactions with Ethers.js v6, MetaMask and React. 🇵🇭✨
 
 ---
 
@@ -22,51 +22,53 @@ Welcome to **Write to the Blockchain**: triggering state-changing transactions w
 
 ### 1. Understanding Read vs. Write Operations
 
-This is one of the most important concepts in blockchain development. Let's break it down completely.
+In the last lesson you only **read**. This lesson **writes**, and a write works very differently.
 
 #### **The Fundamental Difference**
 
-| Aspect            | Read Operations              | Write Operations                 |
-| ----------------- | ---------------------------- | -------------------------------- |
-| **What it does**  | Fetches data from blockchain | Changes data on blockchain       |
-| **Gas cost**      | Free (no cost)               | Costs ETH (gas fees)             |
-| **Speed**         | Instant                      | Takes 12-15 seconds (block time) |
-| **User approval** | Not needed                   | MetaMask popup required          |
-| **Example**       | `contract.name()`            | `contract.vote("Health")`        |
+| Aspect            | Read Operations              | Write Operations                         |
+| ----------------- | ---------------------------- | ---------------------------------------- |
+| **What it does**  | Fetches data from blockchain | Changes data on blockchain               |
+| **Gas cost**      | Free                         | Costs ETH (gas fees)                     |
+| **Speed**         | About as fast as a web request | Waits to be mined (about 12 s per block on Ethereum and Sepolia) |
+| **User approval** | Not needed                   | MetaMask popup required                  |
+| **Example**       | `contract.name()`            | `contract.vote("Bagong Palengke")`       |
 
 #### **Why Write Operations Cost Money**
 
-When you write to the blockchain, thousands of computers (nodes) around the world must:
+When you write to the blockchain, the network's nodes must:
 
 1. Validate your transaction
 2. Execute the smart contract code
 3. Store the new state permanently
-4. Reach consensus that this is the correct state
+4. Agree (reach consensus) that this is the correct new state
 
-Gas fees compensate these nodes for their computational work and storage.
+Gas fees pay for that computation and storage, and they stop people from spamming the network with free work.
 
 #### **Provider vs. Signer: The Key Distinction**
 
-**Provider** = Read-only connection (like a newspaper—you can read it but can't edit it)
+A **Provider** is a read-only connection. Think of a newspaper: you can read it, but you can't edit it.
 
 ```js
+import { ethers } from "ethers";
+
 // Anyone can create a provider—no wallet needed
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-
-// Use for view/pure functions
-const name = await contract.name(); // Free, instant
+const provider = new ethers.JsonRpcProvider(RPC_URL);
 ```
 
-**Signer** = Write-capable connection (like having editing rights—you can make changes)
+A **Signer** is an account that can sign transactions, so it can change things. In a browser, the signer is the user's MetaMask account. You reach it through a `BrowserProvider`:
 
 ```js
-// Requires MetaMask or another wallet
-const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = web3Provider.getSigner();
+// Requires MetaMask (window.ethereum)
+const browserProvider = new ethers.BrowserProvider(window.ethereum);
 
-// Use for state-changing functions
-const tx = await contract.vote("Health"); // Costs gas, needs approval
+// In ethers v6, getSigner() is async — it returns a Promise
+const signer = await browserProvider.getSigner();
 ```
+
+Forgetting the `await` is the most common v6 slip. Without it, `signer` is a Promise, not a signer, and every write fails.
+
+> Ethers **version 5** wrote this as `new ethers.providers.Web3Provider(window.ethereum)` with a synchronous `getSigner()`. That code throws on ethers v6. <!-- v5-ok -->
 
 #### **Visual Flow: What Happens During a Write Transaction**
 
@@ -80,37 +82,33 @@ const tx = await contract.vote("Health"); // Costs gas, needs approval
        │             "Confirm"            propagates            saved!
        │                   │                    │                   │
        ▼                   ▼                    ▼                   ▼
-   "pending"          Gas paid           12-15 sec wait      "confirmed"
+   "pending"          Tx signed         wait to be mined      "confirmed"
 ```
 
 ---
 
 ### 2. Contract Instances: Read vs. Write
 
-A contract instance is a JavaScript object that represents your smart contract. You need different types depending on what you want to do.
+An `ethers.Contract` is built from an address, an ABI, and a **runner**: the thing that carries out its calls. The runner decides what the contract can do.
 
 #### **Creating a Read-Only Contract Instance**
 
-Use this when you only need to fetch data (like getting vote counts):
+Use this when you only need to fetch data (like vote counts):
 
 ```js
 import { ethers } from "ethers";
 import abi from "./abi/CooperativeVote.json";
 
-// Step 1: Create provider (connection to blockchain)
-const provider = new ethers.providers.JsonRpcProvider(
-  process.env.REACT_APP_RPC_URL
-);
+const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
 
-// Step 2: Create read-only contract instance
 const readContract = new ethers.Contract(
-  process.env.REACT_APP_CONTRACT_ADDRESS, // Where the contract lives
+  import.meta.env.VITE_CONTRACT_ADDRESS, // Where the contract lives
   abi, // What functions exist
   provider // Read-only connection
 );
 
-// Now you can call view functions
-const count = await readContract.getVoteCount("Health"); // Free!
+// Inside an async function:
+const count = await readContract.getVoteCount("Bagong Palengke"); // a bigint
 ```
 
 #### **Creating a Write-Capable Contract Instance**
@@ -118,33 +116,33 @@ const count = await readContract.getVoteCount("Health"); // Free!
 Use this when you need to change blockchain state (like casting a vote):
 
 ```js
-// Step 1: Connect to user's MetaMask wallet
-const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+// Step 1: Connect to the user's MetaMask
+const browserProvider = new ethers.BrowserProvider(window.ethereum);
 
-// Step 2: Get the signer (the user's wallet that will sign transactions)
-const signer = web3Provider.getSigner();
+// Step 2: Get the signer (await — it is async in v6)
+const signer = await browserProvider.getSigner();
 
-// Step 3: Create write-capable contract instance
-// Option A: Create new instance with signer
+// Step 3, Option A: build the contract with the signer as its runner
 const writeContract = new ethers.Contract(
-  process.env.REACT_APP_CONTRACT_ADDRESS,
+  import.meta.env.VITE_CONTRACT_ADDRESS,
   abi,
-  signer // Note: signer instead of provider!
+  signer // signer instead of provider!
 );
 
-// Option B: Convert existing read contract to write contract
-const writeContract = readContract.connect(signer);
+// Step 3, Option B: reuse a read contract, attached to the signer
+// (connect() is synchronous: no await needed)
+const sameWriteContract = readContract.connect(signer);
 
 // Now you can call state-changing functions
-const tx = await writeContract.vote("Health"); // Costs gas!
+const tx = await writeContract.vote("Bagong Palengke"); // costs gas
 ```
 
 #### **Why Two Different Instances?**
 
 Think of it like a bank:
 
-- **Read instance** = Looking at your balance on a screen (anyone can look)
-- **Write instance** = Making a withdrawal (needs your signature/PIN)
+- **Read instance** = looking at the posted balance (anyone can look)
+- **Write instance** = making a withdrawal (needs your signature)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -154,7 +152,7 @@ Think of it like a bank:
 │  ─────────────────────        │  ────────────────────────   │
 │  • Free to use                │  • Costs gas (ETH)          │
 │  • No wallet needed           │  • Requires MetaMask        │
-│  • Instant response           │  • Waits for confirmation   │
+│  • Fast response              │  • Waits for confirmation   │
 │  • contract.name()            │  • contract.vote()          │
 │  • contract.getVoteCount()    │  • contract.transfer()      │
 └─────────────────────────────────────────────────────────────┘
@@ -164,81 +162,84 @@ Think of it like a bank:
 
 ### 3. Sending a Transaction: Step-by-Step
 
-Sending a write transaction involves multiple steps. Let's understand each one.
-
 #### **Step 1: Request Wallet Access**
 
-Before you can send transactions, you need the user's permission:
+Before you can send transactions, you need the user's permission. This is the same call you wrote in Lesson 1:
 
 ```js
-// This triggers the MetaMask popup asking "Connect to this site?"
+// Opens the MetaMask "Connect to this site?" popup if needed
 await window.ethereum.request({ method: "eth_requestAccounts" });
 ```
 
 **What happens:**
 
-- First time: MetaMask shows account selection popup
-- Already connected: Returns immediately with the connected account
-- User rejects: Throws an error (handle with try/catch)
+- First time: MetaMask asks the user to choose an account and connect
+- Already connected: it returns straight away with the connected account
+- User rejects: it throws an error (handle it with `try/catch`)
 
 #### **Step 2: Call the Write Function**
 
 ```js
 const tx = await writeContract.vote(selectedProposal, {
-  gasLimit: 100_000, // Maximum gas willing to spend
+  gasLimit: 100_000, // optional: the most gas this transaction may use
 });
 
 console.log("Transaction hash:", tx.hash);
-// Example: "0x1234abcd..." - unique ID for this transaction
+// e.g. "0x1234abcd..." — the unique ID of this transaction
 ```
+
+The last argument, `{ gasLimit: ... }`, is an optional **overrides** object. If you leave it out, ethers asks the node to estimate the gas for you, which is usually what you want (see section 4).
 
 **What happens at this moment:**
 
-1. MetaMask popup shows gas estimate and asks for confirmation
-2. User clicks "Confirm" (or "Reject")
-3. Transaction is signed with user's private key
-4. Transaction is broadcast to the network
-5. Function returns a "pending" transaction object
+1. MetaMask shows the gas fee and asks for confirmation
+2. The user clicks "Confirm" (or "Reject")
+3. MetaMask signs the transaction with the user's private key
+4. The transaction is broadcast to the network
+5. Your `await` resolves with a **transaction response**. The transaction has been sent, but it is not mined yet.
 
-**The transaction object contains:**
+**The transaction response contains, among other fields:**
 
 ```js
 {
   hash: "0x1234...",      // Unique transaction ID
   from: "0xYourAddress",  // Who sent it
   to: "0xContractAddr",   // The contract address
-  gasLimit: BigNumber,    // Max gas
-  gasPrice: BigNumber,    // Price per gas unit
-  nonce: 42,              // Transaction count from this address
-  data: "0x...",          // Encoded function call
+  gasLimit: 100000n,      // Max gas (a bigint in v6)
+  nonce: 42,              // How many transactions this address sent before
+  data: "0x...",          // The encoded function call
 }
 ```
 
 #### **Step 3: Wait for Confirmation**
 
-The transaction is now "pending"—it's been broadcast but not yet included in a block:
+The transaction is now "pending". It has been broadcast but not yet included in a block:
 
 ```js
 // Wait for the transaction to be mined (included in a block)
-const receipt = await tx.wait(); // Waits ~12-15 seconds on mainnet
+const receipt = await tx.wait();
 
-// Or wait for multiple confirmations (more secure)
-const receipt = await tx.wait(3); // Wait for 3 block confirmations
+// Or wait for several blocks on top of it, for more certainty
+const safeReceipt = await tx.wait(3);
 ```
 
-**The receipt object contains:**
+**The receipt contains, among other fields:**
 
 ```js
 {
-  status: 1,              // 1 = success, 0 = failed
-  blockNumber: 12345678,  // Which block included this tx
-  gasUsed: BigNumber,     // Actual gas consumed
-  transactionHash: "0x..",
+  status: 1,              // 1 = success, 0 = reverted
+  blockNumber: 6123456,   // Which block included this tx
+  gasUsed: 45000n,        // Actual gas consumed (a bigint)
+  hash: "0x..",           // The transaction hash
   logs: [...],            // Events emitted during execution
 }
 ```
 
+In ethers v6, `tx.wait()` **throws** a `CALL_EXCEPTION` error if the transaction reverted on-chain. So reaching the line after `await tx.wait()` means it succeeded.
+
 #### **Step 4: Handle Success and Errors**
+
+Ethers v6 gives each error a string `code`, and `ethers.isError(error, code)` checks it:
 
 ```js
 try {
@@ -246,22 +247,16 @@ try {
   console.log("Pending:", tx.hash);
 
   const receipt = await tx.wait();
-
-  if (receipt.status === 1) {
-    console.log("Success! Gas used:", receipt.gasUsed.toString());
-  } else {
-    console.log("Transaction failed");
-  }
+  console.log("Mined! Gas used:", receipt.gasUsed.toString());
 } catch (error) {
-  // Handle different error types
-  if (error.code === 4001) {
-    // User rejected the transaction in MetaMask
+  if (ethers.isError(error, "ACTION_REJECTED")) {
+    // The user clicked "Reject" in MetaMask
     console.log("User cancelled");
-  } else if (error.code === "INSUFFICIENT_FUNDS") {
+  } else if (ethers.isError(error, "INSUFFICIENT_FUNDS")) {
     console.log("Not enough ETH for gas");
-  } else if (error.code === "UNPREDICTABLE_GAS_LIMIT") {
-    // Contract will revert - check your inputs!
-    console.log("Transaction would fail:", error.reason);
+  } else if (ethers.isError(error, "CALL_EXCEPTION")) {
+    // The contract reverted, e.g. "Already voted"
+    console.log("Transaction would fail or failed:", error.reason);
   } else {
     console.log("Error:", error.message);
   }
@@ -275,139 +270,88 @@ try {
               │
               ▼
      ┌─────────────────┐
-     │ MetaMask Popup  │  ◄── User sees gas estimate
+     │ MetaMask Popup  │  ◄── User sees the gas fee
      │ "Confirm" button│
      └────────┬────────┘
               │ User confirms
               ▼
      ┌─────────────────┐
      │    PENDING      │  ◄── tx.hash available
-     │ "Voting...⏳"   │      Show spinner to user
+     │  "Voting…"      │      Show progress to the user
      └────────┬────────┘
-              │ ~12-15 seconds
+              │ mined in a block (about 12 s)
               ▼
      ┌─────────────────┐
-     │   CONFIRMED     │  ◄── receipt.status === 1
-     │ "Success! ✅"   │      Update UI, celebrate!
+     │   CONFIRMED     │  ◄── await tx.wait() resolved
+     │  "confirmed"    │      Update the UI, celebrate!
      └─────────────────┘
 ```
 
-### 4. Event Subscriptions for Real-Time Updates
+#### **Refreshing the UI After a Vote**
 
-After a vote is cast, how do you update the UI? You could refresh the page, but that's poor UX. Instead, listen to events!
-
-#### **What Are Smart Contract Events?**
-
-Events are logs that smart contracts emit during execution. They're like announcements: "Hey, something happened!"
-
-```solidity
-// In Solidity
-event Voted(address indexed voter, string proposal);
-
-function vote(string calldata proposal) external {
-    // ... voting logic ...
-    emit Voted(msg.sender, proposal);  // Announce the vote!
-}
-```
-
-#### **Listening to Events in JavaScript**
-
-```js
-// Subscribe to the "Voted" event
-contract.on("Voted", (voter, proposal) => {
-  console.log(`${voter} voted for ${proposal}`);
-
-  // Update your React state to refresh the UI
-  refreshVoteCounts();
-});
-
-// Don't forget to clean up when component unmounts!
-contract.off("Voted", handler);
-```
-
-#### **Complete React Pattern**
-
-```js
-useEffect(() => {
-  const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-  const contract = new ethers.Contract(ADDRESS, abi, provider);
-
-  const handleVote = (voter, proposal) => {
-    console.log(`New vote: ${voter} → ${proposal}`);
-    setRefreshTrigger((prev) => prev + 1); // Trigger re-render
-  };
-
-  contract.on("Voted", handleVote);
-
-  // Cleanup: remove listener when component unmounts
-  return () => {
-    contract.off("Voted", handleVote);
-  };
-}, []);
-```
+Once a vote is mined, other parts of the page (like vote counts) should refresh. The simple way is a callback: the parent passes in a function (in this lesson, `onVoted`), and you call it after `await tx.wait()`. Contracts can also emit **events** that your app listens to live. That is the whole topic of the next lesson.
 
 ---
 
-### 5. Gas Estimation: Don't Overpay!
+### 4. Gas Estimation: Don't Overpay
 
-Gas is the "fuel" for your transaction. Too little = transaction fails. Too much = you overpay.
+Gas is the fuel for your transaction. Set the limit too low and the transaction fails. A limit is a maximum, though: you only pay for the gas actually used.
 
 #### **Automatic Estimation**
 
+By default ethers estimates the gas for you. You can also ask for the estimate yourself. In v6 the estimate lives on the method:
+
 ```js
-// Let Ethers.js estimate the gas needed
-const estimatedGas = await contract.estimateGas.vote("Health");
-console.log("Estimated gas:", estimatedGas.toString()); // e.g., "45000"
+// Ask the node how much gas vote("Bagong Palengke") would use
+const estimatedGas = await contract.vote.estimateGas("Bagong Palengke");
+console.log("Estimated gas:", estimatedGas.toString()); // e.g. "45000"
 
-// Add a 20% buffer for safety
-const gasLimit = estimatedGas.mul(120).div(100);
+// Add a 20% buffer for safety (bigint math: both sides need the n)
+const gasLimit = (estimatedGas * 120n) / 100n;
 
-const tx = await contract.vote("Health", { gasLimit });
+const tx = await contract.vote("Bagong Palengke", { gasLimit });
 ```
 
 #### **Why Estimation Can Fail**
 
-If `estimateGas` throws an error, it usually means the transaction would revert:
+If estimation throws, the transaction would almost certainly revert, so don't send it:
 
 ```js
 try {
-  await contract.estimateGas.vote("Health");
+  await contract.vote.estimateGas("Bagong Palengke");
 } catch (error) {
-  // Transaction would fail! Common reasons:
-  // - Already voted
-  // - Invalid proposal
-  // - Not enough tokens
+  // Common reasons: already voted, invalid proposal
   console.log("Would revert:", error.reason);
 }
 ```
 
+> Ethers **version 5** wrote this as `contract.estimateGas.vote(...)` and did math with `.mul()` and `.div()`. Neither works in v6. <!-- v5-ok -->
+
 ---
 
-### 6. UX Best Practices for Write Operations
+### 5. UX Best Practices for Write Operations
 
 #### **1. Clear Status Indicators**
 
 Users should always know what's happening:
 
 ```js
-const [status, setStatus] = useState("idle");
-// States: 'idle' | 'pending' | 'confirmed' | 'error'
+const [status, setStatus] = useState("");
+// "" (idle) | "pending" | "confirmed" | "error: ..."
 
 return (
   <div>
     <button onClick={castVote} disabled={status === "pending"}>
-      {status === "pending" ? "Voting... ⏳" : "Vote 🗳️"}
+      {status === "pending" ? "Voting…" : "Vote"}
     </button>
-
-    {status === "confirmed" && <p>✅ Vote recorded!</p>}
-    {status === "error" && <p>❌ Something went wrong</p>}
+    {status && <p>{status}</p>}
   </div>
 );
 ```
 
-#### **2. Disable Buttons During Pending State**
+#### **2. Disable Buttons During the Pending State**
 
-Prevent double-clicks and confusion:
+A disabled button stops a second click from sending a second transaction:
 
 ```js
 <button onClick={castVote} disabled={status === "pending" || hasVoted}>
@@ -415,343 +359,93 @@ Prevent double-clicks and confusion:
 </button>
 ```
 
-#### **3. Show Transaction Hash**
+#### **3. Show the Transaction Hash**
 
-Let users verify their transaction on Etherscan:
-
-```js
-{
-  txHash && (
-    <p>
-      View on Etherscan:
-      <a
-        href={`https://goerli.etherscan.io/tx/${txHash}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {txHash.slice(0, 10)}...
-      </a>
-    </p>
-  );
-}
-```
-
-#### **4. Handle All Error Cases**
+Let users check their transaction on a block explorer. For Sepolia, that is Sepolia Etherscan:
 
 ```js
-catch (error) {
-  if (error.code === 4001) {
-    setStatus('cancelled');  // User rejected
-  } else if (error.code === 'INSUFFICIENT_FUNDS') {
-    setStatus('no_funds');   // Not enough ETH
-  } else if (error.reason) {
-    setStatus('reverted');   // Contract rejected
-    setErrorMessage(error.reason);
-  } else {
-    setStatus('error');
-  }
-}
+{txHash && (
+  <p>
+    View on Etherscan:{" "}
+    <a
+      href={`https://sepolia.etherscan.io/tx/${txHash}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {txHash.slice(0, 10)}...
+    </a>
+  </p>
+)}
 ```
+
+#### **4. Turn Errors into Plain Words**
+
+`error.message` from a wallet can be long and technical. Map the common codes from section 3 to messages a cooperative member understands, such as "You cancelled the vote" or "You need a little Sepolia ETH for gas."
 
 ---
 
-### 7. Common Mistakes to Avoid
+### 6. Common Mistakes to Avoid
 
-1. **Forgetting to request accounts first**
+1. **Forgetting `await` on `getSigner()`**
 
    ```js
-   // ❌ This will fail - no account connected
-   const signer = provider.getSigner();
+   // ❌ signer is a Promise — the contract cannot send with it
+   const signer = browserProvider.getSigner();
 
-   // ✅ Always request accounts first
-   await window.ethereum.request({ method: "eth_requestAccounts" });
-   const signer = provider.getSigner();
+   // ✅ v6: await it
+   const signer = await browserProvider.getSigner();
    ```
 
 2. **Not waiting for confirmation**
 
    ```js
-   // ❌ Returns immediately while tx is still pending
-   const tx = await contract.vote("Health");
-   updateUI(); // Too early! Vote not confirmed yet
+   // ❌ The transaction is only sent, not mined
+   const tx = await contract.vote("Bagong Palengke");
+   updateUI(); // Too early! The vote is not confirmed yet
 
    // ✅ Wait for the transaction to be mined
-   const tx = await contract.vote("Health");
+   const tx = await contract.vote("Bagong Palengke");
    await tx.wait();
-   updateUI(); // Now it's safe!
+   updateUI(); // Now it's safe
    ```
 
-3. **Not handling user rejection**
+3. **Building the write contract with a provider**
 
-   ```js
-   // ❌ Crashes if user clicks "Reject"
-   const tx = await contract.vote("Health");
+   A contract built with a `JsonRpcProvider` can only read. Calling `vote()` on it fails, because nobody is there to sign. Writes need the signer.
 
-   // ✅ Always wrap in try/catch
-   try {
-     const tx = await contract.vote("Health");
-   } catch (e) {
-     if (e.code === 4001) {
-       console.log("User cancelled");
-     }
-   }
-   ```
+4. **Not handling user rejection**
+
+   Wrap the whole flow in `try/catch`. "Reject" is a normal user choice, not a crash.
 
 ---
 
-### 8. Testing Your Write Operations
+### 7. Testing Your Write Operations
 
-Before deploying, verify these scenarios:
+In your own app on Sepolia, check these scenarios:
 
 1. ✅ **MetaMask popup appears** when clicking Vote
-2. ✅ **Pending state shows** ("Voting...⏳")
-3. ✅ **Success state shows** after confirmation ("✅ Done")
-4. ✅ **Button disabled** during pending state
+2. ✅ **Pending state shows** ("Voting…")
+3. ✅ **Confirmed state shows** after the transaction is mined
+4. ✅ **Button disabled** while pending
 5. ✅ **User rejection handled** gracefully
-6. ✅ **Vote counts update** after successful vote
+6. ✅ **Parent refreshes** after a successful vote
+
+**How this is graded:** the platform mounts your component against a pretend MetaMask and a pretend `CooperativeVote` contract. It clicks **Vote**, then checks four things: that you requested accounts, built a `BrowserProvider` and awaited its signer, called `vote()` with the selected proposal, and awaited `tx.wait()`. It also checks that you then called `onVoted()` and showed a confirmation. No real ETH is spent. The activity page lists the exact wording it looks for.
 
 ---
 
 ### External References & Further Learning
 
-- **Ethers.js Signers**: https://docs.ethers.org/v5/api/signer/ - Complete signer documentation
-- **Ethers.js Providers**: https://docs.ethers.org/v5/api/providers/ - Provider types explained
-- **Gas Estimation**: https://docs.ethers.org/v5/api/contract/contract/#contract-estimateGas - Estimate gas usage
-- **React Hooks**: https://reactjs.org/docs/hooks-intro.html - Managing state in React
-- **Etherscan**: https://etherscan.io - Verify transactions on-chain
-
----
-
-Starter Code (`CastVote.js`):
-
-```js
-import { useState } from "react";
-import { ethers } from "ethers";
-import abi from "../abi/CooperativeVote.json";
-
-export default function CastVote({ proposals, onVoted }) {
-  const [selected, setSelected] = useState(proposals[0]);
-  const [status, setStatus] = useState("");
-
-  const castVote = async () => {
-    // TODO: implement write transaction
-  };
-
-  return (
-    <div>
-      <select onChange={(e) => setSelected(e.target.value)}>
-        {proposals.map((p) => (
-          <option key={p}>{p}</option>
-        ))}
-      </select>
-      <button onClick={castVote} disabled={status === "pending"}>
-        {status === "pending" ? "Voting…" : "Vote"}
-      </button>
-      {status && <p>{status}</p>}
-    </div>
-  );
-}
-```
-
-To Do List
-
-- Check `window.ethereum`; alert if missing.
-- Request accounts: `eth_requestAccounts`.
-- Create `Web3Provider` & `signer`; connect to contract.
-- Call `contract.vote(selected, { gasLimit: 100_000 })`.
-- `await tx.wait()`, then set “confirmed” & call `onVoted()`.
-- Catch errors → `setStatus('error: …')`.
-
-Full Solution
-
-```js
-const castVote = async () => {
-  if (!window.ethereum) {
-    alert("Please install MetaMask");
-    return;
-  }
-  try {
-    setStatus("pending");
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = web3Provider.getSigner();
-    const contract = new ethers.Contract(
-      process.env.REACT_APP_CONTRACT_ADDRESS,
-      abi,
-      signer
-    );
-    const tx = await contract.vote(selected, { gasLimit: 100_000 });
-    console.log("Tx Hash:", tx.hash);
-    await tx.wait();
-    setStatus("confirmed ✅");
-    onVoted();
-  } catch (err) {
-    console.error(err);
-    setStatus("error: " + (err.data?.message || err.message));
-  }
-};
-```
-
-Solidity Signature
-
-```sol
-function vote(string calldata) external;
-```
-
----
-
-### Exercise 3: Auto-Refresh on Voted Events
-
-Problem Statement  
-Subscribe to the `Voted` event so `VoteCounts` reloads automatically when anyone votes.
-
-Starter Code (`VoteApp.js`):
-
-```js
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
-import abi from "../abi/CooperativeVote.json";
-import VoteCounts from "./VoteCounts";
-import CastVote from "./CastVote";
-
-export default function VoteApp({ proposals }) {
-  const [refreshKey, setRefreshKey] = useState(0);
-  const refresh = () => setRefreshKey((k) => k + 1);
-
-  useEffect(() => {
-    // TODO: subscribe to Voted events
-  }, []);
-
-  return (
-    <div>
-      <VoteCounts key={refreshKey} proposals={proposals} />
-      <CastVote proposals={proposals} onVoted={refresh} />
-    </div>
-  );
-}
-```
-
-To Do List
-
-- Instantiate `JsonRpcProvider` & `Contract`.
-- In `useEffect`, add `contract.on('Voted', handler)` where `handler` calls `refresh()`.
-- Clean up with `contract.off('Voted', handler)` in return.
-
-Full Solution
-
-```js
-useEffect(() => {
-  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.REACT_APP_RPC_URL
-  );
-  const contract = new ethers.Contract(
-    process.env.REACT_APP_CONTRACT_ADDRESS,
-    abi,
-    provider
-  );
-  const handler = (voter, proposal) => {
-    console.log(`Event: ${voter} voted ${proposal}`);
-    refresh();
-  };
-  contract.on("Voted", handler);
-  return () => {
-    contract.off("Voted", handler);
-  };
-}, []);
-```
-
-Solidity Event
-
-```sol
-event Voted(address indexed voter, string proposal);
-```
-
----
-
-## ✅ Test Cases
-
-```js
-// __tests__/VoteCounts.test.js
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import VoteCounts from "../components/VoteCounts";
-import { ethers } from "ethers";
-
-jest.mock("ethers", () => {
-  const original = jest.requireActual("ethers");
-  const fake = {
-    getVoteCount: jest.fn((p) =>
-      Promise.resolve(
-        original.BigNumber.from(p.length) // dummy count
-      )
-    ),
-  };
-  return {
-    ...original,
-    providers: { JsonRpcProvider: jest.fn() },
-    Contract: jest.fn(() => fake),
-  };
-});
-
-test("loads and displays vote counts", async () => {
-  const proposals = ["Infra", "Ed"];
-  render(<VoteCounts proposals={proposals} />);
-  for (const p of proposals) {
-    await waitFor(() => {
-      expect(screen.getByText(new RegExp(`${p}:`))).toHaveTextContent(
-        `${p}: ${p.length}`
-      );
-    });
-  }
-});
-```
-
-```js
-// __tests__/CastVote.test.js
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import CastVote from "../components/CastVote";
-import { ethers } from "ethers";
-
-jest.mock("ethers", () => {
-  const original = jest.requireActual("ethers");
-  const fakeContract = {
-    vote: jest.fn().mockResolvedValue({
-      hash: "0xABC",
-      wait: () => Promise.resolve({ status: 1 }),
-    }),
-  };
-  return {
-    ...original,
-    providers: {
-      Web3Provider: jest.fn(() => ({ getSigner: () => ({}) })),
-    },
-    Contract: jest.fn(() => fakeContract),
-  };
-});
-
-test("casts vote and calls onVoted", async () => {
-  const proposals = ["A", "B"];
-  const onVoted = jest.fn();
-  window.ethereum = { request: jest.fn().mockResolvedValue(["0x1"]) };
-
-  render(<CastVote proposals={proposals} onVoted={onVoted} />);
-  fireEvent.change(screen.getByRole("combobox"), { target: { value: "B" } });
-  fireEvent.click(screen.getByText("Vote"));
-
-  expect(screen.getByText(/Voting…/i)).toBeInTheDocument();
-  await waitFor(() => expect(onVoted).toHaveBeenCalled());
-  expect(screen.getByText(/confirmed/i)).toBeInTheDocument();
-
-  const calledArg = ethers.Contract.mock.results[0].value.vote.mock.calls[0][0];
-  expect(calledArg).toBe("B");
-});
-```
+- **Ethers v6 Signers**: https://docs.ethers.org/v6/api/providers/#Signer - The signer interface
+- **Ethers v6 Providers**: https://docs.ethers.org/v6/api/providers/ - `BrowserProvider`, `JsonRpcProvider` and more
+- **Ethers v6 Contracts**: https://docs.ethers.org/v6/api/contract/ - Calling methods, overrides and `estimateGas`
+- **Ethers v6 Migration Notes**: https://docs.ethers.org/v6/migrating/ - What changed from v5
+- **Sepolia Etherscan**: https://sepolia.etherscan.io - Look up testnet transactions
 
 ---
 
 ## 🌟 Closing Story
 
-As Laguna’s cooperative members cheered at their live-updating dashboard, Odessa leaned back in her Brooklyn seat. She’d just powered a real on-chain vote from across the globe.
+As Laguna’s cooperative members cheered at their first transparent vote, Odessa leaned back in her Brooklyn seat. She’d just powered a real on-chain vote from across the globe.
 
-Next up: mastering gas estimation (`estimateGas`), meta-transactions, and advanced UX flows for pending receipts. Odessa’s journey from MetaMask connect to write transactions is only heating up—Web3 elite status awaits! 🚀🇵🇭🗳️
+Next up: the contract talks back. Odessa will listen for events, so the screen updates the moment something happens on-chain. Her journey from MetaMask connect to write transactions is only heating up! 🚀🇵🇭🗳️

@@ -2,23 +2,25 @@
 
 ![BaryoToken Launch](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+6.0+-+COVER.png)
 
-It was a humid afternoon in Marikina—rain clouds gathering over the riverbanks. Inside a humble sari-sari store turned DAO-hub, barangay residents gathered around a laptop. Neri’s latest innovation, BaryoToken, had just launched. Each token represented a voucher for rice, canned goods, even sari-sari store credit.
+It was a humid afternoon in Marikina, rain clouds gathering over the riverbanks. Inside a humble sari-sari store turned DAO hub, barangay residents gathered around a laptop. Neri's latest innovation, BaryoToken, had just launched. Each token represented a voucher for rice, canned goods, even sari-sari store credit.
 
 ![Det Building Token Tracker](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+6.1.png)
 
-Odessa (“Det”) was on the case. Fresh from her stint building an NFT gallery in SF, she now needed to craft a remittance-ready wallet UI for OFWs sending BaryoToken back home. Her mission: a “Balancer” page that:
+Odessa ("Det") was on the case. Fresh from building an NFT gallery in SF, she now needed a simple wallet page for OFWs sending BaryoToken back home. Her mission, a "Balancer" page that:
 
-1. Connects to MetaMask or any Ethers wallet
-2. Reads and displays the token’s `name()`, `symbol()`, and `decimals()`
-3. Fetches and formats the user’s token `balanceOf()` in human-readable form
+1. Reads and displays the token's `name()`, `symbol()`, and `decimals()`
+2. Connects to MetaMask
+3. Fetches the user's `balanceOf()` and shows it in human-readable form
 
-In just 30 minutes, Det sketched a React page: an input to switch BaryoToken contract addresses, a “Connect Wallet” button, and a “Fetch Balance” card. When barangay captain Mang Jun clicked “Load,” the balance lit up on screen—₱25.50 worth of BaryoToken. Smiles spread: now elders, OFWs, and sari-sari store owners could see their holdings in real pesos. For Det, this POCs’ magic was enough—proof that Filipino ingenuity and Web3 could transform local economies. Next stop: cross-border remittances for OFWs.
+In about 30 minutes, Det had a React page with a "Fetch My Balance" button. When barangay captain Mang Jun clicked it, his balance lit up on screen: 25.5 BARYO. Smiles spread. Now elders, OFWs, and sari-sari store owners could see their holdings in plain numbers. For Det, this proof of concept was enough: Filipino ingenuity and Web3 could transform local economies.
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-Welcome to the world of **ERC-20 tokens**! In this lesson, you'll learn how to build a Token Tracker—a UI that displays token information and balances. Think of it like a digital wallet display for crypto tokens!
+Welcome to the world of **ERC-20 tokens**! In this lesson you build a Token Tracker, a UI that displays a token's information and your balance. Think of it as the "balance inquiry" screen of a digital wallet.
+
+> **This lesson uses ethers v6.** If you find older tutorials online that write `ethers.utils...` or `ethers.providers...`, those are ethers v5 and will not run here. Every snippet below is v6. <!-- v5-ok -->
 
 ---
 
@@ -26,7 +28,7 @@ Welcome to the world of **ERC-20 tokens**! In this lesson, you'll learn how to b
 
 #### **What is ERC-20?**
 
-ERC-20 is a **standard interface** for fungible tokens on Ethereum. "Fungible" means each token is identical and interchangeable—like how one peso coin equals any other peso coin.
+ERC-20 is a **standard interface** for fungible tokens on Ethereum. "Fungible" means each token is identical and interchangeable, like how one peso coin equals any other peso coin.
 
 ```
 ERC-20 Token vs Traditional Currency:
@@ -42,35 +44,37 @@ ERC-20 Token vs Traditional Currency:
 
 #### **The ERC-20 Interface**
 
-Every ERC-20 token must implement these functions:
+Every ERC-20 token exposes these functions (`name`, `symbol` and `decimals` are technically optional in the standard, but nearly every real token has them):
 
 ```solidity
 // Metadata functions (read-only)
-function name() external view returns (string);      // "BaryoToken"
-function symbol() external view returns (string);    // "BARYO"
-function decimals() external view returns (uint8);   // 18
+function name() external view returns (string memory);      // "BaryoToken"
+function symbol() external view returns (string memory);    // "BARYO"
+function decimals() external view returns (uint8);          // 18
 
-// Supply functions
+// Supply
 function totalSupply() external view returns (uint256);
 
-// Balance functions
+// Balances
 function balanceOf(address account) external view returns (uint256);
 
-// Transfer functions
+// Transfers
 function transfer(address to, uint256 amount) external returns (bool);
 function approve(address spender, uint256 amount) external returns (bool);
 function transferFrom(address from, address to, uint256 amount) external returns (bool);
 function allowance(address owner, address spender) external view returns (uint256);
 ```
 
+This lesson only **reads**: `name`, `symbol`, `decimals` and `balanceOf`. Sending tokens is Lesson 08.
+
 #### **Understanding Decimals**
 
-This is crucial! Token amounts are stored as **integers**, not decimals:
+This is crucial! Token amounts are stored as **whole integers**, never as decimals:
 
 ```
 Real-World Example:
 ┌─────────────────────────────────────────────────────────────┐
-│  Human sees:     25.50 BARYO                                │
+│  Human sees:        25.5 BARYO                              │
 │  Blockchain stores: 25500000000000000000 (with 18 decimals) │
 │                                                             │
 │  Think of it like:                                          │
@@ -88,52 +92,50 @@ Common decimal values:
 └──────────────┴──────────┴────────────────────────────────────┘
 ```
 
+So the screen must always **divide by 10^decimals** before showing a balance. ethers does that for you with `formatUnits`.
+
 ---
 
-### 2. React + Ethers.js Architecture
+### 2. React + ethers Architecture
 
-#### **Component Architecture**
+#### **Component Shape**
 
 ```
-Token Tracker App Structure:
+TokenTracker (one component)
 ┌─────────────────────────────────────────────────────────────┐
-│                       App.js                                 │
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │                  TokenInfo.js                           ││
-│  │  • Displays name, symbol, decimals                      ││
-│  │  • Uses Provider (read-only)                            ││
-│  └─────────────────────────────────────────────────────────┘│
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │                TokenBalance.js                          ││
-│  │  • Shows user's token balance                           ││
-│  │  • Formats raw BigNumber to human-readable              ││
-│  └─────────────────────────────────────────────────────────┘│
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │                TokenTransfer.js (Bonus)                 ││
-│  │  • Send tokens to another address                       ││
-│  │  • Uses Signer (write operations)                       ││
-│  └─────────────────────────────────────────────────────────┘│
+│ On mount (useEffect):                                       │
+│   • validate tokenAddress                                   │
+│   • read name, symbol, decimals  (read-only provider)       │
+│                                                             │
+│ On click "Fetch My Balance":                                │
+│   • ask MetaMask for the account                            │
+│   • read balanceOf(account), format with decimals           │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 #### **Provider vs Signer Recap**
 
-| Component    | Type         | Purpose               | Gas Cost  |
+| Piece        | Type         | Purpose               | Gas Cost  |
 | ------------ | ------------ | --------------------- | --------- |
 | **Provider** | Read-only    | Call `view` functions | FREE      |
 | **Signer**   | Read + Write | Send transactions     | Costs ETH |
 
 ```js
-// Provider: For reading data (name, symbol, balance)
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+// Provider: for reading data (name, symbol, balance)
+const provider = new ethers.BrowserProvider(window.ethereum);
 const contract = new ethers.Contract(address, ABI, provider);
 const name = await contract.name(); // Free!
 
-// Signer: For writing data (transfer tokens)
-const signer = provider.getSigner();
-const contractWithSigner = new ethers.Contract(address, ABI, signer);
-const tx = await contractWithSigner.transfer(to, amount); // Costs gas!
+// Signer: for writing data (Lesson 08). In v6, getSigner() is async.
+const signer = await provider.getSigner();
+const tokenWithSigner = contract.connect(signer);
+// const tx = await tokenWithSigner.transfer(to, amount); // Costs gas!
 ```
+
+There are two providers you will meet in v6:
+
+- `new ethers.JsonRpcProvider(url)`: talks straight to an RPC node (Infura, Alchemy, a public Sepolia endpoint). No wallet needed, perfect for reading on page load.
+- `new ethers.BrowserProvider(window.ethereum)`: talks through MetaMask, so it knows which account the user picked.
 
 ---
 
@@ -141,40 +143,54 @@ const tx = await contractWithSigner.transfer(to, amount); // Costs gas!
 
 #### **The ABI (Application Binary Interface)**
 
-To talk to a smart contract, you need its ABI—a JSON description of its functions:
+To talk to a smart contract you need its ABI, a description of its functions. ethers accepts a short "human-readable" form:
 
 ```js
 // Minimal ABI for reading token info
 const ERC20_ABI = [
-  // Read functions (view)
   "function name() view returns (string)",
   "function symbol() view returns (string)",
   "function decimals() view returns (uint8)",
   "function totalSupply() view returns (uint256)",
   "function balanceOf(address) view returns (uint256)",
-
-  // Write functions (state-changing)
-  "function transfer(address to, uint256 amount) returns (bool)",
 ];
-
-// Human-readable ABI format (Ethers.js feature!)
-// Much easier than full JSON ABI
 ```
 
-#### **Complete Token Info Fetching**
+You only list the functions you actually call. Much easier than a full JSON ABI.
+
+#### **Where the RPC URL Lives**
+
+Never paste an RPC key straight into code. Put it in an environment file.
+
+In a **Vite** React app (the modern default), variables must start with `VITE_` and you read them from `import.meta.env`:
+
+```
+# .env  (keep it out of git)
+VITE_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+```
+
+```js
+const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
+```
+
+The activity's grader uses the older naming instead and supplies `process.env.REACT_APP_RPC_URL` for you, so **in the activity write `process.env.REACT_APP_RPC_URL`**. Same idea, different label.
+
+Anything starting with `VITE_` ends up inside the JavaScript bundle that every visitor downloads, so only put **public-safe** values there (an RPC URL with a rate-limited key is normal; a private key never is).
+
+#### **Fetching Token Info, Step by Step**
 
 ```js
 async function fetchTokenInfo(contractAddress) {
-  // Step 1: Validate the address
-  if (!ethers.utils.isAddress(contractAddress)) {
+  // Step 1: Validate the address before touching the chain
+  if (!ethers.isAddress(contractAddress)) {
     throw new Error("Invalid contract address");
   }
 
-  // Step 2: Connect to the contract
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // Step 2: Connect to the contract with a read-only provider
+  const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
   const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
 
-  // Step 3: Fetch all info in parallel (faster!)
+  // Step 3: Fetch everything in parallel
   const [name, symbol, decimals, totalSupply] = await Promise.all([
     contract.name(),
     contract.symbol(),
@@ -182,13 +198,13 @@ async function fetchTokenInfo(contractAddress) {
     contract.totalSupply(),
   ]);
 
-  // Step 4: Format the total supply
-  const formattedSupply = ethers.utils.formatUnits(totalSupply, decimals);
+  // Step 4: Format the total supply for humans
+  const formattedSupply = ethers.formatUnits(totalSupply, decimals);
 
   return {
     name, // "BaryoToken"
     symbol, // "BARYO"
-    decimals, // 18
+    decimals, // 18n  (a bigint in v6)
     totalSupply: formattedSupply, // "1000000.0"
   };
 }
@@ -198,43 +214,47 @@ async function fetchTokenInfo(contractAddress) {
 
 ### 4. Fetching & Formatting Balances
 
-#### **The BigNumber Challenge**
+#### **Big Numbers in JavaScript**
 
-JavaScript can't handle numbers larger than `Number.MAX_SAFE_INTEGER` (about 9 quadrillion). Token balances easily exceed this!
+A normal JavaScript `number` is only exact up to `Number.MAX_SAFE_INTEGER` (about 9 quadrillion, 9 × 10^15). Token balances blow past that easily: 25.5 tokens is 25.5 × 10^18 raw units.
+
+JavaScript has a built-in type for this: **`bigint`**, written with an `n` at the end (`123n`). ethers v6 returns every `uint256` (and even `uint8`) as a `bigint`.
 
 ```js
-// ❌ Problem: JavaScript loses precision
-const bigNumber = 123456789012345678901234n;
-Number(bigNumber); // 1.2345678901234568e+23 (lost precision!)
+// ❌ Problem: a regular number loses precision
+const huge = 123456789012345678901234n;
+Number(huge); // 1.2345678901234569e+23  (digits lost!)
 
-// ✅ Solution: Use Ethers.js BigNumber
+// ✅ ethers v6 gives you a bigint, exact to the last digit
 const balance = await contract.balanceOf(userAddress);
+console.log(balance);            // 123456789012345678901234n
 console.log(balance.toString()); // "123456789012345678901234"
 
 // Format for display
-const formatted = ethers.utils.formatUnits(balance, 18);
-console.log(formatted); // "123456.789012345678901234"
+console.log(ethers.formatUnits(balance, 18)); // "123456.789012345678901234"
 ```
 
-#### **Complete Balance Fetching Flow**
+#### **Complete Balance Flow**
 
 ```js
-async function fetchBalance(contractAddress, userAddress) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+async function fetchBalance(contractAddress) {
+  // Ask MetaMask which account to use (opens the pop-up the first time)
+  const [user] = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
+
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
 
-  // Fetch balance and decimals
   const [rawBalance, decimals, symbol] = await Promise.all([
-    contract.balanceOf(userAddress),
+    contract.balanceOf(user),
     contract.decimals(),
     contract.symbol(),
   ]);
 
-  // rawBalance is a BigNumber like: 25500000000000000000
-  console.log("Raw balance:", rawBalance.toString());
+  console.log("Raw balance:", rawBalance); // 25500000000000000000n
 
-  // Format to human-readable
-  const formatted = ethers.utils.formatUnits(rawBalance, decimals);
+  const formatted = ethers.formatUnits(rawBalance, decimals);
   console.log("Formatted:", formatted); // "25.5"
 
   return `${formatted} ${symbol}`; // "25.5 BARYO"
@@ -244,21 +264,22 @@ async function fetchBalance(contractAddress, userAddress) {
 #### **Formatting Utilities**
 
 ```js
-// formatUnits: BigNumber → String (for display)
-ethers.utils.formatUnits("25500000000000000000", 18); // "25.5"
+// formatUnits: raw bigint → string (for display)
+ethers.formatUnits(25500000000000000000n, 18); // "25.5"
+ethers.formatUnits(12345n, 2);                 // "123.45"
 
-// parseUnits: String → BigNumber (for transactions)
-ethers.utils.parseUnits("25.5", 18);
-// BigNumber: 25500000000000000000
+// parseUnits: human string → raw bigint (for sending, Lesson 08)
+ethers.parseUnits("25.5", 18); // 25500000000000000000n
 
-// Common patterns:
-const displayBalance = ethers.utils.formatUnits(raw, decimals);
-const sendAmount = ethers.utils.parseUnits(userInput, decimals);
+// formatEther / parseEther: shortcuts for 18 decimals
+ethers.formatEther(1000000000000000000n); // "1.0"
 ```
 
 ---
 
 ### 5. React Hook Patterns
+
+You can wrap these reads in your own hook so any component can reuse them.
 
 #### **Token Info Hook**
 
@@ -271,17 +292,15 @@ function useTokenInfo(contractAddress) {
   useEffect(() => {
     async function load() {
       if (!contractAddress) return;
-
       setLoading(true);
       setError(null);
 
       try {
-        // Validate address first
-        if (!ethers.utils.isAddress(contractAddress)) {
+        if (!ethers.isAddress(contractAddress)) {
           throw new Error("Invalid address");
         }
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
         const contract = new ethers.Contract(contractAddress, ABI, provider);
 
         const [name, symbol, decimals] = await Promise.all([
@@ -290,7 +309,7 @@ function useTokenInfo(contractAddress) {
           contract.decimals(),
         ]);
 
-        setInfo({ name, symbol, decimals: decimals.toString() });
+        setInfo({ name, symbol, decimals: Number(decimals) });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -299,54 +318,17 @@ function useTokenInfo(contractAddress) {
     }
 
     load();
-  }, [contractAddress]); // Re-run when address changes
+  }, [contractAddress]); // Re-run when the address changes
 
   return { info, loading, error };
 }
 ```
 
-#### **Token Balance Hook**
+`Number(decimals)` is safe here because decimals is always a small number (0 to 255). Never do `Number(balance)` on a token balance: that is exactly the precision trap from section 4.
 
-```jsx
-function useTokenBalance(contractAddress) {
-  const [account, setAccount] = useState("");
-  const [balance, setBalance] = useState("");
-  const [error, setError] = useState(null);
+#### **Why `useEffect` Needs an Inner Function**
 
-  useEffect(() => {
-    async function loadBalance() {
-      if (!contractAddress) return;
-
-      try {
-        // Request account access
-        const [user] = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setAccount(user);
-
-        // Fetch balance
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const contract = new ethers.Contract(contractAddress, ABI, provider);
-
-        const [rawBalance, decimals, symbol] = await Promise.all([
-          contract.balanceOf(user),
-          contract.decimals(),
-          contract.symbol(),
-        ]);
-
-        const formatted = ethers.utils.formatUnits(rawBalance, decimals);
-        setBalance(`${formatted} ${symbol}`);
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-
-    loadBalance();
-  }, [contractAddress]);
-
-  return { account, balance, error };
-}
-```
+`useEffect(async () => {...})` looks tempting but is wrong: React expects the effect to return nothing or a cleanup function, and an `async` function always returns a Promise. So you define an `async` function **inside** the effect and call it, as `load()` does above.
 
 ---
 
@@ -356,53 +338,40 @@ function useTokenBalance(contractAddress) {
 
 ```js
 function validateAddress(address) {
-  // Check if it's a valid Ethereum address format
-  if (!ethers.utils.isAddress(address)) {
+  // Is it a well-formed Ethereum address?
+  if (!ethers.isAddress(address)) {
     return { valid: false, error: "Invalid address format" };
   }
 
-  // Check if it's the zero address
-  if (address === ethers.constants.AddressZero) {
+  // Is it the zero address (0x000...0)?
+  if (address === ethers.ZeroAddress) {
     return { valid: false, error: "Cannot use zero address" };
   }
 
   return { valid: true, error: null };
 }
-
-// Usage in component
-const handleSubmit = async () => {
-  const { valid, error } = validateAddress(inputAddress);
-  if (!valid) {
-    setError(error);
-    return;
-  }
-  // Proceed with fetching...
-};
 ```
 
-#### **Common Error Scenarios**
+`ethers.isAddress("not-an-address")` returns `false`, so your code can stop before sending a request that would only fail.
 
-| Error                   | Cause                  | Solution                    |
-| ----------------------- | ---------------------- | --------------------------- |
-| "Invalid address"       | Wrong format           | Validate with `isAddress()` |
-| "call revert exception" | Not an ERC-20 contract | Verify contract address     |
-| "network changed"       | User switched networks | Re-connect and re-fetch     |
-| "user rejected"         | User denied MetaMask   | Show friendly message       |
+#### **Common Error Scenarios (ethers v6 codes)**
+
+| Error code         | Typical cause                                   | What to show                     |
+| ------------------ | ----------------------------------------------- | -------------------------------- |
+| `BAD_DATA`         | Address has no contract (call returned `0x`)    | "That is not a token contract"   |
+| `CALL_EXCEPTION`   | The contract reverted                           | "The token rejected the request" |
+| `ACTION_REJECTED`  | User clicked Reject in MetaMask                 | "Request cancelled"              |
+| `NETWORK_ERROR`    | RPC unreachable, or the user switched networks  | "Network problem, try again"     |
 
 ```js
 async function safeContractCall(contractFn) {
   try {
     return await contractFn();
   } catch (err) {
-    if (err.code === "CALL_EXCEPTION") {
-      throw new Error("This doesn't appear to be a valid ERC-20 token");
-    }
-    if (err.code === 4001) {
-      throw new Error("Request cancelled by user");
-    }
-    if (err.code === "NETWORK_ERROR") {
-      throw new Error("Network error - check your connection");
-    }
+    if (err.code === "BAD_DATA") throw new Error("This doesn't look like an ERC-20 token");
+    if (err.code === "CALL_EXCEPTION") throw new Error("The token rejected the request");
+    if (err.code === "ACTION_REJECTED") throw new Error("Request cancelled by user");
+    if (err.code === "NETWORK_ERROR") throw new Error("Network error - check your connection");
     throw err;
   }
 }
@@ -412,33 +381,12 @@ async function safeContractCall(contractFn) {
 
 ### 7. Best Practices & Security
 
-#### **Environment Variables**
-
-Never hardcode sensitive values:
-
-```js
-// ❌ BAD: Hardcoded
-const RPC_URL = "https://mainnet.infura.io/v3/abc123secret";
-
-// ✅ GOOD: Environment variable
-const RPC_URL = process.env.REACT_APP_RPC_URL;
-```
-
-**.env file:**
-
-```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-REACT_APP_CONTRACT_ADDRESS=0x...
-```
-
-#### **Security Checklist**
-
-1. ✅ Validate all user inputs
-2. ✅ Never store private keys
-3. ✅ Use HTTPS for RPC endpoints
-4. ✅ Handle all error cases
-5. ✅ Don't trust user-provided ABIs
-6. ✅ Verify contract addresses on Etherscan
+1. ✅ Validate every address before using it
+2. ✅ Never put a private key in frontend code or a `VITE_` variable
+3. ✅ Use HTTPS RPC endpoints
+4. ✅ Handle the error cases above with friendly messages
+5. ✅ Hard-code the ABI you expect; don't trust an ABI a stranger sends you
+6. ✅ Check a token's address on [Sepolia Etherscan](https://sepolia.etherscan.io) before trusting it
 
 ---
 
@@ -447,38 +395,36 @@ REACT_APP_CONTRACT_ADDRESS=0x...
 #### **1. Not Handling Decimals**
 
 ```js
-// ❌ BAD: Displaying raw value
+// ❌ BAD: displaying the raw value
 const balance = await contract.balanceOf(user);
 display(balance.toString()); // "25500000000000000000" 😱
 
-// ✅ GOOD: Format with decimals
+// ✅ GOOD: format with decimals
 const decimals = await contract.decimals();
-const formatted = ethers.utils.formatUnits(balance, decimals);
-display(formatted); // "25.5" 👍
+display(ethers.formatUnits(balance, decimals)); // "25.5" 👍
 ```
 
-#### **2. Forgetting to Request Accounts**
+#### **2. Forgetting That `getSigner()` Is Async in v6**
 
 ```js
-// ❌ BAD: Will fail - no account connected
+// ❌ BAD: signer is a Promise, not a signer
 const signer = provider.getSigner();
-const address = await signer.getAddress(); // Error!
+await signer.getAddress(); // TypeError!
 
-// ✅ GOOD: Request first
-await window.ethereum.request({ method: "eth_requestAccounts" });
-const signer = provider.getSigner();
-const address = await signer.getAddress(); // Works!
+// ✅ GOOD: await it. MetaMask asks the user to connect if needed.
+const signer = await provider.getSigner();
+const address = await signer.getAddress();
 ```
 
 #### **3. Not Using Promise.all**
 
 ```js
-// ❌ SLOW: Sequential calls (3 round trips)
+// ❌ SLOW: three waits in a row
 const name = await contract.name();
 const symbol = await contract.symbol();
 const decimals = await contract.decimals();
 
-// ✅ FAST: Parallel calls (1 round trip)
+// ✅ FAST: all three in flight at once
 const [name, symbol, decimals] = await Promise.all([
   contract.name(),
   contract.symbol(),
@@ -488,47 +434,44 @@ const [name, symbol, decimals] = await Promise.all([
 
 ---
 
-### 9. Testing Your Token Tracker
+### 9. How This Is Graded
 
-Before deploying, verify:
-
-1. ✅ **Valid addresses work** - Token info displays correctly
-2. ✅ **Invalid addresses show error** - Clear error message
-3. ✅ **Balance formats correctly** - Uses proper decimals
-4. ✅ **Loading states shown** - User knows something is happening
-5. ✅ **Network switching handled** - Refreshes on chain change
-6. ✅ **Zero balance displays** - Shows "0" not error
+Your activity runs inside a sandbox with a fake wallet and a fake token called **Barangay Peso (BPSO)**, holding a raw balance of `2500000000000000000` with 18 decimals. The grader checks that you read the metadata on mount, skip every read for an invalid address, ask for the account and read `balanceOf` when the **Fetch** button is clicked, and show `2.5`, never the raw integer.
 
 ---
 
 ### External References & Further Learning
 
-- **Ethers.js Documentation**: https://docs.ethers.org/v5 - Complete Ethers.js guide
-- **OpenZeppelin ERC-20**: https://docs.openzeppelin.com/contracts/4.x/erc20 - Standard implementation
-- **EIP-20 Specification**: https://eips.ethereum.org/EIPS/eip-20 - The official ERC-20 standard
-- **React Hooks**: https://reactjs.org/docs/hooks-overview.html - React state management
-- **Etherscan Token Tracker**: https://etherscan.io/tokens - See real token examples
+- **ethers v6 documentation**: https://docs.ethers.org/v6/ (see "Contracts" and "Utilities → Units")
+- **OpenZeppelin ERC-20 (v5)**: https://docs.openzeppelin.com/contracts/5.x/erc20
+- **EIP-20 specification**: https://eips.ethereum.org/EIPS/eip-20
+- **React `useEffect`**: https://react.dev/reference/react/useEffect
+- **Vite environment variables**: https://vite.dev/guide/env-and-mode
+- **Sepolia Etherscan token tracker**: https://sepolia.etherscan.io/tokens
 
 ---
 
 ## 🧪 Exercises
 
-### Exercise 1: Show Token Info (name, symbol, decimals)
+### Exercise 1: Show Token Info From a Typed Address
 
-**Problem Statement**  
-Build a React component that, given a contract address, reads `name()`, `symbol()`, and `decimals()` from an ERC-20 contract and displays them.
+**Problem Statement**
+Build a component where the user pastes a contract address, clicks **Load**, and sees the token's `name()`, `symbol()` and `decimals()`.
 
-**Solidity Contract (`BaryoToken.sol`)**
+**Solidity Contract (`BaryoToken.sol`, OpenZeppelin v5)**
 
 ```sol
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BaryoToken is ERC20, Ownable {
-    constructor(string memory _name, string memory _symbol, uint256 initialSupply) ERC20(_name, _symbol) {
+    constructor(uint256 initialSupply)
+        ERC20("BaryoToken", "BARYO")
+        Ownable(msg.sender)
+    {
         _mint(msg.sender, initialSupply);
     }
 
@@ -538,11 +481,14 @@ contract BaryoToken is ERC20, Ownable {
 }
 ```
 
-**Starter Code (`TokenInfo.js`)**
+In OpenZeppelin v5, `Ownable` needs the first owner passed in: `Ownable(msg.sender)`.
 
-```js
-import React, { useState } from "react";
+**Starter Code (`TokenInfo.jsx`)**
+
+```jsx
+import { useState } from "react";
 import { ethers } from "ethers";
+
 const ABI = [
   "function name() view returns (string)",
   "function symbol() view returns (string)",
@@ -556,7 +502,7 @@ export default function TokenInfo() {
 
   async function loadInfo() {
     try {
-      // TODO: Validate address with ethers.utils.isAddress
+      // TODO: Validate address with ethers.isAddress
       // TODO: Create provider & contract
       // TODO: Call name(), symbol(), decimals()
       // TODO: setInfo({ name, symbol, decimals })
@@ -588,20 +534,13 @@ export default function TokenInfo() {
 }
 ```
 
-**To Do List**
-
-- [ ] Use `ethers.utils.isAddress(addr)` to validate.
-- [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`.
-- [ ] `provider = new ethers.providers.Web3Provider(window.ethereum)`.
-- [ ] `contract = new ethers.Contract(addr, ABI, provider)`.
-- [ ] Call `name()`, `symbol()`, `decimals()`, then `setInfo`.
-
 **Full Solution**
 
-```js
-// TokenInfo.js
-import React, { useState } from "react";
+```jsx
+// TokenInfo.jsx
+import { useState } from "react";
 import { ethers } from "ethers";
+
 const ABI = [
   "function name() view returns (string)",
   "function symbol() view returns (string)",
@@ -616,13 +555,12 @@ export default function TokenInfo() {
   async function loadInfo() {
     setError("");
     setInfo({});
-    if (!ethers.utils.isAddress(addr)) {
+    if (!ethers.isAddress(addr)) {
       setError("Invalid address");
       return;
     }
     try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
       const token = new ethers.Contract(addr, ABI, provider);
       const [name, symbol, decimals] = await Promise.all([
         token.name(),
@@ -658,24 +596,21 @@ export default function TokenInfo() {
 }
 ```
 
-.env Sample
-
-```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
-```
+Reading metadata needs no wallet at all, which is why this uses `JsonRpcProvider` and never asks MetaMask.
 
 ---
 
-### Exercise 2: Display Connected Wallet’s Token Balance
+### Exercise 2: Display the Connected Wallet's Balance
 
-**Problem Statement**  
-Extend your UI to fetch `balanceOf(userAddress)`, format it with `decimals()`, and show “Your Balance: 123.45 BARYO”.
+**Problem Statement**
+Extend your UI to read `balanceOf(userAddress)`, format it with `decimals()`, and show "Your Balance: 123.45 BARYO".
 
-**Starter Code (`TokenBalance.js`)**
+**Full Solution (`TokenBalance.jsx`)**
 
-```js
-import React, { useState, useEffect } from "react";
+```jsx
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+
 const ABI = [
   "function symbol() view returns (string)",
   "function decimals() view returns (uint8)",
@@ -683,78 +618,23 @@ const ABI = [
 ];
 
 export default function TokenBalance({ contractAddress }) {
-  const [account, setAccount] = useState("");
-  const [balance, setBalance] = useState("");
-  const [symbol, setSymbol] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function loadBalance() {
-      try {
-        // TODO: request accounts & setAccount
-        // TODO: provider & contract
-        // TODO: fetch decimals & symbol
-        // TODO: rawBalance = await contract.balanceOf(account)
-        // TODO: formatted = formatUnits(rawBalance, decimals)
-        // TODO: setBalance(`${formatted} ${symbol}`)
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-    if (contractAddress) loadBalance();
-  }, [contractAddress]);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  return (
-    <div>
-      <h3>Your Balance</h3>
-      <p>{balance || "Loading..."}</p>
-    </div>
-  );
-}
-```
-
-**To Do List**
-
-- [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`
-- [ ] Grab `account`, set `setAccount`.
-- [ ] Instantiate contract with `provider`.
-- [ ] Call `decimals()`, `symbol()`, and `balanceOf(account)`.
-- [ ] Format via `ethers.utils.formatUnits(raw, decimals)`.
-
-**Full Solution**
-
-```js
-// TokenBalance.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function symbol() view returns (string)",
-  "function decimals() view returns (uint8)",
-  "function balanceOf(address) view returns (uint256)",
-];
-
-export default function TokenBalance({ contractAddress }) {
-  const [account, setAccount] = useState("");
   const [balance, setBalance] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadBalance() {
       try {
-        const [user] = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setAccount(user);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner(); // prompts MetaMask if needed
+        const user = await signer.getAddress();
+
         const token = new ethers.Contract(contractAddress, ABI, provider);
         const [sym, dec, raw] = await Promise.all([
           token.symbol(),
           token.decimals(),
           token.balanceOf(user),
         ]);
-        const formatted = ethers.utils.formatUnits(raw, dec);
-        setBalance(`${formatted} ${sym}`);
+        setBalance(`${ethers.formatUnits(raw, dec)} ${sym}`);
       } catch (err) {
         setError(err.message);
       }
@@ -772,189 +652,28 @@ export default function TokenBalance({ contractAddress }) {
 }
 ```
 
----
+This version asks for the account with `await provider.getSigner()` instead of `eth_requestAccounts`. Both open the same MetaMask "connect" prompt; pick whichever reads clearer to you.
 
-### Exercise 3: Token Transfer Form (Bonus)
-
-**Problem Statement**  
-Add a form to send BaryoToken: input recipient & amount, then call `transfer(to, amount)` via Signer.
-
-**Starter Code (`TokenTransfer.js`)**
-
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-const ABI = ["function transfer(address,uint256) returns (bool)"];
-export default function TokenTransfer({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amt, setAmt] = useState("");
-  const [txHash, setTxHash] = useState("");
-  const [error, setError] = useState("");
-
-  async function sendToken() {
-    try {
-      // TODO: ethereum.request(accounts)
-      // TODO: signer = provider.getSigner()
-      // TODO: contract = new ethers.Contract(address, ABI, signer)
-      // TODO: decimals = (fetch from token or assume 18)
-      // TODO: amount = ethers.utils.parseUnits(amt, decimals)
-      // TODO: tx = await contract.transfer(to, amount)
-      // TODO: setTxHash(tx.hash)
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h2>Send BaryoToken</h2>
-      <input
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-        placeholder="Recipient"
-      />
-      <input
-        value={amt}
-        onChange={(e) => setAmt(e.target.value)}
-        placeholder="Amount"
-      />
-      <button onClick={sendToken}>Send</button>
-      {txHash && <p>Tx Hash: {txHash}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
-
-**To Do List**
-
-- [ ] Request accounts
-- [ ] Get `signer` and connect contract
-- [ ] Fetch `decimals()` or assume 18
-- [ ] `parseUnits(amt, decimals)` & call `transfer(to, parsed)`
-- [ ] Show tx hash
-
-**Full Solution**
-
-```js
-// TokenTransfer.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function transfer(address,uint256) returns (bool)",
-  "function decimals() view returns (uint8)",
-];
-
-export default function TokenTransfer({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amt, setAmt] = useState("");
-  const [txHash, setTxHash] = useState("");
-  const [error, setError] = useState("");
-
-  async function sendToken() {
-    setError("");
-    setTxHash("");
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const token = new ethers.Contract(contractAddress, ABI, signer);
-      const dec = await token.decimals();
-      const parsed = ethers.utils.parseUnits(amt, dec);
-      const tx = await token.transfer(to, parsed);
-      setTxHash(tx.hash);
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h2>Send BaryoToken</h2>
-      <input
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-        placeholder="Recipient"
-      />
-      <input
-        value={amt}
-        onChange={(e) => setAmt(e.target.value)}
-        placeholder="Amount"
-      />
-      <button onClick={sendToken}>Send</button>
-      {txHash && <p>Tx Hash: {txHash}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
+Popping a wallet prompt the moment a page loads can feel pushy. In a real app, prefer a button the user clicks, which is exactly what the activity does.
 
 ---
 
-## ✅ Test Cases
+### Exercise 3 (Bonus Preview): A Transfer Form
 
-Create `__tests__/TokenBalance.test.js` with Jest & React Testing Library.
-
-```js
-// __tests__/TokenBalance.test.js
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import TokenBalance from "../TokenBalance";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-
-describe("TokenBalance Component", () => {
-  const fakeAccount = "0xAbCdEf0123456789";
-  const fakeContract = {
-    symbol: jest.fn(),
-    decimals: jest.fn(),
-    balanceOf: jest.fn(),
-  };
-
-  beforeAll(() => {
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue([fakeAccount]),
-    };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
-    ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-  });
-
-  it("displays formatted balance correctly", async () => {
-    fakeContract.symbol.mockResolvedValue("BARYO");
-    fakeContract.decimals.mockResolvedValue(2);
-    fakeContract.balanceOf.mockResolvedValue(ethers.BigNumber.from("12345")); // 123.45
-
-    render(<TokenBalance contractAddress="0xTokenAddr" />);
-
-    expect(screen.getByText(/Loading\.\.\./i)).toBeInTheDocument();
-
-    await waitFor(() => screen.getByText(/123.45 BARYO/));
-
-    expect(screen.getByText("123.45 BARYO")).toBeInTheDocument();
-  });
-
-  it("handles errors gracefully", async () => {
-    fakeContract.symbol.mockRejectedValue(new Error("fail"));
-    render(<TokenBalance contractAddress="0xTokenAddr" />);
-    await waitFor(() => screen.getByText("fail"));
-  });
-});
-```
-
-`jest.config.js`:
+Sending tokens is the whole point of **Lesson 08**, so here is only a preview of the one new idea: `parseUnits` turns what the user typed back into raw units, and the call goes through a **signer**.
 
 ```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
-  },
-};
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
+const token = new ethers.Contract(contractAddress, ABI, signer);
+
+const decimals = await token.decimals();
+const tx = await token.transfer(to, ethers.parseUnits(amount, decimals));
+await tx.wait(); // wait until it is mined
 ```
 
 ---
 
 ## 🌟 Closing Story
 
-As the barangay credit card machines hummed, Mang Jun saw “125.50 BARYO” pop on his screen. “Para bang cash!” he exclaimed. Odessa leaned back—her Balancer UI was a hit. OFWs in Tokyo could now check Marikina tokens in real-time. Next up: cross-chain remittance bridges and auto-swap to peso stablecoins. Odessa’s journey had only begun. Mabuhay Web3 in the Philippines—let’s code the future! 🇵🇭🚀
+As the barangay store's old credit machine hummed, Mang Jun saw "125.5 BARYO" pop up on his screen. "Para bang cash!" he exclaimed. Odessa leaned back: her Balancer UI was a hit. OFWs in Tokyo could now check their Marikina tokens in real time. Next up: letting them actually send tokens home. Odessa's journey had only begun. Mabuhay Web3 in the Philippines, let's code the future! 🇵🇭🚀

@@ -1,6 +1,6 @@
 ---
 title: "Simulated Chain Oracle DApp"
-description: "Create an oracle-powered DApp that simulates off-chain data feeds triggering automated on-chain actions based on external conditions."
+description: "Build the stats panel of an oracle-driven typhoon relief dApp: read the reported wind speed, the release flag and the pool's ETH balance with ethers v6, and show a status that always matches the chain."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

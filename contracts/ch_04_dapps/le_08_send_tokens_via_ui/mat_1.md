@@ -2,21 +2,23 @@
 
 ![BaryoToken Transfer UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+8.0+-+COVER.png)
 
-The old bodega in Queens had seen everything: balikbayan boxes, night-shift coders, and now a cozy coworking nook. Odessa (“Det”) hauled in her laptop, ready to prove that GCash fees were a thing of the past. Neri’s BaryoToken—once built for Marikina sari-sari stores—needed an intuitive “send” UI.
+The old bodega in Queens had seen everything: balikbayan boxes, night-shift coders, and now a cozy coworking nook. Odessa ("Det") hauled in her laptop, ready to prove that remittance fees could be a thing of the past. Neri's BaryoToken, once built for Marikina sari-sari stores, needed an intuitive "send" UI.
 
 ![Token Transfer UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+8.1.png)
 
-With Ganache running locally, Det sketched a minimal form: recipient address, amount input, and a “Send BaryoToken” button. She wired Ethers.js to a local Hardhat‐deployed BaryoToken contract. Her mantra? “Make it so simple that Mang Jun’s nanay can use it.”
+With a Hardhat node running on her laptop, Det sketched a minimal form: recipient address, amount, and a "Send" button. She wired ethers to a BaryoToken contract deployed on that local chain. Her mantra? "Make it so simple that Mang Jun's nanay can use it."
 
-Line by line, she added: request MetaMask accounts, get a signer, parse units, call `transfer()`, wait for the transaction, and update balances. By midnight, transfers were flying: Det sent 10 BARYO to her test wallet; the console lit up with the tx hash and a success message. No more hidden fees, no more delays. Just pure, on‐chain remittance.
+Line by line, she added: request MetaMask accounts, get a signer, parse units, call `transfer()`, wait for the transaction, and show the result. By midnight, transfers were flying: Det sent 10 BARYO to her test wallet, and the screen lit up with the tx hash and a success message. No hidden fees, no waiting for the branch to open. Just on-chain remittance.
 
-Tomorrow, she’d refine the UI, add gas estimations, and listen for `Transfer` events in real time. But tonight, in that converted bodega, Web3 felt like the future of Pinoy remittance. 🚀🇵🇭
+Tomorrow she would move it to Sepolia, add gas estimates, and listen for `Transfer` events in real time. But tonight, in that converted bodega, Web3 felt like the future of Pinoy remittance. 🚀🇵🇭
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-Welcome to building a **Token Transfer UI**! This is one of the most important features in any Web3 app—allowing users to send tokens to each other. Think of it as building your own GCash or PayMaya, but powered by blockchain!
+Welcome to building a **Token Transfer UI**! This is one of the most important features of any Web3 app: letting people send tokens to each other. Think of it as building your own GCash "Send Money" screen, powered by a blockchain.
+
+> **This lesson uses ethers v6.** The two changes that bite most often when you send transactions: `getSigner()` must be **awaited**, and amounts are native **`bigint`** values. Older tutorials using `ethers.providers.Web3Provider` or `ethers.utils.parseUnits` are ethers v5 and will not run here. <!-- v5-ok -->
 
 ---
 
@@ -24,106 +26,95 @@ Welcome to building a **Token Transfer UI**! This is one of the most important f
 
 #### **How Token Transfers Work**
 
-When you "transfer" tokens, you're not moving files. You're telling the smart contract to update its internal ledger:
+When you "transfer" tokens, nothing moves between wallets. You ask the token contract to update its own ledger:
 
 ```
 Before Transfer:
 ┌─────────────────────────────────────────────────────────────┐
-│  BaryoToken Contract Ledger                                  │
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │  balances[0xAlice] = 100 BARYO                         ││
-│  │  balances[0xBob]   = 50 BARYO                          ││
-│  └─────────────────────────────────────────────────────────┘│
-│                                                              │
+│  BaryoToken Contract Ledger                                 │
+│    balances[0xAlice] = 100 BARYO                            │
+│    balances[0xBob]   = 50 BARYO                             │
+│                                                             │
 │  Alice calls: transfer(Bob, 25)                             │
-│                                                              │
-│  After Transfer:                                             │
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │  balances[0xAlice] = 75 BARYO    (-25)                 ││
-│  │  balances[0xBob]   = 75 BARYO    (+25)                 ││
-│  └─────────────────────────────────────────────────────────┘│
+│                                                             │
+│  After Transfer:                                            │
+│    balances[0xAlice] = 75 BARYO    (-25)                    │
+│    balances[0xBob]   = 75 BARYO    (+25)                    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### **The `transfer` Function**
+#### **What `transfer` Does (simplified)**
 
 ```solidity
-// ERC-20 transfer function
+// A simplified picture of ERC-20 transfer, not OpenZeppelin's exact code
 function transfer(address to, uint256 amount) external returns (bool) {
-    // 1. Check sender has enough balance
-    require(balanceOf[msg.sender] >= amount, "Insufficient balance");
-
-    // 2. Subtract from sender
-    balanceOf[msg.sender] -= amount;
-
-    // 3. Add to recipient
-    balanceOf[to] += amount;
-
-    // 4. Emit event for tracking
-    emit Transfer(msg.sender, to, amount);
-
+    require(balances[msg.sender] >= amount, "Insufficient balance"); // 1. enough?
+    balances[msg.sender] -= amount;                                  // 2. subtract
+    balances[to] += amount;                                          // 3. add
+    emit Transfer(msg.sender, to, amount);                           // 4. announce
     return true;
 }
 ```
 
-#### **Key Differences: Transfer vs transferFrom**
+OpenZeppelin v5's real `ERC20` does the same steps, but reverts with a **custom error**, `ERC20InsufficientBalance(sender, balance, needed)`, instead of a text message, and refuses to send to the zero address (`ERC20InvalidReceiver`).
 
-| Function                         | Use Case             | Who Pays Gas          |
-| -------------------------------- | -------------------- | --------------------- |
-| `transfer(to, amount)`           | Send YOUR tokens     | You (sender)          |
-| `transferFrom(from, to, amount)` | Send APPROVED tokens | Transaction initiator |
+#### **transfer vs transferFrom**
+
+| Function                         | Use Case                         | Who Pays Gas         |
+| -------------------------------- | -------------------------------- | -------------------- |
+| `transfer(to, amount)`           | Send YOUR tokens                 | You (the sender)     |
+| `transferFrom(from, to, amount)` | Send tokens someone approved you | Whoever calls it     |
 
 ```js
-// transfer: You send your own tokens
+// transfer: you send your own tokens
 await token.transfer(recipientAddress, amount);
 
-// transferFrom: Send tokens you're approved to spend
-await token.approve(spenderAddress, amount); // First, approve
-await token.transferFrom(ownerAddress, recipientAddress, amount); // Then transfer
+// transferFrom: two steps, two different people
+await token.approve(spenderAddress, amount);                      // owner approves
+await token.transferFrom(ownerAddress, recipientAddress, amount); // spender sends
 ```
+
+This lesson only uses `transfer`.
 
 ---
 
 ### 2. Provider vs Signer: Why It Matters for Transfers
 
-#### **The Critical Difference**
-
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    READ vs WRITE Operations                  │
+│                    READ vs WRITE                            │
 ├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  Provider (Read-Only):                                       │
-│  • balanceOf() ✅                                            │
-│  • name(), symbol() ✅                                       │
-│  • transfer() ❌ (will fail!)                                │
-│                                                              │
-│  Signer (Read + Write):                                      │
-│  • balanceOf() ✅                                            │
-│  • transfer() ✅                                             │
-│  • Any state-changing function ✅                            │
-│                                                              │
+│  Provider (read-only):                                      │
+│  • balanceOf(), name(), decimals()  ✅                      │
+│  • transfer()                       ❌ (no one to sign it)  │
+│                                                             │
+│  Signer (read + write):                                     │
+│  • everything above                 ✅                      │
+│  • transfer() and any state change  ✅ (MetaMask signs)     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### **Getting a Signer**
+A transfer spends the user's tokens, so the user's wallet must **sign** it. In ethers, the object that can sign is a **Signer**.
+
+#### **Getting a Signer (ethers v6)**
 
 ```js
-// Step 1: Request wallet access
+// 1. Ask MetaMask for access (pop-up the first time)
 await window.ethereum.request({ method: "eth_requestAccounts" });
 
-// Step 2: Create provider
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+// 2. Wrap MetaMask in an ethers provider
+const provider = new ethers.BrowserProvider(window.ethereum);
 
-// Step 3: Get signer from provider
-const signer = provider.getSigner();
+// 3. Get the signer: in v6 this is async, so await it
+const signer = await provider.getSigner();
 
-// Step 4: Create contract WITH signer (for transfers)
+// 4. Build the contract WITH the signer, so it can send transactions
 const token = new ethers.Contract(tokenAddress, ABI, signer);
 
-// Now you can call transfer!
 const tx = await token.transfer(to, amount);
 ```
+
+Already have a read-only contract? `contract.connect(signer)` returns a copy that can write.
 
 ---
 
@@ -132,34 +123,34 @@ const tx = await token.transfer(to, amount);
 #### **The Most Common Bug in Token UIs**
 
 ```js
-// ❌ WRONG: User enters "10", you send 10 wei (0.00000000000000001 tokens!)
-const amount = "10";
-await token.transfer(to, amount);
+// ❌ WRONG: the user typed "10", you send 10 raw units (0.00000000000000001 tokens!)
+await token.transfer(to, 10n);
 
-// ✅ CORRECT: Parse with decimals
-const decimals = await token.decimals(); // Usually 18
-const amount = ethers.utils.parseUnits("10", decimals);
-// Now amount = 10000000000000000000 (10 * 10^18)
+// ✅ CORRECT: scale by decimals first
+const decimals = await token.decimals();            // 18n
+const amount = ethers.parseUnits("10", decimals);   // 10000000000000000000n
 await token.transfer(to, amount);
 ```
 
 #### **parseUnits vs formatUnits**
 
 ```
-User Input → Blockchain (parseUnits)
+User input → contract (parseUnits)
 ┌──────────────────────────────────────────────────────────┐
-│  User types: "25.5"                                       │
-│  parseUnits("25.5", 18) → 25500000000000000000           │
-│  This is what gets sent to the contract                   │
+│  User types: "25.5"                                      │
+│  ethers.parseUnits("25.5", 18) → 25500000000000000000n   │
+│  This is what you send to the contract                   │
 └──────────────────────────────────────────────────────────┘
 
-Blockchain → Display (formatUnits)
+Contract → screen (formatUnits, from Lesson 06)
 ┌──────────────────────────────────────────────────────────┐
-│  Contract returns: 25500000000000000000                   │
-│  formatUnits(raw, 18) → "25.5"                            │
-│  This is what user sees                                   │
+│  Contract returns: 25500000000000000000n                 │
+│  ethers.formatUnits(raw, 18) → "25.5"                    │
+│  This is what the user sees                              │
 └──────────────────────────────────────────────────────────┘
 ```
+
+`parseUnits` takes a **string**. Pass it exactly what the user typed (`"2.5"`), not `Number(...)` of it: floating-point numbers can't hold every decimal exactly.
 
 ---
 
@@ -168,442 +159,256 @@ Blockchain → Display (formatUnits)
 #### **What Happens When You Click "Send"**
 
 ```
-Token Transfer Timeline:
 ┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│  1. USER CLICKS "Send"                                       │
-│     │                                                        │
-│     ▼                                                        │
-│  2. MetaMask POPUP appears                                   │
-│     • Shows: To, Amount, Gas Fee                             │
-│     • User reviews and clicks "Confirm"                      │
-│     │                                                        │
-│     ▼                                                        │
-│  3. TRANSACTION SUBMITTED                                    │
-│     • Returns tx object with hash                            │
-│     • Status: "pending"                                      │
-│     │                                                        │
-│     ▼                                                        │
-│  4. WAITING FOR CONFIRMATION                                 │
-│     • await tx.wait()                                        │
-│     • Miners/validators include tx in block                  │
-│     • Usually 12-15 seconds on Ethereum                      │
-│     │                                                        │
-│     ▼                                                        │
-│  5. TRANSACTION CONFIRMED                                    │
-│     • receipt.status === 1 (success)                         │
-│     • Balances updated on-chain                              │
-│     • Transfer event emitted                                 │
-│                                                              │
+│ 1. USER CLICKS "Send"                                       │
+│      ▼                                                      │
+│ 2. METAMASK POP-UP: shows recipient, amount, gas fee        │
+│    User clicks "Confirm" (or "Reject")                      │
+│      ▼                                                      │
+│ 3. SUBMITTED: contract.transfer() resolves with a tx        │
+│    tx.hash is known right now. Status: pending              │
+│      ▼                                                      │
+│ 4. WAITING: await tx.wait()                                 │
+│    A validator includes it in a block                       │
+│    (Ethereum and Sepolia make a block about every 12s)      │
+│      ▼                                                      │
+│ 5. CONFIRMED: the receipt arrives                           │
+│    receipt.status === 1, balances updated, event emitted    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 #### **Code Implementation**
 
 ```js
-async function sendTokens(to, amount) {
-  try {
-    // Step 1: Prepare the transaction
-    console.log("Preparing transaction...");
-    const decimals = await token.decimals();
-    const parsedAmount = ethers.utils.parseUnits(amount, decimals);
+async function sendTokens(token, to, amount) {
+  // Step 1: prepare
+  const decimals = await token.decimals();
+  const parsedAmount = ethers.parseUnits(amount, decimals);
 
-    // Step 2: Send transaction (MetaMask popup appears)
-    console.log("Waiting for user confirmation...");
-    const tx = await token.transfer(to, parsedAmount);
-    console.log("Transaction submitted:", tx.hash);
+  // Step 2: send (MetaMask pop-up appears here)
+  const tx = await token.transfer(to, parsedAmount);
+  console.log("Submitted:", tx.hash);
 
-    // tx object contains:
-    // - hash: "0x123..."
-    // - from: sender address
-    // - to: contract address
-    // - data: encoded function call
-
-    // Step 3: Wait for confirmation
-    console.log("Waiting for confirmation...");
-    const receipt = await tx.wait();
-
-    // receipt contains:
-    // - status: 1 (success) or 0 (failed)
-    // - blockNumber: which block included this tx
-    // - transactionHash: same as tx.hash
-    // - events: emitted events (Transfer)
-
-    console.log("Transaction confirmed in block:", receipt.blockNumber);
-    return receipt;
-  } catch (error) {
-    console.error("Transaction failed:", error);
-    throw error;
-  }
+  // Step 3: wait for it to be mined
+  const receipt = await tx.wait();
+  // receipt.status:      1 (success)
+  // receipt.blockNumber: the block that included it
+  // receipt.hash:        same as tx.hash
+  // receipt.logs:        the events it emitted (Transfer)
+  console.log("Confirmed in block", receipt.blockNumber);
+  return receipt;
 }
 ```
+
+In ethers v6, a receipt's hash is `receipt.hash` and its events are in `receipt.logs`.
 
 ---
 
 ### 5. Input Validation
 
-#### **Always Validate Before Sending**
+Validate **before** opening MetaMask: a bad address or a zero amount should never cost the user a pop-up, let alone gas.
 
 ```js
-function validateTransfer(to, amount, balance) {
+function validateTransfer(to, amount) {
   const errors = [];
 
-  // 1. Validate recipient address
   if (!to) {
     errors.push("Recipient address is required");
-  } else if (!ethers.utils.isAddress(to)) {
+  } else if (!ethers.isAddress(to)) {
     errors.push("Invalid recipient address");
-  } else if (to === ethers.constants.AddressZero) {
-    errors.push("Cannot send to zero address");
+  } else if (to.toLowerCase() === ethers.ZeroAddress) {
+    errors.push("Cannot send to the zero address");
   }
 
-  // 2. Validate amount
   if (!amount || amount.trim() === "") {
     errors.push("Amount is required");
-  } else if (isNaN(Number(amount))) {
+  } else if (isNaN(amount)) {
     errors.push("Amount must be a number");
   } else if (Number(amount) <= 0) {
     errors.push("Amount must be greater than 0");
-  } else if (Number(amount) > Number(balance)) {
-    errors.push("Insufficient balance");
   }
 
-  return {
-    valid: errors.length === 0,
-    errors,
-  };
+  return { valid: errors.length === 0, errors };
 }
+```
+
+Checking the user's balance up front is a nice extra: read `balanceOf(user)`, then compare `parseUnits(amount, decimals) <= balance` (both `bigint`, so the comparison is exact).
+
+---
+
+### 6. Forms in React: `preventDefault`
+
+The activity uses a real `<form>` with `onSubmit`, so pressing Enter works too. But a browser's default reaction to a form submit is to **reload the page**, which would wipe out your pending transaction and every bit of state.
+
+```jsx
+const handleTransfer = async (e) => {
+  e.preventDefault(); // stop the reload, handle it ourselves
+  // ...validate, sign, send...
+};
+
+<form onSubmit={handleTransfer}>
+  {/* inputs */}
+  <button type="submit">Send</button>
+</form>
 ```
 
 ---
 
-### 6. Error Handling
+### 7. Error Handling (ethers v6 codes)
 
-#### **Common Transfer Errors**
-
-| Error Code                | Meaning                | User Message                             |
-| ------------------------- | ---------------------- | ---------------------------------------- |
-| `4001`                    | User rejected          | "Transaction cancelled"                  |
-| `INSUFFICIENT_FUNDS`      | Not enough ETH for gas | "Not enough ETH for gas"                 |
-| `UNPREDICTABLE_GAS_LIMIT` | Transaction would fail | "Transfer would fail - check balance"    |
-| `CALL_EXCEPTION`          | Contract reverted      | "Transfer failed - insufficient balance" |
-
-#### **Comprehensive Error Handler**
+| Error code           | Meaning                                   | User message                        |
+| -------------------- | ----------------------------------------- | ----------------------------------- |
+| `ACTION_REJECTED`    | User clicked "Reject" in MetaMask         | "Transaction cancelled"             |
+| `INSUFFICIENT_FUNDS` | Not enough ETH to pay the gas             | "Not enough ETH for gas"            |
+| `CALL_EXCEPTION`     | The contract reverted (or would revert)   | "Transfer failed: check your balance" |
 
 ```js
 function handleTransferError(error) {
-  // User rejected in MetaMask
-  if (error.code === 4001 || error.code === "ACTION_REJECTED") {
-    return {
-      type: "cancelled",
-      message: "Transaction cancelled by user",
-    };
+  if (error.code === "ACTION_REJECTED") {
+    return { type: "cancelled", message: "Transaction cancelled by user" };
   }
-
-  // Not enough ETH for gas
   if (error.code === "INSUFFICIENT_FUNDS") {
-    return {
-      type: "no_gas",
-      message: "Not enough ETH to pay for gas fees",
-    };
+    return { type: "no_gas", message: "Not enough ETH to pay for gas fees" };
   }
-
-  // Contract would revert
-  if (error.code === "UNPREDICTABLE_GAS_LIMIT") {
-    return {
-      type: "would_fail",
-      message: "Transaction would fail. Check your token balance.",
-    };
-  }
-
-  // Contract reverted
   if (error.code === "CALL_EXCEPTION") {
-    // Try to extract revert reason
-    const reason = error.reason || error.message;
-    return {
-      type: "reverted",
-      message: `Transfer failed: ${reason}`,
-    };
+    // v6 puts a decoded revert on error.revert when the ABI knows the error
+    const reason = error.reason || error.revert?.name || "the token rejected it";
+    return { type: "reverted", message: `Transfer failed: ${reason}` };
   }
-
-  // Unknown error
-  return {
-    type: "unknown",
-    message: error.message || "Something went wrong",
-  };
+  return { type: "unknown", message: error.shortMessage || error.message || "Something went wrong" };
 }
 ```
 
+When ethers estimates gas before sending and the contract would revert (for example, too little balance), v6 throws `CALL_EXCEPTION` straight away, before any pop-up. You may see `UNPREDICTABLE_GAS_LIMIT` in old answers online: that code was removed in v6. <!-- v5-ok -->
+
+To decode OpenZeppelin's custom errors by name, add them to your ABI, for example `"error ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed)"`.
+
 ---
 
-### 7. Updating Balances After Transfer
+### 8. Updating Balances After a Transfer
 
-#### **Why Refresh Balances?**
-
-After a successful transfer:
-
-- Sender's balance decreased
-- Recipient's balance increased
-- UI should reflect this immediately!
+After a successful transfer the sender's balance went down and the recipient's went up. Read them again so the UI tells the truth:
 
 ```js
-async function transferAndRefresh(to, amount) {
-  // 1. Send the transaction
-  const tx = await token.transfer(to, parsedAmount);
-  await tx.wait();
-
-  // 2. Fetch updated balances
-  const [senderBalance, recipientBalance] = await Promise.all([
-    token.balanceOf(senderAddress),
-    token.balanceOf(to),
+async function refreshBalances(token, sender, recipient) {
+  const [decimals, fromRaw, toRaw] = await Promise.all([
+    token.decimals(),
+    token.balanceOf(sender),
+    token.balanceOf(recipient),
   ]);
-
-  // 3. Format for display
-  const decimals = await token.decimals();
   return {
-    senderBalance: ethers.utils.formatUnits(senderBalance, decimals),
-    recipientBalance: ethers.utils.formatUnits(recipientBalance, decimals),
+    sender: ethers.formatUnits(fromRaw, decimals),
+    recipient: ethers.formatUnits(toRaw, decimals),
   };
 }
 ```
 
+Call it only **after** `await tx.wait()`. Before that, the chain has not changed yet.
+
 ---
 
-### 8. Listening to Transfer Events
+### 9. Listening to Transfer Events
 
-#### **Real-Time Updates with Events**
-
-Instead of polling, subscribe to `Transfer` events:
+Instead of polling, subscribe to the token's `Transfer` event (you met events in Lesson 04). The event must be in your ABI:
 
 ```js
+const ABI = [
+  "event Transfer(address indexed from, address indexed to, uint256 value)",
+  "function decimals() view returns (uint8)",
+];
+
 useEffect(() => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const token = new ethers.Contract(tokenAddress, ABI, provider);
 
-  // Define the event handler
-  function handleTransfer(from, to, value, event) {
-    console.log("Transfer detected!");
-    console.log("From:", from);
-    console.log("To:", to);
-    console.log("Amount:", ethers.utils.formatUnits(value, decimals));
-
-    // Refresh balances if this affects the current user
-    if (from === userAddress || to === userAddress) {
-      refreshBalance();
-    }
+  function onTransfer(from, to, value) {
+    console.log(`Transfer: ${ethers.formatUnits(value, decimals)} from ${from} to ${to}`);
   }
 
-  // Subscribe to Transfer events
-  token.on("Transfer", handleTransfer);
-
-  // Cleanup on unmount
+  token.on("Transfer", onTransfer);
   return () => {
-    token.off("Transfer", handleTransfer);
+    token.off("Transfer", onTransfer); // clean up on unmount
   };
-}, [tokenAddress, userAddress]);
-```
-
----
-
-### 9. Complete React Transfer Component
-
-```jsx
-function TokenTransfer({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amount, setAmount] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | validating | pending | success | error
-  const [txHash, setTxHash] = useState("");
-  const [error, setError] = useState("");
-
-  async function handleTransfer(e) {
-    e.preventDefault();
-    setError("");
-    setTxHash("");
-
-    // Validate inputs
-    setStatus("validating");
-    if (!ethers.utils.isAddress(to)) {
-      setError("Invalid recipient address");
-      setStatus("error");
-      return;
-    }
-    if (!amount || Number(amount) <= 0) {
-      setError("Enter a valid amount");
-      setStatus("error");
-      return;
-    }
-
-    try {
-      setStatus("pending");
-
-      // Get signer and contract
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const token = new ethers.Contract(contractAddress, ABI, signer);
-
-      // Parse amount with decimals
-      const decimals = await token.decimals();
-      const parsedAmount = ethers.utils.parseUnits(amount, decimals);
-
-      // Send transaction
-      const tx = await token.transfer(to, parsedAmount);
-      setTxHash(tx.hash);
-
-      // Wait for confirmation
-      await tx.wait();
-      setStatus("success");
-
-      // Clear form
-      setTo("");
-      setAmount("");
-    } catch (err) {
-      const { message } = handleTransferError(err);
-      setError(message);
-      setStatus("error");
-    }
-  }
-
-  return (
-    <form onSubmit={handleTransfer}>
-      <h2>Send Tokens</h2>
-
-      <input
-        type="text"
-        placeholder="Recipient Address (0x...)"
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-        disabled={status === "pending"}
-      />
-
-      <input
-        type="number"
-        placeholder="Amount"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        disabled={status === "pending"}
-        step="any"
-        min="0"
-      />
-
-      <button type="submit" disabled={status === "pending"}>
-        {status === "pending" ? "Sending..." : "Send"}
-      </button>
-
-      {txHash && (
-        <p>
-          Transaction:{" "}
-          <a
-            href={`https://etherscan.io/tx/${txHash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on Etherscan
-          </a>
-        </p>
-      )}
-
-      {status === "success" && (
-        <p style={{ color: "green" }}>✅ Transfer successful!</p>
-      )}
-      {error && <p style={{ color: "red" }}>❌ {error}</p>}
-    </form>
-  );
-}
+}, [tokenAddress, decimals]);
 ```
 
 ---
 
 ### 10. Common Mistakes to Avoid
 
-#### **1. Forgetting to Parse Amounts**
+#### **1. Forgetting `await` on `getSigner()`**
 
 ```js
-// ❌ Sends almost nothing (10 wei)
-await token.transfer(to, "10");
+// ❌ v6: signer is a Promise here, and the contract can't sign with it
+const signer = provider.getSigner();
 
-// ✅ Sends 10 tokens
-const decimals = await token.decimals();
-await token.transfer(to, ethers.utils.parseUnits("10", decimals));
+// ✅
+const signer = await provider.getSigner();
 ```
 
-#### **2. Not Waiting for Confirmation**
+#### **2. Forgetting to Parse Amounts**
 
 ```js
-// ❌ Returns immediately (transaction not confirmed)
-const tx = await token.transfer(to, amount);
-showSuccess(); // Too early!
+// ❌ sends 10 raw units
+await token.transfer(to, 10n);
 
-// ✅ Wait for mining
+// ✅ sends 10 tokens
+await token.transfer(to, ethers.parseUnits("10", await token.decimals()));
+```
+
+#### **3. Celebrating Too Early**
+
+```js
+// ❌ transfer() resolving only means "submitted"
 const tx = await token.transfer(to, amount);
-await tx.wait(); // Now it's confirmed
+showSuccess(); // too early!
+
+// ✅ wait until it is mined
+const tx = await token.transfer(to, amount);
+await tx.wait();
 showSuccess();
 ```
 
-#### **3. Not Handling User Rejection**
+#### **4. Not Handling "Reject"**
 
-```js
-// ❌ Crashes if user clicks "Reject"
-const tx = await token.transfer(to, amount);
-
-// ✅ Handle rejection
-try {
-  const tx = await token.transfer(to, amount);
-} catch (err) {
-  if (err.code === 4001) {
-    setStatus("cancelled");
-    return;
-  }
-  throw err;
-}
-```
+Wrap the send in `try/catch` and treat `ACTION_REJECTED` as a normal outcome, not a crash.
 
 ---
 
-### 11. Testing Your Transfer UI
+### 11. How This Is Graded
 
-Before deploying, verify:
-
-1. ✅ **Valid transfer works** - Tokens move, balances update
-2. ✅ **Invalid address rejected** - Shows error before sending
-3. ✅ **Zero/negative amounts rejected** - Validation works
-4. ✅ **Insufficient balance caught** - Clear error message
-5. ✅ **User rejection handled** - Doesn't crash
-6. ✅ **Transaction hash shown** - User can verify on Etherscan
-7. ✅ **Button disabled during pending** - No double-sends
-8. ✅ **Balances refresh** - UI updates after transfer
+The activity runs in a sandbox with a fake wallet and a fake 18-decimal token. The grader types into the fields **by placeholder** (one containing `Recipient`, one containing `Amount`), submits the form, and checks that you prevent the page reload, refuse a bad address and a `0` amount, get a signer before `transfer`, send `2.5` as `2500000000000000000`, wait for `tx.wait()`, then show the hash and the word "success".
 
 ---
 
 ### External References & Further Learning
 
-- **Ethers.js Contract Interaction**: https://docs.ethers.org/v5/api/contract/contract/ - Sending transactions
-- **ERC-20 Standard**: https://eips.ethereum.org/EIPS/eip-20 - Token transfer specification
-- **Gas Estimation**: https://docs.ethers.org/v5/api/contract/contract/#contract-estimateGas - Estimating gas
-- **Etherscan**: https://etherscan.io - Verify transactions
-- **OpenZeppelin ERC-20**: https://docs.openzeppelin.com/contracts/4.x/erc20 - Safe implementations
+- **ethers v6, Contracts (sending transactions)**: https://docs.ethers.org/v6/api/contract/
+- **ethers v6, Signers**: https://docs.ethers.org/v6/api/providers/#Signer
+- **EIP-20 specification**: https://eips.ethereum.org/EIPS/eip-20
+- **OpenZeppelin ERC-20 (v5)**: https://docs.openzeppelin.com/contracts/5.x/erc20
+- **Hardhat Network (local chain)**: https://hardhat.org/hardhat-network/docs/overview
+- **Sepolia Etherscan**: https://sepolia.etherscan.io
 
 ---
 
 ## 🧪 Exercises
 
-### Exercise 1: Basic Token Transfer Form
+### Exercise 1: Deploy BaryoToken and Send It Locally
 
-**Problem Statement**  
-Create a React component that lets the user send BaryoToken. Inputs: recipient address, amount. On submit, call `transfer(to, parsedAmount)` and display the transaction hash.
+**Solidity Contract (`BaryoToken.sol`, OpenZeppelin v5)**
 
-**Solidity Contract (`BaryoToken.sol`)**
-
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BaryoToken is ERC20, Ownable {
-    constructor(string memory _name, string memory _symbol, uint256 initialSupply)
-        ERC20(_name, _symbol)
+    constructor(uint256 initialSupply)
+        ERC20("BaryoToken", "BARYO")
+        Ownable(msg.sender)
     {
         _mint(msg.sender, initialSupply);
     }
@@ -614,414 +419,119 @@ contract BaryoToken is ERC20, Ownable {
 }
 ```
 
-**Starter Code (`TokenTransfer.js`)**
+**Run a local chain with Hardhat** (Ganache, which older tutorials use, was sunset in 2023):
 
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-
-const ABI = [
-  "function transfer(address,uint256) returns (bool)",
-  "function decimals() view returns (uint8)",
-];
-
-export default function TokenTransfer({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amt, setAmt] = useState("");
-  const [txHash, setTxHash] = useState("");
-  const [error, setError] = useState("");
-
-  async function sendToken() {
-    try {
-      // TODO: Request accounts
-      // TODO: Get provider & signer
-      // TODO: Instantiate contract with signer
-      // TODO: Fetch decimals(), parseUnits(amt, decimals)
-      // TODO: Call transfer(to, parsed), await tx.wait()
-      // TODO: setTxHash(tx.hash)
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h2>Send BaryoToken</h2>
-      <input
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-        placeholder="Recipient Address"
-      />
-      <input
-        value={amt}
-        onChange={(e) => setAmt(e.target.value)}
-        placeholder="Amount"
-      />
-      <button onClick={sendToken}>Send</button>
-      {txHash && <p>Transaction Hash: {txHash}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
+```bash
+npx hardhat node
 ```
 
-**To Do List**
+This starts a chain at `http://127.0.0.1:8545` (chain ID `31337`) and prints 20 funded test accounts with their private keys. Import one into MetaMask (test accounts only, never a real key), add the network `http://127.0.0.1:8545` / chain ID `31337`, deploy `BaryoToken` to it, and point your form at the deployed address.
 
-- [ ] `await window.ethereum.request({ method: "eth_requestAccounts" })`
-- [ ] `const provider = new ethers.providers.Web3Provider(window.ethereum)`
-- [ ] `const signer = provider.getSigner()`
-- [ ] `const token = new ethers.Contract(contractAddress, ABI, signer)`
-- [ ] `const dec = await token.decimals()`
-- [ ] `const parsed = ethers.utils.parseUnits(amt, dec)`
-- [ ] `const tx = await token.transfer(to, parsed)` & `await tx.wait()`
-- [ ] `setTxHash(tx.hash)`
-
-**Full Solution**
-
-```js
-// TokenTransfer.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-
-const ABI = [
-  "function transfer(address,uint256) returns (bool)",
-  "function decimals() view returns (uint8)",
-];
-
-export default function TokenTransfer({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amt, setAmt] = useState("");
-  const [txHash, setTxHash] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function sendToken() {
-    setError("");
-    setTxHash("");
-    if (!ethers.utils.isAddress(to)) {
-      setError("Invalid recipient address");
-      return;
-    }
-    if (isNaN(amt) || Number(amt) <= 0) {
-      setError("Enter a positive amount");
-      return;
-    }
-    try {
-      setLoading(true);
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const token = new ethers.Contract(contractAddress, ABI, signer);
-      const dec = await token.decimals();
-      const parsed = ethers.utils.parseUnits(amt, dec);
-      const tx = await token.transfer(to, parsed);
-      const receipt = await tx.wait();
-      setTxHash(receipt.transactionHash);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <div style={{ maxWidth: 400, margin: "auto" }}>
-      <h2>Send BaryoToken</h2>
-      <input
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-        placeholder="Recipient Address"
-        style={{ width: "100%", marginBottom: 8 }}
-      />
-      <input
-        value={amt}
-        onChange={(e) => setAmt(e.target.value)}
-        placeholder="Amount"
-        style={{ width: "100%", marginBottom: 8 }}
-      />
-      <button onClick={sendToken} disabled={loading} style={{ width: "100%" }}>
-        {loading ? "Sending…" : "Send"}
-      </button>
-      {txHash && <p>Transaction Hash: {txHash}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
-
-.env Sample
-
-```
-REACT_APP_RPC_URL=http://127.0.0.1:8545
-REACT_APP_CONTRACT_ADDRESS=0xYourLocalBaryoTokenAddress
-```
+When it works locally, deploy the same contract to **Sepolia** and share the transaction links from `https://sepolia.etherscan.io/tx/<hash>`.
 
 ---
 
-### Exercise 2: Update Balances After Transfer
+### Exercise 2: Link the Transaction to Etherscan
 
-**Problem Statement**  
-After sending tokens, fetch and display the sender’s and recipient’s balances without reloading the page.
-
-**Starter Code (`TokenTransferWithBalance.js`)**
-
-```js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function transfer(address,uint256) returns (bool)",
-  "function decimals() view returns (uint8)",
-  "function balanceOf(address) view returns (uint256)",
-  "function symbol() view returns (string)",
-];
-
-export default function TokenTransferWithBalance({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amt, setAmt] = useState("");
-  const [balances, setBalances] = useState({ from: "", to: "" });
-  const [symbol, setSymbol] = useState("");
-  // TODO: implement sendToken and update balances
-  return (
-    <div>
-      <h2>Send & Refresh Balances</h2>
-      {/* inputs & button */}
-      <p>
-        Your Balance: {balances.from} {symbol}
-      </p>
-      <p>
-        Recipient Balance: {balances.to} {symbol}
-      </p>
-    </div>
-  );
-}
-```
-
-**To Do List**
-
-- [ ] On mount or after send, fetch `symbol()` once and store.
-- [ ] After `tx.wait()`, call `balanceOf(sender)` and `balanceOf(to)`.
-- [ ] Format both with `formatUnits(raw, decimals)`.
-- [ ] `setBalances({ from, to })`.
-
-**Full Solution**
-
-```js
-// TokenTransferWithBalance.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function transfer(address,uint256) returns (bool)",
-  "function decimals() view returns (uint8)",
-  "function balanceOf(address) view returns (uint256)",
-  "function symbol() view returns (string)",
-];
-
-export default function TokenTransferWithBalance({ contractAddress }) {
-  const [to, setTo] = useState("");
-  const [amt, setAmt] = useState("");
-  const [balances, setBalances] = useState({ from: "0", to: "0" });
-  const [symbol, setSymbol] = useState("");
-  const [decimals, setDecimals] = useState(18);
-  const [account, setAccount] = useState("");
-
-  // Initialize symbol, decimals, and user account
-  useEffect(() => {
-    async function init() {
-      const [user] = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      setAccount(user);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const token = new ethers.Contract(contractAddress, ABI, provider);
-      const [sym, dec] = await Promise.all([token.symbol(), token.decimals()]);
-      setSymbol(sym);
-      setDecimals(dec);
-      fetchBalances(user, token, dec);
-    }
-    init();
-  }, [contractAddress]);
-
-  async function fetchBalances(user, token, dec) {
-    const [rawFrom, rawTo] = await Promise.all([
-      token.balanceOf(user),
-      token.balanceOf(to || user), // show own balance if no recipient
-    ]);
-    setBalances({
-      from: ethers.utils.formatUnits(rawFrom, dec),
-      to: ethers.utils.formatUnits(rawTo, dec),
-    });
-  }
-
-  async function sendToken() {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const token = new ethers.Contract(contractAddress, ABI, signer);
-      const parsed = ethers.utils.parseUnits(amt, decimals);
-      const tx = await token.transfer(to, parsed);
-      await tx.wait();
-      await fetchBalances(account, token, decimals);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  return (
-    <div style={{ maxWidth: 400, margin: "auto" }}>
-      <h2>Send & Refresh Balances</h2>
-      <input
-        placeholder="Recipient Address"
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-        style={{ width: "100%", marginBottom: 8 }}
-      />
-      <input
-        placeholder="Amount"
-        value={amt}
-        onChange={(e) => setAmt(e.target.value)}
-        style={{ width: "100%", marginBottom: 8 }}
-      />
-      <button onClick={sendToken} style={{ width: "100%" }}>
-        Send
-      </button>
-      <div style={{ marginTop: 16 }}>
-        <p>
-          Your Balance: {balances.from} {symbol}
-        </p>
-        <p>
-          Recipient Balance: {balances.to} {symbol}
-        </p>
-      </div>
-    </div>
-  );
-}
-```
-
----
-
-### Exercise 3 (Bonus): Listen for Transfer Events
-
-**Problem Statement**  
-Subscribe to the `Transfer` event on the BaryoToken contract and log every transfer to the console.
-
-**To Do List**
-
-- [ ] In a `useEffect`, after creating the contract with a Provider, call `contract.on("Transfer", handler)`.
-- [ ] Handler signature: `(from, to, value, event) => { … }`.
-- [ ] Clean up listener on unmount: `return () => contract.off("Transfer", handler)`.
+**Problem Statement**
+Instead of printing the raw hash, show a link the user can click to follow the transaction on Sepolia Etherscan.
 
 **Solution Snippet**
 
-```js
-useEffect(() => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const token = new ethers.Contract(contractAddress, ABI, provider);
-  function onTransfer(from, to, value, event) {
-    console.log(
-      `Transfer: ${ethers.utils.formatUnits(
-        value,
-        decimals
-      )} from ${from} to ${to}`
-    );
-  }
-  token.on("Transfer", onTransfer);
-  return () => {
-    token.off("Transfer", onTransfer);
-  };
-}, [contractAddress, decimals]);
+```jsx
+{txHash && (
+  <p>
+    Tx Hash: {txHash}{" "}
+    <a
+      href={`https://sepolia.etherscan.io/tx/${txHash}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View on Etherscan
+    </a>
+  </p>
+)}
 ```
+
+`rel="noopener noreferrer"` stops the new tab from being able to control your page.
 
 ---
 
-## ✅ Test Cases
+### Exercise 3: Show Balances After Sending
 
-Create `__tests__/TokenTransfer.test.js`:
+**Problem Statement**
+After a transfer is mined, show the sender's and recipient's new balances without reloading the page.
 
-```js
-// __tests__/TokenTransfer.test.js
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import TokenTransfer from "../TokenTransfer";
+**Solution (`TokenTransferWithBalance.jsx`)**
+
+```jsx
+import { useState } from "react";
 import { ethers } from "ethers";
 
-jest.mock("ethers");
+const ABI = [
+  "function transfer(address, uint256) returns (bool)",
+  "function decimals() view returns (uint8)",
+  "function balanceOf(address) view returns (uint256)",
+  "function symbol() view returns (string)",
+];
 
-describe("TokenTransfer Component", () => {
-  const fakeAddress = "0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa";
-  const fakeSigner = {};
-  const fakeProvider = { getSigner: () => fakeSigner };
-  const fakeContract = {
-    decimals: jest.fn(),
-    transfer: jest.fn(),
-  };
+export default function TokenTransferWithBalance({ contractAddress }) {
+  const [to, setTo] = useState("");
+  const [amount, setAmount] = useState("");
+  const [balances, setBalances] = useState(null);
+  const [error, setError] = useState("");
 
-  beforeAll(() => {
-    // Mock window.ethereum
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue([fakeAddress]),
-    };
-    // Mock provider & signer
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue(fakeProvider);
-    ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-  });
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    if (!ethers.isAddress(to) || !(Number(amount) > 0)) {
+      setError("Check the address and amount");
+      return;
+    }
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const token = new ethers.Contract(contractAddress, ABI, signer);
 
-  it("renders form and sends a transaction", async () => {
-    fakeContract.decimals.mockResolvedValue(18);
-    const fakeTx = {
-      wait: jest.fn().mockResolvedValue({ transactionHash: "0xTxHash" }),
-    };
-    fakeContract.transfer.mockResolvedValue(fakeTx);
+      const [decimals, symbol] = await Promise.all([token.decimals(), token.symbol()]);
+      const tx = await token.transfer(to, ethers.parseUnits(amount, decimals));
+      await tx.wait();
 
-    render(<TokenTransfer contractAddress="0xTokenAddr" />);
+      const [fromRaw, toRaw] = await Promise.all([
+        token.balanceOf(signer.address),
+        token.balanceOf(to),
+      ]);
+      setBalances({
+        from: `${ethers.formatUnits(fromRaw, decimals)} ${symbol}`,
+        to: `${ethers.formatUnits(toRaw, decimals)} ${symbol}`,
+      });
+    } catch (err) {
+      setError(err.shortMessage || err.message);
+    }
+  }
 
-    // Fill inputs
-    fireEvent.change(screen.getByPlaceholderText(/Recipient Address/i), {
-      target: { value: fakeAddress },
-    });
-    fireEvent.change(screen.getByPlaceholderText(/Amount/i), {
-      target: { value: "5" },
-    });
-    fireEvent.click(screen.getByText("Send"));
-
-    await waitFor(() => screen.getByText(/Transaction Hash:/i));
-    expect(screen.getByText("Transaction Hash: 0xTxHash")).toBeInTheDocument();
-    // Ensure ethers calls
-    expect(fakeContract.decimals).toHaveBeenCalled();
-    expect(fakeContract.transfer).toHaveBeenCalledWith(
-      fakeAddress,
-      ethers.utils.parseUnits("5", 18)
-    );
-  });
-
-  it("validates invalid inputs", async () => {
-    render(<TokenTransfer contractAddress="0xTokenAddr" />);
-    fireEvent.change(screen.getByPlaceholderText(/Recipient Address/i), {
-      target: { value: "badAddress" },
-    });
-    fireEvent.change(screen.getByPlaceholderText(/Amount/i), {
-      target: { value: "-1" },
-    });
-    fireEvent.click(screen.getByText("Send"));
-    expect(
-      await screen.findByText(/Invalid recipient address/i)
-    ).toBeInTheDocument();
-  });
-});
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Send & Refresh Balances</h2>
+      <input placeholder="Recipient Address" value={to} onChange={(e) => setTo(e.target.value)} />
+      <input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <button type="submit">Send</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {balances && (
+        <div>
+          <p>Your Balance: {balances.from}</p>
+          <p>Recipient Balance: {balances.to}</p>
+        </div>
+      )}
+    </form>
+  );
+}
 ```
 
-In `jest.config.js`:
-
-```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
-  },
-};
-```
+`signer.address` is the connected wallet's address; in v6 a signer from `getSigner()` carries it directly.
 
 ---
 
 ## 🌟 Closing Story
 
-As the bodega’s neon sign blinked, Odessa watched her “Send BaryoToken” UI in action—twenty quick transfers, zero GCash fees. A visiting OFW tried it on her phone and beamed: “Parang padadala ko na agad sa nanay ko!” Next up: gas-fee estimation, cross-chain swaps, and a polished design system. From Queens to Marikina, Det’s UI was proof—Filipino devs are building Web3 tools that matter. Mabuhay, next level awaits! 🇵🇭💪🚀
+As the bodega's neon sign blinked, Odessa watched her "Send BaryoToken" UI in action: twenty quick transfers, each one confirmed with a hash anyone could check on Etherscan. A visiting OFW tried it on her phone and beamed: "Parang padala ko na agad sa nanay ko!" Next up: gas-fee estimates, swaps, and a polished design. From Queens to Marikina, Det's UI was proof that Filipino devs are building Web3 tools that matter. Mabuhay, the next level awaits! 🇵🇭💪🚀

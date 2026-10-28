@@ -58,6 +58,35 @@ Here's the secret that separates good developers from great ones: The most succe
 
 You're not just learning to build dApps. You're learning to build the **future of human-computer interaction** in a decentralized world.
 
+### 🧰 What You'll Build
+
+Twenty mini-projects, each a React component. Almost all of them talk to a smart contract through
+**ethers.js v6** and **MetaMask**; when you try one on a live testnet, use **Sepolia**:
+
+1. Connect My MetaMask
+2. Read Smart Contract Data
+3. Triggering a Function
+4. Event Listeners in the Frontend
+5. Sign-In with Wallet Experience
+6. Token Tracker
+7. Sining Chain (NFT gallery)
+8. Send Tokens via UI
+9. On-Chain To-Do List
+10. DAO Voting UI
+11. Gas Fee Checker
+12. DeFi Dashboard
+13. Multisig Proposal Viewer
+14. Simulated Chain Oracle DApp
+15. On-Chain Identity Viewer
+16. Escrow Status Viewer
+17. Network Detector
+18. NFT Image Preview
+19. Contract Deployment Simulator
+20. LayerZero Inspired UI
+
+The first five teach the core moves (connect, read, write, listen, sign). Every project after that
+reuses them, so take your time with Lessons 1 to 5.
+
 ---
 
 **Ready to transform your smart contract superpowers into user-facing magic?**

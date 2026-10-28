@@ -13,7 +13,7 @@
       { "id": "c", "text": "Coinbase Wallet" },
       { "id": "d", "text": "Phantom Wallet" }
     ],
-    "question": "Which browser extension wallet is the most widely used for interacting with Ethereum-based DApps?"
+    "question": "Which browser extension wallet do the Chapter 4 DApps connect to through window.ethereum?"
   },
   {
     "id": 2,
@@ -54,12 +54,12 @@
     "answer": "b",
     "points": 1,
     "choices": [
-      { "id": "a", "text": "web3.js only" },
-      { "id": "b", "text": "web3.js or ethers.js" },
-      { "id": "c", "text": "ethers.js only" },
-      { "id": "d", "text": "Hardhat only" }
+      { "id": "a", "text": "Solidity" },
+      { "id": "b", "text": "ethers.js (v6)" },
+      { "id": "c", "text": "OpenZeppelin" },
+      { "id": "d", "text": "MetaMask Snaps" }
     ],
-    "question": "Which libraries are commonly used to interact with smart contracts from a JavaScript frontend?"
+    "question": "Which JavaScript library do the Chapter 4 lessons use to connect a React frontend to smart contracts?"
   },
   {
     "id": 6,
@@ -136,13 +136,13 @@
   {
     "id": 12,
     "type": "MCQ",
-    "answer": "d",
+    "answer": "c",
     "points": 1,
     "choices": [
       { "id": "a", "text": "A function that runs on a timer" },
       { "id": "b", "text": "A way to store multiple variables" },
       { "id": "c", "text": "A log entry emitted by a smart contract" },
-      { "id": "d", "text": "Both A and C" }
+      { "id": "d", "text": "A function that only the contract owner can call" }
     ],
     "question": "What is an event in Solidity?"
   },
@@ -152,12 +152,12 @@
     "answer": "a",
     "points": 1,
     "choices": [
-      { "id": "a", "text": "ethers.Contract or web3.eth.Contract" },
+      { "id": "a", "text": "ethers.Contract" },
       { "id": "b", "text": "ethers.Wallet" },
-      { "id": "c", "text": "ethers.Provider" },
+      { "id": "c", "text": "ethers.BrowserProvider" },
       { "id": "d", "text": "ethers.JsonRpcProvider" }
     ],
-    "question": "Which class is used to interact with a deployed smart contract's functions?"
+    "question": "In ethers v6, which class do you create (with an address, an ABI and a provider or signer) to call a deployed smart contract's functions?"
   },
   {
     "id": 14,
@@ -210,7 +210,7 @@
     "choices": [
       {
         "id": "a",
-        "text": "A token representing ownership of an asset that can be transferred"
+        "text": "A token whose units are identical and interchangeable, like one peso coin and any other peso coin"
       },
       { "id": "b", "text": "A blockchain network" },
       { "id": "c", "text": "A type of smart contract" },
@@ -259,13 +259,13 @@
     "choices": [
       {
         "id": "a",
-        "text": "A third-party service holding cryptocurrency on your behalf"
+        "text": "So a captured signature cannot be replayed to sign in again later"
       },
-      { "id": "b", "text": "A type of token" },
-      { "id": "c", "text": "A smart contract bug" },
-      { "id": "d", "text": "A blockchain consensus mechanism" }
+      { "id": "b", "text": "To lower the gas fee of the sign-in" },
+      { "id": "c", "text": "To encrypt the user's private key" },
+      { "id": "d", "text": "To choose which network the message is signed on" }
     ],
-    "question": "What is a centralized exchange (CEX)?"
+    "question": "In a Sign-In with Wallet flow, why does the message the user signs include a nonce (a value used only once)?"
   },
   {
     "id": 23,
@@ -311,7 +311,7 @@
     "choices": [
       {
         "id": "a",
-        "text": "To provide price feeds from off-chain sources to smart contracts"
+        "text": "To bring off-chain data, such as prices or weather readings, on-chain for smart contracts"
       },
       { "id": "b", "text": "To validate transactions on the blockchain" },
       { "id": "c", "text": "To store user wallet keys" },
@@ -367,7 +367,7 @@
     "type": "FIB",
     "answer": "gas fee",
     "points": 1,
-    "question": "The cost of executing a transaction on a blockchain is called a ______ or ______ respectively."
+    "question": "The cost a user pays to have a transaction executed on a blockchain is called a ______."
   },
   {
     "id": 32,
@@ -414,16 +414,16 @@
   {
     "id": 38,
     "type": "FIB",
-    "answer": "staking",
+    "answer": "gateway",
     "points": 1,
-    "question": "The process of locking tokens in a smart contract to earn rewards is called ______."
+    "question": "A browser cannot load an ipfs:// link directly, so an NFT gallery rewrites it to an HTTP URL such as https://ipfs.io/ipfs/... served by an IPFS ______."
   },
   {
     "id": 39,
     "type": "FIB",
-    "answer": "slippage",
+    "answer": "decimals",
     "points": 1,
-    "question": "The difference between the expected price and actual price when executing a large trade is called ______."
+    "question": "ERC-20 amounts are stored on-chain as whole integers. The token's ______ value (often 18) tells your UI where to put the decimal point when it formats a balance."
   },
   {
     "id": 40,

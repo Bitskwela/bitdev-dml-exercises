@@ -1,6 +1,6 @@
 ---
-title: "Multi-Network Switch UI"
-description: "Create a multi-network switching interface that detects current blockchain networks and helps users switch between different chains seamlessly."
+title: "Network Detector"
+description: "Detect which chain the user is on with ethers v6, show its chain id and name, fall back to a read-only provider when there is no wallet, and follow the wallet live through the chainChanged event. The lecture also covers asking the wallet to switch or add a network."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

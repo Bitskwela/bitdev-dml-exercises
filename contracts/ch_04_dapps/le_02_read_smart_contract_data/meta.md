@@ -1,6 +1,6 @@
 ---
 title: "Read Smart Contract Data"
-description: "Learn how to read data from a smart contract using web3.js."
+description: "Read a smart contract's name, symbol and token data from React with ethers v6 and a read-only JsonRpcProvider."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-05"

@@ -1,6 +1,6 @@
 ---
 title: "Send Tokens via UI"
-description: "Build a user-friendly interface for sending ERC-20 tokens with form validation, transaction handling, and real-time balance updates."
+description: "Build a user-friendly form for sending ERC-20 tokens with input validation, a signer-backed transfer, and transaction confirmation."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

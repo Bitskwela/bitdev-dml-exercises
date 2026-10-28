@@ -2,20 +2,18 @@
 
 ![Escrow DApp Banner](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+16.0+-+COVER.png)
 
-Odessa ("Det") was on a late-night Zoom with a New York freelance client. "Send escrow first," the client insisted before the PHP dev could start. In typical PH–NY trust issues, money either sits in a bank or gets tangled in fees. She thought, "What if we build a pure-frontend escrow DApp to simulate P2P service?"
+Odessa ("Det") was on a late-night Zoom with a New York freelance client. "Send escrow first," the client insisted before the PH dev team could start. Between Manila and New York, trust usually means a bank in the middle, a week of waiting, and fees on both ends. Det thought: "What if the money sat in a smart contract that neither of us controls?"
 
 ![Freelance Escrow Concept](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+16.1.png)
 
-By sunrise, Det had sketched an **Escrow** Solidity contract on her local Hardhat node. The DApp flow was simple:
+By sunrise she had an **Escrow** contract tested on her laptop with Hardhat and deployed to the **Sepolia** testnet. The deal was simple:
 
-1. **Buyer** deposits ETH into escrow.
-2. UI shows "Pending" with deposit amount.
-3. Once the freelancer (Seller) delivers, the Buyer clicks **Release** to send funds.
-4. If something goes wrong, the Seller can trigger a **Refund** back to Buyer.
+1. The **buyer** (the client) deposits ETH into the contract.
+2. Everyone can see the money is locked: the status reads **Pending**.
+3. When the seller (the dev team) delivers, the buyer calls **release** and the seller gets paid.
+4. If the deal falls through, the seller calls **refund** and the buyer gets the money back.
 
-No backend server, no custodian—just wallet-to-wallet logic. Odessa wired React + Ethers.js: a stats panel, a deposit form, and release/refund buttons. She pre-sets Buyer & Seller addresses in `.env`, deploys on Sepolia, and shares the link with her client. Now, both PH and NY sides can see funds locked, pending, and executed—trustless and transparent.
-
-In 30 minutes, Det presented to her WhatsApp group: "Try send 0.01 ETH – I'll refund if not delivered!" Filipino ingenuity at its best: build fast, iterate, and earn trust one escrow at a time. 🇵🇭🤝🚀
+The first thing both sides asked for was not a button. It was proof. "Before I start coding, I want to *see* the 0.75 ETH is really there," said Kuya Miguel, the team lead. So Det's first screen was a read-only **escrow status panel**: buyer, seller, amount, and status, straight from Sepolia, with no wallet needed. That panel is what you build in this lesson's activity. The deposit, release and refund flow is explained below so you understand what the panel is reporting on.
 
 ---
 
@@ -23,77 +21,71 @@ In 30 minutes, Det presented to her WhatsApp group: "Try send 0.01 ETH – I'll 
 
 ### 🎯 What You'll Learn
 
-In this lesson, you'll build an **Escrow DApp** that enables trustless P2P transactions. A buyer deposits funds, and only after the seller delivers can the buyer release payment—or the seller can request a refund if something goes wrong.
+- What an escrow contract is and the three states it moves through.
+- How to read a contract's public state with a **read-only provider** (`ethers.JsonRpcProvider`), with no wallet involved.
+- How to fetch several values at once with `Promise.all`, and display wei as ether with `ethers.formatEther`.
+- How a safe escrow pays out: **checks-effects-interactions**, `call` instead of `transfer`, and the pull-payment pattern.
+
+**Activity:** build `EscrowStats`, a status viewer that reads `buyer`, `seller`, `amount`, `deposited` and `released` from a Sepolia escrow and shows **Pending** while the money is locked.
 
 ---
 
-### 📐 Escrow Flow Architecture
+### 📐 Escrow Flow
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                      ESCROW FLOW                                │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌──────────────┐                        ┌──────────────┐      │
-│   │    BUYER     │                        │    SELLER    │      │
-│   │  (Depositor) │                        │  (Recipient) │      │
-│   └──────┬───────┘                        └──────┬───────┘      │
-│          │                                       │              │
-│          │  deposit() ─────────────┐             │              │
-│          │                         │             │              │
-│          ▼                         ▼             │              │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                   ESCROW CONTRACT                        │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │  State:                                          │    │   │
-│   │  │  ├── buyer: 0xBuyer                              │    │   │
-│   │  │  ├── seller: 0xSeller                            │    │   │
-│   │  │  ├── amount: 1 ETH                               │    │   │
-│   │  │  ├── deposited: true                             │    │   │
-│   │  │  └── released: false                             │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   │                         │                                │   │
-│   │           ┌─────────────┴─────────────┐                 │   │
-│   │           ▼                           ▼                 │   │
-│   │   ┌─────────────┐             ┌─────────────┐           │   │
-│   │   │  release()  │             │  refund()   │           │   │
-│   │   │  (by Buyer) │             │ (by Seller) │           │   │
-│   │   └──────┬──────┘             └──────┬──────┘           │   │
-│   └──────────┼───────────────────────────┼──────────────────┘   │
-│              │                           │                      │
-│              ▼                           ▼                      │
-│   ┌──────────────────┐       ┌──────────────────┐              │
-│   │ Funds → Seller 💰│       │ Funds → Buyer 💰 │              │
-│   └──────────────────┘       └──────────────────┘              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+   BUYER                    ESCROW CONTRACT                    SELLER
+     │                ┌───────────────────────┐                  │
+     │  deposit() ──▶ │ buyer:     0xBuyer    │                  │
+     │  (+0.75 ETH)   │ seller:    0xSeller   │                  │
+     │                │ amount:    0.75 ETH   │                  │
+     │                │ deposited: true       │                  │
+     │                │ released:  false      │                  │
+     │                └───────────┬───────────┘                  │
+     │                            │                              │
+     │   release() (buyer) ───────┼───────▶ 0.75 ETH ──────────▶ │
+     │ ◀────────── 0.75 ETH ──────┼─────── refund() (seller)     │
 ```
+
+Every one of those five fields is `public`, which means Solidity generates a free getter for it (`buyer()`, `seller()`, ...). Reading them costs no gas and needs no signature. That is why the status panel can use a plain RPC connection.
 
 ---
 
 ### 🔑 Key Concepts
 
-#### 1. Escrow Pattern Benefits
+#### 1. Why escrow on-chain?
 
-| Traditional (Bank/PayPal)  | Blockchain Escrow    |
-| -------------------------- | -------------------- |
-| Middleman fees (2-5%)      | Only gas costs       |
-| 3-5 day settlement         | Instant on-chain     |
-| Requires trust in platform | Trustless code       |
-| Limited to certain regions | Global access        |
-| Reversible (chargebacks)   | Irreversible (final) |
+| Traditional (bank / platform) | Smart-contract escrow                 |
+| ----------------------------- | ------------------------------------- |
+| Platform fees, often a few %  | Only gas fees                         |
+| Days to settle across borders | Settles in the next block             |
+| You trust the platform        | You trust code anyone can read        |
+| Chargebacks possible          | Final once released                   |
+
+The trade-off is real: "final" also means there is no customer service to undo a mistake. That is why the contract's rules have to be right.
+
+#### 2. The state machine
 
 ```
-Trust Flow Comparison:
-Traditional:  Buyer → [Bank] → Seller  (Bank is trusted middleman)
-Blockchain:   Buyer → [Code] → Seller  (Code is the law)
+ ┌───────────────┐   deposit()   ┌───────────────┐
+ │ NOT DEPOSITED │ ────────────▶ │    PENDING    │
+ │ deposited: ❌ │               │ deposited: ✅ │
+ │ released:  ❌ │               │ released:  ❌ │
+ └───────────────┘               └───────┬───────┘
+                           release() ┌───┴───┐ refund()
+                                     ▼       ▼
+                              ┌──────────────────┐
+                              │     SETTLED      │
+                              │  released: ✅    │
+                              └──────────────────┘
 ```
 
-#### 2. Smart Contract Implementation
+Two booleans give you three states. When you display them, check `released` **first**. A settled escrow still has `deposited == true`, so checking `deposited` first would leave a finished deal stuck on "Pending".
+
+#### 3. The contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 contract Escrow {
     address public buyer;
@@ -116,22 +108,11 @@ contract Escrow {
         _;
     }
 
-    modifier onlyDeposited() {
-        require(deposited, "No funds deposited");
-        _;
-    }
-
-    modifier notReleased() {
-        require(!released, "Already released");
-        _;
-    }
-
     constructor(address _buyer, address _seller) {
         buyer = _buyer;
         seller = _seller;
     }
 
-    // Buyer deposits funds into escrow
     function deposit() external payable onlyBuyer {
         require(!deposited, "Already deposited");
         require(msg.value > 0, "Must send ETH");
@@ -140,308 +121,187 @@ contract Escrow {
         emit Deposited(msg.value);
     }
 
-    // Buyer releases funds to seller (work completed)
-    function release() external onlyBuyer onlyDeposited notReleased {
-        released = true;
-        payable(seller).transfer(amount);
+    function release() external onlyBuyer {
+        require(deposited, "No funds deposited");    // 1. checks
+        require(!released, "Already settled");
+        released = true;                              // 2. effects
+        (bool ok, ) = payable(seller).call{value: amount}(""); // 3. interaction
+        require(ok, "Transfer failed");
         emit Released(seller, amount);
     }
 
-    // Seller refunds buyer (work not delivered)
-    function refund() external onlySeller onlyDeposited notReleased {
+    function refund() external onlySeller {
+        require(deposited, "No funds deposited");
+        require(!released, "Already settled");
         released = true;
-        payable(buyer).transfer(amount);
+        (bool ok, ) = payable(buyer).call{value: amount}("");
+        require(ok, "Transfer failed");
         emit Refunded(buyer, amount);
     }
 }
 ```
 
-#### 3. State Machine Pattern
+This contract compiles with Solidity 0.8.27. On a local Hardhat chain, `release()` paid the seller exactly 0.75 ETH, and a later `refund()` reverted with `"Already settled"`.
 
-```
-┌──────────────┐     deposit()     ┌──────────────┐
-│   CREATED    │ ─────────────────▶│   FUNDED     │
-│              │                   │              │
-│ deposited: ❌│                   │ deposited: ✅│
-│ released: ❌ │                   │ released: ❌ │
-└──────────────┘                   └──────┬───────┘
-                                          │
-                           ┌──────────────┴──────────────┐
-                           │                             │
-                     release()                      refund()
-                           │                             │
-                           ▼                             ▼
-                   ┌──────────────┐             ┌──────────────┐
-                   │  COMPLETED   │             │  REFUNDED    │
-                   │              │             │              │
-                   │ Seller paid 💰│             │ Buyer refund💰│
-                   │ released: ✅ │             │ released: ✅ │
-                   └──────────────┘             └──────────────┘
-```
+#### 4. Paying out safely: checks, effects, then interactions
 
----
+Sending ETH hands control to the receiver. If the receiver is a contract, its code runs in the middle of your function. A malicious receiver can call `release()` again before your function finishes. That attack is called **reentrancy**. The defence is the order of the lines:
 
-### 🏗️ React Component Architecture
+1. **Checks.** Run every `require` first.
+2. **Effects.** Update your own state (`released = true`) *before* sending anything.
+3. **Interactions.** Only then send the money.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    ESCROW APP COMPONENTS                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                      EscrowApp                           │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ State: buyer, seller, amount, deposited,        │    │   │
-│   │  │        released, currentAccount, loading        │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └───────────────────────┬─────────────────────────────────┘   │
-│                           │                                     │
-│       ┌───────────────────┼───────────────────┐                 │
-│       ▼                   ▼                   ▼                 │
-│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
-│   │ Escrow  │      │  Deposit    │     │  Release/   │         │
-│   │ Stats   │      │   Form      │     │  Refund     │         │
-│   │         │      │             │     │  Controls   │         │
-│   │ Buyer:  │      │ [___] ETH   │     │             │         │
-│   │ Seller: │      │ [Deposit]   │     │ [Release] 🔓│         │
-│   │ Amount: │      │ (Buyer only)│     │ [Refund]  🔒│         │
-│   │ Status: │      │             │     │             │         │
-│   └─────────┘      └─────────────┘     └─────────────┘         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+If the receiver re-enters, `released` is already `true`, so the second call fails its check.
 
-#### Role-Based Button Visibility
+**Why `call` and not `transfer`?** Older tutorials use `payable(x).transfer(amount)`. It forwards a fixed 2300 gas, which was meant as a reentrancy guard. Gas costs have changed since then, and 2300 gas is no longer enough for many smart-contract wallets (for example multisigs) to receive ETH, so a `transfer` to such a wallet reverts every time, and the escrow can never pay it. The current recommendation is `call{value: ...}("")`, with its success flag checked, protected by checks-effects-interactions. For extra safety you can add OpenZeppelin's `nonReentrant` modifier (`import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";`).
 
-```javascript
-function ReleaseControls({
-  currentAccount,
-  buyer,
-  seller,
-  deposited,
-  released,
-}) {
-  const isBuyer = currentAccount?.toLowerCase() === buyer?.toLowerCase();
-  const isSeller = currentAccount?.toLowerCase() === seller?.toLowerCase();
-  const canRelease = isBuyer && deposited && !released;
-  const canRefund = isSeller && deposited && !released;
+#### 5. Pull over push
 
-  return (
-    <div>
-      {canRelease && (
-        <button onClick={handleRelease}>Release Funds to Seller</button>
-      )}
-      {canRefund && <button onClick={handleRefund}>Refund to Buyer</button>}
-      {!canRelease && !canRefund && deposited && !released && (
-        <p>Waiting for action...</p>
-      )}
-      {released && <p>✅ Transaction completed</p>}
-    </div>
-  );
+The contract above **pushes** money out. A sturdier design lets each party **pull** their own money. `release()` and `refund()` only record who is owed, and a separate `withdraw()` sends it:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract PullEscrow is ReentrancyGuard {
+    mapping(address => uint256) public owed;
+
+    // release() and refund() only record who is owed...
+    function _credit(address to, uint256 value) internal {
+        owed[to] += value;
+    }
+
+    // ...and each party pulls their own money out.
+    function withdraw() external nonReentrant {
+        uint256 value = owed[msg.sender];
+        require(value > 0, "Nothing to withdraw");
+        owed[msg.sender] = 0; // effect before interaction
+        (bool ok, ) = payable(msg.sender).call{value: value}("");
+        require(ok, "Transfer failed");
+    }
 }
 ```
 
-#### Transaction with Loading State
+With pull payments, a receiver that rejects ETH can only block its own withdrawal, never the whole deal. OpenZeppelin 4.x shipped ready-made `Escrow` and `PullPayment` contracts. **Both were removed in OpenZeppelin 5**, so today you write the few lines above yourself, as most production contracts do.
+
+---
+
+### 🔌 Reading the escrow from React (what the activity does)
+
+A **provider** is your app's connection to the blockchain. In ethers v6 you will use two kinds:
+
+| Provider | Created with | Can read? | Can sign? | Needs a wallet? |
+| -------- | ------------ | --------- | --------- | --------------- |
+| `ethers.JsonRpcProvider` | an RPC URL | ✅ | ❌ | No |
+| `ethers.BrowserProvider` | `window.ethereum` (MetaMask) | ✅ | ✅ via `await provider.getSigner()` | Yes |
+
+The status panel only reads, so a `JsonRpcProvider` is the right tool. The client in New York does not need MetaMask just to check the deal.
+
+```javascript
+const provider = new ethers.JsonRpcProvider(RPC); // e.g. a Sepolia RPC URL
+const escrow = new ethers.Contract(ADDR, ABI, provider);
+
+// Five independent reads: send them together instead of one after another.
+const [b, s, a, dep, rel] = await Promise.all([
+  escrow.buyer(),
+  escrow.seller(),
+  escrow.amount(),
+  escrow.deposited(),
+  escrow.released(),
+]);
+
+typeof a;               // "bigint" — in ethers v6 every uint256 is a native bigint
+ethers.formatEther(a);  // "0.75"   — wei (10^18 per ETH) to a readable string
+```
+
+`Promise.all` returns the results in the order you listed the calls, which is why the destructuring `[b, s, a, dep, rel]` lines up.
+
+### ✍️ Writing to the escrow (beyond the activity)
+
+Deposit, release and refund change state, so they need the user's wallet to **sign** a transaction. That is a `BrowserProvider` plus a signer:
 
 ```javascript
 const handleDeposit = async (ethAmount) => {
   setLoading(true);
-  setError(null);
-
+  setError("");
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(ESCROW_ADDRESS, ESCROW_ABI, signer);
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner(); // v6: getSigner() is async
+    const escrow = new ethers.Contract(ESCROW_ADDRESS, ESCROW_ABI, signer);
 
-    const tx = await contract.deposit({
-      value: ethers.utils.parseEther(ethAmount),
-    });
-
-    // Wait for confirmation
-    await tx.wait();
-
-    // Refresh stats
+    const tx = await escrow.deposit({ value: ethers.parseEther(ethAmount) });
+    await tx.wait(); // wait until it is mined before refreshing the panel
     await refreshStats();
   } catch (err) {
-    if (err.code === 4001) {
-      setError("Transaction rejected by user");
-    } else {
-      setError("Transaction failed: " + err.message);
-    }
+    // ethers v6 reports a "Reject" click in MetaMask as ACTION_REJECTED
+    if (ethers.isError(err, "ACTION_REJECTED")) setError("Transaction rejected");
+    else setError("Transaction failed: " + err.message);
   } finally {
     setLoading(false);
   }
 };
 ```
 
+Two details: `{ value: ... }` is how a `payable` function receives ETH, and `ethers.parseEther("0.75")` turns the typed string into `750000000000000000n` wei. If you call `window.ethereum.request(...)` directly instead of going through ethers, a rejection arrives as error `code === 4001`.
+
+To show the right buttons, compare the connected account with the parties. Lower-case both sides, because addresses can come back in mixed-case checksum form:
+
+```javascript
+const isBuyer = account?.toLowerCase() === buyer?.toLowerCase();
+const isSeller = account?.toLowerCase() === seller?.toLowerCase();
+const canRelease = isBuyer && deposited && !released;
+const canRefund = isSeller && deposited && !released;
+```
+
+Hiding a button is only a convenience. The real protection is the `onlyBuyer` / `onlySeller` modifiers in the contract.
+
 ---
 
-### 📊 Comparison: Escrow Variations
+### 📊 Escrow variations
 
-| Feature    | Basic Escrow  | Timed Escrow         | Arbitrated Escrow      |
-| ---------- | ------------- | -------------------- | ---------------------- |
-| Parties    | Buyer, Seller | Buyer, Seller        | Buyer, Seller, Arbiter |
-| Release    | Buyer only    | Auto after deadline  | Majority vote          |
-| Refund     | Seller only   | Auto if not released | Arbiter decides        |
-| Disputes   | None          | Time-based           | Arbiter resolution     |
-| Complexity | Low           | Medium               | High                   |
+| Feature    | Basic escrow  | Timed escrow           | Arbitrated escrow      |
+| ---------- | ------------- | ---------------------- | ---------------------- |
+| Parties    | Buyer, seller | Buyer, seller          | Buyer, seller, arbiter |
+| Release    | Buyer         | Buyer, or auto after a deadline | Buyer or arbiter |
+| Refund     | Seller        | Auto if not released in time    | Arbiter decides  |
+| Complexity | Low           | Medium                 | High                   |
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake                                | Problem                   | Solution                               |
-| -------------------------------------- | ------------------------- | -------------------------------------- |
-| Missing role checks                    | Anyone can release        | Use `onlyBuyer`/`onlySeller` modifiers |
-| Double release                         | Funds sent twice          | Check `!released` before transfer      |
-| No deposit check                       | Release on empty contract | Require `deposited == true`            |
-| Using `send()` instead of `transfer()` | Silent failure            | Use `transfer()` or check return value |
-| Forgetting `tx.wait()`                 | UI updates prematurely    | Always await transaction receipt       |
+| Mistake | Problem | Solution |
+| ------- | ------- | -------- |
+| Missing role checks | Anyone can release the money | `onlyBuyer` / `onlySeller` modifiers |
+| Sending before updating state | Reentrancy can pay out twice | Checks, effects, then interactions |
+| Paying with `transfer()` | Smart-contract wallets may be unable to receive | `call{value: ...}("")` and check `ok` |
+| Showing `amount` raw | `750000000000000000` on screen | `ethers.formatEther(amount)` |
+| Checking `deposited` before `released` | A settled deal still shows "Pending" | Check `released` first |
+| Using a wallet provider just to read | Users without MetaMask see nothing | `ethers.JsonRpcProvider` for reads |
+| Forgetting `await tx.wait()` | UI refreshes before the change is mined | Always wait for the receipt |
 
 ---
 
-### ✅ Testing Checklist
+### 🧪 How this is graded
 
-Before considering this lesson complete, verify:
-
-- [ ] Only buyer can deposit funds
-- [ ] Only buyer can release funds to seller
-- [ ] Only seller can trigger refund to buyer
-- [ ] Stats update after deposit
-- [ ] Release button disabled until funds deposited
-- [ ] Cannot release/refund twice
-- [ ] Events trigger UI updates
-- [ ] Error handling for rejected transactions
-- [ ] Loading states prevent double-clicks
-- [ ] Addresses come from `.env`, not hardcoded
+Your `EscrowStats` is mounted against a simulated Sepolia escrow (deposited, not released, 0.75 ETH). The grader checks that you used `ethers.JsonRpcProvider` and read all five fields, and that the screen shows both full addresses, `0.75` (never the raw wei), and the word **Pending**. The activity page lists every checked detail.
 
 ---
 
 ### 🔗 External Resources
 
-| Resource              | Link                                                                     |
-| --------------------- | ------------------------------------------------------------------------ |
-| OpenZeppelin Escrow   | https://docs.openzeppelin.com/contracts/4.x/api/utils#Escrow             |
-| Solidity Security     | https://docs.soliditylang.org/en/latest/security-considerations.html     |
-| Ethers Transactions   | https://docs.ethers.org/v5/api/contract/contract/#contract-functionsSend |
-| Pull vs Push Payments | https://fravoll.github.io/solidity-patterns/pull_over_push.html          |
-
----
-
-## ✅ Test Cases
-
-Create `__tests__/EscrowApp.test.js`:
-
-```js
-// __tests__/EscrowApp.test.js
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import EscrowStats from "../EscrowStats";
-import DepositFunds from "../DepositFunds";
-import ReleaseControls from "../ReleaseControls";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-
-describe("Escrow DApp Components", () => {
-  const fakeProvider = {};
-  const fakeSigner = {};
-  const fakeContract = {
-    buyer: jest.fn(),
-    seller: jest.fn(),
-    amount: jest.fn(),
-    deposited: jest.fn(),
-    released: jest.fn(),
-    deposit: jest.fn(),
-    release: jest.fn(),
-    refund: jest.fn(),
-  };
-
-  beforeEach(() => {
-    // Mock window.ethereum
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue(["0xBUYER"]),
-    };
-    ethers.providers.JsonRpcProvider = jest.fn().mockReturnValue(fakeProvider);
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({
-      getSigner: () => fakeSigner,
-    });
-    ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-  });
-
-  it("loads escrow stats", async () => {
-    fakeContract.buyer.mockResolvedValue("0xBUYER");
-    fakeContract.seller.mockResolvedValue("0xSELLER");
-    fakeContract.amount.mockResolvedValue(ethers.utils.parseEther("0.5"));
-    fakeContract.deposited.mockResolvedValue(true);
-    fakeContract.released.mockResolvedValue(false);
-
-    render(<EscrowStats />);
-    expect(await screen.findByText(/Buyer:/)).toHaveTextContent("0xBUYER");
-    expect(screen.getByText(/Seller:/)).toHaveTextContent("0xSELLER");
-    expect(screen.getByText(/Amount:/)).toHaveTextContent("0.5");
-    expect(screen.getByText(/Status:/)).toHaveTextContent("Pending");
-  });
-
-  it("deposits funds and calls onDeposited", async () => {
-    fakeContract.deposit.mockResolvedValue({ wait: () => Promise.resolve() });
-    const onDeposited = jest.fn();
-    render(<DepositFunds onDeposited={onDeposited} />);
-    fireEvent.change(screen.getByPlaceholderText("ETH amount"), {
-      target: { value: "0.3" },
-    });
-    fireEvent.click(screen.getByText("Deposit"));
-    await waitFor(() => expect(fakeContract.deposit).toHaveBeenCalled());
-    expect(onDeposited).toHaveBeenCalled();
-  });
-
-  it("releases funds when buyer clicks", async () => {
-    // Setup ReleaseControls state
-    fakeContract.buyer.mockResolvedValue("0xBUYER");
-    fakeContract.seller.mockResolvedValue("0xSELLER");
-    fakeContract.deposited.mockResolvedValue(true);
-    fakeContract.released.mockResolvedValue(false);
-    fakeContract.release.mockResolvedValue({ wait: () => Promise.resolve() });
-
-    const onAction = jest.fn();
-    render(<ReleaseControls onAction={onAction} />);
-    // Wait for buttons to load
-    await waitFor(() => screen.getByText("Release Funds"));
-    fireEvent.click(screen.getByText("Release Funds"));
-    await waitFor(() => expect(fakeContract.release).toHaveBeenCalled());
-    expect(onAction).toHaveBeenCalled();
-  });
-
-  it("refunds funds when seller clicks", async () => {
-    // Simulate current account as seller
-    global.window.ethereum.request.mockResolvedValue(["0xSELLER"]);
-    fakeContract.buyer.mockResolvedValue("0xBUYER");
-    fakeContract.seller.mockResolvedValue("0xSELLER");
-    fakeContract.deposited.mockResolvedValue(true);
-    fakeContract.released.mockResolvedValue(false);
-    fakeContract.refund.mockResolvedValue({ wait: () => Promise.resolve() });
-
-    const onAction = jest.fn();
-    render(<ReleaseControls onAction={onAction} />);
-    await waitFor(() => screen.getByText("Refund Buyer"));
-    fireEvent.click(screen.getByText("Refund Buyer"));
-    await waitFor(() => expect(fakeContract.refund).toHaveBeenCalled());
-    expect(onAction).toHaveBeenCalled();
-  });
-});
-```
-
-In `jest.config.js`:
-
-```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapping: { "\\.(css|scss)$": "identity-obj-proxy" },
-};
-```
+| Resource | Link |
+| -------- | ---- |
+| ethers v6: JsonRpcProvider | https://docs.ethers.org/v6/api/providers/jsonrpc/ |
+| ethers v6: Contract | https://docs.ethers.org/v6/api/contract/ |
+| OpenZeppelin 5: ReentrancyGuard | https://docs.openzeppelin.com/contracts/5.x/api/utils#ReentrancyGuard |
+| Solidity security considerations | https://docs.soliditylang.org/en/latest/security-considerations.html |
+| Pull over push payments | https://fravoll.github.io/solidity-patterns/pull_over_push.html |
 
 ---
 
 ## 🌟 Closing Story
 
-Odessa shared the link: PH Buyer deposits 0.02 ETH, NY Seller delivers code, clicks **Release**, and funds ring in—no middleman, no delays. Her freelancing group chat lit up: "Smooth, secure, sobrang Pinoy!" Next sprint: add arbiter voting and IPFS proof-of-work. Det's escrow DApp is just the start of a borderless gig economy. 🇵🇭🤝🌐
+The New York client opened Det's link, saw "Amount: 0.75 ETH, Status: Pending ⏳", and replied, "Okay, start na kayo." Two weeks later the team delivered, the client clicked release, and the status flipped to "Released ✅". No bank, no week-long wait. Kuya Miguel's next request: an arbiter for disputes. Det's escrow panel was only the start of a borderless gig economy. 🇵🇭🤝🌐

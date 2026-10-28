@@ -2,18 +2,17 @@
 
 ![DeFi Dashboard](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+12.0+-+COVER.png)
 
-In a virtual workshop hosted by Ateneo's Blockchain Society, Neri was ready to impress. She'd sketched out a DeFi staking dashboard—"Simulated, pero feels real"—and turned to Odessa ("Det") to wire up the frontend. Their goal: show LP token data (reserves, total supply), compute token prices, and display a mocked APR, all without a production protocol.
+In a virtual workshop hosted by Ateneo's Blockchain Society, Neri was ready to impress. She had sketched a DeFi dashboard, "Simulated, pero feels real", and turned to Odessa ("Det") to wire up the frontend. Their goal: show a liquidity pool's real numbers, without needing a production protocol.
 
 ![DeFi Sim Dashboard](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+12.1.png)
 
-Using Hardhat, Neri deployed a tiny `MockLP` contract on a local network. It stored two token reserves (e.g., USDC and TKO), a total supply, and a fixed APR (in basis points). Now Det would build a clean React + Ethers.js dashboard:
+Neri had deployed a tiny `MockLP` contract on Sepolia. It stores two token reserves and a total supply of LP tokens. Det's plan for the first card was simple and strict:
 
-1. Fetch `getReserves()` and `getTotalSupply()`
-2. Compute Token0's price in Token1 (reserve1 / reserve0)
-3. Read `getMockAPR()` (e.g. 1 200 = 12.00 %)
-4. Display all with friendly formatting
+1. Make sure the pool address is valid before touching the network.
+2. Read `getReserves()` (two numbers in one call) and `getTotalSupply()`.
+3. Show all three, with a clear "Loading" line and a clear error.
 
-In under 30 minutes, Det had a "DeFi Sim" UI: a card for reserves, a badge for price, and a progress bar for APR. Ateneo scholars clicked "Refresh," and the numbers updated in real time. No real staking, no live oracles—just smart design, Filipino grit, and a taste of what DeFi dashboards can be. Mabuhay simulations, next stop: on-chain rewards! 🇵🇭🪙🚀
+"Price and APR badges can come later," Det said. "If the raw numbers are wrong, every badge built on them is wrong too." The Ateneo scholars watched the three numbers appear, straight from the chain. Next stop: prices and rewards. 🇵🇭🪙🚀
 
 ---
 
@@ -21,337 +20,186 @@ In under 30 minutes, Det had a "DeFi Sim" UI: a card for reserves, a badge for p
 
 ### 🎯 What You'll Learn
 
-In this lesson, you'll build a **DeFi simulation dashboard** that reads LP (Liquidity Pool) token data, calculates token prices from reserves, and displays a mock APR. This teaches you the fundamentals of DeFi analytics without requiring a production protocol.
+By the end of this lesson you can:
+
+- **validate an address** with `ethers.isAddress` before using it,
+- **read a tuple** (a function that returns several values) and unpack it with destructuring,
+- keep on-chain numbers as **`bigint`** so nothing is rounded away.
+
+That is what the activity grades. The sections marked **Extension** (price and APR) show what a real DeFi dashboard does next, with correct `bigint` math, but they are not graded.
 
 ---
 
-### 📐 DeFi Dashboard Architecture
+### 📐 What the Activity Builds
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    DeFi DASHBOARD FLOW                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌──────────────────────────────────────────────────────────┐  │
-│   │                     MockLP Contract                       │  │
-│   │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐       │  │
-│   │  │  reserve0   │  │  reserve1   │  │ totalSupply │       │  │
-│   │  │   (USDC)    │  │   (TKO)     │  │  (LP tokens)│       │  │
-│   │  └─────────────┘  └─────────────┘  └─────────────┘       │  │
-│   │                         │                                 │  │
-│   │  ┌──────────────────────┴──────────────────────────────┐ │  │
-│   │  │  getMockAPR() → returns APR in basis points (bps)   │ │  │
-│   │  └─────────────────────────────────────────────────────┘ │  │
-│   └──────────────────────────────────────────────────────────┘  │
-│                              │                                  │
-│                              ▼                                  │
-│   ┌──────────────────────────────────────────────────────────┐  │
-│   │                    React Dashboard                        │  │
-│   │  ┌───────────┐  ┌───────────┐  ┌───────────┐             │  │
-│   │  │ Reserves  │  │   Price   │  │    APR    │             │  │
-│   │  │  Panel    │  │   Badge   │  │ Progress  │             │  │
-│   │  │ R0: 1000  │  │  2.0 TKO  │  │  12.00%   │             │  │
-│   │  │ R1: 2000  │  │  per USDC │  │  ████░░   │             │  │
-│   │  └───────────┘  └───────────┘  └───────────┘             │  │
-│   └──────────────────────────────────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+REACT_APP_LP_ADDRESS ──▶ ethers.isAddress? ──no──▶ throw → red error message
+                                 │
+                                yes
+                                 ▼
+   JsonRpcProvider ──▶ MockLP.getReserves()   ──▶ [r0, r1]  ┐
+                   └─▶ MockLP.getTotalSupply() ──▶ ts       ├─▶ Reserve0 / Reserve1 / Total Supply
+                                                            ┘
 ```
 
 ---
 
 ### 🔑 Key Concepts
 
-#### 1. Liquidity Pool Basics
+#### 1. Liquidity pool basics
 
-A **Liquidity Pool** holds two tokens and enables decentralized trading:
+A **liquidity pool** holds two tokens so people can swap between them. People who deposit tokens receive **LP tokens** as a receipt for their share.
 
-| Component        | Description                   | Example                |
-| ---------------- | ----------------------------- | ---------------------- |
-| **Reserve0**     | Amount of Token A in pool     | 1,000 USDC             |
-| **Reserve1**     | Amount of Token B in pool     | 2,000 TKO              |
-| **Total Supply** | LP tokens issued to providers | 500 LP                 |
-| **LP Token**     | Represents share of the pool  | Your ownership receipt |
+| Component        | Meaning                                  | Example        |
+| ---------------- | ---------------------------------------- | -------------- |
+| **Reserve0**     | How much of token 0 sits in the pool     | 120 TKO        |
+| **Reserve1**     | How much of token 1 sits in the pool     | 45,000 USDC    |
+| **Total Supply** | How many LP tokens exist                 | 7.35 LP        |
 
 ```
-Pool Value = Reserve0 + (Reserve1 × Price of Token1)
-Your Share = (Your LP Tokens / Total Supply) × Pool Value
+Your share of the pool = your LP tokens / total supply
 ```
 
-#### 2. Mock LP Contract Structure
+#### 2. The `MockLP` contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 contract MockLP {
-    uint112 public reserve0;      // Token A reserves
-    uint112 public reserve1;      // Token B reserves
-    uint256 public totalSupply;   // Total LP tokens
-    uint256 public mockAPR;       // APR in basis points (bps)
+    uint112 public reserve0;     // token 0 reserves, in its base units
+    uint112 public reserve1;     // token 1 reserves, in its base units
+    uint256 public totalSupply;  // LP tokens, 18 decimals
 
-    // Returns both reserves in one call (gas efficient)
+    // Two values in one call: this is a tuple return
     function getReserves() external view returns (uint112, uint112) {
         return (reserve0, reserve1);
     }
 
-    // Returns APR in basis points: 1200 = 12.00%
-    function getMockAPR() external view returns (uint256) {
-        return mockAPR;
+    function getTotalSupply() external view returns (uint256) {
+        return totalSupply;
     }
 }
 ```
 
-#### 3. Understanding Basis Points (BPS)
+The real Uniswap V2 pair has a similar `getReserves()`, but it returns **three** values: the two reserves plus the timestamp of the last update. Our mock keeps it to two.
 
-| Basis Points | Percentage | Use Case          |
-| ------------ | ---------- | ----------------- |
-| 100 bps      | 1.00%      | Low APR           |
-| 500 bps      | 5.00%      | Moderate APR      |
-| 1200 bps     | 12.00%     | High APR          |
-| 10000 bps    | 100.00%    | Maximum reference |
+#### 3. Validate before you call
 
 ```javascript
-// Convert basis points to percentage
-const aprPercent = aprBps / 100; // 1200 → 12.00
-
-// Format for display
-const formattedAPR = (aprBps / 100).toFixed(2) + "%"; // "12.00%"
+ethers.isAddress("0x4444444444444444444444444444444444444444"); // true
+ethers.isAddress("not-an-address");                             // false
 ```
 
-#### 4. Price Calculation from Reserves
+Check the address first and `throw` if it is bad. Your `catch` turns that into an error message, and no network call is wasted on a typo. Without the check, ethers v6 treats `"not-an-address"` as a name to look up (like an ENS name), and you get a confusing error such as *"contract runner does not support name resolution"* instead of one that says what is actually wrong.
 
-The **Constant Product Formula** (x × y = k) determines prices:
+#### 4. Tuples and destructuring
 
-```
-Token0 Price (in Token1) = Reserve1 / Reserve0
-Token1 Price (in Token0) = Reserve0 / Reserve1
-```
+When a Solidity function returns several values, ethers v6 gives you a `Result`, which behaves like an array. Unpack it in one line:
 
 ```javascript
-// With BigNumber precision (using 1e18 scale factor)
-const ONE = ethers.constants.WeiPerEther; // 1e18
-
-// Calculate Token0 price in Token1 terms
-const priceScaled = reserve1.mul(ONE).div(reserve0);
-const price = ethers.utils.formatUnits(priceScaled, 18);
-
-// Example: 2000 TKO / 1000 USDC = 2.0 TKO per USDC
+const [r0, r1] = await lp.getReserves(); // both are bigint
+const ts = await lp.getTotalSupply();    // bigint
 ```
+
+#### 5. Base units, decimals and `bigint`
+
+On-chain, token amounts are whole numbers in the token's smallest unit. A token's **decimals** says where the decimal point goes: most tokens use 18, USDC uses 6, WBTC uses 8.
+
+```javascript
+const r0 = 120000000000000000000n; // token 0, 18 decimals
+const r1 = 45000000000n;           // token 1, 6 decimals (like USDC)
+const ts = 7350000000000000000n;   // LP token, 18 decimals
+
+ethers.formatUnits(r0, 18); // "120.0"
+ethers.formatUnits(r1, 6);  // "45000.0"
+ethers.formatEther(ts);     // "7.35"   (formatEther = formatUnits(x, 18))
+```
+
+ethers v6 returns these as native JavaScript `bigint`. You do math with normal operators (`+ - * /`) as long as **both sides are `bigint`** (write literals with an `n`, like `10n`). Division rounds down to a whole number, so **multiply before you divide** to keep precision.
+
+| Operation      | `bigint` example         | Note                                         |
+| -------------- | ------------------------ | -------------------------------------------- |
+| Add / subtract | `a + b`, `a - b`         | Mixing `bigint` and `Number` throws an error |
+| Multiply       | `a * 10n`                | Exact, no size limit                         |
+| Divide         | `a / b`                  | Rounds down (`7n / 2n` is `3n`)              |
+| Compare        | `a > b`, `a === b`       | Works like normal numbers                    |
+| Display        | `a.toString()`, `ethers.formatUnits(a, 18)` | Never `Number(a)` for big values |
 
 ---
 
-### 🏗️ BigNumber Math Deep Dive
+### ➕ Extension: Price from reserves (not graded)
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                   BIGNUMBER OPERATIONS                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ❌ JavaScript Numbers (DANGEROUS)                            │
-│   ─────────────────────────────────                             │
-│   const price = reserve1 / reserve0;  // Precision loss!        │
-│   // 2000000000000000000000 / 1000000000000000000000 = ???      │
-│                                                                 │
-│   ✅ Ethers BigNumber (SAFE)                                    │
-│   ────────────────────────                                      │
-│   const price = reserve1.mul(ONE).div(reserve0);                │
-│   // Maintains 18 decimal precision                             │
-│                                                                 │
-│   Common BigNumber Methods:                                     │
-│   ┌─────────────┬─────────────────────────────────────────┐    │
-│   │ .add(bn)    │ Addition: a.add(b)                      │    │
-│   │ .sub(bn)    │ Subtraction: a.sub(b)                   │    │
-│   │ .mul(bn)    │ Multiplication: a.mul(b)                │    │
-│   │ .div(bn)    │ Division (rounds down): a.div(b)        │    │
-│   │ .mod(bn)    │ Modulo: a.mod(b)                        │    │
-│   │ .eq(bn)     │ Equals: a.eq(b) → boolean               │    │
-│   │ .gt(bn)     │ Greater than: a.gt(b) → boolean         │    │
-│   │ .lt(bn)     │ Less than: a.lt(b) → boolean            │    │
-│   │ .toNumber() │ Convert to JS number (if small enough)  │    │
-│   │ .toString() │ Convert to string                       │    │
-│   └─────────────┴─────────────────────────────────────────┘    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-### 🔄 React Data Fetching Pattern
+In a constant-product pool (x × y = k), the spot price of token 0 in token 1 is the ratio of reserves. You must first account for the two tokens' **different decimals**, and keep everything `bigint`:
 
 ```javascript
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
+// price of 1 token0, measured in token1, scaled by 1e18 for precision
+const d0 = 18n, d1 = 6n;
+const SCALE = 10n ** 18n;
 
-function DeFiDashboard() {
-  const [reserves, setReserves] = useState({ r0: null, r1: null });
-  const [supply, setSupply] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [apr, setApr] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const provider = new ethers.providers.JsonRpcProvider(
-          process.env.REACT_APP_RPC_URL
-        );
-        const lp = new ethers.Contract(
-          process.env.REACT_APP_LP_ADDRESS,
-          LP_ABI,
-          provider
-        );
-
-        // Fetch all data in parallel for efficiency
-        const [reserveData, totalSupply, mockAPR] = await Promise.all([
-          lp.getReserves(),
-          lp.totalSupply(),
-          lp.getMockAPR(),
-        ]);
-
-        // Update state
-        setReserves({ r0: reserveData[0], r1: reserveData[1] });
-        setSupply(totalSupply);
-        setApr(mockAPR.toNumber() / 100);
-
-        // Calculate price with precision
-        const ONE = ethers.constants.WeiPerEther;
-        const priceScaled = reserveData[1].mul(ONE).div(reserveData[0]);
-        setPrice(ethers.utils.formatUnits(priceScaled, 18));
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // ... render UI
-}
+const priceScaled = (r1 * 10n ** d0 * SCALE) / (r0 * 10n ** d1);
+ethers.formatUnits(priceScaled, 18); // "375.0"  →  1 TKO ≈ 375 USDC
 ```
+
+Check it by hand: 45,000 USDC / 120 TKO = 375 USDC per TKO. Note that we multiplied by `SCALE` **before** dividing; dividing first would round to a whole number and lose the decimals.
+
+### ➕ Extension: APR in basis points (not graded)
+
+Contracts usually store percentages as **basis points** (bps), because Solidity has no decimals: 1 bps = 0.01%, so 1200 bps = 12.00%.
+
+```javascript
+const aprBps = 1200n; // e.g. read from a getMockAPR() function
+const label = `${aprBps / 100n}.${(aprBps % 100n).toString().padStart(2, "0")}%`;
+// "12.00%"
+```
+
+A real pool's APR comes from trading fees and rewards over time, not from a stored number. A mock APR is fine for a demo, as long as the UI says it is simulated.
 
 ---
 
-### 📊 Comparison: Real vs Mock LP Contracts
+### 📊 Real vs Mock LP Contracts
 
-| Feature      | Real LP (Uniswap V2) | Mock LP (This Lesson)  |
-| ------------ | -------------------- | ---------------------- |
-| Reserves     | Dynamic, from swaps  | Hardcoded or settable  |
-| Total Supply | Minted on deposits   | Fixed value            |
-| APR          | Calculated from fees | Mock value in bps      |
-| Swapping     | Full AMM logic       | Not implemented        |
-| Complexity   | High                 | Low (learning-focused) |
+| Feature      | Real LP (Uniswap V2)        | Mock LP (this lesson)  |
+| ------------ | --------------------------- | ---------------------- |
+| Reserves     | Change with every swap      | Set by the deployer    |
+| `getReserves` | Two reserves + a timestamp | Two reserves           |
+| Total supply | Minted on deposit, burned on withdraw | Fixed value  |
+| Swapping     | Full AMM logic              | Not implemented        |
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake                        | Problem                     | Solution                  |
-| ------------------------------ | --------------------------- | ------------------------- |
-| Using JS division on BigNumber | `reserve1 / reserve0` fails | Use `.mul()` and `.div()` |
-| Forgetting scale factor        | Loss of decimal precision   | Multiply by 1e18 first    |
-| Not handling loading state     | Flash of empty content      | Show spinner until ready  |
-| Ignoring error handling        | Silent failures             | Wrap in try/catch         |
-| Hardcoding addresses           | Hard to maintain            | Use `.env` variables      |
+| Mistake                                | Problem                                   | Solution                                     |
+| -------------------------------------- | ----------------------------------------- | -------------------------------------------- |
+| Validating the address too late       | A typo reaches the network                | `ethers.isAddress` check first, then `throw` |
+| `const r = await lp.getReserves()`     | Only the pair object, not two values      | `const [r0, r1] = await lp.getReserves()`    |
+| `Number(r0)` for math                  | Precision loss above about 9 quadrillion  | Keep `bigint`, format only for display       |
+| Mixing `bigint` and `Number`           | `TypeError: Cannot mix BigInt and other types` | Write `10n`, not `10`                    |
+| Dividing before multiplying           | Decimals rounded away                     | Multiply by a scale first                    |
+| Ignoring token decimals in a price     | Price off by 10¹² or more                 | Adjust by `10n ** decimals`                  |
 
 ---
 
-### ✅ Testing Checklist
+### ✅ How This Is Graded
 
-Before considering this lesson complete, verify:
-
-- [ ] Reserves display correctly (Reserve0, Reserve1)
-- [ ] Total Supply shows the LP token count
-- [ ] Price calculation is accurate (R1/R0)
-- [ ] APR converts from bps to percentage (1200 → 12.00%)
-- [ ] Loading state shows while fetching
-- [ ] Error state displays on fetch failure
-- [ ] All addresses come from `.env`
-- [ ] BigNumber math uses proper methods
+The grader runs your component with ethers v6 against a mock Sepolia pool. It sets an invalid address once and checks you never call `getReserves()` and never get stuck on "Loading". With the real address it checks you use a `JsonRpcProvider`, call both functions, and show both reserves and the total supply as exact values (raw, or formatted with 6, 8 or 18 decimals). The activity page lists every detail.
 
 ---
 
 ### 🔗 External Resources
 
-| Resource              | Link                                                                               |
-| --------------------- | ---------------------------------------------------------------------------------- |
-| Uniswap V2 Whitepaper | https://uniswap.org/whitepaper.pdf                                                 |
-| Ethers BigNumber      | https://docs.ethers.org/v5/api/utils/bignumber/                                    |
-| Constant Product AMM  | https://docs.uniswap.org/contracts/v2/concepts/protocol-overview/how-uniswap-works |
-| React Hooks           | https://react.dev/reference/react                                                  |
-
----
-
-## ✅ Test Cases
-
-Create `__tests__/DeFiDashboard.test.js` with Jest & React Testing Library.
-
-```js
-// __tests__/DeFiDashboard.test.js
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import DeFiDashboard from "../DeFiDashboard";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-
-describe("DeFiDashboard Component", () => {
-  const fakeReserves = [
-    ethers.BigNumber.from("1000"),
-    ethers.BigNumber.from("2000"),
-  ];
-  const fakeSupply = ethers.BigNumber.from("500");
-  const fakeAPR = ethers.BigNumber.from("1200"); // 12.00%
-  const fakeProvider = {};
-  const fakeContract = {
-    getReserves: jest.fn(),
-    getTotalSupply: jest.fn(),
-    getMockAPR: jest.fn(),
-  };
-
-  beforeAll(() => {
-    process.env.REACT_APP_RPC_URL = "http://localhost";
-    process.env.REACT_APP_LP_ADDRESS = "0xLP";
-    ethers.providers.JsonRpcProvider = jest.fn().mockReturnValue(fakeProvider);
-    ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-    fakeContract.getReserves.mockResolvedValue(fakeReserves);
-    fakeContract.getTotalSupply.mockResolvedValue(fakeSupply);
-    fakeContract.getMockAPR.mockResolvedValue(fakeAPR);
-    ethers.constants.WeiPerEther = ethers.BigNumber.from("1000000000000000000");
-    ethers.utils.formatUnits = jest.fn((bn, dec) => {
-      // price = r1*1e18/r0 = 2000*1e18/1000 = 2e18 → "2.0"
-      return bn.toString() === "2000000000000000000000" ? "2.0" : "0";
-    });
-  });
-
-  it("renders all DeFi data correctly", async () => {
-    render(<DeFiDashboard />);
-    await waitFor(() => screen.getByText(/DeFi Sim Dashboard/));
-    expect(screen.getByText("Reserve0: 1000")).toBeInTheDocument();
-    expect(screen.getByText("Reserve1: 2000")).toBeInTheDocument();
-    expect(screen.getByText("Total Supply: 500")).toBeInTheDocument();
-    expect(screen.getByText("Token0 Price: 2.0 Token1")).toBeInTheDocument();
-    expect(screen.getByText("Mock APR: 12.00%")).toBeInTheDocument();
-  });
-});
-```
-
-jest.config.js:
-
-```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapping: {
-    "\\.(css|scss)$": "identity-obj-proxy",
-  },
-};
-```
+| Resource                           | Link                                                                               |
+| ---------------------------------- | ---------------------------------------------------------------------------------- |
+| ethers v6: Addresses (`isAddress`) | https://docs.ethers.org/v6/api/address/                                            |
+| ethers v6: Units (`formatUnits`)   | https://docs.ethers.org/v6/api/utils/                                  |
+| ethers v6 migration (BigNumber → bigint) <!-- v5-ok --> | https://docs.ethers.org/v6/migrating/                                        |
+| MDN: BigInt                        | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt |
+| Uniswap V2: how it works           | https://docs.uniswap.org/contracts/v2/concepts/protocol-overview/how-uniswap-works |
+| Uniswap V2 whitepaper              | https://uniswap.org/whitepaper.pdf                                                 |
 
 ---
 
 ## 🌟 Closing Story
 
-After the online workshop, Ateneo scholars chatted excitedly: "Feels like real DeFi!" Odessa smiled as Neri raised a virtual toast. Their simulated dashboard had demystified LP analytics and APR mechanics. Next up: integrate a real price oracle, add a staking simulation, and spin up a Polygon testnet version. From simulation to mainnet—Filipino Web3 excellence marches on! 🇵🇭🪙🚀
+After the workshop, the Ateneo scholars chatted excitedly: "Feels like real DeFi!" One of them had typed the pool address wrong on purpose, and instead of a blank screen the dashboard said plainly, "Invalid LP contract address." Neri raised a virtual toast. Next up: a price badge using the decimal-aware `bigint` formula, a simulated APR, and a version on Polygon's Amoy testnet. From simulation to mainnet, Filipino Web3 excellence marches on! 🇵🇭🪙🚀

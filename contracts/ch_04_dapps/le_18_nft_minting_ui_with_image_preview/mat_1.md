@@ -2,15 +2,17 @@
 
 ![Filipino spoken-word poet minting NFT](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+18.0+-+COVER.png)
 
-Under the neon glow of Tondo's mural walls, Odessa ("Det") met a spoken‐word poet named Lakan. He had powerful lines about hope and Manila's heartbeat—but no way to "own" them. Odessa grinned: "Kahit spoken word, pwedeng i-mint." Within an hour, she deployed a minimal `PoetNFT.sol` on her local Hardhat node. Then she scaffolded a React app with three widgets:
+Under the neon glow of Tondo's mural walls, Odessa ("Det") met a spoken-word poet named Lakan. He had powerful lines about hope and Manila's heartbeat, and no way to "own" them. Det grinned: "Kahit spoken word, pwedeng i-mint." She sketched a minimal `PoetNFT` contract and planned a React app with three parts:
 
 ![NFT Minting UI with Image Preview](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+18.1.png)
 
-1. **Input Form** – Title, Description, and Image Upload (a snapshot of the poet's expression)
-2. **NFT Preview** – Live preview of the metadata JSON and image
-3. **Mint Button** – Calls `mintNFT(tokenURI)` on the contract and shows the minted Token ID
+1. **Input form**: title, description, and an image upload (the cover art for the poem).
+2. **Preview card**: the image plus the exact metadata JSON that will describe the token.
+3. **Mint button**: uploads the art, then calls `mintNFT(tokenURI)` on Sepolia.
 
-When Lakan uploaded his poem's cover art, typed "Tondo Sunrise" and "Lines of resilience…," the preview popped up like magic. A click on **Mint** simulated a real on-chain call. Ten seconds later, Token ID #1 appeared, with metadata viewable on the UI. Over gulaman at taho, Lakan raised his phone: "My poem as NFT—para sa future collectors!" Filipino creativity + Web3, one spoken line at a time. 🇵🇭🎤🪙
+Lakan's first question was not about gas or tokens. It was "Can I see it first?" A mint is permanent, so a typo in the title stays forever. Det built the **preview card** first. When Lakan picked his cover art and typed "Tondo Sunrise", the card showed the picture and the JSON instantly, entirely inside the browser, with nothing sent anywhere.
+
+That preview card is what you build in this lesson's activity. The lecture then walks through what happens after the preview: uploading the image, and minting on Sepolia.
 
 ---
 
@@ -18,415 +20,208 @@ When Lakan uploaded his poem's cover art, typed "Tondo Sunrise" and "Lines of re
 
 ### 🎯 What You'll Learn
 
-In this lesson, you'll build an **NFT minting UI** with live image preview and metadata generation. Users input title, description, and upload an image—then mint their creation as an ERC-721 token directly from the browser.
+- What an ERC-721 NFT is, and what its **metadata JSON** looks like.
+- How to preview a user's image in the browser with `URL.createObjectURL`, and how to clean it up.
+- Why a preview URL (`blob:`) can **never** be the `image` in real metadata, and where the image goes instead.
+- How a mint call looks in ethers v6, with an OpenZeppelin 5 contract.
+
+**Activity:** build `NFTPreview`. It prompts for a file when none is chosen, previews the chosen image, and renders the metadata JSON with an `"Untitled"` fallback.
 
 ---
 
-### 📐 NFT Minting Architecture
+### 📐 From preview to mint
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    NFT MINTING FLOW                             │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                    USER INPUT                            │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ Title: "Tondo Sunrise"                           │    │   │
-│   │  │ Description: "Lines of resilience..."            │    │   │
-│   │  │ Image: [sunrise.png] 📷                          │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └────────────────────────────┬────────────────────────────┘   │
-│                                │                                │
-│                                ▼                                │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                  PREVIEW PANEL                           │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ ┌───────────────┐  {                            │    │   │
-│   │  │ │               │    "name": "Tondo Sunrise",   │    │   │
-│   │  │ │   🌅 Image    │    "description": "Lines...", │    │   │
-│   │  │ │   Preview     │    "image": "data:image/..."  │    │   │
-│   │  │ │               │  }                            │    │   │
-│   │  │ └───────────────┘                               │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └────────────────────────────┬────────────────────────────┘   │
-│                                │                                │
-│                         [Mint NFT]                              │
-│                                │                                │
-│   ┌────────────────────────────▼────────────────────────────┐   │
-│   │                  BLOCKCHAIN                              │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ PoetNFT.mintNFT(tokenURI)                        │    │   │
-│   │  │ ├── _tokenIds.increment()                        │    │   │
-│   │  │ ├── _safeMint(msg.sender, tokenId)               │    │   │
-│   │  │ ├── _setTokenURI(tokenId, tokenURI)              │    │   │
-│   │  │ └── emit Minted(owner, tokenId, tokenURI)        │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   │                         │                                │   │
-│   │                         ▼                                │   │
-│   │            🎉 Token ID #42 Minted!                       │   │
-│   └──────────────────────────────────────────────────────────┘   │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+ ┌────────────── in the browser (this activity) ──────────────┐
+ │  title + description + image File                          │
+ │        │  URL.createObjectURL(file) → "blob:…"             │
+ │        ▼                                                   │
+ │  Preview card: <img src="blob:…">  +  { name, description, │
+ │                                         image: "blob:…" }  │
+ └────────┬───────────────────────────────────────────────────┘
+          │  user clicks Mint (beyond the activity)
+          ▼
+ 1. upload image   → ipfs://<imageCID>
+ 2. upload JSON    → { name, description, image: "ipfs://<imageCID>" } → ipfs://<jsonCID>
+ 3. mintNFT("ipfs://<jsonCID>") on Sepolia  → Minted(owner, tokenId, tokenURI)
 ```
+
+The preview and the mint use the **same shape** of JSON. The only difference is where `image` points.
 
 ---
 
 ### 🔑 Key Concepts
 
-#### 1. ERC-721 Token Standard
+#### 1. ERC-721 in one table
 
-| Component          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `tokenId`          | Unique identifier for each NFT (1, 2, 3...) |
-| `tokenURI`         | URL/URI pointing to metadata JSON           |
-| `ownerOf(tokenId)` | Returns address that owns the token         |
-| `balanceOf(owner)` | Returns count of NFTs owned                 |
-| `transferFrom()`   | Moves NFT between addresses                 |
+| Piece              | Meaning                                         |
+| ------------------ | ----------------------------------------------- |
+| `tokenId`          | The unique number of one NFT (1, 2, 3…)         |
+| `ownerOf(tokenId)` | Who owns it                                     |
+| `balanceOf(owner)` | How many tokens an address owns                 |
+| `tokenURI(tokenId)`| A URI pointing to the token's metadata JSON     |
 
-#### 2. NFT Metadata Standard
+The contract stores only the **pointer** (`tokenURI`). The picture itself lives somewhere else.
 
-The `tokenURI` should return JSON following this schema:
+#### 2. The metadata JSON
 
 ```json
 {
   "name": "Tondo Sunrise",
   "description": "Lines of resilience from Manila's heartbeat",
-  "image": "ipfs://QmXxx.../image.png",
+  "image": "ipfs://bafy.../tondo-sunrise.png",
   "attributes": [
     { "trait_type": "Artist", "value": "Lakan" },
-    { "trait_type": "Year", "value": "2024" },
-    { "trait_type": "Medium", "value": "Digital" }
+    { "trait_type": "Medium", "value": "Spoken word" }
   ]
 }
 ```
 
-#### 3. Token URI Options
+`name`, `description` and `image` are the fields every marketplace reads, and they are exactly what the activity's card shows. `attributes` are optional traits.
 
-| Method       | Pros                     | Cons                     |
-| ------------ | ------------------------ | ------------------------ |
-| **IPFS**     | Decentralized, permanent | Requires pinning service |
-| **Data URI** | Fully on-chain           | Size limits, gas costs   |
-| **HTTP URL** | Easy setup               | Centralized, can break   |
-| **Arweave**  | Permanent storage        | Requires AR tokens       |
+#### 3. Previewing a file: `URL.createObjectURL`
+
+When a user picks a file, `e.target.files[0]` is a `File`: bytes in memory, not an address. `URL.createObjectURL(file)` gives those bytes a temporary address such as `blob:https://yourapp/1f2e…`, which an `<img>` can display. Two facts to remember:
+
+- The URL works **only in the tab that created it**. Nobody else can open it, and it dies when the page closes.
+- Each URL holds its file in memory until you call `URL.revokeObjectURL(url)`.
+
+The activity's version calls `createObjectURL` on every render and never revokes. That is simple, and acceptable for one card in a lesson. A production component makes **one** URL per file and revokes it when the file changes or the card unmounts:
 
 ```javascript
-// Data URI approach (for small metadata)
-const metadata = {
-  name: title,
-  description: description,
-  image: `data:${file.type};base64,${imageBase64}`,
-};
+import React, { useMemo, useEffect } from "react";
 
-// Encode metadata as data URI
-const metadataString = JSON.stringify(metadata);
-const metadataBase64 = Buffer.from(metadataString).toString("base64");
-const tokenURI = `data:application/json;base64,${metadataBase64}`;
+export default function NFTPreview({ title, description, file }) {
+  // one URL per file, not one per render
+  const imageUrl = useMemo(() => (file ? URL.createObjectURL(file) : null), [file]);
+  // free the old URL when the file changes or the card unmounts
+  useEffect(() => () => { if (imageUrl) URL.revokeObjectURL(imageUrl); }, [imageUrl]);
+
+  if (!file) return <p>Choose an image to preview your NFT.</p>;
+  // ...render the card exactly as in the activity
+}
 ```
 
-#### 4. Smart Contract Implementation
+The hooks run before the `if (!file)` return on purpose: React requires hooks to be called in the same order on every render.
+
+#### 4. Validating the file before previewing
+
+```javascript
+function handleFileChange(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) return alert("Please select an image file");
+  if (file.size > 5 * 1024 * 1024) return alert("Please pick an image under 5 MB");
+  onFileChange(file); // the parent passes it to <NFTPreview file={file} />
+}
+
+<input type="file" accept="image/*" onChange={handleFileChange} />
+```
+
+#### 5. Where the image really goes
+
+| Option | How `image` / `tokenURI` looks | Pros | Cons |
+| ------ | ------------------------------ | ---- | ---- |
+| **IPFS** | `ipfs://bafy…` | Content-addressed, so the link cannot silently change | Someone must keep it pinned |
+| **Arweave** | `ar://…` | Pay once, stored long-term | Needs AR tokens |
+| **HTTPS** | `https://myserver/1.json` | Easy | Breaks if the server goes away |
+| **Data URI** | `data:application/json;base64,…` | Lives fully on-chain | Expensive (see below) |
+| ~~`blob:`~~ | `blob:https://…` | ❌ never valid | Only exists in your own tab |
+
+**How expensive is on-chain data?** Storing a string costs gas for every 32-byte slot. On a local Hardhat chain, minting `PoetNFT` with a tokenURI of about 240 bytes used ~239,000 gas, and the same mint with a **10 KB** tokenURI used **~7.4 million gas**. That is as much gas as about 350 plain ETH transfers (21,000 gas each). So "fully on-chain" only makes sense for tiny metadata or small SVGs. Photos belong on IPFS or Arweave. (You may have seen a "24 KB limit" mentioned elsewhere. That is EIP-170's cap on a contract's **bytecode** size, not a limit on strings you store, and it has nothing to do with tokenURIs.)
+
+If you do build a data URI in the browser, note that `Buffer` is a Node.js API and **does not exist in the browser**. Use `TextEncoder` and `btoa`, which also handle non-ASCII text such as "ñ" correctly:
+
+```javascript
+const toBase64 = (text) => btoa(String.fromCharCode(...new TextEncoder().encode(text)));
+const tokenURI = `data:application/json;base64,${toBase64(JSON.stringify(metadata))}`;
+```
+
+#### 6. The contract (OpenZeppelin 5)
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import {ERC721, ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract PoetNFT is ERC721URIStorage {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    uint256 private _nextTokenId = 1;
 
-    event Minted(
-        address indexed owner,
-        uint256 indexed tokenId,
-        string tokenURI
-    );
+    event Minted(address indexed owner, uint256 indexed tokenId, string tokenURI);
 
     constructor() ERC721("PoetNFT", "POET") {}
 
-    function mintNFT(string calldata _tokenURI)
-        external
-        returns (uint256)
-    {
-        _tokenIds.increment();
-        uint256 newTokenId = _tokenIds.current();
-
+    function mintNFT(string calldata _tokenURI) external returns (uint256) {
+        uint256 newTokenId = _nextTokenId++;
         _safeMint(msg.sender, newTokenId);
         _setTokenURI(newTokenId, _tokenURI);
-
         emit Minted(msg.sender, newTokenId, _tokenURI);
         return newTokenId;
     }
 
     function totalSupply() external view returns (uint256) {
-        return _tokenIds.current();
+        return _nextTokenId - 1;
     }
 }
 ```
 
----
+Older tutorials use `Counters.sol` for the id. **`Counters` was removed in OpenZeppelin 5** and no longer compiles, so a plain `uint256` counter replaces it. This contract compiles with OpenZeppelin 5.3 and Solidity 0.8.27.
 
-### 🏗️ React Component Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    MINT NFT COMPONENTS                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                      MintApp                             │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ State: title, description, file, preview,       │    │   │
-│   │  │        tokenId, loading, error                  │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └───────────────────────┬─────────────────────────────────┘   │
-│                           │                                     │
-│       ┌───────────────────┼───────────────────┐                 │
-│       ▼                   ▼                   ▼                 │
-│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
-│   │  Input  │      │   Preview   │     │   Mint      │         │
-│   │  Form   │      │   Panel     │     │   Result    │         │
-│   │         │      │             │     │             │         │
-│   │ Title:  │      │  🖼️ Image   │     │ Token ID:   │         │
-│   │ [_____] │      │  { JSON }   │     │   #42 ✅    │         │
-│   │ Desc:   │      │             │     │             │         │
-│   │ [_____] │      │             │     │ [View on    │         │
-│   │ 📷 File │      │             │     │  OpenSea]   │         │
-│   └─────────┘      └─────────────┘     └─────────────┘         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-#### Image Preview with FileReader
-
-```javascript
-import { useState } from "react";
-
-function ImageUpload({ onFileChange }) {
-  const [preview, setPreview] = useState(null);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith("image/")) {
-      alert("Please select an image file");
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert("File size must be less than 5MB");
-      return;
-    }
-
-    // Create preview URL
-    const previewUrl = URL.createObjectURL(file);
-    setPreview(previewUrl);
-
-    // Pass file to parent
-    onFileChange(file);
-  };
-
-  return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      {preview && (
-        <img src={preview} alt="Preview" style={{ maxWidth: "300px" }} />
-      )}
-    </div>
-  );
-}
-```
-
-#### Complete Minting Flow
+#### 7. Minting from React (ethers v6, beyond the activity)
 
 ```javascript
 import { ethers } from "ethers";
 
-async function mintNFT(title, description, file) {
-  // Step 1: Convert image to base64
-  const imageBase64 = await fileToBase64(file);
+async function mint(tokenURI) {              // e.g. "ipfs://<jsonCID>"
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner(); // v6: getSigner() is async
+  const nft = new ethers.Contract(POETNFT_ADDRESS, POETNFT_ABI, signer);
 
-  // Step 2: Create metadata object
-  const metadata = {
-    name: title,
-    description: description,
-    image: `data:${file.type};base64,${imageBase64}`,
-  };
+  const tx = await nft.mintNFT(tokenURI);
+  const receipt = await tx.wait();           // mined
 
-  // Step 3: Encode metadata as data URI
-  const metadataString = JSON.stringify(metadata);
-  const metadataBase64 = btoa(unescape(encodeURIComponent(metadataString)));
-  const tokenURI = `data:application/json;base64,${metadataBase64}`;
-
-  // Step 4: Connect to contract
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(
-    process.env.REACT_APP_POETNFT_ADDRESS,
-    POETNFT_ABI,
-    signer
-  );
-
-  // Step 5: Mint the NFT
-  const tx = await contract.mintNFT(tokenURI);
-  const receipt = await tx.wait();
-
-  // Step 6: Extract token ID from event
-  const mintEvent = receipt.events.find((e) => e.event === "Minted");
-  const tokenId = mintEvent.args.tokenId.toNumber();
-
-  return tokenId;
-}
-
-// Helper: Convert file to base64
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result.split(",")[1];
-      resolve(base64);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+  // v6 receipts carry `logs`; logs this ABI can decode have an eventName
+  const minted = receipt.logs.find((log) => log.eventName === "Minted");
+  return Number(minted.args.tokenId);        // bigint → number
 }
 ```
 
----
-
-### 📊 Data URI vs IPFS Comparison
-
-| Aspect               | Data URI               | IPFS                |
-| -------------------- | ---------------------- | ------------------- |
-| **Storage**          | On-chain (in tokenURI) | Off-chain (pinned)  |
-| **Gas Cost**         | Higher (longer string) | Lower (just CID)    |
-| **Size Limit**       | ~24KB practical        | Unlimited           |
-| **Permanence**       | Forever on-chain       | Requires pinning    |
-| **Decentralization** | Fully on-chain         | Distributed network |
-| **Best For**         | Small images, SVGs     | Photos, videos      |
+The upload step depends on the pinning service you use (most offer a small JavaScript SDK or an HTTP API that returns a CID). Upload the image first, put its `ipfs://` URI into the JSON, upload the JSON, then pass the JSON's `ipfs://` URI to `mintNFT`.
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake                        | Problem                    | Solution                               |
-| ------------------------------ | -------------------------- | -------------------------------------- |
-| Large images as data URI       | Transaction fails          | Use IPFS for >50KB                     |
-| Missing file validation        | Wrong file types           | Check `file.type.startsWith("image/")` |
-| Not awaiting `tx.wait()`       | Token ID unavailable       | Always await receipt                   |
-| No loading state               | User clicks multiple times | Disable button while minting           |
-| Forgetting URL.revokeObjectURL | Memory leaks               | Clean up preview URLs                  |
+| Mistake | Problem | Solution |
+| ------- | ------- | -------- |
+| Minting with `image: "blob:…"` | The NFT shows a broken image for everyone else | Upload first, then use `ipfs://…` |
+| A new object URL every render, never revoked | Memory slowly leaks | `useMemo` + revoke in the effect cleanup |
+| `Buffer.from(...)` in the browser | `ReferenceError: Buffer is not defined` | `TextEncoder` + `btoa` |
+| Big images as a data URI | Millions of gas, or the transaction fails | IPFS/Arweave for anything over a few KB |
+| `import ".../utils/Counters.sol"` | Does not compile on OpenZeppelin 5 | A `uint256` counter |
+| No file-type check | Users upload PDFs | `file.type.startsWith("image/")` |
 
 ---
 
-### ✅ Testing Checklist
+### 🧪 How this is graded
 
-Before considering this lesson complete, verify:
-
-- [ ] File input accepts only images
-- [ ] File size validation works (< 5MB)
-- [ ] Image preview displays correctly
-- [ ] Metadata JSON preview updates in real-time
-- [ ] Mint button disabled without complete form
-- [ ] Loading spinner during transaction
-- [ ] Token ID displays after successful mint
-- [ ] Error handling for rejected transaction
-- [ ] Minted event captured correctly
+Your `NFTPreview` is rendered with a test PNG, then with no file, then with an empty title. The grader checks for an upload/choose/select/pick prompt (and no `createObjectURL` call) when there is no file, a `blob:` `<img>` when there is one, the title and description on screen, the `name`/`description`/`image` keys in the JSON, and the `Untitled` fallback.
 
 ---
 
 ### 🔗 External Resources
 
-| Resource              | Link                                                        |
-| --------------------- | ----------------------------------------------------------- |
-| OpenZeppelin ERC721   | https://docs.openzeppelin.com/contracts/4.x/erc721          |
-| NFT Metadata Standard | https://docs.opensea.io/docs/metadata-standards             |
-| IPFS Documentation    | https://docs.ipfs.tech/                                     |
-| FileReader API        | https://developer.mozilla.org/en-US/docs/Web/API/FileReader |
-
----
-
-## ✅ Test Cases
-
-Create `__tests__/MintNFT.test.js`:
-
-```js
-// __tests__/MintNFT.test.js
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import MintNFT from "../MintNFT";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-jest.mock("buffer", () => ({
-  Buffer: { from: (x) => ({ toString: () => "BASE64" }) },
-}));
-
-describe("MintNFT Component", () => {
-  const fakeProvider = {};
-  const fakeSigner = {};
-  const fakeContract = {
-    mintNFT: jest.fn(),
-  };
-
-  beforeAll(() => {
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue(["0xABC"]),
-    };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({
-      getSigner: () => fakeSigner,
-    });
-    ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-  });
-
-  it("calls mintNFT and shows tokenId", async () => {
-    // Mock transaction & event
-    const fakeReceipt = {
-      wait: () =>
-        Promise.resolve({
-          events: [
-            { event: "Minted", args: { tokenId: ethers.BigNumber.from("42") } },
-          ],
-        }),
-    };
-    fakeContract.mintNFT.mockResolvedValue(fakeReceipt);
-
-    // Mock file
-    const file = new File(["dummy"], "test.png", { type: "image/png" });
-    render(<MintNFT title="My Poem" description="Lines..." file={file} />);
-
-    fireEvent.click(screen.getByText("Mint NFT"));
-
-    await waitFor(() => screen.getByText(/Minted Token ID: 42/));
-    expect(fakeContract.mintNFT).toHaveBeenCalled();
-  });
-
-  it("shows error on user rejection", async () => {
-    fakeContract.mintNFT.mockRejectedValue(new Error("User rejected"));
-    const file = new File(["dummy"], "test.png", { type: "image/png" });
-    render(<MintNFT title="X" description="Y" file={file} />);
-
-    fireEvent.click(screen.getByText("Mint NFT"));
-    await waitFor(() => screen.getByText("User rejected"));
-  });
-});
-```
-
-In `jest.config.js`:
-
-```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapping: { "\\.(css|scss)$": "identity-obj-proxy" },
-};
-```
+| Resource | Link |
+| -------- | ---- |
+| OpenZeppelin 5: ERC-721 | https://docs.openzeppelin.com/contracts/5.x/erc721 |
+| OpenSea metadata standards | https://docs.opensea.io/docs/metadata-standards |
+| MDN: URL.createObjectURL | https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL_static |
+| IPFS documentation | https://docs.ipfs.tech/ |
+| ethers v6: Contract | https://docs.ethers.org/v6/api/contract/ |
 
 ---
 
 ## 🌟 Closing Story
 
-Lakan clicked **Mint NFT**, watched Token #1 emerge, and shared it on Twitter: "My spoken‐word, now immortalized on-chain!" Odessa smiled—her Tondo poet had a digital legacy. Next, they'll add IPFS uploads and on-chain royalties. Filipino creativity meets Web3 magic—one poem at a time. Mabuhay Kabataan! 🇵🇭🎤🚀
+Lakan checked the preview three times, fixed a typo in the description, and only then pressed **Mint**. Det's app uploaded the cover art, swapped the `blob:` preview for a real `ipfs://` link, and Token #1 appeared on Sepolia with the exact JSON he had approved. "Walang typo forever," he laughed. Next they'll add royalties for his future collectors. Filipino creativity meets Web3, one poem at a time. 🇵🇭🎤🚀

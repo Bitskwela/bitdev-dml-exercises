@@ -1,6 +1,6 @@
 ---
 title: "DAO Voting UI"
-description: "Build a decentralized autonomous organization (DAO) voting interface with proposal management, voting mechanisms, and real-time results tracking."
+description: "Build a decentralized autonomous organization (DAO) voting interface that lists proposals, casts one vote per wallet on-chain, and updates results live from contract events."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

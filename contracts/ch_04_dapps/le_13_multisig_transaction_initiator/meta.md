@@ -1,6 +1,6 @@
 ---
-title: "Multisig Transaction Initiator"
-description: "Build a multisignature wallet interface for proposing, confirming, and executing transactions with multiple signers and quorum requirements."
+title: "Multisig Proposal Viewer"
+description: "Build the signers' screen of a multisig wallet: read every proposal with ethers v6 and show its recipient, value in ETH, confirmation count and executed state."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"
