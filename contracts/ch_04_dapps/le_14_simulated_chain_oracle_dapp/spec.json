@@ -17,5 +17,6 @@
   },
   "concepts": ["oracle-reads", "provider-balance", "conditional-status"],
   "difficulty": "intermediate",
-  "est_minutes": 25
+  "est_minutes": 25,
+  "prerequisites": ["le-02-read-smart-contract-data","le-06-token-tracker"]
 }

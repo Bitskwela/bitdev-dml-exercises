@@ -32,7 +32,7 @@ describe("Lesson 09: On-Chain To-Do List", () => {
 
   it("Task 2: creates a task from the form", async () => {
     const ui = await render(Submission);
-    await ui.type("Ayusin ang bubong");
+    await ui.fill("New task", "Ayusin ang bubong");
     await ui.submit();
 
     const created = ui.calls("contract.createTask");
@@ -45,7 +45,7 @@ describe("Lesson 09: On-Chain To-Do List", () => {
 
   it("Task 2: waits for the receipt before treating the task as created", async () => {
     const ui = await render(Submission);
-    await ui.type("Ayusin ang bubong");
+    await ui.fill("New task", "Ayusin ang bubong");
     await ui.submit();
 
     expect(ui.called("tx.wait")).to.equal(true, "Await tx.wait() — the task is not on-chain until it is mined.");

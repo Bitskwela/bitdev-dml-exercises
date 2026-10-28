@@ -13,9 +13,10 @@
   "chain": {
     "accounts": ["0x1234567890123456789012345678901234567890"],
     "chainId": "0xaa36a7",
-    "deployedAddress": "0xDe910eD910eD910eD910eD910eD910eD910eD910"
+    "deployedAddress": "0xde910eD910Ed910ED910eD910Ed910ed910Ed910"
   },
   "concepts": ["contract-factory", "deployment", "wait-for-deployment"],
   "difficulty": "advanced",
-  "est_minutes": 30
+  "est_minutes": 30,
+  "prerequisites": ["le-03-triggering-a-function"]
 }

@@ -24,11 +24,11 @@ describe("Lesson 16: Escrow dApp", () => {
   it("Task 4: renders both parties", async () => {
     const ui = await render(Submission);
     expect(ui.text()).to.contain(
-      "0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa",
+      "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
       `The buyer should render. Rendered: "${ui.text()}"`,
     );
     expect(ui.text()).to.contain(
-      "0xBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb",
+      "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
       `The seller should render. Rendered: "${ui.text()}"`,
     );
   });

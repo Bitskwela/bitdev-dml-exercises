@@ -5,7 +5,7 @@ describe("Lesson 18: NFT Minting UI with Image Preview", () => {
     const ui = await render(Submission, { props: { file: null } });
 
     expect(ui.text()).to.match(
-      /upload|choose|select/i,
+      /upload|choose|select|pick/i,
       `With no file, prompt for one rather than rendering a broken image. Rendered: "${ui.text()}"`,
     );
   });

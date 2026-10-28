@@ -19,10 +19,24 @@ describe("Lesson 17: Multi-Network Switch UI", () => {
     );
   });
 
-  it("Task 2: reads the chain id from the contract", async () => {
+  it("Task 2: reads the chain id", async () => {
     const ui = await render(Submission);
+    const asked = [
+      ...ui.calls("window.ethereum.request").map(([method]) => method),
+      ...ui.calls("provider.send").map(([method]) => method),
+    ];
 
-    expect(ui.called("contract.getChainId")).to.equal(true, "Call getChainId().");
+    // The network is a property of the connection, so asking the wallet or the
+    // provider is the direct read; the lesson's getChainId() contract is
+    // accepted too.
+    const read =
+      ui.called("provider.getNetwork") ||
+      asked.includes("eth_chainId") ||
+      ui.called("contract.getChainId");
+    expect(read).to.equal(
+      true,
+      "Read the chain id: await provider.getNetwork() (its chainId), the wallet's eth_chainId, or the contract's getChainId().",
+    );
   });
 
   it("Task 2: renders the chain id and its friendly name", async () => {

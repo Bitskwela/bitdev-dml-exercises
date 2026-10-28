@@ -20,7 +20,12 @@ describe("Lesson 10: DAO Voting UI", () => {
 
     expect(ui.text()).to.contain("Ayusin ang basketball court", `Rendered: "${ui.text()}"`);
     expect(ui.text()).to.contain("Bagong ilaw sa kalye", `Rendered: "${ui.text()}"`);
-    expect(ui.text()).to.contain("5", `The yes-count for proposal 0 should show. Rendered: "${ui.text()}"`);
+    // The 5 must be the Yes tally, not any 5 on the page (an id, a date, a
+    // shortened address). "Yes: 5", "Yes 5" and "Yes - 5" all read that way.
+    expect(ui.text()).to.match(
+      /yes\s*[:=\-–]?\s*5(?!\d)/i,
+      `Show proposal 0's yes-count next to its label, e.g. "Yes: 5". Rendered: "${ui.text()}"`,
+    );
   });
 
   it("Task 4: hides the vote buttons on a proposal already voted on", async () => {

@@ -34,12 +34,15 @@ export default function WalletAuth() {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
-      // The nonce makes each signature single-use, so a captured one cannot
-      // be replayed to sign in again later.
+      // The nonce makes each message unique. It only prevents replay if a
+      // server issues it and rejects reuse; a browser-made nonce does not.
       const nonce = Date.now().toString();
       const msg = `Sign in to Dashboard\n\nNonce: ${nonce}`;
 
-      const sig = await signer.signMessage(msg);
+      // Authenticator.verify re-prefixes a 32-byte hash, so sign the 32 hash
+      // BYTES. Signing the text would prefix the text's length instead, and
+      // the on-chain check could never match.
+      const sig = await signer.signMessage(ethers.getBytes(ethers.id(msg)));
       setMessage(msg);
       setSignature(sig);
     } catch (err) {

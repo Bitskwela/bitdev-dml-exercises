@@ -46,6 +46,23 @@ describe("Lesson 02: Read Smart Contract Data", () => {
     );
   });
 
+  it("Task 3: refuses a token id outside 0 to total-1 without calling the chain", async () => {
+    const ui = await render(Submission);
+    const before = ui.text();
+    // totalMinted is 3, so the valid ids are 0, 1 and 2.
+    await ui.type("5");
+    await ui.click("Get Token URI");
+
+    expect(ui.called("contract.tokenURIs")).to.equal(
+      false,
+      "Token 5 does not exist when only 3 were minted — check the range before calling tokenURIs().",
+    );
+    expect(ui.called("alert") || ui.text() !== before).to.equal(
+      true,
+      `Tell the user the id is out of range (an alert or a message). Rendered: "${ui.text()}"`,
+    );
+  });
+
   it("Task 2: displays the URI it fetched", async () => {
     const ui = await render(Submission);
     await ui.click("Get Token URI");

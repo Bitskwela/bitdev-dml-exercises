@@ -13,8 +13,8 @@
         "returns": { "getTransactionCount": "2n" },
         "sequences": {
           "transactions": [
-            ["0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa", "1500000000000000000n", "0xa9059cbb0000", false, "1n"],
-            ["0xBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb", "500000000000000000n", "0x23b872dd0000", true, "2n"]
+            ["0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa", "1500000000000000000n", "0xa9059cbb0000", false, "1n"],
+            ["0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB", "500000000000000000n", "0x23b872dd0000", true, "2n"]
           ]
         }
       }
@@ -22,5 +22,6 @@
   },
   "concepts": ["multisig", "tuple-returns", "formatEther"],
   "difficulty": "advanced",
-  "est_minutes": 30
+  "est_minutes": 35,
+  "prerequisites": ["le-09-onchain-to-do-list","le-12-defi-dashboard"]
 }

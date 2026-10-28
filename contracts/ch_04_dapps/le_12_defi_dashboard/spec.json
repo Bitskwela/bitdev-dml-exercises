@@ -21,5 +21,6 @@
   },
   "concepts": ["tuple-returns", "address-validation", "loading-and-error-states"],
   "difficulty": "intermediate",
-  "est_minutes": 20
+  "est_minutes": 25,
+  "prerequisites": ["le-06-token-tracker","le-11-real-time-gas-fee-tracker"]
 }

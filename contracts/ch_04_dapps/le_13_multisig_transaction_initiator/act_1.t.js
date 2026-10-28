@@ -13,8 +13,8 @@ describe("Lesson 13: Multisig Transaction Initiator", () => {
 
   it("Task 4: renders each proposal's recipient", async () => {
     const ui = await render(Submission);
-    expect(ui.text()).to.contain("0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa", `Rendered: "${ui.text()}"`);
-    expect(ui.text()).to.contain("0xBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb", `Rendered: "${ui.text()}"`);
+    expect(ui.text()).to.contain("0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa", `Rendered: "${ui.text()}"`);
+    expect(ui.text()).to.contain("0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB", `Rendered: "${ui.text()}"`);
   });
 
   it("Task 3: shows the value in ether, not wei", async () => {
@@ -32,7 +32,18 @@ describe("Lesson 13: Multisig Transaction Initiator", () => {
 
   it("Task 3: shows each proposal's confirmation count", async () => {
     const ui = await render(Submission);
-    expect(ui.text()).to.contain("Confirmations", `Label the confirmations. Rendered: "${ui.text()}"`);
+    // Either order and any case: "Confirmations: 1" or "1 confirmation".
+    const shows = (n) =>
+      new RegExp(`confirmations?\\s*:?\\s*${n}(?!\\d)|(^|\\D)${n}\\s*confirmations?`, "i").test(ui.text());
+
+    expect(shows(1)).to.equal(
+      true,
+      `Proposal 0 has 1 confirmation — label it, e.g. "Confirmations: 1". Rendered: "${ui.text()}"`,
+    );
+    expect(shows(2)).to.equal(
+      true,
+      `Proposal 1 has 2 confirmations — label it, e.g. "Confirmations: 2". Rendered: "${ui.text()}"`,
+    );
   });
 
   it("Task 4: distinguishes an executed proposal from a pending one", async () => {

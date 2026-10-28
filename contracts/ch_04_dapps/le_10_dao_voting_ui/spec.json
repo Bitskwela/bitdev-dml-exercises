@@ -23,5 +23,6 @@
   },
   "concepts": ["indexed-reads", "per-user-state", "event-driven-updates"],
   "difficulty": "advanced",
-  "est_minutes": 35
+  "est_minutes": 45,
+  "prerequisites": ["le-04-event-listeners-in-the-frontend","le-09-onchain-to-do-list"]
 }
