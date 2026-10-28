@@ -144,6 +144,40 @@ function expect(actual, label) {
 }
 
 /**
+ * Microtask turns one case may take before it is declared hung. Generous: a
+ * full re-render settle is at most a few thousand, and a case does a handful.
+ */
+const CASE_TICK_BUDGET = 100000;
+
+/**
+ * Run one case, failing it if it never settles.
+ *
+ * Without this a promise the submission awaits that never resolves leaves the
+ * whole run pending forever: Node then exits *successfully* with nothing
+ * printed, and QuickJS never produces a report. Counting microtask turns rather
+ * than wall-clock time keeps it deterministic and host-independent.
+ */
+async function withinBudget(fn) {
+  let finished = false;
+  const work = Promise.resolve()
+    .then(fn)
+    .finally(() => {
+      finished = true;
+    });
+  async function watchdog() {
+    for (let i = 0; i < CASE_TICK_BUDGET && !finished; i += 1) await Promise.resolve();
+    // Finished means `work` holds the verdict. Its settlement reaches the race a
+    // tick after `finished` flips, so resolving here would let a failing case
+    // win the race as a pass — defer to it instead.
+    if (finished) return work;
+    throw new Error(
+      "This test never finished: something your code awaited never settled (a promise that never resolves, or an await on a value that is not really a promise).",
+    );
+  }
+  return Promise.race([work, watchdog()]);
+}
+
+/**
  * Collect `describe`/`it` declarations, then run them in order.
  *
  * Declaration and execution are separate phases so the runner can report a
@@ -153,6 +187,21 @@ function expect(actual, label) {
 function createRegistry() {
   const cases = [];
   let suite = "";
+  /** Errors nothing in the submission caught, awaiting the case they belong to. */
+  const uncaught = [];
+
+  /**
+   * Record an error the submission raised but never handled — typically an
+   * un-awaited async call in a `useEffect` that rejected. In a browser that is
+   * a console error the learner would see; here it would otherwise vanish (or,
+   * under Node, kill the grader). It is attached to the case that was running.
+   *
+   * The harness reports what it can catch itself (async effects, timer
+   * callbacks); a host may also forward its own unhandled-rejection signal.
+   */
+  function reportUncaught(error) {
+    uncaught.push(error && error.message ? error.message : String(error));
+  }
 
   function describe(name, fn) {
     const previous = suite;
@@ -168,28 +217,40 @@ function createRegistry() {
   /**
    * Run every registered case.
    *
-   * @param onSettled - Optional hook run after each case, for teardown.
+   * An uncaught error raised during a case fails that case, with the error in
+   * the reason, so the learner is told what actually broke rather than only
+   * that some later assertion did not hold.
+   *
+   * @param onSettled - Optional hook run after each case, for teardown. It may
+   *   return a promise, which is awaited — a host uses that to let its own
+   *   unhandled-rejection signal fire before the case is reported.
    * @returns One result per case: `{ name, status, reason? }`.
    */
   async function run(onSettled) {
     const results = [];
     for (const testCase of cases) {
+      let reason;
       try {
-        await testCase.fn();
-        results.push({ name: testCase.name, status: "pass" });
+        await withinBudget(testCase.fn);
       } catch (error) {
-        results.push({
-          name: testCase.name,
-          status: "fail",
-          reason: error && error.message ? error.message : String(error),
-        });
+        reason = error && error.message ? error.message : String(error);
       }
-      if (typeof onSettled === "function") onSettled();
+      if (typeof onSettled === "function") await onSettled();
+      const raised = uncaught.splice(0, uncaught.length);
+      if (raised.length > 0) {
+        const note = `Your code raised an error nothing caught (an un-awaited promise, e.g. in a useEffect): ${raised.join("; ")}`;
+        reason = reason ? `${reason} — and: ${note}` : note;
+      }
+      results.push(
+        reason === undefined
+          ? { name: testCase.name, status: "pass" }
+          : { name: testCase.name, status: "fail", reason },
+      );
     }
     return results;
   }
 
-  return { cases, describe, it, run };
+  return { cases, describe, it, reportUncaught, run };
 }
 
 module.exports = { AssertionError, createRegistry, expect };

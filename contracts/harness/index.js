@@ -70,6 +70,7 @@ function createHarness(spec) {
   const dom = createDom(spec);
   const timers = createTimers();
   const reactModule = buildReactModule();
+  react.setUncaughtHandler(registry.reportUncaught);
   /** Whether MetaMask is installed for the render in progress. */
   let walletPresent = true;
 
@@ -115,7 +116,8 @@ function createHarness(spec) {
     process: { env: { ...((spec && spec.env) || {}) } },
     setTimeout: (fn) => {
       // Timers resolve immediately: grading is deterministic and never waits.
-      Promise.resolve().then(fn);
+      // A throwing callback is an uncaught error in a browser too.
+      Promise.resolve().then(fn).catch(registry.reportUncaught);
       return 0;
     },
     clearTimeout() {},
