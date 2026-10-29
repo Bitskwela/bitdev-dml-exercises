@@ -4,13 +4,13 @@
   "source_file": "TokenTracker.jsx",
   "entry": "default",
   "ethers": "6",
-  "props": { "tokenAddress": "0xEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEe" },
+  "props": { "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" },
   "env": { "REACT_APP_RPC_URL": "https://rpc.example/sepolia" },
   "chain": {
     "accounts": ["0x1234567890123456789012345678901234567890"],
     "chainId": "0xaa36a7",
     "contracts": {
-      "0xEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEeEe": {
+      "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE": {
         "returns": {
           "name": "Barangay Peso",
           "symbol": "BPSO",
@@ -22,5 +22,6 @@
   },
   "concepts": ["erc20-metadata", "address-validation", "formatUnits"],
   "difficulty": "intermediate",
-  "est_minutes": 25
+  "est_minutes": 25,
+  "prerequisites": ["le-02-read-smart-contract-data"]
 }

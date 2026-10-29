@@ -6,7 +6,7 @@ In a cozy café in BGC, Neri leaned forward, latte foam dusting her laptop keybo
 
 ![Odessa coding](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+1.1.png)
 
-Odessa took a deep breath. She imagined balikbayans craving sisig tacos, taho vendors tokenizing orders, and OFWs trading food vouchers—all powered by Ethereum. First step: MetaMask. With a sly grin, Neri typed `npx create-react-app dapp-foundation`. “We’ll inject Ethers.js, detect MetaMask, and call `eth_requestAccounts`.”
+Odessa took a deep breath. She imagined balikbayans craving sisig tacos, taho vendors tokenizing orders, and OFWs trading food vouchers—all powered by Ethereum. First step: MetaMask. With a sly grin, Neri typed `npm create vite@latest dapp-foundation -- --template react`. “We’ll detect MetaMask, call `eth_requestAccounts`, and bring in Ethers.js once we start talking to contracts.”
 
 In fifteen minutes, Odessa saw “Install MetaMask” if no wallet was found. Ten more lines of React Hooks later, her screen displayed “Connected: 0xAbC…123”. She laughed—the same way she felt when she first tasted halo-halo in Manila. In that moment, bustling BGC felt like Ethereum’s mainnet: full of promise, a little wild, and utterly addictive.
 
@@ -101,7 +101,7 @@ window.ethereum.on("accountsChanged", (accounts) => {
 ```
 
 **`chainChanged` Event**
-Fires when the user switches blockchain networks (e.g., from Ethereum mainnet to Goerli testnet).
+Fires when the user switches blockchain networks (e.g., from Ethereum mainnet to the Sepolia testnet).
 
 ```js
 window.ethereum.on("chainChanged", (chainId) => {
@@ -116,42 +116,43 @@ If your app displays "Connected: 0xABC" but the user switched accounts, showing 
 
 #### **Concept 4: Network Switching (Optional but Useful)**
 
-Sometimes your smart contract only works on a specific network (like Polygon or Binance Smart Chain). You can programmatically ask MetaMask to switch networks:
+Your smart contract lives on one specific network (for example Sepolia, Polygon or BNB Smart Chain). You can programmatically ask MetaMask to switch networks:
 
 ```js
 await window.ethereum.request({
   method: "wallet_switchEthereumChain",
-  params: [{ chainId: "0x1" }], // 0x1 = Ethereum Mainnet
+  params: [{ chainId: "0xaa36a7" }], // 0xaa36a7 = Sepolia Testnet
 });
 ```
 
 **Chain IDs you should know:**
 
 - `0x1` = Ethereum Mainnet
-- `0x5` = Goerli Testnet (being deprecated)
-- `0xaa36a7` = Sepolia Testnet (recommended for testing)
+- `0xaa36a7` = Sepolia Testnet (the Ethereum testnet this course uses)
 - `0x89` = Polygon Mainnet
+- `0x13882` = Polygon Amoy Testnet
+
+Older tutorials mention testnets called Goerli, Rinkeby and Ropsten, or Polygon Mumbai. All of them have been shut down, so code that points at them will not work. <!-- v5-ok -->
 
 ### 3. Code Walkthrough with Detailed Explanations
 
 #### **Step 1: Install Dependencies**
 
-First, install Ethers.js in your React project:
+This lesson does not need Ethers.js yet: talking to MetaMask only takes `window.ethereum`. You will use Ethers.js (version 6) from the next lesson on, so install it now in your Vite React project:
 
 ```bash
 npm install ethers
 ```
 
-This downloads the Ethers.js library so you can use it in your code.
+This downloads the latest Ethers.js, which is version 6. Some older tutorials use version 5, whose code looks different and does not run on version 6. This course teaches version 6 only.
 
 #### **Step 2: Build the WalletConnector Component**
 
 Let's break down each part of the component:
 
 ```js
-// src/components/WalletConnector.js
+// src/components/WalletConnector.jsx
 import { useState, useEffect } from "react";
-import { ethers } from "ethers";
 
 export default function WalletConnector() {
   // State variables to store wallet information
@@ -279,31 +280,32 @@ try {
 
 Private keys should NEVER appear in your frontend code. They stay securely in MetaMask. Your app only sees public addresses.
 
-#### **Never Hardcode RPC URLs with API Keys**
+#### **Keep RPC URLs in Configuration, and Know a Frontend Key Is Public**
 
-If you use services like Infura or Alchemy, keep API keys in environment variables (`.env` files), not in your code.
+Services like Infura or Alchemy give you an RPC URL with an API key inside it. Put that URL in an environment variable (a `.env` file) instead of pasting it into your code, so you can swap it per network and keep it out of Git.
 
 ```js
-// ❌ BAD - API key exposed
-const provider = new ethers.providers.JsonRpcProvider(
-  "https://mainnet.infura.io/v3/YOUR_API_KEY"
+// ❌ Hardcoded: the key lands in your Git history
+const provider = new ethers.JsonRpcProvider(
+  "https://sepolia.infura.io/v3/YOUR_API_KEY"
 );
 
-// ✅ GOOD - API key hidden
-const provider = new ethers.providers.JsonRpcProvider(
-  process.env.REACT_APP_RPC_URL
-);
+// ✅ Configured: read from the environment
+// (in a Vite project: import.meta.env.VITE_RPC_URL)
+const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
 ```
+
+Be honest with yourself about what this protects. Anything a frontend uses is bundled into the JavaScript the browser downloads, so a visitor can still read that URL in their browser's developer tools. Use a key that is restricted to your site's domain in the provider's dashboard. Keep any truly secret key on a server.
 
 #### **Listen to Chain Changes**
 
-If your smart contract is on Ethereum mainnet but the user switches to a testnet, transactions will fail. Always monitor the network and warn users if they're on the wrong chain.
+If your smart contract is on Sepolia but the user is on Ethereum mainnet, your calls will fail or hit the wrong contract. Watch the network and warn users when they are on the wrong chain.
 
 ```js
-const EXPECTED_CHAIN_ID = "0x1"; // Ethereum Mainnet
+const EXPECTED_CHAIN_ID = "0xaa36a7"; // Sepolia Testnet
 
 if (chainId !== EXPECTED_CHAIN_ID) {
-  alert("Please switch to Ethereum Mainnet!");
+  alert("Please switch MetaMask to the Sepolia network!");
 }
 ```
 
@@ -313,7 +315,8 @@ If users enter addresses or amounts, validate them before sending transactions:
 
 ```js
 // Check if address is valid
-if (!ethers.utils.isAddress(userAddress)) {
+// (ethers v6: isAddress is a top-level helper)
+if (!ethers.isAddress(userAddress)) {
   alert("Invalid Ethereum address!");
 }
 
@@ -361,6 +364,8 @@ After implementing the component, test these scenarios:
 5. ✅ **User switches accounts**: UI updates automatically
 6. ✅ **User switches networks**: UI updates automatically
 
+**How this is graded:** the platform mounts your component against a pretend wallet. It checks the no-wallet message, the Connect button, the `eth_requestAccounts` call and the address shown afterwards. It reads what your component renders and which wallet methods it calls, so your variable names are up to you, but the visible wording matters. The activity page lists the exact words it looks for.
+
 ---
 
 ### 7. What's Next?
@@ -377,14 +382,14 @@ This wallet connection is the foundation for everything else in Web3 development
 
 ### External References & Further Learning
 
-- **Ethers.js Documentation**: https://docs.ethers.org - Complete guide to Ethers.js
+- **Ethers.js v6 Documentation**: https://docs.ethers.org/v6/ - The version this course uses
 - **MetaMask API Documentation**: https://docs.metamask.io - Official MetaMask developer docs
-- **React Hooks Guide**: https://reactjs.org/docs/hooks-intro.html - Learn React fundamentals
+- **React Hooks Reference**: https://react.dev/reference/react - `useState`, `useEffect` and the rest
 - **Ethereum JSON-RPC API**: https://ethereum.org/en/developers/docs/apis/json-rpc/ - Understanding the underlying API calls
-- **Web3 Modal**: https://web3modal.com/ - Library that supports multiple wallets (MetaMask, WalletConnect, etc.)
+- **Vite**: https://vite.dev/guide/ - The tool used here to start a React project
 
 ## 🌟 Closing Story
 
 As Odessa closed her laptop, she grinned at Neri: “Check this out—my React app just talks to MetaMask!” In a few clicks, she’d turned a blank page into the gateway for all future contract calls. The aroma of ube pandesal from the café suddenly tasted sweeter.
 
-Next, they’d wire this connector to a local Hardhat contract: reading and writing on-chain state. From wallet integration to full DApp—Odessa was one step closer to powering Filipino street-food vendors on Ethereum. Onward to smart contracts! 🚀🌮🪙
+Next, they’d point the app at a real contract on Sepolia: first reading its data, then writing to it. From wallet integration to full DApp—Odessa was one step closer to powering Filipino street-food vendors on Ethereum. Onward to smart contracts! 🚀🌮🪙

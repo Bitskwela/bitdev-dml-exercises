@@ -32,6 +32,34 @@ function* walk(node) {
   for (const child of node.children || []) yield* walk(child);
 }
 
+/**
+ * Depth-first walk yielding `{ node, form }`, where `form` is the nearest
+ * enclosing `<form>` that has an `onSubmit` handler (or null).
+ */
+function* walkWithForm(node, form = null) {
+  if (!node || node.text !== undefined) return;
+  yield { node, form };
+  const inner = node.tag === "form" && node.props && typeof node.props.onSubmit === "function" ? node : form;
+  for (const child of node.children || []) yield* walkWithForm(child, inner);
+}
+
+/**
+ * Whether clicking `node` submits its form, per HTML: a `<button>` whose type
+ * is `submit` or unset, or an `<input type="submit">`.
+ */
+function isSubmitter(node) {
+  const type = node.props && node.props.type;
+  if (node.tag === "button") return type === undefined || type === "submit";
+  return node.tag === "input" && type === "submit";
+}
+
+/** An `<input type="submit">`'s visible label is its `value`, lower-cased. */
+function submitValue(node) {
+  return node.tag === "input" && node.props && node.props.type === "submit"
+    ? String(node.props.value ?? "").toLowerCase()
+    : "";
+}
+
 /** True when `node`'s own rendered text contains `label`. */
 function hasLabel(node, label) {
   return textOf(node).toLowerCase().includes(String(label).toLowerCase());
@@ -91,22 +119,41 @@ async function mount(Component, { props = {}, chain }) {
      * rather than passing silently.
      */
     async click(label) {
-      const clickable = [...walk(tree)].find(
-        (n) =>
-          n.props && typeof n.props.onClick === "function" && hasLabel(n, label),
-      );
-      if (!clickable) {
+      const withForm = [...walkWithForm(tree)];
+      const match = (n) => hasLabel(n, label) || submitValue(n).includes(String(label).toLowerCase());
+      // A control with its own onClick wins; failing that, a submit button
+      // inside a form — a browser submits the form when that is clicked.
+      const hit =
+        withForm.find(({ node }) => node.props && typeof node.props.onClick === "function" && match(node)) ||
+        withForm.find(({ node, form }) => form && isSubmitter(node) && match(node));
+      if (!hit) {
         throw new Error(
           `No clickable element containing ${JSON.stringify(label)}. Rendered: ${ui.text() || "(nothing)"}`,
         );
       }
+      const { node: clickable, form } = hit;
       if (clickable.props.disabled) {
         throw new Error(`The control ${JSON.stringify(label)} is disabled.`);
       }
-      await clickable.props.onClick({
-        preventDefault() {},
-        stopPropagation() {},
-      });
+      let clickPrevented = false;
+      if (typeof clickable.props.onClick === "function") {
+        await clickable.props.onClick({
+          preventDefault() {
+            clickPrevented = true;
+          },
+          stopPropagation() {},
+        });
+      }
+      if (form && isSubmitter(clickable) && !clickPrevented) {
+        let submitPrevented = false;
+        await form.props.onSubmit({
+          preventDefault() {
+            submitPrevented = true;
+          },
+          stopPropagation() {},
+        });
+        ui.lastSubmitPrevented = submitPrevented;
+      }
       await settle();
       return ui;
     },

@@ -2,29 +2,31 @@
 
 ![SiningChain](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+7.0+-+COVER.png)
 
-The old warehouse in San Francisco’s Mission District buzzed with anticipation. Bright murals of jeepneys and tinikling dancers covered the brick walls. This was Neri’s moment: her carefully curated “SiningChain” exhibit was opening. Filipino street artists from Manila to Davao finally had an international stage. But she needed a seamless, dynamic gallery—one that fetched on‐chain art in real time.
+The old warehouse in San Francisco's Mission District buzzed with anticipation. Bright murals of jeepneys and tinikling dancers covered the brick walls. This was Neri's moment: her carefully curated "SiningChain" exhibit was opening. Filipino street artists from Manila to Davao finally had an international stage. But she needed a seamless, dynamic gallery, one that fetched on-chain art in real time.
 
 ![Neri and Det](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+7.1.png)
 
-Enter Det, Neri’s go‐getter friend. Fresh from her night classes at Pamantasan ng Lungsod ng Maynila, Det arrived with her laptop, eyes gleaming. “Tatay ko will flip when he sees Pinoy NFTs on display in SF,” she laughed. The only catch? Neri’s Solidity ERC-721 contract was already deployed on Sepolia. Det had 48 hours to spin up a React + Ethers.js frontend that would:
+Enter Det, Neri's go-getter friend. Fresh from her night classes at Pamantasan ng Lungsod ng Maynila, Det arrived with her laptop, eyes gleaming. "Tatay ko will flip when he sees Pinoy NFTs on display in SF," she laughed. The only catch? Neri's ERC-721 contract was already deployed on Sepolia. Det had 48 hours to spin up a React + ethers frontend that would:
 
 1. Connect to MetaMask
 2. Query token metadata (name, image URL)
 3. Render a sleek, responsive gallery grid
 
-As opening night approached, the pressure soared. Guests ranged from tech press to gallery regulars sipping chicha morada. The migraine kicked in. But Det remembered Neri’s mantra: “Grit over glamour.” She opened VS Code, scaffolded a React app, and wired Ethers.js. Line by line, state hooks and useEffects came alive. When the gallery finally rendered—Filipino murals popping from the screen—the crowd gasped. QR codes let collectors buy on‐chain. For the first time, street art intersected Web3, bridging Manila’s streets with San Francisco’s art scene.
+As opening night approached, the pressure soared. Guests ranged from tech press to gallery regulars sipping chicha morada. The migraine kicked in. But Det remembered Neri's mantra: "Grit over glamour." She opened VS Code, scaffolded a React app with Vite, and wired up ethers. Line by line, state hooks came alive. When the gallery finally rendered, Filipino murals popping from the screen, the crowd gasped. For the first time, street art intersected Web3, bridging Manila's streets with San Francisco's art scene.
 
-By dawn, “SiningChain” was live. Det leaned back, fatigue mixing with triumph. Neri hugged her, whispering, “We did it—for every artist back home.” This MVP was just chapter one. Next up: auctions, fractional ownership, royalty splits. But tonight, under Mission District lights, Filipino artists had their moment—and a Filipino coder had proven she belonged in global Web3. 🇵🇭🧠🔥
+By dawn, "SiningChain" was live. Det leaned back, fatigue mixing with triumph. Neri hugged her, whispering, "We did it, for every artist back home." This MVP was just chapter one. Next up: auctions, fractional ownership, royalty splits. But tonight, under Mission District lights, Filipino artists had their moment, and a Filipino coder had proven she belonged in global Web3. 🇵🇭🧠🔥
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-Welcome to the world of **NFTs (Non-Fungible Tokens)**! In this lesson, you'll build an NFT gallery that fetches and displays digital art from the blockchain. Think of it as building your own OpenSea-style gallery!
+Welcome to the world of **NFTs (Non-Fungible Tokens)**! In this lesson you build an NFT gallery that fetches and displays digital art from the blockchain. Think of it as your own mini OpenSea.
+
+> **This lesson uses ethers v6** (`ethers.BrowserProvider`, `ethers.JsonRpcProvider`, values as `bigint`). Older tutorials that write `ethers.providers...` or `.toNumber()` are ethers v5 and will not run here. <!-- v5-ok -->
 
 ---
 
-### 1. Understanding ERC-721 (NFT Standard)
+### 1. Understanding ERC-721 (the NFT Standard)
 
 #### **What Makes NFTs Different from Regular Tokens?**
 
@@ -35,35 +37,37 @@ Fungible (ERC-20) vs Non-Fungible (ERC-721):
 ├─────────────────────────────────────────────────────────────┤
 │  All tokens identical           │  Each token is unique     │
 │  Like peso bills                │  Like artwork or deeds    │
-│  1 BARYO = 1 BARYO             │  NFT #1 ≠ NFT #2          │
+│  1 BARYO = 1 BARYO              │  NFT #1 ≠ NFT #2          │
 │  Balance: 100 tokens            │  Own: tokens #5, #12, #89 │
 │  Divisible (0.5 tokens)         │  Indivisible (whole only) │
 └─────────────────────────────────────────────────────────────┘
 
 Real-World Analogy:
 ┌─────────────────────────────────────────────────────────────┐
-│  ERC-20 = Peso bills (any ₱100 works the same)             │
-│  ERC-721 = Land titles (each plot is unique and specific)  │
+│  ERC-20  = Peso bills (any ₱100 works the same)             │
+│  ERC-721 = Land titles (each plot is unique and specific)   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 #### **ERC-721 Core Functions**
 
 ```solidity
-// Ownership
+// Ownership (every ERC-721)
 function ownerOf(uint256 tokenId) external view returns (address);
 function balanceOf(address owner) external view returns (uint256);
 
-// Enumeration (optional but common)
-function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256);
+// Metadata (the "Metadata" extension, almost always present)
+function name() external view returns (string memory);
+function symbol() external view returns (string memory);
+function tokenURI(uint256 tokenId) external view returns (string memory);
+
+// Enumeration (the OPTIONAL "Enumerable" extension)
 function totalSupply() external view returns (uint256);
 function tokenByIndex(uint256 index) external view returns (uint256);
-
-// Metadata
-function name() external view returns (string);
-function symbol() external view returns (string);
-function tokenURI(uint256 tokenId) external view returns (string);
+function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256);
 ```
+
+The enumeration functions only exist if the contract includes **ERC721Enumerable**. Without them, you cannot ask "which tokens does this wallet own?" directly; you would have to scan `Transfer` events instead. SiningChain includes it (see Exercise 1).
 
 #### **Token IDs**
 
@@ -72,16 +76,16 @@ Each NFT has a unique **token ID**:
 ```
 NFT Contract: SiningChain
 ┌──────────────────────────────────────────────────────────┐
-│  Token ID 0  →  Owner: 0xABC...  →  "Manila Sunset"     │
-│  Token ID 1  →  Owner: 0xDEF...  →  "Tinikling Dance"   │
-│  Token ID 2  →  Owner: 0xABC...  →  "Jeepney Art"       │
-│  Token ID 3  →  Owner: 0x123...  →  "Palawan Beach"     │
+│  Token ID 0  →  Owner: 0xABC...  →  "Manila Sunset"      │
+│  Token ID 1  →  Owner: 0xDEF...  →  "Tinikling Dance"    │
+│  Token ID 2  →  Owner: 0xABC...  →  "Jeepney Art"        │
+│  Token ID 3  →  Owner: 0x123...  →  "Palawan Beach"      │
 └──────────────────────────────────────────────────────────┘
 
 // To get all NFTs owned by 0xABC:
-balanceOf(0xABC) = 2
-tokenOfOwnerByIndex(0xABC, 0) = 0  // First NFT
-tokenOfOwnerByIndex(0xABC, 1) = 2  // Second NFT
+balanceOf(0xABC)              = 2
+tokenOfOwnerByIndex(0xABC, 0) = 0   // first NFT
+tokenOfOwnerByIndex(0xABC, 1) = 2   // second NFT
 ```
 
 ---
@@ -90,7 +94,7 @@ tokenOfOwnerByIndex(0xABC, 1) = 2  // Second NFT
 
 #### **What is tokenURI?**
 
-Each NFT points to a **metadata JSON file** via `tokenURI()`. This file describes the NFT:
+The picture itself is **not** stored on the blockchain (that would cost a fortune). Instead each NFT points to a small **metadata JSON file** through `tokenURI()`:
 
 ```
 On-Chain vs Off-Chain:
@@ -98,23 +102,24 @@ On-Chain vs Off-Chain:
 │  Smart Contract (On-Chain)                                  │
 │  ├── Token ID: 42                                           │
 │  ├── Owner: 0xABC...                                        │
-│  └── tokenURI: "ipfs://Qm.../42.json"                      │
+│  └── tokenURI: "ipfs://Qm.../42.json"                       │
 │         │                                                   │
 │         ▼                                                   │
-│  Metadata JSON (Off-Chain - IPFS/HTTP)                      │
+│  Metadata JSON (Off-Chain, on IPFS or HTTP)                 │
 │  {                                                          │
 │    "name": "Manila Sunset #42",                             │
-│    "description": "A beautiful sunset over Manila Bay",    │
-│    "image": "ipfs://Qm.../sunset.png",                     │
+│    "description": "A beautiful sunset over Manila Bay",     │
+│    "image": "ipfs://Qm.../sunset.png",                      │
 │    "attributes": [                                          │
-│      { "trait_type": "Location", "value": "Manila" },      │
-│      { "trait_type": "Time", "value": "Sunset" }           │
+│      { "trait_type": "Location", "value": "Manila" }        │
 │    ]                                                        │
 │  }                                                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### **Metadata JSON Standard**
+Fetching an NFT is therefore always **two hops**: ask the contract for the URI, then fetch the JSON at that URI. And the JSON's `image` is usually a third address to load.
+
+#### **Metadata JSON Shape**
 
 ```json
 {
@@ -124,494 +129,342 @@ On-Chain vs Off-Chain:
   "external_url": "https://yoursite.com/nft/42",
   "attributes": [
     { "trait_type": "Artist", "value": "Juan dela Cruz" },
-    { "trait_type": "Year", "value": 2024 },
-    { "trait_type": "Rarity", "value": "Legendary" }
+    { "trait_type": "Year", "value": 2024 }
   ]
 }
 ```
 
+`name`, `description` and `image` come from the ERC-721 metadata schema in EIP-721. `attributes` and `external_url` are a popular convention started by marketplaces.
+
 #### **Where is Metadata Stored?**
 
-| Storage      | Pros                     | Cons                        |
-| ------------ | ------------------------ | --------------------------- |
-| **IPFS**     | Decentralized, permanent | Needs pinning service       |
-| **Arweave**  | Permanent, pay once      | More expensive              |
-| **HTTPS**    | Easy to set up           | Centralized, can go offline |
-| **On-chain** | Fully decentralized      | Very expensive              |
+| Storage      | Pros                     | Cons                                      |
+| ------------ | ------------------------ | ----------------------------------------- |
+| **IPFS**     | Decentralized, by content hash | Someone must keep "pinning" the file |
+| **Arweave**  | Permanent, pay once      | More expensive up front                   |
+| **HTTPS**    | Easy to set up           | Centralized, can go offline or change     |
+| **On-chain** | Fully decentralized      | Very expensive                            |
 
 ---
 
-### 3. dApp Architecture for NFT Gallery
+### 3. IPFS Gateways
 
-#### **Component Structure**
+**IPFS** finds files by their content hash, called a **CID** (for example `QmSiningOne...` or `bafy...`). A link like `ipfs://QmXYZ/42.json` means "the file with this hash", wherever it lives.
 
-```
-NFT Gallery Architecture:
-┌─────────────────────────────────────────────────────────────┐
-│                        App.js                                │
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │  SingleNFT.js                                           ││
-│  │  • Input: Token ID                                       ││
-│  │  • Fetches: tokenURI → metadata JSON → displays         ││
-│  └─────────────────────────────────────────────────────────┘│
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │  OwnedGallery.js                                        ││
-│  │  • Connects wallet                                       ││
-│  │  • Loops: balanceOf → tokenOfOwnerByIndex → tokenURI    ││
-│  │  • Displays grid of user's NFTs                          ││
-│  └─────────────────────────────────────────────────────────┘│
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │  AllGallery.js                                          ││
-│  │  • Public view (no wallet needed)                        ││
-│  │  • Loops: totalSupply → tokenByIndex → tokenURI          ││
-│  │  • Shows all minted NFTs                                 ││
-│  └─────────────────────────────────────────────────────────┘│
-└─────────────────────────────────────────────────────────────┘
-```
-
-#### **Data Flow**
+Browsers do not speak IPFS. So we use an **HTTP gateway**: a normal web server that fetches the IPFS file for you.
 
 ```
-Fetching NFT Data:
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│  1. User enters Token ID: 42                                 │
-│           │                                                  │
-│           ▼                                                  │
-│  2. Call contract.tokenURI(42)                               │
-│           │                                                  │
-│           ▼                                                  │
-│  3. Returns: "ipfs://QmXYZ.../42.json"                       │
-│           │                                                  │
-│           ▼                                                  │
-│  4. fetch("https://ipfs.io/ipfs/QmXYZ.../42.json")          │
-│           │                                                  │
-│           ▼                                                  │
-│  5. Parse JSON: { name, description, image }                 │
-│           │                                                  │
-│           ▼                                                  │
-│  6. Display: <img src={image} /> <h3>{name}</h3>            │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+ipfs://QmXYZ/42.json
+        │  replace "ipfs://" with a gateway prefix
+        ▼
+https://ipfs.io/ipfs/QmXYZ/42.json   ← fetch() and <img> can load this
 ```
+
+```js
+function convertToHttpUrl(uri) {
+  if (!uri) return "/placeholder.png";
+  if (uri.startsWith("http")) return uri;                 // already a web link
+  if (uri.startsWith("ipfs://")) {
+    return uri.replace("ipfs://", "https://ipfs.io/ipfs/"); // ipfs:// link
+  }
+  if (uri.startsWith("Qm") || uri.startsWith("bafy")) {
+    return `https://ipfs.io/ipfs/${uri}`;                   // bare CID
+  }
+  return uri;
+}
+```
+
+Public gateways you can rely on today:
+
+- `https://ipfs.io/ipfs/` (the community public gateway; **the one the activity uses**)
+- `https://dweb.link/ipfs/` (its sister public gateway)
+- Your pinning service's own gateway, such as Pinata's dedicated gateway
+
+Gateways come and go. `cloudflare-ipfs.com`, a once-popular choice in older tutorials, was retired by Cloudflare in 2024. That is why it pays to keep the gateway in **one** helper: when a gateway dies, you change one line.
 
 ---
 
-### 4. Fetching NFT Metadata with Ethers.js
+### 4. Fetching NFT Metadata with ethers v6
 
 #### **The ABI for NFT Operations**
 
 ```js
 const NFT_ABI = [
-  // Ownership
   "function ownerOf(uint256 tokenId) view returns (address)",
   "function balanceOf(address owner) view returns (uint256)",
-
-  // Enumeration
   "function totalSupply() view returns (uint256)",
   "function tokenByIndex(uint256 index) view returns (uint256)",
   "function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)",
-
-  // Metadata
-  "function name() view returns (string)",
-  "function symbol() view returns (string)",
   "function tokenURI(uint256 tokenId) view returns (string)",
 ];
 ```
 
-#### **Fetching a Single NFT**
+#### **Fetching a Single NFT (no wallet needed)**
 
 ```js
 async function fetchNFT(contractAddress, tokenId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // Reading is free and needs no wallet: talk to an RPC node directly
+  const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
   const contract = new ethers.Contract(contractAddress, NFT_ABI, provider);
 
-  // Step 1: Get the token URI from the contract
+  // Hop 1: ask the contract where the metadata lives
   const tokenURI = await contract.tokenURI(tokenId);
-  console.log("Token URI:", tokenURI);
-  // "ipfs://QmXYZ.../42.json" or "https://api.example.com/42"
+  // "ipfs://QmXYZ.../42.json"
 
-  // Step 2: Convert IPFS to HTTP gateway if needed
-  const httpURL = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-
-  // Step 3: Fetch the metadata JSON
-  const response = await fetch(httpURL);
-  if (!response.ok) {
-    throw new Error("Failed to fetch metadata");
-  }
+  // Hop 2: fetch the JSON through a gateway
+  const response = await fetch(convertToHttpUrl(tokenURI));
+  if (!response.ok) throw new Error("Failed to fetch metadata");
   const metadata = await response.json();
 
-  // Step 4: Return structured data
   return {
-    tokenId,
+    tokenId: tokenId.toString(),
     name: metadata.name,
     description: metadata.description,
-    image: metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/"),
+    image: convertToHttpUrl(metadata.image), // hop 3 happens in <img>
     attributes: metadata.attributes || [],
   };
 }
 ```
 
-#### **Fetching All NFTs Owned by a User**
+`import.meta.env.VITE_RPC_URL` is how a **Vite** app reads environment variables (they must start with `VITE_`). The activity's grader supplies `process.env.REACT_APP_RPC_URL` instead, and the starter already reads it for you.
+
+#### **Fetching All NFTs a Wallet Owns**
 
 ```js
-async function fetchOwnedNFTs(contractAddress, userAddress) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+async function fetchOwnedNFTs(contractAddress) {
+  const [owner] = await window.ethereum.request({ method: "eth_requestAccounts" });
+
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, NFT_ABI, provider);
 
-  // Step 1: Get how many NFTs the user owns
-  const balance = await contract.balanceOf(userAddress);
-  console.log(`User owns ${balance.toNumber()} NFTs`);
+  const balance = await contract.balanceOf(owner); // a bigint, e.g. 2n
+  console.log(`Owner holds ${balance} NFTs`);
 
-  // Step 2: Get each token ID
   const nfts = [];
-  for (let i = 0; i < balance.toNumber(); i++) {
-    // Get the token ID at this index
-    const tokenId = await contract.tokenOfOwnerByIndex(userAddress, i);
-
-    // Fetch the metadata
-    const nft = await fetchNFT(contractAddress, tokenId);
-    nfts.push(nft);
+  for (let i = 0; i < balance; i++) {               // number < bigint works
+    const tokenId = await contract.tokenOfOwnerByIndex(owner, i);
+    nfts.push(await fetchNFT(contractAddress, tokenId));
   }
-
   return nfts;
 }
 ```
+
+In v6, `balanceOf` returns a `bigint`. You do not need to convert it to loop: JavaScript compares `0 < 2n` correctly. If you ever need a plain number (say, for an array length), use `Number(balance)`, which is safe for small counts like this.
 
 ---
 
 ### 5. Optimizing NFT Fetching
 
-#### **The Problem: Too Many Requests**
+#### **The Problem: Waiting in Line**
 
 ```js
-// ❌ SLOW: Sequential requests (one at a time)
+// ❌ SLOW: one request at a time
 for (let i = 0; i < 10; i++) {
-  const tokenId = await contract.tokenOfOwnerByIndex(user, i); // Wait...
-  const uri = await contract.tokenURI(tokenId); // Wait...
-  const metadata = await fetch(uri); // Wait...
+  const tokenId = await contract.tokenOfOwnerByIndex(user, i); // wait...
+  const uri = await contract.tokenURI(tokenId);                // wait...
+  const res = await fetch(convertToHttpUrl(uri));              // wait...
 }
-// Total time: 30 requests × 200ms = 6 seconds! 😴
+// 30 requests × ~200ms ≈ 6 seconds 😴
 ```
 
-#### **Solution 1: Parallel Requests with Promise.all**
+#### **Faster: Parallel Requests with Promise.all**
 
 ```js
-// ✅ FASTER: Parallel requests
-async function fetchOwnedNFTsFast(contract, userAddress) {
-  const balance = (await contract.balanceOf(userAddress)).toNumber();
+// ✅ FASTER: three waves instead of thirty waits
+async function fetchOwnedNFTsFast(contract, owner) {
+  const count = Number(await contract.balanceOf(owner));
 
-  // Fetch all token IDs in parallel
-  const tokenIdPromises = [];
-  for (let i = 0; i < balance; i++) {
-    tokenIdPromises.push(contract.tokenOfOwnerByIndex(userAddress, i));
-  }
-  const tokenIds = await Promise.all(tokenIdPromises);
-
-  // Fetch all URIs in parallel
-  const uriPromises = tokenIds.map((id) => contract.tokenURI(id));
-  const uris = await Promise.all(uriPromises);
-
-  // Fetch all metadata in parallel
-  const metadataPromises = uris.map((uri) =>
-    fetch(uri.replace("ipfs://", "https://ipfs.io/ipfs/")).then((res) =>
-      res.json()
-    )
+  const tokenIds = await Promise.all(
+    Array.from({ length: count }, (_, i) => contract.tokenOfOwnerByIndex(owner, i)),
   );
-  const metadatas = await Promise.all(metadataPromises);
-
+  const uris = await Promise.all(tokenIds.map((id) => contract.tokenURI(id)));
+  const metadatas = await Promise.all(
+    uris.map((uri) => fetch(convertToHttpUrl(uri)).then((res) => res.json())),
+  );
   return metadatas;
 }
-// Total time: ~600ms (3 batches × 200ms) 🚀
+// ≈ 3 rounds × ~200ms ≈ 0.6 seconds 🚀
 ```
 
-#### **Solution 2: Batching to Avoid Rate Limits**
+The activity uses the simple loop on purpose, so each step is easy to follow. Once it works, try swapping in this version.
+
+#### **Batching to Avoid Rate Limits**
+
+Free RPC endpoints and gateways limit how many requests you can make per second. For a big collection, fetch in small batches:
 
 ```js
-// Process in batches to avoid overwhelming the RPC
 async function fetchInBatches(items, fetchFn, batchSize = 5) {
   const results = [];
-
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize);
-    const batchResults = await Promise.all(batch.map(fetchFn));
-    results.push(...batchResults);
-
-    // Small delay between batches
+    results.push(...(await Promise.all(batch.map(fetchFn))));
     if (i + batchSize < items.length) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100)); // breathe
     }
   }
-
   return results;
 }
 ```
 
 ---
 
-### 6. Handling IPFS URLs
+### 6. Empty, Loading and Error States
 
-#### **IPFS Gateway Conversion**
+A gallery has more states than "full of art":
 
-```js
-function convertToHttpUrl(uri) {
-  if (!uri) return null;
-
-  // IPFS protocol
-  if (uri.startsWith("ipfs://")) {
-    return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
-  }
-
-  // Already HTTP
-  if (uri.startsWith("http")) {
-    return uri;
-  }
-
-  // Just a CID
-  if (uri.startsWith("Qm") || uri.startsWith("bafy")) {
-    return `https://ipfs.io/ipfs/${uri}`;
-  }
-
-  return uri;
-}
-
-// Popular IPFS Gateways:
-const GATEWAYS = [
-  "https://ipfs.io/ipfs/",
-  "https://gateway.pinata.cloud/ipfs/",
-  "https://cloudflare-ipfs.com/ipfs/",
-  "https://nftstorage.link/ipfs/",
-];
-```
-
----
-
-### 7. React Component Patterns
-
-#### **NFT Gallery Component**
+| State   | When                                 | Show                       |
+| ------- | ------------------------------------ | -------------------------- |
+| Empty   | Nothing loaded yet, or wallet owns 0 | "No NFTs found."           |
+| Loading | A fetch is running                   | "Loading..." + disabled buttons |
+| Error   | A read or fetch failed               | A red, human message       |
+| Loaded  | Items arrived                        | The grid                   |
 
 ```jsx
-function NFTGallery({ contractAddress }) {
-  const [nfts, setNfts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function loadNFTs() {
-      try {
-        setLoading(true);
-
-        // Connect wallet
-        const [account] = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-
-        // Fetch owned NFTs
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const contract = new ethers.Contract(contractAddress, ABI, provider);
-
-        const balance = await contract.balanceOf(account);
-        const items = [];
-
-        for (let i = 0; i < balance; i++) {
-          const tokenId = await contract.tokenOfOwnerByIndex(account, i);
-          const uri = await contract.tokenURI(tokenId);
-          const res = await fetch(convertToHttpUrl(uri));
-          const metadata = await res.json();
-
-          items.push({
-            tokenId: tokenId.toString(),
-            ...metadata,
-            image: convertToHttpUrl(metadata.image),
-          });
-        }
-
-        setNfts(items);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadNFTs();
-  }, [contractAddress]);
-
-  if (loading) return <p>Loading your NFTs...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!nfts.length) return <p>No NFTs found in your wallet.</p>;
-
-  return (
-    <div className="gallery-grid">
-      {nfts.map((nft) => (
-        <div key={nft.tokenId} className="nft-card">
-          <img src={nft.image} alt={nft.name} />
-          <h3>{nft.name}</h3>
-          <p>{nft.description}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
+{ownedNFTs.length === 0 && !loading && <p>No NFTs found.</p>}
+{loading && <p>Loading...</p>}
+{error && <p style={{ color: "red" }}>{error}</p>}
 ```
+
+A heading such as "My Collection" is **not** an empty state: a visitor seeing only a heading cannot tell "empty" from "broken". Say it in words.
 
 ---
 
-### 8. Common Mistakes & Debugging
+### 7. Common Mistakes & Debugging
 
 #### **1. Forgetting to Convert IPFS URLs**
 
-```js
-// ❌ This won't work in browsers!
+```jsx
+// ❌ Browsers cannot load this
 <img src="ipfs://QmXYZ..." />
 
-// ✅ Convert to HTTP gateway
+// ✅ Go through the gateway helper
 <img src={convertToHttpUrl(metadata.image)} />
 ```
 
 #### **2. Not Handling Missing Metadata**
 
 ```js
-// ❌ Will crash if metadata is malformed
+// ❌ Crashes or shows "undefined" if a field is missing
 const name = metadata.name;
 
 // ✅ Provide fallbacks
 const name = metadata?.name || `Token #${tokenId}`;
-const image = metadata?.image || "/placeholder.png";
+const image = metadata?.image ? convertToHttpUrl(metadata.image) : "/placeholder.png";
 ```
 
-#### **3. Not Checking Token Existence**
+#### **3. Asking About a Token That Does Not Exist**
+
+In OpenZeppelin v5, `ownerOf` or `tokenURI` on a token that was never minted reverts with the custom error `ERC721NonexistentToken(tokenId)`. ethers v6 reports a reverted read as error code `CALL_EXCEPTION`:
 
 ```js
-// ❌ Will revert if token doesn't exist
-const owner = await contract.ownerOf(9999);
-
-// ✅ Catch the error
 try {
-  const owner = await contract.ownerOf(tokenId);
+  const uri = await contract.tokenURI(tokenId);
 } catch (err) {
-  if (err.message.includes("nonexistent token")) {
-    setError("This NFT doesn't exist");
+  if (err.code === "CALL_EXCEPTION") {
+    setError("This NFT doesn't exist (yet)");
   }
 }
 ```
 
 ---
 
-### 9. Testing Your NFT Gallery
+### 8. How This Is Graded
 
-Before deploying, verify:
-
-1. ✅ **Single NFT loads** - Image and name display
-2. ✅ **Gallery loads** - All owned NFTs appear
-3. ✅ **IPFS URLs convert** - Images load from gateway
-4. ✅ **Loading states shown** - Spinner while fetching
-5. ✅ **Empty state handled** - Message when no NFTs
-6. ✅ **Errors display** - Invalid token shows message
-7. ✅ **Images have fallbacks** - Placeholder if image fails
+The activity runs in a sandbox with a fake wallet that owns **2** SiningChain NFTs, and an offline copy of their metadata that answers only `https://ipfs.io/ipfs/...` addresses. The grader types a token ID, clicks **Load NFT** and **Load My NFTs**, and checks that you read `tokenURI`, `balanceOf` and `tokenOfOwnerByIndex`, fetch through the ipfs.io gateway, show the NFT names, and show an empty-state message before anything loads.
 
 ---
 
 ### External References & Further Learning
 
-- **Ethers.js Documentation**: https://docs.ethers.org - Contract interactions
-- **OpenZeppelin ERC-721**: https://docs.openzeppelin.com/contracts/4.x/erc721 - Standard implementation
-- **EIP-721 Specification**: https://eips.ethereum.org/EIPS/eip-721 - The official NFT standard
-- **IPFS Documentation**: https://docs.ipfs.tech - Decentralized storage
-- **OpenSea Metadata Standards**: https://docs.opensea.io/docs/metadata-standards - Marketplace compatibility
-- **NFT.Storage**: https://nft.storage - Free IPFS pinning for NFTs
+- **ethers v6 documentation**: https://docs.ethers.org/v6/
+- **OpenZeppelin ERC-721 (v5)**: https://docs.openzeppelin.com/contracts/5.x/erc721
+- **EIP-721 specification**: https://eips.ethereum.org/EIPS/eip-721
+- **IPFS docs, "Address IPFS on the web" (gateways)**: https://docs.ipfs.tech/how-to/address-ipfs-on-web/
+- **React: rendering lists**: https://react.dev/learn/rendering-lists
 
 ---
 
 ## 🧪 Exercises
 
-### Exercise 1: Render a Single NFT by Token ID
+### Exercise 1: Deploy a SiningChain Contract (OpenZeppelin v5)
 
-**Problem Statement**  
-Build a React component that, given a token ID input, fetches its `tokenURI`, loads the metadata JSON, and displays the image and name.
+**Problem Statement**
+Write an ERC-721 that stores a URI per token **and** supports enumeration, so a frontend can list a wallet's tokens.
 
 **Solidity Contract (`SiningNFT.sol`)**
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SiningNFT is ERC721URIStorage, Ownable {
+contract SiningNFT is ERC721Enumerable, ERC721URIStorage, Ownable {
     uint256 public nextTokenId;
 
-    constructor() ERC721("SiningChain Gallery", "SINING") {}
+    constructor() ERC721("SiningChain Gallery", "SINING") Ownable(msg.sender) {}
 
     function mint(address to, string memory uri) external onlyOwner {
-        _safeMint(to, nextTokenId);
-        _setTokenURI(nextTokenId, uri);
-        nextTokenId++;
+        uint256 tokenId = nextTokenId++;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    // Two parents define these functions, so Solidity asks us to say
+    // "run both" explicitly. super.* walks through each parent in turn.
+    function _update(address to, uint256 tokenId, address auth)
+        internal override(ERC721, ERC721Enumerable) returns (address)
+    {
+        return super._update(to, tokenId, auth);
+    }
+
+    function _increaseBalance(address account, uint128 value)
+        internal override(ERC721, ERC721Enumerable)
+    {
+        super._increaseBalance(account, value);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public view override(ERC721, ERC721URIStorage) returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public view override(ERC721Enumerable, ERC721URIStorage) returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
 ```
 
-**Starter Code (`SingleNFT.js`)**
+What is new in OpenZeppelin v5:
 
-```js
-import React, { useState } from "react";
+- `Ownable(msg.sender)`: v5 makes you name the first owner.
+- `_update` is the single hook every mint, transfer and burn passes through (v4 had `_beforeTokenTransfer` instead).
+- Without `ERC721Enumerable`, there would be no `tokenOfOwnerByIndex` and the "My Collection" view could not work.
+
+Deploy it to **Sepolia** (Remix + MetaMask is the quickest path) and mint a couple of tokens with `ipfs://` URIs.
+
+---
+
+### Exercise 2: Render a Single NFT by Token ID
+
+**Problem Statement**
+Build a component that takes a token ID, fetches its `tokenURI`, loads the metadata JSON through a gateway, and displays the image and name.
+
+**Full Solution (`SingleNFT.jsx`)**
+
+```jsx
+import { useState } from "react";
 import { ethers } from "ethers";
-const ABI = ["function tokenURI(uint256 tokenId) view returns (string)"];
 
-export default function SingleNFT() {
-  const [tokenId, setTokenId] = useState("");
-  const [meta, setMeta] = useState(null);
-  const [error, setError] = useState("");
-
-  async function fetchMetadata() {
-    try {
-      // TODO: Instantiate provider & contract
-      // TODO: Call tokenURI(tokenId)
-      // TODO: Fetch JSON & setMeta
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h2>Fetch a Single NFT</h2>
-      <input
-        type="number"
-        placeholder="token ID"
-        value={tokenId}
-        onChange={(e) => setTokenId(e.target.value)}
-      />
-      <button onClick={fetchMetadata}>Load NFT</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {meta && (
-        <div>
-          <img src={meta.image} alt={meta.name} width="300" />
-          <h3>{meta.name}</h3>
-        </div>
-      )}
-    </div>
-  );
-}
-```
-
-**To Do List**
-
-- [ ] Add `provider = new ethers.providers.Web3Provider(window.ethereum)` and `await ethereum.request({ method: "eth_requestAccounts" })`.
-- [ ] Create `contract = new ethers.Contract(address, ABI, provider)`.
-- [ ] Call `tokenURI(tokenId)` and `fetch()` the JSON.
-- [ ] Update `setMeta` with parsed JSON.
-- [ ] Handle errors with `try/catch`.
-
-**Full Solution**
-
-```js
-// SingleNFT.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
 const ABI = ["function tokenURI(uint256) view returns (string)"];
-const CONTRACT = process.env.REACT_APP_CONTRACT_ADDRESS;
+const CONTRACT = import.meta.env.VITE_CONTRACT_ADDRESS;
+
+const toHttp = (uri) => uri.replace("ipfs://", "https://ipfs.io/ipfs/");
 
 export default function SingleNFT() {
   const [tokenId, setTokenId] = useState("");
@@ -622,14 +475,13 @@ export default function SingleNFT() {
     setError("");
     setMeta(null);
     try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
       const contract = new ethers.Contract(CONTRACT, ABI, provider);
       const uri = await contract.tokenURI(tokenId);
-      const res = await fetch(uri);
+      const res = await fetch(toHttp(uri));
       if (!res.ok) throw new Error("Failed to load metadata");
       const json = await res.json();
-      setMeta(json);
+      setMeta({ ...json, image: toHttp(json.image) });
     } catch (err) {
       setError(err.message);
     }
@@ -658,226 +510,68 @@ export default function SingleNFT() {
 }
 ```
 
-.env Sample
+**.env sample (Vite)**
 
 ```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
-REACT_APP_CONTRACT_ADDRESS=0xYourDeployedAddress
+VITE_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
+VITE_CONTRACT_ADDRESS=0xYourDeployedAddress
 ```
 
 ---
 
-### Exercise 2: List NFTs Owned by Connected Wallet
+### Exercise 3: Display All Minted NFTs (Public Gallery)
 
-**Problem Statement**  
-Create a gallery component that connects to MetaMask, reads `balanceOf`, then loops `tokenOfOwnerByIndex` to fetch each NFT’s metadata and render a grid.
+**Problem Statement**
+Show every minted NFT, wallet or no wallet, by reading `totalSupply()` and walking `tokenByIndex`.
 
-**Starter Code (`OwnedGallery.js`)**
+**Full Solution (`AllGallery.jsx`)**
 
-```js
-import React, { useState, useEffect } from "react";
+```jsx
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+
 const ABI = [
-  "function balanceOf(address) view returns (uint256)",
-  "function tokenOfOwnerByIndex(address,uint256) view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
+  "function tokenByIndex(uint256) view returns (uint256)",
   "function tokenURI(uint256) view returns (string)",
 ];
+const CONTRACT = import.meta.env.VITE_CONTRACT_ADDRESS;
+const toHttp = (uri) => uri.replace("ipfs://", "https://ipfs.io/ipfs/");
 
-export default function OwnedGallery() {
-  const [account, setAccount] = useState("");
-  const [metaList, setMetaList] = useState([]);
-
-  useEffect(() => {
-    async function load() {
-      // TODO: Request accounts, setAccount
-      // TODO: Instantiate provider & contract
-      // TODO: Fetch balance, loop indexes, fetch URIs & metadata
-      // TODO: setMetaList([...])
-    }
-    load();
-  }, []);
-
-  return (
-    <div>
-      <h2>Your NFT Collection</h2>
-      <div className="grid">
-        {metaList.map((m, i) => (
-          <div key={i}>
-            <img src={m.image} alt={m.name} width="150" />
-            <p>{m.name}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-```
-
-**To Do List**
-
-- [ ] `await ethereum.request({ method: "eth_requestAccounts" })`
-- [ ] `provider = new ethers.providers.Web3Provider(...)` & contract
-- [ ] `balance = await contract.balanceOf(account)`
-- [ ] Loop `i < balance`, fetch `tokenOfOwnerByIndex(account, i)`
-- [ ] Fetch each `tokenURI` JSON, accumulate array, `setMetaList`.
-
-**Full Solution**
-
-```js
-// OwnedGallery.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function balanceOf(address) view returns (uint256)",
-  "function tokenOfOwnerByIndex(address,uint256) view returns (uint256)",
-  "function tokenURI(uint256) view returns (string)",
-];
-const CONTRACT = process.env.REACT_APP_CONTRACT_ADDRESS;
-
-export default function OwnedGallery() {
-  const [account, setAccount] = useState("");
-  const [metaList, setMetaList] = useState([]);
+export default function AllGallery() {
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function load() {
+    async function loadAll() {
       try {
-        const [user] = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setAccount(user);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
         const contract = new ethers.Contract(CONTRACT, ABI, provider);
-        const balance = await contract.balanceOf(user);
-        const metadatas = [];
-        for (let i = 0; i < balance; i++) {
-          const tokenId = await contract.tokenOfOwnerByIndex(user, i);
-          const uri = await contract.tokenURI(tokenId);
-          const res = await fetch(uri);
-          metadatas.push(await res.json());
+        const total = await contract.totalSupply();
+        const all = [];
+        for (let i = 0; i < total; i++) {
+          const id = await contract.tokenByIndex(i);
+          const res = await fetch(toHttp(await contract.tokenURI(id)));
+          const meta = await res.json();
+          all.push({ ...meta, image: toHttp(meta.image) });
         }
-        setMetaList(metadatas);
-      } catch (e) {
-        console.error(e);
+        setItems(all);
       } finally {
         setLoading(false);
       }
     }
-    load();
-  }, []);
-
-  if (loading) return <p>Loading your NFTs...</p>;
-  if (!metaList.length) return <p>No NFTs found in your wallet.</p>;
-
-  return (
-    <div>
-      <h2>
-        {account.slice(0, 6)}…{account.slice(-4)}’s Collection
-      </h2>
-      <div className="grid">
-        {metaList.map((m, i) => (
-          <div key={i} className="card">
-            <img src={m.image} alt={m.name} width="150" />
-            <p>{m.name}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-```
-
----
-
-### Exercise 3: Display All Minted NFTs (Total Supply)
-
-**Problem Statement**  
-Show a public gallery of **every** minted NFT by querying `totalSupply()` and then fetching each token’s metadata.
-
-**Starter Code (`AllGallery.js`)**
-
-```js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function totalSupply() view returns (uint256)",
-  "function tokenByIndex(uint256) view returns (uint256)",
-  "function tokenURI(uint256) view returns (string)",
-];
-
-export default function AllGallery() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    async function loadAll() {
-      // TODO: provider & contract
-      // TODO: total = await contract.totalSupply()
-      // TODO: for each index, get tokenByIndex & metadata
-    }
     loadAll();
   }, []);
 
-  return (
-    <div className="grid">
-      {items.map((m, i) => (
-        <div key={i}>
-          <img src={m.image} alt={m.name} width="120" />
-          <h4>{m.name}</h4>
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-**To Do List**
-
-- [ ] Instantiate `provider` and `contract`
-- [ ] Call `totalSupply()`
-- [ ] Loop `i < total`, call `tokenByIndex(i)` & `tokenURI(id)`
-- [ ] Fetch JSON metadata, push to array, `setItems`
-
-**Full Solution**
-
-```js
-// AllGallery.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function totalSupply() view returns (uint256)",
-  "function tokenByIndex(uint256) view returns (uint256)",
-  "function tokenURI(uint256) view returns (string)",
-];
-const CONTRACT = process.env.REACT_APP_CONTRACT_ADDRESS;
-
-export default function AllGallery() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    async function loadAll() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
-      const contract = new ethers.Contract(CONTRACT, ABI, provider);
-      const total = await contract.totalSupply();
-      const all = [];
-      for (let i = 0; i < total; i++) {
-        const id = await contract.tokenByIndex(i);
-        const uri = await contract.tokenURI(id);
-        const res = await fetch(uri);
-        all.push(await res.json());
-      }
-      setItems(all);
-    }
-    loadAll();
-  }, []);
+  if (loading) return <p>Loading the gallery...</p>;
+  if (!items.length) return <p>No NFTs minted yet.</p>;
 
   return (
     <div>
       <h2>All SiningChain NFTs</h2>
-      <div className="grid">
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
         {items.map((m, i) => (
-          <div key={i} className="card-small">
+          <div key={i}>
             <img src={m.image} alt={m.name} width="120" />
             <h4>{m.name}</h4>
           </div>
@@ -890,99 +584,6 @@ export default function AllGallery() {
 
 ---
 
-## ✅ Test Cases
-
-Create `__tests__/OwnedGallery.test.js` using React Testing Library & Jest.
-
-```js
-// __tests__/OwnedGallery.test.js
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import OwnedGallery from "../OwnedGallery";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-
-describe("OwnedGallery Component", () => {
-  const fakeAccount = "0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa";
-  const fakeContract = {
-    balanceOf: jest.fn(),
-    tokenOfOwnerByIndex: jest.fn(),
-    tokenURI: jest.fn(),
-  };
-
-  beforeAll(() => {
-    // Mock window.ethereum
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue([fakeAccount]),
-    };
-
-    // Mock provider & contract
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
-    ethers.Contract = jest.fn().mockReturnValue(fakeContract);
-  });
-
-  it("renders loading state then shows owned NFTs", async () => {
-    fakeContract.balanceOf.mockResolvedValue(2);
-    fakeContract.tokenOfOwnerByIndex
-      .mockResolvedValueOnce(10)
-      .mockResolvedValueOnce(20);
-    fakeContract.tokenURI
-      .mockResolvedValueOnce("https://meta/10.json")
-      .mockResolvedValueOnce("https://meta/20.json");
-
-    // Mock fetch for metadata
-    global.fetch = jest
-      .fn()
-      .mockResolvedValueOnce({
-        ok: true,
-        json: () =>
-          Promise.resolve({ name: "Art #10", image: "https://ipfs/10.png" }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: () =>
-          Promise.resolve({ name: "Art #20", image: "https://ipfs/20.png" }),
-      });
-
-    render(<OwnedGallery />);
-
-    expect(screen.getByText(/Loading your NFTs/i)).toBeInTheDocument();
-
-    // Wait for two images to appear
-    await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(2));
-
-    expect(screen.getByText("Art #10")).toBeInTheDocument();
-    expect(screen.getByText("Art #20")).toBeInTheDocument();
-    expect(screen.getAllByRole("img")[0]).toHaveAttribute(
-      "src",
-      "https://ipfs/10.png"
-    );
-  });
-
-  it("shows no NFTs message when balance is zero", async () => {
-    fakeContract.balanceOf.mockResolvedValue(0);
-    render(<OwnedGallery />);
-    await waitFor(() =>
-      expect(screen.getByText(/No NFTs found/i)).toBeInTheDocument()
-    );
-  });
-});
-```
-
-Test configuration (`jest.config.js`):
-
-```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
-  },
-};
-```
-
----
-
 ## 🌟 Closing Story
 
-With the gallery live, Neri’s “SiningChain” exhibit drew tech blogs and art critics alike. Odessa watched as QR‐code collectors snapped up Filipino street art on‐chain. From Pamantasan classrooms to SF gallery lights, she’d bridged two worlds. As applause echoed, Det cracked a grin: “Next, we build an auction house with time‐based bids!” She already had her React hooks and Ethers.js ready. Chapter two awaits—fractional NFTs, DAO governance, and royalty splits. Mabuhay, future Web3 elite! 🇵🇭🚀
+With the gallery live, Neri's "SiningChain" exhibit drew tech blogs and art critics alike. Odessa watched as collectors browsed Filipino street art on-chain. From Pamantasan classrooms to SF gallery lights, she had bridged two worlds. As applause echoed, Det cracked a grin: "Next, we build an auction house with time-based bids!" Her React hooks and ethers were ready. Chapter two awaits: fractional NFTs, DAO governance, and royalty splits. Mabuhay, future Web3 builders! 🇵🇭🚀

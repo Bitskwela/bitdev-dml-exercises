@@ -1,6 +1,6 @@
 // Hidden grading test for le-08-send-tokens-via-ui.
 
-const VALID = "0xAbCdAbCdAbCdAbCdAbCdAbCdAbCdAbCdAbCdAbCd";
+const VALID = "0xABCDabcdABcDabcDaBCDAbcdABcdAbCdABcDABCd";
 
 /** Fill both fields and submit the form. */
 async function transfer(ui, { to = VALID, amount = "2.5" } = {}) {
@@ -34,6 +34,23 @@ describe("Lesson 08: Send Tokens via UI", () => {
     expect(ui.called("contract.transfer")).to.equal(
       false,
       "Reject a non-positive amount before sending.",
+    );
+  });
+
+  it("Task 2: gets a signer before sending, because a transfer is a write", async () => {
+    const ui = await render(Submission);
+    await transfer(ui);
+
+    const order = ui.callTargets();
+    const signerAt = order.indexOf("provider.getSigner");
+    const transferAt = order.indexOf("contract.transfer");
+    expect(signerAt).to.not.equal(
+      -1,
+      "A transfer spends the user's tokens, so the wallet must sign it: get one with await provider.getSigner() and build the contract with it.",
+    );
+    expect(transferAt > signerAt).to.equal(
+      true,
+      `Get the signer before calling transfer(). Call order: ${JSON.stringify(order)}`,
     );
   });
 

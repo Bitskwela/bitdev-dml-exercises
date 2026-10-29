@@ -169,7 +169,18 @@ function runPendingEffects() {
     }
     const cleanup = fn();
     if (typeof cleanup === "function") slot.cleanup = cleanup;
+    // `useEffect(async () => …)` returns a promise. React ignores it, so a
+    // rejection there is one nothing catches — report it rather than lose it.
+    else if (cleanup && typeof cleanup.then === "function") cleanup.then(undefined, onUncaught);
   }
+}
+
+/** Where an effect's uncaught rejection goes; the harness wires the registry in. */
+let onUncaught = () => {};
+
+/** Route uncaught effect errors to `handler` (see `test-api.js` `reportUncaught`). */
+function setUncaughtHandler(handler) {
+  onUncaught = typeof handler === "function" ? handler : () => {};
 }
 
 /** True when a state update landed since the last pass. */
@@ -202,6 +213,7 @@ module.exports = {
   resetRuntime,
   runAllCleanups,
   runPendingEffects,
+  setUncaughtHandler,
   useCallback,
   useEffect,
   useMemo,

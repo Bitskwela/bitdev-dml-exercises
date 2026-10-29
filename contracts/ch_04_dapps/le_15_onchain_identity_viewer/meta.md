@@ -1,6 +1,6 @@
 ---
 title: "On-Chain Identity Viewer"
-description: "Build a decentralized identity viewer that displays user profiles, credentials, and status information stored on-chain with real-time updates."
+description: "Show the connected user's public, self-written on-chain profile (name, status and credentials) with ethers v6, and refresh it on ProfileUpdated with one listener that is cleaned up."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

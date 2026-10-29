@@ -13,8 +13,8 @@
     "contracts": {
       "0x7777777777777777777777777777777777777777": {
         "returns": {
-          "buyer": "0xAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAa",
-          "seller": "0xBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb",
+          "buyer": "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa",
+          "seller": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
           "amount": "750000000000000000n",
           "deposited": true,
           "released": false
@@ -24,5 +24,6 @@
   },
   "concepts": ["escrow-state", "promise-all", "conditional-status"],
   "difficulty": "intermediate",
-  "est_minutes": 25
+  "est_minutes": 25,
+  "prerequisites": ["le-02-read-smart-contract-data","le-14-simulated-chain-oracle-dapp"]
 }

@@ -22,5 +22,6 @@
   },
   "concepts": ["indexed-reads", "optimistic-update", "transaction-lifecycle"],
   "difficulty": "intermediate",
-  "est_minutes": 30
+  "est_minutes": 40,
+  "prerequisites": ["le-02-read-smart-contract-data","le-03-triggering-a-function"]
 }

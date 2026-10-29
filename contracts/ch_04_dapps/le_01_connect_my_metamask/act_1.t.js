@@ -2,20 +2,35 @@
 // Asserts behaviour against the mocked wallet, never source text: any correct
 // implementation passes, whatever it names its variables.
 
+/** A rendered node's visible text. */
+function labelOf(node) {
+  if (!node) return "";
+  if (node.text !== undefined) return String(node.text);
+  return (node.children || []).map(labelOf).join("");
+}
+
+/**
+ * Buttons that offer to connect. `\bconnect` matches "Connect" and "Connect
+ * Wallet" but not "Disconnect", which a connected UI may legitimately show.
+ */
+function connectButtons(ui) {
+  return ui.all("button").filter((b) => /\bconnect/i.test(labelOf(b)));
+}
+
 describe("Lesson 01: Connect My MetaMask", () => {
   it("Task 1: prompts the visitor to install MetaMask when no wallet is present", async () => {
     const ui = await render(Submission, { wallet: "absent" });
     expect(ui.text()).to.match(
-      /install\s+metamask/i,
+      /install.*metamask/i,
       `Without a wallet the component should ask the visitor to install MetaMask. It rendered: "${ui.text()}"`,
     );
   });
 
-  it("Task 3: offers a Connect control when a wallet is present but not connected", async () => {
+  it("Task 3: offers a Connect button when a wallet is present but not connected", async () => {
     const ui = await render(Submission);
-    expect(ui.text()).to.match(
-      /connect/i,
-      `With a wallet installed and no account connected, a Connect control should render. It rendered: "${ui.text()}"`,
+    expect(connectButtons(ui).length).to.not.equal(
+      0,
+      `With a wallet installed and no account connected, render a Connect button. It rendered: "${ui.text()}"`,
     );
   });
 
@@ -40,15 +55,12 @@ describe("Lesson 01: Connect My MetaMask", () => {
     );
   });
 
-  it("Task 3: replaces the Connect control once an account is connected", async () => {
+  it("Task 3: replaces the Connect button once an account is connected", async () => {
     const ui = await render(Submission);
     await ui.click("Connect");
 
-    const stillOffersConnect = ui
-      .all("button")
-      .some((b) => /connect/i.test(JSON.stringify(b)));
-    expect(stillOffersConnect).to.equal(
-      false,
+    expect(connectButtons(ui).length).to.equal(
+      0,
       "Once connected, the Connect button should no longer render — show the address instead.",
     );
   });

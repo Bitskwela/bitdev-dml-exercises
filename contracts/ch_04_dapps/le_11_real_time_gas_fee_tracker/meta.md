@@ -1,6 +1,6 @@
 ---
-title: "Real-Time Gas Fee Tracker"
-description: "Build a real-time gas fee tracker that displays current base fees, calculates transaction cost tiers, and converts prices to local currency."
+title: "Gas Fee Checker"
+description: "Read the current base fee from a GasTracker contract with a read-only ethers v6 provider, no wallet needed, and show it with clear loading and error states."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

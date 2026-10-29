@@ -57,9 +57,11 @@ describe("Lesson 07: SiningChain NFT Gallery", () => {
 
   it("Task 4: shows an empty state before anything is loaded", async () => {
     const ui = await render(Submission);
+    // A heading such as "My Collection" is not an empty state: the page must
+    // say there is nothing to show yet.
     expect(ui.text()).to.match(
-      /no nfts|empty|collection/i,
-      `Say something before the collection loads. Rendered: "${ui.text()}"`,
+      /no (nfts?|tokens?|items?|art(works?)?)\b|nothing (to show|here|yet|loaded)|empty|wala pa/i,
+      `Before anything loads, say the collection is empty (e.g. "No NFTs found."). Rendered: "${ui.text()}"`,
     );
   });
 });

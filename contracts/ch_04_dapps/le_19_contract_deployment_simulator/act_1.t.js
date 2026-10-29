@@ -1,6 +1,6 @@
 // Hidden grading test for le-19-contract-deployment-simulator.
 
-const DEPLOYED = "0xDe910eD910eD910eD910eD910eD910eD910eD910";
+const DEPLOYED = "0xde910eD910Ed910ED910eD910Ed910ed910Ed910";
 
 /** Type a greeting and press Deploy. */
 async function deploy(ui, greeting = "Kumusta, mundo!") {

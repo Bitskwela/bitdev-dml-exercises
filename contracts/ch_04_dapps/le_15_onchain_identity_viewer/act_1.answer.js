@@ -17,18 +17,25 @@ export default function ProfileViewer() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    let identity;
+    if (!window.ethereum) {
+      setError("Please install MetaMask to view your profile.");
+      setLoading(false);
+      return;
+    }
+
+    // One provider, one contract and one listener for the life of the effect.
+    // load() only reads, so reloading on an event never adds another listener.
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const identity = new ethers.Contract(CONTRACT, ABI, provider);
+    let userAddress = "";
 
     async function load() {
       try {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        const userAddress = accounts[0];
+        userAddress = accounts[0];
         setAddr(userAddress);
-
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        identity = new ethers.Contract(CONTRACT, ABI, provider);
 
         const [n, s, c] = await identity.getProfile(userAddress);
         setName(n);
@@ -41,13 +48,6 @@ export default function ProfileViewer() {
           credList.push(cred);
         }
         setCreds(credList);
-
-        // Listen for profile updates
-        identity.on("ProfileUpdated", (user) => {
-          if (user.toLowerCase() === userAddress.toLowerCase()) {
-            load();
-          }
-        });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -55,12 +55,19 @@ export default function ProfileViewer() {
       }
     }
 
+    // Task 4: subscribe once, here, not inside load() — subscribing inside it
+    // would add a listener on every reload, and each one reloads again.
+    function handleProfileUpdated(user) {
+      if (userAddress && user.toLowerCase() === userAddress.toLowerCase()) {
+        load();
+      }
+    }
+    identity.on("ProfileUpdated", handleProfileUpdated);
+
     load();
 
     return () => {
-      if (identity) {
-        identity.removeAllListeners("ProfileUpdated");
-      }
+      identity.off("ProfileUpdated", handleProfileUpdated);
     };
   }, []);
 

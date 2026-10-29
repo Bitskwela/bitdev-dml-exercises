@@ -18,19 +18,23 @@ export default function ProfileViewer() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    let identity;
+    // TODO: Task 1 - Build the provider and the identity contract once, here,
+    //                so load() and the listener share them
+    let userAddress = "";
 
     async function load() {
       // TODO: Task 1 - Connect the wallet and remember the address
       // TODO: Task 2 - Read getProfile(address); it returns name, status and a
       //                credential count as a tuple
       // TODO: Task 3 - Read getCredential(address, i) for each credential
-      // TODO: Task 4 - Subscribe to ProfileUpdated and reload when it is ours
     }
+
+    // TODO: Task 4 - Subscribe to ProfileUpdated ONCE, here and not inside
+    //                load(), and call load() again when the event is ours
 
     load();
 
-    // TODO: Task 4 - Return a cleanup that removes the listener
+    // TODO: Task 4 - Return a cleanup that removes that same listener
   }, []);
 
   // TODO: Task 5 - Render loading, error, then the address, name, status and

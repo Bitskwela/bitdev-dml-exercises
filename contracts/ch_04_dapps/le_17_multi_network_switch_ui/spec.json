@@ -19,5 +19,6 @@
   },
   "concepts": ["chain-detection", "wallet-events", "provider-fallback"],
   "difficulty": "intermediate",
-  "est_minutes": 25
+  "est_minutes": 30,
+  "prerequisites": ["le-01-connect-my-metamask","le-02-read-smart-contract-data"]
 }

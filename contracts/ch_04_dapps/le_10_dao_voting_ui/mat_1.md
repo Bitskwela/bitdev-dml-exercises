@@ -2,67 +2,51 @@
 
 ![DAO Voting UI](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+10.0+-+COVER.png)
 
-It was a humid afternoon in Barangay San Perfecto when Det stepped into the barangay hall-turned-coworking-space. The Barangay Council was debating whether to fund new basketball courts—a dream for every hoops-mad teenager in San Perfecto. Neri had already deployed the on-chain “BarangayDAO” smart contract on a Sepolia testnet, complete with proposals and token-weighted voting. Now, Det’s mission was to build the frontend.
+It was a humid afternoon in Barangay San Perfecto when Det stepped into the barangay hall-turned-coworking-space. The Barangay Council was debating whether to fund a new basketball court, a dream for every hoops-mad teenager in San Perfecto. Neri had already deployed the "BarangayDAO" smart contract on the Sepolia testnet, complete with proposals and one-wallet-one-vote rules. Now Det's mission was to build the frontend.
 
 ![DAO Voting UI Sketch](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+10.1.png)
 
-With teammates sipping sikwate, she sketched a three-panel UI:
+With teammates sipping sikwate, she sketched a simple page:
 
-1. **Proposal List**: showing each proposal ID, description, and vote tallies.
-2. **Vote Form**: let members pick “Yes” or “No” and cast their vote.
-3. **Results Panel**: live update when new votes come in.
+1. **Proposal list**: each proposal's ID, description, and Yes/No tally.
+2. **Vote buttons**: "Vote Yes" or "Vote No", shown only if you haven't voted yet.
+3. **Live results**: tallies that update the moment anyone's vote is mined.
 
-In under 30 minutes, Det fired up a React app, wired Ethers.js, and connected MetaMask. She fetched `getProposalCount()` and looped through `proposals(id)` to render a table. Next, she built the vote handler: request signer, call `vote(proposalId, support)`, await confirmation, then refresh tallies. Finally, she subscribed to `Voted` events so the Results panel would update in real time.
+Det fired up a React app, wired ethers, and connected MetaMask. She read `getProposalCount()` and looped through `proposals(i)` to render the list. Next came the vote handler: get a signer, call `vote(proposalId, support)`, wait for the receipt. Finally, she subscribed to `Voted` events so the tallies would move in real time.
 
-As the sun set over the riverbanks, barangay members logged in, voted on Court Proposal #0, and watched the on-chain tally climb. No paper ballots. No middlemen. Just code and civic spirit. That night, under filipiniana decor and basketball posters, Det toasted: “Mabuhay Web3 civic-tech, one barangay at a time!” 🇵🇭🏀🚀
+As the sun set over the riverbanks, barangay members logged in, voted on Proposal #0, and watched the on-chain tally climb. No paper ballots. No middlemen. Just code and civic spirit. That night, under basketball posters, Det toasted: "Mabuhay Web3 civic-tech, one barangay at a time!" 🇵🇭🏀🚀
 
 ---
 
 ## 📚 Theory & Web3 Lecture
 
-Welcome to **DAO Voting**! In this lesson, you'll build a decentralized governance system where community members can create proposals and vote on them. This is the heart of Web3 democracy—no central authority, just code and consensus!
+Welcome to **DAO Voting**! In this lesson you build the voting screen of a small decentralized organization: members see proposals and vote on them, and the contract enforces the rules.
+
+> **This lesson uses ethers v6**: `ethers.BrowserProvider`, `await provider.getSigner()`, values as `bigint` (convert small counts with `Number(x)`), and events with `contract.on` / `contract.off`. Snippets using `ethers.providers...` or `.toNumber()` are ethers v5 and will not run here. <!-- v5-ok -->
 
 ---
 
-### 1. Understanding DAOs (Decentralized Autonomous Organizations)
+### 1. Understanding DAOs
 
-#### **What is a DAO?**
-
-A DAO is an organization governed by code instead of people:
+A **DAO** (Decentralized Autonomous Organization) is a group whose rules live in a smart contract. Members vote on-chain, and the contract counts the votes. No one can quietly change the count.
 
 ```
 Traditional Organization:
 ┌─────────────────────────────────────────────────────────────┐
-│  Members → elect → Board of Directors → make decisions     │
-│                                                             │
-│  Problems:                                                  │
-│  • Decisions made behind closed doors                       │
-│  • Leaders can be corrupt                                   │
-│  • Slow bureaucratic processes                              │
-│  • Members have little real power                           │
+│  Members → elect → Board → decides behind closed doors      │
+│  • Members can't easily check how decisions were made       │
 └─────────────────────────────────────────────────────────────┘
 
-DAO (Decentralized Autonomous Organization):
+DAO:
 ┌─────────────────────────────────────────────────────────────┐
-│  Members → vote directly → Smart Contract → executes       │
-│                                                             │
-│  Benefits:                                                  │
-│  • All votes public and verifiable                          │
-│  • Rules encoded in smart contracts                         │
-│  • Instant execution of decisions                           │
-│  • Everyone has a voice                                     │
+│  Members → vote directly → Smart Contract counts            │
+│  • Every vote is public and verifiable                      │
+│  • The rules (who can vote, how often) are code             │
+│  • Results can even trigger actions automatically           │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### **Real-World DAO Examples**
-
-| DAO          | Purpose                     | Treasury |
-| ------------ | --------------------------- | -------- |
-| **MakerDAO** | Manages DAI stablecoin      | $7B+     |
-| **Uniswap**  | Governs DEX protocol        | $2B+     |
-| **Aave**     | Lending protocol governance | $500M+   |
-| **ENS DAO**  | Ethereum Name Service       | $1B+     |
-| **Gitcoin**  | Public goods funding        | $500M+   |
+Well-known DAOs govern real protocols: **Uniswap**, **Aave**, **ENS** and **MakerDAO (now Sky)** members vote on upgrades and treasury spending. Our BarangayDAO is a tiny version of the same idea.
 
 ---
 
@@ -71,69 +55,36 @@ DAO (Decentralized Autonomous Organization):
 #### **Proposal Lifecycle**
 
 ```
-Proposal Lifecycle:
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│  1. CREATION                                                 │
-│     │  Member submits proposal with description              │
-│     │  Proposal gets unique ID                               │
-│     │  State: "Active" or "Pending"                          │
-│     ▼                                                        │
-│  2. VOTING PERIOD                                            │
-│     │  Members cast Yes/No votes                             │
-│     │  Each vote recorded on-chain                           │
-│     │  Can't change vote after casting                       │
-│     ▼                                                        │
-│  3. TALLYING                                                 │
-│     │  Count all Yes vs No votes                             │
-│     │  Check if quorum met (minimum participation)           │
-│     │  Determine: Passed or Failed                           │
-│     ▼                                                        │
-│  4. EXECUTION (if passed)                                    │
-│        Execute the proposed action                           │
-│        Could be: transfer funds, change parameters, etc.     │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+1. CREATION      a member submits a proposal; it gets an id
+       ▼
+2. VOTING        members vote Yes/No, each vote recorded on-chain
+       ▼
+3. TALLYING      count Yes vs No, check quorum (minimum turnout)
+       ▼
+4. EXECUTION     if it passed, carry out the action
 ```
+
+Our BarangayDAO covers steps 1 and 2 (and shows the tally). Deadlines, quorum and execution are what production systems like OpenZeppelin Governor add.
 
 #### **Voting Power**
 
-Different DAOs use different voting systems:
+| System                | How It Works                      | Pros               | Cons                               |
+| --------------------- | --------------------------------- | ------------------ | ---------------------------------- |
+| **1 Wallet = 1 Vote** | Each address gets 1 vote          | Simple             | One person can make many wallets   |
+| **Token-Weighted**    | More tokens = more votes          | Stakeholders count | Big holders ("whales") dominate    |
+| **Quadratic**         | Cost of n votes grows like n²     | Softens whales     | Needs identity checks to be fair   |
 
-| System                | How It Works               | Pros                   | Cons                          |
-| --------------------- | -------------------------- | ---------------------- | ----------------------------- |
-| **1 Wallet = 1 Vote** | Each address gets 1 vote   | Simple, democratic     | Sybil attacks (fake accounts) |
-| **Token-Weighted**    | More tokens = more votes   | Stakeholders matter    | Whales dominate               |
-| **Quadratic**         | Vote power = √(tokens)     | Balances wealth        | Complex                       |
-| **Conviction**        | Votes strengthen over time | Reduces snap decisions | Slow                          |
+BarangayDAO uses **1 wallet = 1 vote**.
 
 ---
 
-### 3. Smart Contract Design
-
-#### **The Proposal Struct**
-
-```solidity
-struct Proposal {
-    uint256 id;            // Unique identifier
-    string description;    // What's being voted on
-    uint256 yes;           // Yes vote count
-    uint256 no;            // No vote count
-    // Could also add:
-    // uint256 deadline;   // When voting ends
-    // bool executed;      // Has action been taken?
-    // address proposer;   // Who created it?
-}
-```
-
-#### **Complete DAO Contract**
+### 3. The Smart Contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 contract BarangayDAO {
-    // Data structure for proposals
     struct Proposal {
         uint256 id;
         string description;
@@ -141,32 +92,26 @@ contract BarangayDAO {
         uint256 no;
     }
 
-    // Storage
     Proposal[] public proposals;
 
-    // Track who voted on what (prevent double voting)
+    // hasVoted[proposalId][voter] is true once that wallet has voted
     mapping(uint256 => mapping(address => bool)) public hasVoted;
 
-    // Events for frontend reactivity
     event ProposalCreated(uint256 indexed id, string description);
     event Voted(address indexed voter, uint256 indexed proposalId, bool support);
 
-    // Create a new proposal
     function createProposal(string calldata description) external {
         uint256 id = proposals.length;
         proposals.push(Proposal(id, description, 0, 0));
         emit ProposalCreated(id, description);
     }
 
-    // Cast a vote
     function vote(uint256 proposalId, bool support) external {
         require(proposalId < proposals.length, "Proposal doesn't exist");
         require(!hasVoted[proposalId][msg.sender], "Already voted");
 
-        // Record the vote
         hasVoted[proposalId][msg.sender] = true;
 
-        // Update tally
         if (support) {
             proposals[proposalId].yes += 1;
         } else {
@@ -176,35 +121,31 @@ contract BarangayDAO {
         emit Voted(msg.sender, proposalId, support);
     }
 
-    // Get total number of proposals
     function getProposalCount() external view returns (uint256) {
         return proposals.length;
     }
 }
 ```
 
-#### **Key Contract Features**
+Three things the frontend relies on:
 
-1. **Double-vote prevention**: `mapping(uint256 => mapping(address => bool)) hasVoted`
-2. **Event emission**: Frontend knows when to update
-3. **Simple counting**: Yes/No tallies stored in struct
+1. **`proposals(i)`**: the getter Solidity generates for `Proposal[] public proposals`. It returns one proposal by index, which is why the UI loops (the same pattern as the to-do list in Lesson 09).
+2. **`hasVoted(proposalId, voter)`**: the getter for the nested mapping. A **nested mapping** is a table of tables: for each proposal, a table of addresses. The UI asks it so it can hide the buttons; the contract checks it so cheating is impossible either way.
+3. **`Voted` event**: announced on every vote, so every open browser can update.
+
+`require(!hasVoted[...])` is the real protection. Hiding buttons in the UI is only a convenience: anyone can call the contract directly.
 
 ---
 
-### 4. The ABI for DAO Interactions
+### 4. The ABI
 
 ```js
 const DAO_ABI = [
-  // Read functions
   "function getProposalCount() view returns (uint256)",
   "function proposals(uint256) view returns (uint256 id, string description, uint256 yes, uint256 no)",
   "function hasVoted(uint256 proposalId, address voter) view returns (bool)",
-
-  // Write functions
-  "function createProposal(string calldata description)",
+  "function createProposal(string description)",
   "function vote(uint256 proposalId, bool support)",
-
-  // Events
   "event ProposalCreated(uint256 indexed id, string description)",
   "event Voted(address indexed voter, uint256 indexed proposalId, bool support)",
 ];
@@ -212,36 +153,54 @@ const DAO_ABI = [
 
 ---
 
-### 5. Fetching & Displaying Proposals
-
-#### **Loading All Proposals**
+### 5. Loading Proposals
 
 ```js
-async function loadProposals() {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+async function loadProposals(account) {
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
 
-  // Get total count
-  const count = await dao.getProposalCount();
-  console.log(`Total proposals: ${count}`);
+  const count = await dao.getProposalCount(); // bigint, e.g. 2n
 
-  // Fetch each proposal
-  const proposals = [];
+  const items = [];
   for (let i = 0; i < count; i++) {
     const [id, description, yes, no] = await dao.proposals(i);
-    proposals.push({
-      id: id.toNumber(),
+    const voted = await dao.hasVoted(i, account);
+    items.push({
+      id: Number(id),
       description,
-      yes: yes.toNumber(),
-      no: no.toNumber(),
+      yes: Number(yes),
+      no: Number(no),
+      hasVoted: voted,
     });
   }
-
-  return proposals;
+  return items;
 }
 ```
 
-#### **Displaying with Vote Stats**
+#### **Positional or Named?**
+
+Because the ABI names the outputs (`uint256 yes`), ethers v6 lets you read them either way:
+
+```js
+const p = await dao.proposals(0);
+p[2];   // yes, by position
+p.yes;  // yes, by name: same value (a bigint)
+```
+
+#### **Why `Number()`?**
+
+v6 returns every `uint256` as a `bigint`. A `bigint` and a normal number **cannot be mixed** in arithmetic:
+
+```js
+5n + 1;          // TypeError: Cannot mix BigInt and other types
+Number(5n) + 1;  // 6
+5n + 1n;         // 6n   (also fine: keep both as bigint)
+```
+
+Vote counts are small, so converting them to `Number` once, right after reading, keeps the rest of your React code simple. Comparisons like `5n > 1n` or `1 < 2n` work without conversion.
+
+#### **Showing a Percentage Bar**
 
 ```jsx
 function ProposalCard({ proposal }) {
@@ -249,22 +208,12 @@ function ProposalCard({ proposal }) {
   const yesPercent = total > 0 ? Math.round((proposal.yes / total) * 100) : 0;
 
   return (
-    <div className="proposal-card">
-      <h3>Proposal #{proposal.id}</h3>
-      <p>{proposal.description}</p>
-
-      <div className="vote-bar">
-        <div className="yes-bar" style={{ width: `${yesPercent}%` }} />
+    <div>
+      <h3>#{proposal.id}: {proposal.description}</h3>
+      <div style={{ background: "#eee", height: 8 }}>
+        <div style={{ background: "green", height: 8, width: `${yesPercent}%` }} />
       </div>
-
-      <div className="vote-stats">
-        <span>
-          👍 {proposal.yes} ({yesPercent}%)
-        </span>
-        <span>
-          👎 {proposal.no} ({100 - yesPercent}%)
-        </span>
-      </div>
+      <p>Yes: {proposal.yes} ({yesPercent}%) | No: {proposal.no}</p>
     </div>
   );
 }
@@ -272,412 +221,167 @@ function ProposalCard({ proposal }) {
 
 ---
 
-### 6. Casting Votes
+### 6. Casting a Vote
 
-#### **Vote Function Implementation**
+A vote changes contract state, so it needs a **signer**:
 
 ```js
 async function castVote(proposalId, support) {
-  // Get signer for transaction
-  await window.ethereum.request({ method: "eth_requestAccounts" });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();               // v6: await!
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, signer);
 
-  // Check if already voted
-  const userAddress = await signer.getAddress();
-  const alreadyVoted = await dao.hasVoted(proposalId, userAddress);
-
-  if (alreadyVoted) {
+  // Friendly early check: the contract would reject a second vote anyway
+  if (await dao.hasVoted(proposalId, signer.address)) {
     throw new Error("You have already voted on this proposal");
   }
 
-  // Cast the vote
-  console.log(`Voting ${support ? "Yes" : "No"} on proposal #${proposalId}`);
-  const tx = await dao.vote(proposalId, support);
-
-  // Wait for confirmation
-  const receipt = await tx.wait();
-  console.log("Vote confirmed in block:", receipt.blockNumber);
-
-  return receipt;
+  const tx = await dao.vote(proposalId, support);          // MetaMask pop-up
+  const receipt = await tx.wait();                         // mined
+  console.log("Vote confirmed in block", receipt.blockNumber);
 }
 ```
 
-#### **Vote UI Component**
+#### **Handling Errors**
 
-```jsx
-function VoteForm({ proposalId, onVoted }) {
-  const [support, setSupport] = useState(true);
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
-
-  async function handleVote() {
-    setStatus("pending");
-    setError("");
-
-    try {
-      await castVote(proposalId, support);
-      setStatus("success");
-      onVoted(); // Refresh proposal data
-    } catch (err) {
-      if (err.code === 4001) {
-        setError("Vote cancelled");
-      } else if (err.message.includes("Already voted")) {
-        setError("You've already voted on this proposal");
-      } else {
-        setError(err.message);
-      }
-      setStatus("error");
-    }
+```js
+try {
+  await castVote(id, true);
+} catch (err) {
+  if (err.code === "ACTION_REJECTED") {
+    setError("Vote cancelled");
+  } else if (err.code === "CALL_EXCEPTION") {
+    // a require() failed, e.g. "Already voted"
+    setError(err.reason || "The DAO rejected this vote");
+  } else {
+    setError(err.shortMessage || err.message);
   }
-
-  return (
-    <div className="vote-form">
-      <div className="vote-options">
-        <label>
-          <input
-            type="radio"
-            checked={support === true}
-            onChange={() => setSupport(true)}
-            disabled={status === "pending"}
-          />
-          👍 Yes
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={support === false}
-            onChange={() => setSupport(false)}
-            disabled={status === "pending"}
-          />
-          👎 No
-        </label>
-      </div>
-
-      <button onClick={handleVote} disabled={status === "pending"}>
-        {status === "pending" ? "Submitting..." : "Cast Vote"}
-      </button>
-
-      {status === "success" && <p className="success">✅ Vote recorded!</p>}
-      {error && <p className="error">❌ {error}</p>}
-    </div>
-  );
 }
 ```
 
 ---
 
-### 7. Real-Time Vote Updates with Events
-
-#### **Why Events for Voting?**
-
-When someone votes, all users should see updated tallies immediately:
+### 7. Live Updates with Events
 
 ```
-Event-Driven Updates:
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│  Alice votes Yes on Proposal #0                              │
-│       │                                                      │
-│       ▼                                                      │
-│  Contract emits: Voted(Alice, 0, true)                       │
-│       │                                                      │
-│       ├──────────────────┬──────────────────┐               │
-│       ▼                  ▼                  ▼               │
-│  [Alice's Browser]  [Bob's Browser]  [Carol's Browser]      │
-│  Updates UI         Updates UI       Updates UI             │
-│  instantly          instantly        instantly               │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+Alice votes Yes on Proposal #0
+      │
+      ▼
+Contract emits Voted(Alice, 0, true)
+      │
+      ├────────────────┬────────────────┐
+      ▼                ▼                ▼
+Alice's browser   Bob's browser   Carol's browser
+ tally +1          tally +1        tally +1
 ```
 
-#### **Implementing Event Listeners**
+```jsx
+useEffect(() => {
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
+
+  const handleVote = (voter, proposalId, support) => {
+    setProposals((prev) =>
+      prev.map((p) =>
+        p.id === Number(proposalId)
+          ? { ...p, yes: support ? p.yes + 1 : p.yes, no: support ? p.no : p.no + 1 }
+          : p
+      )
+    );
+  };
+
+  dao.on("Voted", handleVote);
+  return () => dao.off("Voted", handleVote); // cleanup on unmount
+}, []);
+```
+
+- The handler receives the event's arguments in order: `voter`, `proposalId` (a `bigint`), `support`.
+- `setProposals((prev) => ...)` matters here: the listener is created once, so it must not rely on a `proposals` value captured at that moment.
+- `BrowserProvider` checks for new events by **polling** the node every few seconds, so "live" means "within a few seconds", not instantly.
+
+#### **Avoiding the Double Count**
+
+If your `castVote` also adds 1 to the tally after `tx.wait()` (as the activity does), then **your own** vote is counted twice on a real network: once by `castVote`, and again when your own `Voted` event arrives. Two clean ways out:
 
 ```js
-function useVoteEvents(daoAddress, onVoteReceived) {
-  useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const dao = new ethers.Contract(daoAddress, DAO_ABI, provider);
+// Option A: let the event be the only thing that changes the tally.
+// castVote only locks the buttons:
+await tx.wait();
+setProposals((prev) => prev.map((p) => (p.id === proposalId ? { ...p, hasVoted: true } : p)));
 
-    // Handler for vote events
-    function handleVote(voter, proposalId, support, event) {
-      console.log(
-        `Vote received: ${voter} voted ${
-          support ? "Yes" : "No"
-        } on #${proposalId}`
-      );
-
-      // Update the specific proposal
-      onVoteReceived(proposalId.toNumber(), support);
-    }
-
-    // Subscribe
-    dao.on("Voted", handleVote);
-
-    // Cleanup
-    return () => {
-      dao.off("Voted", handleVote);
-    };
-  }, [daoAddress, onVoteReceived]);
-}
-
-// Usage in component
-function ResultsPanel() {
-  const [proposals, setProposals] = useState([]);
-
-  const handleVoteReceived = useCallback((proposalId, support) => {
-    setProposals((prev) =>
-      prev.map((p) => {
-        if (p.id === proposalId) {
-          return {
-            ...p,
-            yes: support ? p.yes + 1 : p.yes,
-            no: support ? p.no : p.no + 1,
-          };
-        }
-        return p;
-      })
-    );
-  }, []);
-
-  useVoteEvents(DAO_ADDRESS, handleVoteReceived);
-
-  // ... render proposals
-}
+// Option B: after tx.wait(), re-read that one proposal from the chain instead of adding 1.
+const fresh = await dao.proposals(proposalId);
+// ...set yes/no from Number(fresh.yes) and Number(fresh.no)
 ```
+
+The activity keeps the simpler "add 1 in both places" version because its grader does not fire events, but in your own projects prefer A or B.
 
 ---
 
 ### 8. Creating Proposals
 
-#### **Proposal Creation Flow**
-
 ```js
 async function createProposal(description) {
-  // Validate
-  if (!description || !description.trim()) {
-    throw new Error("Proposal description is required");
-  }
+  if (!description.trim()) throw new Error("Proposal description is required");
 
-  // Get signer
-  await window.ethereum.request({ method: "eth_requestAccounts" });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
   const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, signer);
 
-  // Create proposal
-  console.log("Creating proposal...");
   const tx = await dao.createProposal(description);
-
-  // Wait for confirmation
   const receipt = await tx.wait();
 
-  // Get the new proposal ID from event
-  const event = receipt.events.find((e) => e.event === "ProposalCreated");
-  const newId = event.args.id.toNumber();
-
-  console.log(`Proposal #${newId} created!`);
-  return newId;
+  // ethers decodes logs whose event is in the ABI
+  const created = receipt.logs.find((log) => log.eventName === "ProposalCreated");
+  return Number(created.args.id);
 }
 ```
 
+The activity does not build proposal creation, but this is how you would add it.
+
 ---
 
-### 9. Checking Vote Status
+### 9. Best Practices for DAO UIs
 
-#### **Has User Already Voted?**
+1. **Transparency**: show every proposal's full text and both counts; link each vote's transaction on [Sepolia Etherscan](https://sepolia.etherscan.io).
+2. **Feedback**: a pending state while the transaction mines, and a clear "You've voted" afterwards.
+3. **Don't rely on the UI for rules**: the contract enforces one vote per wallet; the UI only reflects it.
+4. **Live data**: events keep everyone's screen current, and cleanup keeps listeners from piling up.
+
+---
+
+### 10. Common Mistakes to Avoid
+
+#### **1. Mixing bigint and number**
 
 ```js
-async function checkVoteStatus(proposalId, userAddress) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
+// ❌ TypeError: Cannot mix BigInt and other types
+const [, , yes] = await dao.proposals(0);
+setYes(yes + 1);
 
-  const hasVoted = await dao.hasVoted(proposalId, userAddress);
-  return hasVoted;
-}
-
-// In your component
-function ProposalActions({ proposalId }) {
-  const [hasVoted, setHasVoted] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function check() {
-      const [account] = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const voted = await checkVoteStatus(proposalId, account);
-      setHasVoted(voted);
-      setLoading(false);
-    }
-    check();
-  }, [proposalId]);
-
-  if (loading) return <p>Loading...</p>;
-
-  if (hasVoted) {
-    return <p className="voted-badge">✅ You've voted</p>;
-  }
-
-  return <VoteForm proposalId={proposalId} />;
-}
+// ✅ convert once, right after reading
+setYes(Number(yes) + 1);
 ```
 
----
-
-### 10. Best Practices for DAO UIs
-
-#### **User Experience Guidelines**
-
-```
-Good DAO UI Practices:
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│  1. TRANSPARENCY                                             │
-│     • Show all proposal details clearly                      │
-│     • Display vote counts and percentages                    │
-│     • Link to transaction on Etherscan                       │
-│                                                              │
-│  2. FEEDBACK                                                 │
-│     • Confirm vote was recorded                              │
-│     • Show pending state during transaction                  │
-│     • Display "Already Voted" if applicable                  │
-│                                                              │
-│  3. ACCESSIBILITY                                            │
-│     • Clear Yes/No options                                   │
-│     • Disabled buttons when appropriate                      │
-│     • Error messages that explain what went wrong            │
-│                                                              │
-│  4. REAL-TIME                                                │
-│     • Use events for live updates                            │
-│     • No need to refresh page                                │
-│     • Show when new proposals are created                    │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-### 11. Complete DAO App Component
-
-```jsx
-function DAOVotingApp() {
-  const [proposals, setProposals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [userAddress, setUserAddress] = useState("");
-
-  // Load proposals on mount
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  async function loadData() {
-    try {
-      setLoading(true);
-      const [account] = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      setUserAddress(account);
-
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const dao = new ethers.Contract(DAO_ADDRESS, DAO_ABI, provider);
-
-      const count = await dao.getProposalCount();
-      const items = [];
-
-      for (let i = 0; i < count; i++) {
-        const [id, description, yes, no] = await dao.proposals(i);
-        const hasVoted = await dao.hasVoted(i, account);
-
-        items.push({
-          id: id.toNumber(),
-          description,
-          yes: yes.toNumber(),
-          no: no.toNumber(),
-          hasVoted,
-        });
-      }
-
-      setProposals(items);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  if (loading) return <p>Loading DAO...</p>;
-
-  return (
-    <div className="dao-app">
-      <h1>🏛️ BarangayDAO</h1>
-      <p>
-        Connected: {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
-      </p>
-
-      <CreateProposal onCreated={loadData} />
-
-      <h2>Active Proposals</h2>
-      {proposals.map((p) => (
-        <div key={p.id} className="proposal">
-          <h3>
-            #{p.id}: {p.description}
-          </h3>
-          <p>
-            👍 {p.yes} | 👎 {p.no}
-          </p>
-
-          {p.hasVoted ? (
-            <span className="voted">✅ Voted</span>
-          ) : (
-            <VoteForm proposalId={p.id} onVoted={loadData} />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
----
-
-### 12. Common Mistakes to Avoid
-
-#### **1. Not Checking If Already Voted**
+#### **2. Comparing a bigint id with a number using ===**
 
 ```js
-// ❌ Transaction will revert
-await dao.vote(proposalId, true);
+// ❌ never true: 0n and 0 are different types
+p.id === proposalId; // when proposalId came straight from an event
 
-// ✅ Check first
-const hasVoted = await dao.hasVoted(proposalId, userAddress);
-if (hasVoted) {
-  alert("You've already voted!");
-  return;
-}
-await dao.vote(proposalId, true);
-```
-
-#### **2. Not Converting BigNumbers**
-
-```js
-// ❌ Comparing BigNumber to number
-if (proposal.yes > proposal.no) // May not work!
-
-// ✅ Convert to numbers
-if (proposal.yes.toNumber() > proposal.no.toNumber())
+// ✅
+p.id === Number(proposalId);
 ```
 
 #### **3. Forgetting Event Cleanup**
 
 ```js
-// ❌ Memory leak
+// ❌ every remount adds another listener, and votes get counted many times
 useEffect(() => {
   dao.on("Voted", handleVote);
 }, []);
 
-// ✅ Clean up
+// ✅
 useEffect(() => {
   dao.on("Voted", handleVote);
   return () => dao.off("Voted", handleVote);
@@ -686,87 +390,39 @@ useEffect(() => {
 
 ---
 
-### 13. Testing Your DAO Voting UI
+### 11. How This Is Graded
 
-Before deploying, verify:
-
-1. ✅ **Proposals load** - All proposals display correctly
-2. ✅ **Vote counts show** - Yes/No tallies are accurate
-3. ✅ **Voting works** - Can cast Yes or No vote
-4. ✅ **Double-vote prevented** - Can't vote twice
-5. ✅ **Already voted shown** - Clear indicator after voting
-6. ✅ **Real-time updates** - Other votes appear live
-7. ✅ **Create proposal works** - New proposals appear
-8. ✅ **User rejection handled** - Graceful cancel
+The activity runs in a sandbox with a fake wallet and a fake DAO holding two proposals: #0 "Ayusin ang basketball court" (5 Yes, 1 No, you haven't voted) and #1 "Bagong ilaw sa kalye" (you already voted). The grader checks that you read the count, each proposal and each `hasVoted`, show the descriptions and a tally like "Yes: 5", offer **Vote Yes** / **Vote No** only on the unvoted proposal, send `vote(0, true)` and wait for the receipt, and subscribe to and unsubscribe from `Voted`.
 
 ---
 
 ### External References & Further Learning
 
-- **Ethers.js Events**: https://docs.ethers.org/v5/api/contract/contract/#Contract--events - Listening to events
-- **Compound Governance**: https://docs.compound.finance/v2/governance/ - Real DAO example
-- **OpenZeppelin Governor**: https://docs.openzeppelin.com/contracts/4.x/governance - Production governance
-- **Snapshot**: https://docs.snapshot.org - Off-chain voting
-- **Tally**: https://docs.tally.xyz - DAO governance interface
-- **DAOhaus**: https://daohaus.club/docs - Building DAOs
+- **ethers v6, Contracts and events**: https://docs.ethers.org/v6/api/contract/
+- **OpenZeppelin Governance (v5)**: https://docs.openzeppelin.com/contracts/5.x/governance
+- **Solidity, mappings (including nested ones)**: https://docs.soliditylang.org/en/latest/types.html#mapping-types
+- **React `useEffect` cleanup**: https://react.dev/learn/synchronizing-with-effects
 
 ---
 
 ## 🧪 Exercises
 
-### Exercise 1: Fetch & Render Proposals
+### Exercise 1: Fetch & Render Proposals (Read Only)
 
-Problem: Build `ProposalList` to read and display all proposals.
+**Problem Statement**
+Build `ProposalList`: read and display every proposal without asking the visitor to connect a wallet.
 
-**Solidity Contract (`BarangayDAO.sol`)**
+**Full Solution (`ProposalList.jsx`)**
 
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract BarangayDAO {
-    struct Proposal {
-        uint id;
-        string description;
-        uint yes;
-        uint no;
-    }
-
-    Proposal[] public proposals;
-
-    event ProposalCreated(uint id, string description);
-    event Voted(address indexed voter, uint proposalId, bool support);
-
-    function createProposal(string calldata description) external {
-        uint id = proposals.length;
-        proposals.push(Proposal(id, description, 0, 0));
-        emit ProposalCreated(id, description);
-    }
-
-    function vote(uint proposalId, bool support) external {
-        Proposal storage p = proposals[proposalId];
-        require(proposalId < proposals.length, "Invalid proposal");
-        if (support) p.yes += 1;
-        else p.no += 1;
-        emit Voted(msg.sender, proposalId, support);
-    }
-
-    function getProposalCount() external view returns (uint) {
-        return proposals.length;
-    }
-}
-```
-
-**Starter Code (`ProposalList.js`)**
-
-```js
-import React, { useState, useEffect } from "react";
+```jsx
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
 const ABI = [
   "function getProposalCount() view returns (uint256)",
   "function proposals(uint256) view returns (uint256 id, string description, uint256 yes, uint256 no)",
 ];
+const DAO_ADDRESS = import.meta.env.VITE_DAO_ADDRESS;
 
 export default function ProposalList() {
   const [proposals, setProposals] = useState([]);
@@ -775,75 +431,17 @@ export default function ProposalList() {
   useEffect(() => {
     async function load() {
       try {
-        // 1. await window.ethereum.request(...)
-        // 2. const provider = new ethers.providers.Web3Provider(...)
-        // 3. const dao = new ethers.Contract(address, ABI, provider)
-        // 4. const count = await dao.getProposalCount()
-        // 5. loop i in [0..count) => dao.proposals(i)
-        // 6. setProposals([...])
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-    load();
-  }, []);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  return (
-    <div>
-      <h2>BarangayDAO Proposals</h2>
-      <ul>
-        {proposals.map((p) => (
-          <li key={p.id}>
-            #{p.id} – {p.description} <br />
-            👍 {p.yes} 👎 {p.no}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
-
-To Do List
-
-- [ ] Connect wallet: `eth_requestAccounts`
-- [ ] Instantiate `provider` & `dao`
-- [ ] Call `getProposalCount()`
-- [ ] Loop to fetch each `proposals(i)`
-- [ ] Parse BigNumber fields and `setProposals`
-
-**Full Solution**
-
-```js
-// ProposalList.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function getProposalCount() view returns (uint256)",
-  "function proposals(uint256) view returns (uint256 id, string description, uint256 yes, uint256 no)",
-];
-const DAO_ADDRESS = process.env.REACT_APP_DAO_ADDRESS;
-
-export default function ProposalList() {
-  const [proposals, setProposals] = useState([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function load() {
-      try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
         const dao = new ethers.Contract(DAO_ADDRESS, ABI, provider);
-        const count = (await dao.getProposalCount()).toNumber();
+        const count = await dao.getProposalCount();
         const items = [];
         for (let i = 0; i < count; i++) {
-          const [id, desc, yes, no] = await dao.proposals(i);
+          const p = await dao.proposals(i);
           items.push({
-            id: id.toNumber(),
-            description: desc,
-            yes: yes.toNumber(),
-            no: no.toNumber(),
+            id: Number(p.id),
+            description: p.description,
+            yes: Number(p.yes),
+            no: Number(p.no),
           });
         }
         setProposals(items);
@@ -858,12 +456,13 @@ export default function ProposalList() {
   return (
     <div>
       <h2>BarangayDAO Proposals</h2>
+      {proposals.length === 0 && <p>No proposals yet.</p>}
       <ul>
         {proposals.map((p) => (
           <li key={p.id} style={{ margin: "12px 0" }}>
             <strong>#{p.id}:</strong> {p.description}
             <br />
-            👍 {p.yes} 👎 {p.no}
+            Yes: {p.yes} | No: {p.no}
           </li>
         ))}
       </ul>
@@ -872,89 +471,30 @@ export default function ProposalList() {
 }
 ```
 
-.env Sample
+**.env sample (Vite)**
 
 ```
-REACT_APP_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-REACT_APP_DAO_ADDRESS=0xYourDaoContractAddress
+VITE_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+VITE_DAO_ADDRESS=0xYourDaoContractAddress
 ```
+
+(The activity's grader supplies `process.env.REACT_APP_DAO_ADDRESS` instead, and the starter already reads it.)
 
 ---
 
-### Exercise 2: Cast a Vote
+### Exercise 2: A Vote Form With a Pending State
 
-Problem: Build `VoteForm` to let a member vote Yes/No on a selected proposal.
+**Problem Statement**
+Build `VoteForm`: pick Yes or No with radio buttons, submit, show "Submitting..." while the transaction mines, then show the transaction hash.
 
-**Starter Code (`VoteForm.js`)**
+**Full Solution (`VoteForm.jsx`)**
 
-```js
-import React, { useState } from "react";
+```jsx
+import { useState } from "react";
 import { ethers } from "ethers";
 
-const ABI = ["function vote(uint256,bool) returns ()"];
-
-export default function VoteForm({ proposalId, onVoted }) {
-  const [support, setSupport] = useState(true);
-  const [error, setError] = useState("");
-  const [txHash, setTxHash] = useState("");
-
-  async function castVote() {
-    try {
-      // 1. request accounts
-      // 2. provider & signer
-      // 3. dao = new Contract(address, ABI, signer)
-      // 4. tx = await dao.vote(proposalId, support)
-      // 5. await tx.wait()
-      // 6. setTxHash(tx.hash); onVoted()
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  return (
-    <div>
-      <h3>Vote on Proposal #{proposalId}</h3>
-      <label>
-        <input
-          type="radio"
-          checked={support === true}
-          onChange={() => setSupport(true)}
-        />{" "}
-        Yes
-      </label>
-      <label style={{ marginLeft: 12 }}>
-        <input
-          type="radio"
-          checked={support === false}
-          onChange={() => setSupport(false)}
-        />{" "}
-        No
-      </label>
-      <button onClick={castVote}>Submit Vote</button>
-      {txHash && <p>Tx Hash: {txHash}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
-}
-```
-
-To Do List
-
-- [ ] Connect wallet & get signer
-- [ ] Instantiate DAO contract with signer
-- [ ] Call `vote(proposalId, support)`
-- [ ] Await `tx.wait()`
-- [ ] onVoted() to refresh list
-
-**Full Solution**
-
-```js
-// VoteForm.js
-import React, { useState } from "react";
-import { ethers } from "ethers";
-
-const ABI = ["function vote(uint256,bool)"];
-const DAO_ADDRESS = process.env.REACT_APP_DAO_ADDRESS;
+const ABI = ["function vote(uint256, bool)"];
+const DAO_ADDRESS = import.meta.env.VITE_DAO_ADDRESS;
 
 export default function VoteForm({ proposalId, onVoted }) {
   const [support, setSupport] = useState(true);
@@ -967,16 +507,15 @@ export default function VoteForm({ proposalId, onVoted }) {
     setTxHash("");
     try {
       setLoading(true);
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
       const dao = new ethers.Contract(DAO_ADDRESS, ABI, signer);
       const tx = await dao.vote(proposalId, support);
       const receipt = await tx.wait();
-      setTxHash(receipt.transactionHash);
+      setTxHash(receipt.hash);
       onVoted();
     } catch (err) {
-      setError(err.message);
+      setError(err.shortMessage || err.message);
     } finally {
       setLoading(false);
     }
@@ -986,23 +525,13 @@ export default function VoteForm({ proposalId, onVoted }) {
     <div>
       <h3>Vote on Proposal #{proposalId}</h3>
       <label>
-        <input
-          type="radio"
-          checked={support === true}
-          onChange={() => setSupport(true)}
-        />{" "}
-        Yes
+        <input type="radio" checked={support} onChange={() => setSupport(true)} /> Yes
       </label>
       <label style={{ marginLeft: 12 }}>
-        <input
-          type="radio"
-          checked={support === false}
-          onChange={() => setSupport(false)}
-        />{" "}
-        No
+        <input type="radio" checked={!support} onChange={() => setSupport(false)} /> No
       </label>
       <button onClick={castVote} disabled={loading}>
-        {loading ? "Submitting…" : "Submit Vote"}
+        {loading ? "Submitting..." : "Submit Vote"}
       </button>
       {txHash && <p>Tx Hash: {txHash}</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -1011,103 +540,58 @@ export default function VoteForm({ proposalId, onVoted }) {
 }
 ```
 
+In ethers v6 the receipt's hash is `receipt.hash` (v5 called it `receipt.transactionHash`). <!-- v5-ok -->
+
 ---
 
 ### Exercise 3: Live Results Panel
 
-Problem: Create `ResultsPanel` that subscribes to `Voted` events and updates tallies live.
+**Problem Statement**
+Create `ResultsPanel`: load the current tallies once, then update them from `Voted` events, and clean up on unmount.
 
-**Starter Code (`ResultsPanel.js`)**
+**Full Solution (`ResultsPanel.jsx`)**
 
-```js
-import React, { useState, useEffect } from "react";
+```jsx
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
 const ABI = [
   "function getProposalCount() view returns (uint256)",
   "function proposals(uint256) view returns (uint256 id, string description, uint256 yes, uint256 no)",
-  "event Voted(address indexed voter, uint256 proposalId, bool support)",
+  "event Voted(address indexed voter, uint256 indexed proposalId, bool support)",
 ];
+const DAO_ADDRESS = import.meta.env.VITE_DAO_ADDRESS;
 
 export default function ResultsPanel() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    // TODO: connect provider & dao
-    // TODO: load current results
-    // TODO: dao.on("Voted", handler) to refresh one proposal
-    // TODO: cleanup listener
-  }, []);
+    const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
+    const dao = new ethers.Contract(DAO_ADDRESS, ABI, provider);
 
-  return (
-    <div>
-      <h3>Live Voting Results</h3>
-      {results.map((r) => (
-        <div key={r.id}>
-          #{r.id}: 👍 {r.yes} 👎 {r.no}
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-To Do List
-
-- [ ] Initialize provider & contract
-- [ ] Fetch initial results (like in Exercise 1)
-- [ ] Subscribe to `Voted` events and update state for that proposal
-- [ ] Remove listener on unmount
-
-**Full Solution**
-
-```js
-// ResultsPanel.js
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-const ABI = [
-  "function getProposalCount() view returns (uint256)",
-  "function proposals(uint256) view returns (uint256 id, string description, uint256 yes, uint256 no)",
-  "event Voted(address indexed voter, uint256 proposalId, bool support)",
-];
-const DAO_ADDRESS = process.env.REACT_APP_DAO_ADDRESS;
-
-export default function ResultsPanel() {
-  const [results, setResults] = useState([]);
-
-  useEffect(() => {
-    let dao;
-    async function init() {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      dao = new ethers.Contract(DAO_ADDRESS, ABI, provider);
-      const count = (await dao.getProposalCount()).toNumber();
-      const arr = [];
+    async function loadInitial() {
+      const count = await dao.getProposalCount();
+      const rows = [];
       for (let i = 0; i < count; i++) {
-        const [id, , yes, no] = await dao.proposals(i);
-        arr.push({ id: id.toNumber(), yes: yes.toNumber(), no: no.toNumber() });
+        const p = await dao.proposals(i);
+        rows.push({ id: Number(p.id), yes: Number(p.yes), no: Number(p.no) });
       }
-      setResults(arr);
-
-      // subscribe
-      dao.on("Voted", (_voter, pid, _support) => {
-        setResults((prev) =>
-          prev.map((r) =>
-            r.id === pid.toNumber()
-              ? {
-                  ...r,
-                  yes: _support ? r.yes + 1 : r.yes,
-                  no: !_support ? r.no + 1 : r.no,
-                }
-              : r
-          )
-        );
-      });
+      setResults(rows);
     }
-    init();
 
-    return () => {
-      if (dao) dao.removeAllListeners("Voted");
+    const onVoted = (_voter, proposalId, support) => {
+      setResults((prev) =>
+        prev.map((r) =>
+          r.id === Number(proposalId)
+            ? { ...r, yes: support ? r.yes + 1 : r.yes, no: support ? r.no : r.no + 1 }
+            : r
+        )
+      );
     };
+
+    loadInitial();
+    dao.on("Voted", onVoted);
+    return () => dao.off("Voted", onVoted);
   }, []);
 
   return (
@@ -1115,7 +599,7 @@ export default function ResultsPanel() {
       <h3>Live Voting Results</h3>
       {results.map((r) => (
         <div key={r.id}>
-          <strong>#{r.id}</strong>: 👍 {r.yes} 👎 {r.no}
+          <strong>#{r.id}</strong>: Yes: {r.yes} | No: {r.no}
         </div>
       ))}
     </div>
@@ -1123,103 +607,10 @@ export default function ResultsPanel() {
 }
 ```
 
----
-
-## ✅ Test Cases
-
-Create `__tests__/ProposalList.test.js`:
-
-```js
-// __tests__/ProposalList.test.js
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import ProposalList from "../ProposalList";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-
-describe("ProposalList Component", () => {
-  const fakeCount = 2;
-  const fakeProposals = [
-    [0, "Build Court", 3, 1],
-    [1, "Plant Trees", 5, 0],
-  ];
-  beforeAll(() => {
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue(["0xACC"]),
-    };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
-    ethers.Contract = jest.fn().mockReturnValue({
-      getProposalCount: jest.fn().mockResolvedValue({
-        toNumber: () => fakeCount,
-      }),
-      proposals: jest
-        .fn()
-        .mockResolvedValueOnce(fakeProposals[0])
-        .mockResolvedValueOnce(fakeProposals[1]),
-    });
-  });
-
-  it("lists all proposals", async () => {
-    render(<ProposalList />);
-    await waitFor(() => screen.getByText(/Build Court/));
-    expect(screen.getByText("#0 – Build Court")).toBeInTheDocument();
-    expect(screen.getByText("#1 – Plant Trees")).toBeInTheDocument();
-    expect(screen.getByText("👍 3 👎 1")).toBeInTheDocument();
-    expect(screen.getByText("👍 5 👎 0")).toBeInTheDocument();
-  });
-});
-```
-
-Create `__tests__/VoteForm.test.js`:
-
-```js
-// __tests__/VoteForm.test.js
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import VoteForm from "../VoteForm";
-import { ethers } from "ethers";
-
-jest.mock("ethers");
-
-describe("VoteForm Component", () => {
-  const pid = 0;
-  let mockVote;
-  beforeAll(() => {
-    global.window.ethereum = {
-      request: jest.fn().mockResolvedValue(["0xACC"]),
-    };
-    ethers.providers.Web3Provider = jest.fn().mockReturnValue({});
-    mockVote = jest.fn().mockResolvedValue({
-      wait: () => Promise.resolve({ transactionHash: "0xHash" }),
-    });
-    ethers.Contract = jest.fn().mockReturnValue({ vote: mockVote });
-  });
-
-  it("submits a yes vote", async () => {
-    const onVoted = jest.fn();
-    render(<VoteForm proposalId={pid} onVoted={onVoted} />);
-    fireEvent.click(screen.getByText("Submit Vote"));
-    await waitFor(() => screen.getByText(/Tx Hash:/));
-    expect(mockVote).toHaveBeenCalledWith(pid, true);
-    expect(onVoted).toHaveBeenCalled();
-  });
-});
-```
-
-jest.config.js:
-
-```js
-module.exports = {
-  testEnvironment: "jsdom",
-  moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
-  },
-};
-```
+Subscribing synchronously inside the effect (instead of after an `await`) means the cleanup always has the listener to remove, even if the component unmounts before the first load finishes.
 
 ---
 
 ## 🌟 Closing Story
 
-As the sun peeked over Marikina Heights, barangay members gathered around their phones. Proposal #0—“Build Court”—was passing with resounding on-chain support. Odessa watched live tallies climb and felt a surge of pride: code had become civic voice. Next up, they’ll add token-weighted voting, quorum checks, and timelocks—true Filipino DAO governance. Mabuhay Web3 civic-tech! 🇵🇭🏀🚀
+As the sun peeked over the barangay hall, members gathered around their phones. Proposal #0, the basketball court, was passing with resounding on-chain support. Odessa watched the live tallies climb and felt a surge of pride: code had become a civic voice. Next up: voting deadlines, quorum checks, and maybe token-weighted votes for the cooperative. True Filipino DAO governance, one barangay at a time. Mabuhay Web3 civic-tech! 🇵🇭🏀🚀

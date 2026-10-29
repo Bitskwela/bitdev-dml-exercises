@@ -1,4 +1,8 @@
-# NFT Image Preview Component Activity
+# NFT Image Preview Activity
+
+**Goal:** turn a chosen image file into an on-screen preview, and show the NFT metadata JSON (name, description, image) that a minting step would later use.
+
+Lakan the spoken-word poet wants to see his NFT *before* anything goes on-chain. You will build `NFTPreview`, the preview card. It receives a title, a description and the image `File` the user picked, and it shows the picture plus the metadata JSON. Nothing is minted here: no wallet, no transaction, just an honest preview.
 
 ## Initial Code
 
@@ -7,54 +11,68 @@
 import React from "react";
 
 export default function NFTPreview({ title, description, file }) {
-  // TODO: Task 1 - Handle missing file case
-  // @note Check if the file prop is falsy and return a prompt message if not provided
+  // TODO: Task 1 - When no file has been chosen yet, ask for one instead of
+  //                rendering a broken image
 
-  // TODO: Task 2 - Create object URL for image preview
-  // @note Use URL.createObjectURL() to generate a temporary blob URL for the uploaded file
+  // TODO: Task 2 - Turn the File into a previewable URL
 
-  // TODO: Task 3 - Build metadata object and render preview UI
-  // @note Construct metadata following NFT standard, then render image preview and JSON
+  // TODO: Task 3 - Build the metadata object (name, description, image) and
+  //                render the image, the title, the description, and the JSON
 
-  return <div>{/* Your preview UI here */}</div>;
+  return <p>Placeholder</p>;
 }
 ```
 
-**Time Allotment: 15 minutes**
+**Time Allotment: 20 minutes**
+
+> **Where do the props come from?** In a real app, a parent form owns the title and description inputs and an `<input type="file" accept="image/*">`. It passes `e.target.files[0]` down as `file`. The grader plays that parent: it passes the title `"Sarimanok sa Umaga"`, the description `"Woodblock print, Angono"`, and a PNG file. It also renders your card with no file, and with an empty title.
 
 ## Tasks for Learners
 
-Topics Covered: File input validation, `URL.createObjectURL()`, NFT metadata structure, `JSON.stringify()` formatting, Conditional rendering
+Topics Covered: guard clauses, `URL.createObjectURL()`, the NFT metadata shape, `JSON.stringify` formatting, conditional rendering
+
+The numbered tasks match the `TODO` comments in the starter.
 
 ---
 
-### Task 1: Handle Missing File Case
+### Task 1: Ask for a file when there is none
 
-Check if the `file` prop is falsy (undefined, null, or not provided). If no file exists, return an early message prompting the user to upload an image. This prevents errors when trying to create an object URL from undefined.
+Before the user picks an image, `file` is `null`. `URL.createObjectURL(null)` throws, so return early with a prompt. This early `return` is called a **guard clause**: it handles the edge case first, so the rest of the function can assume a file exists.
+
+Replace the `TODO: Task 1` comment with:
 
 ```js
+// Task 1: Handle missing file case
 if (!file) {
   return <p>Please upload an image to preview your NFT.</p>;
 }
 ```
 
+**Required:** the prompt must contain one of the words **upload**, **choose**, **select** or **pick**, in any capitalisation. "Please upload an image..." does.
+
 ---
 
-### Task 2: Create Object URL for Image Preview
+### Task 2: Turn the File into a previewable URL
 
-Use `URL.createObjectURL(file)` to generate a temporary blob URL for the uploaded File object. This URL can be used directly as the `src` attribute for an `<img>` element to display the image preview without uploading to a server.
+A `File` object is data in memory, not an address, so `<img src={file}>` does not work. `URL.createObjectURL(file)` gives that data a temporary address that starts with `blob:`, and an `<img>` can display it.
+
+Replace the `TODO: Task 2` comment with:
 
 ```js
+// Task 2: Create object URL for image preview
 const imageUrl = URL.createObjectURL(file);
 ```
 
 ---
 
-### Task 3: Build Metadata Object and Render Preview UI
+### Task 3: Build the metadata and render the card
 
-Construct a metadata object following the NFT metadata standard with `name`, `description`, and `image` fields. Use fallback values for empty inputs. Display the formatted JSON using `JSON.stringify()` with 2-space indentation inside a `<pre>` tag.
+NFT marketplaces read a small JSON document per token, with at least `name`, `description` and `image`. Build that object, falling back to `"Untitled"` when the title is empty, and render it next to the image.
+
+Replace the `TODO: Task 3` comment **and** the starter's `return <p>Placeholder</p>;` with:
 
 ```js
+// Task 3: Build metadata object and render preview UI
 const metadata = {
   name: title || "Untitled",
   description: description || "",
@@ -79,68 +97,37 @@ return (
 );
 ```
 
+`JSON.stringify(metadata, null, 2)` prints the object with 2-space indentation. Inside a `<pre>`, it stays readable.
+
 ---
+
+> **Graded details: labels and wording are checked.** The grader checks all of these:
+>
+> - With `file` set to `null`, the text matches **upload / choose / select / pick**. "Add your art" fails, even though it means the same thing.
+> - With `file` set to `null`, `URL.createObjectURL` is **never called**. The guard must come first.
+> - With a file, `URL.createObjectURL(file)` is called, and the **first** `<img>` on the card has that `blob:` URL as its `src`.
+> - The title `Sarimanok sa Umaga` and the description `Woodblock print, Angono` both appear.
+> - The rendered JSON contains the keys `name`, `description` and `image`.
+> - With an empty title, the card shows `Untitled`.
+
+## Two honest notes about this code
+
+1. **It leaks a little memory.** Each object URL keeps its file in memory until the page closes or someone calls `URL.revokeObjectURL(url)`. The code above creates a fresh URL on **every render** and never revokes any of them. For a single card in a lesson the leak is harmless, and the grader accepts it. In a real app, create the URL once per file and revoke it when the file changes. The lecture shows the `useMemo` + `useEffect` version, and the grader accepts that too.
+2. **A `blob:` URL is not valid NFT metadata.** It only works inside the browser tab that created it. Anyone else, including OpenSea and a collector's wallet, would get nothing. Here it is used only to preview the card. Before minting, you upload the image to permanent storage (for example IPFS) and replace `image` with that address (`ipfs://...`). The lecture walks through that step.
+
+## Common mistakes
+
+| Mistake | What happens | Fix |
+| ------- | ------------ | --- |
+| `<img src={file}>` | Broken image: a File is not a URL | `URL.createObjectURL(file)` |
+| Calling `createObjectURL` before the guard | Throws on `null`, and fails the "no URL" check | Put the `if (!file)` guard first |
+| Prompt says "Add your art" | Fails the wording check | Use upload / choose / select / pick |
+| `name: title` with no fallback | Empty title renders blank | `title \|\| "Untitled"` |
+| Rendering the object directly: `{metadata}` | React error: objects are not valid children | `JSON.stringify(metadata, null, 2)` |
 
 ## Breakdown of the Activity
 
-**Variables Defined:**
-
-- `title`: The NFT name passed as a prop from the parent component. Falls back to "Untitled" if empty or not provided.
-
-- `description`: The NFT description passed as a prop. Used to describe the NFT's content or story. Falls back to empty string if not provided.
-
-- `file`: A JavaScript `File` object from an `<input type="file">` element. Contains the uploaded image data including name, size, type, and binary content.
-
-- `imageUrl`: A temporary blob URL created by `URL.createObjectURL()`. This URL is only valid for the current browser session and allows displaying the image without uploading to a server first.
-
-- `metadata`: An object following the NFT metadata standard (ERC-721 metadata schema). Contains `name`, `description`, and `image` fields that would typically be stored on IPFS and linked via tokenURI.
-
-**Key Functions:**
-
-- `URL.createObjectURL(file)`:
-  Creates a temporary URL representing the File object. The URL starts with `blob:` and points to the file data in memory. This allows previewing images client-side without server uploads. The URL is automatically revoked when the document is unloaded, but can be manually revoked with `URL.revokeObjectURL()` for memory optimization.
-
-- `JSON.stringify(metadata, null, 2)`:
-  Converts the metadata object to a formatted JSON string. The second argument (`null`) is a replacer function (not used here). The third argument (`2`) specifies the number of spaces for indentation, making the output human-readable. Essential for showing users what their NFT metadata will look like.
-
-- Conditional early return:
-  The pattern `if (!file) return <p>...</p>` is a guard clause that handles the edge case before the main logic. This prevents `URL.createObjectURL(undefined)` which would throw an error.
-
----
-
-## Complete Solution
-
-```js
-import React from "react";
-
-export default function NFTPreview({ title, description, file }) {
-  if (!file) {
-    return <p>Please upload an image to preview your NFT.</p>;
-  }
-
-  const imageUrl = URL.createObjectURL(file);
-
-  const metadata = {
-    name: title || "Untitled",
-    description: description || "",
-    image: imageUrl,
-  };
-
-  return (
-    <div style={{ border: "1px solid #ccc", padding: 16 }}>
-      <h4>Image Preview</h4>
-      <img
-        src={imageUrl}
-        alt="NFT preview"
-        style={{ maxWidth: "100%", maxHeight: 200 }}
-      />
-      <h4>{metadata.name}</h4>
-      <p>{metadata.description}</p>
-      <h5>Metadata JSON:</h5>
-      <pre style={{ background: "#f9f9f9", padding: 8 }}>
-        {JSON.stringify(metadata, null, 2)}
-      </pre>
-    </div>
-  );
-}
-```
+- **`file`** is a browser `File` (name, size, type, bytes), normally `e.target.files[0]` from a file input.
+- **`URL.createObjectURL(file)`** returns a `blob:` address for in-memory data. It is valid only in this tab, and it stays alive until it is revoked.
+- **`metadata`** follows the common ERC-721 metadata shape: `name`, `description`, `image`. Marketplaces also read optional `attributes`.
+- **The guard clause** keeps the "no file yet" case from ever reaching `createObjectURL`.

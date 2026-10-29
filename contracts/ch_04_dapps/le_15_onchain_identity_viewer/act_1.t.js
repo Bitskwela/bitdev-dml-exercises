@@ -58,6 +58,22 @@ describe("Lesson 15: On-Chain Identity Viewer", () => {
     );
   });
 
+  it("Task 4: reloads exactly once per ProfileUpdated, without stacking listeners", async () => {
+    const ui = await render(Submission);
+    const me = "0x1234567890123456789012345678901234567890";
+    await ui.emitContract("ProfileUpdated", me);
+    await ui.emitContract("ProfileUpdated", me);
+
+    // One read on mount, then one per event. Subscribing inside the reload adds
+    // a listener each time, so the second event would trigger two reloads (and
+    // the next one four).
+    const reads = ui.calls("contract.getProfile").length;
+    expect(reads).to.equal(
+      3,
+      `Expected 3 getProfile reads (mount + one per event), got ${reads}. Subscribe once, outside the function that reloads, or every reload adds another listener.`,
+    );
+  });
+
   it("Task 4: removes the listener on cleanup", async () => {
     const ui = await render(Submission);
     ui.unmount();

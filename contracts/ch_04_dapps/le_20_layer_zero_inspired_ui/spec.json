@@ -4,13 +4,13 @@
   "source_file": "LockForm.jsx",
   "entry": "default",
   "ethers": "6",
-  "env": { "REACT_APP_BRIDGE_ADDR": "0xB0B0b0b0B0b0B0b0B0b0b0B0B0b0B0b0B0b0B0b0" },
+  "env": { "REACT_APP_BRIDGE_ADDR": "0xB0B0b0B0B0B0B0b0B0B0B0b0b0b0b0B0b0b0B0B0" },
   "chain": {
     "accounts": ["0x1234567890123456789012345678901234567890"],
     "chainId": "0xaa36a7",
     "txHash": "0xbr1dge0000000000000000000000000000000000000000000000000000000000",
     "contracts": {
-      "0xB0B0b0b0B0b0B0b0B0b0b0B0B0b0B0b0B0b0B0b0": {
+      "0xB0B0b0B0B0B0B0b0B0B0B0b0b0b0b0B0b0b0B0B0": {
         "emits": {
           "lockTokens": {
             "name": "Locked",
@@ -22,5 +22,6 @@
   },
   "concepts": ["payable-calls", "parseEther", "event-parsing", "confirmation-step"],
   "difficulty": "advanced",
-  "est_minutes": 35
+  "est_minutes": 40,
+  "prerequisites": ["le-03-triggering-a-function","le-04-event-listeners-in-the-frontend","le-08-send-tokens-via-ui"]
 }

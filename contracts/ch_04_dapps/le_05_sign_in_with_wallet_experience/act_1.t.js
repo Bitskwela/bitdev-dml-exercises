@@ -45,17 +45,31 @@ describe("Lesson 05: Sign in with Wallet", () => {
 
     expect(ui.called("signer.signMessage")).to.equal(
       true,
-      "Signing in off-chain means calling signer.signMessage(message).",
+      "Signing in off-chain means calling signer.signMessage(...) with the 32-byte hash: ethers.getBytes(ethers.id(message)).",
     );
   });
 
-  it("Task 2: includes a nonce so a captured signature cannot be replayed", async () => {
-    const ui = await advanceTo("signed");
+  it("Task 2: puts a nonce in the message that gets hashed and signed", async () => {
+    const ui = await render(Submission);
+    await ui.click("Connect");
+    await ui.click("Sign In");
+    const hashed = ui.calls("ethers.id").map(([m]) => String(m));
+
+    expect(hashed.some((m) => /nonce/i.test(m))).to.equal(
+      true,
+      `The message you hash and sign should carry a nonce. ethers.id() saw: ${JSON.stringify(hashed)}`,
+    );
+  });
+
+  it("Task 2: signs the 32-byte message hash, which is what the contract checks", async () => {
+    const ui = await render(Submission);
+    await ui.click("Connect");
+    await ui.click("Sign In");
     const [signed] = ui.calls("signer.signMessage")[0] || [];
 
-    expect(String(signed)).to.match(
-      /nonce/i,
-      `The signed message should carry a nonce. It was: ${JSON.stringify(signed)}`,
+    expect(typeof signed !== "string" && signed && signed.length === 32).to.equal(
+      true,
+      "Authenticator.verify prefixes the 32-byte hash, so sign ethers.getBytes(ethers.id(message)) — signing the text itself can never verify on-chain.",
     );
   });
 

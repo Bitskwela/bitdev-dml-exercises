@@ -6,7 +6,7 @@
   "ethers": "6",
   "env": {
     "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
-    "REACT_APP_CONTRACT_ADDRESS": "0xDDdDdDddDdDdDddDdDDDDDDDDdddDdDdDddDddDd"
+    "REACT_APP_CONTRACT_ADDRESS": "0xDDdDddDdDdddDDddDDddDDDDdDdDDdDDdDDDDDDd"
   },
   "modules": {
     "../abi/Authenticator.json": [
@@ -18,10 +18,11 @@
     "chainId": "0xaa36a7",
     "signature": "0xabc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd",
     "contracts": {
-      "0xDDdDdDddDdDdDddDdDDDDDDDDdddDdDdDddDddDd": { "returns": { "verify": true } }
+      "0xDDdDddDdDdddDDddDDddDDDDdDdDDdDDdDDDDDDd": { "returns": { "verify": true } }
     }
   },
   "concepts": ["message-signing", "off-chain-auth", "nonce"],
   "difficulty": "intermediate",
-  "est_minutes": 30
+  "est_minutes": 35,
+  "prerequisites": ["le-01-connect-my-metamask","le-03-triggering-a-function"]
 }

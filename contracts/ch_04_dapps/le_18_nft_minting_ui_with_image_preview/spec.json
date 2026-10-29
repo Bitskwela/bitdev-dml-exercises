@@ -12,5 +12,6 @@
   "chain": { "chainId": "0xaa36a7" },
   "concepts": ["file-preview", "object-url", "metadata-shape"],
   "difficulty": "beginner",
-  "est_minutes": 15
+  "est_minutes": 20,
+  "prerequisites": ["le-07-sining-chain"]
 }

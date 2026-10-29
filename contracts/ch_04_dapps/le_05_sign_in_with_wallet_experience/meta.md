@@ -1,6 +1,6 @@
 ---
 title: "Sign-In with Wallet Experience"
-description: "Learn how to implement Sign-In with Ethereum (SIWE) for passwordless authentication using wallet signatures and smart contract verification."
+description: "Sign a nonce message with MetaMask using ethers v6, verify the signature with a smart contract, and learn what a frontend-only check does and does not secure."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

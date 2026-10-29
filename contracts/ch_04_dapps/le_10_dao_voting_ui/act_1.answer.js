@@ -121,7 +121,7 @@ export default function DAOVoting() {
             #{p.id}: {p.description}
           </h3>
           <p>
-            👍 {p.yes} | 👎 {p.no}
+            👍 Yes: {p.yes} | 👎 No: {p.no}
           </p>
           {p.hasVoted ? (
             <span>You've voted</span>

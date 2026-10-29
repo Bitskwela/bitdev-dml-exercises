@@ -10,6 +10,6 @@
   },
   "concepts": ["wallet-detection", "eth_requestAccounts", "conditional-rendering"],
   "difficulty": "beginner",
-  "est_minutes": 15,
+  "est_minutes": 20,
   "prerequisites": []
 }

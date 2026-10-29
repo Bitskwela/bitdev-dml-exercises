@@ -1,6 +1,6 @@
 ---
 title: "Contract Deployment Simulator"
-description: "Create a contract deployment simulator that allows users to deploy smart contracts directly from the browser using Ethers.js and MetaMask."
+description: "Deploy a smart contract straight from the browser with ethers v6 and MetaMask: build a ContractFactory from the compiled ABI and bytecode, pass a constructor argument, wait for the deployment to be mined, and report the new address."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

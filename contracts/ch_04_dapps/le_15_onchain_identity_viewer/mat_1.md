@@ -2,13 +2,13 @@
 
 ![ChainKilala Banner](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+15.0+-+COVER.png)
 
-In a sunlit hall at the Filipino Consulate in San Francisco, Odessa ("Det") plugged her laptop into the projector. The banner read: **ChainKilala – Your On-Chain Identity, Dito Ka Kilala**. Filipino community leaders, students, and OFWs leaned forward. "Dito, ikaw ang profile mo," Odessa smiled, unveiling a sleek UI that read on-chain profiles: name, status, and credentials—no centralized database needed.
+In a sunlit hall at the Filipino Consulate in San Francisco, Odessa ("Det") plugged her laptop into the projector. The banner read: **ChainKilala: Your On-Chain Profile, Dito Ka Kilala**. Filipino community leaders, students and OFWs leaned forward. "Dito, ikaw ang profile mo," Odessa smiled, unveiling a sleek UI that read profiles straight from the blockchain: name, status and credentials, with no central database to run.
 
 ![ChainKilala Demo](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+15.1.png)
 
-Behind the scenes, Neri had deployed `ChainKilala.sol` on a Sepolia testnet and pre-registered profiles for several attendees. As each visitor connected MetaMask, the UI fetched their DID-style data: "Elias", "Student", credentials like "NBI Clear" or "OFW ID". When profiles updated on-chain, a `ProfileUpdated` event fired and the browser refreshed automatically.
+Behind the scenes, Neri had deployed `ChainKilala` on Sepolia and set up profiles for a few attendees. As each visitor connected MetaMask, the page showed their profile. When Neri updated one on-chain, a `ProfileUpdated` event fired and the visitor's screen refreshed by itself.
 
-In under 30 minutes, Det had demonstrated decentralized identity to a room full of Pinoys far from home. No more paper forms at consulates—just code, wallets, and pride. After the demo, consulate officials asked about integration with PhilSys. Odessa grinned: "One step at a time. Next, we'll bridge real-world IDs on-chain." Mabuhay ChainKilala! 🇵🇭🆔🚀
+Then a consulate officer asked the hard question: "So if someone writes 'NBI Clear' on their profile, is it verified?" Det answered honestly. "Not yet, po. Right now each person writes their own profile, and anyone in the world can read it. It is a public business card, not an ID. Verification needs a trusted issuer, and that is the next step." The officer nodded. Honest answers build more trust than big promises. 🇵🇭🆔🚀
 
 ---
 
@@ -16,332 +16,199 @@ In under 30 minutes, Det had demonstrated decentralized identity to a room full 
 
 ### 🎯 What You'll Learn
 
-In this lesson, you'll build an **on-chain identity viewer** that reads DID-style (Decentralized Identifier) profile data from a smart contract. This introduces concepts of self-sovereign identity where users control their credentials without centralized databases.
+By the end of this lesson you can:
+
+- read a profile that comes back as a **three-value tuple**, then read a list **item by item** using the count it reported,
+- **subscribe to a contract event once** and remove the listener on cleanup, so reloads never stack up,
+- explain honestly what on-chain identity data is (public and self-asserted) and what it is not (private or verified).
+
+The activity grades the first two. The third keeps you from making promises your dApp cannot keep.
 
 ---
 
-### 📐 On-Chain Identity Architecture
+### 📐 What the Activity Builds
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                  CHAINKILALA IDENTITY FLOW                      │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                    USER WALLET                           │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ Address: 0x1234...ABCD                           │    │   │
-│   │  │ "This is MY identity on the blockchain"          │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └────────────────────────────┬────────────────────────────┘   │
-│                                │                                │
-│                    setProfile(name, status, creds)              │
-│                                │                                │
-│   ┌────────────────────────────▼────────────────────────────┐   │
-│   │                ChainKilala Contract                      │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │  mapping(address => Profile) profiles            │    │   │
-│   │  │                                                  │    │   │
-│   │  │  Profile {                                       │    │   │
-│   │  │    name: "Juan dela Cruz"                        │    │   │
-│   │  │    status: "OFW"                                 │    │   │
-│   │  │    credentials: ["NBI Clear", "OFW ID", ...]     │    │   │
-│   │  │  }                                               │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └────────────────────────────┬────────────────────────────┘   │
-│                                │                                │
-│                      getProfile(address)                        │
-│                                │                                │
-│   ┌────────────────────────────▼────────────────────────────┐   │
-│   │                    React UI                              │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │  👤 Juan dela Cruz                               │    │   │
-│   │  │  📋 Status: OFW                                  │    │   │
-│   │  │  ✅ NBI Clear                                    │    │   │
-│   │  │  ✅ OFW ID                                       │    │   │
-│   │  │  ✅ PhilSys Verified                             │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └──────────────────────────────────────────────────────────┘   │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+ useEffect (runs once)
+ ├── provider + identity contract   (created ONCE)
+ ├── load()                          (reads only)
+ │     eth_requestAccounts → userAddress
+ │     getProfile(userAddress)        → [name, status, count]
+ │     getCredential(userAddress, i)  → one string per i < count
+ ├── identity.on("ProfileUpdated", handler)   (subscribed ONCE)
+ │     handler: if the event is for userAddress → load()
+ ├── load()
+ └── return cleanup → identity.off("ProfileUpdated", handler)
 ```
 
 ---
 
 ### 🔑 Key Concepts
 
-#### 1. Decentralized Identity (DID) Basics
+#### 1. What on-chain identity data really is
 
-| Concept          | Traditional ID      | Decentralized ID     |
-| ---------------- | ------------------- | -------------------- |
-| **Storage**      | Government database | Blockchain           |
-| **Control**      | Issuing authority   | User wallet          |
-| **Portability**  | Limited by borders  | Global               |
-| **Privacy**      | Full data exposure  | Selective disclosure |
-| **Verification** | Manual lookup       | Cryptographic proof  |
+Everything stored in a contract on a public chain can be read by anyone, forever. Marking a variable `private` in Solidity only stops *other contracts* from reading it; anyone can still read the raw storage from outside. And in this contract, **each user writes their own profile**, so nothing checks that it is true.
 
-```
-Self-Sovereign Identity Principles:
-├── Existence: Users exist independently of issuers
-├── Control: Users control their identities
-├── Access: Users have access to their own data
-├── Transparency: Systems are transparent
-├── Persistence: Identities are long-lived
-├── Portability: Identities are portable
-└── Consent: Users consent to data use
-```
+| Property      | What ChainKilala actually gives you                                  |
+| ------------- | -------------------------------------------------------------------- |
+| **Storage**   | Public blockchain, readable by anyone, kept permanently              |
+| **Control**   | Only the wallet owner can write *their own* profile                  |
+| **Privacy**   | None: every field is public                                          |
+| **Truth**     | Self-asserted: the owner typed it, nobody verified it                |
+| **Portability** | Any app can read it with just the address                          |
 
-#### 2. Profile Data Structure
+So treat an on-chain profile like a public business card, not a government ID. Two rules follow:
+
+- **Never put personal data on-chain**: no birthdays, ID numbers, home addresses or phone numbers. In the Philippines, the Data Privacy Act (RA 10173) applies to personal data, and you cannot delete anything from a public chain.
+- **Do not show self-asserted claims as verified.** A credential is only trustworthy if a trusted issuer signs or attests to it. Standards such as W3C Verifiable Credentials, and attestation systems such as the Ethereum Attestation Service, exist for that. They often keep the data off-chain and put only proofs or references on-chain.
+
+#### 2. The contract
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 contract ChainKilala {
     struct Profile {
-        string name;           // Display name
-        string status;         // Role or status (Student, OFW, etc.)
-        string[] credentials;  // List of verified credentials
+        string name;           // display name, typed by the owner
+        string status;         // role or status, typed by the owner
+        string[] credentials;  // claims, typed by the owner (nobody checks them)
     }
 
-    // Each address maps to a profile
     mapping(address => Profile) private profiles;
-
-    // Track if profile exists
-    mapping(address => bool) public hasProfile;
 
     event ProfileUpdated(address indexed user);
 
+    // Anyone can write their OWN profile, and nothing they write is verified
     function setProfile(
         string calldata _name,
         string calldata _status,
         string[] calldata _credentials
     ) external {
-        profiles[msg.sender] = Profile(_name, _status, _credentials);
-        hasProfile[msg.sender] = true;
+        Profile storage p = profiles[msg.sender];
+        p.name = _name;
+        p.status = _status;
+        delete p.credentials;
+        for (uint256 i = 0; i < _credentials.length; i++) {
+            p.credentials.push(_credentials[i]);
+        }
         emit ProfileUpdated(msg.sender);
     }
 
-    function getProfile(address _user) external view returns (
-        string memory name,
-        string memory status,
-        uint256 credentialCount
-    ) {
+    function getProfile(address _user)
+        external
+        view
+        returns (string memory name, string memory status, uint256 credentialCount)
+    {
         Profile storage p = profiles[_user];
         return (p.name, p.status, p.credentials.length);
     }
 
-    function getCredential(address _user, uint256 _index)
-        external view returns (string memory)
-    {
+    function getCredential(address _user, uint256 _index) external view returns (string memory) {
         return profiles[_user].credentials[_index];
     }
+
+    // Also legal since Solidity 0.8 (ABI coder v2 is the default): return the whole list
+    function getCredentials(address _user) external view returns (string[] memory) {
+        return profiles[_user].credentials;
+    }
 }
 ```
 
-#### 3. Reading Credentials by Index
+#### 3. Count first, then one item per index
 
-Since Solidity cannot return dynamic arrays of strings directly, we use a pattern:
+Solidity **can** return a whole `string[]` in one call (see `getCredentials` above; ABI coder v2 has been the default since Solidity 0.8.0). So why does the activity read one credential at a time?
+
+- It matches the contract's public interface the app is given (`getProfile` + `getCredential`), the same count-then-index pattern you used for multisig proposals.
+- Each call stays small and bounded. A single call returning a huge array can hit the RPC node's limits on how much a `view` call may compute or return.
+- It is the same shape you need for public array getters, which always take an index.
 
 ```javascript
-// Step 1: Get profile with credential count
-const [name, status, credCount] = await contract.getProfile(userAddress);
+const [n, s, c] = await identity.getProfile(userAddress); // c is a bigint, e.g. 2n
 
-// Step 2: Fetch each credential by index
-const credentials = [];
-for (let i = 0; i < credCount.toNumber(); i++) {
-  const cred = await contract.getCredential(userAddress, i);
-  credentials.push(cred);
+const credList = [];
+for (let i = 0; i < Number(c); i++) {
+  credList.push(await identity.getCredential(userAddress, i));
 }
-
-// Or use Promise.all for parallel fetching
-const credPromises = [];
-for (let i = 0; i < credCount.toNumber(); i++) {
-  credPromises.push(contract.getCredential(userAddress, i));
-}
-const credentials = await Promise.all(credPromises);
 ```
 
----
+If you control the contract and the list is short, `getCredentials(user)` in one call is a fine alternative in your own projects.
 
-### 🏗️ React Component Pattern
+#### 4. Events: subscribe once, clean up always
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    IDENTITY VIEWER COMPONENTS                   │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                    IdentityApp                           │   │
-│   │  ┌─────────────────────────────────────────────────┐    │   │
-│   │  │ State: searchAddress, profile, loading, error   │    │   │
-│   │  │ Effects: Event subscription for ProfileUpdated  │    │   │
-│   │  └─────────────────────────────────────────────────┘    │   │
-│   └───────────────────────┬─────────────────────────────────┘   │
-│                           │                                     │
-│       ┌───────────────────┼───────────────────┐                 │
-│       ▼                   ▼                   ▼                 │
-│   ┌─────────┐      ┌─────────────┐     ┌─────────────┐         │
-│   │ Search  │      │  Profile    │     │ Credential  │         │
-│   │   Bar   │      │   Card      │     │    List     │         │
-│   │         │      │             │     │             │         │
-│   │ 0x____  │      │ 👤 Name     │     │ ✅ Cred 1   │         │
-│   │[Search] │      │ 📋 Status   │     │ ✅ Cred 2   │         │
-│   │         │      │             │     │ ✅ Cred 3   │         │
-│   └─────────┘      └─────────────┘     └─────────────┘         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+A contract **event** is a log the contract writes when something happens. `ProfileUpdated(address indexed user)` says "this user's profile changed". In ethers v6 you listen with `contract.on(name, handler)` and stop with `contract.off(name, handler)`.
 
-#### Complete Fetching Implementation
+The classic bug is to subscribe **inside** the function that reloads:
 
 ```javascript
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
+// ❌ Wrong: every reload adds ANOTHER listener
+async function load() {
+  // ...reads...
+  identity.on("ProfileUpdated", load);
+}
+// event 1 → 2 listeners → event 2 triggers 2 reloads → 4 listeners → 8 reloads...
+```
 
-function IdentityViewer() {
-  const [searchAddress, setSearchAddress] = useState("");
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+The fix is structural. Subscribe once in the effect body, and return the cleanup **from the effect**, because React only runs a cleanup that the effect itself returns:
 
-  const fetchProfile = async (address) => {
-    // Validate address format
-    if (!ethers.utils.isAddress(address)) {
-      setError("Invalid Ethereum address");
-      return;
-    }
+```javascript
+useEffect(() => {
+  const identity = new ethers.Contract(CONTRACT, ABI, provider); // created once
+  async function load() { /* reads only */ }
 
-    setLoading(true);
-    setError(null);
+  function handleProfileUpdated(user) { /* if it is ours → load() */ }
+  identity.on("ProfileUpdated", handleProfileUpdated); // once
 
-    try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
-      const contract = new ethers.Contract(
-        process.env.REACT_APP_IDENTITY_ADDRESS,
-        IDENTITY_ABI,
-        provider
-      );
+  load();
 
-      // Check if profile exists
-      const exists = await contract.hasProfile(address);
-      if (!exists) {
-        setError("No profile found for this address");
-        setProfile(null);
-        return;
-      }
-
-      // Fetch profile data
-      const [name, status, credCount] = await contract.getProfile(address);
-
-      // Fetch all credentials in parallel
-      const credPromises = [];
-      for (let i = 0; i < credCount.toNumber(); i++) {
-        credPromises.push(contract.getCredential(address, i));
-      }
-      const credentials = await Promise.all(credPromises);
-
-      setProfile({ name, status, credentials });
-    } catch (err) {
-      setError("Failed to fetch profile: " + err.message);
-    } finally {
-      setLoading(false);
-    }
+  return () => {
+    identity.off("ProfileUpdated", handleProfileUpdated); // same contract, same handler
   };
-
-  // Listen for profile updates
-  useEffect(() => {
-    if (!searchAddress || !ethers.utils.isAddress(searchAddress)) return;
-
-    const provider = new ethers.providers.JsonRpcProvider(
-      process.env.REACT_APP_RPC_URL
-    );
-    const contract = new ethers.Contract(
-      process.env.REACT_APP_IDENTITY_ADDRESS,
-      IDENTITY_ABI,
-      provider
-    );
-
-    const handleUpdate = (user) => {
-      if (user.toLowerCase() === searchAddress.toLowerCase()) {
-        fetchProfile(searchAddress);
-      }
-    };
-
-    contract.on("ProfileUpdated", handleUpdate);
-    return () => contract.off("ProfileUpdated", handleUpdate);
-  }, [searchAddress]);
-
-  // ... render UI
-}
+}, []);
 ```
 
----
+Why the handler needs a name: `off` removes a listener by matching the **same function** you gave to `on`. An inline arrow function written twice is two different functions, so `off` would remove nothing.
 
-### 📊 Address Validation
+Why compare addresses lower-cased: the same address can appear in checksum form (`0xAbC…`) or all lower-case (`0xabc…`). `user.toLowerCase() === userAddress.toLowerCase()` treats them as equal.
 
-Always validate Ethereum addresses before using them:
+#### 5. Why a wallet here
 
-```javascript
-import { ethers } from "ethers";
-
-// Check if valid address format
-ethers.utils.isAddress("0x1234...ABCD"); // true
-ethers.utils.isAddress("invalid"); // false
-
-// Normalize to checksum format
-const checksummed = ethers.utils.getAddress("0xabcd...");
-// Returns: "0xAbCd..." (with proper capitalization)
-
-// Compare addresses (case-insensitive)
-function addressesMatch(a, b) {
-  return a.toLowerCase() === b.toLowerCase();
-}
-```
+In the Gas Fee Checker lesson you read public data with `JsonRpcProvider` and no wallet. The profile data here is public too, so a `JsonRpcProvider` could read anyone's profile given an address. This page is "**your** profile", though, so it needs to know which address is yours, and `eth_requestAccounts` through MetaMask answers that. If you built a "look up any address" page instead, you would use `JsonRpcProvider` plus an address input validated with `ethers.isAddress`.
 
 ---
 
 ### ⚠️ Common Mistakes
 
-| Mistake                       | Problem                    | Solution                       |
-| ----------------------------- | -------------------------- | ------------------------------ |
-| Not validating address        | Crashes on bad input       | Use `ethers.utils.isAddress()` |
-| Sequential credential fetches | Slow with many credentials | Use `Promise.all()`            |
-| Case-sensitive comparison     | Misses matching addresses  | Use `.toLowerCase()`           |
-| No "not found" handling       | Confusing empty state      | Check `hasProfile` first       |
-| Forgetting event cleanup      | Memory leaks               | Return cleanup in useEffect    |
+| Mistake                                      | Problem                                          | Solution                                                |
+| -------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------- |
+| Subscribing inside `load()`                  | Listeners and reloads double with every event    | Subscribe once in the effect body                       |
+| Returning the cleanup from `load()`          | React never runs it; the listener leaks          | `return () => identity.off(...)` at the end of the effect |
+| Inline arrow handler                         | `off` cannot match it, so nothing is removed     | Name the handler and pass the same one to `on` and `off` |
+| Destructuring only two tuple values          | The credential count is lost                     | `const [n, s, c] = await identity.getProfile(addr)`    |
+| Calling the data "verified" or "private"     | Misleads users; it is public and self-asserted   | Say what it is; use attestations for real verification |
+| Storing personal data on-chain               | Public forever; privacy-law risk                 | Keep personal data off-chain                            |
 
 ---
 
-### ✅ Testing Checklist
+### ✅ How This Is Graded
 
-Before considering this lesson complete, verify:
-
-- [ ] Search accepts valid Ethereum addresses only
-- [ ] Invalid addresses show error message
-- [ ] Profile displays name and status correctly
-- [ ] All credentials render in the list
-- [ ] "Not found" shows for unregistered addresses
-- [ ] ProfileUpdated event triggers re-fetch
-- [ ] Loading spinner shows during fetch
-- [ ] Error messages are user-friendly
-- [ ] Event listeners clean up on unmount
+The grader runs your component with ethers v6 against a mock Sepolia ChainKilala contract and a mock MetaMask. It checks that you request the account, read the profile for that address, render the name, status and both credentials (reading exactly two), subscribe to `ProfileUpdated`, reload exactly once per event (three profile reads after two events), call `off` on unmount, and leave the loading state. The activity page lists every detail.
 
 ---
 
 ### 🔗 External Resources
 
-| Resource                    | Link                                                                                |
-| --------------------------- | ----------------------------------------------------------------------------------- |
-| W3C DID Core                | https://www.w3.org/TR/did-core/                                                     |
-| Ethereum Name Service (ENS) | https://docs.ens.domains/                                                           |
-| Ethers Address Utilities    | https://docs.ethers.org/v5/api/utils/address/                                       |
-| Self-Sovereign Identity     | https://www.lifewithalacrity.com/2016/04/the-path-to-self-soverereign-identity.html |
+| Resource                               | Link                                                                 |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| ethers v6: Contract events (`on`/`off`) | https://docs.ethers.org/v6/api/contract/                            |
+| React: effects and cleanup             | https://react.dev/learn/synchronizing-with-effects                   |
+| Solidity: ABI coder v2 (`pragma abicoder`) | https://docs.soliditylang.org/en/latest/layout-of-source-files.html#abi-coder-pragma |
+| W3C Verifiable Credentials             | https://www.w3.org/TR/vc-data-model-2.0/                             |
+| Ethereum Attestation Service           | https://attest.org/                                                  |
+| Data Privacy Act of 2012 (RA 10173)    | https://privacy.gov.ph/data-privacy-act/                             |
 
 ---
 
 ## 🌟 Closing Story
 
-At the consulate, Odessa clicked on "Search" to show her mentor's on-chain profile—"Juan dela Cruz", "OFW", credentials gleaming. The room buzzed: decentralized IDs for Pinoys worldwide. As cameras flashed, Odessa whispered, "Next up: on-chain auth and signed claims." ChainKilala was only the beginning of the Philippine Web3 identity revolution. Mabuhay! 🇵🇭🆔🔥
+After the demo, Neri changed one visitor's status on-chain, and the visitor's screen updated once, cleanly, without flickering through a pile of duplicate reloads. The consulate officers were impressed, but what stayed with them was Det's honesty: "This is a public profile you write yourself. Real verification comes next, from trusted issuers." They asked to talk about a pilot with verified attestations. Odessa grinned: "One step at a time." Mabuhay ChainKilala! 🇵🇭🆔🚀

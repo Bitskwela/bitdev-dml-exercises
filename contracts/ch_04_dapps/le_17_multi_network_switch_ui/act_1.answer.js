@@ -6,12 +6,14 @@ const ABI = ["function getChainId() view returns (uint256)"];
 const RPC = process.env.REACT_APP_RPC_URL;
 const CONTRACT = process.env.REACT_APP_NETWORK_DETECTOR;
 
+// Live networks only (Sepolia, Hoodi, Polygon Amoy); the older Ethereum and
+// Polygon testnets were shut down. Polygon's gas token is POL now, not MATIC.
 const NAMES = {
   1: "Ethereum Mainnet",
-  5: "Goerli",
   11155111: "Sepolia",
+  560048: "Hoodi",
   137: "Polygon",
-  80001: "Mumbai",
+  80002: "Polygon Amoy",
 };
 
 export default function NetworkStats() {

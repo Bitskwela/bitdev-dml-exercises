@@ -1,6 +1,6 @@
 ---
 title: "DeFi Dashboard"
-description: "Create a DeFi dashboard that displays liquidity pool data, token prices, APR calculations, and staking information using mock contracts."
+description: "Build the first card of a DeFi dashboard: validate a liquidity-pool address, then read its reserves (a tuple) and total supply with a read-only ethers v6 provider, keeping every value an exact bigint."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

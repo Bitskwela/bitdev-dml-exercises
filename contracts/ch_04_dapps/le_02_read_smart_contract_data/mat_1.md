@@ -2,17 +2,17 @@
 
 ![Read-Only DApps](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+2.0+-+COVER.png)
 
-Odessa squished into the LRT car, earbuds in, phone buzzing with a DM from a California startup founder: “Show me you can fetch NFT metadata on‐chain.” Her heart raced—this was her ticket to proving she wasn’t just another “crypto tourist.”
+Odessa squished into the LRT car, earbuds in, phone buzzing with a DM from a California startup founder: “Show me you can fetch NFT metadata on‐chain.” Her heart raced. This was her chance to prove she wasn’t just another “crypto tourist.”
 
-Moments earlier, at a Quiapo co‐working space, she’d deployed a simple ERC-721 contract on Goerli, minting a handful of “QuiapoArt” tokens with unique URIs, each pointing to Pinoy‐inspired artwork. Now, as the train rattled past church bells and sari–sari stores, she sketched out a React UI: display the contract’s name, symbol, total minted count, plus a lookup field to fetch a token’s URI.
+Moments earlier, at a Quiapo co‐working space, she’d deployed a simple NFT contract on the Sepolia testnet and minted a handful of “QuiapoArt” tokens. Each token had a URI pointing to Pinoy‐inspired artwork. Now, as the train rattled past church bells and sari‐sari stores, she sketched out a React UI. It would show the contract’s name, symbol and total minted count, plus a lookup field to fetch one token’s URI.
 
-With every clack of the rails, Odessa pieced together Ethers.js calls: `contract.name()`, `contract.symbol()`, `contract.totalMinted()`, `contract.tokenURIs(id)`. By the time she reached Ascencion Station, her read‐only interface was live—pulling real Goerli data into her browser. She tapped “Get Token URI” and watched the IPFS link appear.
+With every clack of the rails, Odessa pieced together Ethers.js calls: `contract.name()`, `contract.symbol()`, `contract.totalMinted()`, `contract.tokenURIs(id)`. By the time the train pulled into Monumento, her read‐only interface was pulling real Sepolia data into her browser. She tapped “Get Token URI” and watched the IPFS link appear.
 
-That evening, Odessa dialed into the Zoom pitch. As the founder saw “QuiapoArt (QART) – Total Minted: 5” and a live URI field, he leaned in: “Impressive, you really know your stuff.” Odessa closed her eyes, smiling at Manila’s skyline in her laptop wallpaper. From LRT to VC approval—she’d nailed it.
+That evening, Odessa dialed into the Zoom pitch. When the founder saw “QuiapoArt (QART) – Total Minted: 5” and a working URI lookup, he leaned in: “Impressive, you really know your stuff.” Odessa smiled at the Manila skyline on her laptop wallpaper. From LRT to VC approval, she’d nailed it.
 
 ![Read-Only DApps Zoom](https://bitdev-dml-assets.s3.ap-southeast-1.amazonaws.com/ch_4/C4+2.1.png)
 
-Welcome to **Read‐Only DApps**. Next up: writing transactions to mint and transfer. But tonight, she basks in fetch‐only glory. 🇵🇭🚆💥
+Welcome to **Read‐Only DApps**. Writing transactions comes next. Tonight, she basks in fetch‐only glory. 🇵🇭🚆💥
 
 ---
 
@@ -20,7 +20,7 @@ Welcome to **Read‐Only DApps**. Next up: writing transactions to mint and tran
 
 ### 1. Understanding Read-Only DApp Architecture
 
-Before diving into code, let's understand what "reading from a smart contract" actually means and why it's different from other blockchain operations.
+Before diving into code, let's pin down what "reading from a smart contract" means and why it is different from other blockchain operations.
 
 #### **What is a Read-Only Operation?**
 
@@ -31,7 +31,7 @@ Blockchain operations fall into two categories:
 | **Read (View/Pure)**    | ❌ No         | ❌ No               | Getting NFT name, checking balance |
 | **Write (Transaction)** | ✅ Yes        | ✅ Yes              | Minting NFT, transferring tokens   |
 
-This lesson focuses on **read operations**—they're free, fast, and perfect for displaying blockchain data in your UI!
+A read is answered by one node from its copy of the chain. Nothing gets mined, so it costs no gas and needs no wallet. This lesson is all reads. Writes come in the next lesson.
 
 #### **The Three Players in Our Architecture**
 
@@ -41,25 +41,25 @@ This lesson focuses on **read operations**—they're free, fast, and perfect for
 - Displays blockchain information in a user-friendly way
 - Handles user interactions (like entering a token ID)
 
-**2. Ethers.js** (The Communication Layer)
+**2. Ethers.js v6** (The Communication Layer)
 
-- Connects to the Ethereum network via a JSON-RPC provider
-- Translates your JavaScript calls into blockchain requests
-- Parses blockchain responses back into JavaScript objects
+- Connects to the network through a JSON-RPC provider
+- Turns your JavaScript calls into blockchain requests
+- Turns the responses back into JavaScript values
 
 **3. Smart Contract** (The Data Source)
 
-- Lives on the blockchain with a unique address
+- Lives on the blockchain at a unique address
 - Exposes public functions that anyone can call
 - For our NFT contract, these functions include:
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                  SimpleNFT Contract                  │
+│                  SimpleNFT Contract                 │
 ├─────────────────────────────────────────────────────┤
 │  name()           → returns "QuiapoArt"             │
 │  symbol()         → returns "QART"                  │
-│  totalMinted()    → returns 5 (number of NFTs)      │
+│  totalMinted()    → returns 5n (a bigint)           │
 │  tokenURIs(id)    → returns "ipfs://..." (metadata) │
 └─────────────────────────────────────────────────────┘
 ```
@@ -69,7 +69,7 @@ This lesson focuses on **read operations**—they're free, fast, and perfect for
 ```
 ┌──────────┐    ┌───────────┐    ┌──────────────┐    ┌────────────┐
 │  React   │───▶│ Ethers.js │───▶│ RPC Provider │───▶│ Blockchain │
-│   UI     │◀───│           │◀───│ (Infura/etc) │◀───│  (Goerli)  │
+│   UI     │◀───│           │◀───│ (Infura/etc) │◀───│ (Sepolia)  │
 └──────────┘    └───────────┘    └──────────────┘    └────────────┘
      ▲                                                      │
      │              Your call: contract.name()              │
@@ -83,62 +83,58 @@ This lesson focuses on **read operations**—they're free, fast, and perfect for
 
 #### **What is a Provider?**
 
-A **Provider** is your connection to the blockchain. Think of it as a phone line to Ethereum:
+A **Provider** is your connection to the blockchain. Think of it as a phone line to Ethereum. Ethers v6 has two you will use all chapter:
 
-- **Without MetaMask**: Use `JsonRpcProvider` with an RPC URL (like Infura or Alchemy)
-- **With MetaMask**: Use `Web3Provider` which connects through the user's wallet
-
-For read-only operations, we don't need MetaMask! We can connect directly to the blockchain using a public RPC endpoint.
+- **`ethers.JsonRpcProvider(url)`** talks straight to an RPC node, such as Infura or Alchemy. It needs no wallet, which makes it perfect for reading.
+- **`ethers.BrowserProvider(window.ethereum)`** talks through the user's MetaMask. You need it when the user must sign something (next lesson).
 
 ```js
-// Direct connection (no wallet needed)
-const provider = new ethers.providers.JsonRpcProvider(
-  "https://goerli.infura.io/v3/YOUR_KEY"
+import { ethers } from "ethers";
+
+// Direct connection (no wallet needed) — use this for reads
+const readProvider = new ethers.JsonRpcProvider(
+  "https://sepolia.infura.io/v3/YOUR_KEY"
 );
 
-// Through MetaMask (needed for write operations)
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+// Through MetaMask — needed later for writes
+const walletProvider = new ethers.BrowserProvider(window.ethereum);
 ```
+
+> If an older tutorial shows `ethers.providers.JsonRpcProvider` or `ethers.providers.Web3Provider`, that is ethers **version 5**. Version 6 removed the `providers` namespace, so that code throws on this platform. <!-- v5-ok -->
 
 #### **What is a Contract Instance?**
 
-A **Contract Instance** is a JavaScript object that represents a smart contract. To create one, you need:
+A **Contract Instance** is a JavaScript object that stands for one deployed smart contract. To create one, you need:
 
-1. **Contract Address**: Where the contract lives on the blockchain (like `0x1234...`)
-2. **ABI (Application Binary Interface)**: A JSON file describing the contract's functions
-3. **Provider or Signer**: How to connect (Provider for reading, Signer for writing)
+1. **Contract Address**: where the contract lives on the blockchain (like `0x1234...`)
+2. **ABI (Application Binary Interface)**: a description of the contract's functions
+3. **Provider or Signer**: how to connect (a provider for reading, a signer for writing)
 
 ```js
 const contract = new ethers.Contract(address, abi, provider);
 ```
 
+Every function listed in the ABI becomes a method on `contract`, so `contract.name()` calls the contract's `name()` function.
+
 #### **What is an ABI?**
 
-The **ABI** tells Ethers.js what functions exist on the contract and how to call them. It's like a menu at a restaurant—it lists what's available!
+The **ABI** tells Ethers.js which functions exist on the contract and how to encode a call to each one. It's like the menu at a carinderia: it lists what you can order.
 
-```json
-// Example ABI snippet for our NFT contract
+Ethers v6 accepts a compact, "human-readable" ABI, which is a list of Solidity signatures. This is the ABI used in this lesson's activity:
+
+```js
 [
-  {
-    "name": "name",
-    "type": "function",
-    "inputs": [],
-    "outputs": [{ "type": "string" }]
-  },
-  {
-    "name": "tokenURIs",
-    "type": "function",
-    "inputs": [{ "name": "tokenId", "type": "uint256" }],
-    "outputs": [{ "type": "string" }]
-  }
+  "function name() view returns (string)",
+  "function symbol() view returns (string)",
+  "function totalMinted() view returns (uint256)",
+  "function tokenURIs(uint256) view returns (string)"
 ]
 ```
 
-You typically get the ABI by:
+Compilers produce a longer JSON form of the same information, and ethers accepts that too. You typically get the ABI by:
 
-- Compiling your Solidity contract (creates `artifacts/` folder)
-- Copying from Etherscan's "Contract" tab
-- Exporting from Hardhat/Foundry build output
+- Compiling your Solidity contract with Hardhat or Foundry (look in the build output)
+- Copying it from the "Contract" tab of a verified contract on Etherscan
 
 ---
 
@@ -150,31 +146,38 @@ You typically get the ABI by:
 npm install ethers
 ```
 
+This installs ethers version 6, the version this course uses.
+
 #### **Step 2: Configure Environment Variables**
 
-Create a `.env` file in your project root:
+Put the RPC URL and contract address in a `.env` file in your project root. In a Vite React project, variables must start with `VITE_` and you read them with `import.meta.env`:
 
 ```bash
-# .env
-REACT_APP_RPC_URL=https://goerli.infura.io/v3/YOUR_INFURA_KEY
-REACT_APP_CONTRACT_ADDRESS=0xYourSimpleNFTAddress
+# .env (Vite project)
+VITE_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
+VITE_CONTRACT_ADDRESS=0xYourSimpleNFTAddress
 ```
+
+```js
+const rpcUrl = import.meta.env.VITE_RPC_URL;
+```
+
+**In this course's activity editor**, the values are already provided for you as `process.env.REACT_APP_RPC_URL` and `process.env.REACT_APP_CONTRACT_ADDRESS`, the older Create React App naming. Use those names in the activity. In your own Vite project, use the `VITE_` names above.
 
 **⚠️ Important Security Notes:**
 
-- Never commit `.env` to git (add it to `.gitignore`)
-- In React, environment variables must start with `REACT_APP_`
-- For production, use a backend proxy to hide your API keys
+- Never commit `.env` to Git (add it to `.gitignore`).
+- Anything a frontend reads ends up in the JavaScript the browser downloads, so a visitor can see your RPC URL. Use a key restricted to your site's domain, and keep truly secret keys on a server.
 
 #### **Step 3: Get Your RPC URL**
 
-You need an RPC endpoint to connect to the blockchain. Free options:
+You need an RPC endpoint for Sepolia. These providers have free tiers (check their sites for current limits):
 
-| Provider      | Free Tier             | Sign Up               |
-| ------------- | --------------------- | --------------------- |
-| **Infura**    | 100,000 requests/day  | https://infura.io     |
-| **Alchemy**   | 300M compute units/mo | https://alchemy.com   |
-| **QuickNode** | Limited free tier     | https://quicknode.com |
+| Provider      | Sign Up               |
+| ------------- | --------------------- |
+| **Infura**    | https://infura.io     |
+| **Alchemy**   | https://alchemy.com   |
+| **QuickNode** | https://quicknode.com |
 
 #### **Step 4: Create the Contract Instance**
 
@@ -183,18 +186,16 @@ import { ethers } from "ethers";
 import abi from "./abi/SimpleNFT.json";
 
 // Create provider (connection to blockchain)
-const provider = new ethers.providers.JsonRpcProvider(
-  process.env.REACT_APP_RPC_URL
-);
+const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
 
 // Create contract instance (JavaScript representation of the smart contract)
 const contract = new ethers.Contract(
-  process.env.REACT_APP_CONTRACT_ADDRESS, // Where the contract lives
+  import.meta.env.VITE_CONTRACT_ADDRESS, // Where the contract lives
   abi, // What functions it has
   provider // How to connect
 );
 
-// Now you can call any view function!
+// Now you can call any view function (inside an async function)
 const name = await contract.name(); // "QuiapoArt"
 ```
 
@@ -202,21 +203,26 @@ const name = await contract.name(); // "QuiapoArt"
 
 ### 4. Building the NFTReader Component
 
-Now let's build a complete React component that reads NFT data. We'll break it down piece by piece.
+Now let's build a complete React component that reads NFT data, piece by piece. This version adds loading and error states. The activity uses a smaller version, and its instructions give you the exact code to write.
 
 #### **Complete Component Code with Detailed Comments**
 
 ```js
-// src/components/NFTReader.js
+// src/components/NFTReader.jsx
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import abi from "../abi/SimpleNFT.json";
 
-export default function NFTReader() {
-  // ============================================
-  // STATE VARIABLES
-  // ============================================
+// One read-only provider and contract for the whole module. They hold no
+// per-user state, so there is no need to rebuild them on every render.
+const provider = new ethers.JsonRpcProvider(import.meta.env.VITE_RPC_URL);
+const contract = new ethers.Contract(
+  import.meta.env.VITE_CONTRACT_ADDRESS,
+  abi,
+  provider
+);
 
+export default function NFTReader() {
   // Contract metadata (loaded once on mount)
   const [name, setName] = useState(""); // NFT collection name
   const [symbol, setSymbol] = useState(""); // NFT ticker symbol
@@ -230,43 +236,24 @@ export default function NFTReader() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ============================================
-  // LOAD CONTRACT DATA ON COMPONENT MOUNT
-  // ============================================
-
   useEffect(() => {
     async function loadContractData() {
       try {
         setLoading(true);
         setError(null);
 
-        // Step 1: Create provider (connection to blockchain)
-        const provider = new ethers.providers.JsonRpcProvider(
-          process.env.REACT_APP_RPC_URL
-        );
-
-        // Step 2: Create contract instance
-        const contract = new ethers.Contract(
-          process.env.REACT_APP_CONTRACT_ADDRESS,
-          abi,
-          provider
-        );
-
-        // Step 3: Fetch multiple values in parallel for efficiency
-        // Promise.all runs all calls simultaneously instead of one-by-one
+        // Fetch three values in parallel instead of one after another
         const [fetchedName, fetchedSymbol, fetchedTotal] = await Promise.all([
-          contract.name(), // Returns: string
-          contract.symbol(), // Returns: string
-          contract.totalMinted(), // Returns: BigNumber
+          contract.name(), // string
+          contract.symbol(), // string
+          contract.totalMinted(), // bigint, e.g. 5n
         ]);
 
-        // Step 4: Update state with fetched values
         setName(fetchedName);
         setSymbol(fetchedSymbol);
-
-        // Note: Solidity returns BigNumber for uint256
-        // We convert to regular JavaScript number for display
-        setTotal(fetchedTotal.toNumber());
+        // uint256 arrives as a JavaScript bigint in ethers v6.
+        // A small count like this is safe to convert with Number().
+        setTotal(Number(fetchedTotal));
       } catch (err) {
         console.error("Error loading contract data:", err);
         setError(
@@ -278,30 +265,16 @@ export default function NFTReader() {
     }
 
     loadContractData();
-  }, []); // Empty array = run once when component mounts
-
-  // ============================================
-  // FETCH TOKEN URI (User-triggered action)
-  // ============================================
+  }, []); // Empty array = run once when the component mounts
 
   const fetchTokenURI = async () => {
-    // Validate input before making blockchain call
-    if (tokenId < 0 || tokenId >= total) {
+    // Validate input before making a blockchain call
+    if (!Number.isInteger(tokenId) || tokenId < 0 || tokenId >= total) {
       alert(`Please enter a token ID between 0 and ${total - 1}`);
       return;
     }
 
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_RPC_URL
-      );
-      const contract = new ethers.Contract(
-        process.env.REACT_APP_CONTRACT_ADDRESS,
-        abi,
-        provider
-      );
-
-      // Call the tokenURIs function with the user's input
       const fetchedUri = await contract.tokenURIs(tokenId);
       setUri(fetchedUri);
     } catch (err) {
@@ -310,29 +283,24 @@ export default function NFTReader() {
     }
   };
 
-  // ============================================
-  // RENDER UI
-  // ============================================
-
-  // Show loading state
   if (loading) {
     return <div style={{ padding: 20 }}>Loading contract data...</div>;
   }
 
-  // Show error state
   if (error) {
     return <div style={{ padding: 20, color: "red" }}>{error}</div>;
   }
 
+  // Browsers cannot open ipfs:// links directly, so link through a gateway.
+  const gatewayUrl = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+
   return (
     <div style={{ padding: 20 }}>
-      {/* Display collection info */}
       <h2>
         {name} ({symbol})
       </h2>
       <p>Total Minted: {total}</p>
 
-      {/* Token lookup section */}
       <div style={{ marginTop: 20 }}>
         <label>
           Token ID:
@@ -350,11 +318,10 @@ export default function NFTReader() {
         </button>
       </div>
 
-      {/* Display fetched URI */}
       {uri && (
         <div style={{ marginTop: 20 }}>
-          <strong>URI:</strong>
-          <a href={uri} target="_blank" rel="noopener noreferrer">
+          <strong>URI: </strong>
+          <a href={gatewayUrl} target="_blank" rel="noopener noreferrer">
             {uri}
           </a>
         </div>
@@ -369,44 +336,52 @@ export default function NFTReader() {
 **Pattern 1: Using `Promise.all` for Parallel Requests**
 
 ```js
-// ❌ SLOW - Sequential calls (one after another)
+// ❌ SLOWER - three round trips, one after another
 const name = await contract.name();
 const symbol = await contract.symbol();
 const total = await contract.totalMinted();
-// Total time: ~3 seconds (1s + 1s + 1s)
 
-// ✅ FAST - Parallel calls (all at once)
+// ✅ FASTER - all three requests are in flight at the same time
 const [name, symbol, total] = await Promise.all([
   contract.name(),
   contract.symbol(),
   contract.totalMinted(),
 ]);
-// Total time: ~1 second (all run simultaneously)
 ```
 
-**Pattern 2: Handling BigNumber**
+Each call goes over the network to the RPC node, so waiting for one before sending the next adds up. `Promise.all` sends all three and waits once.
+
+**Pattern 2: Handling `uint256` Values (bigint)**
+
+Solidity's `uint256` can hold numbers far bigger than a normal JavaScript number can represent exactly. So ethers v6 returns them as a **bigint**, a built-in JavaScript type for whole numbers of any size. You can spot one by the `n` at the end:
 
 ```js
-// Solidity uint256 returns a BigNumber object, not a regular number
 const total = await contract.totalMinted();
-console.log(total); // BigNumber { _hex: '0x05', ... }
-console.log(total.toNumber()); // 5
-console.log(total.toString()); // "5"
+console.log(total); // 5n
+console.log(typeof total); // "bigint"
+console.log(Number(total)); // 5     — fine for small counts
+console.log(total.toString()); // "5"  — safe for any size
 
-// For very large numbers, use toString() to avoid overflow
-const hugeBalance = await contract.balanceOf(address);
-console.log(hugeBalance.toString()); // "1000000000000000000" (1 ETH in wei)
+// Math between a bigint and a normal number throws:
+// total + 1  → TypeError: Cannot mix BigInt and other types
+console.log(total + 1n); // 6n — keep both sides bigint
 ```
+
+Use `Number(x)` only when you know the value is small, like a count of NFTs. For token balances in wei, keep the bigint and format it with `ethers.formatEther(x)` or `ethers.formatUnits(x, decimals)`. A later lesson covers this.
+
+> Ethers **version 5** returned a `BigNumber` object instead, converted with `.toNumber()`. That method does not exist on a bigint, so v5 code that calls it fails here. <!-- v5-ok -->
 
 **Pattern 3: Input Validation**
 
 ```js
 // Always validate before making blockchain calls
-if (tokenId < 0 || tokenId >= total) {
+if (!Number.isInteger(tokenId) || tokenId < 0 || tokenId >= total) {
   alert("Invalid token ID");
   return; // Stop here, don't make the call
 }
 ```
+
+If only 5 tokens exist, their IDs are 0 to 4. Asking for token 5 would make the contract revert, or return an empty string, depending on how it was written. Checking first saves a network trip and lets you give the user a clear message.
 
 ---
 
@@ -414,77 +389,30 @@ if (tokenId < 0 || tokenId >= total) {
 
 #### **1. Always Validate User Input**
 
-Never trust user input—validate before making blockchain calls:
+Never trust input from a text box. Check that it is a whole number and inside the valid range before you call the contract, as in Pattern 3.
 
-```js
-const fetchTokenURI = async () => {
-  // Validate token ID is within valid range
-  if (tokenId < 0 || tokenId >= total) {
-    alert(`Token ID must be between 0 and ${total - 1}`);
-    return;
-  }
+#### **2. Always Use Try/Catch for RPC Calls**
 
-  // Validate it's actually a number
-  if (isNaN(tokenId)) {
-    alert("Please enter a valid number");
-    return;
-  }
-
-  // Now safe to make the call
-  const uri = await contract.tokenURIs(tokenId);
-};
-```
-
-#### **2. Debounce Rapid Input Changes**
-
-If you're fetching data on every keystroke, use debouncing to avoid spamming the RPC:
-
-```js
-import { useState, useEffect, useCallback } from "react";
-import { debounce } from "lodash"; // npm install lodash
-
-// Debounced version only fires after user stops typing for 500ms
-const debouncedFetch = useCallback(
-  debounce((id) => fetchTokenURI(id), 500),
-  []
-);
-
-// In your input handler
-const handleInputChange = (e) => {
-  const newId = Number(e.target.value);
-  setTokenId(newId);
-  debouncedFetch(newId); // Won't fire until user pauses
-};
-```
-
-#### **3. Always Use Try/Catch for RPC Calls**
-
-Blockchain calls can fail for many reasons—handle errors gracefully:
+Blockchain calls can fail for many reasons, so handle errors gracefully. Ethers v6 gives every error a `code`, and `ethers.isError` checks it for you:
 
 ```js
 try {
   const uri = await contract.tokenURIs(tokenId);
   setUri(uri);
 } catch (error) {
-  // Common errors:
-  // - Network issues (RPC down)
-  // - Invalid token ID (doesn't exist)
-  // - Contract reverted (custom error)
-
   console.error("RPC Error:", error);
 
-  // Show user-friendly message
-  if (error.code === "CALL_EXCEPTION") {
-    alert("This token does not exist");
-  } else if (error.code === "NETWORK_ERROR") {
+  if (ethers.isError(error, "CALL_EXCEPTION")) {
+    alert("The contract rejected that call — this token may not exist.");
+  } else if (ethers.isError(error, "NETWORK_ERROR")) {
     alert("Network error. Please try again.");
   } else {
-    alert("An error occurred. Check console for details.");
+    alert("An error occurred. Check the console for details.");
   }
 }
 ```
 
-#### **4. Protect Your API Keys**
+#### **3. Keep Your `.env` Out of Git**
 
 ```bash
 # .gitignore - ALWAYS include this!
@@ -493,13 +421,13 @@ try {
 .env.*.local
 ```
 
-For production apps, consider:
+Remember that this keeps the key out of your repository, not out of the browser. For production apps, consider:
 
-- Using a backend proxy to hide RPC keys
+- A backend proxy that holds the RPC key
+- Domain restrictions on the key in your RPC provider's dashboard
 - Rate limiting requests
-- Using public RPC endpoints for read-only data
 
-#### **5. Handle Loading and Error States**
+#### **4. Handle Loading and Error States**
 
 Good UX means showing users what's happening:
 
@@ -518,51 +446,52 @@ try {
 }
 
 // In your render
-if (loading) return <Spinner />;
-if (error) return <ErrorMessage message={error} />;
-return <YourComponent />;
+if (loading) return <p>Loading...</p>;
+if (error) return <p style={{ color: "red" }}>{error}</p>;
 ```
 
 ---
 
 ### 6. Common Mistakes to Avoid
 
-1. **Forgetting to convert BigNumber**
+1. **Forgetting that `uint256` is a bigint**
 
    ```js
-   // ❌ Wrong - BigNumber is not a regular number
    const total = await contract.totalMinted();
-   console.log(total + 1); // "[object Object]1"
+   // ❌ Throws: Cannot mix BigInt and other types
+   console.log(total + 1);
 
    // ✅ Correct
-   console.log(total.toNumber() + 1); // 6
+   console.log(Number(total) + 1); // 6
    ```
 
-2. **Creating provider inside render loop**
+2. **Copying ethers v5 code from an old tutorial**
+
+   `ethers.providers.JsonRpcProvider` and `.toNumber()` are version 5. In version 6, write `new ethers.JsonRpcProvider(url)` and `Number(x)`. <!-- v5-ok -->
+
+3. **Building the provider during every render**
 
    ```js
-   // ❌ Bad - creates new provider on every render
+   // ❌ Wasteful - a new provider every time the component renders
    function Component() {
-     const provider = new ethers.providers.JsonRpcProvider(url);
+     const provider = new ethers.JsonRpcProvider(url);
      // ...
    }
 
-   // ✅ Good - create once, outside component or with useMemo
-   const provider = useMemo(
-     () => new ethers.providers.JsonRpcProvider(url),
-     [url]
-   );
+   // ✅ Good - create it once, outside the component (as in the example
+   // above), inside the useEffect/handler that uses it, or with useMemo
+   const provider = useMemo(() => new ethers.JsonRpcProvider(url), [url]);
    ```
 
-3. **Not handling async state updates**
+4. **Updating state after the component is gone**
 
    ```js
-   // ❌ Potential bug - component might unmount before setState
+   // ❌ Potential bug - component might unmount before the data arrives
    useEffect(() => {
      fetchData().then((data) => setData(data));
    }, []);
 
-   // ✅ Better - check if still mounted
+   // ✅ Better - ignore the result if the component unmounted
    useEffect(() => {
      let isMounted = true;
      fetchData().then((data) => {
@@ -578,13 +507,15 @@ return <YourComponent />;
 
 ### 7. Testing Your Read Operations
 
-After implementing, verify these scenarios work:
+After implementing, check these scenarios in your own app:
 
-1. ✅ **Initial load**: Contract name, symbol, and total display correctly
-2. ✅ **Valid token ID**: Entering a valid ID and clicking "Get URI" shows the URI
-3. ✅ **Invalid token ID**: Entering an out-of-range ID shows an error message
-4. ✅ **Network error**: Disconnecting internet shows appropriate error
-5. ✅ **Loading state**: Brief loading indicator appears while fetching
+1. ✅ **Initial load**: contract name, symbol and total display correctly
+2. ✅ **Valid token ID**: entering a valid ID and clicking "Get Token URI" shows the URI
+3. ✅ **Invalid token ID**: an out-of-range ID shows a message and makes no call
+4. ✅ **Network error**: a wrong RPC URL shows an error instead of a blank page
+5. ✅ **Loading state**: a loading message appears while fetching
+
+**How this is graded:** the platform mounts your component against a pretend Sepolia contract that returns `"Sining Chain"`, `"SNG"` and a total of `3n`. It checks that you used a `JsonRpcProvider`, read all three values, rendered them, and called `tokenURIs` when the **Get Token URI** button is clicked. It also checks that an out-of-range ID is refused without a call. The activity page lists the exact labels it looks for.
 
 ---
 
@@ -592,25 +523,24 @@ After implementing, verify these scenarios work:
 
 Now that you can **read** from smart contracts, the next steps are:
 
-- **Writing to contracts** (minting NFTs, transferring tokens)
-- **Handling gas estimation** (showing users transaction costs)
-- **Listening to events** (real-time updates when NFTs are minted)
+- **Writing to contracts** (sending a transaction signed by the user's wallet)
+- **Listening to events** (real-time updates when something happens on-chain)
 - **Displaying NFT images** (fetching and parsing IPFS metadata)
 
 ---
 
 ### External References & Further Learning
 
-- **Ethers.js Documentation**: https://docs.ethers.org - Complete provider and contract API
+- **Ethers.js v6 Documentation**: https://docs.ethers.org/v6/ - Providers, contracts and the full API
+- **Ethers v6 Migration Notes**: https://docs.ethers.org/v6/migrating/ - What changed from v5 to v6
 - **ERC-721 Standard**: https://eips.ethereum.org/EIPS/eip-721 - The NFT specification
-- **Infura**: https://infura.io - Popular RPC provider with free tier
-- **Alchemy**: https://alchemy.com - RPC provider with enhanced APIs
-- **IPFS Gateway**: https://ipfs.io - Understanding decentralized storage for NFT metadata
+- **Vite Environment Variables**: https://vite.dev/guide/env-and-mode - How `VITE_` variables work
+- **IPFS Gateways**: https://docs.ipfs.tech/concepts/ipfs-gateway/ - How `ipfs://` links are served over HTTPS
 
 ---
 
 ## 🌟 Closing Story
 
-Later that night, Odessa replayed her Zoom pitch, watching the founder’s jaws drop as live Goerli data populated her UI. She’d bridged Manila’s LRT chaos and Silicon Valley’s expectations with a few Ethers.js calls.
+Later that night, Odessa replayed her Zoom pitch, watching the founder’s jaw drop as live Sepolia data filled her UI. She’d bridged Manila’s LRT chaos and Silicon Valley’s expectations with a few Ethers.js calls.
 
-Tomorrow, she’ll write to the contract—mint new NFTs, transfer ownership, and power genuine Web3 interactions. From read‐only glory to full DApp mastery, Odessa’s Philippine spirit is unstoppable. Next stop: **Write Transactions & Gas Management**! 🚀🪙✨
+Tomorrow, she’ll write to a contract: send a transaction, wait for it to be mined, and update the screen. From read‐only glory to full DApp mastery, Odessa’s Pinoy spirit is unstoppable. Next stop: **Triggering a Function**! 🚀🪙✨

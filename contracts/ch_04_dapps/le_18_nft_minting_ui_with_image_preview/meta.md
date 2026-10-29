@@ -1,6 +1,6 @@
 ---
-title: "NFT Minting UI with Image Preview"
-description: "Build an NFT minting interface with image upload, metadata preview, and on-chain minting functionality using ERC-721 contracts."
+title: "NFT Image Preview"
+description: "Preview an NFT before it is minted: turn the chosen image into a browser preview with URL.createObjectURL and show the name, description and image metadata JSON. The lecture covers why a preview URL is not valid metadata, IPFS, and minting with an OpenZeppelin 5 ERC-721."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

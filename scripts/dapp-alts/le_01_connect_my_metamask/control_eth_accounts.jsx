@@ -1,0 +1,38 @@
+import { useState } from "react";
+// Control (wrong): asks eth_accounts on Connect. A wallet that never granted this site access answers [], so nothing connects.
+
+export default function WalletConnector() {
+  const [account, setAccount] = useState(null);
+
+  // Task 1: Detect MetaMask installation
+  const hasWallet = Boolean(window.ethereum);
+
+  // Task 2: Implement wallet connection logic
+  const connectWallet = async () => {
+    if (!window.ethereum) return alert("Please install MetaMask!");
+
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error("User rejected wallet connection", error);
+    }
+  };
+
+  // Task 3: Implement conditional rendering
+  return (
+    <div>
+      {hasWallet ? (
+        account ? (
+          <p>Connected: {account}</p>
+        ) : (
+          <button onClick={connectWallet}>Connect MetaMask 🦊</button>
+        )
+      ) : (
+        <p>Please install MetaMask to continue.</p>
+      )}
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 ---
 title: "LayerZero Inspired UI"
-description: "Build a cross-chain bridge interface inspired by LayerZero, simulating token transfers between different blockchain networks with lock and release mechanics."
+description: "Build the lock step of a LayerZero-inspired bridge UI: confirm the amount, send ETH with a payable ethers v6 call, wait for the receipt, and read the lock id from the Locked event in receipt.logs. The lecture explains how real bridges verify and deliver messages (LayerZero v2 DVNs and Executor) and how the release side works."
 
 # This is the date the document was last updated.  Format: YYYY-MM-DD.
 date: "2025-11-06"

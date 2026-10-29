@@ -107,6 +107,12 @@ function componentOf(exports_, filename) {
   return candidate;
 }
 
+/** The harness whose cases are running, for the unhandled-rejection hook. */
+let currentHarness = null;
+process.on("unhandledRejection", (reason) => {
+  if (currentHarness) currentHarness.registry.reportUncaught(reason);
+});
+
 /**
  * Run a lesson's test file against one submission.
  *
@@ -116,6 +122,8 @@ function componentOf(exports_, filename) {
 async function grade(lessonDir, submissionPath) {
   const spec = JSON.parse(fs.readFileSync(path.join(lessonDir, SPEC_FILE), "utf8"));
   const harness = createHarness(spec);
+  // Set before the submission loads: module-scope code can reject too.
+  currentHarness = harness;
 
   let Component;
   try {
@@ -140,7 +148,12 @@ ${exportEpilogue(spec.exports)}`;
     return { passed: false, total: 0, results: [], compileError: `test file: ${error.message}` };
   }
 
-  const results = await harness.registry.run();
+  // A promise the submission never awaited can reject after its test moved on.
+  // Node would kill the gate on it; instead it is forwarded to the harness and
+  // reported against the case that was running. Yielding a macrotask after each
+  // case is what lets Node deliver the rejection before that case is reported.
+  const results = await harness.registry.run(() => new Promise((resolve) => setImmediate(resolve)));
+  currentHarness = null;
   return {
     passed: results.length > 0 && results.every((r) => r.status === "pass"),
     total: results.length,
@@ -223,7 +236,13 @@ async function main() {
   if (green !== verdicts.length) process.exitCode = 1;
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+// Importable by `check-dapp-alts.js`, which grades the alternative-solution
+// corpus with exactly this `grade`; the CLI only runs when invoked directly.
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { findLessons, grade, CONTRACTS_DIR };

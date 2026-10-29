@@ -2,7 +2,7 @@
 
 Source: `quiz.md`
 
-1. Q1 — Which browser extension wallet is the most widely used for interacting with Ethereum-based DApps?
+1. Q1 — Which browser extension wallet do the Chapter 4 DApps connect to through window.ethereum?
 
    - Answer: **B** — MetaMask
 
@@ -12,15 +12,15 @@ Source: `quiz.md`
 
 3. Q3 — What is the standard object used to access wallet functionality in a browser-based DApp?
 
-   - Answer: **A** — `window.ethereum`
+   - Answer: **A** — window.ethereum
 
 4. Q4 — Smart contracts on the blockchain are immutable once deployed.
 
    - Answer: **True**
 
-5. Q5 — Which libraries are commonly used to interact with smart contracts from a JavaScript frontend?
+5. Q5 — Which JavaScript library do the Chapter 4 lessons use to connect a React frontend to smart contracts?
 
-   - Answer: **B** — web3.js or ethers.js
+   - Answer: **B** — ethers.js (v6)
 
 6. Q6 — What is the purpose of using 'view' or 'pure' functions in a smart contract?
 
@@ -48,11 +48,11 @@ Source: `quiz.md`
 
 12. Q12 — What is an event in Solidity?
 
-    - Answer: **D** — Both A and C (a function that runs on a timer and a log entry emitted by a smart contract)
+    - Answer: **C** — A log entry emitted by a smart contract
 
-13. Q13 — Which class is used to interact with a deployed smart contract's functions?
+13. Q13 — In ethers v6, which class do you create (with an address, an ABI and a provider or signer) to call a deployed smart contract's functions?
 
-    - Answer: **A** — `ethers.Contract` or `web3.eth.Contract`
+    - Answer: **A** — ethers.Contract
 
 14. Q14 — Reading data from a smart contract requires the user to have a connected wallet.
 
@@ -72,11 +72,11 @@ Source: `quiz.md`
 
 18. Q18 — What is a fungible token?
 
-    - Answer: **A** — A token representing ownership of an asset that can be transferred
+    - Answer: **A** — A token whose units are identical and interchangeable, like one peso coin and any other peso coin
 
 19. Q19 — Which method requests a user's wallet address from MetaMask?
 
-    - Answer: **D** — `eth_requestAccounts`
+    - Answer: **D** — eth_requestAccounts
 
 20. Q20 — When does a user's wallet approval become necessary in a DApp?
 
@@ -86,9 +86,9 @@ Source: `quiz.md`
 
     - Answer: **True**
 
-22. Q22 — What is a centralized exchange (CEX)?
+22. Q22 — In a Sign-In with Wallet flow, why does the message the user signs include a nonce (a value used only once)?
 
-    - Answer: **A** — A third-party service holding cryptocurrency on your behalf
+    - Answer: **A** — So a captured signature cannot be replayed to sign in again later
 
 23. Q23 — What does DeFi stand for?
 
@@ -104,7 +104,7 @@ Source: `quiz.md`
 
 26. Q26 — What is the purpose of an oracle in blockchain applications?
 
-    - Answer: **A** — To provide price feeds from off-chain sources to smart contracts
+    - Answer: **A** — To bring off-chain data, such as prices or weather readings, on-chain for smart contracts
 
 27. Q27 — Different blockchain networks can have different gas prices and transaction speeds.
 
@@ -116,31 +116,48 @@ Source: `quiz.md`
 
 29. Q29 — How do you programmatically detect which blockchain network a user is connected to?
 
-    - Answer: **D** — `ethereum.request({ method: 'eth_chainId' })`
+    - Answer: **D** — ethereum.request({ method: 'eth_chainId' })
 
 30. Q30 — Private keys should always be stored in frontend code or browser local storage.
 
     - Answer: **False**
 
-31. Q31 — The cost of executing a transaction on a blockchain is called a **\_\_** or **\_\_** respectively.
+31. Q31 — The cost a user pays to have a transaction executed on a blockchain is called a **__**.
 
     - Answer: **gas fee**
 
-32. Q32 — A self-executing program stored on the blockchain with terms written in code is called a **\_\_**.
+32. Q32 — A self-executing program stored on the blockchain with terms written in code is called a **__**.
 
     - Answer: **smart contract**
 
-33. Q33 — A digital asset representing value or ownership created on a blockchain is called a **\_\_**.
+33. Q33 — A digital asset representing value or ownership created on a blockchain is called a **__**.
 
     - Answer: **token**
 
-34. Q34 — Every blockchain transaction is uniquely identified by a **\_\_** that can be used to track its status.
+34. Q34 — Every blockchain transaction is uniquely identified by a **__** that can be used to track its status.
 
     - Answer: **transaction hash**
 
-35. Q35 — A **\_\_** is a software or hardware tool that stores private keys and allows users to manage their cryptocurrency.
+35. Q35 — A **__** is a software or hardware tool that stores private keys and allows users to manage their cryptocurrency.
+
     - Answer: **wallet**
 
----
+36. Q36 — An application that runs on a blockchain network and interacts with smart contracts is called a **__**.
 
-Tell me if you want full choice lists or short explanations added for each entry.
+    - Answer: **dapp**
+
+37. Q37 — In DeFi, a **__** is a smart contract holding paired tokens that users can trade against automatically.
+
+    - Answer: **liquidity pool**
+
+38. Q38 — A browser cannot load an ipfs:// link directly, so an NFT gallery rewrites it to an HTTP URL such as https://ipfs.io/ipfs/... served by an IPFS **__**.
+
+    - Answer: **gateway**
+
+39. Q39 — ERC-20 amounts are stored on-chain as whole integers. The token's **__** value (often 18) tells your UI where to put the decimal point when it formats a balance.
+
+    - Answer: **decimals**
+
+40. Q40 — When a user approves a smart contract to spend tokens on their behalf, they are setting an **__**.
+
+    - Answer: **allowance**

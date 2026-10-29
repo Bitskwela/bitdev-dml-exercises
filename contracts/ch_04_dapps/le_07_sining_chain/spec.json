@@ -6,7 +6,7 @@
   "ethers": "6",
   "env": {
     "REACT_APP_RPC_URL": "https://rpc.example/sepolia",
-    "REACT_APP_CONTRACT_ADDRESS": "0xF7F7f7F7f7F7f7f7f7F7F7f7F7f7f7f7F7f7F7f7"
+    "REACT_APP_CONTRACT_ADDRESS": "0xF7F7f7f7F7f7f7F7F7f7f7f7f7f7f7F7f7F7F7F7"
   },
   "http": {
     "https://ipfs.io/ipfs/QmSiningOne": {
@@ -26,7 +26,7 @@
     ],
     "chainId": "0xaa36a7",
     "contracts": {
-      "0xF7F7f7F7f7F7f7f7f7F7F7f7F7f7f7f7F7f7F7f7": {
+      "0xF7F7f7f7F7f7f7F7F7f7f7f7f7f7f7F7f7F7F7F7": {
         "returns": {
           "balanceOf": "2n"
         },
@@ -49,5 +49,6 @@
     "enumerable-ownership"
   ],
   "difficulty": "intermediate",
-  "est_minutes": 30
+  "est_minutes": 40,
+  "prerequisites": ["le-01-connect-my-metamask","le-02-read-smart-contract-data"]
 }
