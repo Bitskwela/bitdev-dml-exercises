@@ -23,3 +23,6 @@ If the condition fails, it stops the execution and reverts the changes, ensuring
 ```solidity
 require(msg.value == 7, "Unauthorized");
 ```
+
+> **Heads up: `transfer` is fine for learning, not for production.**
+> This lesson uses `payable(address).transfer(amount)` because it is short and reverts on failure. It forwards only 2300 gas, so it fails for recipients that are smart contract wallets (multisigs, smart accounts) and can leave their funds stuck. Real contracts send Ether with `call{value: amount}("")` plus a success check, protected by checks-effects-interactions or `nonReentrant`. You will see exactly how in Course 1, Lesson 30.

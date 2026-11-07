@@ -24,10 +24,18 @@ A secure contract is one that is resistant to common vulnerabilities, ensuring t
   - Use `checks-effects-interactions` pattern.
   - Implement the `ReentrancyGuard` from OpenZeppelin.
 - **Validate Input**: Always validate user inputs and parameters using `require()` or `revert()`.
-- **Avoid Floating Pragma**: Lock the compiler version to prevent unexpected behavior in new releases.
+- **Avoid Floating Pragma**: Lock the compiler version to prevent unexpected behavior in new releases. In a real project you would write `pragma solidity 0.8.26;` (exact version) instead of `^0.8.0`. The lesson files in this course use `^0.8.0` to stay readable, while the grader compiles everything with `0.8.26`, so treat `^0.8.0` here as a classroom shortcut, not a habit to copy.
 - **Use Access Control**: Restrict sensitive functions with `onlyOwner` or other modifiers.
 - **Avoid `tx.origin` for Authentication**: Use `msg.sender` instead.
-- **Test Extensively**: Run audits and use testing tools like _MythX_ and _Slither_.
+- **Send Ether with `call`, not `transfer`**: see the warning box below.
+- **Test Extensively**: Write unit and fuzz tests (Foundry), run a static analyzer such as _Slither_, and get an independent audit before holding real money.
+
+> **Warning: `.transfer()` and `.send()` are discouraged for sending Ether.**
+> Earlier lessons (and some answers in Courses 1 to 3) use `payable(x).transfer(amount)` because it is short and reverts on failure. But `transfer` and `send` forward a fixed **2300 gas** to the receiver. A recipient that is a smart contract wallet (a multisig, a smart account) often needs more than that just to receive Ether, so the payment fails and the user's funds can get stuck. Gas costs also change between network upgrades, so a hard-coded gas stipend is fragile.
+>
+> The recommended pattern is `(bool ok, ) = payable(x).call{value: amount}(""); require(ok, "Transfer failed.");`, **combined with** checks-effects-interactions or `nonReentrant`, because `call` forwards all the remaining gas and therefore lets the receiver call back into your contract.
+>
+> Keep using `transfer` where a lesson tells you to, since the lesson's test expects it. Just know that production code should not.
 
 ### Example Key Security Best Practices
 
@@ -71,7 +79,7 @@ In this example:
 **Code Example:**
 
 ```solidity
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 contract SafeContract is ReentrancyGuard {
     function safeAction() public nonReentrant {
         // Add Logic here

@@ -14,3 +14,6 @@ Now, Neri — **San Juan’s top software engineer** — must restore fairness t
 
 - **Time Allotment**: 20 minutes
 - **Solidity Topics Covered**: ERC721, Royalties, Transfers.
+
+> **Heads up: `transfer` is fine for learning, not for production.**
+> This lesson uses `payable(address).transfer(amount)` because it is short and reverts on failure. It forwards only 2300 gas, so it fails for recipients that are smart contract wallets (multisigs, smart accounts) and can leave their funds stuck. Real contracts send Ether with `call{value: amount}("")` plus a success check, protected by checks-effects-interactions or `nonReentrant`. You will see exactly how in Course 1, Lesson 30.
