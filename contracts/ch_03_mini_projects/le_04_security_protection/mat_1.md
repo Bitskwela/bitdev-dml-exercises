@@ -31,3 +31,6 @@ The **Department of Social Welfare and Development (DSWD)** is asking Neri to bu
 ### Why this project matters?
 
 This project upgrades you as a learner from “_Solidity tinkerers_” to **security-first smart contract developer**s — the type of devs every DeFi protocol in the world wants on their team. And in the real world, this prevents relief corruption and makes Web3 governance possible in barangays.
+
+> **Heads up: `transfer` is fine for learning, not for production.**
+> This lesson uses `payable(address).transfer(amount)` because it is short and reverts on failure. It forwards only 2300 gas, so it fails for recipients that are smart contract wallets (multisigs, smart accounts) and can leave their funds stuck. Real contracts send Ether with `call{value: amount}("")` plus a success check, protected by checks-effects-interactions or `nonReentrant`. You will see exactly how in Course 1, Lesson 30.

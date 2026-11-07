@@ -25,11 +25,11 @@ In this comprehensive course, you'll not only learn to write smart contracts but
 
 ### Our Testing-First Approach
 
-Throughout this course, you'll learn to write robust tests for your smart contracts using **Hardhat** and **Chai**. Testing isn't just an afterthought—it's a crucial skill that separates amateur developers from professionals. You'll discover how to:
+Throughout this course, you'll learn to write robust tests for your smart contracts using **Foundry**, the standard toolkit for modern Solidity development, where tests are written in Solidity itself. Testing isn't just an afterthought—it's a crucial skill that separates amateur developers from professionals. You'll discover how to:
 
 - Write comprehensive test suites that catch bugs before deployment
-- Use Hardhat's powerful testing environment
-- Leverage Chai's expressive assertion library for clear, readable tests
+- Use Foundry's fast testing environment (`forge test`)
+- Use assertions and cheatcodes (like `vm.prank` and `vm.expectRevert`) for clear, readable tests
 - Test edge cases and error conditions
 - Simulate real-world scenarios in your test environment
 

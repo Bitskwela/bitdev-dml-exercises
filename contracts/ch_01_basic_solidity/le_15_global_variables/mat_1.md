@@ -37,17 +37,24 @@ Solidity provides global variables that are built into the language and accessib
 
 ### How to use
 
-- **Access caller information:** Use msg.sender to identify the source of the function call.
+Global variables describe the transaction that is running **right now**, so you read them _inside a function_. Each call sees its own values.
 
-  Example: `address public caller = msg.sender;`
+- **Access caller information:** Use `msg.sender` to identify the source of the function call.
 
-- **Log transaction timestamps:** Use block.timestamp to save the moment a transaction is executed.
+  Example: `caller = msg.sender;` (inside a function)
 
-  Example: `uint256 public currentTime = block.timestamp;`
+- **Log transaction timestamps:** Use `block.timestamp` to save the moment a transaction is executed.
 
-- **Monitor gas execution costs:** Use tx.gasprice to check the gas price for transactions.
+  Example: `lastCalled = block.timestamp;` (inside a function)
 
-  Example: `uint256 public gasPrice = tx.gasprice;`
+- **Monitor gas execution costs:** Use `tx.gasprice` to check the gas price for transactions.
+
+  Example: `lastGasPrice = tx.gasprice;` (inside a function)
+
+> **Watch out: don't use them as state variable initializers.**
+> A line like `address public caller = msg.sender;` written at the top of the contract runs **once, when the contract is deployed**. `caller` would then be the _deployer_ forever and would never track later callers. The same goes for `uint256 public t = block.timestamp;`, which freezes the deployment time.
+>
+> That is occasionally what you want (for example, recording the owner at deploy time), but if you want to track **each call**, assign inside a function as in the sample contract below.
 
 ### Sample contract
 

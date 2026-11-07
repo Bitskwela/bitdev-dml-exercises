@@ -41,7 +41,7 @@ Help Neri prepare her transaction tracker by:
 
 **Function Logic:**
 
-`logTransaction`:
+`updateTransaction`:
 
 - **Purpose**: Logs the caller's address and the time when the function is called.
 
