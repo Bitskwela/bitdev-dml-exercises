@@ -81,7 +81,7 @@ Your first mini project awaits. Let's build something amazing! 🚀
 
 ## Getting Started with Testing
 
-Before diving into the projects, let's set up your testing environment. Each project will come with comprehensive test suites using **Hardhat** and **Chai** to ensure your smart contracts work perfectly.
+Before diving into the projects, let's set up your testing environment. Each project will come with comprehensive test suites written with **Foundry** to ensure your smart contracts work perfectly.
 
 ### Why Testing Matters
 
@@ -98,8 +98,8 @@ That's why every professional Solidity developer writes tests. Lots of them.
 
 You'll master these essential testing tools:
 
-**🔨 Hardhat**: The most popular Ethereum development environment
+**🔨 Foundry**: A fast Solidity-native toolkit (`forge`) for compiling and testing contracts
 
-**⚡ Ethers.js**: For interacting with your contracts in tests
+**🧪 Cheatcodes**: Foundry's `vm.*` helpers for pretending to be another account, moving time, and expecting reverts
 
 Let's begin your transformation from Solidity student to smart contract architect! 🎯

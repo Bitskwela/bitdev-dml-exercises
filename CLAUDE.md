@@ -8,9 +8,8 @@ Educational curriculum repository with **305 lessons across 12 chapters** coveri
 
 ## Tech Stack
 
-- **Hardhat 2.23.0** — Smart contract framework (Solidity 0.8.27)
+- **Foundry (forge)** — Solidity lesson grading; every Solidity lesson is compiled with solc 0.8.26 (pinned in each `spec.json`)
 - **OpenZeppelin 5.3.0** — Smart contract libraries
-- **Chai** — Assertion library (Solidity tests via Hardhat)
 - **Jest 30.2.0** — JavaScript lesson tests
 - **Languages:** Solidity, JavaScript, C++, Python, Move
 
@@ -71,17 +70,8 @@ Every lesson lives in `contracts/ch_NN_topic/le_NN_name/` with these files:
 
 Tests are **decentralized** — each lesson has its own test file, not a central test suite.
 
-### Solidity tests (Hardhat + Chai)
-```javascript
-const { expect } = require("chai");
-describe("ContractName", function () {
-  it("should do X", async function () {
-    const C = await ethers.getContractFactory("ContractName");
-    const c = await C.deploy();
-    expect(await c.someValue()).to.equal(expected);
-  });
-});
-```
+### Solidity tests (Foundry)
+Each Solidity lesson has an `act_1.t.sol` Foundry test (`forge-std` `Test`) that is run against the learner's `act_1.sol`. Compiler version and optimizer settings live in the lesson's `spec.json`. The grader runs on the Rust API, so these can only be fully verified where `forge` is installed.
 
 ### JavaScript tests (Jest)
 ```javascript
@@ -97,12 +87,13 @@ Standalone files with `main()`, string-based output validation, exit code pass/f
 ## Running Tests
 
 ```bash
-npm test              # Hardhat Solidity tests
-npx hardhat test      # Same, explicit
+npm test              # Legacy Hardhat runner (act_1.test.js); not what the grader uses
 npx jest              # JavaScript lesson tests
 ```
 
 ## Commands to Know
+
+Solidity grading uses Foundry (`act_1.t.sol`). `hardhat.config.js` is still present, so the Hardhat commands below work for the legacy `act_1.test.js` files only.
 
 ```bash
 npx hardhat compile   # Compile all Solidity contracts
